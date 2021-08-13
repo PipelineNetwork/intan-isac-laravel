@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\ProfilController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +21,14 @@ Route::get('/base', function () {
     return view('base');
 });
 
+Route::get('/profil', [ProfilController::class, 'kemaskini']);
+
 Route::get('/dashboard2', function () {
     return view('dashboard2');
 });
+
+Route::post('/kemaskiniprofil', [ProfilController::class, 'kemaskiniprofil']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
