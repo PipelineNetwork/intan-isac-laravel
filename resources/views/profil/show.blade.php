@@ -10,9 +10,6 @@
 <h5 style="color:black">{{$user->name}}</h5>
 <h5 style="color:black">{{$user->email}}</h5>
 
-<a class="button" href="/kemaskiniprofil"> Kemaskini</a>
-
-
-
+<a class="button" href="/profil/edit"> Kemaskini</a>
 
 @stop

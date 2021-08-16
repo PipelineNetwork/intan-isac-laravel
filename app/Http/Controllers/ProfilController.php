@@ -10,11 +10,23 @@ class ProfilController extends Controller
     {   
         $user = $request -> user();
         
-        return view('profil',[
+        return view('profil.show',[
             'user'=> $user,
         ]);
 
     }
+
+    public function kemaskiniform(Request $request){
+        $user = $request ->user();
+
+
+        # confuse return view but parameter url
+        return view ('profil.edit', 
+        ['user'=> $user ]);
+
+    }
+
+
     public function kemaskiniprofil(Request $request)
     { 
        
@@ -26,9 +38,6 @@ class ProfilController extends Controller
         $user->email=$email;
         $user->save();
         return redirect('/profil');
-
-
-
     }
 
 

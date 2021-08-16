@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\PenggunaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,11 @@ Route::get('/dashboard2', function () {
     return view('dashboard2');
 });
 
-Route::post('/kemaskiniprofil', [ProfilController::class, 'kemaskiniprofil']);
+Route::get('/profil/edit', [ProfilController::class, 'kemaskiniform']);
+
+Route::post('/profil/edit', [ProfilController::class, 'kemaskiniprofil']);
+
+Route::resource('/pengurusanpengguna',PenggunaController::class);
 
 
 Route::get('/dashboard', function () {
