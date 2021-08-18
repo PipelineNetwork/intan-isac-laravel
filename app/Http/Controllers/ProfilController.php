@@ -32,10 +32,18 @@ class ProfilController extends Controller
        
         $name= $request -> name;
         $email=$request->email;
+        $ministry_code = $request->ministry_code;
+        $office_number = $request->office_number;
+        $fax_number = $request->fax_number;
+        $telephone_number = $request->telephone_number;
 
         $user= User::find($request->user()->id);
         $user->name=$name;
         $user->email=$email;
+        $user ->ministry_code = $request->ministry_code;
+        $user ->office_number = $request->office_number;
+        $user ->fax_number = $request->fax_number;
+        $user ->telephone_number = $request->telephone_number;
         $user->save();
         return redirect('/profil');
     }

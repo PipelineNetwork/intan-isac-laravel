@@ -1,6 +1,9 @@
 <?php
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\PenyelarasController;
+use App\Http\Controllers\PengawasController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +36,10 @@ Route::get('/profil/edit', [ProfilController::class, 'kemaskiniform']);
 Route::post('/profil/edit', [ProfilController::class, 'kemaskiniprofil']);
 
 Route::resource('/pengurusanpengguna',PenggunaController::class);
+
+Route::resource('/penyelaraspengguna',PenyelarasController::class);
+
+Route::resource('/pengawaspengguna',PengawasController::class);
 
 
 Route::get('/dashboard', function () {

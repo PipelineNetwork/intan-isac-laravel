@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\PenyelarasPengguna;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Hash;
 
-class PenggunaController extends Controller
+class PenyelarasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +17,11 @@ class PenggunaController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-            
-        return view('pengurusanpengguna.index',[
+        $users = User::where('user_group_id',4)->get();   
+        return view('penyelaraspengguna.index',[
              'users'=> $users,
         
         ]);
-    
-        
     }
 
     /**
@@ -33,7 +31,7 @@ class PenggunaController extends Controller
      */
     public function create()
     {
-        return view('pengurusanpengguna.create');
+        return view('penyelaraspengguna.create');
     }
 
     /**
@@ -44,31 +42,26 @@ class PenggunaController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $request->validate([
+        $validated = $request->validate([
     
             'name'=> 'required', 
             'email'=> 'required',
-            'ministry_code' => 'string|nullable',
-            'office_number' => 'string|nullable',
-            'fax_number' => 'string|nullable',
-            'telephone_number' => 'string|nullable',
             'password'=> 'required',
             'user_group_id'=> 'required',
-
         ]);
         $user = new User;
         $user ->name = $request->name;
         $user ->email = $request->email;
-        $user ->ministry_code = $request->ministry_code;
-        $user ->office_number = $request->office_number;
-        $user ->fax_number = $request->fax_number;
-        $user ->telephone_number = $request->telephone_number;
-        $user ->user_group_id = $request->user_group_id;
+        $user ->user_group_id = 4;
         $user ->password = Hash::make($request->password);
         $user ->save();
-        return redirect('/pengurusanpengguna');
-            
+
+        $penyelaras = new PenyelarasPengguna;
+        $penyelaras->NAMA_PENYELARAS = $request->name;
+        $penyelaras->EMEL_PENYELARAS = $request->email;
+        $penyelaras->USERID = $user->id;
+        $penyelaras->save();
+        return redirect('/penyelaraspengguna');
     }
 
     /**
@@ -79,7 +72,7 @@ class PenggunaController extends Controller
      */
     public function show(User $user)
     {
-        return view('pengurusanpengguna.edit', [
+        return view('penyelaraspengguna.edit', [
             'user'=> $user,
         ]);
     }
@@ -90,10 +83,10 @@ class PenggunaController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($user)
+    public function edit(User $user)
     {
         $user = User::find($user);
-        return view('pengurusanpengguna.edit', [
+        return view('penyelaraspengguna.edit', [
             'user'=> $user,
         ]);
     }
@@ -105,21 +98,9 @@ class PenggunaController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $user)
-    { 
-        // dd($request->all());
-        $user = User::find($user);
-        $user ->name = $request->name;
-        $user ->email = $request->email;
-        $user ->ministry_code = $request->ministry_code;
-        $user ->office_number = $request->office_number;
-        $user ->fax_number = $request->fax_number;
-        $user ->telephone_number = $request->telephone_number;
-        $user ->user_group_id = $request->user_group_id;
-        $user ->password = Hash::make($request->password);
-        $user ->save();
-
-        return redirect('/pengurusanpengguna');
+    public function update(Request $request, User $user)
+    {
+        dd($request);
     }
 
     /**
@@ -128,10 +109,10 @@ class PenggunaController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($user)
+    public function destroy(User $user)
     {
-        $user = User::find($user);
         $user->delete();
-        return redirect('/pengurusanpengguna');
+        return redirect('/penyelaraspengguna');
     }
+    
 }

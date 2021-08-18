@@ -1,21 +1,17 @@
 @extends('base')
 @section('content')
 
-<div class="container py-3">
-    <div class="row">
-        <h3> Pengurusan Pengguna </h3>
-    </div>
-</div>
+
 
 <div class="container py-3">
     <div class="row">
-        <h5> Senarai Pengguna </h5>
+        <h5> Senarai Penyelaras </h5>
     </div>
 </div>
 <div class="container py-3">
     <div class="row">
         <div class="column-6">
-            <a href="/pengurusanpengguna/create" class="btn btn-primary" type="submit">Daftar Pengguna</a>
+            <a href="/penyelaraspengguna/create" class="btn btn-primary" type="submit">Daftar Penyelaras</a>
         </div>
     </div>
 </div>
@@ -29,7 +25,6 @@
                 <tr>
                     <th>Nama</th>
                     <th>Email</th>
-                    <th>Group Id</th>
                     <th>Kemaskini</th>
                     <th>Hapus</th>
                 </tr>
@@ -40,12 +35,10 @@
                 <tr>
                     <td>{{ $user['name'] }}</td>
                     <td>{{ $user['email'] }}</td>
-                    <td>{{ $user['user_group_id'] }}</td>
-                    <td><a href="/pengurusanpengguna/{{$user->id}}/edit" class="btn-sm" style="color:black;"> Kemaskini
-                        </a>
+                    <td><a href="/penyelaraspengguna/{{$user->id}}/edit" class="btn-sm" style="color:black;"> Kemaskini</a>
                     </td>
                     <td>
-                        <form method="POST" action="{{route('pengurusanpengguna.destroy', $user['id'] ) }}">
+                        <form method="POST" action="{{route('penyelaraspengguna.destroy', $user['id'] ) }}">
                             @method('DELETE')
                             @csrf
 
