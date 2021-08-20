@@ -48,6 +48,7 @@
                         <input class="form-control mb-3" type="text" name="password"> -->
 
                         <button class="btn btn-primary" type="submit">Simpan</button>
+                    </div>
                 </form>
 
             </div>

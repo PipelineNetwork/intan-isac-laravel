@@ -3,6 +3,10 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PenyelarasController;
 use App\Http\Controllers\PengawasController;
+use App\Http\Controllers\TambahAduanController;
+use App\Http\Controllers\TambahRayuanController;
+use App\Http\Controllers\BalasAduanController;
+use App\Http\Controllers\BalasRayuanController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +44,14 @@ Route::resource('/pengurusanpengguna',PenggunaController::class);
 Route::resource('/penyelaraspengguna',PenyelarasController::class);
 
 Route::resource('/pengawaspengguna',PengawasController::class);
+
+Route::resource('/tambahaduans',TambahAduanController::class);
+
+Route::resource('/tambahrayuans',TambahRayuanController::class);
+
+Route::resource('/balasaduans',BalasAduanController::class);
+
+Route::resource('/balasrayuans',BalasRayuanController::class);
 
 
 Route::get('/dashboard', function () {
