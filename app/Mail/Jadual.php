@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Emel extends Mailable
+class Jadual extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,7 +28,6 @@ class Emel extends Mailable
      */
     public function build()
     {
-        return $this->view('email.emel')
-        ->attach('/path/to/file');
+        return $this->view('email.jadual');
     }
 }

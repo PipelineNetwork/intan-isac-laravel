@@ -7,6 +7,7 @@ use App\Http\Controllers\TambahAduanController;
 use App\Http\Controllers\TambahRayuanController;
 use App\Http\Controllers\BalasAduanController;
 use App\Http\Controllers\BalasRayuanController;
+use App\Http\Controllers\JadualController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -53,9 +54,10 @@ Route::resource('/balasaduans',BalasAduanController::class);
 
 Route::resource('/balasrayuans',BalasRayuanController::class);
 
+Route::resource('/jaduals',JadualController::class);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
