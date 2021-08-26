@@ -29,6 +29,9 @@ Route::get('/', function () {
 Route::get('/base', function () {
     return view('base');
 });
+Route::get('/proftem', function () {
+    return view('proftem');
+});
 
 Route::get('/profil', [ProfilController::class, 'kemaskini']);
 
