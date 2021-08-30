@@ -57,14 +57,14 @@
                 <h6 class="font-weight-bolder">Profil</h6>
             </nav>
             <div class="card h-100">
-                <div class="card-header pb-0 p-3">
+                <div class="card-header pb-0 p-3" style="background-color:#FFA500;" >
                     <div class="row">
-                        <div class="col-md-8 d-flex align-items-center">
-                            <h4 class="mb-0">Profil</h4>
+                        <div class="col-md-8 d-flex align-items-center" >
+                            <h4 class="mb-0 text-white">Profil</h4>
                         </div>
                         <div class="col-md-4 text-end">
                             <a href="javascript:;">
-                                <a href="/profil/edit" class="fas fa-user-edit text-secondary text-sm button "
+                                <a href="/profil/edit" class="fas fa-user-edit text-secondary text-sm button  text-white "
                                     data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini"></a>
                             </a>
                         </div>
@@ -148,6 +148,7 @@
                     </div>
 
                     <hr class="horizontal gray-light my-4">
+
                 </div>
             </div>
         </div>

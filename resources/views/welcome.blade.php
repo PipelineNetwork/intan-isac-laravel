@@ -1692,7 +1692,7 @@ Coded by www.creative-tim.com
                         the Sabah Campus in Kota Kinabalu, Sabah was set up in 2001.</p>
 
                     <a href="https://www.intanbk.intan.my/iportal/en/about-intan"
-                        class="text-primary icon-move-right">More about us
+                        class="text-warning icon-move-right">Mengenai Kami
                         <i class="fas fa-arrow-right text-sm ms-1"></i>
                     </a>
                 </div>
@@ -1712,7 +1712,7 @@ Coded by www.creative-tim.com
                             <i class="fas fa-handshake opacity-10"></i>
                         </div>
                         <div class="description ps-3">
-                            <p class="mb-0">VISION <br>To be a PremirePublic Sector Learning Institution</p>
+                            <p class="mb-0">VISI<br>To be a PremirePublic Sector Learning Institution</p>
                         </div>
                     </div>
                     <div class="p-3 info-horizontal">
@@ -1720,7 +1720,7 @@ Coded by www.creative-tim.com
                             <i class="fas fa-hourglass opacity-10"></i>
                         </div>
                         <div class="description ps-3">
-                            <p class="mb-0">MISION<br> To develop a Competent Public Sector Workforce Through Quality
+                            <p class="mb-0">MISI<br> To develop a Competent Public Sector Workforce Through Quality
                                 Learning</p>
                         </div>
                     </div>

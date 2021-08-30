@@ -57,6 +57,7 @@
                     <th>Masa Tamat</th>
                     <th>Tarikh</th>
                     <th>Kategori Peserta</th>
+                    <th>Jumlah Peserta</th>
                     <th>Kementerian/Agensi</th>
                     <th>Platform</th>
                     <th>Lokasi</th>

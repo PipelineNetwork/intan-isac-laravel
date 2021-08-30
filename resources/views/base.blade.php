@@ -2156,7 +2156,7 @@
                         <li class="nav-item d-flex align-items-center">
                             <a href="/login" class="nav-link text-body font-weight-bold px-0" target="_self">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
+                                <span class="d-sm-inline d-none">Log Masuk</span>
                             </a>
                         </li>
                         &emsp;&emsp;
@@ -2164,7 +2164,7 @@
                             <li class="nav-item d-flex align-items-center">
                                 <a href="/register" class="nav-link text-body font-weight-bold px-0" target="_self">
                                     <i class="fa fa-user me-sm-1"></i>
-                                    <span class="d-sm-inline d-none">Register</span>
+                                    <span class="d-sm-inline d-none">Daftar</span>
                                 </a>
                             </li> &emsp;&emsp;
                             @endguest

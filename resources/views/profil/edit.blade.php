@@ -34,9 +34,10 @@
 <form method="POST" action="/profil/edit">
     @csrf
     <div class="card mt-4" id="basic-info">
-        <div class="card-header">
-            <h5>Kemaskini Profil</h5>
+        <div class="card-header" style="background-color:#FFA500;">
+            <h5 class="text-white">Kemaskini Profil</h5>
         </div>
+</br>
         <div class="card-body pt-0">
             <div class="row">
                 <div class="col-6">
@@ -85,7 +86,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary" type="submit">Simpan</button>
+            <button class="btn bg-gradient-warning" type="submit">Simpan</button>
         </div>
     </div>
 </form>

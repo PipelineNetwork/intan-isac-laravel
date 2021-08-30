@@ -16,6 +16,7 @@ class AddPlatformToProSesi extends Migration
         Schema::table('pro_sesi', function (Blueprint $table) {
             $table->text('platform')->nullable();
             $table->text('status')->nullable();
+            $table->timestamps();
         });
     }
 
