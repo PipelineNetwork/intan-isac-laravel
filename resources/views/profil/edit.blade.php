@@ -37,7 +37,7 @@
         <div class="card-header" style="background-color:#FFA500;">
             <h5 class="text-white">Kemaskini Profil</h5>
         </div>
-</br>
+        </br>
         <div class="card-body pt-0">
             <div class="row">
                 <div class="col-6">
@@ -64,28 +64,13 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <label for="">No office :</label>
+                    <label for="">No Kad. Pengenalan :</label>
                     <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="office_number"
-                            value="{{$user->office_number}}">
+                        <input class="form-control mb-3" type="text" name="nric" value="{{$user->nric}}">
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <label for="">No fax :</label>
-                    <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="fax_number" value="{{$user->fax_number}}">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <label for="">No Tel :</label>
-                    <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="telephone_number"
-                            value="{{$user->telephone_number}}">
-                    </div>
-                </div>
-            </div>
+
             <button class="btn bg-gradient-warning" type="submit">Simpan</button>
         </div>
     </div>

@@ -49,7 +49,7 @@
         @csrf
         <div class="card mt-4" id="basic-info">
             <div class="card-header" style="background-color:#FFA500;">
-                <h5 class="text-white">Tambah Rayuan</h5>
+                <h5 class="text-white">Balas Rayuan</h5>
             </div>
             </br>
             <div class="card-body pt-0">

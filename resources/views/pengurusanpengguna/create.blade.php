@@ -72,9 +72,17 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label for="">Group ID :</label>
-                            <div class="input-group">
-                                <input class="form-control mb-3" type="text" name="user_group_id">
+                            <label for="user_group_id">Group ID :</label>
+                            <div class="form-group">
+                                <select class="form-control mb-3" type="text" name="user_group_id">
+                                    <<option hidden selected> Sila Pilih </option>
+                                        <option value="1">Pentadbir System</option>
+                                        <option value="2">Pentadbir Penilaian</option>
+                                        <option value="3">Penyelaras</option>
+                                        <option value="4">Pengawas</option>
+                                        <option value="5">Calon</option>
+                                        <option value="6">Pegawai Korporat</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-6">
@@ -86,23 +94,9 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label for="">No office :</label>
+                            <label for="">NRIC :</label>
                             <div class="input-group">
-                                <input class="form-control mb-3" type="text" name="office_number">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <label for="">No fax :</label>
-                            <div class="input-group">
-                                <input class="form-control mb-3" type="text" name="fax_number">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="">No Tel :</label>
-                            <div class="input-group">
-                                <input class="form-control mb-3" type="text" name="telephone_number">
+                                <input class="form-control mb-3" type="text" name="nric">
                             </div>
                         </div>
                         <div class="col-6">
@@ -112,13 +106,15 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn bg-gradient-warning" type="submit">Simpan</button>
+                    <button class="btn bg-gradient-warning " type="submit">Simpan</button>
                 </div>
+
             </div>
         </form>
 
     </div>
 </div>
+
 
 
 

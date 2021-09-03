@@ -25,64 +25,66 @@
                 </svg>
             </a>
         </li>
-        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Aduan</a></li>
-        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Balas Aduan</a></li>
+        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Penilaian</a></li>
+        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Senarai Penilaian</a></li>
     </ol>
-    <h6 class="font-weight-bolder">Balas Aduan</h6>
+    </br>
+    <h5 class="font-weight-bolder">Pengurusan Penilaian</h5>
 </nav>
-<div class="col-6">
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-    <form method="POST" action="/tambahaduans/{{$tambahaduan->id}}" enctype="multipart/form-data">
-        @method('PUT')
-        @csrf
-        <div class="card mt-4" id="basic-info">
-            <div class="card-header" style="background-color:#FFA500;">
-                <h5 class="text-white">Balas Aduan</h5>
-            </div>
-            </br>
-            <div class="card-body pt-0">
-                <div class="row">
-                    <div class="col-6">
-                        <label for="keterangan_aduan_reply">Keterangan Balas :</label>
-                        <div class="input-group">
-                            <input class="form-control mb-3" type="text" name="keterangan_aduan_reply">
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <label for="file_aduan_reply">File Balas :</label>
-                        <div class="input-group">
-                            <input class="form-control mb-3" type="file" name="file_aduan_reply">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="input-group">
-                        <input type="hidden" name="id" value="{{$id}}">
-                        </div>
-                    </div>
-                </div>
-                <button class="btn bg-gradient-warning" type="submit">Simpan</button>
-            </div>
+
+<div>
+    <div class="row">
+        <div class="column-12">
+            <a href="/permohanans/create" class="btn bg-gradient-warning " type="submit" style="float: right;">Permohonan Penilaian </a>
         </div>
-    </form>
-
-
-</div>
+    </div>
 </div>
 
+<div class="card">
+    <div class="card-header" style="background-color:#FFA500;">
+        <b class="text-white">Senarai Penilaian</b>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+
+            <thead>
+                <tr>
+                    <th>ID Pengguna</th>
+                    <th>Nama</th>
+                    <th>No.Pejabat</th>
+                    <th>No.Tel</th>
+                    <th>Jantina</th>
+                    <th>Tarikh Lahir</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach ($pro_peserta as $pro_peserta)
+                <tr>
+                    <td>{{ $pro_peserta['user_id'] }}</td>
+                    <td>{{ $pro_peserta['NAMA_PESERTA'] }}</td>
+                    <td>{{ $pro_peserta['NO_TELEFON_PEJABAT'] }}</td>
+                    <td>{{ $pro_peserta['NO_TELEFON_BIMBIT'] }}</td>
+                    <td>{{ $pro_peserta['KOD_JANTINA'] }}</td>
+                    <td>{{ $pro_peserta['TARIKH_LAHIR'] }}</td>
+
+                </tr>
+                @endforeach
+            </tbody>
+
+        </table>
+    </div>
 </div>
-</div>
+
+
+<script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
+    type="text/javascript"></script>
+<script type="text/javascript">
+const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
+    searchable: true,
+    fixedHeight: true
+});
+</script>
 
 @stop

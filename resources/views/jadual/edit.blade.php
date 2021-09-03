@@ -50,7 +50,7 @@
         @csrf
         <div class="card mt-4 " id="basic-info">
             <div class="card-header" style="background-color:#FFA500;">
-                <h5 class="text-white"> Jadual Baru</h5>
+                <h5 class="text-white"> Kemaskini Jadual</h5>
             </div>
             </br>
             <div class="card-body pt-0">

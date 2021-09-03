@@ -68,44 +68,51 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <label for="">Kod kementerian :</label>
-                    <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="ministry_code"
-                            value="{{$user->ministry_code}}">
+                    <label for="user_group_id">Group ID :</label>
+                    <div class="form-group">
+                        <select class="form-control mb-3" type="text" name="user_group_id">
+                            <<option hidden selected> Sila Pilih </option>
+                                <option value="1">Pentadbir System</option>
+                                <option value="2">Pentadbir Penilaian</option>
+                                <option value="3">Penyelaras</option>
+                                <option value="4">Pengawas</option>
+                                <option value="5">Calon</option>
+                                <option value="6">Pegawai Korporat</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="">NRIC : </label>
+                        <div class="input-group">
+                            <input class="form-control mb-3" type="text" name="nric" value="{{$user->nric}}">
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="">Password :</label>
+                        <div class="input-group">
+                            <input class="form-control mb-3" type="text" name="password">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- <div class="col-6">
                     <label for="">No office :</label>
                     <div class="input-group">
                         <input class="form-control mb-3" type="text" name="office_number"
                             value="{{$user->office_number}}">
-                    </div>
-                </div>
-                <div class="col-6">
+                    </div> -->
+                    <!-- <div class="col-6">
                     <label for="">No fax :</label>
                     <div class="input-group">
                         <input class="form-control mb-3" type="text" name="fax_number" value="{{$user->fax_number}}">
                     </div>
+                </div> -->
                 </div>
+
+                <button class="btn bg-gradient-warning" type="submit">Simpan</button>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <label for="">No Tel :</label>
-                    <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="telephone_number"
-                            value="{{$user->telephone_number}}">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <label for="">Password :</label>
-                    <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="password">
-                    </div>
-                </div>
-            </div>
-            <button class="btn bg-gradient-warning" type="submit">Simpan</button>
         </div>
     </div>
 </form>

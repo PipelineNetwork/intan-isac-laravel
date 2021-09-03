@@ -45,21 +45,11 @@ class PenggunaController extends Controller
     public function store(Request $request)
     {
         
-        $request->validate([
-    
-            'name'=> 'required', 
-            'email'=> 'required',
-            'ministry_code' => 'string|nullable',
-            'office_number' => 'string|nullable',
-            'fax_number' => 'string|nullable',
-            'telephone_number' => 'string|nullable',
-            'password'=> 'required',
-            'user_group_id'=> 'required',
-
-        ]);
+        
         $user = new User;
         $user ->name = $request->name;
         $user ->email = $request->email;
+        $user ->nric = $request->nric;
         $user ->ministry_code = $request->ministry_code;
         $user ->office_number = $request->office_number;
         $user ->fax_number = $request->fax_number;
@@ -111,6 +101,7 @@ class PenggunaController extends Controller
         $user = User::find($user);
         $user ->name = $request->name;
         $user ->email = $request->email;
+        $user ->nric = $request->nric;
         $user ->ministry_code = $request->ministry_code;
         $user ->office_number = $request->office_number;
         $user ->fax_number = $request->fax_number;
@@ -118,10 +109,8 @@ class PenggunaController extends Controller
         $user ->user_group_id = $request->user_group_id;
         $user ->password = Hash::make($request->password);
         $user ->save();
-
         return redirect('/pengurusanpengguna');
     }
-
     /**
      * Remove the specified resource from storage.
      *
