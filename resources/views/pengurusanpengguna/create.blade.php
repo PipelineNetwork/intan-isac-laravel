@@ -72,11 +72,11 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label for="user_group_id">Group ID :</label>
+                            <label for="user_group_id">Peranan :</label>
                             <div class="form-group">
                                 <select class="form-control mb-3" type="text" name="user_group_id">
                                     <<option hidden selected> Sila Pilih </option>
-                                        <option value="1">Pentadbir System</option>
+                                        <option value="1">Pentadbir Sistem</option>
                                         <option value="2">Pentadbir Penilaian</option>
                                         <option value="3">Penyelaras</option>
                                         <option value="4">Pengawas</option>

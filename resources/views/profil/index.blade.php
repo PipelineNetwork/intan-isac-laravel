@@ -1,7 +1,6 @@
 @extends('base')
 @section('content')
 
-
 <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
     <div class="row gx-6">
         <div class="col-auto">
@@ -195,7 +194,211 @@
 
 
 
-    
+    <div class="card h-100">
+        <div class="card-header pb-0 p-3" style="background-color:#FFA500;">
+            <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                    <h4 class="mb-0 text-white">Maklumat Permohonan</h4>
+                </div>
+                <div class="col-md-4 text-end">
+                    <a href="javascript:;">
+                        <a href="/users/{{$user->id}}/edit" class="fas fa-user-edit text-secondary text-sm button  text-white "
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini"></a>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-3">
+            <div class="card-body">
+                <p class="text-sm">
+                    Sila pastikan semua informasi berikut adalah benar dan tepat. Sekiranya ada sebarang
+                    pertukaran dalam profil anda, Sila kemaskini di platfom yang disediakan. Jika ada sebarang
+                    pertanyaan sila hubungi Penolong Pegawai Teknologi maklumat. Sekian Terima Kasih.
+                </p>
+                <div class="pl-lg-4 pb-lg-4">
+
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->telephone_number}}">
+                                No Tel :
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->telephone_number}}"
+                                type="text" value="{{$user->telephone_number}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->office_number}}">
+                                No Pejabat :
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->office_number}}" type="text"
+                                value="{{$user->office_number}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->ALAMAT_1}}">
+                                Alamat 1 :
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->ALAMAT_1}}" type="text"
+                                value="{{$user->ALAMAT_1}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->ALAMAT_2}}">
+                                Alamat 2:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->ALAMAT_2}}" type="text"
+                                value="{{$user->ALAMAT_2}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->POSKOD}}">
+                                Poskod:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->POSKOD}}" type="text"
+                                value="{{$user->POSKOD}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->KOD_NEGERI}}">
+                                Negeri:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->KOD_NEGERI}}" type="text"
+                                value="{{$user->KOD_NEGERI}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->KOD_NEGARA}}">
+                                Negara:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->KOD_NEGARA}}" type="text"
+                                value="{{$user->KOD_NEGARA}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->KOD_JANTINA}}">
+                                Jantina:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->KOD_JANTINA}}" type="text"
+                                value="{{$user->KOD_JANTINA}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->KOD_KLASIFIKASI_PERKHIDMATAN}}">
+                                Klasifikasi Perkhidmatan:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3"
+                                id="{{$user->KOD_KLASIFIKASI_PERKHIDMATAN}}" type="text"
+                                value="{{$user->KOD_KLASIFIKASI_PERKHIDMATAN}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->TARIKH_LAHIR}}">
+                                Tarikh Lahir:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->TARIKH_LAHIR}}" type="text"
+                                value="{{$user->TARIKH_LAHIR}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->TARIKH_LANTIKAN}}">
+                                Tarikh Lantikan:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->TARIKH_LANTIKAN}}" type="text"
+                                value="{{$user->TARIKH_LANTIKAN}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->GELARAN_KETUA_JABATAN}}">
+                                Gelaran Ketua Jabatan:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->GELARAN_KETUA_JABATAN}}"
+                                type="text" value="{{$user->GELARAN_KETUA_JABATAN}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->KOD_TARAF_PERJAWATAN}}">
+                                Taraf Perjawatan:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->KOD_TARAF_PERJAWATAN}}"
+                                type="text" value="{{$user->KOD_TARAF_PERJAWATAN}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->NAMA_PENYELIA}}">
+                                Nama Penyelia:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->NAMA_PENYELIA}}" type="text"
+                                value="{{$user->NAMA_PENYELIA}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->EMEL_PENYELIA}}">
+                                E-mel Penyelia:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->EMEL_PENYELIA}}" type="text"
+                                value="{{$user->EMEL_PENYELIA}}" disabled="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label class="form-control-label mr-4" for="{{$user->NO_TELEFON_PENYELIA}}">
+                                No Tel Penyelia:
+                            </label><label class="float-right">:</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm ml-3" id="{{$user->NO_TELEFON_PENYELIA}}"
+                                type="text" value="{{$user->NO_TELEFON_PENYELIA}}" disabled="">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <hr class="horizontal gray-light my-4">

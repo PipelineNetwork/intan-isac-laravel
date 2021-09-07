@@ -110,8 +110,8 @@
                         <div class="form-group">
                             <select class="form-control mb-3" name="KOD_KATEGORI_PESERTA" id="pilih1">
                                 <option hidden selected> Sila Pilih </option>
-                                <option value="01">Individu</option>
-                                <option value="02">Kumpulan</option>
+                                <option value="Individu">Individu</option>
+                                <option value="Kumpulan">Kumpulan</option>
                             </select>
                         </div>
                     </div>
@@ -406,7 +406,7 @@
 <script type="text/javascript">
 $(function() {
     $("#pilih1").change(function() {
-        if ($(this).val() == "02") {
+        if ($(this).val() == "Kumpulan") {
             $("#pilih2").show();
         } else {
             $("#pilih2").hide();

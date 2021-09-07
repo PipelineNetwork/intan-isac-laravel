@@ -20,7 +20,7 @@ Coded by www.creative-tim.com
     <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
     <title>
-        Soft UI Dashboard PRO by Creative Tim
+        ISAC
     </title>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Canonical SEO -->
@@ -1598,7 +1598,7 @@ Coded by www.creative-tim.com
                         <div class="col-xl-4 col-md-6 px-5 position-relative">
                             <img class="img border-radius-md max-width-300 w-100 position-relative z-index-2"
                                 src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg" width="300"
-                                height="400" alt="card image">
+                                height="300" alt="card image">
                         </div>
                         <div class="col-xl-4 col-md-5 z-index-2 position-relative px-md-3 px-5 my-md-auto mt-4">
                             <div>
@@ -1654,29 +1654,12 @@ Coded by www.creative-tim.com
                 <div class="col-lg-6">
                     <h3 class="text-gradient text-warning mb-0 mt-2">Mengenai ISAC</h3>
                     <h3></h3>
-                    <p>The National Institute of Public Administration (INTAN) is the training arm of the Public Service
-                        Department, Malaysia. It began as a modest training centre at Port Dickson in September 1959 and
-                        known then as the Staff Training Centre. This centre provided training to officers on land
-                        administration, financial administration, office management and local government administration.
+                    <p>Penilaian ISAC dilaksanakan untuk menilai tahap kefahaman dan kemahiran penggunaan teknologi maklumat dan komunikasi (ICT) di kalangan personel sektor awam. Ia merupakan satu alat bagi mengukur kesediaan personel sektor awam untuk bekerja dalam persekitaran Kerajaan Elektronik dari segi pengetahuan dan kemahiran dalam penggunaan asas perisian-perisian ICT yang sering di guna pakai (commonly used).
 
-                        The realisation to provide formal training to government officers has led to the official
-                        setting up of the National Institute of Public Administration (INTAN) at Jalan Elmu in June
-                        1972.
-
-                        Rapid expansion of INTAN’s training in 1980s resulted in the establishment of several branch
-                        campuses in 1983 which include the Northern Regional Campus (INTURA) in Sungai Petani, Kedah;
-                        the Eastern Regional Campus (INTIM) in Kemaman, Terengganu and the Southern Regional Campus
-                        (IKWAS) in Kluang, Johor.
-
-                        INTAN’s main campus, located at Bukit Kiara Kuala Lumpur was officially opened in 1984 and INTAN
-                        Jalan Elmu then became the Central Regional Campus (INTENGAH) in 1998.
-
-                        Increasing demand for INTAN’s training programmes then necessitated the establishment of two
-                        other regional campuses. The Sarawak Campus in Kuching, Sarawak was established in 1999 while
-                        the Sabah Campus in Kota Kinabalu, Sabah was set up in 2001.</p>
+                       </p>
 
                     <a href="https://www.intanbk.intan.my/iportal/en/about-intan"
-                        class="text-warning icon-move-right">Mengenai Kami
+                        class="text-warning icon-move-right">Mengenai Intan
                         <i class="fas fa-arrow-right text-sm ms-1"></i>
                     </a>
                 </div>
@@ -1747,7 +1730,7 @@ Coded by www.creative-tim.com
                     <a href="/tambahrayuans">
                         <div class="card card-background move-on-hover">
                             <div class="full-background"
-                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/vr.jpg')">
+                                style="background-image: url('{{ asset('assets/img/test.jpg') }}')">
                             </div>
                             <div class="card-body pt-12">
                                 <h4 class="text-white">Aduan</h4>

@@ -56,6 +56,20 @@
                 <div class="card-body pt-0">
                     <div class="row">
                         <div class="col-6">
+                            <label for="">Name</label>
+                            <div class="input-group">
+                                <input class="form-control mb-3" type="text" name="name" value="">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="">E-mel :</label>
+                            <div class="input-group">
+                                <input class="form-control mb-3" type="text" name="email" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
                             <label for="">ID pengguna :</label>
                             <div class="input-group">
                                 <input class="form-control mb-3" type="text" name="user_id">
@@ -88,14 +102,14 @@
                         <div class="col-6">
                             <label for="">NAMA :</label>
                             <div class="input-group">
-                                <input class="form-control mb-3" type="text" name="name">
+                                <input class="form-control mb-3" type="text" name="NAMA_PESERTA">
                             </div>
                         </div>
 
                         <div class="col-6">
                             <label for="">No Pejabat :</label>
                             <div class="input-group">
-                                <input class="form-control mb-3" type="text" name="office_number">
+                                <input class="form-control mb-3" type="text" name="NO_TELEFON_PEJABAT">
                             </div>
                         </div>
                     </div>
@@ -103,7 +117,7 @@
                         <div class="col-6">
                             <label for="">No Tel :</label>
                             <div class="input-group">
-                                <input class="form-control mb-3" type="text" name="telephone_number">
+                                <input class="form-control mb-3" type="text" name="NO_TELEFON_BIMBIT">
                             </div>
                         </div>
                         <div class="col-6">

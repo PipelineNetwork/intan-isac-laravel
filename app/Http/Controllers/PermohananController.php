@@ -6,6 +6,7 @@ use App\Models\Permohanan;
 use App\Models\Tugas;
 use App\Models\Perkhidmatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PermohananController extends Controller
 {
@@ -16,13 +17,19 @@ class PermohananController extends Controller
      */
     public function index()
     {
-        $users = User::where('user_group_id','3')->get();
+        $group_users = User::where('user_group_id','3')->get();
         $pro_peserta=Permohanan::all();
+        $users = DB::table('users')
+        ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+        ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+        ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+        ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*','pro_perkhidmatan.*')
+        ->get();
         
         return view('permohanan.index',[
-            'users'=> $users,
+            'group_users'=> $group_users,
             'pro_peserta' => $pro_peserta,
-            
+            'users'=>$users,       
         ]);
     }
 
@@ -44,12 +51,16 @@ class PermohananController extends Controller
      */
     public function store(Request $request)
     {
-        $permohanan = new Permohanan;
 
+        $user = new User;
         $user ->user_group_id = "3";
+        $user ->name= $request->name;
+        $user ->email= $request->email;
+        $user ->password= $request->password;
         $user ->nric= $request->nric;
         $user ->save(); 
 
+        $pro_peserta = new Permohanan;
         $pro_peserta ->user_id= $user->id;
         $pro_peserta ->NAMA_PESERTA= $request->NAMA_PESERTA;
         $pro_peserta ->NO_TELEFON_PEJABAT= $request->NO_TELEFON_PEJABAT;
@@ -58,6 +69,7 @@ class PermohananController extends Controller
         $pro_peserta ->TARIKH_LAHIR= $request->TARIKH_LAHIR;
         $pro_peserta->save(); 
 
+        $pro_tempat_tugas= new Tugas;
         $pro_tempat_tugas ->id_peserta= $request->id_peserta;
         $pro_tempat_tugas ->ALAMAT_1= $request->ALAMAT_1;
         $pro_tempat_tugas ->ALAMAT_2= $request->ALAMAT_2;
@@ -70,6 +82,7 @@ class PermohananController extends Controller
         $pro_tempat_tugas ->GELARAN_KETUA_JABATAN= $request->GELARAN_KETUA_JABATAN;
         $pro_tempat_tugas->save(); 
         
+        $pro_perkhidmatan= new Perkhidmatan;
         $pro_perkhidmatan ->id_peserta= $request->id_peserta;
         $pro_perkhidmatan ->KOD_KLASIFIKASI_PERKHIDMATAN= $request->KOD_KLASIFIKASI_PERKHIDMATAN;
         $pro_perkhidmatan ->TARIKH_LANTIKAN= $request->TARIKH_LANTIKAN;
@@ -100,7 +113,8 @@ class PermohananController extends Controller
      */
     public function edit($user)
     {
-        $users = User::find($user)->where('user_group_id','3');
+
+        $user=User::all();
 
         return view('permohonan.edit', [
             'user'=> $user,

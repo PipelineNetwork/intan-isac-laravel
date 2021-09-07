@@ -63,6 +63,8 @@ Route::resource('/permohanans',PermohananController::class);
 
 Route::resource('/jaduals',JadualController::class);
 
+
+
 // Route::get('change-password', 'ChangePasswordController@index');
 
 // Route::post('change-password', 'ChangePasswordController@store')->name('change.password');

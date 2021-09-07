@@ -4,20 +4,23 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Permohanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProfilController extends Controller
 {
     public function kemaskini(Request $request)
     {   
         $user = $request->user();
-        // $pro_peserta = Permohanan::with('perkhidmatan','perkhidmatan1','perkhidmatan2')
-        // ->right
-        // ->get();
-        // dd($pro_peserta);
+        $users = DB::table('users')
+            ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+            ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+            ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+            ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*','pro_perkhidmatan.*')
+            ->toSql();
 
         return view('profil.index',[
             'user'=> $user,
-            // 'pro_peserta'=>$pro_peserta
+            'users'=> $users,
         ]);
 
     }
@@ -25,14 +28,11 @@ class ProfilController extends Controller
     public function kemaskiniform(Request $request){
         $user = $request ->user();
 
-
-        # confuse return view but parameter url
-        return view ('profil.edit', 
-        ['user'=> $user ]);
+        return view ('profil.edit', [
+            'user'=> $user ]);
 
     }
-
-
+ 
     public function kemaskiniprofil(Request $request)
     { 
        
@@ -56,6 +56,12 @@ class ProfilController extends Controller
         $user ->telephone_number = $request->telephone_number;
         $user->save();
         return redirect('/profil');
+    }
+
+    public function edit(Profil $profil){
+
+        return view ('profil.edit');
+        
     }
 
 

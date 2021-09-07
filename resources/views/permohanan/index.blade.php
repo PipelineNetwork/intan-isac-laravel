@@ -50,6 +50,7 @@
 
             <thead>
                 <tr>
+            
                     <th>ID Pengguna</th>
                     <th>Nama</th>
                     <th>No.Pejabat</th>
@@ -62,6 +63,9 @@
 
                 @foreach ($pro_peserta as $pro_peserta)
                 <tr>
+                   
+
+
                     <td>{{ $pro_peserta['user_id'] }}</td>
                     <td>{{ $pro_peserta['NAMA_PESERTA'] }}</td>
                     <td>{{ $pro_peserta['NO_TELEFON_PEJABAT'] }}</td>
