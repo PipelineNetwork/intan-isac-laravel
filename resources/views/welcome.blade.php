@@ -126,7 +126,7 @@ Coded by www.creative-tim.com
                     class="navbar navbar-expand-lg  blur blur-rounded top-0  z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
                         <a class="navbar-brand font-weight-bolder ms-sm-3"
-                            href=" https://demos.creative-tim.com/soft-ui-design-system-pro/presentation.html "
+                            href="/ "
                             rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom"
                             target="_blank">
                             INTAN ISAC
@@ -537,7 +537,7 @@ Coded by www.creative-tim.com
                                         </div>
                                     </div>
                                 </li>
-                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                {{-- <li class="nav-item dropdown dropdown-hover mx-2">
                                     <a role="button"
                                         class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
                                         id="dropdownMenuAccount" data-bs-toggle="dropdown" aria-expanded="false">
@@ -651,7 +651,7 @@ Coded by www.creative-tim.com
                                             </div>
                                         </div>
                                     </div>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item dropdown dropdown-hover mx-2">
                                     <a role="button"
                                         class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
@@ -1433,8 +1433,8 @@ Coded by www.creative-tim.com
                         <p class="lead pe-md-5 me-md-5">Sistem bagi penilaian ICT dan penjanaan sijil kemahiran bagi
                             penjawat awam.</p>
                         <div class="mt-3">
-                            <a href="/register" class="btn bg-gradient-warning mt-4" target="_self">Register</a>
-                            <a href="/login" class="btn text-warning shadow-none mt-4">Login</a>
+                            <a href="/register" class="btn bg-gradient-warning mt-4" target="_self">Daftar</a>
+                            <a href="/login" class="btn text-warning shadow-none mt-4">Log Masuk</a>
                         </div>
                     </div>
                 </div>
@@ -1471,18 +1471,25 @@ Coded by www.creative-tim.com
                         </div>
                         <h5 class="mt-3">KURIKULUM</h5>
                         <p>Bahagian 1 - Penilaian pengetahuan yang merangkumi : </br>
-                            <li>Software </li>
+                            <ul>
+                                <li>Software </li>
                             <li>ICT Security </li>
                             <li>Inisiatif ICT Sektor Awam</li>
                             <li>Rangkaian dan Wifi </li>
                             <li>Government Mobility</li>
                             <li>Media Sosial</li>
+
+                            </ul>
+                            
                             </br>
                             Bahagian 2 - Menilai kemahiran dalam : </br>
-                            <li>Mencari dan memperolehi maklumat menggunakan internet.</li>
+                            <ul>
+                                <li>Mencari dan memperolehi maklumat menggunakan internet.</li>
                             <li>Menyediakan dokumen pemprosesan atau dokumen persembahan berkaitan dengan pengendalian
                                 tugas-tugas asas.</li>
                             <li>Berkomunikasi secara elektronik melalui emel.</li>
+                            </ul>
+                            
                         </p>
                     </div>
                     <div class="primary text-start border-radius-lg mt-6">
@@ -1542,12 +1549,12 @@ Coded by www.creative-tim.com
                         </div>
                         <h5 class="mt-3">FORMAT PENILAIAN</h5>
                         <p>
-                        <p>
+                        <ul>
                             <li>Bahagian 1 - Ujian pengetahuan yang mengandungi 40 soalan objektif yang perlu dijawab
                                 dalam masa 20 minit</li>
                             <li>Bahagian 2 - Ujian kemahiran yang mengandungi 3 soalan dan calon-calon dikehendaki
                                 menjawab semua soalan tersebut dalam masa 40 minit.</li>
-                        </p>
+                            </ul>
                         </p>
                     </div>
                     <div class="primary text-start border-radius-lg mt-6">
@@ -1679,7 +1686,7 @@ Coded by www.creative-tim.com
                             <i class="fas fa-handshake opacity-10"></i>
                         </div>
                         <div class="description ps-3">
-                            <p class="mb-0">VISI<br>To be a PremirePublic Sector Learning Institution</p>
+                            <p class="mb-0">VISI<br>Untuk Menjadi Institusi Pembelajaran Sektor Awam yang Unggul</p>
                         </div>
                     </div>
                     <div class="p-3 info-horizontal">
@@ -1687,8 +1694,7 @@ Coded by www.creative-tim.com
                             <i class="fas fa-hourglass opacity-10"></i>
                         </div>
                         <div class="description ps-3">
-                            <p class="mb-0">MISI<br> To develop a Competent Public Sector Workforce Through Quality
-                                Learning</p>
+                            <p class="mb-0">MISI<br>Untuk Membangunkan Modal Insan Sektor Awam yang Kompeten Melalui Pembelajaran Berkualiti</p>
                         </div>
                     </div>
                     <div class="p-3 info-horizontal">
