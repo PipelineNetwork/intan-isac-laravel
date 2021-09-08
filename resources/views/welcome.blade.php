@@ -1443,7 +1443,11 @@ Coded by www.creative-tim.com
     </header>
     <!-- -------- END HEADER 1 w/ text and image on right ------- -->
     <!-- -------- START Features w/ 4 cols w/ colored icon & title & text -------- -->
-    <section class="py-md-7 mt-md-5">
+    
+    {{-- <div class="mdg-angledDivider bg-white"><hr class="bg-gradient-warning"></div> --}}
+    <section class="py-md-7 bg-gradient-warning" >
+        
+        
         <div class="container">
             <div class="row justify-content-start">
                 <div class="col-md-6">
@@ -1470,8 +1474,8 @@ Coded by www.creative-tim.com
                             </svg>
                         </div>
                         <h5 class="mt-3">KURIKULUM</h5>
-                        <p>Bahagian 1 - Penilaian pengetahuan yang merangkumi : </br>
-                            <ul>
+                        <p class = "text-dark">Bahagian 1 - Penilaian pengetahuan yang merangkumi : </br>
+                            <ul class = "text-dark">
                                 <li>Software </li>
                             <li>ICT Security </li>
                             <li>Inisiatif ICT Sektor Awam</li>
@@ -1480,10 +1484,10 @@ Coded by www.creative-tim.com
                             <li>Media Sosial</li>
 
                             </ul>
-                            
+                        </p>    
                             </br>
-                            Bahagian 2 - Menilai kemahiran dalam : </br>
-                            <ul>
+                          <p class = "text-dark">  Bahagian 2 - Menilai kemahiran dalam : </br>
+                            <ul class = "text-dark">
                                 <li>Mencari dan memperolehi maklumat menggunakan internet.</li>
                             <li>Menyediakan dokumen pemprosesan atau dokumen persembahan berkaitan dengan pengendalian
                                 tugas-tugas asas.</li>
@@ -1517,8 +1521,8 @@ Coded by www.creative-tim.com
                                 </g>
                             </svg>
                         </div>
-                        <h5 class="mt-3">PAKAIAN :</h5>
-                        <p>Pastikan pakaian semasa menghadiri Penilaian ISAC adalah pakaian pejabat.</p>
+                        <h5 class="mt-3 text-dark">PAKAIAN :</h5>
+                        <p class = "text-dark">Pastikan pakaian semasa menghadiri Penilaian ISAC adalah pakaian pejabat.</p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -1547,9 +1551,9 @@ Coded by www.creative-tim.com
                                 </g>
                             </svg>
                         </div>
-                        <h5 class="mt-3">FORMAT PENILAIAN</h5>
+                        <h5 class="mt-3 ">FORMAT PENILAIAN</h5>
                         <p>
-                        <ul>
+                        <ul class = "text-dark">
                             <li>Bahagian 1 - Ujian pengetahuan yang mengandungi 40 soalan objektif yang perlu dijawab
                                 dalam masa 20 minit</li>
                             <li>Bahagian 2 - Ujian kemahiran yang mengandungi 3 soalan dan calon-calon dikehendaki
@@ -1580,8 +1584,9 @@ Coded by www.creative-tim.com
                             </svg>
                         </div>
                         <h5 class="mt-3">PUSAT PENILAIAN ISAC</h5>
-                        <p>Penilaian ISAC boleh dijalankan di pusat-pusat ISAC seperti berikut :</p>
-                        <li>INTAN Kampus Utama (INTAN Bukit Kiara) </li>
+                        <p class = "text-dark">Penilaian ISAC boleh dijalankan di pusat-pusat ISAC seperti berikut :</p>
+                        <ul class = "text-dark">
+                            <li>INTAN Kampus Utama (INTAN Bukit Kiara) </li>
                         <li>INTAN Kampus Wilayah Utara (INTURA)</li>
                         <li>INTAN Kampus Wilayah Selatan (IKWAS)</li>
                         <li>INTAN Kampus Wilayah Timur (INTIM) </li>
@@ -1589,6 +1594,8 @@ Coded by www.creative-tim.com
                         <li>INTAN Sarawak</li>
                         <li>Agensi kerajaan dilantik</li>
                         <li>Jabatan Perkhidmatan Awam (JPA)</li>
+                        </ul>
+                        
                     </div>
                 </div>
             </div>
@@ -1596,7 +1603,7 @@ Coded by www.creative-tim.com
     </section>
     <!-- -------- END Features w/ 4 cols w/ colored icon & title & text -------- -->
     <!-- START Testimonials w/ user image & text & info -->
-    <section class="py-4 position-relative overflow-hidden">
+    {{-- <section class="py-4 position-relative overflow-hidden">
         <img src="../assets/img/shapes/waves-white.svg" alt="pattern-lines" class="position-absolute top-0 opacity-6">
         <div class="container-fluid">
             <div class="row">
@@ -1652,16 +1659,18 @@ Coded by www.creative-tim.com
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- END Testimonials w/ user image & text & info -->
     <!-- -------- START Features w/ icons and text on left & gradient title and text on right -------- -->
     <section class="py-sm-7 py-4">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
+                    <br>
+                    <br>
                     <h3 class="text-gradient text-warning mb-0 mt-2">Mengenai ISAC</h3>
                     <h3></h3>
-                    <p>Penilaian ISAC dilaksanakan untuk menilai tahap kefahaman dan kemahiran penggunaan teknologi maklumat dan komunikasi (ICT) di kalangan personel sektor awam. Ia merupakan satu alat bagi mengukur kesediaan personel sektor awam untuk bekerja dalam persekitaran Kerajaan Elektronik dari segi pengetahuan dan kemahiran dalam penggunaan asas perisian-perisian ICT yang sering di guna pakai (commonly used).
+                    <p>Penilaian ICT Skills Assessment and Certification (ISAC) dilaksanakan untuk menilai tahap kefahaman dan kemahiran penggunaan teknologi maklumat dan komunikasi (ICT) di kalangan personel sektor awam. Ia merupakan satu alat bagi mengukur kesediaan personel sektor awam untuk bekerja dalam persekitaran Kerajaan Elektronik dari segi pengetahuan dan kemahiran dalam penggunaan asas perisian-perisian ICT yang sering di guna pakai (commonly used).
 
                        </p>
 
@@ -1806,7 +1815,7 @@ Coded by www.creative-tim.com
         </div>
     </section>
     <!-- -------- START PRE-FOOTER 8 w/ TEXT, BG IMAGE AND 2 BUTTONS ------- -->
-    <section class="my-10 py-5 bg-gradient-dark position-relative"
+    {{-- <section class="my-10 py-5 bg-gradient-dark position-relative"
         style="background-image:url(../assets/img/nastuh.jpg)">
         <span class="mask bg-gradient-dark opacity-8"></span>
         <div class="container position-relative z-index-2">
@@ -1828,18 +1837,18 @@ Coded by www.creative-tim.com
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- -------- END PRE-FOOTER 8 w/ TEXT, BG IMAGE AND 2 BUTTONS ------- -->
-    <footer class="footer pt-4 mt-3">
+    <footer class="footer pt-4 mt-3" >
         <hr class="horizontal dark mb-5">
         <div class="container">
             <div class=" row">
                 <div class="col-md-3 mb-4 ms-auto">
-                    <div>
+                    <div class="d-flex justify-content-center flex-wrap">
                         <h6 class="text-gradient text-warning font-weight-bolder">Institut Tadbiran Awam Negara</h6>
                         &nbsp;&nbsp;&nbsp;
-                        <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg" width="180"
-                                height="120">
+                        <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg" width="150"
+                                height="150">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-6 mb-4">
