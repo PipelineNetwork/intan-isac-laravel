@@ -76,7 +76,13 @@
                             <div class="form-group">
                                 <select class="form-control mb-3" type="text" name="user_group_id">
                                     <<option hidden selected> Sila Pilih </option>
-                                        <option value="1">Pentadbir Sistem</option>
+                                        <?php
+                                        if(Auth::user()->user_group_id == '1'){
+                                            ?>
+                                            <option value="1">Pentadbir Sistem</option>    
+                                            <?php
+                                        }
+                                        ?>
                                         <option value="2">Pentadbir Penilaian</option>
                                         <option value="3">Penyelaras</option>
                                         <option value="4">Pengawas</option>
@@ -114,8 +120,5 @@
 
     </div>
 </div>
-
-
-
 
 @stop

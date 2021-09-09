@@ -70,10 +70,23 @@
                 @foreach ($jaduals as $jadual)
                 <tr>
                     <td>{{ $jadual['KOD_SESI_PENILAIAN'] }}</td>
-                    <td>{{ $jadual['KOD_TAHAP'] }}</td>
+
+                    @if($jadual->KOD_TAHAP=='01')
+                        <td>Asas</td>
+                    @else
+                        <td>Lanjutan</td>
+                    @endif
+
                     <td>{{ $jadual['KOD_MASA_MULA'] }}</td>
                     <td>{{ $jadual['KOD_MASA_TAMAT'] }}</td>
                     <td>{{ $jadual['TARIKH_SESI'] }}</td>
+
+                    @if($jadual->KOD_KATEGORI_PESERTA=='01')
+                        <td>Individu</td>
+                    @else
+                        <td>Kumpulan</td>
+                    @endif
+
                     <td>{{ $jadual['KOD_KATEGORI_PESERTA'] }}</td>
                     <td>{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
                     <td>{{ $jadual['KOD_KEMENTERIAN'] }}</td>

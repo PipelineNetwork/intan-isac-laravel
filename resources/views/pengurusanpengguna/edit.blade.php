@@ -61,9 +61,9 @@
             </div>
             <div class="row">
                 <div class="col-6">
-                    <label for="">Group ID :</label>
+                    <label for="">Kod Kementerian :</label>
                     <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="user_group_id"
+                        <input class="form-control mb-3" type="text" name="ministry_code"
                             value="{{$user->user_group_id}}">
                     </div>
                 </div>
@@ -72,7 +72,13 @@
                     <div class="form-group">
                         <select class="form-control mb-3" type="text" name="user_group_id">
                             <<option hidden selected> Sila Pilih </option>
-                                <option value="1">Pentadbir Sistem</option>
+                                <?php
+                                if(Auth::user()->user_group_id == '1'){
+                                    ?>
+                                    <option value="1">Pentadbir Sistem</option>    
+                                    <?php
+                                }
+                                ?>
                                 <option value="2">Pentadbir Penilaian</option>
                                 <option value="3">Penyelaras</option>
                                 <option value="4">Pengawas</option>
@@ -81,6 +87,7 @@
                         </select>
                     </div>
                 </div>
+            </div>
                 <div class="row">
                     <div class="col-6">
                         <label for="">NRIC : </label>

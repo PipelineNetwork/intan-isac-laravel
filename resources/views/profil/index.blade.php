@@ -138,8 +138,8 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0 p-3">
-                        <h6 class="mb-1">Password</h6>
-                        <p class="text-sm">Tukar Password</p>
+                        <h6 class="mb-1">Kata Laluan</h6>
+                        <p class="text-sm">Tukar Kata Laluan</p>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="/change-password">
@@ -150,8 +150,8 @@
                             @endforeach
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">Current
-                                    Password</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Kata Laluan Lama
+                                    </label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control" name="current_password"
@@ -160,7 +160,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">New Password</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Kata Laluan Baru</label>
 
                                 <div class="col-md-6">
                                     <input id="new_password" type="password" class="form-control" name="new_password"
@@ -169,8 +169,8 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">New Confirm
-                                    Password</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Sah Kata Laluan
+                                </label>
 
                                 <div class="col-md-6">
                                     <input id="new_confirm_password" type="password" class="form-control"
@@ -181,7 +181,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn bg-gradient-warning">
-                                        Update Password
+                                        Kemaskini Kata Laluan
                                     </button>
                                 </div>
                             </div>

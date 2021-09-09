@@ -68,8 +68,8 @@
                         <div class="form-group">
                             <select class="form-control mb-3" type="text" name="KOD_TAHAP">
                                 <option hidden selected> Sila Pilih </option>
-                                <option value="1">Asas</option>
-                                <option value="2">Lanjutan</option>
+                                <option value="01">Asas</option>
+                                <option value="02">Lanjutan</option>
                             </select>
                         </div>
                     </div>
@@ -110,8 +110,8 @@
                         <div class="form-group">
                             <select class="form-control mb-3" name="KOD_KATEGORI_PESERTA" id="pilih1">
                                 <option hidden selected> Sila Pilih </option>
-                                <option value="Individu">Individu</option>
-                                <option value="Kumpulan">Kumpulan</option>
+                                <option value="01">Individu</option>
+                                <option value="02">Kumpulan</option>
                             </select>
                         </div>
                     </div>

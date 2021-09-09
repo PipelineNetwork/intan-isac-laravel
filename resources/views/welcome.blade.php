@@ -1426,15 +1426,36 @@ Coded by www.creative-tim.com
             </div>
             <div class="container">
                 <div class="row">
+                    
                     <div
-                        class="col-lg-6 col-md-7 d-flex justify-content-center text-md-start text-center flex-column mt-sm-0 mt-7">
+                        class="col-lg-6 col-md-7 d-flex justify-content-center text-md-start text-center flex-column mt-7">
                         <h1 class="text-gradient text-warning">ICT SKILLS ASSESSMENT</h1>
                         <h1 class="mb-4">& CERTIFICATION (ISAC)</h1>
                         <p class="lead pe-md-5 me-md-5">Sistem bagi penilaian ICT dan penjanaan sijil kemahiran bagi
                             penjawat awam.</p>
                         <div class="mt-3">
-                            <a href="/register" class="btn bg-gradient-warning mt-4" target="_self">Daftar</a>
-                            <a href="/login" class="btn text-warning shadow-none mt-4">Log Masuk</a>
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+                                  <label>E-mel</label>
+                                  <div>
+                                    <x-input id="email" class="form-control w-75" type="email" name="email" :value="old('email')" required autofocus />
+                                  </div>
+                                  <label>Kata Laluan</label>
+                                  <div >
+                                    <x-input id="password" class="form-control w-75"
+                                    type="password"
+                                    name="password"
+                                    required autocomplete="current-password" />
+                                  </div>
+                                  <div>
+                                    <x-button class="btn bg-gradient-warning w-75 mt-3">
+                                        {{ __('Log Masuk') }}
+                                    </x-button>
+                                  </div>
+                                </form>
+                            {{-- <a href="/register" class="btn bg-gradient-warning mt-4" target="_self">Daftar</a>
+                            <a href="/login" class="btn text-warning shadow-none mt-4">Log Masuk</a> --}}
                         </div>
                     </div>
                 </div>
@@ -1742,7 +1763,7 @@ Coded by www.creative-tim.com
                     </a>
                     <!-- End Card Blog Fullbackground - text centered -->
                     <!-- Start Card Blog Fullbackground - text centered -->
-                    <a href="/tambahrayuans">
+                    {{-- <a href="/tambahrayuans">
                         <div class="card card-background move-on-hover">
                             <div class="full-background"
                                 style="background-image: url('{{ asset('assets/img/test.jpg') }}')">
@@ -1752,7 +1773,7 @@ Coded by www.creative-tim.com
                                 <p>Aduan bagi sebarang masalah atau pertanyaan mengenai penilaian. </p>
                             </div>
                         </div>
-                    </a>
+                    </a> --}}
                     <!-- End Card Blog Fullbackground - text centered -->
                 </div>
                 <div class="col-lg-4 mb-lg-0 mb-4">
@@ -1770,7 +1791,7 @@ Coded by www.creative-tim.com
                     </a>
                     <!-- End Card Blog Fullbackground - text centered -->
                     <!-- Start Card Blog Fullbackground - text centered -->
-                    <a href="/pengurusanpengguna">
+                    {{-- <a href="/pengurusanpengguna">
                         <div class="card card-background move-on-hover">
                             <div class="full-background"
                                 style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/team-members.jpg')">
@@ -1780,12 +1801,12 @@ Coded by www.creative-tim.com
                                 <p>Daftar pengguna bagi melayari dan pengambilan untuk penilaian Isac </p>
                             </div>
                         </div>
-                    </a>
+                    </a> --}}
                     <!-- End Card Blog Fullbackground - text centered -->
                 </div>
                 <div class="col-lg-4">
                     <!-- Start Card Blog Fullbackground - text centered -->
-                    <a href="https://www.intanbk.intan.my/iportal/en/hubungi-kami-intan/peta-lokasi">
+                    {{-- <a href="https://www.intanbk.intan.my/iportal/en/hubungi-kami-intan/peta-lokasi">
                         <div class="card card-background move-on-hover mb-4">
                             <div class="full-background"
                                 style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/window-desk.jpg')">
@@ -1795,10 +1816,21 @@ Coded by www.creative-tim.com
                                 <p>Layari Web Ibu Pejabat INTAN dengan menekan di sini</p>
                             </div>
                         </div>
-                    </a>
+                    </a> --}}
                     <!-- End Card Blog Fullbackground - text centered -->
                     <!-- Start Card Blog Fullbackground - text centered -->
-                    <a href="javascript:;">
+                    <a href="/tambahrayuans">
+                        <div class="card card-background move-on-hover">
+                            <div class="full-background"
+                                style="background-image: url('{{ asset('assets/img/test.jpg') }}')">
+                            </div>
+                            <div class="card-body pt-12">
+                                <h4 class="text-white">Aduan</h4>
+                                <p>Aduan bagi sebarang masalah atau pertanyaan mengenai penilaian. </p>
+                            </div>
+                        </div>
+                    </a>
+                    {{-- <a href="javascript:;">
                         <div class="card card-background move-on-hover">
                             <div class="full-background"
                                 style="background-image: url('https://pbs.twimg.com/media/EWA2vNfU0AA0l8t.jpg">
@@ -1808,7 +1840,7 @@ Coded by www.creative-tim.com
                                 <p> YBrs.Dr Alauddin bin Sidal </p>
                             </div>
                         </div>
-                    </a>
+                    </a> --}}
                     <!-- End Card Blog Fullbackground - text centered -->
                 </div>
             </div>
