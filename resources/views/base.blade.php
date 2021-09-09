@@ -203,7 +203,7 @@
                                     <ul class="navbar-nav">
                                         <li class="nav-item">
                                             <?php
-                                            if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2')){
+                                            if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  || Auth::user()->user_group_id == '3')){
                                                 ?>
                                             <a href="/pengurusanpengguna" class="nav-link active"
                                                 aria-controls="dashboardsExamples" role="button" aria-expanded="false">

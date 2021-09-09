@@ -83,11 +83,23 @@
                                             <?php
                                         }
                                         ?>
-                                        <option value="2">Pentadbir Penilaian</option>
-                                        <option value="3">Penyelaras</option>
+                                        <?php
+                                        if(Auth::user()->user_group_id != '3'){
+                                            ?>
+                                            <option value="2">Pentadbir Penilaian</option>
+                                            <option value="3">Penyelaras</option>
+                                            <?php
+                                        }
+                                        ?>
                                         <option value="4">Pengawas</option>
-                                        <option value="5">Calon</option>
-                                        <option value="6">Pegawai Korporat</option>
+                                        <?php
+                                        if(Auth::user()->user_group_id != '3'){
+                                            ?>
+                                            <option value="5">Calon</option>
+                                            <option value="6">Pegawai Korporat</option>
+                                            <?php
+                                        }
+                                        ?>
                                 </select>
                             </div>
                         </div>
