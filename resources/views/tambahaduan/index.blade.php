@@ -30,6 +30,9 @@
     <h6 class="font-weight-bolder">Senarai Aduan</h6>
 </nav>
 </br>
+<?php
+if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '4' )){
+?>
 <div>
     <div class="row">
         <div class="column-6">
@@ -38,6 +41,9 @@
         </div>
     </div>
 </div>
+<?php
+  }
+?>
 
 <div class="card">
     <div class="card-header" style="background-color:#FFA500;">
