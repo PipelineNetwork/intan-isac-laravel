@@ -103,7 +103,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div id="pilih2" class="col-6">
+                        <div id="pilih2" style="display:none" class="col-6">
                             <label for="">Kod kementerian :</label>
                             <div class="input-group">
                                 <input class="form-control mb-3" type="text" name="ministry_code">

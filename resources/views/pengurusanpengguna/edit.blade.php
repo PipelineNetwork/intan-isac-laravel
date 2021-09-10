@@ -59,18 +59,11 @@
             </div>
             <div class="row">
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <label for="">Kod Kementerian :</label>
-                    <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="ministry_code"
-                            value="{{$user->ministry_code}}">
-                    </div>
-                </div>
+            <div  class="row">
                 <div class="col-6">
                     <label for="user_group_id">Peranan :</label>
                     <div class="form-group">
-                        <select class="form-control mb-3" type="text" name="user_group_id">
+                        <select class="form-control mb-3" type="text" name="user_group_id" id="pilih1">
                             <<option hidden selected> {{$user->user_group_id}} </option>
                                 <?php
                                 if(Auth::user()->user_group_id == '1'){
@@ -97,6 +90,14 @@
                                 }
                                 ?>
                         </select>
+                    </div>
+                </div>
+
+                <div   id="pilih2" style="display:none" class="col-6">
+                    <label for="">Kod Kementerian :</label>
+                    <div class="input-group">
+                        <input class="form-control mb-3" type="text" name="ministry_code"
+                            value="{{$user->ministry_code}}">
                     </div>
                 </div>
             </div>
@@ -135,6 +136,20 @@
         </div>
     </div>
 </form>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    $("#pilih1").change(function() {
+        if ($(this).val() == "3") {
+            $("#pilih2").show();
+        } else {
+            $("#pilih2").hide();
+        }
+    });
+});
+</script>
 
 
 
