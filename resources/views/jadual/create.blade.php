@@ -406,7 +406,7 @@
 <script type="text/javascript">
 $(function() {
     $("#pilih1").change(function() {
-        if ($(this).val() == "Kumpulan") {
+        if ($(this).val() == "02") {
             $("#pilih2").show();
         } else {
             $("#pilih2").hide();

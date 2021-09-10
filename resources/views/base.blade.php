@@ -204,7 +204,7 @@
                                         <li class="nav-item">
                                             <?php
                                             if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  || Auth::user()->user_group_id == '3')){
-                                                ?>
+                                            ?>
                                             <a href="/pengurusanpengguna" class="nav-link active"
                                                 aria-controls="dashboardsExamples" role="button" aria-expanded="false">
                                                 <div
@@ -234,7 +234,7 @@
                                                 <span class="nav-link-text ms-1">Pengurusan pengguna</span>
                                             </a>
                                             <?php
-                                        }
+                                              }
                                             ?>
 
                                             <hr class="horizontal dark mt-0">
@@ -242,6 +242,11 @@
                                                 id="sidenav-collapse-main">
                                                 <ul class="navbar-nav" >
                                                     <li class="nav-item">
+
+                                                        <?php
+                                                        if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  || Auth::user()->user_group_id == '4')){
+                                                         ?>
+
                                                         <a class="nav-link active" aria-controls="dashboard" role="button"
                                                         aria-expanded="false" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                             <div
@@ -276,6 +281,10 @@
                                                             <li><a class="dropdown-item " href="/tambahaduans">Aduan</a></li>
                                                             <li><a class="dropdown-item" href="/tambahrayuans">Rayuan</a></li>
                                                         </ul>
+
+                                                        <?php
+                                                           }
+                                                         ?>
 
                                                                     <hr class="horizontal dark mt-0">
                                                                     <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"

@@ -120,8 +120,8 @@
                             <select class="form-control mb-3" name="KOD_KATEGORI_PESERTA" id="pilih1"
                                 value="{{ $jadual['KOD_KATEGORI_PESERTA'] }}">
                                 <option hidden selected> Sila Pilih </option>
-                                <option value="Individu">Individu</option>
-                                <option value="Kumpulan">Kumpulan</option>
+                                <option value="01">Individu</option>
+                                <option value="02">Kumpulan</option>
                             </select>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                             <select class="form-control mb-3 hide" name="KOD_KEMENTERIAN"
                                 value="{{ $jadual['KOD_KEMENTERIAN'] }}">
                                 <option hidden selected> Sila Pilih </option>
-                                <option value="123">Jabatan Ketua Menteri Sabah</option>
+                                <option value="361">Jabatan Ketua Menteri Sabah</option>
 
                                 <option value="Jabatan Ketua Menteri Sarawak">Jabatan Ketua Menteri Sarawak
                                 </option>

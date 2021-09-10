@@ -72,7 +72,7 @@
                     <div class="col-6">
                         <label for="">File Aduan :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="text" name="file_aduan_send">
+                            <input class="form-control mb-3" type="file" name="file_aduan_send">
                         </div>
                     </div>
                 </div>

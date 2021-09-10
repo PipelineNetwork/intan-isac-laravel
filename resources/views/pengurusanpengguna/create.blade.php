@@ -74,7 +74,7 @@
                         <div class="col-6">
                             <label for="user_group_id">Peranan :</label>
                             <div class="form-group">
-                                <select class="form-control mb-3" type="text" name="user_group_id">
+                                <select class="form-control mb-3" type="text" name="user_group_id" id="pilih1">
                                     <<option hidden selected> Sila Pilih </option>
                                         <?php
                                         if(Auth::user()->user_group_id == '1'){
@@ -103,7 +103,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div id="pilih2" class="col-6">
                             <label for="">Kod kementerian :</label>
                             <div class="input-group">
                                 <input class="form-control mb-3" type="text" name="ministry_code">
@@ -132,5 +132,20 @@
 
     </div>
 </div>
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    $("#pilih1").change(function() {
+        if ($(this).val() == "3") {
+            $("#pilih2").show();
+        } else {
+            $("#pilih2").hide();
+        }
+    });
+});
+</script>
 
 @stop

@@ -52,7 +52,14 @@
                     <th>Keterangan Balas</th>
                     <th>File Balas</th>
                     <th>Status</th> 
+                    
+                    <?php
+                        if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
+                    ?>
                     <th>Balas</th>
+                    <?php
+                          }
+                    ?>
 
 
                 </tr>
@@ -67,8 +74,13 @@
                     <td>{{ $tambahrayuan['keterangan_rayuan_reply'] }}</td>
                     <td><a href="storage/{{ $tambahrayuan['file_rayuan_reply'] }}">{{ $tambahrayuan['file_rayuan_reply'] }}</td>
                     <td>{{ $tambahrayuan['status'] }}</td>
-                    <td><a href="/tambahrayuans/{{$tambahrayuan['id']}}/edit" class="btn-sm" style="color:black;"> Balas</a>
-
+                    <?php
+                        if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
+                    ?>
+                    <td><a href="/tambahrayuans/{{$tambahrayuan['id']}}/edit" class="btn-sm" style="color:black;"> Balas</a></td>
+                      <?php
+                          }
+                      ?>
                 </tr>
                 @endforeach
             </tbody>
