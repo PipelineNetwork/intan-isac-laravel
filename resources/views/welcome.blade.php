@@ -1437,9 +1437,9 @@ Coded by www.creative-tim.com
                             <div class="card-body">
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
-                                  <label>E-mel</label>
+                                  <label>ID Pengguna (No MyKad/Polis/Tentera)</label>
                                   <div>
-                                    <x-input id="email" class="form-control w-75" type="email" name="email" :value="old('email')" required autofocus />
+                                    <x-input id="nric" class="form-control w-75" type="nric" name="nric" :value="old('nric')" required autofocus />
                                   </div>
                                   <label>Kata Laluan</label>
                                   <div >
