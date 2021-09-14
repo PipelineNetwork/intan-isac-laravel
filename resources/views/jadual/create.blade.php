@@ -118,241 +118,241 @@
                     <div id="pilih2" style="display:none" class="col-6">
                         <label for="KOD_KEMENTERIAN">Kementerian/Agensi :</label>
                         <div class="form-group">
-                            <select class="form-control mb-3 hide" name="KOD_KEMENTERIAN">
+                            <select class="form-control mb-3 hide" name="ministry_code">
                                 <option hidden selected> Sila Pilih </option>
-                                <option value="123">Jabatan Ketua Menteri Sabah</option>
+                                <option value="361">Jabatan Ketua Menteri Sabah</option>
 
-                                <option value="Jabatan Ketua Menteri Sarawak">Jabatan Ketua Menteri Sarawak
+                                <option value="481">Jabatan Ketua Menteri Sarawak
                                 </option>
 
-                                <option value="Jabatan Perdana Menteri">Jabatan Perdana Menteri</option>
+                                <option value="101">Jabatan Perdana Menteri</option>
 
-                                <option value="Jabatan Sabah Yang Tiada Berkementerian">Jabatan Sabah Yang
+                                <option value="372">Jabatan Sabah Yang
                                     Tiada
                                     Berkementerian</option>
 
-                                <option value="Jabatan Sarawak Yang Tiada Berkementerian">Jabatan Sarawak
+                                <option value="492">Jabatan Sarawak
                                     Yang Tiada
                                     Berkementerian</option>
 
-                                <option value="Jabatan Yang Tiada Berkementerian">Jabatan Yang Tiada
+                                <option value="129">Jabatan Yang Tiada
                                     Berkementerian
                                 </option>
 
-                                <option value="Kementerian Air Tanah dan Sumber Asli">Kementerian Air Tanah
+                                <option value="141">Kementerian Air Tanah
                                     dan Sumber
                                     Asli</option>
 
-                                <option value="Kementerian Alam Sekitar dan Air">Kementerian Alam Sekitar
+                                <option value="144">Kementerian Alam Sekitar
                                     dan Air
                                 </option>
 
-                                <option value="Kementerian Alam Sekitar dan Kesihatan Awam Sarawak">
+                                <option value="487">
                                     Kementerian Alam
                                     Sekitar dan Kesihatan Awam Sarawak</option>
 
-                                <option value="Kementerian Belia Dan Sukan">Kementerian Belia Dan Sukan
+                                <option value="121">Kementerian Belia Dan Sukan
                                 </option>
 
-                                <option value="Kementerian Dalam Negeri">Kementerian Dalam Negeri</option>
+                                <option value="131">Kementerian Dalam Negeri</option>
 
-                                <option value="Kementerian Kebudayaan, Belia dan Sukan Sabah">Kementerian
+                                <option value="370">Kementerian
                                     Kebudayaan,
                                     Belia dan Sukan Sabah</option>
 
-                                <option value="Kementerian Kemajuan Luar Bandar dan Wilayah">Kementerian
+                                <option value="140">Kementerian
                                     Kemajuan Luar
                                     Bandar dan Wilayah</option>
 
-                                <option value="Kementerian Kerajaan Tempatan dan Perumahan Sabah">
+                                <option value="366">
                                     Kementerian Kerajaan
                                     Tempatan dan Perumahan Sabah</option>
 
-                                <option value="Kementerian Kerja Raya">Kementerian Kerja Raya</option>
+                                <option value="105">Kementerian Kerja Raya</option>
 
-                                <option value="Kementerian Kesenian, Kebudayaan Dan Warisan">Kementerian
+                                <option value="137">Kementerian
                                     Kesenian,
                                     Kebudayaan Dan Warisan</option>
 
-                                <option value="Kementerian Kesihatan">Kementerian Kesihatan</option>
+                                <option value="123">Kementerian Kesihatan</option>
 
-                                <option value="Kementerian Kewangan">Kementerian Kewangan</option>
+                                <option value="103">Kementerian Kewangan</option>
 
-                                <option value="Kementerian Kewangan dan Kemudahan Awam Sarawak">Kementerian
+                                <option value="482">Kementerian
                                     Kewangan dan
                                     Kemudahan Awam Sarawak</option>
 
-                                <option value="Kementerian Kewangan Sabah">Kementerian Kewangan Sabah
+                                <option value="363">Kementerian Kewangan Sabah
                                 </option>
 
-                                <option value="Kementerian Komunikasi dan Multimedia Malaysia">Kementerian
+                                <option value="112">Kementerian
                                     Komunikasi
                                     dan Multimedia Malaysia</option>
 
-                                <option value="Kementerian Luar Negeri">Kementerian Luar Negeri</option>
+                                <option value="119">Kementerian Luar Negeri</option>
 
-                                <option value="Kementerian Pelajaran">Kementerian Pelajaran</option>
+                                <option value="135">Kementerian Pelajaran</option>
 
-                                <option value="Kementerian Pelancongan Sarawak">Kementerian Pelancongan
+                                <option value="491">Kementerian Pelancongan
                                     Sarawak</option>
 
-                                <option value="Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah">
+                                <option value="373">
                                     Kementerian
                                     Pelancongan, Kebudayaan dan Alam Sekitar Sabah</option>
 
-                                <option value="Kementerian Pelancongan, Seni Dan Budaya Malaysia">
+                                <option value="138">
                                     Kementerian
                                     Pelancongan, Seni Dan Budaya Malaysia</option>
 
-                                <option value="Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan">
+                                <option value="142">
                                     Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan</option>
 
-                                <option value="Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak">
+                                <option value="483">
                                     Kementerian
                                     Pembangunan Infrastruktur & Perhubungan Sarawak</option>
 
-                                <option value="Kementerian Pembangunan Insfrastruktur Sabah">Kementerian
+                                <option value="365">Kementerian
                                     Pembangunan
                                     Insfrastruktur Sabah</option>
 
-                                <option value="Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak">
+                                <option value="489">
                                     Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak</option>
 
-                                <option value="Kementerian Pembangunan Luar Bandar Sabah">Kementerian
+                                <option value="362">Kementerian
                                     Pembangunan Luar
                                     Bandar Sabah </option>
 
-                                <option value="Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah">
+                                <option value="367">
                                     Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah</option>
 
-                                <option value="Kementerian Pembangunan Perindustrian Sabah">Kementerian
+                                <option value="369">Kementerian
                                     Pembangunan
                                     Perindustrian Sabah</option>
 
-                                <option value="Kementerian Pembangunan Perindustrian Sarawak">Kementerian
+                                <option value="490">Kementerian
                                     Pembangunan
                                     Perindustrian Sarawak</option>
 
-                                <option value="Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah">
+                                <option value="364">
                                     Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah</option>
 
-                                <option value="Kementerian Pembangunan Sosial dan Urbanisasi Sarawak">
+                                <option value="493">
                                     Kementerian
                                     Pembangunan Sosial dan Urbanisasi Sarawak </option>
 
-                                <option value="Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah">
+                                <option value="374">
                                     Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah
                                 </option>
 
-                                <option value="Kementerian Pembangunan Usahawan">Kementerian Pembangunan
+                                <option value="133">Kementerian Pembangunan
                                     Usahawan
                                 </option>
 
-                                <option value="Kementerian Pembangunan Wanita, Keluarga dan Masyarakat">
+                                <option value="143">
                                     Kementerian
                                     Pembangunan Wanita, Keluarga dan Masyarakat</option>
 
-                                <option value="Kementerian Pendidikan Malaysia">Kementerian Pendidikan
+                                <option value="136">Kementerian Pendidikan
                                     Malaysia</option>
 
-                                <option value="Kementerian Pengajian Tinggi">Kementerian Pengajian Tinggi
+                                <option value="145">Kementerian Pengajian Tinggi
                                 </option>
 
-                                <option value="Kementerian Pengangkutan">Kementerian Pengangkutan</option>
+                                <option value="104">Kementerian Pengangkutan</option>
 
-                                <option value="Kementerian Perancangan dan Pengurusan Sumber Sarawak">
+                                <option value="484">
                                     Kementerian
                                     Perancangan dan Pengurusan Sumber Sarawak</option>
 
-                                <option value="Kementerian Perdagangan Antarabangsa Dan Indus ">Kementerian
+                                <option value="108 ">Kementerian
                                     Perdagangan
                                     Antarabangsa Dan Indus</option>
 
-                                <option value="Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna">
+                                <option value="110">
                                     Kementerian
                                     Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna</option>
 
-                                <option value="Kementerian Pertahanan">Kementerian Pertahanan</option>
+                                <option value="117">Kementerian Pertahanan</option>
 
-                                <option value="Kementerian Pertanian & Industri Makanan Sarawak">Kementerian
+                                <option value="485">Kementerian
                                     Pertanian &
                                     Industri Makanan Sarawak</option>
 
-                                <option value="Kementerian Pertanian dan Industri Asas Tani">Kementerian
+                                <option value="134">Kementerian
                                     Pertanian dan
                                     Industri Asas Tani</option>
 
-                                <option value="Kementerian Perumahan Dan Kerajaan Tempatan">Kementerian
+                                <option value="116">Kementerian
                                     Perumahan Dan
                                     Kerajaan Tempatan</option>
 
-                                <option value="Kementerian Perumahan Sarawak">Kementerian Perumahan Sarawak
+                                <option value="488">Kementerian Perumahan Sarawak
                                 </option>
 
-                                <option value="Kementerian Perusahaan Awam">Kementerian Perusahaan Awam
+                                <option value="126">Kementerian Perusahaan Awam
                                 </option>
 
                                 <option value="Kementerian Perusahaan, Perladangan dan Komuditi">Kementerian
                                     Perusahaan,
                                     Perladangan dan Komuditi</option>
 
-                                <option value="Kementerian Sumber Manusia">Kementerian Sumber Manusia
+                                <option value="114">Kementerian Sumber Manusia
                                 </option>
 
                                 <option
-                                    value="Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)">
+                                    value="139">
                                     Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim
                                     (MESTECC)
                                 </option>
 
-                                <option value="Kementerian Undang-Undang/Kehakiman">Kementerian
+                                <option value="128">Kementerian
                                     Undang-Undang/Kehakiman
                                 </option>
 
-                                <option value="Kementerian Wilayah Persekutuan">Kementerian Wilayah
+                                <option value="127">Kementerian Wilayah
                                     Persekutuan</option>
 
-                                <option value="Pentadbiran Kerajaan Negeri Johor">Pentadbiran Kerajaan
+                                <option value="201">Pentadbiran Kerajaan
                                     Negeri Johor
                                 </option>
 
-                                <option value="Pentadbiran Kerajaan Negeri Kedah">Pentadbiran Kerajaan
+                                <option value="202">Pentadbiran Kerajaan
                                     Negeri Kedah
                                 </option>
 
-                                <option value="Pentadbiran Kerajaan Negeri Kelantan">Pentadbiran Kerajaan
+                                <option value="203">Pentadbiran Kerajaan
                                     Negeri
                                     Kelantan</option>
 
-                                <option value="Pentadbiran Kerajaan Negeri Melaka">Pentadbiran Kerajaan
+                                <option value="204">Pentadbiran Kerajaan
                                     Negeri Melaka
                                 </option>
 
-                                <option value="Pentadbiran Kerajaan Negeri Pahang">Pentadbiran Kerajaan
+                                <option value="206">Pentadbiran Kerajaan
                                     Negeri Pahang
                                 </option>
 
-                                <option value="Pentadbiran Kerajaan Negeri Perak">Pentadbiran Kerajaan
+                                <option value="208">Pentadbiran Kerajaan
                                     Negeri Perak
                                 </option>
 
-                                <option value="Pentadbiran Kerajaan Negeri Perlis">Pentadbiran Kerajaan
+                                <option value="209">Pentadbiran Kerajaan
                                     Negeri Perlis
                                 </option>
 
-                                <option value="Pentadbiran Kerajaan Negeri Selangor">Pentadbiran Kerajaan
+                                <option value="210">Pentadbiran Kerajaan
                                     Negeri
                                     Selangor</option>
 
-                                <option value="Pentadbiran Kerajaan Negeri Sembilan">Pentadbiran Kerajaan
+                                <option value="205">Pentadbiran Kerajaan
                                     Negeri
                                     Sembilan</option>
 
-                                <option value="Pentadbiran Kerajaan Negeri Terengganu">Pentadbiran Kerajaan
+                                <option value="211">Pentadbiran Kerajaan
                                     Negeri
                                     Terengganu</option>
 
-                                <option value="Pentadbiran Kerajaan Pulau Pinang"> Pentadbiran Kerajaan
+                                <option value="207"> Pentadbiran Kerajaan
                                     Pulau Pinang
                                 </option>
                             </select>
