@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\TambahRayuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RayuanDicipta;
+use App\Models\User;
 
 class TambahRayuanController extends Controller
 {
@@ -15,8 +18,8 @@ class TambahRayuanController extends Controller
     public function index()
     {
         $tambahrayuans = TambahRayuan::all();
-        return view('tambahrayuan.index',[
-            'tambahrayuans'=> $tambahrayuans
+        return view('tambahrayuan.index', [
+            'tambahrayuans' => $tambahrayuans
         ]);
     }
 
@@ -39,20 +42,26 @@ class TambahRayuanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'tajuk'=> 'required',
+            'tajuk' => 'required',
 
         ]);
-        $file_rayuan_send = $request ->file('file_rayuan_send')->store('dokumen');
-       
-        $tambahrayuan = new TambahRayuan;
-        $tambahrayuan ->id= $request->id;
-        $tambahrayuan ->tajuk= $request->tajuk;
-        $tambahrayuan ->keterangan_rayuan_send = $request->keterangan_rayuan_send;
-        $tambahrayuan ->file_rayuan_send = $file_rayuan_send;
-        $tambahrayuan-> status = "baru";
+        $file_rayuan_send = $request->file('file_rayuan_send')->store('dokumen');
 
-        $tambahrayuan->save(); 
-        return redirect('/tambahrayuans'); 
+        $tambahrayuan = new TambahRayuan;
+        $tambahrayuan->id = $request->id;
+        $tambahrayuan->tajuk = $request->tajuk;
+        $tambahrayuan->keterangan_rayuan_send = $request->keterangan_rayuan_send;
+        $tambahrayuan->file_rayuan_send = $file_rayuan_send;
+        $tambahrayuan->status = "baru";
+
+        $tambahrayuan->save();
+
+        $users = User::where('user_group_id', '=', '1')->get();
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new RayuanDicipta($tambahrayuan));
+        }
+
+        return redirect('/tambahrayuans');
     }
 
     /**
@@ -64,7 +73,7 @@ class TambahRayuanController extends Controller
     public function show(TambahRayuan $tambahRayuan)
     {
         return view('tambahrayuan.show', [
-            'tambahrayuan'=> $tambahrayuan
+            'tambahrayuan' => $tambahRayuan
         ]);
     }
 
@@ -89,14 +98,14 @@ class TambahRayuanController extends Controller
      */
     public function update(Request $request, TambahRayuan $tambahRayuan)
     {
-        $tambahrayuan = TambahRayuan::where('id', $request->id)-> first();
-        $file_rayuan_reply = $request ->file('file_rayuan_reply')->store('dokumen');
+        $tambahrayuan = TambahRayuan::where('id', $request->id)->first();
+        $file_rayuan_reply = $request->file('file_rayuan_reply')->store('dokumen');
         $tambahrayuan->keterangan_rayuan_reply = $request->keterangan_rayuan_reply;
-        $tambahrayuan->file_rayuan_reply= $file_rayuan_reply;
-        $tambahrayuan-> status = "dibalas";
+        $tambahrayuan->file_rayuan_reply = $file_rayuan_reply;
+        $tambahrayuan->status = "dibalas";
 
-        $tambahrayuan->save(); 
-        return redirect('/tambahrayuans'); 
+        $tambahrayuan->save();
+        return redirect('/tambahrayuans');
     }
 
     /**
