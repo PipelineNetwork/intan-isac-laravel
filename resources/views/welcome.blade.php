@@ -62,48 +62,49 @@ Coded by www.creative-tim.com
     <link id="pagestyle" href="../../assets/css/soft-ui-dashboard.min.css?v=1.0.3" rel="stylesheet" />
     <!-- Anti-flicker snippet (recommended)  -->
     <style>
-    .async-hide {
-        opacity: 0 !important
-    }
+        .async-hide {
+            opacity: 0 !important
+        }
+
     </style>
     <script>
-    (function(a, s, y, n, c, h, i, d, e) {
-        s.className += ' ' + y;
-        h.start = 1 * new Date;
-        h.end = i = function() {
-            s.className = s.className.replace(RegExp(' ?' + y), '')
-        };
-        (a[n] = a[n] || []).hide = h;
-        setTimeout(function() {
-            i();
-            h.end = null
-        }, c);
-        h.timeout = c;
-    })(window, document.documentElement, 'async-hide', 'dataLayer', 4000, {
-        'GTM-K9BGS8K': true
-    });
+        (function(a, s, y, n, c, h, i, d, e) {
+            s.className += ' ' + y;
+            h.start = 1 * new Date;
+            h.end = i = function() {
+                s.className = s.className.replace(RegExp(' ?' + y), '')
+            };
+            (a[n] = a[n] || []).hide = h;
+            setTimeout(function() {
+                i();
+                h.end = null
+            }, c);
+            h.timeout = c;
+        })(window, document.documentElement, 'async-hide', 'dataLayer', 4000, {
+            'GTM-K9BGS8K': true
+        });
     </script>
     <!-- Analytics-Optimize Snippet -->
     <script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-46172202-22', 'auto', {
-        allowLinker: true
-    });
-    ga('set', 'anonymizeIp', true);
-    ga('require', 'GTM-K9BGS8K');
-    ga('require', 'displayfeatures');
-    ga('require', 'linker');
-    ga('linker:autoLink', ["2checkout.com", "avangate.com"]);
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-46172202-22', 'auto', {
+            allowLinker: true
+        });
+        ga('set', 'anonymizeIp', true);
+        ga('require', 'GTM-K9BGS8K');
+        ga('require', 'displayfeatures');
+        ga('require', 'linker');
+        ga('linker:autoLink', ["2checkout.com", "avangate.com"]);
     </script>
     <!-- end Analytics-Optimize Snippet -->
     <!-- Google Tag Manager -->
@@ -125,10 +126,8 @@ Coded by www.creative-tim.com
                 <nav
                     class="navbar navbar-expand-lg  blur blur-rounded top-0  z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
-                        <a class="navbar-brand font-weight-bolder ms-sm-3"
-                            href="/ "
-                            rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom"
-                            target="_blank">
+                        <a class="navbar-brand font-weight-bolder ms-sm-3" href="/ " rel="tooltip"
+                            title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
                             INTAN ISAC
                         </a>
                         <a href="https://www.creative-tim.com/product/soft-ui-design-system-pro#pricingCard"
@@ -214,7 +213,8 @@ Coded by www.creative-tim.com
                                                         </a>
                                                         <a href=".https://www.jpa.gov.my/info-korporat/program-bahagian/26-maklumat-bahagian/173-intan"
                                                             class="dropdown-item border-radius-md">
-                                                            <span class="ps-3">Jabatan Perkhidmatan Awam</span>
+                                                            <span class="ps-3">Jabatan Perkhidmatan
+                                                                Awam</span>
                                                         </a>
                                                         <a href="https://www.intanbk.intan.my/iportal/ms/intan-kampus-satelit-putrajaya"
                                                             class="dropdown-item border-radius-md">
@@ -493,8 +493,9 @@ Coded by www.creative-tim.com
                                                 <div class="d-inline-block">
                                                     <div
                                                         class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
-                                                        <svg class="" width="12px" height="20px" viewBox="0 0 40 40"
-                                                            version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                        <svg class="" width=" 12px" height="20px"
+                                                            viewBox="0 0 40 40" version="1.1"
+                                                            xmlns="http://www.w3.org/2000/svg"
                                                             xmlns:xlink="http://www.w3.org/1999/xlink">
                                                             <title>spaceship</title>
                                                             <g stroke="none" stroke-width="1" fill="none"
@@ -679,7 +680,8 @@ Coded by www.creative-tim.com
                                                                         class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                                                                         En. Mohd Yuzwan bin Yunan
                                                                     </h6>
-                                                                    <span class="text-sm">Penolong Pegawai Teknologi
+                                                                    <span class="text-sm">Penolong Pegawai
+                                                                        Teknologi
                                                                         Maklumat Gred FA29</span>
                                                                 </div>
                                                             </div>
@@ -715,7 +717,8 @@ Coded by www.creative-tim.com
                                                                     <h6
                                                                         class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                                                                         En. Mohd Faisal Bin Mustafah</h6>
-                                                                    <span class="text-sm">Penolong Pegawai Teknologi
+                                                                    <span class="text-sm">Penolong Pegawai
+                                                                        Teknologi
                                                                         Maklumat Gred FA29</span>
                                                                 </div>
                                                             </div>
@@ -1426,7 +1429,7 @@ Coded by www.creative-tim.com
             </div>
             <div class="container">
                 <div class="row">
-                    
+
                     <div
                         class="col-lg-6 col-md-7 d-flex justify-content-center text-md-start text-center flex-column mt-7">
                         <h1 class="text-gradient text-warning">ICT SKILLS ASSESSMENT</h1>
@@ -1437,38 +1440,39 @@ Coded by www.creative-tim.com
                             <div class="card-body">
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
-                                  <label>ID Pengguna (No MyKad/Polis/Tentera)</label>
-                                  <div>
-                                    <x-input id="nric" class="form-control w-75" type="nric" name="nric" :value="old('nric')" required autofocus />
-                                  </div>
-                                  <label>Kata Laluan</label>
-                                  <div >
-                                    <x-input id="password" class="form-control w-75"
-                                    type="password"
-                                    name="password"
-                                    required autocomplete="current-password" />
-                                  </div>
-                                  <div>
-                                    <x-button class="btn bg-gradient-warning w-75 mt-3">
-                                        {{ __('Log Masuk') }}
-                                    </x-button>
-                                  </div>
+                                    <label>ID Pengguna (No MyKad/Polis/Tentera)</label>
+                                    <div>
+                                        <x-input id="nric" class="form-control w-75" type="nric" name="nric"
+                                            :value="old('nric')" required autofocus />
+                                    </div>
+                                    <label>Kata Laluan</label>
+                                    <div>
+                                        <x-input id="password" class="form-control w-75" type="password"
+                                            name="password" required autocomplete="current-password" />
+                                    </div>
+                                    <a href="/forgot-password" target="_blank" style="color: red">Lupa Kata Laluan?</a>
+                                    {{-- <a  href="{{ route('login') }}" class="text-warning text-gradient font-weight-bold">Log Masuk</a> --}}
+                                    <div>
+                                        <x-button class="btn bg-gradient-warning w-75 mt-3">
+                                            {{ __('Log Masuk') }}
+                                        </x-button>
+                                    </div>
                                 </form>
-                            {{-- <a href="/register" class="btn bg-gradient-warning mt-4" target="_self">Daftar</a>
+                                {{-- <a href="/register" class="btn bg-gradient-warning mt-4" target="_self">Daftar</a>
                             <a href="/login" class="btn text-warning shadow-none mt-4">Log Masuk</a> --}}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </header>
     <!-- -------- END HEADER 1 w/ text and image on right ------- -->
     <!-- -------- START Features w/ 4 cols w/ colored icon & title & text -------- -->
-    
+
     {{-- <div class="mdg-angledDivider bg-white"><hr class="bg-gradient-warning"></div> --}}
-    <section class="py-md-7 bg-gradient-warning" >
-        
-        
+    <section class="py-md-7 bg-gradient-warning">
+
+
         <div class="container">
             <div class="row justify-content-start">
                 <div class="col-md-6">
@@ -1495,26 +1499,26 @@ Coded by www.creative-tim.com
                             </svg>
                         </div>
                         <h5 class="mt-3">KURIKULUM</h5>
-                        <p class = "text-dark">Bahagian 1 - Penilaian pengetahuan yang merangkumi : </br>
-                            <ul class = "text-dark">
-                                <li>Software </li>
+                        <p class="text-dark">Bahagian 1 - Penilaian pengetahuan yang merangkumi : <br>
+                        <ul class="text-dark">
+                            <li>Software </li>
                             <li>ICT Security </li>
                             <li>Inisiatif ICT Sektor Awam</li>
                             <li>Rangkaian dan Wifi </li>
                             <li>Government Mobility</li>
                             <li>Media Sosial</li>
 
-                            </ul>
-                        </p>    
-                            </br>
-                          <p class = "text-dark">  Bahagian 2 - Menilai kemahiran dalam : </br>
-                            <ul class = "text-dark">
-                                <li>Mencari dan memperolehi maklumat menggunakan internet.</li>
+                        </ul>
+                        </p>
+                        <br>
+                        <p class="text-dark"> Bahagian 2 - Menilai kemahiran dalam : <br>
+                        <ul class="text-dark">
+                            <li>Mencari dan memperolehi maklumat menggunakan internet.</li>
                             <li>Menyediakan dokumen pemprosesan atau dokumen persembahan berkaitan dengan pengendalian
                                 tugas-tugas asas.</li>
                             <li>Berkomunikasi secara elektronik melalui emel.</li>
-                            </ul>
-                            
+                        </ul>
+
                         </p>
                     </div>
                     <div class="primary text-start border-radius-lg mt-6">
@@ -1543,7 +1547,9 @@ Coded by www.creative-tim.com
                             </svg>
                         </div>
                         <h5 class="mt-3 text-dark">PAKAIAN :</h5>
-                        <p class = "text-dark">Pastikan pakaian semasa menghadiri Penilaian ISAC adalah pakaian pejabat.</p>
+                        <p class="text-dark">Pastikan pakaian semasa menghadiri Penilaian ISAC adalah pakaian
+                            pejabat.
+                        </p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -1574,12 +1580,12 @@ Coded by www.creative-tim.com
                         </div>
                         <h5 class="mt-3 ">FORMAT PENILAIAN</h5>
                         <p>
-                        <ul class = "text-dark">
+                        <ul class="text-dark">
                             <li>Bahagian 1 - Ujian pengetahuan yang mengandungi 40 soalan objektif yang perlu dijawab
                                 dalam masa 20 minit</li>
                             <li>Bahagian 2 - Ujian kemahiran yang mengandungi 3 soalan dan calon-calon dikehendaki
                                 menjawab semua soalan tersebut dalam masa 40 minit.</li>
-                            </ul>
+                        </ul>
                         </p>
                     </div>
                     <div class="primary text-start border-radius-lg mt-6">
@@ -1605,18 +1611,19 @@ Coded by www.creative-tim.com
                             </svg>
                         </div>
                         <h5 class="mt-3">PUSAT PENILAIAN ISAC</h5>
-                        <p class = "text-dark">Penilaian ISAC boleh dijalankan di pusat-pusat ISAC seperti berikut :</p>
-                        <ul class = "text-dark">
+                        <p class="text-dark">Penilaian ISAC boleh dijalankan di pusat-pusat ISAC seperti berikut :
+                        </p>
+                        <ul class="text-dark">
                             <li>INTAN Kampus Utama (INTAN Bukit Kiara) </li>
-                        <li>INTAN Kampus Wilayah Utara (INTURA)</li>
-                        <li>INTAN Kampus Wilayah Selatan (IKWAS)</li>
-                        <li>INTAN Kampus Wilayah Timur (INTIM) </li>
-                        <li>INTAN Sabah</li>
-                        <li>INTAN Sarawak</li>
-                        <li>Agensi kerajaan dilantik</li>
-                        <li>Jabatan Perkhidmatan Awam (JPA)</li>
+                            <li>INTAN Kampus Wilayah Utara (INTURA)</li>
+                            <li>INTAN Kampus Wilayah Selatan (IKWAS)</li>
+                            <li>INTAN Kampus Wilayah Timur (INTIM) </li>
+                            <li>INTAN Sabah</li>
+                            <li>INTAN Sarawak</li>
+                            <li>Agensi kerajaan dilantik</li>
+                            <li>Jabatan Perkhidmatan Awam (JPA)</li>
                         </ul>
-                        
+
                     </div>
                 </div>
             </div>
@@ -1691,9 +1698,13 @@ Coded by www.creative-tim.com
                     <br>
                     <h3 class="text-gradient text-warning mb-0 mt-2">Mengenai ISAC</h3>
                     <h3></h3>
-                    <p>Penilaian ICT Skills Assessment and Certification (ISAC) dilaksanakan untuk menilai tahap kefahaman dan kemahiran penggunaan teknologi maklumat dan komunikasi (ICT) di kalangan personel sektor awam. Ia merupakan satu alat bagi mengukur kesediaan personel sektor awam untuk bekerja dalam persekitaran Kerajaan Elektronik dari segi pengetahuan dan kemahiran dalam penggunaan asas perisian-perisian ICT yang sering di guna pakai (commonly used).
+                    <p>Penilaian ICT Skills Assessment and Certification (ISAC) dilaksanakan untuk menilai tahap
+                        kefahaman dan kemahiran penggunaan teknologi maklumat dan komunikasi (ICT) di kalangan personel
+                        sektor awam. Ia merupakan satu alat bagi mengukur kesediaan personel sektor awam untuk bekerja
+                        dalam persekitaran Kerajaan Elektronik dari segi pengetahuan dan kemahiran dalam penggunaan asas
+                        perisian-perisian ICT yang sering di guna pakai (commonly used).
 
-                       </p>
+                    </p>
 
                     <a href="https://www.intanbk.intan.my/iportal/en/about-intan"
                         class="text-warning icon-move-right">Mengenai Intan
@@ -1711,12 +1722,13 @@ Coded by www.creative-tim.com
                         </div>
                     </div> -->
                     <div class="p-3 info-horizontal">
-                        </br></br>
+                        <br><br>
                         <div class="icon icon-shape rounded-circle bg-gradient-warning shadow text-center">
                             <i class="fas fa-handshake opacity-10"></i>
                         </div>
                         <div class="description ps-3">
-                            <p class="mb-0">VISI<br>Untuk Menjadi Institusi Pembelajaran Sektor Awam yang Unggul</p>
+                            <p class="mb-0">VISI<br>Untuk Menjadi Institusi Pembelajaran Sektor Awam yang
+                                Unggul</p>
                         </div>
                     </div>
                     <div class="p-3 info-horizontal">
@@ -1724,13 +1736,80 @@ Coded by www.creative-tim.com
                             <i class="fas fa-hourglass opacity-10"></i>
                         </div>
                         <div class="description ps-3">
-                            <p class="mb-0">MISI<br>Untuk Membangunkan Modal Insan Sektor Awam yang Kompeten Melalui Pembelajaran Berkualiti</p>
+                            <p class="mb-0">MISI<br>Untuk Membangunkan Modal Insan Sektor Awam yang Kompeten
+                                Melalui Pembelajaran Berkualiti</p>
                         </div>
                     </div>
                     <div class="p-3 info-horizontal">
                         <img src="https://www.intanbk.intan.my/iportal/images/adminsep.jpg" width="620" height="300">
                         <b style="text-align:center;">&emsp;&emsp;The National Institute of Public Administration
                             (INTAN) Port Dickson</b>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <?php
+                use App\Models\Jadual;
+                $jaduals = Jadual::all();
+                ?>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header" style="background-color:#FFA500;">
+                            <b class="text-white">Senarai Jadual</b>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+
+                                <thead>
+                                    <tr>
+                                        <th>Kod Sesi</th>
+                                        <th>Tahap</th>
+                                        <th>Masa Mula</th>
+                                        <th>Masa Tamat</th>
+                                        <th>Tarikh</th>
+                                        <th>Kategori Peserta</th>
+                                        <th>Jumlah Peserta</th>
+                                        <th>Kementerian/Agensi</th>
+                                        <th>Platform</th>
+                                        <th>Lokasi</th>
+                                        <th>Status</th>
+                                        <th>Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach ($jaduals as $jadual)
+                                        <tr>
+                                            <td class="text-center">{{ $jadual['KOD_SESI_PENILAIAN'] }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual->KOD_TAHAP == '01')
+                                                    Asas
+                                                @else
+                                                    Lanjutan
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $jadual['KOD_MASA_MULA'] }}</td>
+                                            <td class="text-center">{{ $jadual['KOD_MASA_TAMAT'] }}</td>
+                                            <td>{{ $jadual['TARIKH_SESI'] }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual->KOD_KATEGORI_PESERTA == '01')
+                                                    Individu
+                                                @else
+                                                    Kumpulan
+                                                @endif
+                                            </td>
+                                            <!-- <td class="text-center">{{ $jadual['KOD_KATEGORI_PESERTA'] }}</td> -->
+                                            <td class="text-center">{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
+                                            <td class="text-center">{{ $jadual['KOD_KEMENTERIAN'] }}</td>
+                                            <td>{{ $jadual['platform'] }}</td>
+                                            <td>{{ $jadual['LOKASI'] }}</td>
+                                            <td>{{ $jadual['status'] }}</td>
+                                            <td>{{ $jadual['keterangan'] }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1766,7 +1845,7 @@ Coded by www.creative-tim.com
                     {{-- <a href="/tambahrayuans">
                         <div class="card card-background move-on-hover">
                             <div class="full-background"
-                                style="background-image: url('{{ asset('assets/img/test.jpg') }}')">
+                                style="background-image: url('assets/img/test.jpg')">
                             </div>
                             <div class="card-body pt-12">
                                 <h4 class="text-white">Aduan</h4>
@@ -1821,8 +1900,7 @@ Coded by www.creative-tim.com
                     <!-- Start Card Blog Fullbackground - text centered -->
                     <a href="/tambahrayuans">
                         <div class="card card-background move-on-hover">
-                            <div class="full-background"
-                                style="background-image: url('{{ asset('assets/img/test.jpg') }}')">
+                            <div class="full-background" style="background-image: url('assets/img/test.jpg');">
                             </div>
                             <div class="card-body pt-12">
                                 <h4 class="text-white">Aduan</h4>
@@ -1847,8 +1925,7 @@ Coded by www.creative-tim.com
         </div>
     </section>
     <!-- -------- START PRE-FOOTER 8 w/ TEXT, BG IMAGE AND 2 BUTTONS ------- -->
-    {{-- <section class="my-10 py-5 bg-gradient-dark position-relative"
-        style="background-image:url(../assets/img/nastuh.jpg)">
+    <!-- <section class="my-10 py-5 bg-gradient-dark position-relative" style = "background-image:url(../assets/img/nastuh.jpg)">
         <span class="mask bg-gradient-dark opacity-8"></span>
         <div class="container position-relative z-index-2">
             <div class="row">
@@ -1869,9 +1946,9 @@ Coded by www.creative-tim.com
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section> -->
     <!-- -------- END PRE-FOOTER 8 w/ TEXT, BG IMAGE AND 2 BUTTONS ------- -->
-    <footer class="footer pt-4 mt-3" >
+    <footer class="footer pt-4 mt-3">
         <hr class="horizontal dark mb-5">
         <div class="container">
             <div class=" row">
@@ -1880,7 +1957,7 @@ Coded by www.creative-tim.com
                         <h6 class="text-gradient text-warning font-weight-bolder">Institut Tadbiran Awam Negara</h6>
                         &nbsp;&nbsp;&nbsp;
                         <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg" width="150"
-                                height="150">
+                            height="150">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-6 mb-4">
@@ -1889,13 +1966,14 @@ Coded by www.creative-tim.com
                             Alamat Surat Menyurat :</h6>
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/presentation" target="_blank">
+                                <a class="nav-link" href="https://www.creative-tim.com/presentation"
+                                    target="_blank">
                                     Pengarah
                                     Institut Tadbiran Awam Negara (INTAN),
                                     Kluster Inovasi Teknologi Pengurusan (i-IMATEC),
                                     Seksyen Aplikasi
                                     Jalan Bukit Kiara,
-                                    50480 Kuala Lumpur</br>
+                                    50480 Kuala Lumpur
                                     (u.p. :Puan Nor Hasimah binti Che Mat)
                                 </a>
                             </li>
@@ -1908,17 +1986,18 @@ Coded by www.creative-tim.com
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="https://iradesign.io/" target="_blank">
-                                Penolong Pegawai Teknologi Maklumat, 
+                                    Penolong Pegawai Teknologi Maklumat,
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="https://www.creative-tim.com/bits" target="_blank">
-                                Gred FA29,
+                                    Gred FA29,
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/affiliates/new" target="_blank">
-                                03-20847798.
+                                <a class="nav-link" href="https://www.creative-tim.com/affiliates/new"
+                                    target="_blank">
+                                    03-20847798.
 
                                 </a>
                             </li>
@@ -1930,8 +2009,9 @@ Coded by www.creative-tim.com
                         <h6 class="text-gradient text-warning text-sm">En. Mohd Faisal Bin Mustafah</h6>
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/contact-us" target="_blank">
-                                Penolong Pegawai Teknologi Maklumat,
+                                <a class="nav-link" href="https://www.creative-tim.com/contact-us"
+                                    target="_blank">
+                                    Penolong Pegawai Teknologi Maklumat,
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -1941,8 +2021,8 @@ Coded by www.creative-tim.com
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="https://services.creative-tim.com/?ref=ct-soft-ui-footer"
-                                    target="_blank">
+                                <a class="nav-link"
+                                    href="https://services.creative-tim.com/?ref=ct-soft-ui-footer" target="_blank">
                                     03-20847703.
                                 </a>
                             </li>
@@ -1974,8 +2054,8 @@ Coded by www.creative-tim.com
                 <div class="col-12">
                     <div class="text-center">
                         <!-- <p class="my-4 text-sm">
-                            All rights reserved. Copyright © <script>
-                            document.write(new Date().getFullYear())
+                            <script>
+                                document.write(new Date().getFullYear())
                             </script> Soft UI Design System by <a href="https://www.creative-tim.com"
                                 target="_blank">Creative Tim</a>.
                         </p> -->
@@ -2006,8 +2086,14 @@ Coded by www.creative-tim.com
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="../assets/js/soft-design-system-pro.min.js?v=1.0.8" type="text/javascript"></script>
-    <script>
+    <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
+        type="text/javascript"></script>
+    <script type="text/javascript">
+        const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
+            searchable: true,
+            fixedHeight: true
+        });
     </script>
 </body>
 
-</html>
+</html
