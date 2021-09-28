@@ -1450,7 +1450,7 @@ Coded by www.creative-tim.com
                                         <x-input id="password" class="form-control w-75" type="password"
                                             name="password" required autocomplete="current-password" />
                                     </div>
-                                    <a href="/forgot-password" target="_blank" style="color: red">Lupa Kata Laluan?</a>
+                                    <a href="/forgot-password" style="color: red">Lupa Kata Laluan?</a>
                                     {{-- <a  href="{{ route('login') }}" class="text-warning text-gradient font-weight-bold">Log Masuk</a> --}}
                                     <div>
                                         <x-button class="btn bg-gradient-warning w-75 mt-3">
