@@ -1467,7 +1467,8 @@ Coded by www.creative-tim.com
               <div class="card-footer text-center pt-0 px-sm-4 px-1">
                 <p class="mb-4 mx-auto">
                  Sudah Daftar?
-                  <a  href="{{ route('login') }}" class="text-warning text-gradient font-weight-bold">Log Masuk</a>
+                  {{-- <a  href="{{ route('login') }}" class="text-warning text-gradient font-weight-bold">Log Masuk</a> --}}
+                  <a  href="/" class="text-warning text-gradient font-weight-bold">Log Masuk</a>
                 </p>
               </div>
             </div>

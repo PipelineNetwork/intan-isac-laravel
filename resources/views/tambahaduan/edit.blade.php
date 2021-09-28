@@ -71,6 +71,9 @@
                             <div class="input-group">
                                 <input type="hidden" name="id" value="{{ $id }}">
                             </div>
+                            <div class="input-group">
+                                <input type="hidden" name="user_id" value="{{ $tambahaduan->user_id }}">
+                            </div>
                         </div>
                     </div>
                     <button class="btn bg-gradient-warning" type="submit">Simpan</button>
