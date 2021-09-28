@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RayuanDicipta;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class TambahRayuanController extends Controller
 {
@@ -18,9 +19,15 @@ class TambahRayuanController extends Controller
     public function index()
     {
         $tambahrayuans = TambahRayuan::all();
-        return view('tambahrayuan.index', [
-            'tambahrayuans' => $tambahrayuans
-        ]);
+        if (Auth::check()) {
+            return view('tambahrayuan.index', [
+                'tambahrayuans' => $tambahrayuans
+            ]);
+        }
+        else{
+            
+            return redirect('/')->with('warning', 'Sila log masuk untuk lihat Rayuan!');
+        }
     }
 
     /**
@@ -103,8 +110,14 @@ class TambahRayuanController extends Controller
         $tambahrayuan->keterangan_rayuan_reply = $request->keterangan_rayuan_reply;
         $tambahrayuan->file_rayuan_reply = $file_rayuan_reply;
         $tambahrayuan->status = "dibalas";
-
+        $tambahrayuan->user_id = $request->user_id;
         $tambahrayuan->save();
+
+        $user = User::where('id', '=', $tambahrayuan->user_id)
+            ->select('email')
+            ->get();
+            
+        Mail::to($user)->send(new RayuanDicipta($tambahrayuan));
         return redirect('/tambahrayuans');
     }
 
