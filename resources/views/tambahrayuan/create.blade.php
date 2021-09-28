@@ -54,13 +54,13 @@
                     <div class="col-6">
                         <label for="">Tajuk :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="text" name="tajuk">
+                            <input class="form-control mb-3" type="text" name="tajuk" required>
                         </div>
                     </div>
                     <div class="col-6">
                         <label for="keterangan_rayuan_send">Keterangan Rayuan :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="text" name="keterangan_rayuan_send">
+                            <input class="form-control mb-3" type="text" name="keterangan_rayuan_send" required>
                         </div>
                     </div>
                 </div>
@@ -68,9 +68,9 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <label for="">File Aduan :</label>
+                        <label for="">File Rayuan :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="file" name="file_rayuan_send">
+                            <input class="form-control mb-3" type="file" name="file_rayuan_send" accept="application/pdf" required>
                         </div>
                     </div>
                 </div>

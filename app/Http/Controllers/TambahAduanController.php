@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\TambahAduan;
 use Illuminate\Http\Request;
+use App\Models\User;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AduanDicipta;
 
 class TambahAduanController extends Controller
 {
@@ -13,7 +17,7 @@ class TambahAduanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         $tambahaduans = TambahAduan::all();
         return view('tambahaduan.index',[
             'tambahaduans'=> $tambahaduans
@@ -53,6 +57,12 @@ class TambahAduanController extends Controller
         $tambahaduan ->keterangan_aduan_send = $request->keterangan_aduan_send;
         $tambahaduan-> status = "baru";
         $tambahaduan->save(); 
+
+        $users = User::where('user_group_id', '=', '1')->get();
+        foreach($users as $user){
+            Mail::to($user->email)->send(new AduanDicipta($tambahaduan));    
+        }
+
         return redirect('/tambahaduans'); 
     }
 
@@ -65,7 +75,7 @@ class TambahAduanController extends Controller
     public function show(TambahAduan $tambahAduan)
     {
         return view('tambahaduan.show', [
-            'tambahaduan'=> $tambahaduan
+            'tambahaduan'=> $tambahAduan
         ]);
     }
 
@@ -95,7 +105,10 @@ class TambahAduanController extends Controller
         $tambahaduan ->keterangan_aduan_reply = $request->keterangan_aduan_reply;
         $tambahaduan ->file_aduan_reply = $file_aduan_reply;
         $tambahaduan-> status = "dibalas";
-        $tambahaduan->save(); 
+        $tambahaduan->save();
+
+        
+
         return redirect('/tambahaduans'); 
 
     }

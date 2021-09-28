@@ -1444,19 +1444,18 @@ Coded by www.creative-tim.com
                   <label>No. Kad Pengenalan</label>
                   <div class="mb-3">
                     <x-input id="nric" class="form-control" type="nric"
-                    name="nric" required />
+                    name="nric" required maxlength="12" size="12"/>
                   </div>
                   <label>Kata Laluan</label>
                   <div class="mb-3">
                     <x-input id="password" class="form-control" type="password" name="password" required
-                    autocomplete="new-password" />
+                    autocomplete="new-password" minlength="8"/>
                   </div>
                   <label>Pengesahan Kata Laluan</label>
                   <div class="mb-3">
                     <x-input id="password_confirmation" class="form-control" type="password"
-                    name="password_confirmation" required />
+                    name="password_confirmation" required minlength="8"/>
                   </div>
-                  
 
                   <div class="text-center">
                     <x-button class="btn bg-gradient-warning w-100 mt-4 mb-0">
