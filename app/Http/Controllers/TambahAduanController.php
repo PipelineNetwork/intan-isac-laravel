@@ -105,7 +105,10 @@ class TambahAduanController extends Controller
         $tambahaduan ->keterangan_aduan_reply = $request->keterangan_aduan_reply;
         $tambahaduan ->file_aduan_reply = $file_aduan_reply;
         $tambahaduan-> status = "dibalas";
-        $tambahaduan->save(); 
+        $tambahaduan->save();
+
+        
+
         return redirect('/tambahaduans'); 
 
     }
