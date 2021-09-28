@@ -41,11 +41,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'ministry_code' => 'string|nullable',
-            'office_number' => 'string|nullable',
-            'fax_number' => 'string|nullable',
-            'telephone_number' => 'string|nullable',
-            'user_group_id'=>'string|nullable',
+            'nric' => 'required|string|max:255',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -56,9 +52,9 @@ class RegisteredUserController extends Controller
             'office_number' => $request->office_number,
             'fax_number' => $request->fax_number,
             'telephone_number' => $request->telephone_number,
-            'user_group_id' => $request->user_group_id,
             'password' => Hash::make($request->password),
             'nric' => $request->nric,
+            'user_group_id' => 5,
         ]);
 
         $GetDataXMLbyIC = new GetDataXMLbyIC();
@@ -143,11 +139,10 @@ class RegisteredUserController extends Controller
                 'user_id' => $user->id,
             ]);
         }
-
         event(new Registered($user));
-
         Auth::login($user);
 
+        dd($user);
         return redirect(RouteServiceProvider::HOME);
     }
 }

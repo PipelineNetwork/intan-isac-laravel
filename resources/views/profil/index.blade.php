@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="col-8">
                                     <input class="form-control form-control-sm ml-3" id="{{$user->name}}" type="text"
-                                        value=" {{$user->name}}" disabled="">
+                                        value=" {{$user->name}}" disabled="" required>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="col-8">
                                     <input class="form-control form-control-sm ml-3" id="{{$user->nric}}" type="text"
-                                        value="{{$user->nric}}" disabled="">
+                                        value="{{$user->nric}}" disabled="" required maxlength="12" size="12">
                                 </div>
                             </div>
                             <div class="row mb-2 divSektor">
@@ -109,8 +109,8 @@
                                     </label><label class="float-right">:</label>
                                 </div>
                                 <div class="col-8">
-                                    <input class="form-control form-control-sm ml-3" id="sektor" type="text"
-                                        value="{{$user->email}}" disabled="">
+                                    <input class="form-control form-control-sm ml-3" id="sektor" type="email"
+                                        value="{{$user->email}}" disabled="" required>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="col-8">
                                     <input class="form-control form-control-sm ml-3" id="{{$user->ministry_code}}"
-                                        type="text" value="{{$user->ministry_code}}" disabled="">
+                                        type="text" value="{{$user->ministry_code}}" disabled="" required>
                                 </div>
                             </div>
 
@@ -155,7 +155,7 @@
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control" name="current_password"
-                                        autocomplete="current-password">
+                                        autocomplete="current-password" minlength="8">
                                 </div>
                             </div>
 
@@ -164,7 +164,7 @@
 
                                 <div class="col-md-6">
                                     <input id="new_password" type="password" class="form-control" name="new_password"
-                                        autocomplete="current-password">
+                                        autocomplete="current-password" minlength="8">
                                 </div>
                             </div>
 
@@ -174,7 +174,7 @@
 
                                 <div class="col-md-6">
                                     <input id="new_confirm_password" type="password" class="form-control"
-                                        name="new_confirm_password" autocomplete="current-password">
+                                        name="new_confirm_password" autocomplete="current-password" minlength="8">
                                 </div>
                             </div>
 
@@ -220,40 +220,40 @@
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->telephone_number}}">
-                                No Tel :
+                                No Tel 
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->telephone_number}}"
-                                type="text" value="{{$user->telephone_number}}" disabled="">
+                                type="text" value="{{$user->telephone_number}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->office_number}}">
-                                No Pejabat :
+                                No Pejabat 
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->office_number}}" type="text"
-                                value="{{$user->office_number}}" disabled="">
+                                value="{{$user->office_number}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->ALAMAT_1}}">
-                                Alamat 1 :
+                                Alamat 1 
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->ALAMAT_1}}" type="text"
-                                value="{{$user->ALAMAT_1}}" disabled="">
+                                value="{{$user->ALAMAT_1}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->ALAMAT_2}}">
-                                Alamat 2:
+                                Alamat 2 
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
@@ -264,107 +264,107 @@
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->POSKOD}}">
-                                Poskod:
+                                Poskod
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->POSKOD}}" type="text"
-                                value="{{$user->POSKOD}}" disabled="">
+                                value="{{$user->POSKOD}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->KOD_NEGERI}}">
-                                Negeri:
+                                Negeri
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->KOD_NEGERI}}" type="text"
-                                value="{{$user->KOD_NEGERI}}" disabled="">
+                                value="{{$user->KOD_NEGERI}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->KOD_NEGARA}}">
-                                Negara:
+                                Negara
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->KOD_NEGARA}}" type="text"
-                                value="{{$user->KOD_NEGARA}}" disabled="">
+                                value="{{$user->KOD_NEGARA}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->KOD_JANTINA}}">
-                                Jantina:
+                                Jantina
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->KOD_JANTINA}}" type="text"
-                                value="{{$user->KOD_JANTINA}}" disabled="">
+                                value="{{$user->KOD_JANTINA}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->KOD_KLASIFIKASI_PERKHIDMATAN}}">
-                                Klasifikasi Perkhidmatan:
+                                Klasifikasi Perkhidmatan
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3"
                                 id="{{$user->KOD_KLASIFIKASI_PERKHIDMATAN}}" type="text"
-                                value="{{$user->KOD_KLASIFIKASI_PERKHIDMATAN}}" disabled="">
+                                value="{{$user->KOD_KLASIFIKASI_PERKHIDMATAN}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->TARIKH_LAHIR}}">
-                                Tarikh Lahir:
+                                Tarikh Lahir
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->TARIKH_LAHIR}}" type="text"
-                                value="{{$user->TARIKH_LAHIR}}" disabled="">
+                                value="{{$user->TARIKH_LAHIR}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->TARIKH_LANTIKAN}}">
-                                Tarikh Lantikan:
+                                Tarikh Lantikan
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->TARIKH_LANTIKAN}}" type="text"
-                                value="{{$user->TARIKH_LANTIKAN}}" disabled="">
+                                value="{{$user->TARIKH_LANTIKAN}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->GELARAN_KETUA_JABATAN}}">
-                                Gelaran Ketua Jabatan:
+                                Gelaran Ketua Jabatan
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->GELARAN_KETUA_JABATAN}}"
-                                type="text" value="{{$user->GELARAN_KETUA_JABATAN}}" disabled="">
+                                type="text" value="{{$user->GELARAN_KETUA_JABATAN}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->KOD_TARAF_PERJAWATAN}}">
-                                Taraf Perjawatan:
+                                Taraf Perjawatan
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->KOD_TARAF_PERJAWATAN}}"
-                                type="text" value="{{$user->KOD_TARAF_PERJAWATAN}}" disabled="">
+                                type="text" value="{{$user->KOD_TARAF_PERJAWATAN}}" disabled="" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->NAMA_PENYELIA}}">
-                                Nama Penyelia:
+                                Nama Penyelia
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
@@ -375,23 +375,23 @@
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->EMEL_PENYELIA}}">
-                                E-mel Penyelia:
+                                E-mel Penyelia
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
-                            <input class="form-control form-control-sm ml-3" id="{{$user->EMEL_PENYELIA}}" type="text"
+                            <input class="form-control form-control-sm ml-3" id="{{$user->EMEL_PENYELIA}}" type="email"
                                 value="{{$user->EMEL_PENYELIA}}" disabled="">
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-3">
                             <label class="form-control-label mr-4" for="{{$user->NO_TELEFON_PENYELIA}}">
-                                No Tel Penyelia:
+                                No Tel Penyelia
                             </label><label class="float-right">:</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm ml-3" id="{{$user->NO_TELEFON_PENYELIA}}"
-                                type="text" value="{{$user->NO_TELEFON_PENYELIA}}" disabled="">
+                                type="text" value="{{$user->NO_TELEFON_PENYELIA}}" disabled="" maxlength="11">
                         </div>
                     </div>
 

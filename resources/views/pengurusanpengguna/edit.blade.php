@@ -41,19 +41,19 @@
         <div class="card-header" style="background-color:#FFA500;">
             <h5 class="text-white">Kemaskini Pengguna</h5>
         </div>
-        </br>
+        <br>
         <div class="card-body pt-0">
             <div class="row">
                 <div class="col-6">
                     <label for="">Nama :</label>
                     <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="name" value="{{$user->name}}">
+                        <input class="form-control mb-3" type="text" name="name" value="{{$user->name}}" required>
                     </div>
                 </div>
                 <div class="col-6">
                     <label for="">Email :</label>
                     <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="email" value="{{$user->email}}">
+                        <input class="form-control mb-3" type="email" name="email" value="{{$user->email}}" required>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                 <div class="col-6">
                     <label for="user_group_id">Peranan :</label>
                     <div class="form-group" >
-                        <select class="form-control mb-3" type="text" name="user_group_id" id="pilih1" >
+                        <select class="form-control mb-3" type="text" name="user_group_id" id="pilih1" required>
                             <<option hidden selected> {{$user->user_group_id}} </option>
                                 <?php
                                 if(Auth::user()->user_group_id == '1'){
@@ -96,7 +96,7 @@
                 <div   id="pilih2" style="display:none" class="col-6">
                     <label for="">Kod Kementerian :</label>
                     <div class="input-group">
-                        <select class="form-control mb-3 hide" name="ministry_code">
+                        <select class="form-control mb-3 hide" name="ministry_code" required>
                             <option hidden selected> Sila Pilih </option>
                             <option value="361">Jabatan Ketua Menteri Sabah</option>
 
@@ -334,8 +334,6 @@
                                 Pulau Pinang
                             </option>
                         </select>
-
-                            value="{{$user->ministry_code}}">
                     </div>
                 </div>
             </div>
@@ -343,14 +341,14 @@
                     <div class="col-6">
                         <label for="">NRIC : </label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="text" name="nric" value="{{$user->nric}}">
+                            <input class="form-control mb-3" type="text" name="nric" value="{{$user->nric}}" required maxlength="12" size="12">
                         </div>
                     </div>
 
                     <div class="col-6">
                         <label for="">Password :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="text" name="password">
+                            <input class="form-control mb-3" type="password" name="password" required minlength="8">
                         </div>
                     </div>
                 </div>
