@@ -1450,7 +1450,9 @@ Coded by www.creative-tim.com
                                         <x-input id="password" class="form-control w-75" type="password"
                                             name="password" required autocomplete="current-password" />
                                     </div>
+                                    
                                     <a href="/forgot-password" style="color: red">Lupa Kata Laluan?</a>
+
                                     {{-- <a  href="{{ route('login') }}" class="text-warning text-gradient font-weight-bold">Log Masuk</a> --}}
                                     <div>
                                         <x-button class="btn bg-gradient-warning w-75 mt-3">
@@ -1547,7 +1549,9 @@ Coded by www.creative-tim.com
                             </svg>
                         </div>
                         <h5 class="mt-3 text-dark">PAKAIAN :</h5>
+
                         <p class="text-dark">Pastikan pakaian semasa menghadiri Penilaian ISAC adalah pakaian pejabat.
+
                         </p>
                     </div>
                 </div>
@@ -1610,7 +1614,9 @@ Coded by www.creative-tim.com
                             </svg>
                         </div>
                         <h5 class="mt-3">PUSAT PENILAIAN ISAC</h5>
+
                         <p class="text-dark">Penilaian ISAC boleh dijalankan di pusat-pusat ISAC seperti berikut :</p>
+
                         <ul class="text-dark">
                             <li>INTAN Kampus Utama (INTAN Bukit Kiara) </li>
                             <li>INTAN Kampus Wilayah Utara (INTURA)</li>
@@ -1745,6 +1751,72 @@ Coded by www.creative-tim.com
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <?php
+                use App\Models\Jadual;
+                $jaduals = Jadual::all();
+                ?>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header" style="background-color:#FFA500;">
+                            <b class="text-white">Senarai Jadual</b>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+
+                                <thead>
+                                    <tr>
+                                        <th>Kod Sesi</th>
+                                        <th>Tahap</th>
+                                        <th>Masa Mula</th>
+                                        <th>Masa Tamat</th>
+                                        <th>Tarikh</th>
+                                        <th>Kategori Peserta</th>
+                                        <th>Jumlah Peserta</th>
+                                        <th>Kementerian/Agensi</th>
+                                        <th>Platform</th>
+                                        <th>Lokasi</th>
+                                        <th>Status</th>
+                                        <th>Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach ($jaduals as $jadual)
+                                        <tr>
+                                            <td class="text-center">{{ $jadual['KOD_SESI_PENILAIAN'] }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual->KOD_TAHAP == '01')
+                                                    Asas
+                                                @else
+                                                    Lanjutan
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $jadual['KOD_MASA_MULA'] }}</td>
+                                            <td class="text-center">{{ $jadual['KOD_MASA_TAMAT'] }}</td>
+                                            <td>{{ $jadual['TARIKH_SESI'] }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual->KOD_KATEGORI_PESERTA == '01')
+                                                    Individu
+                                                @else
+                                                    Kumpulan
+                                                @endif
+                                            </td>
+                                            <!-- <td class="text-center">{{ $jadual['KOD_KATEGORI_PESERTA'] }}</td> -->
+                                            <td class="text-center">{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
+                                            <td class="text-center">{{ $jadual['KOD_KEMENTERIAN'] }}</td>
+                                            <td>{{ $jadual['platform'] }}</td>
+                                            <td>{{ $jadual['LOKASI'] }}</td>
+                                            <td>{{ $jadual['status'] }}</td>
+                                            <td>{{ $jadual['keterangan'] }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <!-- -------- END Features w/ icons and text on left & gradient title and text on right -------- -->
@@ -1777,7 +1849,7 @@ Coded by www.creative-tim.com
                     {{-- <a href="/tambahrayuans">
                         <div class="card card-background move-on-hover">
                             <div class="full-background"
-                                style="background-image: url('{{ asset('assets/img/test.jpg') }}')">
+                                style="background-image: url('assets/img/test.jpg')">
                             </div>
                             <div class="card-body pt-12">
                                 <h4 class="text-white">Aduan</h4>
@@ -1832,8 +1904,7 @@ Coded by www.creative-tim.com
                     <!-- Start Card Blog Fullbackground - text centered -->
                     <a href="/tambahrayuans">
                         <div class="card card-background move-on-hover">
-                            <div class="full-background"
-                                style="background-image: url('{{ asset('assets/img/test.jpg') }}')">
+                            <div class="full-background" style="background-image: url('assets/img/test.jpg');">
                             </div>
                             <div class="card-body pt-12">
                                 <h4 class="text-white">Aduan</h4>
@@ -1858,8 +1929,7 @@ Coded by www.creative-tim.com
         </div>
     </section>
     <!-- -------- START PRE-FOOTER 8 w/ TEXT, BG IMAGE AND 2 BUTTONS ------- -->
-    {{-- <section class="my-10 py-5 bg-gradient-dark position-relative"
-        style="background-image:url(../assets/img/nastuh.jpg)">
+    <!-- <section class="my-10 py-5 bg-gradient-dark position-relative" style = "background-image:url(../assets/img/nastuh.jpg)">
         <span class="mask bg-gradient-dark opacity-8"></span>
         <div class="container position-relative z-index-2">
             <div class="row">
@@ -1880,7 +1950,7 @@ Coded by www.creative-tim.com
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section> -->
     <!-- -------- END PRE-FOOTER 8 w/ TEXT, BG IMAGE AND 2 BUTTONS ------- -->
     <footer class="footer pt-4 mt-3">
         <hr class="horizontal dark mb-5">
@@ -1907,7 +1977,7 @@ Coded by www.creative-tim.com
                                     Kluster Inovasi Teknologi Pengurusan (i-IMATEC),
                                     Seksyen Aplikasi
                                     Jalan Bukit Kiara,
-                                    50480 Kuala Lumpur</br>
+                                    50480 Kuala Lumpur
                                     (u.p. :Puan Nor Hasimah binti Che Mat)
                                 </a>
                             </li>
@@ -2020,7 +2090,13 @@ Coded by www.creative-tim.com
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="../assets/js/soft-design-system-pro.min.js?v=1.0.8" type="text/javascript"></script>
-    <script>
+    <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
+        type="text/javascript"></script>
+    <script type="text/javascript">
+        const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
+            searchable: true,
+            fixedHeight: true
+        });
     </script>
 </body>
 

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Jadual;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\JadualKemaskini;
+use Illuminate\Support\Facades\Validator;
 
 class JadualController extends Controller
 {
@@ -14,8 +17,13 @@ class JadualController extends Controller
     public function index()
     {
         $jaduals = Jadual::all();
+        //dd($jaduals);
+        // foreach ($jaduals as $j) {
+        //     echo $j->ID_SESI;
+        //     echo ("<br>");
+        // }
         return view('jadual.index',[
-            'jaduals'=> $jaduals
+           'jaduals'=> $jaduals
         ]);
     }
 
@@ -48,8 +56,31 @@ class JadualController extends Controller
         $jadual ->KOD_KATEGORI_PESERTA= $request->KOD_KATEGORI_PESERTA;
         $jadual ->KOD_KEMENTERIAN= $request->KOD_KEMENTERIAN;
         $jadual ->LOKASI= $request->LOKASI;
-        $jadual ->status= $request->status;
+
+        $rules = [
+            'KOD_SESI_PENILAIAN' => 'required',
+            'KOD_TAHAP' => 'required',
+            'KOD_MASA_MULA' => 'required',
+            'KOD_MASA_TAMAT' => 'required',
+            'TARIKH_SESI' => 'required',
+            'JUMLAH_KESELURUHAN' => 'required',
+            'KOD_KATEGORI_PESERTA' => 'required',
+            'platform' => 'required',
+        ];
+        $messages = [
+            'KOD_SESI_PENILAIAN.required' => 'Sila pilih kod sesi',
+            'KOD_TAHAP.required' => 'Sila pilih kod tahap',
+            'KOD_MASA_MULA.required' => 'Sila isi masa mula',
+            'KOD_MASA_TAMAT.required' => 'Sila isi masa tamat',
+            'TARIKH_SESI.required' => 'Sila pilih tarikh sesi',
+            'JUMLAH_KESELURUHAN.required' => 'Sila isi jumlah calon',
+            'KOD_KATEGORI_PESERTA.required' => 'Sila pilih kumpulan',
+            'platform.required' => 'Sila pilih plaform',
+        ];
+        Validator::make($request->input(), $rules, $messages)->validate();
+
         $jadual->save(); 
+
         return redirect('/jaduals');
     }
 
@@ -98,7 +129,36 @@ class JadualController extends Controller
         $jadual ->KOD_KEMENTERIAN= $request->KOD_KEMENTERIAN;
         $jadual ->LOKASI= $request->LOKASI;
         $jadual ->status= $request->status;
+        $jadual ->keterangan= $request->keterangan;
+
+        $rules = [
+            'KOD_SESI_PENILAIAN' => 'required',
+            'KOD_TAHAP' => 'required',
+            'KOD_MASA_MULA' => 'required',
+            'KOD_MASA_TAMAT' => 'required',
+            'TARIKH_SESI' => 'required',
+            'JUMLAH_KESELURUHAN' => 'required',
+            'KOD_KATEGORI_PESERTA' => 'required',
+            'platform' => 'required',
+            'status' => 'required',
+            'keterangan' => 'required',
+        ];
+        $messages = [
+            'KOD_SESI_PENILAIAN.required' => 'Sila pilih kod sesi',
+            'KOD_TAHAP.required' => 'Sila pilih kod tahap',
+            'KOD_MASA_MULA.required' => 'Sila isi masa mula',
+            'KOD_MASA_TAMAT.required' => 'Sila isi masa tamat',
+            'TARIKH_SESI.required' => 'Sila pilih tarikh sesi',
+            'JUMLAH_KESELURUHAN.required' => 'Sila isi jumlah calon',
+            'KOD_KATEGORI_PESERTA.required' => 'Sila pilih kumpulan',
+            'platform.required' => 'Sila pilih plaform',
+            'status.required' => 'Sila pilih status',
+            'keterangan.required' => 'Sila isi keterangan',
+        ];
+        Validator::make($request->input(), $rules, $messages)->validate();
         $jadual->save(); 
+        $recipient = ["najhan.mnajib@gmail.com"];
+        Mail::to($recipient)->send(new JadualKemaskini());
         return redirect('/jaduals');
     }
 
@@ -112,6 +172,21 @@ class JadualController extends Controller
     {
         $jadual = Jadual::find($jadual);
         $jadual->delete();
+        return redirect('/jaduals');
+    }
+
+    // kemaskini status
+    public function kemaskini_status($jadual, Request $request){
+        // dd($jadual);
+        $jadual = Jadual::where("ID_SESI",$jadual)->first();
+        // dd($jadual);
+        $jadual->status = $request->status;
+        $jadual->keterangan = $request->keterangan;
+        $jadual->save();
+
+        $recipient = ["najhan.mnajib@gmail.com"];
+        Mail::to($recipient)->send(new JadualKemaskini());
+
         return redirect('/jaduals');
     }
 }

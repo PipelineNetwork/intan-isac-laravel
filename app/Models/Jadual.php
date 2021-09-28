@@ -10,4 +10,6 @@ class Jadual extends Model
     use HasFactory;
 
     protected $table = 'pro_sesi';
+
+    protected $primaryKey = 'ID_SESI';
 }
