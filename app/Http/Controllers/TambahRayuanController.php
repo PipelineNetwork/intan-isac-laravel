@@ -6,6 +6,7 @@ use App\Models\TambahRayuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RayuanDicipta;
+use App\Mail\RayuanDibalas;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,7 +66,7 @@ class TambahRayuanController extends Controller
 
         $users = User::where('user_group_id', '=', '1')->get();
         foreach ($users as $user) {
-            Mail::to($user->email)->send(new RayuanDicipta($tambahrayuan));
+            Mail::to($user->email)->send(new RayuanDibalas($tambahrayuan));
         }
 
         return redirect('/tambahrayuans');

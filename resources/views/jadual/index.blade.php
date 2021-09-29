@@ -86,7 +86,7 @@
                             </td>
                             <td class="text-center">{{ $jadual['KOD_MASA_MULA'] }}</td>
                             <td class="text-center">{{ $jadual['KOD_MASA_TAMAT'] }}</td>
-                            <td>{{ $jadual['TARIKH_SESI'] }}</td>
+                            <td>{{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}</td>
                             <td class="text-center">
                                 @if($jadual->KOD_KATEGORI_PESERTA=='01')
                                 Individu

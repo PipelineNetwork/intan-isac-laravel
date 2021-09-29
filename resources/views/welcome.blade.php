@@ -535,7 +535,7 @@ Coded by www.creative-tim.com
                                         </div>
                                     </div>
                                 </li>
-                                
+
                                 <li class="nav-item dropdown dropdown-hover mx-2">
                                     <a role="button"
                                         class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
@@ -852,12 +852,18 @@ Coded by www.creative-tim.com
                                         </div>
                                     </div>
                                 </li>
-                                
+
                                 <li class="nav-item mx-2">
-                                    <a role="button"
-                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                                        id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Jadual
+                                    <a role="button" href="/tambahrayuans"
+                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
+                                        Rayuan
+                                    </a>
+                                </li>
+
+                                <li class="nav-item mx-2">
+                                    <a role="button" href="/tambahaduans"
+                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
+                                        Aduan
                                     </a>
                                 </li>
                             </ul>
@@ -903,7 +909,7 @@ Coded by www.creative-tim.com
                                     <label>Kata Laluan</label>
                                     <div>
                                         <x-input id="password" class="form-control w-75" type="password"
-                                            name="password" required autocomplete="current-password" />
+                                            name="password" required autocomplete="current-password" minlength="8" />
                                     </div>
 
                                     <a href="/forgot-password" target="_blank" style="color: red">Lupa Kata Laluan?</a>
@@ -1005,7 +1011,8 @@ Coded by www.creative-tim.com
                         </div>
                         <h5 class="mt-3 text-dark">PAKAIAN :</h5>
 
-                        <p class="text-dark">Pastikan pakaian semasa menghadiri Penilaian ISAC adalah pakaian pejabat.
+                        <p class="text-dark">Pastikan pakaian semasa menghadiri Penilaian ISAC adalah pakaian
+                            pejabat.
 
                         </p>
                     </div>
@@ -1070,7 +1077,8 @@ Coded by www.creative-tim.com
                         </div>
                         <h5 class="mt-3">PUSAT PENILAIAN ISAC</h5>
 
-                        <p class="text-dark">Penilaian ISAC boleh dijalankan di pusat-pusat ISAC seperti berikut :</p>
+                        <p class="text-dark">Penilaian ISAC boleh dijalankan di pusat-pusat ISAC seperti berikut :
+                        </p>
 
                         <ul class="text-dark">
                             <li>INTAN Kampus Utama (INTAN Bukit Kiara) </li>
@@ -1206,64 +1214,52 @@ Coded by www.creative-tim.com
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row pt-5">
                 <?php
                 use App\Models\Jadual;
-                $jaduals = Jadual::all();
+                $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
+                    ->orderBy('TARIKH_SESI', 'desc')
+                    ->get();
                 ?>
                 <div class="col">
                     <div class="card">
-                        <div class="card-header" style="background-color:#FFA500;">
+                        {{-- <div class="card-header" style="background-color:#FFA500;">
                             <b class="text-white">Senarai Jadual</b>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+                        </div> --}}
+                        <div class="table-responsive" style="background-color:  #FAFAD2; border-radius: 10px">
+                            <table class="table align-items-center mb-0 table-flush" id="datatable-penjadualan">
 
                                 <thead>
                                     <tr>
-                                        <th>Kod Sesi</th>
-                                        <th>Tahap</th>
-                                        <th>Masa Mula</th>
-                                        <th>Masa Tamat</th>
-                                        <th>Tarikh</th>
-                                        <th>Kategori Peserta</th>
-                                        <th>Jumlah Peserta</th>
-                                        <th>Kementerian/Agensi</th>
-                                        <th>Platform</th>
-                                        <th>Lokasi</th>
-                                        <th>Status</th>
-                                        <th>Keterangan</th>
+                                        <th class="text-center">No.</th>
+                                        <th class="text-center">Tarikh Penilaian</th>
+                                        <th class="text-center">Sesi Penilaian</th>
+                                        <th class="text-center">Saluran Penilaian</th>
+                                        <th class="text-center">Status Permohonan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     @foreach ($jaduals as $jadual)
                                         <tr>
-                                            <td class="text-center">{{ $jadual['KOD_SESI_PENILAIAN'] }}</td>
+                                            <td class="text-center">{{ $loop->index + 1 }}</td>
                                             <td class="text-center">
-                                                @if ($jadual->KOD_TAHAP == '01')
-                                                    Asas
+                                                {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual['KOD_MASA_MULA'] >= '08:00' && $jadual['KOD_MASA_MULA'] < '11:59')
+                                                    {{ date('h:i', strtotime($jadual['KOD_MASA_MULA'])) }} AM
                                                 @else
-                                                    Lanjutan
+                                                    {{ date('h:i', strtotime($jadual['KOD_MASA_MULA'])) }} PM
+                                                @endif
+                                                -
+                                                @if ($jadual['KOD_MASA_TAMAT'] >= '08:00' && $jadual['KOD_MASA_TAMAT'] < '11:59')
+                                                    {{ date('h:i', strtotime($jadual['KOD_MASA_TAMAT'])) }} AM
+                                                @else
+                                                    {{ date('h:i', strtotime($jadual['KOD_MASA_TAMAT'])) }} PM
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ $jadual['KOD_MASA_MULA'] }}</td>
-                                            <td class="text-center">{{ $jadual['KOD_MASA_TAMAT'] }}</td>
-                                            <td>{{ $jadual['TARIKH_SESI'] }}</td>
-                                            <td class="text-center">
-                                                @if ($jadual->KOD_KATEGORI_PESERTA == '01')
-                                                    Individu
-                                                @else
-                                                    Kumpulan
-                                                @endif
-                                            </td>
-                                            <!-- <td class="text-center">{{ $jadual['KOD_KATEGORI_PESERTA'] }}</td> -->
-                                            <td class="text-center">{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
-                                            <td class="text-center">{{ $jadual['KOD_KEMENTERIAN'] }}</td>
-                                            <td>{{ $jadual['platform'] }}</td>
-                                            <td>{{ $jadual['LOKASI'] }}</td>
-                                            <td>{{ $jadual['status'] }}</td>
-                                            <td>{{ $jadual['keterangan'] }}</td>
+                                            <td class="text-center">{{ $jadual['platform'] }}</td>
+                                            <td class="text-center">{{ $jadual['status'] }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -1425,8 +1421,7 @@ Coded by www.creative-tim.com
                             Alamat Surat Menyurat :</h6>
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/presentation"
-                                    target="_blank">
+                                <a class="nav-link">
                                     Pengarah
                                     Institut Tadbiran Awam Negara (INTAN),
                                     Kluster Inovasi Teknologi Pengurusan (i-IMATEC),
@@ -1444,18 +1439,17 @@ Coded by www.creative-tim.com
                         <h6 class="text-gradient text-warning text-sm">En. Mohd Yuzwan bin Yunan</h6>
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="https://iradesign.io/" target="_blank">
+                                <a class="nav-link">
                                     Penolong Pegawai Teknologi Maklumat,
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/bits" target="_blank">
+                                <a class="nav-link">
                                     Gred FA29,
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/affiliates/new"
-                                    target="_blank">
+                                <a class="nav-link">
                                     03-20847798.
 
                                 </a>
@@ -1468,48 +1462,23 @@ Coded by www.creative-tim.com
                         <h6 class="text-gradient text-warning text-sm">En. Mohd Faisal Bin Mustafah</h6>
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/contact-us"
-                                    target="_blank">
+                                <a class="nav-link">
                                     Penolong Pegawai Teknologi Maklumat,
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/knowledge-center"
-                                    target="_blank">
+                                <a class="nav-link">
                                     Gred FA29,
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"
-                                    href="https://services.creative-tim.com/?ref=ct-soft-ui-footer" target="_blank">
+                                <a class="nav-link">
                                     03-20847703.
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <!-- <div class="col-md-2 col-sm-6 col-6 mb-4 me-auto">
-                    <div>
-                        <h6 class="text-gradient text-primary text-sm">Legal</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/terms" target="_blank">
-                                    Terms & Conditions
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/privacy" target="_blank">
-                                    Privacy Policy
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/license" target="_blank">
-                                    Licenses (EULA)
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
                 <div class="col-12">
                     <div class="text-center">
                         <!-- <p class="my-4 text-sm">
@@ -1548,12 +1517,11 @@ Coded by www.creative-tim.com
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
-    <script>
     <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
         type="text/javascript"></script>
     <script type="text/javascript">
-        const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
-            searchable: true,
+        const dataTableBasicPenjadualan = new simpleDatatables.DataTable("#datatable-penjadualan", {
+            searchable: false,
             fixedHeight: true
         });
     </script>
