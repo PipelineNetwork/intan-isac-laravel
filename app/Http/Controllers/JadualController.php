@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Jadual;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -16,14 +17,15 @@ class JadualController extends Controller
      */
     public function index()
     {
-        $jaduals = Jadual::all();
+        $jaduals = Jadual::orderBy('TARIKH_SESI', 'desc')
+            ->get();
         //dd($jaduals);
         // foreach ($jaduals as $j) {
         //     echo $j->ID_SESI;
         //     echo ("<br>");
         // }
-        return view('jadual.index',[
-           'jaduals'=> $jaduals
+        return view('jadual.index', [
+            'jaduals' => $jaduals
         ]);
     }
 
@@ -46,16 +48,16 @@ class JadualController extends Controller
     public function store(Request $request)
     {
         $jadual = new Jadual;
-        $jadual ->KOD_SESI_PENILAIAN= $request->KOD_SESI_PENILAIAN;
-        $jadual ->KOD_TAHAP= $request->KOD_TAHAP;
-        $jadual ->KOD_MASA_MULA= $request->KOD_MASA_MULA;
-        $jadual ->KOD_MASA_TAMAT= $request->KOD_MASA_TAMAT;
-        $jadual ->TARIKH_SESI= $request->TARIKH_SESI;
-        $jadual ->JUMLAH_KESELURUHAN= $request->JUMLAH_KESELURUHAN;
-        $jadual ->platform= $request->platform;
-        $jadual ->KOD_KATEGORI_PESERTA= $request->KOD_KATEGORI_PESERTA;
-        $jadual ->KOD_KEMENTERIAN= $request->KOD_KEMENTERIAN;
-        $jadual ->LOKASI= $request->LOKASI;
+        $jadual->KOD_SESI_PENILAIAN = $request->KOD_SESI_PENILAIAN;
+        $jadual->KOD_TAHAP = $request->KOD_TAHAP;
+        $jadual->KOD_MASA_MULA = $request->KOD_MASA_MULA;
+        $jadual->KOD_MASA_TAMAT = $request->KOD_MASA_TAMAT;
+        $jadual->TARIKH_SESI = $request->TARIKH_SESI;
+        $jadual->JUMLAH_KESELURUHAN = $request->JUMLAH_KESELURUHAN;
+        $jadual->platform = $request->platform;
+        $jadual->KOD_KATEGORI_PESERTA = $request->KOD_KATEGORI_PESERTA;
+        $jadual->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
+        $jadual->LOKASI = $request->LOKASI;
 
         $rules = [
             'KOD_SESI_PENILAIAN' => 'required',
@@ -79,7 +81,7 @@ class JadualController extends Controller
         ];
         Validator::make($request->input(), $rules, $messages)->validate();
 
-        $jadual->save(); 
+        $jadual->save();
 
         return redirect('/jaduals');
     }
@@ -93,7 +95,7 @@ class JadualController extends Controller
     public function show(Jadual $jadual)
     {
         return view('jadual.show', [
-            'jadual'=> $jadual
+            'jadual' => $jadual
         ]);
     }
 
@@ -118,18 +120,18 @@ class JadualController extends Controller
      */
     public function update(Request $request, Jadual $jadual)
     {
-        $jadual ->KOD_SESI_PENILAIAN= $request->KOD_SESI_PENILAIAN;
-        $jadual ->KOD_TAHAP= $request->KOD_TAHAP;
-        $jadual ->KOD_MASA_MULA= $request->KOD_MASA_MULA;
-        $jadual ->KOD_MASA_TAMAT= $request->KOD_MASA_TAMAT;
-        $jadual ->TARIKH_SESI= $request->TARIKH_SESI;
-        $jadual ->JUMLAH_KESELURUHAN= $request->JUMLAH_KESELURUHAN;
-        $jadual ->platform= $request->platform;
-        $jadual ->KOD_KATEGORI_PESERTA= $request->KOD_KATEGORI_PESERTA;
-        $jadual ->KOD_KEMENTERIAN= $request->KOD_KEMENTERIAN;
-        $jadual ->LOKASI= $request->LOKASI;
-        $jadual ->status= $request->status;
-        $jadual ->keterangan= $request->keterangan;
+        $jadual->KOD_SESI_PENILAIAN = $request->KOD_SESI_PENILAIAN;
+        $jadual->KOD_TAHAP = $request->KOD_TAHAP;
+        $jadual->KOD_MASA_MULA = $request->KOD_MASA_MULA;
+        $jadual->KOD_MASA_TAMAT = $request->KOD_MASA_TAMAT;
+        $jadual->TARIKH_SESI = $request->TARIKH_SESI;
+        $jadual->JUMLAH_KESELURUHAN = $request->JUMLAH_KESELURUHAN;
+        $jadual->platform = $request->platform;
+        $jadual->KOD_KATEGORI_PESERTA = $request->KOD_KATEGORI_PESERTA;
+        $jadual->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
+        $jadual->LOKASI = $request->LOKASI;
+        $jadual->status = $request->status;
+        $jadual->keterangan = $request->keterangan;
 
         $rules = [
             'KOD_SESI_PENILAIAN' => 'required',
@@ -156,7 +158,7 @@ class JadualController extends Controller
             'keterangan.required' => 'Sila isi keterangan',
         ];
         Validator::make($request->input(), $rules, $messages)->validate();
-        $jadual->save(); 
+        $jadual->save();
         $recipient = ["najhan.mnajib@gmail.com"];
         Mail::to($recipient)->send(new JadualKemaskini());
         return redirect('/jaduals');
@@ -176,9 +178,10 @@ class JadualController extends Controller
     }
 
     // kemaskini status
-    public function kemaskini_status($jadual, Request $request){
+    public function kemaskini_status($jadual, Request $request)
+    {
         // dd($jadual);
-        $jadual = Jadual::where("ID_SESI",$jadual)->first();
+        $jadual = Jadual::where("ID_SESI", $jadual)->first();
         // dd($jadual);
         $jadual->status = $request->status;
         $jadual->keterangan = $request->keterangan;

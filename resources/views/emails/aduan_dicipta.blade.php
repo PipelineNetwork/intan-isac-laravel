@@ -1,1 +1,2 @@
-Email telah dihantar...{{$aduan->id}} {{$aduan}}
+Aduan baru telah dihantar
+{{-- {{$aduan->id}} {{$aduan}} --}}

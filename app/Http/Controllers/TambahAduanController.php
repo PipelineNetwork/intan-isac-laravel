@@ -8,6 +8,7 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AduanDicipta;
+use App\Mail\AduanDibalas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -121,8 +122,8 @@ class TambahAduanController extends Controller
         $user = User::where('id', '=', $tambahaduan->user_id)
             ->select('email')
             ->get();
-            
-        Mail::to($user)->send(new AduanDicipta($tambahaduan));
+
+        Mail::to($user)->send(new AduanDibalas($tambahaduan));
 
         return redirect('/tambahaduans');
     }

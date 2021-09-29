@@ -1,1 +1,0 @@
-Email telah dihantar...{{$rayuan->id}} {{$rayuan}}
