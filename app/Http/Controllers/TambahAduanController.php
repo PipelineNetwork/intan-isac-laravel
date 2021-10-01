@@ -21,7 +21,7 @@ class TambahAduanController extends Controller
      */
     public function index()
     {
-        $tambahaduans = TambahAduan::all();
+        $tambahaduans = TambahAduan::orderBy('created_at', 'desc')->get();
         if (Auth::check()) {
             return view('tambahaduan.index', [
                 'tambahaduans' => $tambahaduans
@@ -59,9 +59,14 @@ class TambahAduanController extends Controller
 
         $current_user = $request->user();
 
-        $file_aduan_send = $request->file('file_aduan_send')->store('dokumen');
+        if (!empty($request->file('file_aduan_send'))){
+            $file_aduan_send = $request->file('file_aduan_send')->store('dokumen');
+        }
+
         $tambahaduan = new TambahAduan;
-        $tambahaduan->file_aduan_send = $file_aduan_send;
+        if (!empty($request->file('file_aduan_send'))){
+            $tambahaduan->file_aduan_send = $file_aduan_send;
+        }
         $tambahaduan->id = $request->id;
         $tambahaduan->tajuk = $request->tajuk;
         $tambahaduan->keterangan_aduan_send = $request->keterangan_aduan_send;
@@ -112,9 +117,13 @@ class TambahAduanController extends Controller
     public function update(Request $request, TambahAduan $tambahaduan)
     {
         $tambahaduan = TambahAduan::where('id', $request->id)->first();
-        $file_aduan_reply = $request->file('file_aduan_reply')->store('dokumen');
+        if (!empty($request->file('file_aduan_reply'))){
+            $file_aduan_reply = $request->file('file_aduan_reply')->store('dokumen');
+        }
         $tambahaduan->keterangan_aduan_reply = $request->keterangan_aduan_reply;
-        $tambahaduan->file_aduan_reply = $file_aduan_reply;
+        if (!empty($request->file('file_aduan_reply'))){
+            $tambahaduan->file_aduan_reply = $file_aduan_reply;
+        }
         $tambahaduan->status = "dibalas";
         $tambahaduan->user_id = $request->user_id;
         $tambahaduan->save();

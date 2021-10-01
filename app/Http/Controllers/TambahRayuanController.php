@@ -55,12 +55,15 @@ class TambahRayuanController extends Controller
         ]);
         $file_rayuan_send = $request->file('file_rayuan_send')->store('dokumen');
 
+        $current_user = $request->user();
+
         $tambahrayuan = new TambahRayuan;
         $tambahrayuan->id = $request->id;
         $tambahrayuan->tajuk = $request->tajuk;
         $tambahrayuan->keterangan_rayuan_send = $request->keterangan_rayuan_send;
         $tambahrayuan->file_rayuan_send = $file_rayuan_send;
         $tambahrayuan->status = "baru";
+        $tambahrayuan->user_id = $current_user->id;
 
         $tambahrayuan->save();
 
@@ -111,14 +114,13 @@ class TambahRayuanController extends Controller
         $tambahrayuan->keterangan_rayuan_reply = $request->keterangan_rayuan_reply;
         $tambahrayuan->file_rayuan_reply = $file_rayuan_reply;
         $tambahrayuan->status = "dibalas";
-        $tambahrayuan->user_id = $request->user_id;
         $tambahrayuan->save();
 
         $user = User::where('id', '=', $tambahrayuan->user_id)
             ->select('email')
             ->get();
             
-        Mail::to($user)->send(new RayuanDicipta($tambahrayuan));
+        Mail::to($user)->send(new RayuanDibalas($tambahrayuan));
         return redirect('/tambahrayuans');
     }
 
