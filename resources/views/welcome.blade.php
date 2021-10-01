@@ -866,6 +866,12 @@ Coded by www.creative-tim.com
                                         Aduan
                                     </a>
                                 </li>
+                                <li class="nav-item mx-2">
+                                    <a role="button" href="#one"
+                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
+                                        Jadual
+                                    </a>
+                                </li>
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
                                 <li class="nav-item">
@@ -1214,18 +1220,20 @@ Coded by www.creative-tim.com
                     </div>
                 </div>
             </div>
-            <div class="row pt-5">
+            
+            <div class="row pt-5" id="one">
                 <?php
-                use App\Models\Jadual;
-                $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
-                    ->orderBy('TARIKH_SESI', 'desc')
-                    ->get();
+                    use App\Models\Jadual;
+                    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
+                        ->orderBy('TARIKH_SESI', 'desc')
+                        ->whereYear('TARIKH_SESI', '>=', 2021)
+                        ->get();
                 ?>
                 <div class="col">
                     <div class="card">
-                        {{-- <div class="card-header" style="background-color:#FFA500;">
+                        <div class="card-header" style="background-color:#FFA500;">
                             <b class="text-white">Senarai Jadual</b>
-                        </div> --}}
+                        </div>
                         <div class="table-responsive" style="background-color:  #FAFAD2; border-radius: 10px">
                             <table class="table align-items-center mb-0 table-flush" id="datatable-penjadualan">
 
@@ -1233,7 +1241,7 @@ Coded by www.creative-tim.com
                                     <tr>
                                         <th class="text-center">No.</th>
                                         <th class="text-center">Tarikh Penilaian</th>
-                                        <th class="text-center">Sesi Penilaian</th>
+                                        <!-- <th class="text-center">Sesi Penilaian</th> -->
                                         <th class="text-center">Saluran Penilaian</th>
                                         <th class="text-center">Status Permohonan</th>
                                     </tr>
@@ -1245,7 +1253,7 @@ Coded by www.creative-tim.com
                                             <td class="text-center">{{ $loop->index + 1 }}</td>
                                             <td class="text-center">
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}</td>
-                                            <td class="text-center">
+                                            <!-- <td class="text-center">
                                                 @if ($jadual['KOD_MASA_MULA'] >= '08:00' && $jadual['KOD_MASA_MULA'] < '11:59')
                                                     {{ date('h:i', strtotime($jadual['KOD_MASA_MULA'])) }} AM
                                                 @else
@@ -1257,7 +1265,7 @@ Coded by www.creative-tim.com
                                                 @else
                                                     {{ date('h:i', strtotime($jadual['KOD_MASA_TAMAT'])) }} PM
                                                 @endif
-                                            </td>
+                                            </td> -->
                                             <td class="text-center">{{ $jadual['platform'] }}</td>
                                             <td class="text-center">{{ $jadual['status'] }}</td>
                                         </tr>
@@ -1525,6 +1533,21 @@ Coded by www.creative-tim.com
             fixedHeight: true
         });
     </script>
+
+    <script>
+
+    $("a[href^='#']").click(function(e) {
+        e.preventDefault();
+        
+        var position = $($(this).attr("href")).offset().top;
+    
+        $("body, html").animate({
+            scrollTop: position
+        } /* speed */ );
+    });
+    
+    </script>
 </body>
 
 </html>
+
