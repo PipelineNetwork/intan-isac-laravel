@@ -853,6 +853,12 @@
                                         Aduan
                                     </a>
                                 </li>
+                                <li class="nav-item mx-2">
+                                    <a role="button" href="#one"
+                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
+                                        Jadual
+                                    </a>
+                                </li>
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
                                 <li class="nav-item">
@@ -1129,12 +1135,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row pt-5">
+            
+            <div class="row pt-5" id="one">
                 <?php
-                use App\Models\Jadual;
-                $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
-                    ->orderBy('TARIKH_SESI', 'desc')
-                    ->get();
+                    use App\Models\Jadual;
+                    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
+                        ->orderBy('TARIKH_SESI', 'desc')
+                        ->whereYear('TARIKH_SESI', '>=', 2021)
+                        ->get();
                 ?>
                 <div class="col">
                     <div class="card">
@@ -1145,7 +1153,7 @@
                                     <tr>
                                         <th class="text-center">No.</th>
                                         <th class="text-center">Tarikh Penilaian</th>
-                                        <th class="text-center">Sesi Penilaian</th>
+                                        <!-- <th class="text-center">Sesi Penilaian</th> -->
                                         <th class="text-center">Saluran Penilaian</th>
                                         <th class="text-center">Status Permohonan</th>
                                     </tr>
@@ -1157,7 +1165,7 @@
                                             <td class="text-center">{{ $loop->index + 1 }}</td>
                                             <td class="text-center">
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}</td>
-                                            <td class="text-center">
+                                            <!-- <td class="text-center">
                                                 @if ($jadual['KOD_MASA_MULA'] >= '08:00' && $jadual['KOD_MASA_MULA'] < '11:59')
                                                     {{ date('h:i', strtotime($jadual['KOD_MASA_MULA'])) }} AM
                                                 @else
@@ -1169,7 +1177,7 @@
                                                 @else
                                                     {{ date('h:i', strtotime($jadual['KOD_MASA_TAMAT'])) }} PM
                                                 @endif
-                                            </td>
+                                            </td> -->
                                             <td class="text-center">{{ $jadual['platform'] }}</td>
                                             <td class="text-center">{{ $jadual['status'] }}</td>
                                         </tr>
@@ -1355,15 +1363,18 @@
         });
     </script>
     <script>
-        function myFunction() {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        };
+
+    $("a[href^='#']").click(function(e) {
+        e.preventDefault();
+        
+        var position = $($(this).attr("href")).offset().top;
+    
+        $("body, html").animate({
+            scrollTop: position
+        } /* speed */ );
+    });
     </script>
 </body>
 
 </html>
+
