@@ -50,19 +50,19 @@
             <div class="card-header" style="background-color:#FFA500;">
                 <h5 class="text-white">Tambah Aduan</h5>
             </div>
-            </br>
+            <br>
             <div class="card-body pt-0">
                 <div class="row">
                     <div class="col-6">
                         <label for="">Tajuk :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="text" name="tajuk">
+                            <input class="form-control mb-3" type="text" name="tajuk" required>
                         </div>
                     </div>
                     <div class="col-6">
                         <label for="">Keterangan Aduan :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="text" name="keterangan_aduan_send">
+                            <input class="form-control mb-3" type="text" name="keterangan_aduan_send" required>
                         </div>
                     </div>
                 </div>

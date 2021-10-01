@@ -1,16 +1,3 @@
-<!--
-=========================================================
-* Soft UI Design System PRO - v1.0.8
-=========================================================
-
-* Product Page:  https://www.creative-tim.com/product/soft-ui-design-system-pro 
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -886,7 +873,7 @@ Coded by www.creative-tim.com
             </div>
         </div>
     </div>
-    <!-- -------- START HEADER 1 w/ text and image on right ------- -->
+    
     <header>
         <div class="page-header min-vh-75">
             <div class="oblique position-absolute top-0 h-100 d-md-block d-none">
@@ -916,19 +903,17 @@ Coded by www.creative-tim.com
                                     <div>
                                         <x-input id="password" class="form-control w-75" type="password"
                                             name="password" required autocomplete="current-password" minlength="8" />
+                                        <x-input type="checkbox" onclick="myFunction()">Show Password
                                     </div>
 
                                     <a href="/forgot-password" target="_blank" style="color: red">Lupa Kata Laluan?</a>
 
-                                    {{-- <a  href="{{ route('login') }}" class="text-warning text-gradient font-weight-bold">Log Masuk</a> --}}
                                     <div>
                                         <x-button class="btn bg-gradient-warning w-75 mt-3">
                                             {{ __('Log Masuk') }}
                                         </x-button>
                                     </div>
                                 </form>
-                                {{-- <a href="/register" class="btn bg-gradient-warning mt-4" target="_self">Daftar</a>
-                            <a href="/login" class="btn text-warning shadow-none mt-4">Log Masuk</a> --}}
                             </div>
                         </div>
                     </div>
@@ -938,7 +923,6 @@ Coded by www.creative-tim.com
     <!-- -------- END HEADER 1 w/ text and image on right ------- -->
     <!-- -------- START Features w/ 4 cols w/ colored icon & title & text -------- -->
 
-    {{-- <div class="mdg-angledDivider bg-white"><hr class="bg-gradient-warning"></div> --}}
     <section class="py-md-7 bg-gradient-warning">
 
 
@@ -1102,67 +1086,7 @@ Coded by www.creative-tim.com
             </div>
         </div>
     </section>
-    <!-- -------- END Features w/ 4 cols w/ colored icon & title & text -------- -->
-    <!-- START Testimonials w/ user image & text & info -->
-    {{-- <section class="py-4 position-relative overflow-hidden">
-        <img src="../assets/img/shapes/waves-white.svg" alt="pattern-lines" class="position-absolute top-0 opacity-6">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-10 mx-auto bg-gradient-dark border-radius-lg">
-                    <div class="row py-5">
-                        <div class="col-xl-4 col-md-6 px-5 position-relative">
-                            <img class="img border-radius-md max-width-300 w-100 position-relative z-index-2"
-                                src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg" width="300"
-                                height="300" alt="card image">
-                        </div>
-                        <div class="col-xl-4 col-md-5 z-index-2 position-relative px-md-3 px-5 my-md-auto mt-4">
-                            <div>
-                                <svg class="text-primary" width="35px" height="35px" viewBox="0 0 270 270" version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <title>quote-down</title>
-                                    <g id="quote-down" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <path
-                                            d="M107.000381,49.033238 C111.792099,48.01429 115.761022,48.6892564 116.625294,50.9407629 C117.72393,53.8028077 113.174473,58.3219079 107.017635,60.982801 C107.011653,60.9853863 107.00567,60.9879683 106.999688,60.990547 C106.939902,61.0219589 106.879913,61.0439426 106.820031,61.0659514 C106.355389,61.2618887 105.888177,61.4371549 105.421944,61.5929594 C88.3985192,68.1467602 80.3242628,76.9161885 70.3525495,90.6906738 C60.0774843,104.884196 54.9399518,119.643717 54.9399518,134.969238 C54.9399518,138.278158 55.4624127,140.716309 56.5073346,142.283691 C57.2039492,143.328613 57.9876406,143.851074 58.8584088,143.851074 C59.7291771,143.851074 61.0353294,143.241536 62.7768659,142.022461 C68.3497825,138.016927 75.4030052,136.01416 83.9365338,136.01416 C93.8632916,136.01416 102.658051,140.063232 110.320811,148.161377 C117.983572,156.259521 121.814952,165.88151 121.814952,177.027344 C121.814952,188.695638 117.417572,198.970703 108.622813,207.852539 C99.828054,216.734375 89.1611432,221.175293 76.6220807,221.175293 C61.9931745,221.175293 49.3670351,215.166992 38.7436627,203.150391 C28.1202903,191.133789 22.8086041,175.024577 22.8086041,154.822754 C22.8086041,131.312012 30.0359804,110.239421 44.490733,91.6049805 C58.2196377,73.906272 74.3541002,59.8074126 102.443135,50.4450748 C102.615406,50.3748509 102.790055,50.3058192 102.966282,50.2381719 C104.199241,49.7648833 105.420135,49.3936487 106.596148,49.1227802 L107,49 Z M233.000381,49.033238 C237.792099,48.01429 241.761022,48.6892564 242.625294,50.9407629 C243.72393,53.8028077 239.174473,58.3219079 233.017635,60.982801 C233.011653,60.9853863 233.00567,60.9879683 232.999688,60.990547 C232.939902,61.0219589 232.879913,61.0439426 232.820031,61.0659514 C232.355389,61.2618887 231.888177,61.4371549 231.421944,61.5929594 C214.398519,68.1467602 206.324263,76.9161885 196.352549,90.6906738 C186.077484,104.884196 180.939952,119.643717 180.939952,134.969238 C180.939952,138.278158 181.462413,140.716309 182.507335,142.283691 C183.203949,143.328613 183.987641,143.851074 184.858409,143.851074 C185.729177,143.851074 187.035329,143.241536 188.776866,142.022461 C194.349783,138.016927 201.403005,136.01416 209.936534,136.01416 C219.863292,136.01416 228.658051,140.063232 236.320811,148.161377 C243.983572,156.259521 247.814952,165.88151 247.814952,177.027344 C247.814952,188.695638 243.417572,198.970703 234.622813,207.852539 C225.828054,216.734375 215.161143,221.175293 202.622081,221.175293 C187.993174,221.175293 175.367035,215.166992 164.743663,203.150391 C154.12029,191.133789 148.808604,175.024577 148.808604,154.822754 C148.808604,131.312012 156.03598,110.239421 170.490733,91.6049805 C184.219638,73.906272 200.3541,59.8074126 228.443135,50.4450748 C228.615406,50.3748509 228.790055,50.3058192 228.966282,50.2381719 C230.199241,49.7648833 231.420135,49.3936487 232.596148,49.1227802 L233,49 Z"
-                                            id="quote-up" fill="#cb0c9f" fill-rule="nonzero"
-                                            transform="translate(135.311778, 134.872794) scale(-1, -1) translate(-135.311778, -134.872794) ">
-                                        </path>
-                                    </g>
-                                </svg>
-                            </div>
-                            <p class="text-lg text-white">
-                                LAHIRMU DI MAYA PADA
-                                HIDUPMU BERI CAHAYA
-                                MELAHIR TENAGA JAYA
-                                MENEMPUHI PANCAROBA</p>
-                            <p class="text-lg text-white">
-                                TENAGA BANGSA DAN WATAN
-                                DIPUPUK DIGEMBELINGKAN
-                                DIBAJAI DIRESTUKAN
-                                ITULAH PERJUANGAN INTAN</p>
-                            <p class="text-lg text-white">
-                                BERSATU PADU BERAZAM SETIA
-                                PERTAHANKAN NEGARA
-                                LATIHAN UNTUK PEMBANGUNAN
-
-                                ITULAH MOTO INTAN
-                            </p>
-                            <p class="text-white font-weight-bold text-sm">Lagu INTAN / <span
-                                    class="text-xs font-weight-normal">INTAN Anthem</span></p>
-                            <hr class="vertical start-100 ms-n5 d-xl-block d-none">
-                        </div>
-                        <div class="col-1"></div>
-                        <div class="col-xl-2 col-12 px-xl-0 px-5 my-xl-auto">
-                            <h3 class="text-white mt-xl-0 mt-5">2.000,000</h3>
-                            <p class="text-sm text-white opacity-8">PENJAWAT AWAM YANG TELAH MENDUDUKI PENILAIAN INTAN
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-    <!-- END Testimonials w/ user image & text & info -->
-    <!-- -------- START Features w/ icons and text on left & gradient title and text on right -------- -->
+    
     <section class="py-sm-7 py-4">
         <div class="container">
             <div class="row">
@@ -1185,15 +1109,6 @@ Coded by www.creative-tim.com
                     </a>
                 </div>
                 <div class="col-lg-6 ">
-                    <!-- <div class="p-3 info-horizontal">
-                        <div class="icon icon-shape rounded-circle bg-gradient-primary shadow text-center">
-                            <i class="fas fa-ship opacity-10"></i>
-                        </div>
-                        <div class="description ps-3">
-                            <p class="mb-0">It becomes harder for us to give others a hand. <br> We get our heart broken
-                                by people we love.</p>
-                        </div>
-                    </div> -->
                     <div class="p-3 info-horizontal">
                         <br><br>
                         <div class="icon icon-shape rounded-circle bg-gradient-warning shadow text-center">
@@ -1231,9 +1146,6 @@ Coded by www.creative-tim.com
                 ?>
                 <div class="col">
                     <div class="card">
-                        <div class="card-header" style="background-color:#FFA500;">
-                            <b class="text-white">Senarai Jadual</b>
-                        </div>
                         <div class="table-responsive" style="background-color:  #FAFAD2; border-radius: 10px">
                             <table class="table align-items-center mb-0 table-flush" id="datatable-penjadualan">
 
@@ -1278,7 +1190,7 @@ Coded by www.creative-tim.com
             </div>
         </div>
     </section>
-    <!-- -------- END Features w/ icons and text on left & gradient title and text on right -------- -->
+    
     <section class="features-3 mt-n10 py-7">
         <div class="container">
             <div class="row text-center justify-content-center pt-10">
@@ -1291,7 +1203,7 @@ Coded by www.creative-tim.com
             </div>
             <div class="row mt-5">
                 <div class="col-lg-4 mb-lg-0 mb-4">
-                    <!-- Start Card Blog Fullbackground - text centered -->
+                    
                     <a href="/jaduals">
                         <div class="card card-background move-on-hover mb-4">
                             <div class="full-background"
@@ -1303,23 +1215,10 @@ Coded by www.creative-tim.com
                             </div>
                         </div>
                     </a>
-                    <!-- End Card Blog Fullbackground - text centered -->
-                    <!-- Start Card Blog Fullbackground - text centered -->
-                    {{-- <a href="/tambahrayuans">
-                        <div class="card card-background move-on-hover">
-                            <div class="full-background"
-                                style="background-image: url('assets/img/test.jpg')">
-                            </div>
-                            <div class="card-body pt-12">
-                                <h4 class="text-white">Aduan</h4>
-                                <p>Aduan bagi sebarang masalah atau pertanyaan mengenai penilaian. </p>
-                            </div>
-                        </div>
-                    </a> --}}
-                    <!-- End Card Blog Fullbackground - text centered -->
+                    
                 </div>
                 <div class="col-lg-4 mb-lg-0 mb-4">
-                    <!-- Start Card Blog Fullbackground - text centered -->
+                    
                     <a href="/tambahrayuans">
                         <div class="card card-background move-on-hover mb-4">
                             <div class="full-background"
@@ -1331,36 +1230,10 @@ Coded by www.creative-tim.com
                             </div>
                         </div>
                     </a>
-                    <!-- End Card Blog Fullbackground - text centered -->
-                    <!-- Start Card Blog Fullbackground - text centered -->
-                    {{-- <a href="/pengurusanpengguna">
-                        <div class="card card-background move-on-hover">
-                            <div class="full-background"
-                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/team-members.jpg')">
-                            </div>
-                            <div class="card-body pt-12">
-                                <h4 class="text-white">Daftar Pengguna (Admin)</h4>
-                                <p>Daftar pengguna bagi melayari dan pengambilan untuk penilaian Isac </p>
-                            </div>
-                        </div>
-                    </a> --}}
-                    <!-- End Card Blog Fullbackground - text centered -->
+                    
                 </div>
                 <div class="col-lg-4">
-                    <!-- Start Card Blog Fullbackground - text centered -->
-                    {{-- <a href="https://www.intanbk.intan.my/iportal/en/hubungi-kami-intan/peta-lokasi">
-                        <div class="card card-background move-on-hover mb-4">
-                            <div class="full-background"
-                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/window-desk.jpg')">
-                            </div>
-                            <div class="card-body pt-12">
-                                <h4 class="text-white">Ibu Pejabat INTAN</h4>
-                                <p>Layari Web Ibu Pejabat INTAN dengan menekan di sini</p>
-                            </div>
-                        </div>
-                    </a> --}}
-                    <!-- End Card Blog Fullbackground - text centered -->
-                    <!-- Start Card Blog Fullbackground - text centered -->
+                    
                     <a href="/tambahaduans">
                         <div class="card card-background move-on-hover">
                             <div class="full-background" style="background-image: url('assets/img/test.jpg');">
@@ -1371,46 +1244,12 @@ Coded by www.creative-tim.com
                             </div>
                         </div>
                     </a>
-                    {{-- <a href="javascript:;">
-                        <div class="card card-background move-on-hover">
-                            <div class="full-background"
-                                style="background-image: url('https://pbs.twimg.com/media/EWA2vNfU0AA0l8t.jpg">
-                            </div>
-                            <div class="card-body pt-12">
-                                <h4 class="text-white">Pengarah Institut Tadbiran Awam Negara (INTAN)</h4>
-                                <p> YBrs.Dr Alauddin bin Sidal </p>
-                            </div>
-                        </div>
-                    </a> --}}
-                    <!-- End Card Blog Fullbackground - text centered -->
+                    
                 </div>
             </div>
         </div>
     </section>
-    <!-- -------- START PRE-FOOTER 8 w/ TEXT, BG IMAGE AND 2 BUTTONS ------- -->
-    <!-- <section class="my-10 py-5 bg-gradient-dark position-relative" style = "background-image:url(../assets/img/nastuh.jpg)">
-        <span class="mask bg-gradient-dark opacity-8"></span>
-        <div class="container position-relative z-index-2">
-            <div class="row">
-                <div class="col-lg-5 col-md-8 m-auto text-start">
-                    <h5 class="text-white mb-lg-0 mb-5">
-                        Pencarian pakar lebih mudah dengan adanya pangkalan data pakar kini anda tidak perlu lagi
-                        bersusah payah untuk membuat carian secara manual.
-                    </h5>
-                </div>
-                <div class="col-lg-6 m-auto">
-                    <div class="row">
-                        <div class="col-sm-4 col-6 ps-sm-0 ms-auto">
-                            <a href="/register" type="button"
-                                class="btn bg-gradient-warning mb-0 ms-lg-3 ms-sm-2 mb-sm-0 mb-2 me-auto w-100 d-block">Daftar
-                                Sekarang </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-    <!-- -------- END PRE-FOOTER 8 w/ TEXT, BG IMAGE AND 2 BUTTONS ------- -->
+
     <footer class="footer pt-4 mt-3">
         <hr class="horizontal dark mb-5">
         <div class="container">
@@ -1500,26 +1339,16 @@ Coded by www.creative-tim.com
             </div>
         </div>
     </footer>
-    <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
     <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <!--  Plugin for TypedJS, full documentation here: https://github.com/mattboldt/typed.js/ -->
     <script src="../assets/js/plugins/typedjs.js"></script>
-    <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
     <script src="../assets/js/plugins/parallax.min.js"></script>
-    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
     <script src="../assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
-    <!--  Plugin for the GlideJS Carousel, full documentation here: http://kenwheeler.github.io/slick/ -->
     <script src="../assets/js/plugins/glidejs.min.js" type="text/javascript"></script>
-    <!--  Plugin for the blob animation -->
     <script src="../assets/js/plugins/anime.min.js" type="text/javascript"></script>
-    <!-- Chart JS -->
     <script src="../assets/js/plugins/chartjs.min.js"></script>
-    <!-- Control Center for Soft UI Kit: parallax effects, scripts for the example pages etc -->
-    <!--  Google Maps Plugin    -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
-    <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="../assets/js/soft-design-system-pro.min.js?v=1.0.8" type="text/javascript"></script>
 
@@ -1533,7 +1362,6 @@ Coded by www.creative-tim.com
             fixedHeight: true
         });
     </script>
-
     <script>
 
     $("a[href^='#']").click(function(e) {
@@ -1545,7 +1373,6 @@ Coded by www.creative-tim.com
             scrollTop: position
         } /* speed */ );
     });
-    
     </script>
 </body>
 
