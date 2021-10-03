@@ -1443,7 +1443,7 @@ Coded by www.creative-tim.com
                   </div>
                   <label>No. Kad Pengenalan</label>
                   <div class="mb-3">
-                    <x-input id="nric" class="form-control" type="nric"
+                    <x-input id="nric" class="form-control" type="text"
                     name="nric" required maxlength="12" size="12"/>
                   </div>
                   <label>Kata Laluan</label>
