@@ -351,7 +351,7 @@
                             <div class="col-6">
                                 <label for="">NRIC :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="text" name="nric" required minlength="12">
+                                    <input class="form-control mb-3" type="text" name="nric" required maxlength="12" size="12">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -385,4 +385,6 @@
         });
     </script>
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @include('sweet::alert')
 @stop

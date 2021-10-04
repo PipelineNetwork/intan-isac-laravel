@@ -193,10 +193,12 @@
                                                                     </g>
                                                                 </g>
                                                             </g>
-                                                        </svg>
-                                                    </div>
-                                                    <span class="nav-link-text ms-1">Pengurusan pengguna</span>
-                                                </a>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <span class="nav-link-text ms-1">Pengurusan Pengguna</span>
+                                            </a>
+
                                             <?php
                                         }
                                             ?>

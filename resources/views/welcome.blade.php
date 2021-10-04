@@ -107,9 +107,9 @@ Coded by www.creative-tim.com
 
 <body class="coworking">
     <?php
-
+    
     use App\Models\Jadual;
-
+    
     $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
         ->orderBy('TARIKH_SESI', 'desc')
         ->whereYear('TARIKH_SESI', '>=', 2021)
@@ -1089,19 +1089,10 @@ Coded by www.creative-tim.com
                                         <td class="text-center">
                                             {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
                                         </td>
-                                        <!-- <td class="text-center">
-                                                @if ($jadual['KOD_MASA_MULA'] >= '08:00' && $jadual['KOD_MASA_MULA'] < '11:59')
-                                                    {{ date('h:i', strtotime($jadual['KOD_MASA_MULA'])) }} AM
-                                                @else
-                                                    {{ date('h:i', strtotime($jadual['KOD_MASA_MULA'])) }} PM
-                                                @endif
-                                                -
-                                                @if ($jadual['KOD_MASA_TAMAT'] >= '08:00' && $jadual['KOD_MASA_TAMAT'] < '11:59')
-                                                    {{ date('h:i', strtotime($jadual['KOD_MASA_TAMAT'])) }} AM
-                                                @else
-                                                    {{ date('h:i', strtotime($jadual['KOD_MASA_TAMAT'])) }} PM
-                                                @endif
-                                            </td> -->
+                                        <td class="text-center">{{ $loop->index + 1 }}</td>
+                                        <td class="text-center">
+                                            {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
+                                        </td>
                                         <td class="text-center">{{ $jadual['platform'] }}</td>
                                         <td class="text-center">{{ $jadual['status'] }}</td>
                                     </tr>

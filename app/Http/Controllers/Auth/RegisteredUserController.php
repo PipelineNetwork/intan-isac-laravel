@@ -38,24 +38,41 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'nric' => 'required|string|max:255',
+            'nric' => 'required|string|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'ministry_code' => $request->ministry_code,
-            'office_number' => $request->office_number,
-            'fax_number' => $request->fax_number,
-            'telephone_number' => $request->telephone_number,
-            'password' => Hash::make($request->password),
-            'nric' => $request->nric,
-            'user_group_id' => 5,
-        ]);
+        // $user = User::create([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'ministry_code' => $request->ministry_code,
+        //     'office_number' => $request->office_number,
+        //     'fax_number' => $request->fax_number,
+        //     'telephone_number' => $request->telephone_number,
+        //     'password' => Hash::make($request->password),
+        //     'nric' => $request->nric,
+        //     'user_group_id' => 5,
+        // ]);
+
+        $user = new User();
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->ministry_code = $request->ministry_code;
+        $user->office_number = $request->office_number;
+        $user->fax_number = $request->fax_number;
+        $user->telephone_number = $request->name;
+        $user->password = Hash::make($request->password);
+        $user->nric = $request->nric;
+        $user->user_group_id = 5;
+
+        $user->save();
+
+        // dd($user);
 
         $GetDataXMLbyIC = new GetDataXMLbyIC();
         $hrmisData = $GetDataXMLbyIC->getDataHrmis($request->nric);
