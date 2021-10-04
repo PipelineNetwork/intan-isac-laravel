@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadual;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\JadualKemaskini;
@@ -17,15 +18,13 @@ class JadualController extends Controller
      */
     public function index()
     {
+        $penyelaras = User::where('user_group_id', '3')->get();
+        // dd($penyelaras);
         $jaduals = Jadual::orderBy('TARIKH_SESI', 'desc')
             ->get();
-        //dd($jaduals);
-        // foreach ($jaduals as $j) {
-        //     echo $j->ID_SESI;
-        //     echo ("<br>");
-        // }
         return view('jadual.index', [
-            'jaduals' => $jaduals
+            'jaduals' => $jaduals,
+            'penyelaras' => $penyelaras
         ]);
     }
 
@@ -47,6 +46,7 @@ class JadualController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $jadual = new Jadual;
         $jadual->KOD_SESI_PENILAIAN = $request->KOD_SESI_PENILAIAN;
         $jadual->KOD_TAHAP = $request->KOD_TAHAP;
@@ -58,17 +58,64 @@ class JadualController extends Controller
         $jadual->KOD_KATEGORI_PESERTA = $request->KOD_KATEGORI_PESERTA;
         $jadual->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
         $jadual->LOKASI = $request->LOKASI;
+        $jadual->user_id=$request->user_id;
 
-        $rules = [
-            'KOD_SESI_PENILAIAN' => 'required',
-            'KOD_TAHAP' => 'required',
-            'KOD_MASA_MULA' => 'required',
-            'KOD_MASA_TAMAT' => 'required',
-            'TARIKH_SESI' => 'required',
-            'JUMLAH_KESELURUHAN' => 'required',
-            'KOD_KATEGORI_PESERTA' => 'required',
-            'platform' => 'required',
-        ];
+        if($jadual->KOD_KATEGORI_PESERTA == "02"){
+            if($jadual->platform == "Fizikal"){
+                $rules = [
+                    'KOD_SESI_PENILAIAN' => 'required',
+                    'KOD_TAHAP' => 'required',
+                    'KOD_MASA_MULA' => 'required',
+                    'KOD_MASA_TAMAT' => 'required',
+                    'TARIKH_SESI' => 'required',
+                    'JUMLAH_KESELURUHAN' => 'required',
+                    'KOD_KATEGORI_PESERTA' => 'required',
+                    'KOD_KEMENTERIAN' => 'required',
+                    'user_id'=>'required',
+                    'platform' => 'required',
+                    'LOKASI'=>'required',
+                ];
+            }else{
+                $rules = [
+                    'KOD_SESI_PENILAIAN' => 'required',
+                    'KOD_TAHAP' => 'required',
+                    'KOD_MASA_MULA' => 'required',
+                    'KOD_MASA_TAMAT' => 'required',
+                    'TARIKH_SESI' => 'required',
+                    'JUMLAH_KESELURUHAN' => 'required',
+                    'KOD_KATEGORI_PESERTA' => 'required',
+                    'KOD_KEMENTERIAN' => 'required',
+                    'user_id'=>'required',
+                    'platform' => 'required',
+                ];
+            }
+        }else{
+            if($jadual->platform == "Fizikal"){
+                $rules = [
+                    'KOD_SESI_PENILAIAN' => 'required',
+                    'KOD_TAHAP' => 'required',
+                    'KOD_MASA_MULA' => 'required',
+                    'KOD_MASA_TAMAT' => 'required',
+                    'TARIKH_SESI' => 'required',
+                    'JUMLAH_KESELURUHAN' => 'required',
+                    'KOD_KATEGORI_PESERTA' => 'required',
+                    'platform' => 'required',
+                    'LOKASI'=>'required',
+                ];
+            }else{
+                $rules = [
+                    'KOD_SESI_PENILAIAN' => 'required',
+                    'KOD_TAHAP' => 'required',
+                    'KOD_MASA_MULA' => 'required',
+                    'KOD_MASA_TAMAT' => 'required',
+                    'TARIKH_SESI' => 'required',
+                    'JUMLAH_KESELURUHAN' => 'required',
+                    'KOD_KATEGORI_PESERTA' => 'required',
+                    'platform' => 'required',
+                ];
+            }
+        }
+
         $messages = [
             'KOD_SESI_PENILAIAN.required' => 'Sila pilih kod sesi',
             'KOD_TAHAP.required' => 'Sila pilih kod tahap',
@@ -78,6 +125,9 @@ class JadualController extends Controller
             'JUMLAH_KESELURUHAN.required' => 'Sila isi jumlah calon',
             'KOD_KATEGORI_PESERTA.required' => 'Sila pilih kumpulan',
             'platform.required' => 'Sila pilih plaform',
+            'KOD_KEMENTERIAN.required' => 'Sila pilih jabatan kementerian',
+            'LOKASI.required'=>'Sila pilih lokasi',
+            'user_id.required'=>'Sila pilih penyelaras'
         ];
         Validator::make($request->input(), $rules, $messages)->validate();
 
@@ -133,18 +183,66 @@ class JadualController extends Controller
         $jadual->status = $request->status;
         $jadual->keterangan = $request->keterangan;
 
-        $rules = [
-            'KOD_SESI_PENILAIAN' => 'required',
-            'KOD_TAHAP' => 'required',
-            'KOD_MASA_MULA' => 'required',
-            'KOD_MASA_TAMAT' => 'required',
-            'TARIKH_SESI' => 'required',
-            'JUMLAH_KESELURUHAN' => 'required',
-            'KOD_KATEGORI_PESERTA' => 'required',
-            'platform' => 'required',
-            'status' => 'required',
-            'keterangan' => 'required',
-        ];
+        if($jadual->KOD_KATEGORI_PESERTA == "02"){
+            if($jadual->platform == "Fizikal"){
+                $rules = [
+                    'KOD_SESI_PENILAIAN' => 'required',
+                    'KOD_TAHAP' => 'required',
+                    'KOD_MASA_MULA' => 'required',
+                    'KOD_MASA_TAMAT' => 'required',
+                    'TARIKH_SESI' => 'required',
+                    'JUMLAH_KESELURUHAN' => 'required',
+                    'KOD_KATEGORI_PESERTA' => 'required',
+                    'KOD_KEMENTERIAN' => 'required',
+                    'user_id'=>'required',
+                    'platform' => 'required',
+                    'LOKASI'=>'required',
+                    'keterangan'=>'required'
+                ];
+            }else{
+                $rules = [
+                    'KOD_SESI_PENILAIAN' => 'required',
+                    'KOD_TAHAP' => 'required',
+                    'KOD_MASA_MULA' => 'required',
+                    'KOD_MASA_TAMAT' => 'required',
+                    'TARIKH_SESI' => 'required',
+                    'JUMLAH_KESELURUHAN' => 'required',
+                    'KOD_KATEGORI_PESERTA' => 'required',
+                    'KOD_KEMENTERIAN' => 'required',
+                    'user_id'=>'required',
+                    'platform' => 'required',
+                    'keterangan'=>'required'
+                ];
+            }
+        }else{
+            if($jadual->platform == "Fizikal"){
+                $rules = [
+                    'KOD_SESI_PENILAIAN' => 'required',
+                    'KOD_TAHAP' => 'required',
+                    'KOD_MASA_MULA' => 'required',
+                    'KOD_MASA_TAMAT' => 'required',
+                    'TARIKH_SESI' => 'required',
+                    'JUMLAH_KESELURUHAN' => 'required',
+                    'KOD_KATEGORI_PESERTA' => 'required',
+                    'platform' => 'required',
+                    'LOKASI'=>'required',
+                    'keterangan'=>'required'
+                ];
+            }else{
+                $rules = [
+                    'KOD_SESI_PENILAIAN' => 'required',
+                    'KOD_TAHAP' => 'required',
+                    'KOD_MASA_MULA' => 'required',
+                    'KOD_MASA_TAMAT' => 'required',
+                    'TARIKH_SESI' => 'required',
+                    'JUMLAH_KESELURUHAN' => 'required',
+                    'KOD_KATEGORI_PESERTA' => 'required',
+                    'platform' => 'required',
+                    'keterangan'=>'required'
+                ];
+            }
+        }
+
         $messages = [
             'KOD_SESI_PENILAIAN.required' => 'Sila pilih kod sesi',
             'KOD_TAHAP.required' => 'Sila pilih kod tahap',
@@ -154,12 +252,14 @@ class JadualController extends Controller
             'JUMLAH_KESELURUHAN.required' => 'Sila isi jumlah calon',
             'KOD_KATEGORI_PESERTA.required' => 'Sila pilih kumpulan',
             'platform.required' => 'Sila pilih plaform',
-            'status.required' => 'Sila pilih status',
-            'keterangan.required' => 'Sila isi keterangan',
+            'KOD_KEMENTERIAN.required' => 'Sila pilih jabatan kementerian',
+            'LOKASI.required'=>'Sila pilih lokasi',
+            'user_id.required'=>'Sila pilih penyelaras',
+            'keterangan.required'=>'Sila beri keterangan'
         ];
         Validator::make($request->input(), $rules, $messages)->validate();
         $jadual->save();
-        $recipient = ["najhan.mnajib@gmail.com"];
+        $recipient = ["najhan.mnajib@gmail.com", "harizhasani@pipeline.com.my"];
         Mail::to($recipient)->send(new JadualKemaskini());
         return redirect('/jaduals');
     }

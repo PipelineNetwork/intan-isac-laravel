@@ -26,29 +26,22 @@ Coded by www.creative-tim.com
     <!-- Canonical SEO -->
     <link rel="canonical" href="https://www.creative-tim.com/product/soft-ui-dashboard-pro" />
     <!--  Social tags      -->
-    <meta name="keywords"
-        content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap 5 dashboard, bootstrap 5, css3 dashboard, bootstrap 5 admin, soft ui dashboard bootstrap 5 dashboard, frontend, responsive bootstrap 5 dashboard, soft design, soft dashboard bootstrap 5 dashboard">
-    <meta name="description"
-        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+    <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap 5 dashboard, bootstrap 5, css3 dashboard, bootstrap 5 admin, soft ui dashboard bootstrap 5 dashboard, frontend, responsive bootstrap 5 dashboard, soft design, soft dashboard bootstrap 5 dashboard">
+    <meta name="description" content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="product">
     <meta name="twitter:site" content="@creativetim">
     <meta name="twitter:title" content="Soft UI Dashboard PRO by Creative Tim">
-    <meta name="twitter:description"
-        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+    <meta name="twitter:description" content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
     <meta name="twitter:creator" content="@creativetim">
-    <meta name="twitter:image"
-        content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg">
+    <meta name="twitter:image" content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg">
     <!-- Open Graph data -->
     <meta property="fb:app_id" content="655968634437471">
     <meta property="og:title" content="Soft UI Dashboard PRO by Creative Tim" />
     <meta property="og:type" content="article" />
-    <meta property="og:url"
-        content="https://demos.creative-tim.com/soft-ui-dashboard-pro/pages/dashboards/default.html" />
-    <meta property="og:image"
-        content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg" />
-    <meta property="og:description"
-        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
+    <meta property="og:url" content="https://demos.creative-tim.com/soft-ui-dashboard-pro/pages/dashboards/default.html" />
+    <meta property="og:image" content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg" />
+    <meta property="og:description" content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
     <meta property="og:site_name" content="Creative Tim" />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -65,7 +58,6 @@ Coded by www.creative-tim.com
         .async-hide {
             opacity: 0 !important
         }
-
     </style>
     <script>
         (function(a, s, y, n, c, h, i, d, e) {
@@ -114,25 +106,29 @@ Coded by www.creative-tim.com
 </head>
 
 <body class="coworking">
+    <?php
+
+    use App\Models\Jadual;
+
+    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
+        ->orderBy('TARIKH_SESI', 'desc')
+        ->whereYear('TARIKH_SESI', '>=', 2021)
+        ->get();
+    ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navbar -->
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
-                <nav
-                    class="navbar navbar-expand-lg  blur blur-rounded top-0  z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+                <nav class="navbar navbar-expand-lg  blur blur-rounded top-0  z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
-                        <a class="navbar-brand font-weight-bolder ms-sm-3" href="/ " rel="tooltip"
-                            title="Designed and Coded by Creative Tim" data-placement="bottom">
+                        <a class="navbar-brand font-weight-bolder ms-sm-3" href="/ " rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
                             INTAN ISAC
                         </a>
-                        <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
-                            aria-label="Toggle navigation">
+                        <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon mt-2">
                                 <span class="navbar-toggler-bar bar1"></span>
                                 <span class="navbar-toggler-bar bar2"></span>
@@ -142,42 +138,27 @@ Coded by www.creative-tim.com
                         <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
                             <ul class="navbar-nav navbar-nav-hover mx-auto">
                                 <li class="nav-item dropdown dropdown-hover mx-2">
-                                    <a role="button"
-                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                                        id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a role="button" class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
                                         Kampus INTAN
-                                        <img src="../assets/img/down-arrow-dark.svg" alt="down-arrow"
-                                            class="arrow ms-1">
+                                        <img src="../assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-animation dropdown-xl p-3 border-radius-xl mt-0 mt-lg-3"
-                                        aria-labelledby="dropdownMenuPages">
+                                    <div class="dropdown-menu dropdown-menu-animation dropdown-xl p-3 border-radius-xl mt-0 mt-lg-3" aria-labelledby="dropdownMenuPages">
                                         <div class="row d-none d-lg-block">
                                             <div class="col-12 px-4 py-2">
                                                 <div class="row">
                                                     <div class="col-4 position-relative">
-                                                        <div
-                                                            class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center px-0">
+                                                        <div class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center px-0">
                                                             <div class="d-inline-block">
-                                                                <div
-                                                                    class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center">
-                                                                    <svg width="12px" height="12px" viewBox="0 0 45 40"
-                                                                        version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                <div class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center">
+                                                                    <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                                         <title>shop </title>
-                                                                        <g stroke="none" stroke-width="1" fill="none"
-                                                                            fill-rule="evenodd">
-                                                                            <g transform="translate(-1716.000000, -439.000000)"
-                                                                                fill="#FFFFFF" fill-rule="nonzero">
-                                                                                <g
-                                                                                    transform="translate(1716.000000, 291.000000)">
-                                                                                    <g
-                                                                                        transform="translate(0.000000, 148.000000)">
-                                                                                        <path
-                                                                                            d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
-                                                                                            opacity="0.598981585">
+                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                            <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                                                                <g transform="translate(1716.000000, 291.000000)">
+                                                                                    <g transform="translate(0.000000, 148.000000)">
+                                                                                        <path d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585">
                                                                                         </path>
-                                                                                        <path
-                                                                                            d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                                                        <path d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
                                                                                         </path>
                                                                                     </g>
                                                                                 </g>
@@ -188,57 +169,39 @@ Coded by www.creative-tim.com
                                                             </div>
                                                             Semenanjung Malaysia
                                                         </div>
-                                                        <a href="http://www.mytc.gov.my/index.php?page=hotels&hid=5178"
-                                                            class="dropdown-item border-radius-md">
+                                                        <a href="http://www.mytc.gov.my/index.php?page=hotels&hid=5178" class="dropdown-item border-radius-md">
                                                             <span class="ps-3">Kampus Utama</span>
                                                         </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/index.php/ms/3-about-intan/organisational/47-kampus-intengah"
-                                                            class="dropdown-item border-radius-md">
+                                                        <a href="https://www.intanbk.intan.my/iportal/index.php/ms/3-about-intan/organisational/47-kampus-intengah" class="dropdown-item border-radius-md">
                                                             <span class="ps-3">Kampus Tengah</span>
                                                         </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/ms/kikwas"
-                                                            class="dropdown-item border-radius-md">
+                                                        <a href="https://www.intanbk.intan.my/iportal/ms/kikwas" class="dropdown-item border-radius-md">
                                                             <span class="ps-3">Kampus Wilayah Selatan</span>
                                                         </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/ms/kintura"
-                                                            class="dropdown-item border-radius-md">
+                                                        <a href="https://www.intanbk.intan.my/iportal/ms/kintura" class="dropdown-item border-radius-md">
                                                             <span class="ps-3">Kampus Wilayah Utara</span>
                                                         </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/index.php/ms/kintim"
-                                                            class="dropdown-item border-radius-md">
+                                                        <a href="https://www.intanbk.intan.my/iportal/index.php/ms/kintim" class="dropdown-item border-radius-md">
                                                             <span class="ps-3">Kampus Wilayah Timur</span>
                                                         </a>
-                                                        <a href=".https://www.jpa.gov.my/info-korporat/program-bahagian/26-maklumat-bahagian/173-intan"
-                                                            class="dropdown-item border-radius-md">
+                                                        <a href=".https://www.jpa.gov.my/info-korporat/program-bahagian/26-maklumat-bahagian/173-intan" class="dropdown-item border-radius-md">
                                                             <span class="ps-3">Jabatan Perkhidmatan
                                                                 Awam</span>
                                                         </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/ms/intan-kampus-satelit-putrajaya"
-                                                            class="dropdown-item border-radius-md">
+                                                        <a href="https://www.intanbk.intan.my/iportal/ms/intan-kampus-satelit-putrajaya" class="dropdown-item border-radius-md">
                                                             <span class="ps-3">INTAN LOCAL</span>
                                                         </a>
-                                                        <div
-                                                            class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-0 mt-3">
+                                                        <div class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-0 mt-3">
                                                             <div class="d-inline-block">
-                                                                <div
-                                                                    class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
-                                                                    <svg width="12px" height="12px" viewBox="0 0 42 42"
-                                                                        version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                <div class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
+                                                                    <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                                         <title>office</title>
-                                                                        <g stroke="none" stroke-width="1" fill="none"
-                                                                            fill-rule="evenodd">
-                                                                            <g transform="translate(-1869.000000, -293.000000)"
-                                                                                fill="#FFFFFF" fill-rule="nonzero">
-                                                                                <g
-                                                                                    transform="translate(1716.000000, 291.000000)">
-                                                                                    <g
-                                                                                        transform="translate(153.000000, 2.000000)">
-                                                                                        <path
-                                                                                            d="M12.25,17.5 L8.75,17.5 L8.75,1.75 C8.75,0.78225 9.53225,0 10.5,0 L31.5,0 C32.46775,0 33.25,0.78225 33.25,1.75 L33.25,12.25 L29.75,12.25 L29.75,3.5 L12.25,3.5 L12.25,17.5 Z"
-                                                                                            opacity="0.6"></path>
-                                                                                        <path
-                                                                                            d="M40.25,14 L24.5,14 C23.53225,14 22.75,14.78225 22.75,15.75 L22.75,38.5 L19.25,38.5 L19.25,22.75 C19.25,21.78225 18.46775,21 17.5,21 L1.75,21 C0.78225,21 0,21.78225 0,22.75 L0,40.25 C0,41.21775 0.78225,42 1.75,42 L40.25,42 C41.21775,42 42,41.21775 42,40.25 L42,15.75 C42,14.78225 41.21775,14 40.25,14 Z M12.25,36.75 L7,36.75 L7,33.25 L12.25,33.25 L12.25,36.75 Z M12.25,29.75 L7,29.75 L7,26.25 L12.25,26.25 L12.25,29.75 Z M35,36.75 L29.75,36.75 L29.75,33.25 L35,33.25 L35,36.75 Z M35,29.75 L29.75,29.75 L29.75,26.25 L35,26.25 L35,29.75 Z M35,22.75 L29.75,22.75 L29.75,19.25 L35,19.25 L35,22.75 Z">
+                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                            <g transform="translate(-1869.000000, -293.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                                                                <g transform="translate(1716.000000, 291.000000)">
+                                                                                    <g transform="translate(153.000000, 2.000000)">
+                                                                                        <path d="M12.25,17.5 L8.75,17.5 L8.75,1.75 C8.75,0.78225 9.53225,0 10.5,0 L31.5,0 C32.46775,0 33.25,0.78225 33.25,1.75 L33.25,12.25 L29.75,12.25 L29.75,3.5 L12.25,3.5 L12.25,17.5 Z" opacity="0.6"></path>
+                                                                                        <path d="M40.25,14 L24.5,14 C23.53225,14 22.75,14.78225 22.75,15.75 L22.75,38.5 L19.25,38.5 L19.25,22.75 C19.25,21.78225 18.46775,21 17.5,21 L1.75,21 C0.78225,21 0,21.78225 0,22.75 L0,40.25 C0,41.21775 0.78225,42 1.75,42 L40.25,42 C41.21775,42 42,41.21775 42,40.25 L42,15.75 C42,14.78225 41.21775,14 40.25,14 Z M12.25,36.75 L7,36.75 L7,33.25 L12.25,33.25 L12.25,36.75 Z M12.25,29.75 L7,29.75 L7,26.25 L12.25,26.25 L12.25,29.75 Z M35,36.75 L29.75,36.75 L29.75,33.25 L35,33.25 L35,36.75 Z M35,29.75 L29.75,29.75 L29.75,26.25 L35,26.25 L35,29.75 Z M35,22.75 L29.75,22.75 L29.75,19.25 L35,19.25 L35,22.75 Z">
                                                                                         </path>
                                                                                     </g>
                                                                                 </g>
@@ -249,12 +212,10 @@ Coded by www.creative-tim.com
                                                             </div>
                                                             Sabah/Sarawak
                                                         </div>
-                                                        <a href="https://www.intanbk.intan.my/iportal/ms/ksabah"
-                                                            class="dropdown-item border-radius-md">
+                                                        <a href="https://www.intanbk.intan.my/iportal/ms/ksabah" class="dropdown-item border-radius-md">
                                                             <span class="ps-3">Kampus INTAN Sabah</span>
                                                         </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/ms/ksarawak"
-                                                            class="dropdown-item border-radius-md">
+                                                        <a href="https://www.intanbk.intan.my/iportal/ms/ksarawak" class="dropdown-item border-radius-md">
                                                             <span class="ps-3">Kampus INTAN Sarawak</span>
                                                         </a>
                                                         <hr class="vertical dark">
@@ -263,26 +224,17 @@ Coded by www.creative-tim.com
                                             </div>
                                         </div>
                                         <div class="d-lg-none">
-                                            <div
-                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center px-0">
+                                            <div class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center px-0">
                                                 <div class="d-inline-block">
-                                                    <div
-                                                        class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center">
-                                                        <svg width="12px" height="12px" viewBox="0 0 45 40"
-                                                            version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                    <div class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center">
+                                                        <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                             <title>shop </title>
-                                                            <g stroke="none" stroke-width="1" fill="none"
-                                                                fill-rule="evenodd">
-                                                                <g transform="translate(-1716.000000, -439.000000)"
-                                                                    fill="#FFFFFF" fill-rule="nonzero">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                                                     <g transform="translate(1716.000000, 291.000000)">
                                                                         <g transform="translate(0.000000, 148.000000)">
-                                                                            <path
-                                                                                d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
-                                                                                opacity="0.598981585"></path>
-                                                                            <path
-                                                                                d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                                            <path d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585"></path>
+                                                                            <path d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
                                                                             </path>
                                                                         </g>
                                                                     </g>
@@ -302,26 +254,17 @@ Coded by www.creative-tim.com
                                             <a href="../pages/case-study.html" class="dropdown-item border-radius-md">
                                                 Case Study
                                             </a>
-                                            <div
-                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center px-0 mt-3">
+                                            <div class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center px-0 mt-3">
                                                 <div class="d-inline-block">
-                                                    <div
-                                                        class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
-                                                        <svg width="12px" height="12px" viewBox="0 0 42 42"
-                                                            version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                    <div class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
+                                                        <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                             <title>office</title>
-                                                            <g stroke="none" stroke-width="1" fill="none"
-                                                                fill-rule="evenodd">
-                                                                <g transform="translate(-1869.000000, -293.000000)"
-                                                                    fill="#FFFFFF" fill-rule="nonzero">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <g transform="translate(-1869.000000, -293.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                                                     <g transform="translate(1716.000000, 291.000000)">
                                                                         <g transform="translate(153.000000, 2.000000)">
-                                                                            <path
-                                                                                d="M12.25,17.5 L8.75,17.5 L8.75,1.75 C8.75,0.78225 9.53225,0 10.5,0 L31.5,0 C32.46775,0 33.25,0.78225 33.25,1.75 L33.25,12.25 L29.75,12.25 L29.75,3.5 L12.25,3.5 L12.25,17.5 Z"
-                                                                                opacity="0.6"></path>
-                                                                            <path
-                                                                                d="M40.25,14 L24.5,14 C23.53225,14 22.75,14.78225 22.75,15.75 L22.75,38.5 L19.25,38.5 L19.25,22.75 C19.25,21.78225 18.46775,21 17.5,21 L1.75,21 C0.78225,21 0,21.78225 0,22.75 L0,40.25 C0,41.21775 0.78225,42 1.75,42 L40.25,42 C41.21775,42 42,41.21775 42,40.25 L42,15.75 C42,14.78225 41.21775,14 40.25,14 Z M12.25,36.75 L7,36.75 L7,33.25 L12.25,33.25 L12.25,36.75 Z M12.25,29.75 L7,29.75 L7,26.25 L12.25,26.25 L12.25,29.75 Z M35,36.75 L29.75,36.75 L29.75,33.25 L35,33.25 L35,36.75 Z M35,29.75 L29.75,29.75 L29.75,26.25 L35,26.25 L35,29.75 Z M35,22.75 L29.75,22.75 L29.75,19.25 L35,19.25 L35,22.75 Z">
+                                                                            <path d="M12.25,17.5 L8.75,17.5 L8.75,1.75 C8.75,0.78225 9.53225,0 10.5,0 L31.5,0 C32.46775,0 33.25,0.78225 33.25,1.75 L33.25,12.25 L29.75,12.25 L29.75,3.5 L12.25,3.5 L12.25,17.5 Z" opacity="0.6"></path>
+                                                                            <path d="M40.25,14 L24.5,14 C23.53225,14 22.75,14.78225 22.75,15.75 L22.75,38.5 L19.25,38.5 L19.25,22.75 C19.25,21.78225 18.46775,21 17.5,21 L1.75,21 C0.78225,21 0,21.78225 0,22.75 L0,40.25 C0,41.21775 0.78225,42 1.75,42 L40.25,42 C41.21775,42 42,41.21775 42,40.25 L42,15.75 C42,14.78225 41.21775,14 40.25,14 Z M12.25,36.75 L7,36.75 L7,33.25 L12.25,33.25 L12.25,36.75 Z M12.25,29.75 L7,29.75 L7,26.25 L12.25,26.25 L12.25,29.75 Z M35,36.75 L29.75,36.75 L29.75,33.25 L35,33.25 L35,36.75 Z M35,29.75 L29.75,29.75 L29.75,26.25 L35,26.25 L35,29.75 Z M35,22.75 L29.75,22.75 L29.75,19.25 L35,19.25 L35,22.75 Z">
                                                                             </path>
                                                                         </g>
                                                                     </g>
@@ -347,29 +290,19 @@ Coded by www.creative-tim.com
                                             <a href="../pages/terms.html" class="dropdown-item border-radius-md">
                                                 Terms & Conditions
                                             </a>
-                                            <div
-                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center px-0 mt-3">
+                                            <div class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center px-0 mt-3">
                                                 <div class="d-inline-block">
-                                                    <div
-                                                        class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
-                                                        <svg width="12px" height="12px" viewBox="0 0 46 42"
-                                                            version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                    <div class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
+                                                        <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                             <title>customer-support</title>
-                                                            <g stroke="none" stroke-width="1" fill="none"
-                                                                fill-rule="evenodd">
-                                                                <g transform="translate(-1717.000000, -291.000000)"
-                                                                    fill="#FFFFFF" fill-rule="nonzero">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <g transform="translate(-1717.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                                                     <g transform="translate(1716.000000, 291.000000)">
                                                                         <g transform="translate(1.000000, 0.000000)">
-                                                                            <path class="color-background"
-                                                                                d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z"
-                                                                                opacity="0.59858631"></path>
-                                                                            <path class="color-foreground"
-                                                                                d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z">
+                                                                            <path class="color-background" d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z" opacity="0.59858631"></path>
+                                                                            <path class="color-foreground" d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z">
                                                                             </path>
-                                                                            <path class="color-foreground"
-                                                                                d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z">
+                                                                            <path class="color-foreground" d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z">
                                                                             </path>
                                                                         </g>
                                                                     </g>
@@ -383,15 +316,13 @@ Coded by www.creative-tim.com
                                             <a href="../pages/help-center.html" class="dropdown-item border-radius-md">
                                                 Help Center
                                             </a>
-                                            <a href="../pages/help-center-basic.html"
-                                                class="dropdown-item border-radius-md">
+                                            <a href="../pages/help-center-basic.html" class="dropdown-item border-radius-md">
                                                 Help Center Basic
                                             </a>
                                             <a href="../pages/contact-us.html" class="dropdown-item border-radius-md">
                                                 Contact Us
                                             </a>
-                                            <a href="../pages/contact-us-simple.html"
-                                                class="dropdown-item border-radius-md">
+                                            <a href="../pages/contact-us-simple.html" class="dropdown-item border-radius-md">
                                                 Contact Us Basic
                                             </a>
                                             <a href="../pages/faq.html" class="dropdown-item border-radius-md">
@@ -400,30 +331,19 @@ Coded by www.creative-tim.com
                                             <a href="../pages/privacy.html" class="dropdown-item border-radius-md">
                                                 Privacy
                                             </a>
-                                            <div
-                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center mt-3 px-0">
+                                            <div class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center mt-3 px-0">
                                                 <div class="d-inline-block">
-                                                    <div
-                                                        class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
-                                                        <svg width="12px" height="12px" viewBox="0 0 42 42"
-                                                            version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                    <div class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
+                                                        <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                             <title>box-3d-50</title>
-                                                            <g stroke="none" stroke-width="1" fill="none"
-                                                                fill-rule="evenodd">
-                                                                <g transform="translate(-2319.000000, -291.000000)"
-                                                                    fill="#FFFFFF" fill-rule="nonzero">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <g transform="translate(-2319.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                                                     <g transform="translate(1716.000000, 291.000000)">
                                                                         <g transform="translate(603.000000, 0.000000)">
-                                                                            <path
-                                                                                d="M22.7597136,19.3090182 L38.8987031,11.2395234 C39.3926816,10.9925342 39.592906,10.3918611 39.3459167,9.89788265 C39.249157,9.70436312 39.0922432,9.5474453 38.8987261,9.45068056 L20.2741875,0.1378125 L20.2741875,0.1378125 C19.905375,-0.04725 19.469625,-0.04725 19.0995,0.1378125 L3.1011696,8.13815822 C2.60720568,8.38517662 2.40701679,8.98586148 2.6540352,9.4798254 C2.75080129,9.67332903 2.90771305,9.83023153 3.10122239,9.9269862 L21.8652864,19.3090182 C22.1468139,19.4497819 22.4781861,19.4497819 22.7597136,19.3090182 Z">
+                                                                            <path d="M22.7597136,19.3090182 L38.8987031,11.2395234 C39.3926816,10.9925342 39.592906,10.3918611 39.3459167,9.89788265 C39.249157,9.70436312 39.0922432,9.5474453 38.8987261,9.45068056 L20.2741875,0.1378125 L20.2741875,0.1378125 C19.905375,-0.04725 19.469625,-0.04725 19.0995,0.1378125 L3.1011696,8.13815822 C2.60720568,8.38517662 2.40701679,8.98586148 2.6540352,9.4798254 C2.75080129,9.67332903 2.90771305,9.83023153 3.10122239,9.9269862 L21.8652864,19.3090182 C22.1468139,19.4497819 22.4781861,19.4497819 22.7597136,19.3090182 Z">
                                                                             </path>
-                                                                            <path
-                                                                                d="M23.625,22.429159 L23.625,39.8805372 C23.625,40.4328219 24.0727153,40.8805372 24.625,40.8805372 C24.7802551,40.8805372 24.9333778,40.8443874 25.0722402,40.7749511 L41.2741875,32.673375 L41.2741875,32.673375 C41.719125,32.4515625 42,31.9974375 42,31.5 L42,14.241659 C42,13.6893742 41.5522847,13.241659 41,13.241659 C40.8447549,13.241659 40.6916418,13.2778041 40.5527864,13.3472318 L24.1777864,21.5347318 C23.8390024,21.7041238 23.625,22.0503869 23.625,22.429159 Z"
-                                                                                opacity="0.7"></path>
-                                                                            <path
-                                                                                d="M20.4472136,21.5347318 L1.4472136,12.0347318 C0.953235098,11.7877425 0.352562058,11.9879669 0.105572809,12.4819454 C0.0361450918,12.6208008 6.47121774e-16,12.7739139 0,12.929159 L0,30.1875 L0,30.1875 C0,30.6849375 0.280875,31.1390625 0.7258125,31.3621875 L19.5528096,40.7750766 C20.0467945,41.0220531 20.6474623,40.8218132 20.8944388,40.3278283 C20.963859,40.1889789 21,40.0358742 21,39.8806379 L21,22.429159 C21,22.0503869 20.7859976,21.7041238 20.4472136,21.5347318 Z"
-                                                                                opacity="0.7"></path>
+                                                                            <path d="M23.625,22.429159 L23.625,39.8805372 C23.625,40.4328219 24.0727153,40.8805372 24.625,40.8805372 C24.7802551,40.8805372 24.9333778,40.8443874 25.0722402,40.7749511 L41.2741875,32.673375 L41.2741875,32.673375 C41.719125,32.4515625 42,31.9974375 42,31.5 L42,14.241659 C42,13.6893742 41.5522847,13.241659 41,13.241659 C40.8447549,13.241659 40.6916418,13.2778041 40.5527864,13.3472318 L24.1777864,21.5347318 C23.8390024,21.7041238 23.625,22.0503869 23.625,22.429159 Z" opacity="0.7"></path>
+                                                                            <path d="M20.4472136,21.5347318 L1.4472136,12.0347318 C0.953235098,11.7877425 0.352562058,11.9879669 0.105572809,12.4819454 C0.0361450918,12.6208008 6.47121774e-16,12.7739139 0,12.929159 L0,30.1875 L0,30.1875 C0,30.6849375 0.280875,31.1390625 0.7258125,31.3621875 L19.5528096,40.7750766 C20.0467945,41.0220531 20.6474623,40.8218132 20.8944388,40.3278283 C20.963859,40.1889789 21,40.0358742 21,39.8806379 L21,22.429159 C21,22.0503869 20.7859976,21.7041238 20.4472136,21.5347318 Z" opacity="0.7"></path>
                                                                         </g>
                                                                     </g>
                                                                 </g>
@@ -439,27 +359,17 @@ Coded by www.creative-tim.com
                                             <a href="../pages/desktop-app.html" class="dropdown-item border-radius-md">
                                                 Desktop App
                                             </a>
-                                            <div
-                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center mt-3 px-0">
+                                            <div class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center mt-3 px-0">
                                                 <div class="d-inline-block">
-                                                    <div
-                                                        class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
-                                                        <svg width="12px" height="12px" viewBox="0 0 40 44"
-                                                            version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                    <div class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
+                                                        <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                             <title>document</title>
-                                                            <g stroke="none" stroke-width="1" fill="none"
-                                                                fill-rule="evenodd">
-                                                                <g transform="translate(-1870.000000, -591.000000)"
-                                                                    fill="#FFFFFF" fill-rule="nonzero">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                                                     <g transform="translate(1716.000000, 291.000000)">
-                                                                        <g
-                                                                            transform="translate(154.000000, 300.000000)">
-                                                                            <path
-                                                                                d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z"
-                                                                                opacity="0.603585379"></path>
-                                                                            <path
-                                                                                d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
+                                                                        <g transform="translate(154.000000, 300.000000)">
+                                                                            <path d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z" opacity="0.603585379"></path>
+                                                                            <path d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
                                                                             </path>
                                                                         </g>
                                                                     </g>
@@ -470,49 +380,33 @@ Coded by www.creative-tim.com
                                                 </div>
                                                 Blogs
                                             </div>
-                                            <a href="../pages/blog/single-article.html"
-                                                class="dropdown-item border-radius-md">
+                                            <a href="../pages/blog/single-article.html" class="dropdown-item border-radius-md">
                                                 Single Article
                                             </a>
-                                            <a href="../pages/blog/blog-posts.html"
-                                                class="dropdown-item border-radius-md">
+                                            <a href="../pages/blog/blog-posts.html" class="dropdown-item border-radius-md">
                                                 Blog Posts
                                             </a>
-                                            <a href="../pages/blog/categories.html"
-                                                class="dropdown-item border-radius-md">
+                                            <a href="../pages/blog/categories.html" class="dropdown-item border-radius-md">
                                                 Categories
                                             </a>
                                             <a href="../pages/blog/author.html" class="dropdown-item border-radius-md">
                                                 Author
                                             </a>
-                                            <div
-                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center mt-3 px-0">
+                                            <div class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center mt-3 px-0">
                                                 <div class="d-inline-block">
-                                                    <div
-                                                        class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
-                                                        <svg class="" width=" 12px" height="20px"
-                                                            viewBox="0 0 40 40" version="1.1"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                    <div class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
+                                                        <svg class="" width=" 12px" height="20px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                             <title>spaceship</title>
-                                                            <g stroke="none" stroke-width="1" fill="none"
-                                                                fill-rule="evenodd">
-                                                                <g transform="translate(-1720.000000, -592.000000)"
-                                                                    fill="#FFFFFF" fill-rule="nonzero">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <g transform="translate(-1720.000000, -592.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                                                     <g transform="translate(1716.000000, 291.000000)">
                                                                         <g transform="translate(4.000000, 301.000000)">
-                                                                            <path
-                                                                                d="M39.3,0.706666667 C38.9660984,0.370464027 38.5048767,0.192278529 38.0316667,0.216666667 C14.6516667,1.43666667 6.015,22.2633333 5.93166667,22.4733333 C5.68236407,23.0926189 5.82664679,23.8009159 6.29833333,24.2733333 L15.7266667,33.7016667 C16.2013871,34.1756798 16.9140329,34.3188658 17.535,34.065 C17.7433333,33.98 38.4583333,25.2466667 39.7816667,1.97666667 C39.8087196,1.50414529 39.6335979,1.04240574 39.3,0.706666667 Z M25.69,19.0233333 C24.7367525,19.9768687 23.3029475,20.2622391 22.0572426,19.7463614 C20.8115377,19.2304837 19.9992882,18.0149658 19.9992882,16.6666667 C19.9992882,15.3183676 20.8115377,14.1028496 22.0572426,13.5869719 C23.3029475,13.0710943 24.7367525,13.3564646 25.69,14.31 C26.9912731,15.6116662 26.9912731,17.7216672 25.69,19.0233333 L25.69,19.0233333 Z">
+                                                                            <path d="M39.3,0.706666667 C38.9660984,0.370464027 38.5048767,0.192278529 38.0316667,0.216666667 C14.6516667,1.43666667 6.015,22.2633333 5.93166667,22.4733333 C5.68236407,23.0926189 5.82664679,23.8009159 6.29833333,24.2733333 L15.7266667,33.7016667 C16.2013871,34.1756798 16.9140329,34.3188658 17.535,34.065 C17.7433333,33.98 38.4583333,25.2466667 39.7816667,1.97666667 C39.8087196,1.50414529 39.6335979,1.04240574 39.3,0.706666667 Z M25.69,19.0233333 C24.7367525,19.9768687 23.3029475,20.2622391 22.0572426,19.7463614 C20.8115377,19.2304837 19.9992882,18.0149658 19.9992882,16.6666667 C19.9992882,15.3183676 20.8115377,14.1028496 22.0572426,13.5869719 C23.3029475,13.0710943 24.7367525,13.3564646 25.69,14.31 C26.9912731,15.6116662 26.9912731,17.7216672 25.69,19.0233333 L25.69,19.0233333 Z">
                                                                             </path>
-                                                                            <path
-                                                                                d="M1.855,31.4066667 C3.05106558,30.2024182 4.79973884,29.7296005 6.43969145,30.1670277 C8.07964407,30.6044549 9.36054508,31.8853559 9.7979723,33.5253085 C10.2353995,35.1652612 9.76258177,36.9139344 8.55833333,38.11 C6.70666667,39.9616667 0,40 0,40 C0,40 0,33.2566667 1.855,31.4066667 Z">
+                                                                            <path d="M1.855,31.4066667 C3.05106558,30.2024182 4.79973884,29.7296005 6.43969145,30.1670277 C8.07964407,30.6044549 9.36054508,31.8853559 9.7979723,33.5253085 C10.2353995,35.1652612 9.76258177,36.9139344 8.55833333,38.11 C6.70666667,39.9616667 0,40 0,40 C0,40 0,33.2566667 1.855,31.4066667 Z">
                                                                             </path>
-                                                                            <path
-                                                                                d="M17.2616667,3.90166667 C12.4943643,3.07192755 7.62174065,4.61673894 4.20333333,8.04166667 C3.31200265,8.94126033 2.53706177,9.94913142 1.89666667,11.0416667 C1.5109569,11.6966059 1.61721591,12.5295394 2.155,13.0666667 L5.47,16.3833333 C8.55036617,11.4946947 12.5559074,7.25476565 17.2616667,3.90166667 L17.2616667,3.90166667 Z"
-                                                                                opacity="0.598539807"></path>
-                                                                            <path
-                                                                                d="M36.0983333,22.7383333 C36.9280725,27.5056357 35.3832611,32.3782594 31.9583333,35.7966667 C31.0587397,36.6879974 30.0508686,37.4629382 28.9583333,38.1033333 C28.3033941,38.4890431 27.4704606,38.3827841 26.9333333,37.845 L23.6166667,34.53 C28.5053053,31.4496338 32.7452344,27.4440926 36.0983333,22.7383333 L36.0983333,22.7383333 Z"
-                                                                                opacity="0.598539807"></path>
+                                                                            <path d="M17.2616667,3.90166667 C12.4943643,3.07192755 7.62174065,4.61673894 4.20333333,8.04166667 C3.31200265,8.94126033 2.53706177,9.94913142 1.89666667,11.0416667 C1.5109569,11.6966059 1.61721591,12.5295394 2.155,13.0666667 L5.47,16.3833333 C8.55036617,11.4946947 12.5559074,7.25476565 17.2616667,3.90166667 L17.2616667,3.90166667 Z" opacity="0.598539807"></path>
+                                                                            <path d="M36.0983333,22.7383333 C36.9280725,27.5056357 35.3832611,32.3782594 31.9583333,35.7966667 C31.0587397,36.6879974 30.0508686,37.4629382 28.9583333,38.1033333 C28.3033941,38.4890431 27.4704606,38.3827841 26.9333333,37.845 L23.6166667,34.53 C28.5053053,31.4496338 32.7452344,27.4440926 36.0983333,22.7383333 L36.0983333,22.7383333 Z" opacity="0.598539807"></path>
                                                                         </g>
                                                                     </g>
                                                                 </g>
@@ -529,38 +423,29 @@ Coded by www.creative-tim.com
                                                 VR <span class="badge badge-sm bg-gradient-dark ms-1">Soon</span>
                                             </a>
                                             <a href="javascript:;" class="dropdown-item border-radius-md">
-                                                Smart Home <span
-                                                    class="badge badge-sm bg-gradient-dark ms-1">Soon</span>
+                                                Smart Home <span class="badge badge-sm bg-gradient-dark ms-1">Soon</span>
                                             </a>
                                         </div>
                                     </div>
                                 </li>
 
                                 <li class="nav-item dropdown dropdown-hover mx-2">
-                                    <a role="button"
-                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                                        id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a role="button" class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
                                         Hubungi kami
-                                        <img src="../assets/img/down-arrow-dark.svg" alt="down-arrow"
-                                            class="arrow ms-1">
+                                        <img src="../assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3"
-                                        aria-labelledby="dropdownMenuBlocks">
+                                    <div class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuBlocks">
                                         <div class="d-none d-lg-block">
                                             <ul class="list-group">
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
+                                                <li class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
                                                     <a class="dropdown-item py-2 ps-3 border-radius-md">
                                                         <div class="d-flex">
                                                             <div class="icon h-10 me-3 d-flex mt-1">
-                                                                <i
-                                                                    class="ni ni-single-copy-04 text-gradient text-primary"></i>
+                                                                <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
                                                             </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
+                                                            <div class="w-100 d-flex align-items-center justify-content-between">
                                                                 <div>
-                                                                    <h6
-                                                                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                                                                         En. Mohd Yuzwan bin Yunan
                                                                     </h6>
                                                                     <span class="text-sm">Penolong Pegawai
@@ -571,14 +456,12 @@ Coded by www.creative-tim.com
                                                         </div>
                                                     </a>
                                                 </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
+                                                <li class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
                                                     <a class="dropdown-item py-2 ps-3 border-radius-md">
                                                         <div class="d-flex">
                                                             <div class="icon h-10 me-3 d-flex mt-1">
                                                             </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
+                                                            <div class="w-100 d-flex align-items-center justify-content-between">
                                                                 <div>
                                                                     <span class="text-sm">03-20847798</span>
                                                                 </div>
@@ -587,18 +470,15 @@ Coded by www.creative-tim.com
                                                     </a>
 
                                                 </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
+                                                <li class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
                                                     <a class="dropdown-item py-2 ps-3 border-radius-md">
                                                         <div class="d-flex">
                                                             <div class="icon h-10 me-3 d-flex mt-1">
                                                                 <i class="ni ni-badge text-gradient text-primary"></i>
                                                             </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
+                                                            <div class="w-100 d-flex align-items-center justify-content-between">
                                                                 <div>
-                                                                    <h6
-                                                                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                                                                         En. Mohd Faisal Bin Mustafah</h6>
                                                                     <span class="text-sm">Penolong Pegawai
                                                                         Teknologi
@@ -608,14 +488,12 @@ Coded by www.creative-tim.com
                                                         </div>
                                                     </a>
                                                 </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
+                                                <li class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
                                                     <a class="dropdown-item py-2 ps-3 border-radius-md">
                                                         <div class="d-flex">
                                                             <div class="icon h-10 me-3 d-flex mt-1">
                                                             </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
+                                                            <div class="w-100 d-flex align-items-center justify-content-between">
                                                                 <div>
                                                                     <span class="text-sm">03-20847703</span>
                                                                 </div>
@@ -623,14 +501,12 @@ Coded by www.creative-tim.com
                                                         </div>
                                                     </a>
                                                 </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
+                                                <li class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
                                                     <a class="dropdown-item py-2 ps-3 border-radius-md">
                                                         <div class="d-flex">
                                                             <div class="icon h-10 me-3 d-flex mt-1">
                                                             </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
+                                                            <div class="w-100 d-flex align-items-center justify-content-between">
                                                             </div>
                                                         </div>
                                                     </a>
@@ -643,11 +519,9 @@ Coded by www.creative-tim.com
                                                     <div>
                                                         <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
                                                     </div>
-                                                    <div
-                                                        class="w-100 d-flex align-items-center justify-content-between">
+                                                    <div class="w-100 d-flex align-items-center justify-content-between">
                                                         <div>
-                                                            <h6
-                                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
                                                                 Page Sections</h6>
                                                         </div>
                                                     </div>
@@ -854,29 +728,25 @@ Coded by www.creative-tim.com
                                 </li>
 
                                 <li class="nav-item mx-2">
-                                    <a role="button" href="/tambahrayuans"
-                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
+                                    <a role="button" href="/tambahrayuans" class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
                                         Rayuan
                                     </a>
                                 </li>
 
                                 <li class="nav-item mx-2">
-                                    <a role="button" href="/tambahaduans"
-                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
+                                    <a role="button" href="/tambahaduans" class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
                                         Aduan
                                     </a>
                                 </li>
                                 <li class="nav-item mx-2">
-                                    <a role="button" href="#one"
-                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
+                                    <a role="button" href="#one" class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
                                         Jadual
                                     </a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
                                 <li class="nav-item">
-                                    <a href="/register" class="btn btn-sm  bg-gradient-warning  btn-round mb-0 me-1"
-                                        onclick="smoothToPricing('pricing-soft-ui')">DAFTAR SEKARANG</a>
+                                    <a href="/register" class="btn btn-sm  bg-gradient-warning  btn-round mb-0 me-1" onclick="smoothToPricing('pricing-soft-ui')">DAFTAR SEKARANG</a>
                                 </li>
                             </ul>
                         </div>
@@ -890,15 +760,13 @@ Coded by www.creative-tim.com
     <header>
         <div class="page-header min-vh-75">
             <div class="oblique position-absolute top-0 h-100 d-md-block d-none">
-                <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
-                    style=" filter: grayscale(100%); background-image:url('https://www.intanbk.intan.my/iportal/images/klus_imatec/kluster/imatecentrance.jpg')">
+                <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style=" filter: grayscale(100%); background-image:url('https://www.intanbk.intan.my/iportal/images/klus_imatec/kluster/imatecentrance.jpg')">
                 </div>
             </div>
             <div class="container">
                 <div class="row">
 
-                    <div
-                        class="col-lg-6 col-md-7 d-flex justify-content-center text-md-start text-center flex-column mt-7">
+                    <div class="col-lg-6 col-md-7 d-flex justify-content-center text-md-start text-center flex-column mt-7">
                         <h1 class="text-gradient text-warning">ICT SKILLS ASSESSMENT</h1>
                         <h1 class="mb-4">& CERTIFICATION (ISAC)</h1>
                         <p class="lead pe-md-5 me-md-5">Sistem bagi penilaian ICT dan penjanaan sijil kemahiran bagi
@@ -909,13 +777,11 @@ Coded by www.creative-tim.com
                                     @csrf
                                     <label>ID Pengguna (No MyKad/Polis/Tentera)</label>
                                     <div>
-                                        <x-input id="nric" class="form-control w-75" type="nric" name="nric"
-                                            :value="old('nric')" required autofocus maxlength="12" size="12" />
+                                        <x-input id="nric" class="form-control w-75" type="nric" name="nric" :value="old('nric')" required autofocus maxlength="12" size="12" />
                                     </div>
                                     <label>Kata Laluan</label>
                                     <div>
-                                        <x-input id="password" class="form-control w-75" type="password"
-                                            name="password" required autocomplete="current-password" minlength="8" />
+                                        <x-input id="password" class="form-control w-75" type="password" name="password" required autocomplete="current-password" minlength="8" />
                                     </div>
 
                                     <a href="/forgot-password" target="_blank" style="color: red">Lupa Kata Laluan?</a>
@@ -947,19 +813,14 @@ Coded by www.creative-tim.com
                 <div class="col-md-6">
                     <div class="primary text-start border-radius-lg">
                         <div class="icon">
-                            <svg class="text-primary " width="25px" height="25px" viewBox="0 0 43 36" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <svg class="text-primary " width="25px" height="25px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>credit-card</title>
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
-                                        fill-rule="nonzero">
+                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                         <g transform="translate(1716.000000, 291.000000)">
                                             <g id="credit-card" transform="translate(453.000000, 454.000000)">
-                                                <path class="color-background"
-                                                    d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"
-                                                    opacity="0.593633743"></path>
-                                                <path class="color-foreground"
-                                                    d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
+                                                <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                                <path class="color-foreground" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
                                                 </path>
                                             </g>
                                         </g>
@@ -992,22 +853,16 @@ Coded by www.creative-tim.com
                     </div>
                     <div class="primary text-start border-radius-lg mt-6">
                         <div class="icon">
-                            <svg class="text-primary" width="25px" height="25px" viewBox="0 0 40 40" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <svg class="text-primary" width="25px" height="25px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>chart-pie-35</title>
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-1720.000000, -742.000000)" fill="#FFFFFF"
-                                        fill-rule="nonzero">
+                                    <g transform="translate(-1720.000000, -742.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                         <g transform="translate(1716.000000, 291.000000)">
                                             <g transform="translate(4.000000, 451.000000)">
-                                                <path class="color-background"
-                                                    d="M21.6666667,18.3333333 L39.915,18.3333333 C39.11,8.635 31.365,0.89 21.6666667,0.085 L21.6666667,18.3333333 Z"
-                                                    opacity="0.602864583"></path>
-                                                <path class="color-foreground"
-                                                    d="M20.69,21.6666667 L7.09833333,35.2583333 C10.585,38.21 15.085,40 20,40 C30.465,40 39.0633333,31.915 39.915,21.6666667 L20.69,21.6666667 Z">
+                                                <path class="color-background" d="M21.6666667,18.3333333 L39.915,18.3333333 C39.11,8.635 31.365,0.89 21.6666667,0.085 L21.6666667,18.3333333 Z" opacity="0.602864583"></path>
+                                                <path class="color-foreground" d="M20.69,21.6666667 L7.09833333,35.2583333 C10.585,38.21 15.085,40 20,40 C30.465,40 39.0633333,31.915 39.915,21.6666667 L20.69,21.6666667 Z">
                                                 </path>
-                                                <path class="color-foreground"
-                                                    d="M18.3333333,19.31 L18.3333333,0.085 C8.085,0.936666667 0,9.535 0,20 C0,24.915 1.79,29.415 4.74166667,32.9016667 L18.3333333,19.31 Z">
+                                                <path class="color-foreground" d="M18.3333333,19.31 L18.3333333,0.085 C8.085,0.936666667 0,9.535 0,20 C0,24.915 1.79,29.415 4.74166667,32.9016667 L18.3333333,19.31 Z">
                                                 </path>
                                             </g>
                                         </g>
@@ -1026,22 +881,15 @@ Coded by www.creative-tim.com
                 <div class="col-md-6">
                     <div class="primary text-start border-radius-lg">
                         <div class="icon">
-                            <svg class="text-primary" width="25px" height="25px" viewBox="0 0 42 44" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <svg class="text-primary" width="25px" height="25px" viewBox="0 0 42 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>time-alarm</title>
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-2319.000000, -440.000000)" fill="#FFFFFF"
-                                        fill-rule="nonzero">
+                                    <g transform="translate(-2319.000000, -440.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                         <g transform="translate(1716.000000, 291.000000)">
                                             <g id="time-alarm" transform="translate(603.000000, 149.000000)">
-                                                <path class="color-background"
-                                                    d="M18.8086957,4.70034783 C15.3814926,0.343541521 9.0713063,-0.410050841 4.7145,3.01715217 C0.357693695,6.44435519 -0.395898667,12.7545415 3.03130435,17.1113478 C5.53738466,10.3360568 11.6337901,5.54042955 18.8086957,4.70034783 L18.8086957,4.70034783 Z"
-                                                    opacity="0.6"></path>
-                                                <path class="color-background"
-                                                    d="M38.9686957,17.1113478 C42.3958987,12.7545415 41.6423063,6.44435519 37.2855,3.01715217 C32.9286937,-0.410050841 26.6185074,0.343541521 23.1913043,4.70034783 C30.3662099,5.54042955 36.4626153,10.3360568 38.9686957,17.1113478 Z"
-                                                    opacity="0.6"></path>
-                                                <path class="color-foreground"
-                                                    d="M34.3815652,34.7668696 C40.2057958,27.7073059 39.5440671,17.3375603 32.869743,11.0755718 C26.1954189,4.81358341 15.8045811,4.81358341 9.13025701,11.0755718 C2.45593289,17.3375603 1.79420418,27.7073059 7.61843478,34.7668696 L3.9753913,40.0506522 C3.58549114,40.5871271 3.51710058,41.2928217 3.79673036,41.8941824 C4.07636014,42.4955431 4.66004722,42.8980248 5.32153275,42.9456105 C5.98301828,42.9931963 6.61830436,42.6784048 6.98113043,42.1232609 L10.2744783,37.3434783 C16.5555112,42.3298213 25.4444888,42.3298213 31.7255217,37.3434783 L35.0188696,42.1196087 C35.6014207,42.9211577 36.7169135,43.1118605 37.53266,42.5493622 C38.3484064,41.9868639 38.5667083,40.8764423 38.0246087,40.047 L34.3815652,34.7668696 Z M30.1304348,25.5652174 L21,25.5652174 C20.49574,25.5652174 20.0869565,25.1564339 20.0869565,24.6521739 L20.0869565,15.5217391 C20.0869565,15.0174791 20.49574,14.6086957 21,14.6086957 C21.50426,14.6086957 21.9130435,15.0174791 21.9130435,15.5217391 L21.9130435,23.7391304 L30.1304348,23.7391304 C30.6346948,23.7391304 31.0434783,24.1479139 31.0434783,24.6521739 C31.0434783,25.1564339 30.6346948,25.5652174 30.1304348,25.5652174 Z">
+                                                <path class="color-background" d="M18.8086957,4.70034783 C15.3814926,0.343541521 9.0713063,-0.410050841 4.7145,3.01715217 C0.357693695,6.44435519 -0.395898667,12.7545415 3.03130435,17.1113478 C5.53738466,10.3360568 11.6337901,5.54042955 18.8086957,4.70034783 L18.8086957,4.70034783 Z" opacity="0.6"></path>
+                                                <path class="color-background" d="M38.9686957,17.1113478 C42.3958987,12.7545415 41.6423063,6.44435519 37.2855,3.01715217 C32.9286937,-0.410050841 26.6185074,0.343541521 23.1913043,4.70034783 C30.3662099,5.54042955 36.4626153,10.3360568 38.9686957,17.1113478 Z" opacity="0.6"></path>
+                                                <path class="color-foreground" d="M34.3815652,34.7668696 C40.2057958,27.7073059 39.5440671,17.3375603 32.869743,11.0755718 C26.1954189,4.81358341 15.8045811,4.81358341 9.13025701,11.0755718 C2.45593289,17.3375603 1.79420418,27.7073059 7.61843478,34.7668696 L3.9753913,40.0506522 C3.58549114,40.5871271 3.51710058,41.2928217 3.79673036,41.8941824 C4.07636014,42.4955431 4.66004722,42.8980248 5.32153275,42.9456105 C5.98301828,42.9931963 6.61830436,42.6784048 6.98113043,42.1232609 L10.2744783,37.3434783 C16.5555112,42.3298213 25.4444888,42.3298213 31.7255217,37.3434783 L35.0188696,42.1196087 C35.6014207,42.9211577 36.7169135,43.1118605 37.53266,42.5493622 C38.3484064,41.9868639 38.5667083,40.8764423 38.0246087,40.047 L34.3815652,34.7668696 Z M30.1304348,25.5652174 L21,25.5652174 C20.49574,25.5652174 20.0869565,25.1564339 20.0869565,24.6521739 L20.0869565,15.5217391 C20.0869565,15.0174791 20.49574,14.6086957 21,14.6086957 C21.50426,14.6086957 21.9130435,15.0174791 21.9130435,15.5217391 L21.9130435,23.7391304 L30.1304348,23.7391304 C30.6346948,23.7391304 31.0434783,24.1479139 31.0434783,24.6521739 C31.0434783,25.1564339 30.6346948,25.5652174 30.1304348,25.5652174 Z">
                                                 </path>
                                             </g>
                                         </g>
@@ -1061,20 +909,15 @@ Coded by www.creative-tim.com
                     </div>
                     <div class="primary text-start border-radius-lg mt-6">
                         <div class="icon">
-                            <svg class="text-primary" width="25px" height="25px" viewBox="0 0 52 35" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <svg class="text-primary" width="25px" height="25px" viewBox="0 0 52 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>sound-wave</title>
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-2015.000000, -596.000000)" fill="#FFFFFF"
-                                        fill-rule="nonzero">
+                                    <g transform="translate(-2015.000000, -596.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                         <g transform="translate(1716.000000, 291.000000)">
                                             <g id="sound-wave" transform="translate(299.000000, 305.000000)">
-                                                <path class="color-foreground"
-                                                    d="M15.2941176,30.5882353 C14.6024837,30.5882353 13.9754248,30.1667974 13.7154248,29.5210458 L8.11777778,15.5269281 L6.51189542,17.9366013 C6.19581699,18.4090196 5.66562092,18.6928105 5.09803922,18.6928105 L0,18.6928105 L0,15.2941176 L4.18888889,15.2941176 L7.08287582,10.9522876 C7.43294118,10.4288889 8.03281046,10.1467974 8.67346405,10.2045752 C9.30052288,10.2708497 9.84261438,10.6769935 10.0754248,11.263268 L15.0969935,23.8214379 L22.1696732,1.19294118 C22.3905882,0.482614379 23.0465359,0 23.7908497,0 C23.792549,0 23.792549,0 23.7942484,0 C24.5385621,0.00169934641 25.1962092,0.487712418 25.4154248,1.19973856 L31.2305882,20.1015686 L34.3267974,15.9738562 C34.6462745,15.5456209 35.1509804,15.2941176 35.6862745,15.2941176 L40.7843137,15.2941176 L40.7843137,18.6928105 L36.5359477,18.6928105 L31.9477124,24.8104575 C31.5653595,25.3202614 30.9298039,25.5717647 30.2959477,25.4647059 C29.6671895,25.3542484 29.1522876,24.9005229 28.9636601,24.2904575 L23.7772549,7.43803922 L16.9152941,29.3952941 C16.7011765,30.0818301 16.0792157,30.5593464 15.3603922,30.5865359 C15.3366013,30.5882353 15.3162092,30.5882353 15.2941176,30.5882353 Z">
+                                                <path class="color-foreground" d="M15.2941176,30.5882353 C14.6024837,30.5882353 13.9754248,30.1667974 13.7154248,29.5210458 L8.11777778,15.5269281 L6.51189542,17.9366013 C6.19581699,18.4090196 5.66562092,18.6928105 5.09803922,18.6928105 L0,18.6928105 L0,15.2941176 L4.18888889,15.2941176 L7.08287582,10.9522876 C7.43294118,10.4288889 8.03281046,10.1467974 8.67346405,10.2045752 C9.30052288,10.2708497 9.84261438,10.6769935 10.0754248,11.263268 L15.0969935,23.8214379 L22.1696732,1.19294118 C22.3905882,0.482614379 23.0465359,0 23.7908497,0 C23.792549,0 23.792549,0 23.7942484,0 C24.5385621,0.00169934641 25.1962092,0.487712418 25.4154248,1.19973856 L31.2305882,20.1015686 L34.3267974,15.9738562 C34.6462745,15.5456209 35.1509804,15.2941176 35.6862745,15.2941176 L40.7843137,15.2941176 L40.7843137,18.6928105 L36.5359477,18.6928105 L31.9477124,24.8104575 C31.5653595,25.3202614 30.9298039,25.5717647 30.2959477,25.4647059 C29.6671895,25.3542484 29.1522876,24.9005229 28.9636601,24.2904575 L23.7772549,7.43803922 L16.9152941,29.3952941 C16.7011765,30.0818301 16.0792157,30.5593464 15.3603922,30.5865359 C15.3366013,30.5882353 15.3162092,30.5882353 15.2941176,30.5882353 Z">
                                                 </path>
-                                                <path class="color-background"
-                                                    d="M26.5098039,34.6666667 C25.8181699,34.6666667 25.1911111,34.2452288 24.9311111,33.5994771 L19.3334641,19.6053595 L17.7275817,22.0150327 C17.4115033,22.487451 16.8813072,22.7712418 16.3137255,22.7712418 L11.2156863,22.7712418 L11.2156863,19.372549 L15.4045752,19.372549 L18.2985621,15.030719 C18.6486275,14.5073203 19.2484967,14.2252288 19.8891503,14.2830065 C20.5162092,14.349281 21.0583007,14.7554248 21.2911111,15.3416993 L26.3126797,27.8998693 L33.3853595,5.27137255 C33.6062745,4.56104575 34.2622222,4.07843137 35.0065359,4.07843137 C35.0082353,4.07843137 35.0082353,4.07843137 35.0099346,4.07843137 C35.7542484,4.08013072 36.4118954,4.56614379 36.6311111,5.27816993 L42.4462745,24.18 L45.5424837,20.0522876 C45.8619608,19.6240523 46.3666667,19.372549 46.9019608,19.372549 L52,19.372549 L52,22.7712418 L47.751634,22.7712418 L43.1633987,28.8888889 C42.7810458,29.3986928 42.1454902,29.6501961 41.511634,29.5431373 C40.8828758,29.4326797 40.3679739,28.9789542 40.1793464,28.3688889 L34.9929412,11.5164706 L28.1309804,33.4737255 C27.9168627,34.1602614 27.294902,34.6377778 26.5760784,34.6649673 C26.5522876,34.6666667 26.5318954,34.6666667 26.5098039,34.6666667 Z"
-                                                    id="Path-Copy" opacity="0.604957217"></path>
+                                                <path class="color-background" d="M26.5098039,34.6666667 C25.8181699,34.6666667 25.1911111,34.2452288 24.9311111,33.5994771 L19.3334641,19.6053595 L17.7275817,22.0150327 C17.4115033,22.487451 16.8813072,22.7712418 16.3137255,22.7712418 L11.2156863,22.7712418 L11.2156863,19.372549 L15.4045752,19.372549 L18.2985621,15.030719 C18.6486275,14.5073203 19.2484967,14.2252288 19.8891503,14.2830065 C20.5162092,14.349281 21.0583007,14.7554248 21.2911111,15.3416993 L26.3126797,27.8998693 L33.3853595,5.27137255 C33.6062745,4.56104575 34.2622222,4.07843137 35.0065359,4.07843137 C35.0082353,4.07843137 35.0082353,4.07843137 35.0099346,4.07843137 C35.7542484,4.08013072 36.4118954,4.56614379 36.6311111,5.27816993 L42.4462745,24.18 L45.5424837,20.0522876 C45.8619608,19.6240523 46.3666667,19.372549 46.9019608,19.372549 L52,19.372549 L52,22.7712418 L47.751634,22.7712418 L43.1633987,28.8888889 C42.7810458,29.3986928 42.1454902,29.6501961 41.511634,29.5431373 C40.8828758,29.4326797 40.3679739,28.9789542 40.1793464,28.3688889 L34.9929412,11.5164706 L28.1309804,33.4737255 C27.9168627,34.1602614 27.294902,34.6377778 26.5760784,34.6649673 C26.5522876,34.6666667 26.5318954,34.6666667 26.5098039,34.6666667 Z" id="Path-Copy" opacity="0.604957217"></path>
                                             </g>
                                         </g>
                                     </g>
@@ -1179,8 +1022,7 @@ Coded by www.creative-tim.com
 
                     </p>
 
-                    <a href="https://www.intanbk.intan.my/iportal/en/about-intan"
-                        class="text-warning icon-move-right">Mengenai Intan
+                    <a href="https://www.intanbk.intan.my/iportal/en/about-intan" class="text-warning icon-move-right">Mengenai Intan
                         <i class="fas fa-arrow-right text-sm ms-1"></i>
                     </a>
                 </div>
@@ -1220,19 +1062,12 @@ Coded by www.creative-tim.com
                     </div>
                 </div>
             </div>
-            
+
             <div class="row pt-5" id="one">
-                <?php
-                    use App\Models\Jadual;
-                    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
-                        ->orderBy('TARIKH_SESI', 'desc')
-                        ->whereYear('TARIKH_SESI', '>=', 2021)
-                        ->get();
-                ?>
                 <div class="col">
                     <div class="card">
                         <div class="card-header" style="background-color:#FFA500;">
-                            <b class="text-white">Senarai Jadual</b>
+                            <b class="text-white">Senarai Jadual Penilaian</b>
                         </div>
                         <div class="table-responsive" style="background-color:  #FAFAD2; border-radius: 10px">
                             <table class="table align-items-center mb-0 table-flush" id="datatable-penjadualan">
@@ -1249,11 +1084,12 @@ Coded by www.creative-tim.com
                                 <tbody>
 
                                     @foreach ($jaduals as $jadual)
-                                        <tr>
-                                            <td class="text-center">{{ $loop->index + 1 }}</td>
-                                            <td class="text-center">
-                                                {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}</td>
-                                            <!-- <td class="text-center">
+                                    <tr>
+                                        <td class="text-center">{{ $loop->index + 1 }}</td>
+                                        <td class="text-center">
+                                            {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
+                                        </td>
+                                        <!-- <td class="text-center">
                                                 @if ($jadual['KOD_MASA_MULA'] >= '08:00' && $jadual['KOD_MASA_MULA'] < '11:59')
                                                     {{ date('h:i', strtotime($jadual['KOD_MASA_MULA'])) }} AM
                                                 @else
@@ -1266,9 +1102,9 @@ Coded by www.creative-tim.com
                                                     {{ date('h:i', strtotime($jadual['KOD_MASA_TAMAT'])) }} PM
                                                 @endif
                                             </td> -->
-                                            <td class="text-center">{{ $jadual['platform'] }}</td>
-                                            <td class="text-center">{{ $jadual['status'] }}</td>
-                                        </tr>
+                                        <td class="text-center">{{ $jadual['platform'] }}</td>
+                                        <td class="text-center">{{ $jadual['status'] }}</td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -1294,8 +1130,7 @@ Coded by www.creative-tim.com
                     <!-- Start Card Blog Fullbackground - text centered -->
                     <a href="/jaduals">
                         <div class="card card-background move-on-hover mb-4">
-                            <div class="full-background"
-                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/glass-wall.jpg')">
+                            <div class="full-background" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/glass-wall.jpg')">
                             </div>
                             <div class="card-body pt-12">
                                 <h4 class="text-white">Jadual Penilaian</h4>
@@ -1322,8 +1157,7 @@ Coded by www.creative-tim.com
                     <!-- Start Card Blog Fullbackground - text centered -->
                     <a href="/tambahrayuans">
                         <div class="card card-background move-on-hover mb-4">
-                            <div class="full-background"
-                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/books.jpg')">
+                            <div class="full-background" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/books.jpg')">
                             </div>
                             <div class="card-body pt-12">
                                 <h4 class="text-white">Rayuan</h4>
@@ -1419,8 +1253,7 @@ Coded by www.creative-tim.com
                     <div class="d-flex justify-content-center flex-wrap">
                         <h6 class="text-gradient text-warning font-weight-bolder">Institut Tadbiran Awam Negara</h6>
                         &nbsp;&nbsp;&nbsp;
-                        <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg" width="150"
-                            height="150">
+                        <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg" width="150" height="150">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-6 mb-4">
@@ -1525,8 +1358,7 @@ Coded by www.creative-tim.com
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
-    <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
+    <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
         const dataTableBasicPenjadualan = new simpleDatatables.DataTable("#datatable-penjadualan", {
             searchable: false,
@@ -1535,19 +1367,16 @@ Coded by www.creative-tim.com
     </script>
 
     <script>
+        $("a[href^='#']").click(function(e) {
+            e.preventDefault();
 
-    $("a[href^='#']").click(function(e) {
-        e.preventDefault();
-        
-        var position = $($(this).attr("href")).offset().top;
-    
-        $("body, html").animate({
-            scrollTop: position
-        } /* speed */ );
-    });
-    
+            var position = $($(this).attr("href")).offset().top;
+
+            $("body, html").animate({
+                scrollTop: position
+            } /* speed */ );
+        });
     </script>
 </body>
 
 </html>
-
