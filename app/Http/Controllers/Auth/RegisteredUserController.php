@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Mail\PenggunaDidaftar;
+use Illuminate\Support\Facades\Mail;
 
 class RegisteredUserController extends Controller
 {
@@ -38,7 +40,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -72,6 +74,13 @@ class RegisteredUserController extends Controller
 
         $user->save();
 
+        $current_user = $request->user();
+        
+        $user_reg = User::where('id', '=', $current_user)->get();
+        foreach ($user_reg as $users) {
+            Mail::to($users->email)->send(new PenggunaDidaftar($user));
+        }
+
         // dd($user);
 
         $GetDataXMLbyIC = new GetDataXMLbyIC();
@@ -87,10 +96,10 @@ class RegisteredUserController extends Controller
             $negeri = Refgeneral::where('MASTERCODE', 10021)->where('DESCRIPTION1', $hrmisData->Negeri)->get()->toArray();
 
             // To get reference of KLASIFIKASI_PERKHIDMATAN from table refgeneral
-            $klasifikasiPerkhidmatan = Refgeneral::where('MASTERCODE', 10024)->where('DESCRIPTION1', 'like', '('.str_replace(' ', '', $hrmisData->KlasifikasiPerkhidmatan).')%' )->get()->toArray();
+            $klasifikasiPerkhidmatan = Refgeneral::where('MASTERCODE', 10024)->where('DESCRIPTION1', 'like', '(' . str_replace(' ', '', $hrmisData->KlasifikasiPerkhidmatan) . ')%')->get()->toArray();
 
             // To get reference of GRED_JAWATAN from table refgeneral
-            $gredJawatan = Refgeneral::where('MASTERCODE', 10025)->where('DESCRIPTION1', 'like', '%'.substr($hrmisData->GredGaji, 1, 2).'%' )->get()->toArray();
+            $gredJawatan = Refgeneral::where('MASTERCODE', 10025)->where('DESCRIPTION1', 'like', '%' . substr($hrmisData->GredGaji, 1, 2) . '%')->get()->toArray();
 
             // To get reference of TARAF_JAWATAN from table refgeneral
             $tarafJawatan = Refgeneral::where('MASTERCODE', 10026)->where('DESCRIPTION1', 'like', $hrmisData->StatusPerkhidmatan)->get()->toArray();
@@ -156,10 +165,12 @@ class RegisteredUserController extends Controller
                 'user_id' => $user->id,
             ]);
         }
+        // dd($hrmisData);
         event(new Registered($user));
         Auth::login($user);
 
         // dd($user);
+        // return redirect('/profil')->with('success', 'Berjaya didaftarkan!');
         return redirect(RouteServiceProvider::HOME);
     }
 }

@@ -125,10 +125,13 @@
         <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
             <ul class="navbar-nav">
                 <li class="nav-item">
-
-                    <a href="dashboard" class="nav-link active" aria-controls="dashboard" role="button" aria-expanded="false">
-                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center me-2">
-                            <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    
+                    {{-- <a href="dashboard" class="nav-link active" aria-controls="dashboard" role="button"
+                        aria-expanded="false">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center me-2">
+                            <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>shop </title>
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
@@ -144,8 +147,8 @@
                             </svg>
                         </div>
                         <span class="nav-link-text ms-1">Dashboards</span>
-                    </a>
-
+                    </a> --}}
+                    
                     <hr class="horizontal dark mt-0">
                     <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
                         <ul class="navbar-nav">

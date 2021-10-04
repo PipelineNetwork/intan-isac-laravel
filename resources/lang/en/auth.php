@@ -15,7 +15,7 @@ return [
 
     // 'failed' => 'These credentials do not match our records.',
     'failed' => 'Akaun anda tiada dalam rekod kami.',
-    'password' => 'The provided password is incorrect.',
+    'password' => 'Kata laluan yang diberikan tidak betul.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

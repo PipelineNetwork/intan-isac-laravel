@@ -31,25 +31,25 @@
     <h6 class="font-weight-bolder">Kemaskini Profil</h6>
 </nav>
 
-<form method="POST" action="/profil/edit">
+<form method="POST" action="/profil/{{$user->name}}/edit">
     @csrf
     <div class="card mt-4" id="basic-info">
         <div class="card-header" style="background-color:#FFA500;">
             <h5 class="text-white">Kemaskini Profil</h5>
         </div>
-        </br>
+        <br>
         <div class="card-body pt-0">
             <div class="row">
                 <div class="col-6">
                     <label for="">Nama :</label>
                     <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="name" value="{{$user->name}}">
+                        <input class="form-control mb-3" type="text" name="name" value="{{$user->name}}" required>
                     </div>
                 </div>
                 <div class="col-6">
                     <label for="">Email :</label>
                     <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="email" value="{{$user->email}}">
+                        <input class="form-control mb-3" type="text" name="email" value="{{$user->email}}" required>
                     </div>
                 </div>
             </div>
@@ -60,13 +60,13 @@
                     <label for="">Kod kementerian :</label>
                     <div class="input-group">
                         <input class="form-control mb-3" type="text" name="ministry_code"
-                            value="{{$user->ministry_code}}">
+                            value="{{$user->ministry_code}}" required>
                     </div>
                 </div>
                 <div class="col-6">
                     <label for="">No Kad. Pengenalan :</label>
                     <div class="input-group">
-                        <input class="form-control mb-3" type="text" name="nric" value="{{$user->nric}}">
+                        <input class="form-control mb-3" type="text" name="nric" value="{{$user->nric}}" required maxlength="12" size="12">
                     </div>
                 </div>
             </div>

@@ -30,80 +30,86 @@
         <h6 class="font-weight-bolder">Senarai Aduan</h6>
     </nav>
     <br>
-    <?php
-if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '5' )){
-?>
-    <div>
-        <div class="row p-2">
-            <div class="column-6">
-                <a href="/tambahaduans/create" class="btn bg-gradient-warning" type="submit" style="float: right;">Tambah
-                    Aduan</a>
+
+    <div class="container-fluid p-3">
+        <?php
+        if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '5' )){
+        ?>
+        <div>
+            <div class="row p-2">
+                <div class="column-6">
+                    <a href="/tambahaduans/create" class="btn bg-gradient-warning" type="submit"
+                        style="float: right;">Tambah
+                        Aduan</a>
+                </div>
             </div>
         </div>
-    </div>
-    <?php
-  }
-?>
+        <?php
+          }
+        ?>
 
-    <div class="card p-2">
-        <div class="card-header" style="background-color:#FFA500;">
-            <b class="text-white">Senarai Aduan</b>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+        <div class="card p-2">
+            <div class="card-header" style="background-color:#FFA500;">
+                <b class="text-white">Senarai Aduan</b>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
 
-                    <thead>
-                        <tr>
-                            <th>Tajuk</th>
-                            <th>Keterangan Aduan</th>
-                            <th>Fail Aduan</th>
-                            <th>Keterangan Balas</th>
-                            <th>Fail Balas</th>
-                            <th>Status</th>
-                            <?php
-                        if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
-                        ?>
-                            <th>Balas</th>
-                            <?php
-                          }
-                        ?>
-
-
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach ($tambahaduans as $tambahaduan)
+                        <thead>
                             <tr>
-                                <td>{{ $tambahaduan['tajuk'] }}</td>
-                                <td>{{ $tambahaduan['keterangan_aduan_send'] }}</td>
-                                <td><a
-                                        href="storage/{{ $tambahaduan['file_aduan_send'] }}" target="_blank">{{ $tambahaduan['file_aduan_send'] }}</a>
-                                </td>
-                                <td>{{ $tambahaduan['keterangan_aduan_reply'] }}</td>
-                                <td><a href="storage/{{ $tambahaduan['file_aduan_reply'] }}" target="_blank">{{ $tambahaduan['file_aduan_reply'] }}
-                                </td>
-
-                                <td>{{ $tambahaduan['status'] }}</td>
+                                <th>Tajuk</th>
+                                <th>Keterangan Aduan</th>
+                                <th>Fail Aduan</th>
+                                <th>Keterangan Balas</th>
+                                <th>Fail Balas</th>
+                                <th>Status</th>
                                 <?php
-                        if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
-                        ?>
-                                <td><a href="/tambahaduans/{{ $tambahaduan['id'] }}/edit" class="btn-sm"
-                                        style="color:black;">
-                                        Balas</a></td>
+                                if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
+                                ?>
+                                <th>Balas</th>
                                 <?php
                                   }
                                 ?>
 
-                            </tr>
-                        @endforeach
-                    </tbody>
 
-                </table>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($tambahaduans as $tambahaduan)
+                                <tr>
+                                    <td>{{ $tambahaduan['tajuk'] }}</td>
+                                    <td>{{ $tambahaduan['keterangan_aduan_send'] }}</td>
+                                    <td><a href="storage/{{ $tambahaduan['file_aduan_send'] }}"
+                                            target="_blank">{{ $tambahaduan['file_aduan_send'] }}</a>
+                                    </td>
+                                    <td>{{ $tambahaduan['keterangan_aduan_reply'] }}</td>
+                                    <td><a href="storage/{{ $tambahaduan['file_aduan_reply'] }}"
+                                            target="_blank">{{ $tambahaduan['file_aduan_reply'] }}
+                                    </td>
+
+                                    <td>{{ $tambahaduan['status'] }}</td>
+                                    <?php
+                                if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
+                                ?>
+                                    <td><a href="/tambahaduans/{{ $tambahaduan['id'] }}/edit" class="btn-sm"
+                                            style="color:black;">
+                                            Balas</a></td>
+                                    <?php
+                                          }
+                                        ?>
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+
     <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
         type="text/javascript"></script>
     <script type="text/javascript">
