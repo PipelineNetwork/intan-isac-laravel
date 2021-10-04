@@ -121,6 +121,6 @@ class PenggunaController extends Controller
     {
         $user = User::find($user);
         $user->delete();
-        return redirect('/pengurusanpengguna');
+        return redirect('/pengurusanpengguna')->with('success', 'Berjaya dihapus!');
     }
 }

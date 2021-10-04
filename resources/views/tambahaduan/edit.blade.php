@@ -30,58 +30,64 @@
         </ol>
         <h6 class="font-weight-bolder">Balas Aduan</h6>
     </nav>
-    <div class="col-6">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        <form method="POST" action="/tambahaduans/{{ $tambahaduan->id }}" enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
-            <div class="card mt-4" id="basic-info">
-                <div class="card-header" style="background-color:#FFA500;">
-                    <h5 class="text-white">Balas Aduan</h5>
+
+    <div class="container-fluid p-3">
+        <div class="col-xl-12">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Ralat!</strong> Sila semak semula kemasukan data anda.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-                </br>
-                <div class="card-body pt-0">
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="keterangan_aduan_reply">Keterangan Balas :</label>
-                            <div class="input-group">
-                                <input class="form-control mb-3" type="text" name="keterangan_aduan_reply" required>
+            @endif
+            <form method="POST" action="/tambahaduans/{{ $tambahaduan->id }}" enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
+                <div class="container-fluid py-4">
+                    <div class="col-xl-12">
+                        <div class="card mt-4">
+                            <div class="card-header" style="background-color:#FFA500;">
+                                <h5 class="text-white">Balas Aduan</h5>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <label for="file_aduan_reply">File Balas :</label>
-                            <div class="input-group">
-                                <input class="form-control mb-3" type="file" name="file_aduan_reply" required>
+                            <br>
+                            <div class="card-body pt-0">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="aduan_reply">Keterangan Balas :</label>
+                                        <div class="input-group">
+                                            <textarea name="keterangan_aduan_reply" id="aduan_reply" cols="100" rows="3"
+                                                required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-9">
+                                        <label for="file_aduan_reply">File Balas :</label>
+                                        <div class="input-group">
+                                            <input class="form-control mb-3" type="file" name="file_aduan_reply" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="input-group">
+                                            <input type="hidden" name="id" value="{{ $id }}">
+                                        </div>
+                                        <div class="input-group">
+                                            <input type="hidden" name="user_id" value="{{ $tambahaduan->user_id }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn bg-gradient-warning" type="submit">Simpan</button>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group">
-                                <input type="hidden" name="id" value="{{ $id }}">
-                            </div>
-                            <div class="input-group">
-                                <input type="hidden" name="user_id" value="{{ $tambahaduan->user_id }}">
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn bg-gradient-warning" type="submit">Simpan</button>
                 </div>
-            </div>
-        </form>
+            </form>
 
 
+        </div>
     </div>
 
 @stop

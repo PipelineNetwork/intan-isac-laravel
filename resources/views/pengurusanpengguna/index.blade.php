@@ -33,103 +33,100 @@
         <h6 class="font-weight-bolder">Senarai Pengguna</h6>
     </nav>
 
-
-    <div>
-        <div class="row">
-            <div class="column-6">
-                <a href="/pengurusanpengguna/create" class="btn bg-gradient-warning" type="submit"
-                    style="float: right;">Daftar
-                    Pengguna</a>
+    <div class="container-fluid py-4">
+        <div>
+            <div class="row">
+                <div class="column-6">
+                    <a href="/pengurusanpengguna/create" class="btn bg-gradient-warning" type="submit"
+                        style="float: right;">Daftar
+                        Pengguna</a>
+                </div>
             </div>
         </div>
-    </div>
 
+        <div class="card">
+            <div class="card-header" style="background-color:#FFA500;">
+                <b class="text-white">Senarai Pengguna</b>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
 
-
-
-
-    <div class="card">
-        <div class="card-header" style="background-color:#FFA500;">
-            <b class="text-white">Senarai Pengguna</b>
-        </div>
-        <div class="table-responsive">
-            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>E-mel</th>
-                        <th>Peranan</th>
-                        <th>Kemaskini</th>
-                        <th>Hapus</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach ($users as $user)
+                    <thead>
                         <tr>
-                            <td>{{ $user['name'] }}</td>
-                            <td>{{ $user['email'] }}</td>
-                            <td>
-                                @if ($user['user_group_id'] == 1)
-                                    Pentadbir Sistem
-                                @elseif ($user['user_group_id'] == 2)
-                                    Pentadbir Penilaian
-                                @elseif ($user['user_group_id'] == 3)
-                                    Penyelaras
-                                @elseif ($user['user_group_id'] == 4)
-                                    Pengawas
-                                @elseif ($user['user_group_id'] == 5)
-                                    Calon
-                                @else
-                                    Pegawai Korporat
-                                @endif
-                                {{-- {{ $user['user_group_id'] }} --}}
-                            </td>
-                            <td><a href="/pengurusanpengguna/{{ $user->id }}/edit" class="btn-sm"
-                                    style="color:black;"> Kemaskini
-                                </a>
-                            </td>
-                            <td>
-                                <a data-bs-toggle="modal" data-bs-target="#modaldelete-{{ $user->id }}">
-                                    <i class="far fa-trash-alt"></i>
-                                </a>
-                                {{-- <form method="POST" action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
-                                    @method('DELETE')
-                                    @csrf
+                            <th>Nama</th>
+                            <th>E-mel</th>
+                            <th>Peranan</th>
+                            <th>Kemaskini</th>
+                            <th>Hapus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                                    <button type="submit"> Hapus</button>
-                                </form> --}}
-                            </td>
+                        @foreach ($users as $user)
+                            <tr>
+                                <td>{{ $user['name'] }}</td>
+                                <td>{{ $user['email'] }}</td>
+                                <td>
+                                    @if ($user['user_group_id'] == 1)
+                                        Pentadbir Sistem
+                                    @elseif ($user['user_group_id'] == 2)
+                                        Pentadbir Penilaian
+                                    @elseif ($user['user_group_id'] == 3)
+                                        Penyelaras
+                                    @elseif ($user['user_group_id'] == 4)
+                                        Pengawas
+                                    @elseif ($user['user_group_id'] == 5)
+                                        Calon
+                                    @else
+                                        Pegawai Korporat
+                                    @endif
+                                    {{-- {{ $user['user_group_id'] }} --}}
+                                </td>
+                                <td><a href="/pengurusanpengguna/{{ $user->id }}/edit" class="btn-sm"
+                                        style="color:black;"> Kemaskini
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#modaldelete-{{ $user->id }}">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
+                                    {{-- <form method="POST" action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
+                                        @method('DELETE')
+                                        @csrf
+    
+                                        <button type="submit"> Hapus</button>
+                                    </form> --}}
+                                </td>
 
-                            <div class="modal fade" id="modaldelete-{{ $user->id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body text-center">
-                                            <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
-                                            <br>
-                                            Anda pasti mahu hapus?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn bg-gradient-secondary"
-                                                data-bs-dismiss="modal">Tutup</button>
-                                            <form method="POST"
-                                                action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
-                                                @method('DELETE')
-                                                @csrf
+                                <div class="modal fade" id="modaldelete-{{ $user->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body text-center">
+                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                <br>
+                                                Anda pasti untuk menghapus pengguna?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn bg-gradient-secondary"
+                                                    data-bs-dismiss="modal">Tutup</button>
+                                                <form method="POST"
+                                                    action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
+                                                    @method('DELETE')
+                                                    @csrf
 
-                                                <button class="btn bg-gradient-danger" type="submit"> Hapus</button>
-                                            </form>
+                                                    <button class="btn bg-gradient-danger" type="submit"> Hapus</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </tr>
-                    @endforeach
-                </tbody>
+                            </tr>
+                        @endforeach
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -141,5 +138,6 @@
             fixedHeight: true
         });
     </script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @include('sweet::alert')
 @stop

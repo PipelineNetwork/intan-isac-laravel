@@ -32,80 +32,82 @@
     </nav>
     <br>
 
-    <div class="col-xl-12">
-        <?php
-      if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '5' )){
-      ?>
-        <div>
-            <div class="row">
-                <div class="column-6">
-                    <a href="/tambahrayuans/create" class="btn bg-gradient-warning" type="submit"
-                        style="float: right;">Tambah
-                        Rayuan</a>
+    <div class="container-fluid p-3">
+        <div class="col-xl-12">
+            <?php
+          if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '5' )){
+          ?>
+            <div>
+                <div class="row">
+                    <div class="column-6">
+                        <a href="/tambahrayuans/create" class="btn bg-gradient-warning" type="submit"
+                            style="float: right;">Tambah
+                            Rayuan</a>
+                    </div>
                 </div>
             </div>
+            <?php
+            }
+          ?>
         </div>
-        <?php
-        }
-      ?>
-    </div>
 
-    <div class="col-xl-12">
-        <div class="card">
-            <div class="card-header" style="background-color:#FFA500;">
-                <b class="text-white">Senarai Rayuan</b>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header" style="background-color:#FFA500;">
+                    <b class="text-white">Senarai Rayuan</b>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
 
-                        <thead>
-                            <tr>
-                                <th>Tajuk</th>
-                                <th>Keterangan Rayuan</th>
-                                <th>File Rayuan</th>
-                                <th>Keterangan Balas</th>
-                                <th>File Balas</th>
-                                <th>Status</th>
-
-                                <?php
-                        if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
-                    ?>
-                                <th>Balas</th>
-                                <?php
-                          }
-                    ?>
-
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            @foreach ($tambahrayuans as $tambahrayuan)
+                            <thead>
                                 <tr>
-                                    <td>{{ $tambahrayuan['tajuk'] }}</td>
-                                    <td>{{ $tambahrayuan['keterangan_rayuan_send'] }}</td>
-                                    <td><a href="storage/{{ $tambahrayuan['file_rayuan_send'] }}"
-                                            target="_blank">{{ $tambahrayuan['file_rayuan_send'] }}
-                                    </td>
-                                    <td>{{ $tambahrayuan['keterangan_rayuan_reply'] }}</td>
-                                    <td><a href="storage/{{ $tambahrayuan['file_rayuan_reply'] }}"
-                                            target="_blank">{{ $tambahrayuan['file_rayuan_reply'] }}
-                                    </td>
-                                    <td>{{ $tambahrayuan['status'] }}</td>
-                                    <?php
-                        if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
-                    ?>
-                                    <td><a href="/tambahrayuans/{{ $tambahrayuan['id'] }}/edit" class="btn-sm"
-                                            style="color:black;"> Balas</a></td>
-                                    <?php
-                          }
-                      ?>
-                                </tr>
-                            @endforeach
-                        </tbody>
+                                    <th>Tajuk</th>
+                                    <th>Keterangan Rayuan</th>
+                                    <th>File Rayuan</th>
+                                    <th>Keterangan Balas</th>
+                                    <th>File Balas</th>
+                                    <th>Status</th>
 
-                    </table>
+                                    <?php
+                            if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
+                        ?>
+                                    <th>Balas</th>
+                                    <?php
+                              }
+                        ?>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach ($tambahrayuans as $tambahrayuan)
+                                    <tr>
+                                        <td>{{ $tambahrayuan['tajuk'] }}</td>
+                                        <td>{{ $tambahrayuan['keterangan_rayuan_send'] }}</td>
+                                        <td><a href="storage/{{ $tambahrayuan['file_rayuan_send'] }}"
+                                                target="_blank">{{ $tambahrayuan['file_rayuan_send'] }}
+                                        </td>
+                                        <td>{{ $tambahrayuan['keterangan_rayuan_reply'] }}</td>
+                                        <td><a href="storage/{{ $tambahrayuan['file_rayuan_reply'] }}"
+                                                target="_blank">{{ $tambahrayuan['file_rayuan_reply'] }}
+                                        </td>
+                                        <td>{{ $tambahrayuan['status'] }}</td>
+                                        <?php
+                            if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
+                        ?>
+                                        <td><a href="/tambahrayuans/{{ $tambahrayuan['id'] }}/edit" class="btn-sm"
+                                                style="color:black;"> Balas</a></td>
+                                        <?php
+                              }
+                          ?>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

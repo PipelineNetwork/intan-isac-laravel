@@ -138,7 +138,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     
-                    <a href="dashboard" class="nav-link active" aria-controls="dashboard" role="button"
+                    {{-- <a href="dashboard" class="nav-link active" aria-controls="dashboard" role="button"
                         aria-expanded="false">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center me-2">
@@ -163,7 +163,7 @@
                             </svg>
                         </div>
                         <span class="nav-link-text ms-1">Dashboards</span>
-                    </a>
+                    </a> --}}
                    
                     <hr class="horizontal dark mt-0">
                     <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"

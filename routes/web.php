@@ -42,9 +42,9 @@ Route::get('/dashboard2', function () {
     return view('dashboard2');
 });
 
-Route::get('/profil/edit', [ProfilController::class, 'kemaskiniform']);
+Route::get('/profil/{id}/edit', [ProfilController::class, 'kemaskiniform']);
 
-Route::post('/profil/edit', [ProfilController::class, 'kemaskiniprofil']);
+Route::post('/profil/{id}/edit', [ProfilController::class, 'kemaskiniprofil']);
 
 Route::resource('/pengurusanpengguna',PenggunaController::class);
 
