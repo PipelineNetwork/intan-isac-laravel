@@ -1,4 +1,10 @@
 @extends('base')
+<?php 
+use App\Models\Refgeneral;
+$kementerians = Refgeneral::where('MASTERCODE', '10028')->get();
+use App\Models\User;
+$penyelaras = User::where('user_group_id', '3')->get();
+?>
 @section('content')
 
 <div class="row">
@@ -39,7 +45,7 @@
 <div class="col-10">
     @if ($errors->any())
     <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <strong>Terdapat beberapa kesalahan:<br><br>
         <ul>
             @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
@@ -62,10 +68,10 @@
                         <label for="KOD_SESI_PENILAIAN">Sesi :</label>
                         <div class="form-group">
                             <select class="form-control mb-3" type="text" name="KOD_SESI_PENILAIAN">
-                                <<option hidden selected> Sila Pilih </option>
-                                    <option value="01">1</option>
-                                    <option value="02">2</option>
-                                    <option value="03">3</option>
+                                    <option hidden value=""> Sila Pilih </option>
+                                    <option value="01" {{ old('KOD_SESI_PENILAIAN') == '01' ? 'selected' : '' }}>1</option>
+                                    <option value="02" {{ old('KOD_SESI_PENILAIAN') == '02' ? 'selected' : '' }}>2</option>
+                                    <option value="03" {{ old('KOD_SESI_PENILAIAN') == '03' ? 'selected' : '' }}>3</option>
                             </select>
                         </div>
                     </div>
@@ -73,9 +79,9 @@
                         <label for="KOD_TAHAP">Tahap :</label>
                         <div class="form-group">
                             <select class="form-control mb-3" type="text" name="KOD_TAHAP">
-                                <option hidden selected> Sila Pilih </option>
-                                <option value="01">Asas</option>
-                                <option value="02">Lanjutan</option>
+                                <option hidden value=""> Sila Pilih </option>
+                                <option value="01" {{ old('KOD_TAHAP') == '01' ? 'selected' : '' }}>Asas</option>
+                                <option value="02" {{ old('KOD_TAHAP') == '02' ? 'selected' : '' }}>Lanjutan</option>
                             </select>
                         </div>
                     </div>
@@ -86,13 +92,13 @@
                     <div class="col-6">
                         <label for="KOD_MASA_MULA">Masa Mula :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3 hide" type="time" name="KOD_MASA_MULA">
+                            <input class="form-control mb-3 hide" type="time" name="KOD_MASA_MULA" value="{{ old('KOD_MASA_MULA')}}">
                         </div>
                     </div>
                     <div class="col-6">
                         <label for="KOD_MASA_TAMAT">Masa Tamat :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="time" name="KOD_MASA_TAMAT">
+                            <input class="form-control mb-3" type="time" name="KOD_MASA_TAMAT" value="{{ old('KOD_MASA_TAMAT')}}">
                         </div>
                     </div>
                 </div>
@@ -100,13 +106,13 @@
                     <div class="col-6">
                         <label for="TARIKH_SESI">Tarikh :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="date" placeholder="2021-01-01" name="TARIKH_SESI">
+                            <input class="form-control mb-3" type="date" name="TARIKH_SESI" value="{{ old('TARIKH_SESI')}}">
                         </div>
                     </div>
                     <div class="col-6">
                         <label for="JUMLAH_KESELURUHAN">Jumlah Calon</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="text" name="JUMLAH_KESELURUHAN">
+                            <input class="form-control mb-3" type="text" name="JUMLAH_KESELURUHAN" value="{{ old('JUMLAH_KESELURUHAN')}}">
                         </div>
                     </div>
                 </div>
@@ -115,251 +121,29 @@
                         <label for="KOD_KATEGORI_PESERTA">Kategori Peserta :</label>
                         <div class="form-group">
                             <select class="form-control mb-3" name="KOD_KATEGORI_PESERTA" id="pilih1">
-                                <option hidden selected> Sila Pilih </option>
-                                <option value="01">Individu</option>
-                                <option value="02">Kumpulan</option>
+                                <option hidden value=""> Sila Pilih </option>
+                                <option value="01" {{ old('KOD_KATEGORI_PESERTA') == '01' ? 'selected' : '' }}>Individu</option>
+                                <option value="02" {{ old('KOD_KATEGORI_PESERTA') == '02' ? 'selected' : '' }}>Kumpulan</option>
                             </select>
                         </div>
                     </div>
                     <div id="pilih2" style="display:none" class="col-6">
                         <label for="KOD_KEMENTERIAN">Kementerian/Agensi :</label>
                         <div class="form-group">
-                            <select class="form-control mb-3 hide" name="ministry_code">
-                                <option hidden selected> Sila Pilih </option>
-                                <option value="361">Jabatan Ketua Menteri Sabah</option>
-
-                                <option value="481">Jabatan Ketua Menteri Sarawak
-                                </option>
-
-                                <option value="101">Jabatan Perdana Menteri</option>
-
-                                <option value="372">Jabatan Sabah Yang
-                                    Tiada
-                                    Berkementerian</option>
-
-                                <option value="492">Jabatan Sarawak
-                                    Yang Tiada
-                                    Berkementerian</option>
-
-                                <option value="129">Jabatan Yang Tiada
-                                    Berkementerian
-                                </option>
-
-                                <option value="141">Kementerian Air Tanah
-                                    dan Sumber
-                                    Asli</option>
-
-                                <option value="144">Kementerian Alam Sekitar
-                                    dan Air
-                                </option>
-
-                                <option value="487">
-                                    Kementerian Alam
-                                    Sekitar dan Kesihatan Awam Sarawak</option>
-
-                                <option value="121">Kementerian Belia Dan Sukan
-                                </option>
-
-                                <option value="131">Kementerian Dalam Negeri</option>
-
-                                <option value="370">Kementerian
-                                    Kebudayaan,
-                                    Belia dan Sukan Sabah</option>
-
-                                <option value="140">Kementerian
-                                    Kemajuan Luar
-                                    Bandar dan Wilayah</option>
-
-                                <option value="366">
-                                    Kementerian Kerajaan
-                                    Tempatan dan Perumahan Sabah</option>
-
-                                <option value="105">Kementerian Kerja Raya</option>
-
-                                <option value="137">Kementerian
-                                    Kesenian,
-                                    Kebudayaan Dan Warisan</option>
-
-                                <option value="123">Kementerian Kesihatan</option>
-
-                                <option value="103">Kementerian Kewangan</option>
-
-                                <option value="482">Kementerian
-                                    Kewangan dan
-                                    Kemudahan Awam Sarawak</option>
-
-                                <option value="363">Kementerian Kewangan Sabah
-                                </option>
-
-                                <option value="112">Kementerian
-                                    Komunikasi
-                                    dan Multimedia Malaysia</option>
-
-                                <option value="119">Kementerian Luar Negeri</option>
-
-                                <option value="135">Kementerian Pelajaran</option>
-
-                                <option value="491">Kementerian Pelancongan
-                                    Sarawak</option>
-
-                                <option value="373">
-                                    Kementerian
-                                    Pelancongan, Kebudayaan dan Alam Sekitar Sabah</option>
-
-                                <option value="138">
-                                    Kementerian
-                                    Pelancongan, Seni Dan Budaya Malaysia</option>
-
-                                <option value="142">
-                                    Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan</option>
-
-                                <option value="483">
-                                    Kementerian
-                                    Pembangunan Infrastruktur & Perhubungan Sarawak</option>
-
-                                <option value="365">Kementerian
-                                    Pembangunan
-                                    Insfrastruktur Sabah</option>
-
-                                <option value="489">
-                                    Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak</option>
-
-                                <option value="362">Kementerian
-                                    Pembangunan Luar
-                                    Bandar Sabah </option>
-
-                                <option value="367">
-                                    Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah</option>
-
-                                <option value="369">Kementerian
-                                    Pembangunan
-                                    Perindustrian Sabah</option>
-
-                                <option value="490">Kementerian
-                                    Pembangunan
-                                    Perindustrian Sarawak</option>
-
-                                <option value="364">
-                                    Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah</option>
-
-                                <option value="493">
-                                    Kementerian
-                                    Pembangunan Sosial dan Urbanisasi Sarawak </option>
-
-                                <option value="374">
-                                    Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah
-                                </option>
-
-                                <option value="133">Kementerian Pembangunan
-                                    Usahawan
-                                </option>
-
-                                <option value="143">
-                                    Kementerian
-                                    Pembangunan Wanita, Keluarga dan Masyarakat</option>
-
-                                <option value="136">Kementerian Pendidikan
-                                    Malaysia</option>
-
-                                <option value="145">Kementerian Pengajian Tinggi
-                                </option>
-
-                                <option value="104">Kementerian Pengangkutan</option>
-
-                                <option value="484">
-                                    Kementerian
-                                    Perancangan dan Pengurusan Sumber Sarawak</option>
-
-                                <option value="108 ">Kementerian
-                                    Perdagangan
-                                    Antarabangsa Dan Indus</option>
-
-                                <option value="110">
-                                    Kementerian
-                                    Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna</option>
-
-                                <option value="117">Kementerian Pertahanan</option>
-
-                                <option value="485">Kementerian
-                                    Pertanian &
-                                    Industri Makanan Sarawak</option>
-
-                                <option value="134">Kementerian
-                                    Pertanian dan
-                                    Industri Asas Tani</option>
-
-                                <option value="116">Kementerian
-                                    Perumahan Dan
-                                    Kerajaan Tempatan</option>
-
-                                <option value="488">Kementerian Perumahan Sarawak
-                                </option>
-
-                                <option value="126">Kementerian Perusahaan Awam
-                                </option>
-
-                                <option value="Kementerian Perusahaan, Perladangan dan Komuditi">Kementerian
-                                    Perusahaan,
-                                    Perladangan dan Komuditi</option>
-
-                                <option value="114">Kementerian Sumber Manusia
-                                </option>
-
-                                <option value="139">
-                                    Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim
-                                    (MESTECC)
-                                </option>
-
-                                <option value="128">Kementerian
-                                    Undang-Undang/Kehakiman
-                                </option>
-
-                                <option value="127">Kementerian Wilayah
-                                    Persekutuan</option>
-
-                                <option value="201">Pentadbiran Kerajaan
-                                    Negeri Johor
-                                </option>
-
-                                <option value="202">Pentadbiran Kerajaan
-                                    Negeri Kedah
-                                </option>
-
-                                <option value="203">Pentadbiran Kerajaan
-                                    Negeri
-                                    Kelantan</option>
-
-                                <option value="204">Pentadbiran Kerajaan
-                                    Negeri Melaka
-                                </option>
-
-                                <option value="206">Pentadbiran Kerajaan
-                                    Negeri Pahang
-                                </option>
-
-                                <option value="208">Pentadbiran Kerajaan
-                                    Negeri Perak
-                                </option>
-
-                                <option value="209">Pentadbiran Kerajaan
-                                    Negeri Perlis
-                                </option>
-
-                                <option value="210">Pentadbiran Kerajaan
-                                    Negeri
-                                    Selangor</option>
-
-                                <option value="205">Pentadbiran Kerajaan
-                                    Negeri
-                                    Sembilan</option>
-
-                                <option value="211">Pentadbiran Kerajaan
-                                    Negeri
-                                    Terengganu</option>
-
-                                <option value="207"> Pentadbiran Kerajaan
-                                    Pulau Pinang
-                                </option>
+                            <select class="form-control mb-3 hide" name="KOD_KEMENTERIAN">
+                                <option hidden value=""> Sila Pilih </option>
+                                @foreach($kementerians as $kementerian)
+                                <option value="{{$kementerian->REFERENCECODE}}">{{$kementerian->DESCRIPTION1}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <label>Penyelaras: </label>
+                        <div class="form-group">
+                            <select class="form-control mb-3 hide" name="user_id">
+                                <option hidden value=""> Sila Pilih </option>
+                                @foreach($penyelaras as $penyelaras)
+                                <option value="{{$penyelaras->id}}">{{$penyelaras->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -369,7 +153,7 @@
                         <label for="platform">Platform :</label>
                         <div class="form-group">
                             <select class="form-control mb-3" name="platform" id="pilih3">
-                                <option hidden selected> Sila Pilih </option>
+                                <option hidden value=""> Sila Pilih </option>
                                 <option value="Atas talian">Atas Talian</option>
                                 <option value="Fizikal">Fizikal</option>
                             </select>
@@ -379,7 +163,7 @@
                         <label for="LOKASI">Lokasi :</label>
                         <div class="form-group">
                             <select class="form-control mb-3" name="LOKASI">
-                                <option hidden selected> Sila Pilih </option>
+                                <option hidden value=""> Sila Pilih </option>
                                 <option value="Kampus Utama (INTAN Bukit Kiara)">Kampus Utama (INTAN Bukit
                                     Kiara)
                                 </option>
@@ -409,11 +193,12 @@
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">
-    $(function() {
+    $(document).ready(function() {
         $("#pilih1").change(function() {
             if ($(this).val() == "02") {
                 $("#pilih2").show();
             } else {
+
                 $("#pilih2").hide();
             }
         });
@@ -422,9 +207,9 @@
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">
-    $(function() {
+    $(document).ready(function() {
         $("#pilih3").change(function() {
-            if ($(this).val() == "fizikal") {
+            if ($(this).val() == "Fizikal") {
                 $("#pilih4").show();
             } else {
                 $("#pilih4").hide();

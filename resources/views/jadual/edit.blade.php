@@ -59,8 +59,8 @@
                     <div class="col-6 form-group">
                         <label for="KOD_SESI_PENILAIAN">Sesi :</label>
                         <div class="form-group">
-                            <select class="form-control mb-3" type="text" name="KOD_SESI_PENILAIAN" value="{{ $jadual['KOD_SESI_PENILAIAN'] }}">
-                                <option hidden selected> Sila Pilih </option>
+                            <select class="form-control mb-3" type="text" name="KOD_SESI_PENILAIAN">
+                                <option hidden selected value="{{ $jadual['KOD_SESI_PENILAIAN'] }}">{{ $jadual['KOD_SESI_PENILAIAN'] }}</option>    
                                 <option value="01">1</option>
                                 <option value="02">2</option>
                                 <option value="03">3</option>
@@ -70,8 +70,14 @@
                     <div class="col-6">
                         <label for="KOD_TAHAP">Tahap :</label>
                         <div class="form-group">
-                            <select class="form-control mb-3" type="text" name="KOD_TAHAP" value="{{ $jadual['KOD_TAHAP'] }}">
-                                <option hidden selected> Sila Pilih </option>
+                            <select class="form-control mb-3" type="text" name="KOD_TAHAP" >
+                                <option hidden selected value="{{ $jadual['KOD_TAHAP'] }}">
+                                    @if($jadual['KOD_TAHAP'] == 1)
+                                    Asas
+                                    @else
+                                    Lanjutan
+                                    @endif
+                                </option>
                                 <option value="1">Asas</option>
                                 <option value="2">Lanjutan</option>
                             </select>
@@ -84,13 +90,13 @@
                     <div class="col-6">
                         <label for="KOD_MASA_MULA">Masa Mula :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3 hide" type="time" name="KOD_MASA_MULA" value="{ $jadual['KOD_MASA_MULA'] }}">
+                            <input class="form-control mb-3 hide" type="time" name="KOD_MASA_MULA" value="{{ $jadual['KOD_MASA_MULA'] }}">
                         </div>
                     </div>
                     <div class="col-6">
                         <label for="KOD_MASA_TAMAT">Masa Tamat :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="time" name="KOD_MASA_TAMAT" value="{ $jadual['KOD_MASA_TAMAT'] }}">
+                            <input class="form-control mb-3" type="time" name="KOD_MASA_TAMAT" value="{{ $jadual['KOD_MASA_TAMAT'] }}">
                         </div>
                     </div>
                 </div>
@@ -112,8 +118,14 @@
                     <div class="col-6">
                         <label for="KOD_KATEGORI_PESERTA">Kategori Peserta :</label>
                         <div class="form-group">
-                            <select class="form-control mb-3" name="KOD_KATEGORI_PESERTA" id="pilih1" value="{{ $jadual['KOD_KATEGORI_PESERTA'] }}">
-                                <option hidden selected> Sila Pilih </option>
+                            <select class="form-control mb-3" name="KOD_KATEGORI_PESERTA" id="pilih1" >
+                                <option hidden selected value="{{ $jadual['KOD_KATEGORI_PESERTA'] }}">
+                                    @if ($jadual['KOD_KATEGORI_PESERTA'] == "01")
+                                    Individu
+                                    @else
+                                    Kumpulan
+                                    @endif
+                                </option>
                                 <option value="01">Individu</option>
                                 <option value="02">Kumpulan</option>
                             </select>
@@ -122,8 +134,8 @@
                     <div id="pilih2" style="display:none" class="col-6">
                         <label for="KOD_KEMENTERIAN">Kementerian/Agensi :</label>
                         <div class="form-group">
-                            <select class="form-control mb-3 hide" name="ministry_code">
-                                <option hidden selected> Sila Pilih </option>
+                            <select class="form-control mb-3 hide" name="KOD_KEMENTERIAN">
+                                <option hidden value="{{$jadual['KOD_KEMENTERIAN']}}"> {{$jadual['KOD_KEMENTERIAN']}} </option>
                                 <option value="361">Jabatan Ketua Menteri Sabah</option>
 
                                 <option value="481">Jabatan Ketua Menteri Sarawak
@@ -366,10 +378,11 @@
                     <div class="col-6 form-group">
                         <label for="platform">Platform :</label>
                         <div class="form-group">
-                            <select class="form-control mb-3" name="platform" id="pilih3" value="{{ $jadual['platform'] }}">
-                                <option hidden selected> Sila Pilih </option>
-                                <option value="atas talian">Atas Talian</option>
-                                <option value="fizikal">fizikal</option>
+                            <select class="form-control mb-3" name="platform" id="pilih3">
+                                <option hidden selected value="{{ $jadual['platform'] }}">{{$jadual['platform']}}
+                                </option>
+                                <option value="Atas talian">Atas Talian</option>
+                                <option value="Fizikal">Fizikal</option>
                             </select>
                         </div>
                     </div>
@@ -377,7 +390,7 @@
                         <label for="LOKASI">Lokasi :</label>
                         <div class="form-group">
                             <select class="form-control mb-3" name="LOKASI" value="{{ $jadual['LOKASI'] }}">
-                                <option hidden selected> Sila Pilih </option>
+                                <option hidden value=""> Sila Pilih </option>
                                 <option value="Kampus Utama (INTAN Bukit Kiara)">Kampus Utama (INTAN Bukit
                                     Kiara)
                                 </option>
@@ -405,7 +418,7 @@
                         <textarea class="form-control" rows="3" name="keterangan"></textarea>
                       </div>
                     <div class=" col-6 form-group">
-                        <input type="hidden" name="status" value="Tukar Tarikh">
+                        <input type="hidden" name="status" value="Perubahan">
                     </div>
                 </div>
                 <button class="btn bg-gradient-info" type="submit">Simpan</button>
@@ -437,7 +450,7 @@
 <script type="text/javascript">
     $(function() {
         $("#pilih3").change(function() {
-            if ($(this).val() == "fizikal") {
+            if ($(this).val() == "Fizikal") {
                 $("#pilih4").show();
             } else {
                 $("#pilih4").hide();
