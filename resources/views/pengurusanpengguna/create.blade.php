@@ -355,7 +355,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <label for="">Password :</label>
+                                <label for="">Kata Laluan :</label>
                                 <div class="input-group">
                                     <input class="form-control mb-3" type="password" name="password" required minlength="8">
                                 </div>

@@ -26,7 +26,7 @@ class ProfilController extends Controller
             $user_profils = User::where('id', '=', $current_user->id);
         }
 
-        dd($user_profils);
+        // dd($user_profils);
         return view('profil.index', [
             'user' => $current_user,
             'user_profils' => $user_profils,
