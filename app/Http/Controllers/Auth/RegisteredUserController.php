@@ -75,13 +75,13 @@ class RegisteredUserController extends Controller
         $user->save();
 
         $current_user = $request->user();
-        
-        $user_reg = User::where('id', '=', $current_user)->get();
-        foreach ($user_reg as $users) {
-            Mail::to($users->email)->send(new PenggunaDidaftar($user));
-        }
+        Mail::to($user->email)->send(new PenggunaDidaftar($user));
+        // $user_reg = User::where('id', '=', $current_user)->get();
+        // foreach ($user_reg as $users) {
+        //     Mail::to($users->email)->send(new PenggunaDidaftar($user));
+        // }
 
-        // dd($user);
+        // dd($user_reg);
 
         $GetDataXMLbyIC = new GetDataXMLbyIC();
         $hrmisData = $GetDataXMLbyIC->getDataHrmis($request->nric);
