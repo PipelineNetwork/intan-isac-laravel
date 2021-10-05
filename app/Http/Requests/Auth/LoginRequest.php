@@ -43,6 +43,7 @@ class LoginRequest extends FormRequest
      */
     public function authenticate()
     {
+        // dd("True");
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only('nric', 'password'), $this->boolean('remember'))) {

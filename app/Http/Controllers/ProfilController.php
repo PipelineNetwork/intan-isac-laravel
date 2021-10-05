@@ -6,20 +6,27 @@ use App\Models\User;
 use App\Models\Permohanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ProfilController extends Controller
 {
     public function kemaskini(Request $request)
     {
         $current_user = $request->user();
-        $user_profils = DB::table('users')
-                ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
-                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
-                ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
-                ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
-                ->get();
+        // $group_id = User::where('user_group_id', '=', '5')->get();
+        if ($current_user->user_group_id == 5) {
+            $user_profils = DB::table('users')
+            ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+            ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+            ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+            ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
+            ->get();
+        }
+        else {
+            $user_profils = User::where('id', '=', $current_user->id);
+        }
 
-        // dd($current_user);
+        dd($user_profils);
         return view('profil.index', [
             'user' => $current_user,
             'user_profils' => $user_profils,

@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <label for="">Email :</label>
+                                <label for="">E-mel :</label>
                                 <div class="input-group">
                                     <input class="form-control mb-3" type="email" name="email" required>
                                 </div>
@@ -349,7 +349,7 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label for="">NRIC :</label>
+                                <label for="">No Kad Pengenalan :</label>
                                 <div class="input-group">
                                     <input class="form-control mb-3" type="text" name="nric" required maxlength="12" size="12">
                                 </div>
