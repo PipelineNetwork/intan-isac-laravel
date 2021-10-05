@@ -28,22 +28,29 @@
     <!-- Canonical SEO -->
     <link rel="canonical" href="https://www.creative-tim.com/product/soft-ui-dashboard-pro" />
     <!--  Social tags      -->
-    <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap 5 dashboard, bootstrap 5, css3 dashboard, bootstrap 5 admin, soft ui dashboard bootstrap 5 dashboard, frontend, responsive bootstrap 5 dashboard, soft design, soft dashboard bootstrap 5 dashboard">
-    <meta name="description" content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+    <meta name="keywords"
+        content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap 5 dashboard, bootstrap 5, css3 dashboard, bootstrap 5 admin, soft ui dashboard bootstrap 5 dashboard, frontend, responsive bootstrap 5 dashboard, soft design, soft dashboard bootstrap 5 dashboard">
+    <meta name="description"
+        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="product">
     <meta name="twitter:site" content="@creativetim">
     <meta name="twitter:title" content="Soft UI Dashboard PRO by Creative Tim">
-    <meta name="twitter:description" content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+    <meta name="twitter:description"
+        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
     <meta name="twitter:creator" content="@creativetim">
-    <meta name="twitter:image" content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg">
+    <meta name="twitter:image"
+        content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg">
     <!-- Open Graph data -->
     <meta property="fb:app_id" content="655968634437471">
     <meta property="og:title" content="Soft UI Dashboard PRO by Creative Tim" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://demos.creative-tim.com/soft-ui-dashboard-pro/pages/dashboards/default.html" />
-    <meta property="og:image" content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg" />
-    <meta property="og:description" content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
+    <meta property="og:url"
+        content="https://demos.creative-tim.com/soft-ui-dashboard-pro/pages/dashboards/default.html" />
+    <meta property="og:image"
+        content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg" />
+    <meta property="og:description"
+        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
     <meta property="og:site_name" content="Creative Tim" />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -60,6 +67,7 @@
         .async-hide {
             opacity: 0 !important
         }
+
     </style>
     <script>
         (function(a, s, y, n, c, h, i, d, e) {
@@ -110,13 +118,17 @@
 <body class="g-sidenav-show  bg-gray-100">
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main" style="z-index: 98;">
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
+        id="sidenav-main" style="z-index: 98;">
         <div class="sidenav-header">
-            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+                aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0" target="_blank">
-                <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg" class="navbar-brand-img h-100" alt="main_logo">
+                <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg"
+                    class="navbar-brand-img h-100" alt="main_logo">
                 <span class="ms-1 font-weight-bold">ISAC</span>
             </a>
         </div>
@@ -125,7 +137,7 @@
         <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    
+
                     {{-- <a href="dashboard" class="nav-link active" aria-controls="dashboard" role="button"
                         aria-expanded="false">
                         <div
@@ -148,21 +160,30 @@
                         </div>
                         <span class="nav-link-text ms-1">Dashboards</span>
                     </a> --}}
-                    
+
                     <hr class="horizontal dark mt-0">
-                    <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
+                    <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"
+                        id="sidenav-collapse-main">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a href="/profil" class="nav-link active" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-                                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                                        <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <a href="/profil" class="nav-link active" aria-controls="dashboardsExamples"
+                                    role="button" aria-expanded="false">
+                                    <div
+                                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                        <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink">
                                             <title>shop </title>
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                                <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF"
+                                                    fill-rule="nonzero">
                                                     <g transform="translate(1716.000000, 291.000000)">
                                                         <g transform="translate(0.000000, 148.000000)">
-                                                            <path class="color-background" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585"></path>
-                                                            <path class="color-background" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                            <path class="color-background"
+                                                                d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
+                                                                opacity="0.598981585"></path>
+                                                            <path class="color-background"
+                                                                d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
                                                             </path>
                                                         </g>
                                                     </g>
@@ -177,22 +198,31 @@
                                 <?php
                                 if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  || Auth::user()->user_group_id == '3')) {
                                 ?>
-                                    <hr class="horizontal dark mt-0">
-                                    <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
-                                        <ul class="navbar-nav">
-                                            <li class="nav-item">
-                                                <a href="/pengurusanpengguna" class="nav-link active" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-                                                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                                                        <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                            <title>shop </title>
-                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                                    <g transform="translate(1716.000000, 291.000000)">
-                                                                        <g transform="translate(0.000000, 148.000000)">
-                                                                            <path class="color-background" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585"></path>
-                                                                            <path class="color-background" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-                                                                            </path>
-                                                                        </g>
+                                <hr class="horizontal dark mt-0">
+                                <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"
+                                    id="sidenav-collapse-main">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item">
+                                            <a href="/pengurusanpengguna" class="nav-link active"
+                                                aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                                                <div
+                                                    class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                                    <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                        <title>shop </title>
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <g transform="translate(-1716.000000, -439.000000)"
+                                                                fill="#FFFFFF" fill-rule="nonzero">
+                                                                <g transform="translate(1716.000000, 291.000000)">
+                                                                    <g transform="translate(0.000000, 148.000000)">
+                                                                        <path class="color-background"
+                                                                            d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
+                                                                            opacity="0.598981585"></path>
+                                                                        <path class="color-background"
+                                                                            d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                                        </path>
                                                                     </g>
                                                                 </g>
                                                             </g>
@@ -210,50 +240,63 @@
                                             <?php
                                             if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  || Auth::user()->user_group_id == '5')) {
                                             ?>
-                                                <hr class="horizontal dark mt-0">
-                                                <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
-                                                    <ul class="navbar-nav">
-                                                        <li class="nav-item">
-                                                            <a class="nav-link active" href="#test" aria-controls="dashboard" role="button" aria-expanded="false" data-bs-toggle="collapse">
-                                                                <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                                                                    <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                        <title>shop </title>
-                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                            <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                                                <g transform="translate(1716.000000, 291.000000)">
-                                                                                    <g transform="translate(0.000000, 148.000000)">
-                                                                                        <path class="color-background" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585"></path>
-                                                                                        <path class="color-background" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-                                                                                        </path>
-                                                                                    </g>
+                                            <hr class="horizontal dark mt-0">
+                                            <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"
+                                                id="sidenav-collapse-main">
+                                                <ul class="navbar-nav">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" href="#test"
+                                                            aria-controls="dashboard" role="button"
+                                                            aria-expanded="false" data-bs-toggle="collapse">
+                                                            <div
+                                                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                                                <svg width="12px" height="12px" viewBox="0 0 45 40"
+                                                                    version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <title>shop </title>
+                                                                    <g stroke="none" stroke-width="1" fill="none"
+                                                                        fill-rule="evenodd">
+                                                                        <g transform="translate(-1716.000000, -439.000000)"
+                                                                            fill="#FFFFFF" fill-rule="nonzero">
+                                                                            <g
+                                                                                transform="translate(1716.000000, 291.000000)">
+                                                                                <g
+                                                                                    transform="translate(0.000000, 148.000000)">
+                                                                                    <path class="color-background"
+                                                                                        d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
+                                                                                        opacity="0.598981585"></path>
+                                                                                    <path class="color-background"
+                                                                                        d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                                                    </path>
                                                                                 </g>
                                                                             </g>
                                                                         </g>
-                                                                    </svg>
-                                                                </div>
-                                                                <span class="nav-link-text ms-1">Aduan & Rayuan</span>
-                                                            </a>
-                                                            <div class="collapse " id="test">
-                                                                <ul class="nav ms-4 ps-3">
-                                                                    <li class="nav-item ">
-                                                                        <a class="nav-link" href="/tambahaduans">
-                                                                            <span class="sidenav-mini-icon"> A </span>
-                                                                            <span class="sidenav-normal">
-                                                                                Aduan
-                                                                            </span>
-                                                                        </a>
-
-                                                                    </li>
-                                                                    <li class="nav-item ">
-                                                                        <a class="nav-link" href="/tambahrayuans">
-                                                                            <span class="sidenav-mini-icon"> R </span>
-                                                                            <span class="sidenav-normal">
-                                                                                Rayuan
-                                                                            </span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
+                                                                    </g>
+                                                                </svg>
                                                             </div>
+                                                            <span class="nav-link-text ms-1">Aduan & Rayuan</span>
+                                                        </a>
+                                                        <div class="collapse " id="test">
+                                                            <ul class="nav ms-4 ps-3">
+                                                                <li class="nav-item ">
+                                                                    <a class="nav-link" href="/tambahaduans">
+                                                                        <span class="sidenav-mini-icon"> A </span>
+                                                                        <span class="sidenav-normal">
+                                                                            Aduan
+                                                                        </span>
+                                                                    </a>
+
+                                                                </li>
+                                                                <li class="nav-item ">
+                                                                    <a class="nav-link" href="/tambahrayuans">
+                                                                        <span class="sidenav-mini-icon"> R </span>
+                                                                        <span class="sidenav-normal">
+                                                                            Rayuan
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
 
 
                                                         <?php
@@ -263,31 +306,48 @@
                                                         <?php
                                                         if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '2')) {
                                                         ?>
-                                                            <hr class="horizontal dark mt-0">
-                                                            <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
-                                                                <ul class="navbar-nav">
-                                                                    <li class="nav-item">
-                                                                        <a href="/jaduals" class="nav-link active" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-                                                                            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                                                                                <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                                    <title>shop </title>
-                                                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                                        <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                                                            <g transform="translate(1716.000000, 291.000000)">
-                                                                                                <g transform="translate(0.000000, 148.000000)">
-                                                                                                    <path class="color-background" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585">
-                                                                                                    </path>
-                                                                                                    <path class="color-background" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-                                                                                                    </path>
-                                                                                                </g>
+                                                        <hr class="horizontal dark mt-0">
+                                                        <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"
+                                                            id="sidenav-collapse-main">
+                                                            <ul class="navbar-nav">
+                                                                <li class="nav-item">
+                                                                    <a href="/jaduals" class="nav-link active"
+                                                                        aria-controls="dashboardsExamples" role="button"
+                                                                        aria-expanded="false">
+                                                                        <div
+                                                                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                                                            <svg width="12px" height="12px"
+                                                                                viewBox="0 0 45 40" version="1.1"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                                <title>shop </title>
+                                                                                <g stroke="none" stroke-width="1"
+                                                                                    fill="none" fill-rule="evenodd">
+                                                                                    <g transform="translate(-1716.000000, -439.000000)"
+                                                                                        fill="#FFFFFF"
+                                                                                        fill-rule="nonzero">
+                                                                                        <g
+                                                                                            transform="translate(1716.000000, 291.000000)">
+                                                                                            <g
+                                                                                                transform="translate(0.000000, 148.000000)">
+                                                                                                <path
+                                                                                                    class="color-background"
+                                                                                                    d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
+                                                                                                    opacity="0.598981585">
+                                                                                                </path>
+                                                                                                <path
+                                                                                                    class="color-background"
+                                                                                                    d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                                                                </path>
                                                                                             </g>
                                                                                         </g>
                                                                                     </g>
-                                                                                </svg>
-                                                                            </div>
-                                                                            <span class="nav-link-text ms-1">Pengurusan
-                                                                                Jadual</span>
-                                                                        </a>
+                                                                                </g>
+                                                                            </svg>
+                                                                        </div>
+                                                                        <span class="nav-link-text ms-1">Pengurusan
+                                                                            Jadual</span>
+                                                                    </a>
                                                                     <?php
                                                                 }
                                                                     ?>
@@ -295,31 +355,54 @@
                                                                     <?php
                                                                     if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3' || Auth::user()->user_group_id == '5')) {
                                                                     ?>
-                                                                        <hr class="horizontal dark mt-0">
-                                                                        <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
-                                                                            <ul class="navbar-nav">
-                                                                                <li class="nav-item">
-                                                                                    <a class="nav-link active" href="/permohanans" aria-controls="dashboardsExample" role="button" aria-expanded="false">
-                                                                                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                                                                                            <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                                                <title>shop
-                                                                                                </title>
-                                                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                                                    <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                                                                        <g transform="translate(1716.000000, 291.000000)">
-                                                                                                            <g transform="translate(0.000000, 148.000000)">
-                                                                                                                <path class="color-background" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585">
-                                                                                                                </path>
-                                                                                                                <path class="color-background" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-                                                                                                                </path>
-                                                                                                            </g>
+                                                                    <hr class="horizontal dark mt-0">
+                                                                    <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"
+                                                                        id="sidenav-collapse-main">
+                                                                        <ul class="navbar-nav">
+                                                                            <li class="nav-item">
+                                                                                <a class="nav-link active"
+                                                                                    href="/permohanans"
+                                                                                    aria-controls="dashboardsExample"
+                                                                                    role="button" aria-expanded="false">
+                                                                                    <div
+                                                                                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                                                                        <svg width="12px" height="12px"
+                                                                                            viewBox="0 0 45 40"
+                                                                                            version="1.1"
+                                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                                            <title>shop
+                                                                                            </title>
+                                                                                            <g stroke="none"
+                                                                                                stroke-width="1"
+                                                                                                fill="none"
+                                                                                                fill-rule="evenodd">
+                                                                                                <g transform="translate(-1716.000000, -439.000000)"
+                                                                                                    fill="#FFFFFF"
+                                                                                                    fill-rule="nonzero">
+                                                                                                    <g
+                                                                                                        transform="translate(1716.000000, 291.000000)">
+                                                                                                        <g
+                                                                                                            transform="translate(0.000000, 148.000000)">
+                                                                                                            <path
+                                                                                                                class="color-background"
+                                                                                                                d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
+                                                                                                                opacity="0.598981585">
+                                                                                                            </path>
+                                                                                                            <path
+                                                                                                                class="color-background"
+                                                                                                                d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                                                                            </path>
                                                                                                         </g>
                                                                                                     </g>
                                                                                                 </g>
-                                                                                            </svg>
-                                                                                        </div>
-                                                                                        <span class="nav-link-text ms-1">Permohonan Penilaian</span>
-                                                                                    </a>
+                                                                                            </g>
+                                                                                        </svg>
+                                                                                    </div>
+                                                                                    <span
+                                                                                        class="nav-link-text ms-1">Permohonan
+                                                                                        Penilaian</span>
+                                                                                </a>
 
                                                                                 <?php
                                                                             }
@@ -328,67 +411,130 @@
                                                                                 <?php
                                                                                 if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1')) {
                                                                                 ?>
-                                                                                    <hr class="horizontal dark mt-0">
-                                                                                    <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
-                                                                                        <ul class="navbar-nav">
-                                                                                            <li class="nav-item">
-                                                                                                <a class="nav-link active" href="#test3" aria-controls="dashboard" role="button" aria-expanded="false" data-bs-toggle="collapse">
-                                                                                                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                                                                                                        <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                                                            <title>shop </title>
-                                                                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                                                                <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                                                                                    <g transform="translate(1716.000000, 291.000000)">
-                                                                                                                        <g transform="translate(0.000000, 148.000000)">
-                                                                                                                            <path class="color-background" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585"></path>
-                                                                                                                            <path class="color-background" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-                                                                                                                            </path>
-                                                                                                                        </g>
+                                                                                <hr class="horizontal dark mt-0">
+                                                                                <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"
+                                                                                    id="sidenav-collapse-main">
+                                                                                    <ul class="navbar-nav">
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link active"
+                                                                                                href="#test3"
+                                                                                                aria-controls="dashboard"
+                                                                                                role="button"
+                                                                                                aria-expanded="false"
+                                                                                                data-bs-toggle="collapse">
+                                                                                                <div
+                                                                                                    class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                                                                                    <svg width="12px"
+                                                                                                        height="12px"
+                                                                                                        viewBox="0 0 45 40"
+                                                                                                        version="1.1"
+                                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                                                        <title>shop
+                                                                                                        </title>
+                                                                                                        <g stroke="none"
+                                                                                                            stroke-width="1"
+                                                                                                            fill="none"
+                                                                                                            fill-rule="evenodd">
+                                                                                                            <g transform="translate(-1716.000000, -439.000000)"
+                                                                                                                fill="#FFFFFF"
+                                                                                                                fill-rule="nonzero">
+                                                                                                                <g
+                                                                                                                    transform="translate(1716.000000, 291.000000)">
+                                                                                                                    <g
+                                                                                                                        transform="translate(0.000000, 148.000000)">
+                                                                                                                        <path
+                                                                                                                            class="color-background"
+                                                                                                                            d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
+                                                                                                                            opacity="0.598981585">
+                                                                                                                        </path>
+                                                                                                                        <path
+                                                                                                                            class="color-background"
+                                                                                                                            d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                                                                                        </path>
                                                                                                                     </g>
                                                                                                                 </g>
                                                                                                             </g>
-                                                                                                        </svg>
-                                                                                                    </div>
-                                                                                                    <span class="nav-link-text ms-1">Kawalan Sistem</span>
-                                                                                                </a>
-
-                                                                                                <div class="collapse " id="test3">
-                                                                                                    <ul class="nav ms-4 ps-3">
-                                                                                                        <li class="nav-item ">
-                                                                                                            <a class="nav-link" href="#">
-                                                                                                                <span class="sidenav-mini-icon"> MSK </span>
-                                                                                                                <span class="sidenav-normal">
-                                                                                                                    Maklumat Selenggara Kawalan Sistem
-                                                                                                                </span>
-                                                                                                            </a>
-
-                                                                                                        </li>
-                                                                                                        <li class="nav-item ">
-                                                                                                            <a class="nav-link" href="#">
-                                                                                                                <span class="sidenav-mini-icon"> MNE </span>
-                                                                                                                <span class="sidenav-normal">
-                                                                                                                    Maklumat Notifikasi E-mel
-                                                                                                                </span>
-                                                                                                            </a>
-                                                                                                        </li>
-                                                                                                        <li class="nav-item ">
-                                                                                                            <a class="nav-link" href="#">
-                                                                                                                <span class="sidenav-mini-icon"> MLU </span>
-                                                                                                                <span class="sidenav-normal">
-                                                                                                                    Maklumat Laman Utama
-                                                                                                                </span>
-                                                                                                            </a>
-                                                                                                        </li>
-                                                                                                        <li class="nav-item ">
-                                                                                                            <a class="nav-link" href="#">
-                                                                                                                <span class="sidenav-mini-icon"> MVN </span>
-                                                                                                                <span class="sidenav-normal">
-                                                                                                                    Maklumat Video dan Nota
-                                                                                                                </span>
-                                                                                                            </a>
-                                                                                                        </li>
-                                                                                                    </ul>
+                                                                                                        </g>
+                                                                                                    </svg>
                                                                                                 </div>
+                                                                                                <span
+                                                                                                    class="nav-link-text ms-1">Kawalan
+                                                                                                    Sistem</span>
+                                                                                            </a>
+
+                                                                                            <div class="collapse "
+                                                                                                id="test3">
+                                                                                                <ul
+                                                                                                    class="nav ms-4 ps-3">
+                                                                                                    <li
+                                                                                                        class="nav-item ">
+                                                                                                        <a class="nav-link"
+                                                                                                            href="#">
+                                                                                                            <span
+                                                                                                                class="sidenav-mini-icon">
+                                                                                                                MSK
+                                                                                                            </span>
+                                                                                                            <span
+                                                                                                                class="sidenav-normal">
+                                                                                                                Maklumat
+                                                                                                                Selenggara
+                                                                                                                Kawalan
+                                                                                                                Sistem
+                                                                                                            </span>
+                                                                                                        </a>
+
+                                                                                                    </li>
+                                                                                                    <li
+                                                                                                        class="nav-item ">
+                                                                                                        <a class="nav-link"
+                                                                                                            href="#">
+                                                                                                            <span
+                                                                                                                class="sidenav-mini-icon">
+                                                                                                                MNE
+                                                                                                            </span>
+                                                                                                            <span
+                                                                                                                class="sidenav-normal">
+                                                                                                                Maklumat
+                                                                                                                Notifikasi
+                                                                                                                E-mel
+                                                                                                            </span>
+                                                                                                        </a>
+                                                                                                    </li>
+                                                                                                    <li
+                                                                                                        class="nav-item ">
+                                                                                                        <a class="nav-link"
+                                                                                                            href="#">
+                                                                                                            <span
+                                                                                                                class="sidenav-mini-icon">
+                                                                                                                MLU
+                                                                                                            </span>
+                                                                                                            <span
+                                                                                                                class="sidenav-normal">
+                                                                                                                Maklumat
+                                                                                                                Laman
+                                                                                                                Utama
+                                                                                                            </span>
+                                                                                                        </a>
+                                                                                                    </li>
+                                                                                                    <li
+                                                                                                        class="nav-item ">
+                                                                                                        <a class="nav-link"
+                                                                                                            href="#">
+                                                                                                            <span
+                                                                                                                class="sidenav-mini-icon">
+                                                                                                                MVN
+                                                                                                            </span>
+                                                                                                            <span
+                                                                                                                class="sidenav-normal">
+                                                                                                                Maklumat
+                                                                                                                Video
+                                                                                                                dan Nota
+                                                                                                            </span>
+                                                                                                        </a>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </div>
                                                                                             <?php
                                                                                         }
                                                                                             ?>
@@ -398,66 +544,131 @@
                                                                                             <?php
                                                                                             if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '2')) {
                                                                                             ?>
-                                                                                                <hr class="horizontal dark mt-0">
-                                                                                                <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
-                                                                                                    <ul class="navbar-nav">
-                                                                                                        <li class="nav-item">
-                                                                                                            <a class="nav-link active" href="#test4" aria-controls="dashboard" role="button" aria-expanded="false" data-bs-toggle="collapse">
-                                                                                                                <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                                                                                                                    <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                                                                        <title>shop </title>
-                                                                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                                                                            <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                                                                                                <g transform="translate(1716.000000, 291.000000)">
-                                                                                                                                    <g transform="translate(0.000000, 148.000000)">
-                                                                                                                                        <path class="color-background" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585"></path>
-                                                                                                                                        <path class="color-background" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-                                                                                                                                        </path>
-                                                                                                                                    </g>
+                                                                                            <hr
+                                                                                                class="horizontal dark mt-0">
+                                                                                            <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"
+                                                                                                id="sidenav-collapse-main">
+                                                                                                <ul
+                                                                                                    class="navbar-nav">
+                                                                                                    <li
+                                                                                                        class="nav-item">
+                                                                                                        <a class="nav-link active"
+                                                                                                            href="#test4"
+                                                                                                            aria-controls="dashboard"
+                                                                                                            role="button"
+                                                                                                            aria-expanded="false"
+                                                                                                            data-bs-toggle="collapse">
+                                                                                                            <div
+                                                                                                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                                                                                                <svg width="12px"
+                                                                                                                    height="12px"
+                                                                                                                    viewBox="0 0 45 40"
+                                                                                                                    version="1.1"
+                                                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                                                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                                                                    <title>
+                                                                                                                        shop
+                                                                                                                    </title>
+                                                                                                                    <g stroke="none"
+                                                                                                                        stroke-width="1"
+                                                                                                                        fill="none"
+                                                                                                                        fill-rule="evenodd">
+                                                                                                                        <g transform="translate(-1716.000000, -439.000000)"
+                                                                                                                            fill="#FFFFFF"
+                                                                                                                            fill-rule="nonzero">
+                                                                                                                            <g
+                                                                                                                                transform="translate(1716.000000, 291.000000)">
+                                                                                                                                <g
+                                                                                                                                    transform="translate(0.000000, 148.000000)">
+                                                                                                                                    <path
+                                                                                                                                        class="color-background"
+                                                                                                                                        d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
+                                                                                                                                        opacity="0.598981585">
+                                                                                                                                    </path>
+                                                                                                                                    <path
+                                                                                                                                        class="color-background"
+                                                                                                                                        d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                                                                                                    </path>
                                                                                                                                 </g>
                                                                                                                             </g>
                                                                                                                         </g>
-                                                                                                                    </svg>
-                                                                                                                </div>
-                                                                                                                <span class="nav-link-text ms-1">Pengurusan Penilaian</span>
-                                                                                                            </a>
-                                                                                                            <div class="collapse " id="test4">
-                                                                                                                <ul class="nav ms-4 ps-3">
-                                                                                                                    <li class="nav-item ">
-                                                                                                                        <a class="nav-link" href="#">
-                                                                                                                            <span class="sidenav-mini-icon"> PSP </span>
-                                                                                                                            <span class="sidenav-normal">
-                                                                                                                                Pemilihan Soalan Pengetahuan
-                                                                                                                            </span>
-                                                                                                                        </a>
-
-                                                                                                                    </li>
-                                                                                                                    <li class="nav-item ">
-                                                                                                                        <a class="nav-link" href="#">
-                                                                                                                            <span class="sidenav-mini-icon"> SSK </span>
-                                                                                                                            <span class="sidenav-normal">
-                                                                                                                                Senarai Slip Keputusan
-                                                                                                                            </span>
-                                                                                                                        </a>
-                                                                                                                    </li>
-                                                                                                                    <li class="nav-item ">
-                                                                                                                        <a class="nav-link" href="#">
-                                                                                                                            <span class="sidenav-mini-icon"> SK </span>
-                                                                                                                            <span class="sidenav-normal">
-                                                                                                                                Senarai Sijil Kelulusan
-                                                                                                                            </span>
-                                                                                                                        </a>
-                                                                                                                    </li>
-                                                                                                                    <li class="nav-item ">
-                                                                                                                        <a class="nav-link" href="#">
-                                                                                                                            <span class="sidenav-mini-icon"> SJ </span>
-                                                                                                                            <span class="sidenav-normal">
-                                                                                                                                Semakan Jawapan
-                                                                                                                            </span>
-                                                                                                                        </a>
-                                                                                                                    </li>
-                                                                                                                </ul>
+                                                                                                                    </g>
+                                                                                                                </svg>
                                                                                                             </div>
+                                                                                                            <span
+                                                                                                                class="nav-link-text ms-1">Pengurusan
+                                                                                                                Penilaian</span>
+                                                                                                        </a>
+                                                                                                        <div class="collapse "
+                                                                                                            id="test4">
+                                                                                                            <ul
+                                                                                                                class="nav ms-4 ps-3">
+                                                                                                                <li
+                                                                                                                    class="nav-item ">
+                                                                                                                    <a class="nav-link"
+                                                                                                                        href="#">
+                                                                                                                        <span
+                                                                                                                            class="sidenav-mini-icon">
+                                                                                                                            PSP
+                                                                                                                        </span>
+                                                                                                                        <span
+                                                                                                                            class="sidenav-normal">
+                                                                                                                            Pemilihan
+                                                                                                                            Soalan
+                                                                                                                            Pengetahuan
+                                                                                                                        </span>
+                                                                                                                    </a>
+
+                                                                                                                </li>
+                                                                                                                <li
+                                                                                                                    class="nav-item ">
+                                                                                                                    <a class="nav-link"
+                                                                                                                        href="#">
+                                                                                                                        <span
+                                                                                                                            class="sidenav-mini-icon">
+                                                                                                                            SSK
+                                                                                                                        </span>
+                                                                                                                        <span
+                                                                                                                            class="sidenav-normal">
+                                                                                                                            Senarai
+                                                                                                                            Slip
+                                                                                                                            Keputusan
+                                                                                                                        </span>
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                                <li
+                                                                                                                    class="nav-item ">
+                                                                                                                    <a class="nav-link"
+                                                                                                                        href="#">
+                                                                                                                        <span
+                                                                                                                            class="sidenav-mini-icon">
+                                                                                                                            SK
+                                                                                                                        </span>
+                                                                                                                        <span
+                                                                                                                            class="sidenav-normal">
+                                                                                                                            Senarai
+                                                                                                                            Sijil
+                                                                                                                            Kelulusan
+                                                                                                                        </span>
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                                <li
+                                                                                                                    class="nav-item ">
+                                                                                                                    <a class="nav-link"
+                                                                                                                        href="#">
+                                                                                                                        <span
+                                                                                                                            class="sidenav-mini-icon">
+                                                                                                                            SJ
+                                                                                                                        </span>
+                                                                                                                        <span
+                                                                                                                            class="sidenav-normal">
+                                                                                                                            Semakan
+                                                                                                                            Jawapan
+                                                                                                                        </span>
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            </ul>
+                                                                                                        </div>
                                                                                                         <?php
                                                                                                     }
                                                                                                         ?>
@@ -466,41 +677,83 @@
                                                                                                         <?php
                                                                                                         if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3'  || Auth::user()->user_group_id == '4' || Auth::user()->user_group_id == '5')) {
                                                                                                         ?>
-                                                                                                            <hr class="horizontal dark mt-0">
-                                                                                                            <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
-                                                                                                                <ul class="navbar-nav">
-                                                                                                                    <li class="nav-item">
-                                                                                                                        <a class="nav-link active" href="#test6" aria-controls="dashboard" role="button" aria-expanded="false" data-bs-toggle="collapse">
-                                                                                                                            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                                                                                                                                <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                                                                                    <title>shop </title>
-                                                                                                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                                                                                        <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                                                                                                            <g transform="translate(1716.000000, 291.000000)">
-                                                                                                                                                <g transform="translate(0.000000, 148.000000)">
-                                                                                                                                                    <path class="color-background" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585"></path>
-                                                                                                                                                    <path class="color-background" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-                                                                                                                                                    </path>
-                                                                                                                                                </g>
+                                                                                                        <hr
+                                                                                                            class="horizontal dark mt-0">
+                                                                                                        <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"
+                                                                                                            id="sidenav-collapse-main">
+                                                                                                            <ul
+                                                                                                                class="navbar-nav">
+                                                                                                                <li
+                                                                                                                    class="nav-item">
+                                                                                                                    <a class="nav-link active"
+                                                                                                                        href="#test6"
+                                                                                                                        aria-controls="dashboard"
+                                                                                                                        role="button"
+                                                                                                                        aria-expanded="false"
+                                                                                                                        data-bs-toggle="collapse">
+                                                                                                                        <div
+                                                                                                                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                                                                                                            <svg width="12px"
+                                                                                                                                height="12px"
+                                                                                                                                viewBox="0 0 45 40"
+                                                                                                                                version="1.1"
+                                                                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                                                                xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                                                                                <title>
+                                                                                                                                    shop
+                                                                                                                                </title>
+                                                                                                                                <g stroke="none"
+                                                                                                                                    stroke-width="1"
+                                                                                                                                    fill="none"
+                                                                                                                                    fill-rule="evenodd">
+                                                                                                                                    <g transform="translate(-1716.000000, -439.000000)"
+                                                                                                                                        fill="#FFFFFF"
+                                                                                                                                        fill-rule="nonzero">
+                                                                                                                                        <g
+                                                                                                                                            transform="translate(1716.000000, 291.000000)">
+                                                                                                                                            <g
+                                                                                                                                                transform="translate(0.000000, 148.000000)">
+                                                                                                                                                <path
+                                                                                                                                                    class="color-background"
+                                                                                                                                                    d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
+                                                                                                                                                    opacity="0.598981585">
+                                                                                                                                                </path>
+                                                                                                                                                <path
+                                                                                                                                                    class="color-background"
+                                                                                                                                                    d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                                                                                                                </path>
                                                                                                                                             </g>
                                                                                                                                         </g>
                                                                                                                                     </g>
-                                                                                                                                </svg>
-                                                                                                                            </div>
-                                                                                                                            <span class="nav-link-text ms-1"> Penilaian</span>
-                                                                                                                        </a>
-                                                                                                                        <div class="collapse " id="test6">
-                                                                                                                            <ul class="nav ms-4 ps-3">
-                                                                                                                                <li class="nav-item ">
-                                                                                                                                    <a class="nav-link" href="#">
-                                                                                                                                        <span class="sidenav-mini-icon"> KIP </span>
-                                                                                                                                        <span class="sidenav-normal">
-                                                                                                                                            Kemasukan ID Penilaian
-                                                                                                                                        </span>
-                                                                                                                                    </a>
-                                                                                                                                </li>
-                                                                                                                            </ul>
+                                                                                                                                </g>
+                                                                                                                            </svg>
                                                                                                                         </div>
+                                                                                                                        <span
+                                                                                                                            class="nav-link-text ms-1">
+                                                                                                                            Penilaian</span>
+                                                                                                                    </a>
+                                                                                                                    <div class="collapse "
+                                                                                                                        id="test6">
+                                                                                                                        <ul
+                                                                                                                            class="nav ms-4 ps-3">
+                                                                                                                            <li
+                                                                                                                                class="nav-item ">
+                                                                                                                                <a class="nav-link"
+                                                                                                                                    href="#">
+                                                                                                                                    <span
+                                                                                                                                        class="sidenav-mini-icon">
+                                                                                                                                        KIP
+                                                                                                                                    </span>
+                                                                                                                                    <span
+                                                                                                                                        class="sidenav-normal">
+                                                                                                                                        Kemasukan
+                                                                                                                                        ID
+                                                                                                                                        Penilaian
+                                                                                                                                    </span>
+                                                                                                                                </a>
+                                                                                                                            </li>
+                                                                                                                        </ul>
+                                                                                                                    </div>
                                                                                                                     <?php
                                                                                                                 }
                                                                                                                     ?>
@@ -509,50 +762,102 @@
                                                                                                                     <?php
                                                                                                                     if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '2')) {
                                                                                                                     ?>
-                                                                                                                        <hr class="horizontal dark mt-0">
-                                                                                                                        <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
-                                                                                                                            <ul class="navbar-nav">
-                                                                                                                                <li class="nav-item">
-                                                                                                                                    <a class="nav-link active" href="#test5" aria-controls="dashboard" role="button" aria-expanded="false" data-bs-toggle="collapse">
-                                                                                                                                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                                                                                                                                            <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                                                                                                <title>shop </title>
-                                                                                                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                                                                                                    <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                                                                                                                        <g transform="translate(1716.000000, 291.000000)">
-                                                                                                                                                            <g transform="translate(0.000000, 148.000000)">
-                                                                                                                                                                <path class="color-background" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585"></path>
-                                                                                                                                                                <path class="color-background" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-                                                                                                                                                                </path>
-                                                                                                                                                            </g>
+                                                                                                                    <hr
+                                                                                                                        class="horizontal dark mt-0">
+                                                                                                                    <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"
+                                                                                                                        id="sidenav-collapse-main">
+                                                                                                                        <ul
+                                                                                                                            class="navbar-nav">
+                                                                                                                            <li
+                                                                                                                                class="nav-item">
+                                                                                                                                <a class="nav-link active"
+                                                                                                                                    href="#test5"
+                                                                                                                                    aria-controls="dashboard"
+                                                                                                                                    role="button"
+                                                                                                                                    aria-expanded="false"
+                                                                                                                                    data-bs-toggle="collapse">
+                                                                                                                                    <div
+                                                                                                                                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                                                                                                                        <svg width="12px"
+                                                                                                                                            height="12px"
+                                                                                                                                            viewBox="0 0 45 40"
+                                                                                                                                            version="1.1"
+                                                                                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                                                                                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                                                                                            <title>
+                                                                                                                                                shop
+                                                                                                                                            </title>
+                                                                                                                                            <g stroke="none"
+                                                                                                                                                stroke-width="1"
+                                                                                                                                                fill="none"
+                                                                                                                                                fill-rule="evenodd">
+                                                                                                                                                <g transform="translate(-1716.000000, -439.000000)"
+                                                                                                                                                    fill="#FFFFFF"
+                                                                                                                                                    fill-rule="nonzero">
+                                                                                                                                                    <g
+                                                                                                                                                        transform="translate(1716.000000, 291.000000)">
+                                                                                                                                                        <g
+                                                                                                                                                            transform="translate(0.000000, 148.000000)">
+                                                                                                                                                            <path
+                                                                                                                                                                class="color-background"
+                                                                                                                                                                d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
+                                                                                                                                                                opacity="0.598981585">
+                                                                                                                                                            </path>
+                                                                                                                                                            <path
+                                                                                                                                                                class="color-background"
+                                                                                                                                                                d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                                                                                                                            </path>
                                                                                                                                                         </g>
                                                                                                                                                     </g>
                                                                                                                                                 </g>
-                                                                                                                                            </svg>
-                                                                                                                                        </div>
-                                                                                                                                        <span class="nav-link-text ms-1"> Bank Soalan </span>
-                                                                                                                                    </a>
-                                                                                                                                    <div class="collapse " id="test5">
-                                                                                                                                        <ul class="nav ms-4 ps-3">
-                                                                                                                                            <li class="nav-item ">
-                                                                                                                                                <a class="nav-link" href="#">
-                                                                                                                                                    <span class="sidenav-mini-icon"> BSP </span>
-                                                                                                                                                    <span class="sidenav-normal">
-                                                                                                                                                        Bank Soalan Pengetahuan
-                                                                                                                                                    </span>
-                                                                                                                                                </a>
-
-                                                                                                                                            </li>
-                                                                                                                                            <li class="nav-item ">
-                                                                                                                                                <a class="nav-link" href="#">
-                                                                                                                                                    <span class="sidenav-mini-icon"> BSK </span>
-                                                                                                                                                    <span class="sidenav-normal">
-                                                                                                                                                        Bank Soalan Kemahiran
-                                                                                                                                                    </span>
-                                                                                                                                                </a>
-                                                                                                                                            </li>
-                                                                                                                                        </ul>
+                                                                                                                                            </g>
+                                                                                                                                        </svg>
                                                                                                                                     </div>
+                                                                                                                                    <span
+                                                                                                                                        class="nav-link-text ms-1">
+                                                                                                                                        Bank
+                                                                                                                                        Soalan
+                                                                                                                                    </span>
+                                                                                                                                </a>
+                                                                                                                                <div class="collapse "
+                                                                                                                                    id="test5">
+                                                                                                                                    <ul
+                                                                                                                                        class="nav ms-4 ps-3">
+                                                                                                                                        <li
+                                                                                                                                            class="nav-item ">
+                                                                                                                                            <a class="nav-link"
+                                                                                                                                                href="#">
+                                                                                                                                                <span
+                                                                                                                                                    class="sidenav-mini-icon">
+                                                                                                                                                    BSP
+                                                                                                                                                </span>
+                                                                                                                                                <span
+                                                                                                                                                    class="sidenav-normal">
+                                                                                                                                                    Bank
+                                                                                                                                                    Soalan
+                                                                                                                                                    Pengetahuan
+                                                                                                                                                </span>
+                                                                                                                                            </a>
+
+                                                                                                                                        </li>
+                                                                                                                                        <li
+                                                                                                                                            class="nav-item ">
+                                                                                                                                            <a class="nav-link"
+                                                                                                                                                href="#">
+                                                                                                                                                <span
+                                                                                                                                                    class="sidenav-mini-icon">
+                                                                                                                                                    BSK
+                                                                                                                                                </span>
+                                                                                                                                                <span
+                                                                                                                                                    class="sidenav-normal">
+                                                                                                                                                    Bank
+                                                                                                                                                    Soalan
+                                                                                                                                                    Kemahiran
+                                                                                                                                                </span>
+                                                                                                                                            </a>
+                                                                                                                                        </li>
+                                                                                                                                    </ul>
+                                                                                                                                </div>
                                                                                                                                 <?php
                                                                                                                             }
                                                                                                                                 ?>
@@ -561,37 +866,68 @@
                                                                                                                                 <?php
                                                                                                                                 if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3'  || Auth::user()->user_group_id == '6')) {
                                                                                                                                 ?>
-                                                                                                                                    <hr class="horizontal dark mt-0">
-                                                                                                                                    <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">
-                                                                                                                                        <ul class="navbar-nav">
-                                                                                                                                            <li class="nav-item">
-                                                                                                                                                <a href="/jaduals" class="nav-link active" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-                                                                                                                                                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                                                                                                                                                        <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                                                                                                            <title>shop </title>
-                                                                                                                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                                                                                                                <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                                                                                                                                    <g transform="translate(1716.000000, 291.000000)">
-                                                                                                                                                                        <g transform="translate(0.000000, 148.000000)">
-                                                                                                                                                                            <path class="color-background" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585">
-                                                                                                                                                                            </path>
-                                                                                                                                                                            <path class="color-background" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-                                                                                                                                                                            </path>
-                                                                                                                                                                        </g>
+                                                                                                                                <hr
+                                                                                                                                    class="horizontal dark mt-0">
+                                                                                                                                <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"
+                                                                                                                                    id="sidenav-collapse-main">
+                                                                                                                                    <ul
+                                                                                                                                        class="navbar-nav">
+                                                                                                                                        <li
+                                                                                                                                            class="nav-item">
+                                                                                                                                            <a href="/jaduals"
+                                                                                                                                                class="nav-link active"
+                                                                                                                                                aria-controls="dashboardsExamples"
+                                                                                                                                                role="button"
+                                                                                                                                                aria-expanded="false">
+                                                                                                                                                <div
+                                                                                                                                                    class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                                                                                                                                    <svg width="12px"
+                                                                                                                                                        height="12px"
+                                                                                                                                                        viewBox="0 0 45 40"
+                                                                                                                                                        version="1.1"
+                                                                                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                                                                                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                                                                                                        <title>
+                                                                                                                                                            shop
+                                                                                                                                                        </title>
+                                                                                                                                                        <g stroke="none"
+                                                                                                                                                            stroke-width="1"
+                                                                                                                                                            fill="none"
+                                                                                                                                                            fill-rule="evenodd">
+                                                                                                                                                            <g transform="translate(-1716.000000, -439.000000)"
+                                                                                                                                                                fill="#FFFFFF"
+                                                                                                                                                                fill-rule="nonzero">
+                                                                                                                                                                <g
+                                                                                                                                                                    transform="translate(1716.000000, 291.000000)">
+                                                                                                                                                                    <g
+                                                                                                                                                                        transform="translate(0.000000, 148.000000)">
+                                                                                                                                                                        <path
+                                                                                                                                                                            class="color-background"
+                                                                                                                                                                            d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
+                                                                                                                                                                            opacity="0.598981585">
+                                                                                                                                                                        </path>
+                                                                                                                                                                        <path
+                                                                                                                                                                            class="color-background"
+                                                                                                                                                                            d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                                                                                                                                                        </path>
                                                                                                                                                                     </g>
                                                                                                                                                                 </g>
                                                                                                                                                             </g>
-                                                                                                                                                        </svg>
-                                                                                                                                                    </div>
-                                                                                                                                                    <span class="nav-link-text ms-1">Laporan</span>
-                                                                                                                                                </a>
+                                                                                                                                                        </g>
+                                                                                                                                                    </svg>
+                                                                                                                                                </div>
+                                                                                                                                                <span
+                                                                                                                                                    class="nav-link-text ms-1">Laporan</span>
+                                                                                                                                            </a>
                                                                                                                                             <?php
                                                                                                                                         }
                                                                                                                                             ?>
 
 
-                                                                                                                                            <div class="collapse  show " id="dashboardsExamples">
-                                                                                                                                                <ul class="nav ms-4 ps-3">
+                                                                                                                                            <div class="collapse  show "
+                                                                                                                                                id="dashboardsExamples">
+                                                                                                                                                <ul
+                                                                                                                                                    class="nav ms-4 ps-3">
 
                                                                                                                                                     <!-- <li class="nav-item ">
                                                         <a class="nav-link "
@@ -664,8 +1000,8 @@
                                         </li> -->
                                                                                                                                                 </ul>
                                                                                                                                             </div>
-                                                                                                                                            </li>
-                                                                                                                                            <!-- <li class="nav-item mt-3">
+                                                                                                                                        </li>
+                                                                                                                                        <!-- <li class="nav-item mt-3">
                                                                                 <h6
                                                                                     class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
                                                                                     PAGES</h6>
@@ -2287,9 +2623,9 @@
                                                                                         class="nav-link-text ms-1">Changelog</span>
                                                                                 </a>
                                                                             </li> -->
-                                                                                                                                        </ul>
-                                                                                                                                    </div>
-                                                                                                                                    <!-- <div class="sidenav-footer mx-3 mt-3 pt-3">
+                                                                                                                                    </ul>
+                                                                                                                                </div>
+                                                                                                                                <!-- <div class="sidenav-footer mx-3 mt-3 pt-3">
                                                                         <div class="card card-background shadow-none card-background-mask-secondary"
                                                                             id="sidenavCard">
                                                                             <div class="full-background"
@@ -2319,16 +2655,20 @@
 
     <!-- Navbar -->
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky" id="navbarBlur" data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky"
+            id="navbarBlur" data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm">
                             <a class="opacity-3 text-dark" href="javascript:;">
-                                <svg width="12px" height="12px" class="mb-1" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <svg width="12px" height="12px" class="mb-1" viewBox="0 0 45 40"
+                                    version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <title></title>
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g transform="translate(-1716.000000, -439.000000)" fill="#252f40" fill-rule="nonzero">
+                                        <g transform="translate(-1716.000000, -439.000000)" fill="#252f40"
+                                            fill-rule="nonzero">
                                             <g transform="translate(1716.000000, 291.000000)">
                                                 <g transform="translate(0.000000, 148.000000)">
                                                     <!-- <path
@@ -2368,38 +2708,42 @@
                         </div>
                     </div>
                     @guest
-                    <ul class="navbar-nav  justify-content-end">
-                        <li class="nav-item d-flex align-items-center">
-                            <a href="/login" class="nav-link text-body font-weight-bold px-0" target="_self">
-                                <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Log Masuk</span>
-                            </a>
-                        </li>
-                        &emsp;&emsp;
                         <ul class="navbar-nav  justify-content-end">
                             <li class="nav-item d-flex align-items-center">
-                                <a href="/register" class="nav-link text-body font-weight-bold px-0" target="_self">
+                                <a href="/login" class="nav-link text-body font-weight-bold px-0" target="_self">
                                     <i class="fa fa-user me-sm-1"></i>
-                                    <span class="d-sm-inline d-none">Daftar</span>
+                                    <span class="d-sm-inline d-none">Log Masuk</span>
                                 </a>
-                            </li> &emsp;&emsp;
+                            </li>
+                            &emsp;&emsp;
+                            <ul class="navbar-nav  justify-content-end">
+                                <li class="nav-item d-flex align-items-center">
+                                    <a href="/register" class="nav-link text-body font-weight-bold px-0" target="_self">
+                                        <i class="fa fa-user me-sm-1"></i>
+                                        <span class="d-sm-inline d-none">Daftar</span>
+                                    </a>
+                                </li> &emsp;&emsp;
                             @endguest
                             @auth
-                            <ul class="navbar-nav ml-auto mb-2 mb-md-0">
-                                <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="/welcome"></a>
-                                </li>
-                                <li class="nav-item">
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
+                                <ul class="navbar-nav ml-auto mb-2 mb-md-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="/welcome"></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <form method="POST" action="/logout">
+                                            @csrf
+                                            <a class="dropdown-item border-radius-md" href="#"
+                                                onclick="event.preventDefault();
+                                                                                                                                                                                                                                                                                                                                                                                            this.closest('form').submit();">
+                                                <div class="d-flex py-1">
 
-                                        <x-responsive-nav-link style="color:black;" :href="route('logout')" onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                                            {{ __(' Log Keluar ') }}
-                                        </x-responsive-nav-link>
-                                    </form>
-                                </li>
-                            </ul>
+                                                    {{ __('Log Keluar') }}
+
+                                                </div>
+                                            </a>
+                                        </form>
+                                    </li>
+                                </ul>
                             @endauth
                             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                                 <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
@@ -2516,8 +2860,8 @@
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">
               <div class="copyright text-center text-sm text-muted text-lg-start">
-                © <script>
-                  document.write(new Date().getFullYear())
+                <script>
+                    document.write(new Date().getFullYear())
                 </script>,
                 made with <i class="fa fa-heart"></i> by
                 <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
@@ -2570,12 +2914,18 @@
                 </div>
                 <a href="javascript:void(0)" class="switch-trigger background-color">
                     <div class="badge-colors my-2 text-start">
-                        <span class="badge filter bg-gradient-primary active" data-color="primary" onclick="sidebarColor(this)"></span>
-                        <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
-                        <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
-                        <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
-                        <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
-                        <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-primary active" data-color="primary"
+                            onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-dark" data-color="dark"
+                            onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-info" data-color="info"
+                            onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-success" data-color="success"
+                            onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-warning" data-color="warning"
+                            onclick="sidebarColor(this)"></span>
+                        <span class="badge filter bg-gradient-danger" data-color="danger"
+                            onclick="sidebarColor(this)"></span>
                     </div>
                 </a>
                 <!-- Sidenav Type -->
@@ -2584,8 +2934,10 @@
                     <p class="text-sm">Choose between 2 different sidenav types.</p>
                 </div>
                 <div class="d-flex">
-                    <button class="btn bg-gradient-primary w-100 px-3 mb-2 active" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
-                    <button class="btn bg-gradient-primary w-100 px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
+                    <button class="btn bg-gradient-primary w-100 px-3 mb-2 active" data-class="bg-transparent"
+                        onclick="sidebarType(this)">Transparent</button>
+                    <button class="btn bg-gradient-primary w-100 px-3 mb-2 ms-2" data-class="bg-white"
+                        onclick="sidebarType(this)">White</button>
                 </div>
                 <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
                 <!-- Navbar Fixed -->
@@ -2593,28 +2945,37 @@
                     <h6 class="mb-0">Navbar Fixed</h6>
                 </div>
                 <div class="form-check form-switch ps-0">
-                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
+                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed"
+                        onclick="navbarFixed(this)">
                 </div>
                 <hr class="horizontal dark mb-1">
                 <div class="mt-2">
                     <h6 class="mb-0">Sidenav Mini</h6>
                 </div>
                 <div class="form-check form-switch ps-0">
-                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarMinimize" onclick="navbarMinimize(this)">
+                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarMinimize"
+                        onclick="navbarMinimize(this)">
                 </div>
                 <hr class="horizontal dark my-sm-4">
-                <a class="btn bg-gradient-info w-100" href="https://www.creative-tim.com/product/soft-ui-dashboard-pro">Buy now</a>
-                <a class="btn bg-gradient-dark w-100" href="https://www.creative-tim.com/product/soft-ui-dashboard">Free
+                <a class="btn bg-gradient-info w-100"
+                    href="https://www.creative-tim.com/product/soft-ui-dashboard-pro">Buy now</a>
+                <a class="btn bg-gradient-dark w-100"
+                    href="https://www.creative-tim.com/product/soft-ui-dashboard">Free
                     demo</a>
-                <a class="btn btn-outline-dark w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/overview/soft-ui-dashboard">View
+                <a class="btn btn-outline-dark w-100"
+                    href="https://www.creative-tim.com/learning-lab/bootstrap/overview/soft-ui-dashboard">View
                     documentation</a>
                 <div class="w-100 text-center">
-                    <a class="github-button" href="https://github.com/creativetimofficial/ct-soft-ui-dashboard-pro" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub">Star</a>
+                    <a class="github-button" href="https://github.com/creativetimofficial/ct-soft-ui-dashboard-pro"
+                        data-icon="octicon-star" data-size="large" data-show-count="true"
+                        aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub">Star</a>
                     <h6 class="mt-3">Thank you for sharing!</h6>
-                    <a href="https://twitter.com/intent/tweet?text=Check%20Soft%20UI%20Dashboard%20PRO%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard-pro" class="btn btn-dark mb-0 me-2" target="_blank">
+                    <a href="https://twitter.com/intent/tweet?text=Check%20Soft%20UI%20Dashboard%20PRO%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard-pro"
+                        class="btn btn-dark mb-0 me-2" target="_blank">
                         <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
                     </a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/soft-ui-dashboard-pro" class="btn btn-dark mb-0 me-2" target="_blank">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/soft-ui-dashboard-pro"
+                        class="btn btn-dark mb-0 me-2" target="_blank">
                         <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
                     </a>
                 </div>
