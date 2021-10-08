@@ -812,10 +812,14 @@
           hiddenHeader: !1,
           footer: !1,
           labels: {
-            placeholder: "Search...",
-            perPage: "{select} entries per page",
-            noRows: "No entries found",
-            info: "Showing {start} to {end} of {rows} entries"
+            // placeholder: "Search...",
+            placeholder: "Carian...",
+            // perPage: "{select} entries per page",
+            perPage: "{select} maklumat setiap halaman",
+            // noRows: "No entries found",
+            noRows: "Tiada maklumat dijumpai",
+            // info: "Showing {start} to {end} of {rows} entries"
+            info: "Menunjukkan {start} hingga {end} dari {rows} maklumat"
           },
           layout: {
             top: "{select}{search}",

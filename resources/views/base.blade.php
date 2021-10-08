@@ -361,7 +361,7 @@
                                                                         <ul class="navbar-nav">
                                                                             <li class="nav-item">
                                                                                 <a class="nav-link active"
-                                                                                    href="/permohanans"
+                                                                                    href="/mohonpenilaian"
                                                                                     aria-controls="dashboardsExample"
                                                                                     role="button" aria-expanded="false">
                                                                                     <div
@@ -2734,7 +2734,7 @@
                                             @csrf
                                             <a class="dropdown-item border-radius-md" href="#"
                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                            this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                this.closest('form').submit();">
                                                 <div class="d-flex py-1">
 
                                                     {{ __('Log Keluar') }}

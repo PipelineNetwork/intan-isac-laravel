@@ -78,7 +78,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                <input class="form-control  " type="text" value="{{Auth::user()->name}}" name="name" required>
+                                <input class="form-control" type="text" value="{{Auth::user()->name}}" name="name" required>
                             </div>
                         </div>
                         <div class="row mb-2">
