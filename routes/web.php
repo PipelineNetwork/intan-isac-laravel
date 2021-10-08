@@ -10,7 +10,7 @@ use App\Http\Controllers\BalasRayuanController;
 use App\Http\Controllers\PermohananController;
 use App\Http\Controllers\JadualController;
 use App\Http\Controllers\ChangePasswordController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MohonPenilaianController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +64,8 @@ Route::resource('/permohanans',PermohananController::class);
 
 Route::resource('/jaduals',JadualController::class);
 
+Route::resource('/mohonpenilaian',MohonPenilaianController::class);
+
 
 
 
@@ -73,8 +75,6 @@ Route::resource('/jaduals',JadualController::class);
 
 Route::resource('/change-password',ChangePasswordController::class);
 
-
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -82,4 +82,8 @@ require __DIR__.'/auth.php';
 
 // custom action najhan
 Route::post('/jadual/kemaskini_status/{id}', [JadualController::class, 'kemaskini_status']);
-Route::resource('/dashboard',DashboardController::class);
+// Route::resource('/dashboard',DashboardController::class);
+Route::post('/mohonpenilaian/penyelaras/pilih_jadual', [MohonPenilaianController::class, 'pilih_jadual']);
+Route::post('/mohonpenilaian/penyelaras/pilih_calon', [MohonPenilaianController::class, 'pilih_calon']);
+Route::post('/mohonpenilaian/calon/kemaskini_maklumat_calon', [MohonPenilaianController::class, 'kemaskini_maklumat_calon']);
+Route::post('/mohonpenilaian/calon/pilih_jadual', [MohonPenilaianController::class, 'pilih_jadual_calon']);

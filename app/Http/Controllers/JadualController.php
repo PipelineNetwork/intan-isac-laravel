@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\JadualKemaskini;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class JadualController extends Controller
 {
@@ -259,7 +260,9 @@ class JadualController extends Controller
         ];
         Validator::make($request->input(), $rules, $messages)->validate();
         $jadual->save();
-        $recipient = ["najhan.mnajib@gmail.com", "harizhasani@pipeline.com.my"];
+
+        $emel_pendaftar = Auth::user()->email;
+        $recipient = [$emel_pendaftar,"najhan.mnajib@gmail.com"];
         Mail::to($recipient)->send(new JadualKemaskini());
         return redirect('/jaduals');
     }
