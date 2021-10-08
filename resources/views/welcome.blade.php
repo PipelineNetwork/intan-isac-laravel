@@ -437,7 +437,7 @@
                                 <form method="POST" action="/login">
                                     @csrf
 
-                                    {{ Auth::user() }}
+                                    {{-- {{ Auth::user() }} --}}
                                     <label>ID Pengguna (No MyKad/Polis/Tentera)</label>
                                     <div>
                                         <x-input id="nric" class="form-control w-75" type="nric" name="nric"

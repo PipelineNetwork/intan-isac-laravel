@@ -11,6 +11,8 @@ class Perkhidmatan extends Model
 
     protected $table = 'pro_perkhidmatan';
 
+    protected $primaryKey = 'ID_PERKHIDMATAN';
+
     protected $fillable = [
         'KOD_GELARAN_JAWATAN',
         'KOD_PERINGKAT',
