@@ -11,6 +11,7 @@ class Tugas extends Model
 
     protected $table = 'pro_tempat_tugas';
 
+    protected $primaryKey = 'ID_TEMPAT_TUGAS';
     protected $fillable = [
         'ID_PESERTA',
         'GELARAN_KETUA_JABATAN',
