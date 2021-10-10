@@ -1,6 +1,5 @@
 @extends('base')
 @section('content')
-
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm">
@@ -47,16 +46,15 @@
                                     <div class="row mb-2">
                                         <input type="hidden" name="ID_PESERTA" value="{{ $user_profils->ID_PESERTA }}">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->NO_KAD_PENGENALAN }}">
+                                            <label class="form-control-label mr-4">
                                                 No MyKad/Polis/Tentera/Pasport
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->NO_KAD_PENGENALAN }}" type="text"
-                                                value="{{ $user_profils->NO_KAD_PENGENALAN }}" required maxlength="12"
-                                                size="12">
+                                            <input class="form-control form-control-sm ml-3" type="text"
+                                                value="{{ $user_profils->NO_KAD_PENGENALAN }}" maxlength="12" size="12"
+                                                required name="NO_KAD_PENGENALAN"
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -68,367 +66,38 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->EMEL_PESERTA }}" type="email"
+                                                id="{{ $user_profils->EMEL_PESERTA }}" type="email" name="EMEL_PESERTA"
                                                 value="{{ $user_profils->EMEL_PESERTA }}" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4" for="{{ $user_profils->KOD_GELARAN }}">
+                                            <label class="form-control-label mr-4" for="input_kod_gelaran">
                                                 Gelaran
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            @if ($user_profils->KOD_GELARAN == '01')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text"
-                                                    value="Brigidier Jeneral Dato" required>
-                                            @elseif ($user_profils->KOD_GELARAN == '02')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Cik"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '03')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '04')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin Amar"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '05')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '06')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin Paduka"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '07')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin Patinggi"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '08')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin Professor Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '09')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin Seri"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '10')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin Seri Utama"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '11')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin Sri"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '12')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin Sri Cempaka"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '13')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin Sri Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '14')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datin Wira"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '15')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '16')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Ir."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '17')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Ir Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '18')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Paduka"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '19')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato  Paduka Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '20')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Pahlawan"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '21')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Professor Madya Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '22')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Senara Muda"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '23')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Seri"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '24')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Seri Panglima"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '25')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Seri Utama"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '26')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Sri"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '27')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dato Wira"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '28')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datu"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '29')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '30')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Amar"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '31')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Bentara Luar"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '32')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Bentara Raja"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '33')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '34')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Kol."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '35')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Patinggi"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '36')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Professor"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '37')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Professor Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '38')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Seri"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '39')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Seri Panglima"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '40')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Seri Utama"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '41')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Setia"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '42')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Setia Wangsa"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '43')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Sri"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '44')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Sri Amar Diraja"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '45')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Sri Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '46')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Wira"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '47')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Datuk Wira Jaya"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '48')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Doktor"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '49')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '50')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Encik"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '51')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Hajjah"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '52')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Haji"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '53')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Ir"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '54')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Ir. Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '55')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Jeneral"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '56')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Kapten"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '57')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Kolonel"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '58')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Major"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '59')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Pehin Sri"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '60')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Professor"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '61')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Professor Diraja"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '62')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Professor Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '63')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Professor Madya"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '64')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Professor Madya Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '65')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Puan"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '66')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Puan Sri"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '67')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Puan Sri Datin"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '68')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Puan Sri Datin Professor"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '69')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Puan Sri Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '70')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Puan Sri Utama"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '71')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tan Sri"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '72')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tan Sri Dato Seri"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '73')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tan Sri Dato"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '74')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tan Sri Datuk"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '75')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tan Sri Datuk Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '76')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tan Sri Datuk Professor"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '77')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tan Sri Datuk Professor Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '78')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tan Sri Dr."
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '79')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tan Sri Jeneral"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '80')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tan Sri Professor"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '81')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="To Puan"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '82')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Toh Puan Seri Utama"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '83')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tuan"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '84')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tuan Haji"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '85')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Tun"
-                                                    required>
-                                            @elseif ($user_profils->KOD_GELARAN == '86')
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_GELARAN }}" type="text" value="Yang Mulia"
-                                                    required>
+                                            @if ($user_profils->KOD_GELARAN != null)
+                                                <select class="form-control form-control-sm ml-3" name="KOD_GELARAN"
+                                                    id="input_kod_gelaran">
+                                                    {{-- <option hidden selected>{{ $gelaran_user->DESCRIPTION1 }}</option> --}}
+                                                    <option hidden selected value="{{ $gelaran_user->KOD_GELARAN }}">
+                                                        {{ $gelaran_user->DESCRIPTION1 }}</option>
+                                                    @foreach ($kod_gelarans as $kod_gelaran)
+                                                        <option value="{{ $kod_gelaran->REFERENCECODE }}">
+                                                            {{ $kod_gelaran->DESCRIPTION1 }}</option>
+                                                    @endforeach
+                                                </select>
                                             @else
-                                                {{ $user_profils->KOD_GELARAN }}
+                                                <select class="form-control form-control-sm ml-3" name="KOD_GELARAN"
+                                                    id="input_kod_gelaran">
+                                                    <option hidden selected>Sila Pilih</option>
+                                                    @foreach ($kod_gelarans as $kod_gelaran)
+                                                        <option value="{{ $kod_gelaran->REFERENCECODE }}">
+                                                            {{ $kod_gelaran->DESCRIPTION1 }}</option>
+                                                    @endforeach
+                                                </select>
                                             @endif
-                                            {{-- <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->KOD_GELARAN }}" type="text"
-                                                value="{{ $user_profils->KOD_GELARAN }}" required> --}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -440,8 +109,9 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->NAMA_PESERTA }}" type="text"
-                                                value=" {{ $user_profils->NAMA_PESERTA }}" required>
+                                                id="{{ $user_profils->NAMA_PESERTA }}" type="text" name="NAMA_PESERTA"
+                                                value=" {{ $user_profils->NAMA_PESERTA }}"
+                                                style="text-transform:uppercase" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -453,108 +123,152 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->TARIKH_LAHIR }}" type="date"
+                                                id="{{ $user_profils->TARIKH_LAHIR }}" type="date" name="TARIKH_LAHIR"
                                                 value="{{ $user_profils->TARIKH_LAHIR }}" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_JANTINA }}">
+                                            <label class="form-control-label mr-4" for="input_kod_jantina">
                                                 Jantina
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            @if ($user_profils->KOD_JANTINA == 01)
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_JANTINA }}" type="text" value="Lelaki"
-                                                    required>
+                                            @if ($user_profils->KOD_JANTINA != null)
+                                                <select class="form-control form-control-sm ml-3" name="KOD_JANTINA"
+                                                    id="input_kod_jantina" required>
+                                                    <option hidden selected value="{{ $user_profils->KOD_JANTINA }}">
+                                                        {{ $user_profils->KOD_JANTINA }}</option>
+                                                    <option value="Lelaki">Lelaki</option>
+                                                    <option value="Perempuan">Perempuan</option>
+                                                </select>
                                             @else
-                                                <input class="form-control form-control-sm ml-3"
-                                                    id="{{ $user_profils->KOD_JANTINA }}" type="text" value="Perempuan"
-                                                    required>
+                                                <select class="form-control form-control-sm ml-3" name="KOD_JANTINA"
+                                                    id="input_kod_jantina" required>
+                                                    <option hidden selected>Sila Pilih</option>
+                                                    <option value="Lelaki">Lelaki</option>
+                                                    <option value="Perempuan">Perempuan</option>
+                                                </select>
                                             @endif
-                                            {{-- <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->KOD_JANTINA }}" type="text"
-                                                value="{{ $user_profils->KOD_JANTINA }}"  required> --}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_GELARAN_JAWATAN }}">
+                                            <label class="form-control-label mr-4" for="input_kod_gelaran_jawatan">
                                                 Gelaran Jawatan
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->KOD_GELARAN_JAWATAN }}" type="text"
+                                            <input class="form-control form-control-sm ml-3" name="KOD_GELARAN_JAWATAN"
+                                                id="input_kod_gelaran_jawatan" type="text"
                                                 value="{{ $user_profils->KOD_GELARAN_JAWATAN }}" required>
+                                            <span><small><i>Contoh: Pegawai Teknologi Maklumat, Gred
+                                                        F41/F44</i></small></span>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_PERINGKAT }}">
+                                            <label class="form-control-label mr-4" for="input_peringkat">
                                                 Peringkat
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
+                                            <select class="form-control form-control-sm ml-3" name="KOD_PERINGKAT"
+                                                id="input_peringkat" required>
+                                                <option hidden selected>Sila Pilih</option>
+                                                @foreach ($peringkats as $peringkat)
+                                                    <option value="{{ $peringkat->DESCRIPTION1 }}">
+                                                        {{ $peringkat->DESCRIPTION1 }}</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <input class="form-control form-control-sm ml-3" name="KOD_PERINGKAT"
                                                 id="{{ $user_profils->KOD_PERINGKAT }}" type="text"
-                                                value="{{ $user_profils->KOD_PERINGKAT }}" required>
+                                                value="{{ $user_profils->KOD_PERINGKAT }}" required> --}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}">
+                                            <label class="form-control-label mr-4" for="input_klasifikasi_perkhidmatan">
                                                 Klasifikasi Perkhidmatan
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
+                                            <select class="form-control form-control-sm ml-3"
+                                                name="KOD_KLASIFIKASI_PERKHIDMATAN" id="input_klasifikasi_perkhidmatan"
+                                                required>
+                                                <option hidden selected>{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}
+                                                </option>
+                                                @foreach ($klasifikasi_perkhidmatans as $klasifikasi_perkhidmatan)
+                                                    <option value="{{ $klasifikasi_perkhidmatan->DESCRIPTION1 }}">
+                                                        {{ $klasifikasi_perkhidmatan->DESCRIPTION1 }}</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <input class="form-control form-control-sm ml-3"
+                                                name="KOD_KLASIFIKASI_PERKHIDMATAN"
                                                 id="{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}" type="text"
-                                                value="{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}" required>
+                                                value="{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}" required> --}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_GRED_JAWATAN }}">
+                                            <label class="form-control-label mr-4" for="input_gred_jawatan">
                                                 Gred Jawatan
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
+                                            <select class="form-control form-control-sm ml-3" name="KOD_GRED_JAWATAN"
+                                                id="input_gred_jawatan" required>
+                                                <option hidden selected>{{ $user_profils->KOD_GRED_JAWATAN }}</option>
+                                                @foreach ($gred_jawatans as $gred_jawatan)
+                                                    <option value="{{ $gred_jawatan->DESCRIPTION1 }}">
+                                                        {{ $gred_jawatan->DESCRIPTION1 }}</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <input class="form-control form-control-sm ml-3" name="KOD_GRED_JAWATAN"
                                                 id="{{ $user_profils->KOD_GRED_JAWATAN }}" type="text"
-                                                value="{{ $user_profils->KOD_GRED_JAWATAN }}" required>
+                                                value="{{ $user_profils->KOD_GRED_JAWATAN }}" required> --}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_TARAF_PERJAWATAN }}">
+                                            <label class="form-control-label mr-4" for="input_taraf_perjawatan">
                                                 Taraf Perjawatan
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
+                                            <select class="form-control form-control-sm ml-3" name="KOD_TARAF_PERJAWATAN"
+                                                id="input_taraf_perjawatan" required>
+                                                <option hidden selected>{{ $user_profils->KOD_TARAF_PERJAWATAN }}
+                                                </option>
+                                                @foreach ($taraf_perjawatans as $taraf_perjawatan)
+                                                    <option value="{{ $taraf_perjawatan->DESCRIPTION1 }}">
+                                                        {{ $taraf_perjawatan->DESCRIPTION1 }}</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <input class="form-control form-control-sm ml-3" name="KOD_TARAF_PERJAWATAN"
                                                 id="{{ $user_profils->KOD_TARAF_PERJAWATAN }}" type="text"
-                                                value="{{ $user_profils->KOD_TARAF_PERJAWATAN }}" required>
+                                                value="{{ $user_profils->KOD_TARAF_PERJAWATAN }}" required> --}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}">
+                                            <label class="form-control-label mr-4" for="input_jenis_perkhidmatan">
                                                 Jenis Perkhidmatan
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->KOD_TARAF_PERJAWATAN }}" type="text"
-                                                value="{{ $user_profils->KOD_TARAF_PERJAWATAN }}" required>
+                                            <select class="form-control form-control-sm ml-3" name="KOD_JENIS_PERKHIDMATAN"
+                                                id="input_jenis_perkhidmatan" required>
+                                                <option hidden selected>{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}
+                                                </option>
+                                                @foreach ($jenis_perkhidmatans as $jenis_perkhidmatan)
+                                                    <option value="{{ $jenis_perkhidmatan->DESCRIPTION1 }}">
+                                                        {{ $jenis_perkhidmatan->DESCRIPTION1 }}</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <input class="form-control form-control-sm ml-3" name="KOD_JENIS_PERKHIDMATAN"
+                                                id="{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}" type="text"
+                                                value="{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}" required> --}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -565,61 +279,71 @@
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->TARIKH_LANTIKAN }}" type="text"
+                                            <input class="form-control form-control-sm ml-3" name="TARIKH_LANTIKAN"
+                                                id="{{ $user_profils->TARIKH_LANTIKAN }}" type="date"
                                                 value="{{ $user_profils->TARIKH_LANTIKAN }}" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->NO_TELEFON_PEJABAT }}">
+                                            <label class="form-control-label mr-4" for="input_no_tel_pejabat">
                                                 No Telefon Pejabat
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->NO_TELEFON_PEJABAT }}" type="text"
-                                                value="{{ $user_profils->NO_TELEFON_PEJABAT }}" required>
+                                            <input class="form-control form-control-sm ml-3" name="NO_TELEFON_PEJABAT"
+                                                id="input_no_tel_pejabat" type="text" maxlength="10"
+                                                value="{{ $user_profils->NO_TELEFON_PEJABAT }}"
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->NO_TELEFON_BIMBIT }}">
+                                            <label class="form-control-label mr-4" for="input_no_tel_bimbit">
                                                 No Telefon Bimbit
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->NO_TELEFON_BIMBIT }}" type="text"
-                                                value="{{ $user_profils->NO_TELEFON_BIMBIT }}" required>
+                                            <input class="form-control form-control-sm ml-3" name="NO_TELEFON_BIMBIT"
+                                                id="input_no_tel_bimbit" type="text"
+                                                value="{{ $user_profils->NO_TELEFON_BIMBIT }}" maxlength="11"
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->GELARAN_KETUA_JABATAN }}">
+                                            <label class="form-control-label mr-4" for="input_gelaran_ketua_jabatan">
                                                 Jawatan Ketua Jabatan
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->GELARAN_KETUA_JABATAN }}" type="text"
-                                                value="{{ $user_profils->GELARAN_KETUA_JABATAN }}" required>
+                                            <input class="form-control form-control-sm ml-3" name="GELARAN_KETUA_JABATAN"
+                                                id="input_gelaran_ketua_jabatan" type="text"
+                                                value="{{ $user_profils->GELARAN_KETUA_JABATAN }}"
+                                                style="text-transform:uppercase" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_KEMENTERIAN }}">
+                                            <label class="form-control-label mr-4" for="input_kementerian">
                                                 Kementerian/Agensi
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->KOD_KEMENTERIAN }}" type="text"
-                                                value="{{ $user_profils->KOD_KEMENTERIAN }}" required>
+                                            <select class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN"
+                                                id="input_kementerian" required>
+                                                <option hidden selected>{{ $user_profils->KOD_KEMENTERIAN }}
+                                                </option>
+                                                @foreach ($kementerians as $kementerian)
+                                                    <option value="{{ $kementerian->DESCRIPTION1 }}">
+                                                        {{ $kementerian->DESCRIPTION1 }}</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <input class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN"
+                                                id="input_kementerian" type="text"
+                                                value="{{ $user_profils->KOD_KEMENTERIAN }}" required> --}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -629,45 +353,46 @@
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
+                                            <input class="form-control form-control-sm ml-3" name="BAHAGIAN"
                                                 id="{{ $user_profils->BAHAGIAN }}" type="text"
                                                 value="{{ $user_profils->BAHAGIAN }}" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4" for="{{ $user_profils->ALAMAT_1 }}">
+                                            <label class="form-control-label mr-4" for="input_alamat_1">
                                                 Alamat Pejabat 1
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->ALAMAT_1 }}" type="text"
-                                                value="{{ $user_profils->ALAMAT_1 }}" required>
+                                            <input class="form-control form-control-sm ml-3" name="ALAMAT_1"
+                                                id="input_alamat_1" type="text" value="{{ $user_profils->ALAMAT_1 }}"
+                                                style="text-transform:uppercase" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4" for="{{ $user_profils->ALAMAT_2 }}">
+                                            <label class="form-control-label mr-4" for="input_alamat_2">
                                                 Alamat Pejabat 2
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->ALAMAT_2 }}" type="text"
-                                                value="{{ $user_profils->ALAMAT_2 }}">
+                                            <input class="form-control form-control-sm ml-3" name="ALAMAT_2"
+                                                id="input_alamat_2" type="text" value="{{ $user_profils->ALAMAT_2 }}"
+                                                style="text-transform:uppercase">
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4" for="{{ $user_profils->POSKOD }}">
+                                            <label class="form-control-label mr-4" for="input_poskod">
                                                 Poskod
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->POSKOD }}" type="text"
-                                                value="{{ $user_profils->POSKOD }}" required>
+                                            <input class="form-control form-control-sm ml-3" name="POSKOD"
+                                                id="input_poskod" type="text"
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                                maxlength="5" size="5" value="{{ $user_profils->POSKOD }}" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -677,34 +402,41 @@
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
+                                            <input class="form-control form-control-sm ml-3" name="BANDAR"
                                                 id="{{ $user_profils->BANDAR }}" type="text"
                                                 value="{{ $user_profils->BANDAR }}" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_NEGERI }}">
+                                            <label class="form-control-label mr-4" for="input_negeri">
                                                 Negeri
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->KOD_NEGERI }}" type="text"
-                                                value="{{ $user_profils->KOD_NEGERI }}" required>
+                                            <select class="form-control form-control-sm ml-3" name="KOD_NEGERI"
+                                                id="input_negeri" required>
+                                                <option hidden selected>{{ $user_profils->KOD_NEGERI }}
+                                                </option>
+                                                @foreach ($negeris as $negeri)
+                                                    <option value="{{ $negeri->DESCRIPTION1 }}">
+                                                        {{ $negeri->DESCRIPTION1 }}</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <input class="form-control form-control-sm ml-3" name="KOD_NEGERI"
+                                                id="input_negeri" type="text"
+                                                value="{{ $user_profils->KOD_NEGERI }}" required> --}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->NAMA_PENYELIA }}">
+                                            <label class="form-control-label mr-4" for="input_nama_penyelia">
                                                 Nama Penyelia
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->NAMA_PENYELIA }}" type="text"
+                                            <input class="form-control form-control-sm ml-3" name="NAMA_PENYELIA"
+                                                id="input_nama_penyelia" type="text" style="text-transform:uppercase"
                                                 value="{{ $user_profils->NAMA_PENYELIA }}">
                                         </div>
                                     </div>
@@ -716,7 +448,7 @@
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
+                                            <input class="form-control form-control-sm ml-3" name="EMEL_PENYELIA"
                                                 id="{{ $user_profils->EMEL_PENYELIA }}" type="email"
                                                 value="{{ $user_profils->EMEL_PENYELIA }}">
                                         </div>
@@ -729,8 +461,9 @@
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
+                                            <input class="form-control form-control-sm ml-3" name="NO_TELEFON_PENYELIA"
                                                 id="{{ $user_profils->NO_TELEFON_PENYELIA }}" type="text"
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                 value="{{ $user_profils->NO_TELEFON_PENYELIA }}" maxlength="11">
                                         </div>
                                     </div>
@@ -808,8 +541,7 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-3">
-                                        <label class="form-control-label mr-4"
-                                            for="{{ $user_profils->office_number }}">
+                                        <label class="form-control-label mr-4" for="{{ $user_profils->office_number }}">
                                             No Pejabat
                                         </label><label class="float-right">:</label>
                                     </div>

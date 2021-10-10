@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Permohanan;
 use App\Models\Tugas;
 use App\Models\Perkhidmatan;
+use App\Models\Refgeneral;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -14,10 +15,16 @@ class ProfilController extends Controller
 {
     public function kemaskini(Request $request)
     {
-        $current_user = $request->user();
+        $current_user = Auth::user()->user_group_id;
+        $checkid = Auth::id();
+        $checkid2 = Auth::user()->id;
+        // dd($current_user, $checkid, $checkid2);
+
+        // $current_user = $request->user();
         // $group_id = User::where('user_group_id', '=', '5')->get();
-        if ($current_user->user_group_id == 5) {
+        if ($current_user == 5) {
             $user_profils = DB::table('users')
+                ->where('id', '=', $checkid2)
                 ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
                 ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
                 ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
@@ -29,37 +36,70 @@ class ProfilController extends Controller
 
         // dd($user_profils);
         return view('profil.index', [
-            'user' => $current_user,
+            'current_user' => $current_user,
             'user_profils' => $user_profils,
         ]);
     }
 
     public function kemaskiniform(Request $request)
     {
-        $user_profils = $request->user();
+        $current_user = Auth::user()->user_group_id;
+        $checkid = Auth::id();
+        $checkid2 = Auth::user()->id;
+        $gelaran_user = Refgeneral::where('MASTERCODE', 10009)
+            ->join('pro_peserta', 'refgeneral.REFERENCECODE', 'pro_peserta.KOD_GELARAN')
+            ->select('refgeneral.MASTERCODE', 'refgeneral.REFERENCECODE', 'refgeneral.DESCRIPTION1', 'pro_peserta.KOD_GELARAN')
+            ->where('pro_peserta.user_id', $checkid2)
+            ->get()->first();
+        $kod_gelaran = Refgeneral::where('MASTERCODE', 10009)
+            ->get();
 
-        if ($user_profils->user_group_id == 5) {
+        $peringkat = Refgeneral::where('MASTERCODE', 10023)->get();
+
+        $klasifikasi_perkhidmatan = Refgeneral::where('MASTERCODE', 10024)->get();
+
+        $gred_jawatan = Refgeneral::where('MASTERCODE', 10025)->get();
+
+        $taraf_perjawatan = Refgeneral::where('MASTERCODE', 10026)->get();
+
+        $jenis_perkhidmatan = Refgeneral::where('MASTERCODE', 10027)->get();
+
+        $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
+
+        $negeri = Refgeneral::where('MASTERCODE', 10021)->get();
+
+        if ($current_user == 5) {
             $user_profils = DB::table('users')
                 ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
                 ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
                 ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
                 ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
+                ->where('id', $checkid2)
                 ->get()->first();
-        }
-        else {
+        } else {
             $user_profils = $request->user();
         }
 
-        // dd($user_profils);
+        // dd($klasifikasi_perkhidmatan);
 
         return view('profil.edit', [
-            'user_profils' => $user_profils
+            'user_profils' => $user_profils,
+            'current_user' => $current_user,
+            'kod_gelarans' => $kod_gelaran,
+            'gelaran_user' => $gelaran_user,
+            'peringkats' => $peringkat,
+            'klasifikasi_perkhidmatans' => $klasifikasi_perkhidmatan,
+            'gred_jawatans' => $gred_jawatan,
+            'taraf_perjawatans' => $taraf_perjawatan,
+            'jenis_perkhidmatans' => $jenis_perkhidmatan,
+            'kementerians' => $kementerian,
+            'negeris' => $negeri,
         ]);
     }
 
     public function kemaskiniprofil(Request $request)
     {
-        $current_user = $request->user();
+        $current_user = Auth::user();;
         // $user_profils = DB::table('users')
         //     ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
         //     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
@@ -88,6 +128,7 @@ class ProfilController extends Controller
             $user_profils2->KOD_JANTINA = $request->KOD_JANTINA;
             $user_profils2->TARIKH_LAHIR = $request->TARIKH_LAHIR;
             $user_profils2->ID_PESERTA = $request->ID_PESERTA;
+            $user_profils2->KOD_GELARAN = $request->KOD_GELARAN;
             $user_profils2->save();
 
 
@@ -101,6 +142,7 @@ class ProfilController extends Controller
             $user_profils3->EMEL_PENYELIA = $request->EMEL_PENYELIA;
             $user_profils3->NO_TELEFON_PENYELIA = $request->NO_TELEFON_PENYELIA;
             $user_profils3->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
+            $user_profils3->GELARAN_KETUA_JABATAN = $request->GELARAN_KETUA_JABATAN;
             // dd($user_profils3);
             $user_profils3->save();
 
@@ -109,6 +151,9 @@ class ProfilController extends Controller
             $user_profils4->TARIKH_LANTIKAN = $request->TARIKH_LANTIKAN;
             $user_profils4->KOD_GELARAN_JAWATAN = $request->KOD_GELARAN_JAWATAN;
             $user_profils4->KOD_TARAF_PERJAWATAN = $request->KOD_TARAF_PERJAWATAN;
+            $user_profils4->KOD_PERINGKAT = $request->KOD_PERINGKAT;
+            $user_profils4->KOD_JENIS_PERKHIDMATAN = $request->KOD_JENIS_PERKHIDMATAN;
+            $user_profils4->KOD_GRED_JAWATAN = $request->KOD_GRED_JAWATAN;
             $user_profils4->save();
 
             // $user_profils->NAMA_PESERTA = $request->NAMA_PESERTA;
