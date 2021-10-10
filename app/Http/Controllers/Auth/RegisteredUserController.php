@@ -67,7 +67,7 @@ class RegisteredUserController extends Controller
         $user->ministry_code = $request->ministry_code;
         $user->office_number = $request->office_number;
         $user->fax_number = $request->fax_number;
-        $user->telephone_number = $request->name;
+        $user->telephone_number = $request->telephone_number;
         $user->password = Hash::make($request->password);
         $user->nric = $request->nric;
         $user->user_group_id = 5;
@@ -163,6 +163,14 @@ class RegisteredUserController extends Controller
                 'NO_TELEFON_BIMBIT' => NULL,
                 'NO_TELEFON_PEJABAT' => NULL,
                 'user_id' => $user->id,
+            ]);
+
+            $tempat_tugas = Tugas::create([
+                'ID_PESERTA' => $peserta->ID_PESERTA,
+            ]);
+
+            $perkhidmatan = Perkhidmatan::create([
+                'ID_PESERTA' => $peserta->ID_PESERTA,
             ]);
         }
         // dd($hrmisData);

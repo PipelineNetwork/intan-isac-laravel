@@ -1443,7 +1443,7 @@ Coded by www.creative-tim.com
                                     <label>No. Kad Pengenalan</label>
                                     <div class="mb-3">
                                         <x-input id="nric" class="form-control" type="text" name="nric" required
-                                            maxlength="12" size="12" />
+                                            maxlength="12" size="12"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                     </div>
                                     <label>Kata Laluan</label>
                                     <div class="mb-3">
