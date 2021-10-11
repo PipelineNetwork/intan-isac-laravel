@@ -160,8 +160,6 @@
                         </div>
                         <span class="nav-link-text ms-1">Dashboards</span>
                     </a> --}}
-
-                    <hr class="horizontal dark mt-0">
                     <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100"
                         id="sidenav-collapse-main">
                         <ul class="navbar-nav">
@@ -2889,7 +2887,7 @@
       </footer> -->
         </div>
     </main>
-    <div class="fixed-plugin">
+    {{-- <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
             <i class="fa fa-cog py-2"> </i>
         </a>
@@ -2981,7 +2979,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!--   Core JS Files   -->
     <script src="../../assets/js/core/popper.min.js"></script>

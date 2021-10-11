@@ -56,16 +56,41 @@
                             <div class="card-body pt-0">
                                 <div class="row">
                                     <div class="form-group">
-                                        <label for="aduan_reply">Keterangan Balas :</label>
+                                        <label for="aduan_reply">Tajuk :</label>
                                         <div class="input-group">
-                                            <textarea name="keterangan_aduan_reply" id="aduan_reply" cols="100" rows="3"
-                                                required></textarea>
+                                            <div class="input-group">
+                                                <input class="form-control mb-3" type="text" name="tajuk"
+                                                    value="{{ $tambahaduan->tajuk }}" disabled>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-9">
+                                    <div class="form-group">
+                                        <label for="aduan_reply">Keterangan Aduan :</label>
+                                        <textarea class="form-control" name="keterangan_aduan_send" rows="3"
+                                            id="aduan_reply" disabled>{{ $tambahaduan->keterangan_aduan_send }}</textarea>
+                                    </div>
+                                    @if ($tambahaduan['file_aduan_send'] != null)
+                                        <div class="form-group">
+                                            <label for="title">File Aduan :</label>
+                                            <a href="storage/{{ $tambahaduan['file_aduan_send'] }}"
+                                                target="_blank">{{ $tambahaduan['file_aduan_send'] }}</a>
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <label for="title">File Aduan</label>
+                                            <br>
+                                            <a>Tiada fail</a>
+                                        </div>
+                                    @endif
+                                    <div class="form-group">
+                                        <label for="aduan_reply">Keterangan Balas :</label>
+                                        <textarea class="form-control" name="keterangan_aduan_reply" id="aduan_reply"
+                                            rows="3" required></textarea>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="file_aduan_reply">File Balas :</label>
                                         <div class="input-group">
-                                            <input class="form-control mb-3" type="file" name="file_aduan_reply" required>
+                                            <input class="form-control mb-3" type="file" name="file_aduan_reply">
                                         </div>
                                     </div>
                                 </div>
@@ -79,15 +104,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn bg-gradient-warning" type="submit">Simpan</button>
+                                <div style="text-align: right;">
+                                    <button class="btn bg-gradient-warning" type="submit">Hantar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
-
-
         </div>
     </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @include('sweet::alert')
 
 @stop

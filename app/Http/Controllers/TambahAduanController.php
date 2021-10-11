@@ -21,7 +21,23 @@ class TambahAduanController extends Controller
      */
     public function index()
     {
-        $tambahaduans = TambahAduan::orderBy('created_at', 'desc')->get();
+        $current_user = Auth::user()->id;
+        $user_role = Auth::user()->user_group_id;
+
+        if ($user_role == '5'){
+            $tambahaduans = TambahAduan::where('user_id', $current_user)
+            ->join('users', 'tambah_aduans.user_id', 'users.id')
+            ->select('tambah_aduans.*', 'users.name', 'users.email')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        }
+        else {
+            $tambahaduans = TambahAduan::join('users', 'tambah_aduans.user_id', 'users.id')
+            ->select('tambah_aduans.*', 'users.name', 'users.email')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        }
+        // dd($tambahaduans);
         if (Auth::check()) {
             return view('tambahaduan.index', [
                 'tambahaduans' => $tambahaduans
@@ -50,21 +66,19 @@ class TambahAduanController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        $validated = $request->validate([
+        $request->validate([
             'tajuk' => 'required',
-
+            'file_aduan_send' => 'max:5128',
         ]);
 
         $current_user = $request->user();
 
-        if (!empty($request->file('file_aduan_send'))){
+        if (!empty($request->file('file_aduan_send'))) {
             $file_aduan_send = $request->file('file_aduan_send')->store('dokumen');
         }
 
         $tambahaduan = new TambahAduan;
-        if (!empty($request->file('file_aduan_send'))){
+        if (!empty($request->file('file_aduan_send'))) {
             $tambahaduan->file_aduan_send = $file_aduan_send;
         }
         $tambahaduan->id = $request->id;
@@ -116,12 +130,16 @@ class TambahAduanController extends Controller
      */
     public function update(Request $request, TambahAduan $tambahaduan)
     {
+        $request->validate([
+            'file_aduan_reply' => 'max:5128',
+        ]);
+
         $tambahaduan = TambahAduan::where('id', $request->id)->first();
-        if (!empty($request->file('file_aduan_reply'))){
+        if (!empty($request->file('file_aduan_reply'))) {
             $file_aduan_reply = $request->file('file_aduan_reply')->store('dokumen');
         }
         $tambahaduan->keterangan_aduan_reply = $request->keterangan_aduan_reply;
-        if (!empty($request->file('file_aduan_reply'))){
+        if (!empty($request->file('file_aduan_reply'))) {
             $tambahaduan->file_aduan_reply = $file_aduan_reply;
         }
         $tambahaduan->status = "dibalas";

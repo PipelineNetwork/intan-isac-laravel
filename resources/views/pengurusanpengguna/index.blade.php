@@ -82,7 +82,7 @@
                                     @endif
                                     {{-- {{ $user['user_group_id'] }} --}}
                                 </td>
-                                <td><a href="/pengurusanpengguna/{{ $user->id }}/edit" class="btn-sm"
+                                <td><a class="btn btn-info text-white" href="/pengurusanpengguna/{{ $user->id }}/edit"
                                         style="color:black;"> Kemaskini
                                     </a>
                                 </td>
