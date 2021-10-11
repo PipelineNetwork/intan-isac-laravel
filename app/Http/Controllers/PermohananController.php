@@ -164,7 +164,7 @@ class PermohananController extends Controller
      * @param  \App\Models\User  $permohanan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $user)
+    public function update(Request $request, $user, $pro_peserta)
     {
         $user ->user_group_id = "3";
         $user -> nric= $request->nric;

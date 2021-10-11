@@ -28,6 +28,6 @@ class JadualKemaskini extends Mailable
      */
     public function build()
     {
-        return $this->view('email.jadual_kemaskini');
+        return $this->view('emails.jadual_kemaskini');
     }
 }

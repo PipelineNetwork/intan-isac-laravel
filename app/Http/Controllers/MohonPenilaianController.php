@@ -116,6 +116,9 @@ class MohonPenilaianController extends Controller
         $pdf->loadHTML('<h1>Contoh surat</h1>');
         return $pdf->download('surat.pdf');
 
+        // $pdf = PDF::loadView('pdf.invoice', $data);
+        // return $pdf->download('invoice.pdf');
+
         return redirect('/mohonpenilaian')->with('success', 'Berjaya didaftar');
     }
 
