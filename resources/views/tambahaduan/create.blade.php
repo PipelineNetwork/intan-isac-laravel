@@ -53,31 +53,34 @@
                     <br>
                     <div class="card-body pt-0">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <label for="">Tajuk :</label>
                                 <div class="input-group">
                                     <input class="form-control mb-3" type="text" name="tajuk" required>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <label for="">Keterangan Aduan :</label>
                                 <div class="input-group">
                                     {{-- <input class="form-control mb-3" type="text" name="keterangan_aduan_send" required> --}}
-                                    <textarea name="keterangan_aduan_send" cols="100" rows="3" required></textarea>
+                                    <textarea class="form-control" name="keterangan_aduan_send" rows="3"
+                                        required></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <label for="">File Aduan :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="file" name="file_aduan_send" required>
+                                    <input class="form-control mb-3" type="file" name="file_aduan_send">
                                 </div>
                             </div>
                         </div>
-                        <button class="btn bg-gradient-warning" type="submit">Simpan</button>
+                        <div style="text-align: right">
+                            <button class="btn bg-gradient-warning" type="submit">Hantar</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -85,4 +88,6 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @include('sweet::alert')
 @stop

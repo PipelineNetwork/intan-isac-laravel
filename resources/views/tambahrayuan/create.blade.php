@@ -59,14 +59,15 @@
                                 </div>
                             </div>
                             <div class="col-xl-12">
-                                <label for="keterangan_rayuan_send">Keterangan Rayuan :</label>
+                                <label for="rayuan_send">Keterangan Rayuan :</label>
                                 <div class="input-group">
                                     {{-- <input class="form-control mb-3" type="text" name="keterangan_rayuan_send" required> --}}
-                                    <textarea name="keterangan_rayuan_send" cols="135" rows="4" required></textarea>
+                                    <textarea class="form-control mb-3" name="keterangan_rayuan_send" id="rayuan_send"
+                                        rows="3" required></textarea>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-3">
+                        <div class="row">
                             <div class="col-xl-12">
                                 <label for="">File Rayuan :</label>
                                 <div class="input-group">
@@ -78,12 +79,17 @@
                                 </span>
                             </div>
                         </div>
-                        <button class="btn bg-gradient-warning" type="submit">Simpan</button>
+                        <div style="text-align: right;">
+                            <button class="btn bg-gradient-warning" type="submit">Hantar</button>
+                        </div>
                     </div>
                 </div>
             </form>
 
         </div>
     </div>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @include('sweet::alert')
 
 @stop

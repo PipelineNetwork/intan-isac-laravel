@@ -1433,7 +1433,7 @@ Coded by www.creative-tim.com
                                     <label>Nama</label>
                                     <div class="mb-3">
                                         <input id="name" class="form-control" type="text" name="name"
-                                            :value="old('name')" required autofocus>
+                                            :value="old('name')" style="text-transform: uppercase" required autofocus>
                                     </div>
                                     <label>E-mel</label>
                                     <div class="mb-3">

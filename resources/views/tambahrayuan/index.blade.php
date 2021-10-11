@@ -62,47 +62,136 @@
 
                             <thead>
                                 <tr>
-                                    <th>Tajuk</th>
-                                    <th>Keterangan Rayuan</th>
-                                    <th>File Rayuan</th>
-                                    <th>Keterangan Balas</th>
-                                    <th>File Balas</th>
+                                    <th>Nama</th>
+                                    <th>Tarikh</th>
                                     <th>Status</th>
+                                    <th>Perincian</th>
 
                                     <?php
-                            if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
-                        ?>
+                                    if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
+                                    ?>
                                     <th>Balas</th>
                                     <?php
-                              }
-                        ?>
-
-
+                                        }
+                                    ?>
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @foreach ($tambahrayuans as $tambahrayuan)
                                     <tr>
-                                        <td>{{ $tambahrayuan['tajuk'] }}</td>
-                                        <td>{{ $tambahrayuan['keterangan_rayuan_send'] }}</td>
-                                        <td><a href="storage/{{ $tambahrayuan['file_rayuan_send'] }}"
-                                                target="_blank">{{ $tambahrayuan['file_rayuan_send'] }}
+                                        <td>{{ $tambahrayuan->name }}</td>
+                                        <td>{{ date('d/m/Y', strtotime($tambahrayuan->created_at)) }}</td>
+                                        <td>
+                                            @if ($tambahrayuan->status === 'baru')
+                                                <span class="text-secondary text-sm font-weight-bold">
+                                                    <span class="badge badge-danger">Baru</span>
+                                                </span>
+                                            @else
+                                                <span class="text-secondary text-sm font-weight-bold">
+                                                    <span class="badge badge-success">Dibalas</span>
+                                                </span>
+                                            @endif
                                         </td>
-                                        <td>{{ $tambahrayuan['keterangan_rayuan_reply'] }}</td>
-                                        <td><a href="storage/{{ $tambahrayuan['file_rayuan_reply'] }}"
-                                                target="_blank">{{ $tambahrayuan['file_rayuan_reply'] }}
+                                        <td>
+                                            <a data-bs-toggle="modal"
+                                                data-bs-target="#modal-form4-{{ $tambahrayuan->id }}">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
                                         </td>
-                                        <td>{{ $tambahrayuan['status'] }}</td>
+
+
                                         <?php
-                            if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
-                        ?>
-                                        <td><a href="/tambahrayuans/{{ $tambahrayuan['id'] }}/edit" class="btn-sm"
-                                                style="color:black;"> Balas</a></td>
+                                        if(isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2'  )){
+                                        ?>
+
+                                        <td><a class="btn btn-info text-white"
+                                                href="/tambahrayuans/{{ $tambahrayuan['id'] }}/edit" style="color:black;">
+                                                Balas
+                                            </a>
+                                        </td>
                                         <?php
-                              }
-                          ?>
+                                          }
+                                        ?>
+
                                     </tr>
+
+                                    <div class="modal fade" id="modal-form4-{{ $tambahrayuan->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body p-0">
+                                                    <div class="card card-plain">
+                                                        <div class="card-header pb-0 text-left">
+                                                            <h3 class="font-weight-bolder text-info text-gradient">
+                                                                Terperinci
+                                                            </h3>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <form role="form text-left">
+                                                                <input type="hidden" name="id"
+                                                                    value="{{ $tambahrayuan->id }}">
+                                                                <div class="form-group">
+                                                                    <label for="title">Tajuk</label>
+                                                                    <input type="text" class="form-control" name="tajuk"
+                                                                        value="{{ $tambahrayuan->tajuk }}" disabled="">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="title">Keterangan Rayuan</label>
+                                                                    <textarea class="form-control" rows="3"
+                                                                        name="keterangan_rayuan_send"
+                                                                        disabled>{{ $tambahrayuan->keterangan_rayuan_send }}</textarea>
+                                                                </div>
+
+                                                                @if ($tambahrayuan['file_rayuan_send'] != null)
+                                                                    <div class="form-group">
+                                                                        <label for="title">Fail Rayuan</label>
+                                                                        <a href="storage/{{ $tambahrayuan['file_rayuan_send'] }}"
+                                                                            target="_blank">{{ $tambahrayuan['file_rayuan_send'] }}</a>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="form-group">
+                                                                        <label for="title">Fail Rayuan</label>
+                                                                        <br>
+                                                                        <a>Tiada fail</a>
+                                                                    </div>
+                                                                @endif
+
+                                                                @if ($tambahrayuan->status == 'dibalas')
+                                                                    <div class="form-group">
+                                                                        <label for="rayuan_reply">Keterangan Balas :</label>
+                                                                        <textarea class="form-control"
+                                                                            name="keterangan_rayuan_reply" id="rayuan_reply"
+                                                                            rows="3" disabled
+                                                                            required>{{ $tambahrayuan->keterangan_rayuan_reply }}</textarea>
+                                                                    </div>
+                                                                    @if ($tambahrayuan['file_rayuan_reply'] != null)
+                                                                        <div class="form-group">
+                                                                            <label for="file_rayuan_reply">Fail Balas
+                                                                                :</label>
+                                                                            <a href="storage/{{ $tambahrayuan['file_rayuan_reply'] }}"
+                                                                                target="_blank">{{ $tambahrayuan['file_rayuan_reply'] }}</a>
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="form-group">
+                                                                            <label for="title">Fail Balas</label>
+                                                                            <br>
+                                                                            <a>Tiada fail</a>
+                                                                        </div>
+                                                                    @endif
+                                                                @else
+                                                                    <div class="my-3">
+                                                                        <label><b>Belum dibalas</b></label>
+                                                                    </div>
+                                                                @endif
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
 

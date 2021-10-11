@@ -175,7 +175,7 @@
                                         <div class="col-8">
                                             <select class="form-control form-control-sm ml-3" name="KOD_PERINGKAT"
                                                 id="input_peringkat" required>
-                                                <option hidden selected>Sila Pilih</option>
+                                                <option hidden selected>{{ $user_profils->KOD_PERINGKAT }}</option>
                                                 @foreach ($peringkats as $peringkat)
                                                     <option value="{{ $peringkat->DESCRIPTION1 }}">
                                                         {{ $peringkat->DESCRIPTION1 }}</option>
