@@ -441,7 +441,8 @@
                                     <label>ID Pengguna (No MyKad/Polis/Tentera)</label>
                                     <div>
                                         <x-input id="nric" class="form-control w-75" type="nric" name="nric"
-                                            :value="old('nric')" required autofocus maxlength="12" size="12" />
+                                            :value="old('nric')" required autofocus maxlength="12" size="12"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                     </div>
                                     <label>Kata Laluan</label>
                                     <div>
@@ -703,10 +704,10 @@
 
                                     @foreach ($jaduals as $jadual)
                                         <tr>
-                                            <td class="text-center">{{ $loop->index + 1 }}</td>
+                                            {{-- <td class="text-center">{{ $loop->index + 1 }}</td>
                                             <td class="text-center">
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
-                                            </td>
+                                            </td> --}}
                                             <td class="text-center">{{ $loop->index + 1 }}</td>
                                             <td class="text-center">
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}

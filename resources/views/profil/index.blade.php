@@ -14,18 +14,18 @@
                     <div class="h-100">
                         <h5 class="mb-1">
                             {{-- {{ $user_profils->NAMA_PESERTA }} --}}
-                            @if ($user_profils->NAMA_PESERTA == null)
-                                {{ $user_profils->name }}
-                            @else
+                            @if (isset($user_profils->NAMA_PESERTA))
                                 {{ $user_profils->NAMA_PESERTA }}
+                            @else
+                                {{ $user_profils->name }}
                             @endif
                         </h5>
                         <p class="mb-0 font-weight-bold text-sm">
                             {{-- {{ $user_profils->EMEL_PESERTA }} --}}
-                            @if ($user_profils->EMEL_PESERTA != null)
-                                {{ $user_profils->email }}
-                            @else
+                            @if (isset($user_profils->EMEL_PESERTA))
                                 {{ $user_profils->EMEL_PESERTA }}
+                            @else
+                                {{ $user_profils->email }}
                             @endif
                         </p>
                         <p class="mb-0 font-weight-bold text-sm">
@@ -148,8 +148,7 @@
                                                 value="{{ $user_profils->KOD_KEMENTERIAN }}" disabled="" required>
                                         @else
                                             <input class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN"
-                                                id="input_kod_kementerian" type="text"
-                                                value="" disabled="" required>
+                                                id="input_kod_kementerian" type="text" value="" disabled="" required>
                                         @endif
                                     </div>
                                 </div>

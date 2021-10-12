@@ -11,6 +11,11 @@ use App\Http\Controllers\PermohananController;
 use App\Http\Controllers\JadualController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\MohonPenilaianController;
+use App\Http\Controllers\BanksoalanpengetahuanController;
+use App\Http\Controllers\BanksoalankemahiranController;
+use App\Http\Controllers\BankjawapanpengetahuanController;
+use App\Http\Controllers\BankjawapankemahiranController;
+use App\Http\Controllers\BankjawapancalonController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -56,9 +61,9 @@ Route::resource('/tambahaduans',TambahAduanController::class);
 
 Route::resource('/tambahrayuans',TambahRayuanController::class);
 
-Route::resource('/balasaduans',BalasAduanController::class);
+Route::resource('/balasaduans',TambahAduanController::class);
 
-Route::resource('/balasrayuans',BalasRayuanController::class);
+Route::resource('/balasrayuans',TambahRayuanController::class);
 
 Route::resource('/permohanans',PermohananController::class);
 
@@ -66,6 +71,9 @@ Route::resource('/jaduals',JadualController::class);
 
 Route::resource('/mohonpenilaian',MohonPenilaianController::class);
 
+Route::resource('/bank-soalan-pengetahuan', BanksoalanpengetahuanController::class);
+
+Route::resource('/bank-soalan-kemahiran', BanksoalankemahiranController::class);
 
 
 
