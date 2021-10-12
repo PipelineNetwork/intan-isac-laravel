@@ -14,7 +14,11 @@ class BanksoalankemahiranController extends Controller
      */
     public function index()
     {
-        //
+        $banksoalankemahiran = Banksoalankemahiran::all();
+
+        return view('bank_soalan.soalan_kemahiran.index',[
+            'banksoalankemahirans' => $banksoalankemahiran,
+        ]);
     }
 
     /**

@@ -28,7 +28,7 @@ class BanksoalanpengetahuanController extends Controller
      */
     public function create()
     {
-        //
+        return view('bank_soalan.soalan_pengetahuan.create');
     }
 
     /**
@@ -39,7 +39,27 @@ class BanksoalanpengetahuanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $banksoalanpengetahuan = new Banksoalanpengetahuan();
+
+        $banksoalanpengetahuan->id_tahap_soalan = $request->id_tahap_soalan;
+        $banksoalanpengetahuan->id_kategori_pengetahuan = $request->id_kategori_pengetahuan;
+        $banksoalanpengetahuan->jenis_soalan = $request->jenis_soalan;
+        $banksoalanpengetahuan->knowledge_area = $request->knowledge_area;
+        $banksoalanpengetahuan->topik_soalan = $request->topik_soalan;
+        $banksoalanpengetahuan->penyataan_soalan = $request->penyataan_soalan;
+        $banksoalanpengetahuan->id_status_soalan = $request->id_status_soalan;
+        $banksoalanpengetahuan->pilihan_jawapan = $request->pilihan_jawapan;
+        $banksoalanpengetahuan->jawapan = $request->jawapan;
+        if (!empty($request->file('muat_naik_fail'))) {
+            $muat_naik_fail = $request->file('muat_naik_fail')->store('soalan');
+            $banksoalanpengetahuan->muat_naik_fail = $muat_naik_fail;
+        }
+        
+        // dd($banksoalanpengetahuan);
+        $banksoalanpengetahuan->save();
+
+        return redirect('/bank-soalan-pengetahuan');
+
     }
 
     /**
@@ -59,9 +79,13 @@ class BanksoalanpengetahuanController extends Controller
      * @param  \App\Models\Banksoalanpengetahuan  $banksoalanpengetahuan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Banksoalanpengetahuan $banksoalanpengetahuan)
+    public function edit(Banksoalanpengetahuan $banksoalanpengetahuan, $id)
     {
-        //
+        $banksoalanpengetahuan = Banksoalanpengetahuan::find($id);
+
+        return view('bank_soalan.soalan_pengetahuan.edit', [
+            'banksoalanpengetahuan' => $banksoalanpengetahuan,
+        ]);
     }
 
     /**
@@ -73,7 +97,26 @@ class BanksoalanpengetahuanController extends Controller
      */
     public function update(Request $request, Banksoalanpengetahuan $banksoalanpengetahuan)
     {
-        //
+        $banksoalanpengetahuan = Banksoalanpengetahuan::find($request->id);
+        
+        $banksoalanpengetahuan->id_tahap_soalan = $request->id_tahap_soalan;
+        $banksoalanpengetahuan->id_kategori_pengetahuan = $request->id_kategori_pengetahuan;
+        $banksoalanpengetahuan->jenis_soalan = $request->jenis_soalan;
+        $banksoalanpengetahuan->knowledge_area = $request->knowledge_area;
+        $banksoalanpengetahuan->topik_soalan = $request->topik_soalan;
+        $banksoalanpengetahuan->penyataan_soalan = $request->penyataan_soalan;
+        $banksoalanpengetahuan->id_status_soalan = $request->id_status_soalan;
+        $banksoalanpengetahuan->pilihan_jawapan = $request->pilihan_jawapan;
+        $banksoalanpengetahuan->jawapan = $request->jawapan;
+        if (!empty($request->file('muat_naik_fail'))) {
+            $muat_naik_fail = $request->file('muat_naik_fail')->store('soalan');
+            $banksoalanpengetahuan->muat_naik_fail = $muat_naik_fail;
+        }
+        
+        // dd($banksoalanpengetahuan);
+        $banksoalanpengetahuan->save();
+
+        return redirect('/bank-soalan-pengetahuan');
     }
 
     /**
@@ -82,8 +125,12 @@ class BanksoalanpengetahuanController extends Controller
      * @param  \App\Models\Banksoalanpengetahuan  $banksoalanpengetahuan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Banksoalanpengetahuan $banksoalanpengetahuan)
+    public function destroy(Banksoalanpengetahuan $banksoalanpengetahuan, $id)
     {
-        //
+        $banksoalanpengetahuan = Banksoalanpengetahuan::find($id);
+
+        $banksoalanpengetahuan->delete();
+
+        return redirect('/bank-soalan-pengetahuan');
     }
 }
