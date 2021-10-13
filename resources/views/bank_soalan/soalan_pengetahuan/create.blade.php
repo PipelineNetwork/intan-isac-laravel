@@ -50,7 +50,7 @@
                         <div class="col-xl-12">
                             <div class="form-group">
                                 <label class="form-control-label">Tahap Soalan</label>
-                                <select class="form-control" name="id_tahap_soalan">
+                                <select class="form-control" name="id_tahap_soalan" required>
                                     <option hidden selected>Sila Pilih</option>
                                     <option value="1">Rendah</option>
                                     <option value="2">Sederhana</option>
@@ -61,7 +61,7 @@
                         <div class="col-xl-12">
                             <div class="form-group">
                                 <label class="form-control-label">Kategori Pengetahuan</label>
-                                <select class="form-control" name="id_kategori_pengetahuan">
+                                <select class="form-control" name="id_kategori_pengetahuan" required>
                                     <option hidden selected>Sila Pilih</option>
                                     <option value="1">Rendah</option>
                                     <option value="2">Sederhana</option>
@@ -72,7 +72,7 @@
                         <div class="col-xl-12">
                             <div class="form-group">
                                 <label class="form-control-label">Jenis Soalan</label>
-                                <select class="form-control" name="jenis_soalan">
+                                <select class="form-control" name="jenis_soalan" required>
                                     <option hidden selected>Sila Pilih</option>
                                     <option value="fill_in_the_blank">Fill in the Blank</option>
                                     <option value="multiple_choice">Multiple Choice</option>
@@ -83,7 +83,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xl-12">
+                        {{-- <div class="col-xl-12">
                             <div class="form-group">
                                 <label class="form-control-label">Knowledge Area</label>
                                 <input class="form-control" type="text" name="knowledge_area">
@@ -128,7 +128,7 @@
                                 <label class="form-control-label">Muat Naik Fail</label>
                                 <input class="form-control" type="file" name="muat_naik_fail">
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div style="text-align: right">
                             <button class="btn bg-gradient-warning" type="submit">Simpan</button>
@@ -139,14 +139,6 @@
         </div>
     </div>
 
-    <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
-    <script type="text/javascript">
-        const dataTableSoalanPengetahuan = new simpleDatatables.DataTable("#datatable_soalan_pengetahuan", {
-            searchable: true,
-            fixedHeight: true
-        });
-    </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 @stop

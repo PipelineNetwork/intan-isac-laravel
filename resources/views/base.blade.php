@@ -98,6 +98,9 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    {{-- ck editor --}}
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -219,7 +222,7 @@
                 ?>
 
                 <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '1')) {
+                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
                 ?>
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#permohonanadrop" class="nav-link "
@@ -256,7 +259,7 @@
                 ?>
 
                 <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '5')) {
+                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '3' || Auth::user()->user_group_id == '5')) {
                 ?>
                 <li class="nav-item">
                     <a class="nav-link" href="/mohonpenilaian">
