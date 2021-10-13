@@ -65,16 +65,34 @@
                                 </th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Penyataan Soalan
                                 </th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Soalan
+                                </th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Fail
+                                </th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan 1
+                                </th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan 2
+                                </th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan 3
+                                </th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan 4
+                                </th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan 5
+                                </th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan 1
+                                </th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan 2
+                                </th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan 3
+                                </th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan 4
+                                </th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan 5
                                 </th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Status Soalan
                                 </th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan
-                                </th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan
-                                </th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan
-                                </th>
+                                {{-- <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan
+                                </th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -82,17 +100,49 @@
                                 <tr>
                                     <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
                                     <td class="text-sm text-center font-weight-normal">
-                                        {{ $banksoalanpengetahuan->id_tahap_soalan }}</td>
+                                        @if ($banksoalanpengetahuan->id_tahap_soalan == '1')
+                                            Rendah
+                                        @elseif ($banksoalanpengetahuan->id_tahap_soalan == '2')
+                                            Sederhana
+                                        @else
+                                            Tinggi
+                                        @endif
+                                        {{-- {{ $banksoalanpengetahuan->id_tahap_soalan }}</td> --}}
                                     <td class="text-sm text-center font-weight-normal">
-                                        {{ $banksoalanpengetahuan->id_kategori_pengetahuan }}</td>
-                                    <td class="text-sm text-center font-weight-normal">{{ $banksoalanpengetahuan->jenis_soalan }}
+                                        @if ($banksoalanpengetahuan->id_kategori_pengetahuan == '1')
+                                            Rendah
+                                        @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '2')
+                                            Sederhana
+                                        @else
+                                            Tinggi
+                                        @endif
+                                        {{-- {{ $banksoalanpengetahuan->id_kategori_pengetahuan }}</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        @if ($banksoalanpengetahuan->jenis_soalan == 'fill_in_the_blank')
+                                            Fill in the Blank
+                                        @elseif ($banksoalanpengetahuan->jenis_soalan == 'multiple_choice')
+                                            Multiple Choice
+                                        @elseif ($banksoalanpengetahuan->jenis_soalan == 'ranking')
+                                            Ranking
+                                        @elseif ($banksoalanpengetahuan->jenis_soalan == 'single_choice')
+                                            Single Choice
+                                        @elseif ($banksoalanpengetahuan->jenis_soalan == 'true_or_false')
+                                            True or False
+                                        @else
+                                            Subjective
+                                        @endif
+                                        {{-- {{ $banksoalanpengetahuan->jenis_soalan }} --}}
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ $banksoalanpengetahuan->knowledge_area }}</td>
-                                    <td class="text-sm text-center font-weight-normal">{{ $banksoalanpengetahuan->topik_soalan }}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $banksoalanpengetahuan->topik_soalan }}
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ $banksoalanpengetahuan->penyataan_soalan }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $banksoalanpengetahuan->soalan }}
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
                                         @if ($banksoalanpengetahuan->fail != null)
@@ -102,30 +152,96 @@
                                         @endif
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
-                                        {{ $banksoalanpengetahuan->id_status_soalan }}
-                                        {{-- @if ($banksoalanpengetahuan->status_soalan === 'aktif')
+                                        @if ($banksoalanpengetahuan->pilihan_jawapan != null)
+                                            {{ $banksoalanpengetahuan->pilihan_jawapan }}
+                                        @else
+                                            Tiada
+                                        @endif
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        @if ($banksoalanpengetahuan->pilihan_jawapan1 != null)
+                                            {{ $banksoalanpengetahuan->pilihan_jawapan1 }}
+                                        @else
+                                            Tiada
+                                        @endif
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        @if ($banksoalanpengetahuan->pilihan_jawapan2 != null)
+                                            {{ $banksoalanpengetahuan->pilihan_jawapan2 }}
+                                        @else
+                                            Tiada
+                                        @endif
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        @if ($banksoalanpengetahuan->pilihan_jawapan3 != null)
+                                            {{ $banksoalanpengetahuan->pilihan_jawapan3 }}
+                                        @else
+                                            Tiada
+                                        @endif
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        @if ($banksoalanpengetahuan->pilihan_jawapan4 != null)
+                                            {{ $banksoalanpengetahuan->pilihan_jawapan4 }}
+                                        @else
+                                            Tiada
+                                        @endif
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        @if ($banksoalanpengetahuan->jawapan != null)
+                                            {{ $banksoalanpengetahuan->jawapan }}
+                                        @else
+                                            Tiada
+                                        @endif
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        @if ($banksoalanpengetahuan->jawapan1 != null)
+                                            {{ $banksoalanpengetahuan->jawapan1 }}
+                                        @else
+                                            Tiada
+                                        @endif
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        @if ($banksoalanpengetahuan->jawapan2 != null)
+                                            {{ $banksoalanpengetahuan->jawapan2 }}
+                                        @else
+                                            Tiada
+                                        @endif
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        @if ($banksoalanpengetahuan->jawapan3 != null)
+                                            {{ $banksoalanpengetahuan->jawapan3 }}
+                                        @else
+                                            Tiada
+                                        @endif
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        @if ($banksoalanpengetahuan->jawapan4 != null)
+                                            {{ $banksoalanpengetahuan->jawapan4 }}
+                                        @else
+                                            Tiada
+                                        @endif
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{-- {{ $banksoalanpengetahuan->id_status_soalan }} --}}
+                                        @if ($banksoalanpengetahuan->id_status_soalan == '1')
                                             <span class="text-secondary text-sm font-weight-bold">
                                                 <span class="badge badge-success">Aktif</span>
                                             </span>
-                                        @elseif ($banksoalanpengetahuan->status_soalan === 'tidak_aktif')
+                                        @elseif ($banksoalanpengetahuan->id_status_soalan == '2')
                                             <span class="text-secondary text-sm font-weight-bold">
                                                 <span class="badge badge-danger">Tidak Aktif</span>
                                             </span>
-                                        @endif --}}
+                                        @endif
                                     </td>
-                                    <td class="text-sm text-center font-weight-normal">
-                                        {{ $banksoalanpengetahuan->pilihan_jawapan }}</td>
-                                    <td class="text-sm text-center font-weight-normal">
-                                        {{ $banksoalanpengetahuan->jawapan }}</td>
-
-                                    <td class="text-sm font-weight-normal">
-                                        <a class="btn" href="/bank-soalan-pengetahuan/{{ $banksoalanpengetahuan->id }}/edit">
+                                    {{-- <td class="text-sm font-weight-normal">
+                                        <a class="btn"
+                                            href="/bank-soalan-pengetahuan/{{ $banksoalanpengetahuan->id }}/edit">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        {{-- <a data-bs-toggle="modal" data-bs-target="#modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}">
+                                        <a data-bs-toggle="modal" data-bs-target="#modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}">
                                             <i class="far fa-trash-alt"></i>
-                                        </a> --}}
-                                    </td>
+                                        </a>
+                                    </td> --}}
 
                                     {{-- <div class="modal fade" id="modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}" tabindex="-1"
                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

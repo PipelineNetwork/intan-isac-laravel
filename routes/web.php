@@ -73,6 +73,18 @@ Route::resource('/mohonpenilaian',MohonPenilaianController::class);
 
 Route::resource('/bank-soalan-pengetahuan', BanksoalanpengetahuanController::class);
 
+Route::post('/bank-soalan-pengetahuan/fill-in-the-blank', [BanksoalanpengetahuanController::class, 'fillblank']);
+
+Route::post('/bank-soalan-pengetahuan/multiple-choice', [BanksoalanpengetahuanController::class, 'multiplechoice']);
+
+Route::post('/bank-soalan-pengetahuan/ranking', [BanksoalanpengetahuanController::class, 'ranking']);
+
+Route::post('/bank-soalan-pengetahuan/single-choice', [BanksoalanpengetahuanController::class, 'singlechoice']);
+
+Route::post('/bank-soalan-pengetahuan/true-false', [BanksoalanpengetahuanController::class, 'truefalse']);
+
+Route::post('/bank-soalan-pengetahuan/subjective', [BanksoalanpengetahuanController::class, 'subjective']);
+
 Route::resource('/bank-soalan-kemahiran', BanksoalankemahiranController::class);
 
 

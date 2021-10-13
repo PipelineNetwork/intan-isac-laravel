@@ -120,7 +120,8 @@ class ProfilController extends Controller
 
             // dd($user_profils1->id);
             $user_profils2 = Permohanan::where('user_id', $user_profils1->id)->first();
-            $user_profils2->NAMA_PESERTA = $request->NAMA_PESERTA;
+            $upper = strtoupper($request->NAMA_PESERTA);
+            $user_profils2->NAMA_PESERTA = $upper;
             $user_profils2->NO_KAD_PENGENALAN = $request->NO_KAD_PENGENALAN;
             $user_profils2->EMEL_PESERTA = $request->EMEL_PESERTA;
             $user_profils2->NO_TELEFON_BIMBIT = $request->NO_TELEFON_BIMBIT;
