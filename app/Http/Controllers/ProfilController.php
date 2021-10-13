@@ -51,6 +51,7 @@ class ProfilController extends Controller
             ->select('refgeneral.MASTERCODE', 'refgeneral.REFERENCECODE', 'refgeneral.DESCRIPTION1', 'pro_peserta.KOD_GELARAN')
             ->where('pro_peserta.user_id', $checkid2)
             ->get()->first();
+            // dd($gelaran_user);
         $kod_gelaran = Refgeneral::where('MASTERCODE', 10009)
             ->get();
 
@@ -143,6 +144,8 @@ class ProfilController extends Controller
             $user_profils3->NO_TELEFON_PENYELIA = $request->NO_TELEFON_PENYELIA;
             $user_profils3->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
             $user_profils3->GELARAN_KETUA_JABATAN = $request->GELARAN_KETUA_JABATAN;
+            $user_profils3->BAHAGIAN = $request->BAHAGIAN;
+            $user_profils3->BANDAR = $request->BANDAR;
             // dd($user_profils3);
             $user_profils3->save();
 

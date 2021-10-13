@@ -60,6 +60,8 @@ class JadualController extends Controller
         $jadual->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
         $jadual->LOKASI = $request->LOKASI;
         $jadual->user_id=$request->user_id;
+        $jadual->ID_PENILAIAN = random_int(100000, 999999);
+        $jadual->KEKOSONGAN = $request->JUMLAH_KESELURUHAN;
 
         if($jadual->KOD_KATEGORI_PESERTA == "02"){
             if($jadual->platform == "Fizikal"){
@@ -159,7 +161,21 @@ class JadualController extends Controller
     public function edit($ID_SESI)
     {
         $jadual = Jadual::where('ID_SESI', $ID_SESI)->first();
-        return view('jadual.edit', ['jadual' => $jadual, 'ID_SESI' => $ID_SESI]);
+        $penyelaras_id = $jadual->user_id;
+        if($penyelaras_id != null){
+            $penyelaras_sesi = User::where('id', $penyelaras_id)->first();
+        }else{
+            $penyelaras_sesi = null;
+        }
+        // dd($penyelaras_id);
+        $penyelaras = User::where('user_group_id', '3')->get();
+
+        return view('jadual.edit', [
+            'jadual' => $jadual, 
+            'ID_SESI' => $ID_SESI,
+            'penyelaras_sesi' => $penyelaras_sesi,
+            'penyelaras' => $penyelaras
+        ]);
     }
 
     /**
@@ -180,6 +196,7 @@ class JadualController extends Controller
         $jadual->platform = $request->platform;
         $jadual->KOD_KATEGORI_PESERTA = $request->KOD_KATEGORI_PESERTA;
         $jadual->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
+        $jadual->user_id = $request->user_id;
         $jadual->LOKASI = $request->LOKASI;
         $jadual->status = $request->status;
         $jadual->keterangan = $request->keterangan;
@@ -281,7 +298,7 @@ class JadualController extends Controller
     }
 
     // kemaskini status
-    public function kemaskini_status($jadual, Request $request)
+    public function kemaskini_status(Request $request, $jadual)
     {
         // dd($jadual);
         $jadual = Jadual::where("ID_SESI", $jadual)->first();

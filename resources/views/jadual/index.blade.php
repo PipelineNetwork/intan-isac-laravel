@@ -99,15 +99,27 @@
                                             @endif
                                         </td>
                                         <td class="text-center">{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
-                                        <td class="text-center">{{ $jadual['KOD_KEMENTERIAN'] }}</td>
+                                        <td class="text-center">
+                                            @if ($jadual['KOD_KEMENTERIAN'] == null)
+                                                -
+                                            @else
+                                                {{ $jadual['KOD_KEMENTERIAN'] }}
+                                            @endif
+                                        </td>
                                         <td>{{ $jadual['platform'] }}</td>
-                                        <td>{{ $jadual['LOKASI'] }}</td>
+                                        <td>
+                                            @if ($jadual['KOD_KEMENTERIAN'] == null)
+                                                -
+                                            @else
+                                                {{ $jadual['LOKASI'] }}
+                                            @endif
+                                        </td>
                                         <td>{{ $jadual['status'] }}</td>
                                         <td>{{ $jadual['keterangan'] }}</td>
                                         <td>
                                             <!-- <a href="/jaduals/{{ $jadual['ID_SESI'] }}/edit" class="btn bg-light btn-sm"> Kemaskini</a> -->
                                             <div class="dropdown">
-                                                <button class="btn bg-gradient-secondary dropdown-toggle" type="button"
+                                                <button class="btn btn-info dropdown-toggle" type="button"
                                                     id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                                     Kemaskini
                                                 </button>
@@ -117,71 +129,35 @@
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#penangguhan">Penangguhan</a>
+                                                            data-bs-target="#penangguhan{{ $jadual['ID_SESI'] }}">Penangguhan</a>
                                                     </li>
                                                     <li><a class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#pembatalan">Pembatalan</a></li>
+                                                            data-bs-target="#pembatalan{{ $jadual['ID_SESI'] }}">Pembatalan</a></li>
                                                 </ul>
                                             </div>
-                                            <div class="modal fade" id="penangguhan" tabindex="-1" role="dialog"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Penangguhan
-                                                            </h5>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <form action="/jadual/kemaskini_status/{{ $jadual['ID_SESI'] }}"
-                                                            method="POST">
-                                                            <div class="modal-body">
-                                                                @csrf
-                                                                <div class="form-group">
-                                                                    <label for="keterangan"
-                                                                        class="form-control-label">Keterangan</label>
-                                                                    <input class="form-control" type="text"
-                                                                        name="keterangan">
-                                                                    <input type="hidden" name="status" value="Penangguhan">
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn bg-gradient-secondary"
-                                                                    data-bs-dismiss="modal">Tutup</button>
-                                                                <button type="submit"
-                                                                    class="btn bg-gradient-primary">Kemaskini</button>
-                                                            </div>
-                                                        </form>
+                                        </td>
+                                        <div class="modal fade" id="penangguhan{{ $jadual['ID_SESI'] }}" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Penangguhan
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal fade" id="pembatalan" tabindex="-1" role="dialog"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Pembatalan
-                                                            </h5>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
+                                                    <form action="/jadual/kemaskini_status/{{ $jadual['ID_SESI'] }}"
+                                                        method="POST">
                                                         <div class="modal-body">
-                                                            <form
-                                                                action="/jadual/kemaskini_status/{{ $jadual['ID_SESI'] }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                <div class="form-group">
-                                                                    <label for="keterangan"
-                                                                        class="form-control-label">Keterangan</label>
-                                                                    <input class="form-control" type="text"
-                                                                        name="keterangan">
-                                                                    <input type="hidden" name="status" value="Pembatalan">
-                                                                </div>
-                                                            </form>
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label for="keterangan"
+                                                                    class="form-control-label">Keterangan</label>
+                                                                <input class="form-control" type="text" name="keterangan">
+                                                                <input type="hidden" name="status" value="Penangguhan">
+                                                            </div>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn bg-gradient-secondary"
@@ -189,10 +165,43 @@
                                                             <button type="submit"
                                                                 class="btn bg-gradient-primary">Kemaskini</button>
                                                         </div>
-                                                    </div>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </div>
+                                        <div class="modal fade" id="pembatalan{{ $jadual['ID_SESI'] }}" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Pembatalan
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="/jadual/kemaskini_status/{{ $jadual['ID_SESI'] }}"
+                                                        method="POST">
+                                                        <div class="modal-body">
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label for="keterangan"
+                                                                    class="form-control-label">Keterangan</label>
+                                                                <input class="form-control" type="text" name="keterangan">
+                                                                <input type="hidden" name="status" value="Pembatalan">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn bg-gradient-secondary"
+                                                                data-bs-dismiss="modal">Tutup</button>
+                                                            <button type="submit"
+                                                                class="btn bg-gradient-primary">Kemaskini</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
                                 @endforeach
                             </tbody>

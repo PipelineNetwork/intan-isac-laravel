@@ -44,13 +44,19 @@
                                 <select class="form-control" name="sesi">
                                     <option hidden selected value="">Sila Pilih</option>
                                     @foreach ($jadual as $jadual)
-                                        <option value="{{ $jadual->ID_SESI }}">
-                                            {{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</option>
+                                        @if($jadual->KOD_KATEGORI_PESERTA == "01")
+                                            @if($jadual->KEKOSONGAN != 0)
+                                                <option value="{{ $jadual->ID_PENILAIAN }}">
+                                                    {{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}
+                                                </option>
+                                            @endif
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                             <input type="hidden" name="no_ic" value="{{ $no_ic }}">
                             <input type="hidden" name="nama" value="{{ $nama }}">
+                            <input type="hidden" name="id_peserta" value="{{ $id_peserta }}">
                             <input type="hidden" name="tarikh_lahir" value="{{ $tarikh_lahir }}">
                             <input type="hidden" name="jantina" value="{{ $jantina }}">
                             <input type="hidden" name="jawatan_ketua_jabatan" value="{{ $jawatan_ketua_jabatan }}">
