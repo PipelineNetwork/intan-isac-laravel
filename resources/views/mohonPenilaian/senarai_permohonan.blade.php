@@ -63,7 +63,7 @@
                     <tbody>
                         @foreach ($peserta as $peserta)
                         <tr>
-                            <td class="text-sm font-weight-normal">{{ $peserta['no_ic'] }}</td>
+                            <td class="text-sm font-weight-normal">{{ $peserta['id_calon'] }}</td>
                             <td class="text-sm font-weight-normal">{{ $peserta['nama'] }}</td>
                             <td class="text-sm font-weight-normal">{{ $peserta['no_telefon_pejabat'] }}</td>
                             <td class="text-sm font-weight-normal">{{ $peserta['taraf_jawatan'] }}</td>

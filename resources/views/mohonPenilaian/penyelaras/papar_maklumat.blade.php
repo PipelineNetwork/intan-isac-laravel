@@ -43,12 +43,12 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4">
-                                            ID Sesi
+                                            ID Penilaian
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control" type="text" value="{{ $sesi }}" name="id_sesi"
-                                            disabled>
+                                        {{ $sesi_id['ID_PENILAIAN'] }}
+                                        <input class="form-control" type="hidden" value="{{ $sesi_id['ID_PENILAIAN'] }}" name="id_sesi">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -58,8 +58,9 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control" type="text" value="{{ $calon }}"
-                                            name="id_calon" disabled>
+                                        {{ $calon }}
+                                        <input class="form-control" type="hidden" value="{{ $calon }}"
+                                            name="id_calon">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -69,8 +70,9 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control" type="text" value="{{ $sesi_id['TARIKH_SESI'] }}"
-                                            name="tarikh_sesi" disabled>
+                                        {{ date('d-m-Y', strtotime($sesi_id['TARIKH_SESI'])) }}
+                                        <input class="form-control" type="hidden" value="{{ $sesi_id['TARIKH_SESI'] }}"
+                                            name="tarikh_sesi">
                                     </div>
                                 </div>
                                 <div class="row mb-2">

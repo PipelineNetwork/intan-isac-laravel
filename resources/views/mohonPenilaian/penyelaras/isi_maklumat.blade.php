@@ -36,7 +36,7 @@
                 </div>
                 <div class="card-body">
                     <div class="pl-lg-4 pb-lg-4 mt-lg-4">
-                        <form action="#">
+                        <form action="/mohonpenilaian" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-6">
