@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\JadualKemaskini;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Permohanan;
+use App\Models\MohonPenilaian;
 
 class JadualController extends Controller
 {
@@ -201,6 +203,17 @@ class JadualController extends Controller
         $jadual->status = $request->status;
         $jadual->keterangan = $request->keterangan;
 
+        $idpenilaian = $jadual->ID_PENILAIAN;
+        $list_calon = MohonPenilaian::where('id_sesi', $idpenilaian)->get();
+        
+        $emel_peserta = [];
+        foreach($list_calon as $calon){
+            $id_peserta = $calon->id_calon;
+            $peserta = Permohanan::where('ID_PESERTA', $id_peserta)->first();
+            $email = $peserta->EMEL_PESERTA;
+            $emel_peserta = $email;
+        }
+
         if($jadual->KOD_KATEGORI_PESERTA == "02"){
             if($jadual->platform == "Fizikal"){
                 $rules = [
@@ -278,8 +291,7 @@ class JadualController extends Controller
         Validator::make($request->input(), $rules, $messages)->validate();
         $jadual->save();
 
-        $emel_pendaftar = Auth::user()->email;
-        $recipient = [$emel_pendaftar,"najhan.mnajib@gmail.com"];
+        $recipient = $emel_peserta;
         Mail::to($recipient)->send(new JadualKemaskini());
         return redirect('/jaduals');
     }
@@ -307,7 +319,18 @@ class JadualController extends Controller
         $jadual->keterangan = $request->keterangan;
         $jadual->save();
 
-        $recipient = ["najhan.mnajib@gmail.com"];
+        $idpenilaian = $jadual->ID_PENILAIAN;
+        $list_calon = MohonPenilaian::where('id_sesi', $idpenilaian)->get();
+        
+        $emel_peserta = [];
+        foreach($list_calon as $calon){
+            $id_peserta = $calon->id_calon;
+            $peserta = Permohanan::where('ID_PESERTA', $id_peserta)->first();
+            $email = $peserta->EMEL_PESERTA;
+            $emel_peserta = $email;
+        }
+
+        $recipient = $emel_peserta;
         Mail::to($recipient)->send(new JadualKemaskini());
 
         return redirect('/jaduals');

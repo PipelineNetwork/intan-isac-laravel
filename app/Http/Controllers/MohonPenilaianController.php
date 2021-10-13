@@ -62,6 +62,7 @@ class MohonPenilaianController extends Controller
     public function create(Request $request)
     {
         $id_group_user = Auth::user()->user_group_id;
+        // dd($id_group_user);
         if ($id_group_user == "3") {
             // dd("Penyelaras");
             // JADUAL_PENYELIA
