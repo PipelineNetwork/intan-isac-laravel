@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Refgeneral;
 use App\Helpers\Hrmis\GetDataXMLbyIC;
+// use Barryvdh\DomPDF\PDF;
 use PDF;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DaftarPeserta;
@@ -173,18 +174,24 @@ class MohonPenilaianController extends Controller
         $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN - 1;
         $kekosongan->save();
 
-        $emel_pendaftar = Auth::user()->email;
-        $recipient = [$emel_pendaftar, "najhan.mnajib@gmail.com"];
-        Mail::to($recipient)->send(new DaftarPeserta());
+        // $emel_pendaftar = Auth::user()->email;
+        // $recipient = [$emel_pendaftar, "najhan.mnajib@gmail.com"];
+        // Mail::to($recipient)->send(new DaftarPeserta());
 
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML('<h1>Contoh surat</h1>');
-        return $pdf->download('surat.pdf');
+        // $pdf = App::make('dompdf.wrapper');
+        // $pdf->loadHTML('<h1>Contoh surat</h1>');
+        // return $pdf->download('surat.pdf');
 
-        // $pdf = PDF::loadView('pdf.invoice', $data);
-        // return $pdf->download('invoice.pdf');
+        $pdf = PDF::loadView('pdf.pendaftaran_calon',[
+            'masa' => time(),
+            'nama' => $permohonan->nama,
+            'ic' => $permohonan->no_ic,
+            'tarikh'=>$permohonan->tarikh_sesi,
 
-        return redirect('/mohonpenilaian')->with('success', 'Berjaya didaftar');
+        ]);
+        return $pdf->download('Surat_tawaran.pdf');
+
+        // return redirect('/mohonpenilaian')->with('success', 'Berjaya didaftar');
     }
 
     /**
