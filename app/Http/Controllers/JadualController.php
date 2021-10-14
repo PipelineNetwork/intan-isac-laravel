@@ -210,8 +210,10 @@ class JadualController extends Controller
         foreach($list_calon as $calon){
             $id_peserta = $calon->id_calon;
             $peserta = Permohanan::where('ID_PESERTA', $id_peserta)->first();
-            $email = $peserta->EMEL_PESERTA;
-            $emel_peserta = $email;
+            if($peserta != null){
+                $email = $peserta->EMEL_PESERTA;
+                $emel_peserta = $email;
+            }
         }
 
         if($jadual->KOD_KATEGORI_PESERTA == "02"){
@@ -326,8 +328,10 @@ class JadualController extends Controller
         foreach($list_calon as $calon){
             $id_peserta = $calon->id_calon;
             $peserta = Permohanan::where('ID_PESERTA', $id_peserta)->first();
-            $email = $peserta->EMEL_PESERTA;
-            $emel_peserta = $email;
+            if($peserta != null){
+                $email = $peserta->EMEL_PESERTA;
+                $emel_peserta = $email;
+            }
         }
 
         $recipient = $emel_peserta;

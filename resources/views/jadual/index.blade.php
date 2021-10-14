@@ -69,6 +69,7 @@
                                     <th>Tarikh</th>
                                     <th>Kategori Peserta</th>
                                     <th>Jumlah Peserta</th>
+                                    <th>Kekosongan</th>
                                     <th>Kementerian/Agensi</th>
                                     <th>Platform</th>
                                     <th>Lokasi</th>
@@ -99,6 +100,7 @@
                                             @endif
                                         </td>
                                         <td class="text-center">{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
+                                        <td class="text-center">{{ $jadual['KEKOSONGAN'] }}</td>
                                         <td class="text-center">
                                             @if ($jadual['KOD_KEMENTERIAN'] == null)
                                                 -

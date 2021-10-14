@@ -8,7 +8,7 @@
                     @csrf
                     <div class="card mt-4" id="basic-info">
                         <div class="card-header" style="background-color:#FFA500;">
-                            <h5 class="text-white">Kemaskini Profil</h5>
+                            <h5 class="text-white">Kemaskini Maklumat Peserta</h5>
                         </div>
                         <br>
                         <div class="card-body pt-0">
@@ -22,25 +22,6 @@
                             </p>
                             <div class="pl-lg-4 pb-lg-4">
                                 <div class="row mb-2">
-                                    <h5 class="mb-1">
-                                        {{-- {{ $user_profils->NAMA_PESERTA }} --}}
-                                        @if (isset($user_profils->NAMA_PESERTA))
-                                            {{ $user_profils->NAMA_PESERTA }}
-                                        @else
-                                            {{ $user_profils->name }}
-                                        @endif
-                                    </h5>
-                                    <p class="mb-0 font-weight-bold text-sm">
-                                        {{-- {{ $user_profils->EMEL_PESERTA }} --}}
-                                        @if (isset($user_profils->EMEL_PESERTA))
-                                            {{ $user_profils->EMEL_PESERTA }}
-                                        @else
-                                            {{ $user_profils->email }}
-                                        @endif
-                                    </p>
-                                    <p class="mb-0 font-weight-bold text-sm">
-                                        Calon
-                                    </p>
                                     <input type="hidden" name="ID_PESERTA" value="{{ $user_profils->ID_PESERTA }}">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4">
