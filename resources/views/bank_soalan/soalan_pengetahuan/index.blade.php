@@ -91,8 +91,8 @@
                                 </th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Status Soalan
                                 </th>
-                                {{-- <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan
-                                </th> --}}
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -233,17 +233,19 @@
                                             </span>
                                         @endif
                                     </td>
-                                    {{-- <td class="text-sm font-weight-normal">
-                                        <a class="btn"
+                                    <td class="text-sm font-weight-normal">
+                                        {{-- <a class="btn"
                                             href="/bank-soalan-pengetahuan/{{ $banksoalanpengetahuan->id }}/edit">
                                             <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <a data-bs-toggle="modal" data-bs-target="#modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}">
+                                        </a> --}}
+                                        <a data-bs-toggle="modal"
+                                            data-bs-target="#modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}">
                                             <i class="far fa-trash-alt"></i>
                                         </a>
-                                    </td> --}}
+                                    </td>
 
-                                    {{-- <div class="modal fade" id="modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}" tabindex="-1"
+                                    <div class="modal fade"
+                                        id="modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}" tabindex="-1"
                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -255,14 +257,17 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn bg-gradient-secondary"
                                                         data-bs-dismiss="modal">Tutup</button>
-                                                    <a href="/bank-soalan-pengetahuan/{{ $banksoalanpengetahuan->id }}/delete"
-                                                        class="btn btn-success">
-                                                        Hapus
-                                                    </a>
+                                                    <form method="POST"
+                                                        action="{{ route('bank-soalan-pengetahuan.destroy', $banksoalanpengetahuan['id']) }}">
+                                                        @method('DELETE')
+                                                        @csrf
+    
+                                                        <button class="btn bg-gradient-danger" type="submit"> Hapus</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -1,8 +1,8 @@
 <?php
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PenggunaController;
-use App\Http\Controllers\PenyelarasController;
-use App\Http\Controllers\PengawasController;
+// use App\Http\Controllers\PenyelarasController;
+// use App\Http\Controllers\PengawasController;
 use App\Http\Controllers\TambahAduanController;
 use App\Http\Controllers\TambahRayuanController;
 use App\Http\Controllers\BalasAduanController;
@@ -16,6 +16,8 @@ use App\Http\Controllers\BanksoalankemahiranController;
 use App\Http\Controllers\BankjawapanpengetahuanController;
 use App\Http\Controllers\BankjawapankemahiranController;
 use App\Http\Controllers\BankjawapancalonController;
+use App\Http\Controllers\SoalankemahiraninternetController;
+use App\Http\Controllers\SoalankemahiranemailController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -57,9 +59,9 @@ Route::post('/profil/{id}/edit', [ProfilController::class, 'kemaskiniprofil']);
 
 Route::resource('/pengurusanpengguna',PenggunaController::class);
 
-Route::resource('/penyelaraspengguna',PenyelarasController::class);
+// Route::resource('/penyelaraspengguna',PenyelarasController::class);
 
-Route::resource('/pengawaspengguna',PengawasController::class);
+// Route::resource('/pengawaspengguna',PengawasController::class);
 
 Route::resource('/tambahaduans',TambahAduanController::class);
 
@@ -89,9 +91,21 @@ Route::post('/bank-soalan-pengetahuan/true-false', [BanksoalanpengetahuanControl
 
 Route::post('/bank-soalan-pengetahuan/subjective', [BanksoalanpengetahuanController::class, 'subjective']);
 
+// Route::post('/bank-soalan-pengetahuan/{id}/delete', [BanksoalanpengetahuanController::class, 'destroy']);
+
 Route::resource('/bank-soalan-kemahiran', BanksoalankemahiranController::class);
 
+Route::get('//soalan-kemahiran-internet', function () {
+    return view('proses_penilaian.soalan_kemahiran.internet');
+});
 
+// Route::resource('/soalan-kemahiran-internet', SoalankemahiraninternetController::class);
+
+Route::get('/soalan-kemahiran-email', function () {
+    return view('proses_penilaian.soalan_kemahiran.email');
+});
+
+// Route::resource('/soalan-kemahiran-email', SoalankemahiranemailController::class);
 
 // Route::get('change-password', 'ChangePasswordController@index');
 

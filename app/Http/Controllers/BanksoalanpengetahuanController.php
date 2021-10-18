@@ -152,13 +152,13 @@ class BanksoalanpengetahuanController extends Controller
      * @param  \App\Models\Banksoalanpengetahuan  $banksoalanpengetahuan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Banksoalanpengetahuan $banksoalanpengetahuan, $id)
+    public function destroy($banksoalanpengetahuan)
     {
-        $banksoalanpengetahuan = Banksoalanpengetahuan::find($id);
+        $banksoalanpengetahuan = Banksoalanpengetahuan::find($banksoalanpengetahuan);
 
         $banksoalanpengetahuan->delete();
 
-        return redirect('/bank-soalan-pengetahuan');
+        return redirect('/bank-soalan-pengetahuan')->with('success', 'Berjaya dihapus!');
     }
 
     public function fillblank(Request $request, $id)
