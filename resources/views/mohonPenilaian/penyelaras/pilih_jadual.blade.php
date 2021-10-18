@@ -33,12 +33,77 @@
             <div class="col">
                 <div class="card m-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <h5 class="text-white mb-0">Borang permohonan penilaian</h5>
+                        <h5 class="text-white mb-0">Pilih jadual</h5>
                     </div>
                     <div class="card-body">
-                        <form action="/mohonpenilaian/penyelaras/pilih_jadual" method="POST">
-                            @csrf
-                            <div class="form-group">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
+                                            No.</th>
+                                        <th
+                                            class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Tahap</th>
+                                        <th
+                                            class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Masa</th>
+                                        <th
+                                            class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Tarikh</th>
+                                        <th
+                                            class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Kekosongan</th>
+                                        <th
+                                            class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Platform</th>
+                                        <th
+                                            class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Lokasi</th>
+                                        <th
+                                            class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Daftar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($jadual_penyelia as $key => $jadual)
+                                        <tr>
+                                            <td class="text-center">{{ $key + 1 }}.</td>
+                                            <td class="text-center">{{ $jadual->KOD_TAHAP }}</td>
+                                            <td class="text-center">{{ $jadual->KOD_MASA_MULA }} -
+                                                {{ $jadual->KOD_MASA_TAMAT }}</td>
+                                            <td class="text-center">{{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}
+                                            </td>
+                                            <td class="text-center">{{ $jadual->KEKOSONGAN }}</td>
+                                            <td class="text-center">{{ $jadual->platform }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual['KOD_KEMENTERIAN'] == null)
+                                                    -
+                                                @else
+                                                    {{ $jadual['LOKASI'] }}
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                <form action="/mohonpenilaian/penyelaras/pilih_jadual" method="POST">
+                                                    @csrf
+                                                    @if ($jadual->KEKOSONGAN != 0)
+                                                        <input type="hidden" name="sesi"
+                                                            value="{{ $jadual->ID_PENILAIAN }}">
+                                                        <button class="btn btn-sm bg-gradient-info">Daftar</button>
+                                                    @else
+                                                        <button class="btn btn-sm bg-gradient-secondary"
+                                                            disabled>Penuh</button>
+                                                    @endif
+
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        {{-- <div class="form-group">
                                 <label>Sila pilih jadual</label>
                                 <select class="form-control" name="sesi">
                                     <option hidden selected value="">Sila Pilih</option>
@@ -52,8 +117,7 @@
                                 <div class="col text-end">
                                     <button class="btn bg-gradient-info">Seterusnya</button>
                                 </div>
-                            </div>
-                        </form>
+                            </div> --}}
                     </div>
                 </div>
             </div>

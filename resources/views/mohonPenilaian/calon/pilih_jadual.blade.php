@@ -37,15 +37,96 @@
                         <h5 class="text-white mb-0">Borang permohonan penilaian</h5>
                     </div>
                     <div class="card-body">
-                        <form action="/mohonpenilaian/calon/pilih_jadual" method="POST">
-                            @csrf
-                            <div class="form-group">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Tahap</th>
+                                        <th>Masa</th>
+                                        <th>Tarikh</th>
+                                        <th>Kekosongan</th>
+                                        <th>Platform</th>
+                                        <th>Lokasi</th>
+                                        <th>Pendaftaran</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($jadual as $key => $jadual)
+                                        @if ($jadual->KOD_KATEGORI_PESERTA == '01')
+                                            <tr>
+
+                                                <td>{{ $key + 1 }}.</td>
+                                                <td>{{ $jadual->KOD_TAHAP }}</td>
+                                                <td>{{ $jadual->KOD_MASA_MULA }} - {{ $jadual->KOD_MASA_TAMAT }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
+                                                <td>{{ $jadual->KEKOSONGAN }}</td>
+                                                <td>{{ $jadual->platform }}</td>
+                                                <td>
+                                                    @if ($jadual['KOD_KEMENTERIAN'] == null)
+                                                        -
+                                                    @else
+                                                        {{ $jadual['LOKASI'] }}
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($jadual->KEKOSONGAN != 0)
+                                                        <form action="/mohonpenilaian/calon/pilih_jadual" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="no_ic" value="{{ $no_ic }}">
+                                                            <input type="hidden" name="nama" value="{{ $nama }}">
+                                                            <input type="hidden" name="id_peserta"
+                                                                value="{{ $id_peserta }}">
+                                                            <input type="hidden" name="tarikh_lahir"
+                                                                value="{{ $tarikh_lahir }}">
+                                                            <input type="hidden" name="jantina"
+                                                                value="{{ $jantina }}">
+                                                            <input type="hidden" name="jawatan_ketua_jabatan"
+                                                                value="{{ $jawatan_ketua_jabatan }}">
+                                                            <input type="hidden" name="taraf_jawatan"
+                                                                value="{{ $taraf_jawatan }}">
+                                                            <input type="hidden" name="tarikh_lantikan"
+                                                                value="{{ $tarikh_lantikan }}">
+                                                            <input type="hidden" name="klasifikasi_perkhidmatan"
+                                                                value="{{ $klasifikasi_perkhidmatan }}">
+                                                            <input type="hidden" name="no_telefon_pejabat"
+                                                                value="{{ $no_telefon_pejabat }}">
+                                                            <input type="hidden" name="alamat1_pejabat"
+                                                                value="{{ $alamat1_pejabat }}">
+                                                            <input type="hidden" name="alamat2_pejabat"
+                                                                value="{{ $alamat2_pejabat }}">
+                                                            <input type="hidden" name="poskod_pejabat"
+                                                                value="{{ $poskod_pejabat }}">
+                                                            <input type="hidden" name="nama_penyelia"
+                                                                value="{{ $nama_penyelia }}">
+                                                            <input type="hidden" name="emel_penyelia"
+                                                                value="{{ $emel_penyelia }}">
+                                                            <input type="hidden" name="no_telefon_penyelia"
+                                                                value="{{ $no_telefon_penyelia }}">
+                                                            <input type="hidden" name="sesi"
+                                                                value="{{ $jadual->ID_PENILAIAN }}">
+                                                            <button class="btn btn-sm bg-gradient-info"
+                                                                type="submit">Daftar</button>
+
+                                                        </form>
+                                                    @else
+                                                        <button class="btn btn-sm bg-gradient-secondary"
+                                                            disabled>Penuh</button>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        {{-- <div class="form-group">
                                 <label>Sila pilih jadual</label>
                                 <select class="form-control" name="sesi">
                                     <option hidden selected value="">Sila Pilih</option>
                                     @foreach ($jadual as $jadual)
-                                        @if($jadual->KOD_KATEGORI_PESERTA == "01")
-                                            @if($jadual->KEKOSONGAN != 0)
+                                        @if ($jadual->KOD_KATEGORI_PESERTA == '01')
+                                            @if ($jadual->KEKOSONGAN != 0) 
                                                 <option value="{{ $jadual->ID_PENILAIAN }}">
                                                     {{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}
                                                 </option>
@@ -53,33 +134,25 @@
                                         @endif
                                     @endforeach
                                 </select>
-                            </div>
-                            <input type="hidden" name="no_ic" value="{{ $no_ic }}">
-                            <input type="hidden" name="nama" value="{{ $nama }}">
-                            <input type="hidden" name="id_peserta" value="{{ $id_peserta }}">
-                            <input type="hidden" name="tarikh_lahir" value="{{ $tarikh_lahir }}">
-                            <input type="hidden" name="jantina" value="{{ $jantina }}">
-                            <input type="hidden" name="jawatan_ketua_jabatan" value="{{ $jawatan_ketua_jabatan }}">
-                            <input type="hidden" name="taraf_jawatan" value="{{ $taraf_jawatan }}">
-                            <input type="hidden" name="tarikh_lantikan" value="{{ $tarikh_lantikan }}">
-                            <input type="hidden" name="klasifikasi_perkhidmatan" value="{{ $klasifikasi_perkhidmatan }}">
-                            <input type="hidden" name="no_telefon_pejabat" value="{{ $no_telefon_pejabat }}">
-                            <input type="hidden" name="alamat1_pejabat" value="{{ $alamat1_pejabat }}">
-                            <input type="hidden" name="alamat2_pejabat" value="{{ $alamat2_pejabat }}">
-                            <input type="hidden" name="poskod_pejabat" value="{{ $poskod_pejabat }}">
-                            <input type="hidden" name="nama_penyelia" value="{{ $nama_penyelia }}">
-                            <input type="hidden" name="emel_penyelia" value="{{ $emel_penyelia }}">
-                            <input type="hidden" name="no_telefon_penyelia" value="{{ $no_telefon_penyelia }}">
-                            <div class="row">
+                            </div> --}}
+
+                        {{-- <div class="row">
                                 <div class="col text-end">
                                     <button class="btn bg-gradient-info" type="submit">Seterusnya</button>
                                 </div>
-                            </div>
-                        </form>
+                            </div> --}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="../../assets/js/plugins/datatables.js"></script>
+    <script type="text/javascript">
+        const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
+            searchable: true,
+            fixedHeight: true
+        });
+    </script>
 
 @stop

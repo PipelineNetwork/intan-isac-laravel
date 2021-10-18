@@ -48,7 +48,8 @@
                                     </div>
                                     <div class="col-8">
                                         {{ $sesi }}
-                                        <input class="form-control" type="hidden" value="{{ $sesi }}" name="id_sesi">
+                                        <input class="form-control" type="hidden" value="{{ $sesi }}"
+                                            name="id_sesi">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -240,7 +241,8 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col text-center">
-                                        <button type="submit" class="btn bg-gradient-success">Hantar</button>
+                                        <button type="submit"
+                                            class="btn bg-gradient-success">Hantar</button>
                                     </div>
                                 </div>
                             </form>
@@ -251,11 +253,13 @@
         </div>
     </div>
 
+    <script src="sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
     <script>
         $(document).on('submit', 'form', function() {
             setTimeout(function() {
                 window.location = "/mohonpenilaian";
-            }, 8000);
+            }, 2000);
         });
     </script>
 @stop

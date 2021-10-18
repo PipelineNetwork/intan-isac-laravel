@@ -47,6 +47,10 @@ Route::get('/dashboard2', function () {
     return view('dashboard2');
 });
 
+Route::get('/kemasukan-id', function () {
+    return view('kemasukan_id.index');
+});
+
 Route::get('/profil/{id}', [ProfilController::class, 'kemaskiniform']);
 
 Route::post('/profil/{id}/edit', [ProfilController::class, 'kemaskiniprofil']);
