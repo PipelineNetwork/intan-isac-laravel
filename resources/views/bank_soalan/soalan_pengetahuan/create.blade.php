@@ -52,9 +52,8 @@
                                 <label class="form-control-label">Tahap Soalan</label>
                                 <select class="form-control" name="id_tahap_soalan" required>
                                     <option hidden selected>Sila Pilih</option>
-                                    <option value="1">Rendah</option>
-                                    <option value="2">Sederhana</option>
-                                    <option value="3">Tinggi</option>
+                                    <option value="1">Asas</option>
+                                    <option value="2">Lanjutan</option>
                                 </select>
                             </div>
                         </div>
@@ -63,9 +62,19 @@
                                 <label class="form-control-label">Kategori Pengetahuan</label>
                                 <select class="form-control" name="id_kategori_pengetahuan" required>
                                     <option hidden selected>Sila Pilih</option>
-                                    <option value="1">Rendah</option>
-                                    <option value="2">Sederhana</option>
-                                    <option value="3">Tinggi</option>
+                                    <option value="1">EG</option>
+                                    <option value="2">Electronic Mail</option>
+                                    <option value="3">General</option>
+                                    <option value="4">Government Mobility</option>
+                                    <option value="5">Hardware</option>
+                                    <option value="6">ICT Security</option>
+                                    <option value="7">Inisiatif ICT Sektor Awam</option>
+                                    <option value="8">Internet</option>
+                                    <option value="9">Media Sosial</option>
+                                    <option value="10">MSC</option>
+                                    <option value="11">Office Productivity</option>
+                                    <option value="12">Rangkaian dan Wifi</option>
+                                    <option value="13">Software</option>
                                 </select>
                             </div>
                         </div>
