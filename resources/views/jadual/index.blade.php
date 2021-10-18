@@ -62,6 +62,7 @@
 
                             <thead>
                                 <tr>
+                                    <th>No.</th>
                                     <th>Kod Sesi</th>
                                     <th>Tahap</th>
                                     <th>Masa Mula</th>
@@ -79,8 +80,9 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($jaduals as $jadual)
+                                @foreach ($jaduals as $key => $jadual)
                                     <tr>
+                                        <td class="text-center">{{ $key+1 }}.</td>
                                         <td class="text-center">{{ $jadual['KOD_SESI_PENILAIAN'] }}</td>
                                         <td class="text-center">
                                             @if ($jadual->KOD_TAHAP == '01')

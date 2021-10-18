@@ -168,11 +168,11 @@ class MohonPenilaianController extends Controller
         $permohonan->nama_penyelia = $request->nama_penyelia;
         $permohonan->emel_penyelia = $request->emel_penyelia;
         $permohonan->no_telefon_penyelia = $request->no_telefon_penyelia;
-        $permohonan->save();
+        // $permohonan->save();
 
         $kekosongan = Jadual::where('ID_PENILAIAN', $permohonan->id_sesi)->first();
         $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN - 1;
-        $kekosongan->save();
+        // $kekosongan->save();
 
         // $emel_pendaftar = Auth::user()->email;
         // $recipient = [$emel_pendaftar, "najhan.mnajib@gmail.com"];
@@ -189,7 +189,11 @@ class MohonPenilaianController extends Controller
             'tarikh'=>$permohonan->tarikh_sesi,
 
         ]);
-        return $pdf->download('Surat_tawaran.pdf');
+         return $pdf->download('Surat_tawaran_'.$permohonan->no_ic.'.pdf');
+
+        // if ($pdf->download('Surat_tawaran.pdf')){
+        //     return redirect('/mohonpenilaian')->with('success', 'Berjaya didaftar');
+        // }
 
         // return redirect('/mohonpenilaian')->with('success', 'Berjaya didaftar');
     }
@@ -252,28 +256,33 @@ class MohonPenilaianController extends Controller
         $sesi = $request->sesi;
         $calon = $request->ic_calon;
 
-        $sesi_id = Jadual::where('ID_SESI', $sesi)->first();
+        $sesi_id = Jadual::where('ID_PENILAIAN', $sesi)->first();
 
         $GetDataXMLbyIC = new GetDataXMLbyIC();
         $details = $GetDataXMLbyIC->getDataHrmis($calon);
         // dd($details);
+        return view('mohonPenilaian.penyelaras.isi_maklumat', [
+            'sesi' => $sesi,
+            'calon' => $calon,
+            'sesi_id' => $sesi_id
+        ]);
 
-        if ($details == 'Tiada maklumat HRMIS dijumpai') {
-            // buat form
-            return view('mohonPenilaian.penyelaras.isi_maklumat', [
-                'sesi' => $sesi,
-                'calon' => $calon,
-                'sesi_id' => $sesi_id
-            ]);
-        } else {
-            // papar maklumat
-            return view('mohonPenilaian.penyelaras.papar_maklumat', [
-                'details' => $details,
-                'sesi' => $sesi,
-                'calon' => $calon,
-                'sesi_id' => $sesi_id
-            ]);
-        }
+        // if ($details == 'Tiada maklumat HRMIS dijumpai') {
+        //     // buat form
+        //     return view('mohonPenilaian.penyelaras.isi_maklumat', [
+        //         'sesi' => $sesi,
+        //         'calon' => $calon,
+        //         'sesi_id' => $sesi_id
+        //     ]);
+        // } else {
+        //     // papar maklumat
+        //     return view('mohonPenilaian.penyelaras.papar_maklumat', [
+        //         'details' => $details,
+        //         'sesi' => $sesi,
+        //         'calon' => $calon,
+        //         'sesi_id' => $sesi_id
+        //     ]);
+        // }
     }
 
     public function kemaskini_maklumat_calon(Request $request)
@@ -391,6 +400,7 @@ class MohonPenilaianController extends Controller
 
     public function pilih_jadual_calon(Request $request)
     {
+        // dd($request);
         $sesi = $request->sesi;
         $sesi_id = Jadual::where('ID_PENILAIAN', $sesi)->first();
         $tarikh = $sesi_id->TARIKH_SESI;

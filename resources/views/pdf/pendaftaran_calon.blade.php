@@ -5,9 +5,6 @@
     <title>Surat Permohonan Penilaian ICT | INTAN - ISAC</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <style>
     .text-custom {
@@ -30,9 +27,17 @@
         /* Should be removed. Only for demonstration */
     }
 
-    .column-auto {
+    .column-center {
         float: left;
-        width: auto;
+        width: 60%;
+        padding: 10px;
+        height: auto;
+        /* Should be removed. Only for demonstration */
+    }
+
+    .column-side {
+        float: left;
+        width: 20%;
         padding: 10px;
         height: auto;
         /* Should be removed. Only for demonstration */
@@ -62,18 +67,18 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="row" style="text-align: center">
-                                    <div class="column-auto">
+                                    <div class="column-side">
                                         <img src="{{ public_path('storage/jatanegara.png') }}" alt="PGN" height="80"
                                             style="">
                                     </div>
-                                    <div class="column-auto">
+                                    <div class="column-center">
                                         <span style="font-weight: bold">
                                             INSTITUT TADBIRAN AWAM NEGARA (INTAN) <br></span>
                                             Jabatan Perkhidmatan Awam Malaysia <br>
                                             Bukit Kiara, Jalan Bukit Kiara, 50480 Kuala Lumpur <br>
                                             Tel:03-20847777 (20 talian),http://www.intanbk.intan.my
                                     </div>
-                                    <div class="column-auto">
+                                    <div class="column-side">
                                         <img src="{{ public_path('storage/intan.png') }}" alt="PGN" height="80"
                                             style="">
                                         {{-- <p  style="font-size: 10px;">

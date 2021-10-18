@@ -52,6 +52,7 @@
                 <table class="table table-flush" id="datatable-peserta">
                     <thead class="thead-light">
                         <tr>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID Pengguna</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.Pejabat</th>
@@ -61,8 +62,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($peserta as $peserta)
+                        @foreach ($peserta as $key=>$peserta)
                         <tr>
+                            <td class="text-sm font-weight-normal">{{ $key+1 }}</td>
                             <td class="text-sm font-weight-normal">{{ $peserta['id_calon'] }}</td>
                             <td class="text-sm font-weight-normal">{{ $peserta['nama'] }}</td>
                             <td class="text-sm font-weight-normal">{{ $peserta['no_telefon_pejabat'] }}</td>
