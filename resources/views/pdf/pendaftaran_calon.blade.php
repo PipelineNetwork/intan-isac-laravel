@@ -120,8 +120,20 @@
                                             <td>: {{$ic}}</td>
                                         </tr>
                                         <tr>
+                                            <td style="width: 150px;">Tahap Penilaian</td>
+                                            <td>: {{$tahap}}</td>
+                                        </tr>
+                                        <tr>
                                             <td style="width: 150px;">Tarikh Penilaian</td>
                                             <td>: {{$tarikh}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 150px;">Masa Penilaian</td>
+                                            <td>: {{$masa_mula}} - {{$masa_tamat}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 150px;">ID Penilaian</td>
+                                            <td>: <span><strong>{{$id_sesi}}</strong></span> <span><em>(Digunakan sewaktu mula sesi penilaian.)</em></span></td>
                                         </tr>
                                     </table>
                                     <br>

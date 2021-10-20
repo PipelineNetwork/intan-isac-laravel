@@ -168,15 +168,25 @@ class MohonPenilaianController extends Controller
         $permohonan->nama_penyelia = $request->nama_penyelia;
         $permohonan->emel_penyelia = $request->emel_penyelia;
         $permohonan->no_telefon_penyelia = $request->no_telefon_penyelia;
-        // $permohonan->save();
+        $permohonan->save();
 
         $kekosongan = Jadual::where('ID_PENILAIAN', $permohonan->id_sesi)->first();
         $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN - 1;
-        // $kekosongan->save();
+        $kekosongan->save();
 
-        // $emel_pendaftar = Auth::user()->email;
-        // $recipient = [$emel_pendaftar, "najhan.mnajib@gmail.com"];
-        // Mail::to($recipient)->send(new DaftarPeserta());
+        $tahap = $kekosongan->KOD_TAHAP;
+        if($tahap == "01"){
+            $tahap = "Asas";
+        }else{
+            $tahap = "Lanjutan";
+        }
+
+        $masa_mula = $kekosongan->KOD_MASA_MULA;
+        $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
+
+        $emel_pendaftar = Auth::user()->email;
+        $recipient = [$emel_pendaftar, "najhan.mnajib@gmail.com"];
+        Mail::to($recipient)->send(new DaftarPeserta());
 
         // $pdf = App::make('dompdf.wrapper');
         // $pdf->loadHTML('<h1>Contoh surat</h1>');
@@ -187,7 +197,10 @@ class MohonPenilaianController extends Controller
             'nama' => $permohonan->nama,
             'ic' => $permohonan->no_ic,
             'tarikh'=>$permohonan->tarikh_sesi,
-
+            'tahap'=>$tahap,
+            'masa_mula'=>$masa_mula,
+            'masa_tamat'=>$masa_tamat,
+            'id_sesi'=>$request->id_sesi
         ]);
          return $pdf->download('Surat_tawaran_'.$permohonan->no_ic.'.pdf');
 

@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class BankjawapanpengetahuanController extends Controller
 {
+    public function jawapan_calon(Request $request, $id_penilaian){
+        // dd($request->all(), $id_penilaian);
+        // $jawapans = $request->all();
+        // dd($jawapan);
+        // foreach($jawapans as $key=>$jawapan){
+        //     dd($jawapans[$key]);
+        // }
+        return redirect('/kemasukan-id')->with('success', 'Tahniah, anda selesai menjawab');
+    }
     /**
      * Display a listing of the resource.
      *

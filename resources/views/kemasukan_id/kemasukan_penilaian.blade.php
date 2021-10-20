@@ -36,118 +36,132 @@
                     <div class="card-header" style="background-color:#FFA500;">
                         <h5 class="text-white mb-0">Sesi Penilaian</h5>
                     </div>
-                    <div class="card-body">
-                        <div id="q-navigation"></div>
-                        @foreach ($soalan_penilaian as $index=>$soalan)
-                            <?php
-                            $soalanbetul = str_replace('<p>', '', $soalan->soalan);
-                            $soalanbetul = str_replace('</p>', '', $soalanbetul);
-                            ?>
-                            <div class="row mb-3" style="display: none;" id="{{$index}}">
-                                <div class="col">
-                                    @if ($soalan->jenis_soalan == 'single_choice')
-                                        {{ $soalanbetul }}
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="customRadio1">
-                                            <label class="custom-control-label"
-                                                for="customRadio1">{{ $soalan->pilihan_jawapan }}</label>
-                                        </div>
-                                        @if ($soalan->pilihan_jawapan1 != null)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="customRadio2">
+                    <form action="/kemasukan_penilaian/{{$id_penilaian}}/jawapan_calon" method="POST">
+                        @csrf
+                        <div class="card-body">
+                            <div id="q-navigation"></div>
+                            @foreach ($soalan_penilaian as $index => $soalan)
+                                <?php
+                                $soalanbetul = str_replace('<p>', '', $soalan->soalan);
+                                $soalanbetul = str_replace('</p>', '', $soalanbetul);
+                                ?>
+                                <div class="row mb-3" style="display: none;" id="{{ $index }}">
+                                    <div class="col">
+                                        @if ($soalan->jenis_soalan == 'single_choice')
+                                            {{ $soalanbetul }}
+                                            <input type="hidden" value="{{ $soalan->id }}" name="soalan_{{$index}}[]">
+                                            <div class="form-check mb-0">
+                                                <input class="form-check-input" type="radio" name="soalan_{{$index}}[]"
+                                                    id="customRadio1" value="{{ $soalan->pilihan_jawapan }}">
                                                 <label class="custom-control-label"
-                                                    for="customRadio2">{{ $soalan->pilihan_jawapan1 }}</label>
-                                            </div>
-                                        @endif
-                                        @if ($soalan->pilihan_jawapan2 != null)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="customRadio3">
-                                                <label class="custom-control-label"
-                                                    for="customRadio3">{{ $soalan->pilihan_jawapan2 }}</label>
-                                            </div>
-                                        @endif
-                                        @if ($soalan->pilihan_jawapan3 != null)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="customRadio4">
-                                                <label class="custom-control-label"
-                                                    for="customRadio4">{{ $soalan->pilihan_jawapan3 }}</label>
-                                            </div>
-                                        @endif
-                                    @elseif($soalan->jenis_soalan == 'true_or_false')
-                                        {{ $soalanbetul }}
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="customRadio1">
-                                            <label class="custom-control-label" for="customRadio1">Betul</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="customRadio2">
-                                            <label class="custom-control-label" for="customRadio2">Salah</label>
-                                        </div>
-                                    @elseif($soalan->jenis_soalan == 'fill_in_the_blank')
-                                        {{ $soalanbetul }}
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Jawapan:</label>
-                                            <input class="form-control" type="text" id="example-text-input">
-                                        </div>
-                                    @elseif($soalan->jenis_soalan == 'multiple_choice')
-                                        {{ $soalanbetul }}
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Jawapan:</label>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="fcustomCheck1">
-                                                <label class="custom-control-label"
-                                                    for="customCheck1">{{ $soalan->pilihan_jawapan }}</label>
+                                                    for="customRadio1">{{ $soalan->pilihan_jawapan }}</label>
                                             </div>
                                             @if ($soalan->pilihan_jawapan1 != null)
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="fcustomCheck1">
+                                                    <input class="form-check-input" type="radio" name="soalan_{{$index}}[]"
+                                                        id="customRadio2" value="{{ $soalan->pilihan_jawapan1 }}">
                                                     <label class="custom-control-label"
-                                                        for="customCheck1">{{ $soalan->pilihan_jawapan1 }}</label>
+                                                        for="customRadio2">{{ $soalan->pilihan_jawapan1 }}</label>
                                                 </div>
                                             @endif
                                             @if ($soalan->pilihan_jawapan2 != null)
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="fcustomCheck1">
+                                                    <input class="form-check-input" type="radio" name="soalan_{{$index}}[]"
+                                                        id="customRadio3" value="{{ $soalan->pilihan_jawapan2 }}">
                                                     <label class="custom-control-label"
-                                                        for="customCheck1">{{ $soalan->pilihan_jawapan2 }}</label>
+                                                        for="customRadio3">{{ $soalan->pilihan_jawapan2 }}</label>
                                                 </div>
                                             @endif
                                             @if ($soalan->pilihan_jawapan3 != null)
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="fcustomCheck1">
+                                                    <input class="form-check-input" type="radio" name="soalan_{{$index}}[]"
+                                                        id="customRadio4" value="{{ $soalan->pilihan_jawapan3 }}">
                                                     <label class="custom-control-label"
-                                                        for="customCheck1">{{ $soalan->pilihan_jawapan3 }}</label>
+                                                        for="customRadio4">{{ $soalan->pilihan_jawapan3 }}</label>
                                                 </div>
                                             @endif
-                                        </div>
-                                    @elseif($soalan->jenis_soalan == 'ranking')
-                                        {{ $soalanbetul }}
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Jawapan:</label>
-                                            <input class="form-control" type="text" id="example-text-input">
-                                        </div>
-                                    @elseif($soalan->jenis_soalan == 'subjective')
-                                        {{ $soalanbetul }}
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Jawapan:</label>
-                                            <input class="form-control" type="text" id="example-text-input">
-                                        </div>
-                                    @endif
+                                        @elseif($soalan->jenis_soalan == 'true_or_false')
+                                            {{ $soalanbetul }}
+                                            <input type="hidden" value="{{ $soalan->id }}" name="soalan_{{$index}}[]">
+                                            <div class="form-check mb-0">
+                                                <input class="form-check-input" type="radio" name="soalan_{{$index}}[]"
+                                                    id="customRadio1" value="True">
+                                                <label class="custom-control-label" for="customRadio1">Betul</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="soalan_{{$index}}[]"
+                                                    id="customRadio2" value="False">
+                                                <label class="custom-control-label" for="customRadio2">Salah</label>
+                                            </div>
+                                        @elseif($soalan->jenis_soalan == 'fill_in_the_blank')
+                                            {{ $soalanbetul }}
+                                            <input type="hidden" value="{{ $soalan->id }}" name="soalan_{{$index}}[]">
+                                            <div class="form-group">
+                                                <label for="fill_in_the_blank" class="form-control-label">Jawapan:</label>
+                                                <input class="form-control" type="text" id="fill_in_the_blank"
+                                                    name="soalan_{{$index}}[]">
+                                            </div>
+                                        @elseif($soalan->jenis_soalan == 'multiple_choice')
+                                            {{ $soalanbetul }}
+                                            <input type="hidden" value="{{ $soalan->id }}" name="soalan_{{$index}}[]">
+                                            <div class="form-group">
+                                                <label for="example-text-input" class="form-control-label">Jawapan:</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="fcustomCheck1"
+                                                        name="soalan_{{$index}}[]" value="{{ $soalan->pilihan_jawapan }}">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck1">{{ $soalan->pilihan_jawapan }}</label>
+                                                </div>
+                                                @if ($soalan->pilihan_jawapan1 != null)
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="fcustomCheck1"
+                                                            name="soalan_{{$index}}[]" value="{{ $soalan->pilihan_jawapan1 }}">
+                                                        <label class="custom-control-label"
+                                                            for="customCheck1">{{ $soalan->pilihan_jawapan1 }}</label>
+                                                    </div>
+                                                @endif
+                                                @if ($soalan->pilihan_jawapan2 != null)
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="fcustomCheck1"
+                                                            name="soalan_{{$index}}[]" value="{{ $soalan->pilihan_jawapan2 }}">
+                                                        <label class="custom-control-label"
+                                                            for="customCheck1">{{ $soalan->pilihan_jawapan2 }}</label>
+                                                    </div>
+                                                @endif
+                                                @if ($soalan->pilihan_jawapan3 != null)
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="fcustomCheck1"
+                                                            name="soalan_{{$index}}[]" value="{{ $soalan->pilihan_jawapan3 }}">
+                                                        <label class="custom-control-label"
+                                                            for="customCheck1">{{ $soalan->pilihan_jawapan3 }}</label>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        @elseif($soalan->jenis_soalan == 'ranking')
+                                            {{ $soalanbetul }}
+                                            <input type="hidden" value="{{ $soalan->id }}" name="soalan_{{$index}}[]">
+                                            <div class="form-group">
+                                                <label class="form-control-label">Jawapan:</label>
+                                                <input class="form-control" type="text" name="soalan_{{$index}}[]">
+                                            </div>
+                                        @elseif($soalan->jenis_soalan == 'subjective')
+                                            {{ $soalanbetul }}
+                                            <input type="hidden" value="{{ $soalan->id }}" name="soalan_{{$index}}[]">
+                                            <div class="form-group">
+                                                <label class="form-control-label">Jawapan:</label>
+                                                <input class="form-control" type="text" name="soalan_{{$index}}[]">
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
 
-                        @endforeach
-                        <div id="q-navigation2"></div>
-                    </div>
+                            @endforeach
+                            <div id="q-navigation2"></div>
+                            <div class="row justify-content-center">
+                                <button type="submit" class="btn bg-gradient-success">Hantar</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -163,23 +177,23 @@
         var pages = []
         var current_page = ""
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             var soalan_array = <?php echo $soalan_penilaian; ?>
-            
-            for (let i=0; i<soalan_array.length; i++) {
+
+            for (let i = 0; i < soalan_array.length; i++) {
                 pages.push(i)
             }
 
             createQNavigator(pages);
             createQNavigator2(pages);
             $("#0").show();
-            
+
         });
 
         function createQNavigator(pages) {
             var navigator = "";
-            for (let i=0; i<pages.length; i++) {
-                navigator = navigator + `<a class="btn btn-sm btn-success" onclick="goToSoalan(${i})">${i+1}</a>`
+            for (let i = 0; i < pages.length; i++) {
+                navigator = navigator + `<a class="btn btn-sm btn-secondary" onclick="goToSoalan(${i})">${i+1}</a>`
             }
 
             $("#q-navigation").append(navigator);
@@ -190,10 +204,10 @@
             var navigator_2 = `
     <div class="row justify-content-between">
         <div class="col-auto ">
-            <a class="btn btn-sm btn-success" onclick="kembali()">kembali</a>
+            <a class="btn btn-sm btn-outline-secondary" onclick="kembali()">kembali</a>
         </div>
         <div class="col-auto">
-            <a class="btn btn-sm btn-success" onclick="seterusnya()">seterusnya</a>
+            <a class="btn btn-sm btn-outline-secondary" onclick="seterusnya()">seterusnya</a>
         </div>
     </div>`;
 
@@ -204,16 +218,16 @@
             current_page = id;
             $("#" + id).show();
 
-            for (let i=0; i<pages.length; i++) {
+            for (let i = 0; i < pages.length; i++) {
                 if (i !== id) {
                     $("#" + i).hide();
                 }
             }
-           
+
         }
 
         function kembali() {
-            if (current_page !== 1) {
+            if (current_page !== 0) {
                 console.log(current_page);
                 let prev_page = current_page - 1;
                 console.log(prev_page);
@@ -221,40 +235,35 @@
 
                 current_page = prev_page;
 
-                for (let i=0; i<pages.length; i++) {
+                for (let i = 0; i < pages.length; i++) {
                     if (i !== prev_page) {
                         $("#" + i).hide();
                     }
                 }
-                
-            }
-            else {
+
+            } else {
                 alert("page first");
             }
         }
 
         function seterusnya() {
-            if (current_page !== pages.length) {
+            if (current_page !== (pages.length - 1)) {
                 console.log(current_page);
-                let prev_page = current_page + 1;
+                let prev_page = +current_page + 1;
                 console.log(prev_page);
                 $("#" + prev_page).show();
 
                 current_page = prev_page;
 
-                for (let i=0; i<pages.length; i++) {
+                for (let i = 0; i < pages.length; i++) {
                     if (i !== prev_page) {
                         $("#" + i).hide();
                     }
                 }
-                
-            }
-            else {
+
+            } else {
                 alert("page last");
             }
         }
-
-
-
     </script>
 @stop
