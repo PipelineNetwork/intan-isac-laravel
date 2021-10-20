@@ -18,6 +18,7 @@ use App\Http\Controllers\BankjawapankemahiranController;
 use App\Http\Controllers\BankjawapancalonController;
 use App\Http\Controllers\SoalankemahiraninternetController;
 use App\Http\Controllers\SoalankemahiranemailController;
+use App\Http\Controllers\KemasukanPenilaianController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -125,3 +126,5 @@ Route::post('/mohonpenilaian/penyelaras/pilih_jadual', [MohonPenilaianController
 Route::post('/mohonpenilaian/penyelaras/pilih_calon', [MohonPenilaianController::class, 'pilih_calon']);
 Route::post('/mohonpenilaian/calon/kemaskini_maklumat_calon', [MohonPenilaianController::class, 'kemaskini_maklumat_calon']);
 Route::post('/mohonpenilaian/calon/pilih_jadual', [MohonPenilaianController::class, 'pilih_jadual_calon']);
+Route::post('/kemasukan_id/check_id', [KemasukanPenilaianController::class, 'kemasukan_id']);
+Route::get('/kemasukan_penilaian/{id_penilaian}/{soalan}', [KemasukanPenilaianController::class, 'kemasukan_penilaian']);

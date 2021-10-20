@@ -37,25 +37,33 @@
                         <h5 class="text-white mb-0">Kemasukkan Penilaian</h5>
                     </div>
                     <div class="card-body">
-                        <p><em>Sila masukkan id penilaian yang anda terima.</em></p>
-                        <div class="pl-lg-4 pb-lg-4 mt-lg-4">
-                            <form action="/kemasukan_id/check_id" method="POST">
-                                @csrf
-                                <div class="row mb-2 justify-content-center">
-                                    <div class="col-auto">
-                                        <label class="form-control-label">
-                                            ID Penilaian
-                                        </label>
-                                        <label class="float-right">:</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <input class="form-control" type="text" name="id_penilaian">
-                                    </div>
-                                    <div class="col-auto">
-                                        <button class="btn bg-gradient-success btn-sm">Semak</button>
+                        <div class="row justify-content-center py-3 my-3" >
+                            <div class="col-lg-10 py-4" style="border-style: solid;">
+                                <div class="row justify-content-center mb-3">
+                                    <div class="col-8 text-center">
+                                        <h5>Sesi Penilaian ICT INTAN-ISAC</h5>
                                     </div>
                                 </div>
-                            </form>
+                                <div class="row justify-content-center">
+                                    <div class="col-auto">
+                                        <p class="mb-0">Tarikh</p>
+                                        <p  class="mb-0">Masa</p>
+                                        <p class="mb-0">Nama Calon</p>
+                                        <p class="mb-0">No. Kad Pengenalan Calon</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <p class="mb-0">: {{$jadual->TARIKH_SESI}}</p>
+                                        <p class="mb-0">: {{$jadual->KOD_MASA_MULA}} - {{$jadual->KOD_MASA_TAMAT}}</p>
+                                        <p class="mb-0">: {{$calon->nama}}</p>
+                                        <p class="mb-0">: {{$calon->no_ic}}</p>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-auto mb-0">
+                                        <a href="/kemasukan_penilaian/{{$id_penilaian}}/1" class="btn bg-gradient-info mt-4 mb-0 text-center">Mula Penilaian</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
