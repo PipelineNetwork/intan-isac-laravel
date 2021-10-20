@@ -254,7 +254,7 @@
         $(document).on('submit', 'form', function() {
             setTimeout(function() {
                 window.location = "/mohonpenilaian";
-            }, 8000);
+            }, 7000);
         });
     </script>
 @stop
