@@ -261,11 +261,6 @@ class MohonPenilaianController extends Controller
         $GetDataXMLbyIC = new GetDataXMLbyIC();
         $details = $GetDataXMLbyIC->getDataHrmis($calon);
         // dd($details);
-        return view('mohonPenilaian.penyelaras.isi_maklumat', [
-            'sesi' => $sesi,
-            'calon' => $calon,
-            'sesi_id' => $sesi_id
-        ]);
 
         if ($details == 'Tiada maklumat HRMIS dijumpai') {
             // buat form
