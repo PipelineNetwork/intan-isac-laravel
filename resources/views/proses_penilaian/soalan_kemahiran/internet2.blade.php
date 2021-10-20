@@ -1,6 +1,105 @@
 @extends('base_exam')
 @section('content')
 
+<style>
+    * {
+        margin: 0;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    /* Header */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 30px;
+        align-items: center;
+    }
+
+    .header a {
+        margin-right: 20px;
+        text-decoration: inherit;
+        color: rgba(0, 0, 0, 0.87);
+        font-size: 15px;
+    }
+
+    .header a:hover {
+        text-decoration: underline;
+    }
+
+
+
+    .header__right {
+        display: flex;
+        margin-left: auto;
+        min-width: 13vw;
+        justify-content: space-between;
+    }
+
+    .header__right .header__apps {
+        margin-right: 10px;
+    }
+
+    /* Main Body */
+
+    .mainBody {
+        flex: 1;
+        display: flex;
+        margin-top: 12%;
+        flex-direction: column;
+    }
+
+    .mainBody img {
+        object-fit: contain;
+        height: 100px;
+    }
+
+    /* search */
+    .search__input {
+        display: flex;
+        align-items: center;
+        border: 1px solid lightgray;
+        height: 30px;
+        padding: 10px 20px;
+        border-radius: 999px;
+        width: 75vw;
+        margin: 0 auto;
+        margin-top: 40px;
+        max-width: 560px;
+    }
+
+    .search__input input {
+        flex: 1;
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+    }
+
+    .search__input .material-icons {
+        color: gray;
+    }
+
+    .search__buttons {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .search__buttons button {
+        margin: 5px;
+        padding: 10px 15px;
+        background-color: #f8f8f8;
+        outline: none;
+        border: none;
+        cursor: pointer;
+    }
+
+</style>
+
     <div class="px-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -69,6 +168,70 @@
                             klik butang TUTUP di bawah.
                         </li>
                     </ol>
+                </div>
+            </div>
+
+            {{-- <div class="card vh-100 mt-5">
+                <div class="card-body mt-10" style="text-align: center">
+                    <div class="col-xl-12 mb-3">
+                        <img src="/assets/img/google.png" alt="Google">
+                    </div>
+                    <div class="col-xl-8 m-auto mb-3">
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="col-xl-3 m-auto">
+                        <button class="form-control">Google Search</button>
+                    </div>
+                </div>
+            </div> --}}
+
+
+            <div class="card vh-100 mt-5">
+                <div class="card-body">
+                    <div class="header">
+
+                        <div class="header__right">
+                            <a href="#">Gmail</a>
+                            <a href="#">Images</a>
+                            {{-- <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-user-edit me-sm-1 text-dark"></i>
+                            </div>
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-user-edit me-sm-1 text-dark"></i>
+                            </div> --}}
+                            {{-- <span class="material-icons header__apps"> apps </span>
+                            <span class="material-icons"> account_circle </span> --}}
+                        </div>
+                    </div>
+                    <!-- Header Ends -->
+
+                    <!-- Main Body Starts -->
+                    <div class="mainBody mb-3">
+                        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+                            alt="Google Logo" />
+
+                        <!-- Search Starts -->
+                        <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <div class="search mt-3">
+                                <div class="col-xl-8 m-auto">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="carian_teks">
+                                        <span class="input-group-text"><i
+                                                class="fas fa-microphone me-sm-1 text-dark"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="search__buttons">
+                                    <button type="submit">Google Search</button>
+                                    <button>I'm Feeling Lucky</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
