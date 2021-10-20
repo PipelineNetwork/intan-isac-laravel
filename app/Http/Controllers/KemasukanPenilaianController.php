@@ -34,11 +34,11 @@ class KemasukanPenilaianController extends Controller
                     'calon'=>$calon,
                     'id_penilaian'=>$id_penilaian
                 ]);
-            }else{
-                alert("Anda tiada dalam senarai calon penilaian untuk id ini");
-                return redirect('/kemasukan-id');
             }
         }
+
+        alert("Anda tiada dalam senarai calon penilaian untuk id ini");
+        return redirect('/kemasukan-id');
     }
 
     public function kemasukan_penilaian($id_penilaian, $soalan){
