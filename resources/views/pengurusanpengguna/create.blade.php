@@ -95,7 +95,7 @@
                                             <?php
                                         if(Auth::user()->user_group_id != '3'){
                                             ?>
-                                            <option value="5">Calon</option>
+                                            {{-- <option value="5">Calon</option> --}}
                                             <option value="6">Pegawai Korporat</option>
                                             <?php
                                         }

@@ -47,7 +47,8 @@
                             </ul>
                         </li>
                         <li>
-                            Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer di bawah.
+                            Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer di
+                            bawah.
                         </li>
                         <li>
                             Anda dikehendaki mencari maklumat mengenai Project Management. Gunakan Google Search Engine
@@ -65,10 +66,48 @@
                             Anda dikehendaki ke halaman sebelum dengan menekan butang kembali (Back Button).
                         </li>
                         <li>
-                            Untuk menamatkan bahagian ini, klik butang <span style="color: red">CLOSE [ X ]</span> untuk keluar dari Internet Explorer dan
+                            Untuk menamatkan bahagian ini, klik butang <span style="color: red">CLOSE [ X ]</span> untuk
+                            keluar dari Internet Explorer dan
                             klik butang TUTUP di bawah.
                         </li>
                     </ol>
+                </div>
+            </div>
+
+            <div class="card mt-5">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-2 mb-3 mt-2" style="text-align: center">
+                            <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page2" method="POST">
+                                @csrf
+                                <h3>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="btn-group" role="group">
+                                                <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
+                                                <button class="btn"
+                                                    style="border: none; background: none;" type="submit"><i
+                                                        class="fas fa-arrow-left"></i></button>
+                                                <button class="btn"
+                                                    style="border: none; background: none; " disabled><i
+                                                        class="fas fa-arrow-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </h3>
+                            </form>
+                        </div>
+                        <div class="col-xl-8 mb-3">
+                            <div class="input-group">
+                                <input class="form-control" type="text" value="{{ $jawapancalons->carian_teks }}">
+                                <span class="input-group-text"><i class="fas fa-microphone me-sm-1 text-dark"></i></span>
+                                <span class="input-group-text"><i class="fas fa-search me-sm-1 text-dark"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <img src="/assets/img/wikipedia.png" style="max-width: 100%" alt="">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

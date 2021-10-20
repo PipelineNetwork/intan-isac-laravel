@@ -28,7 +28,7 @@ class SoalankemahiraninternetController extends Controller
      */
     public function create()
     {
-        
+        return view('proses_penilaian.soalan_kemahiran.internet1');
     }
 
     /**
@@ -39,7 +39,17 @@ class SoalankemahiraninternetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $current_user = $request->user();
+
+        $jawapancalon = new Bankjawapancalon();
+
+        $jawapancalon->url_teks = $request->url_teks;
+        $jawapancalon->user_id = $current_user->id;
+        $jawapancalon->save();
+
+        return view('proses_penilaian.soalan_kemahiran.internet2', [
+            'jawapancalons' => $jawapancalon,
+        ]);
     }
 
     /**
@@ -61,7 +71,11 @@ class SoalankemahiraninternetController extends Controller
      */
     public function edit($id)
     {
-        //
+        $jawapancalon = Bankjawapancalon::find($id);
+
+        return view('proses_penilaian.soalan_kemahiran.internet2', [
+            'jawapancalons' => $jawapancalon,
+        ]);
     }
 
     /**
@@ -73,7 +87,15 @@ class SoalankemahiraninternetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $jawapancalon = Bankjawapancalon::find($id);
+
+        $jawapancalon->carian_teks = $request->carian_teks;
+
+        $jawapancalon->save();
+
+        return view('proses_penilaian.soalan_kemahiran.internet3', [
+            'jawapancalons' => $jawapancalon,
+        ]);
     }
 
     /**
@@ -85,5 +107,32 @@ class SoalankemahiraninternetController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function edit1(Request $request, $id)
+    {
+        $jawapancalon = Bankjawapancalon::find($id);
+
+        return view('proses_penilaian.soalan_kemahiran.internet4', [
+            'jawapancalons' => $jawapancalon,
+        ]);
+    }
+
+    public function edit2(Request $request, $id)
+    {
+        $jawapancalon = Bankjawapancalon::find($id);
+
+        return view('proses_penilaian.soalan_kemahiran.internet5', [
+            'jawapancalons' => $jawapancalon,
+        ]);
+    }
+
+    public function edit3(Request $request, $id)
+    {
+        $jawapancalon = Bankjawapancalon::find($id);
+
+        return view('proses_penilaian.soalan_kemahiran.internet6', [
+            'jawapancalons' => $jawapancalon,
+        ]);
     }
 }

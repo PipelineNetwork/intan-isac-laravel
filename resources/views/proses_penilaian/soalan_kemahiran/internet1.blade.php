@@ -71,17 +71,32 @@
                     </ol>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
-    <script type="text/javascript">
-        const dataTableSoalanKemahiranInternet = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_internet", {
-            searchable: true,
-            fixedHeight: true
-        });
-    </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
-@stop
+            <div class="card vh-100 mt-5">
+                <div class="card-body">
+                    <form action="/soalan-kemahiran-internet" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-xl-10">
+                                <input class="form-control" type="text" name="url_teks">
+                            </div>
+                            <div class="col-xl-2 text-center">
+                                <button class="form-control" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
+                type="text/javascript"></script>
+        <script type="text/javascript">
+            const dataTableSoalanKemahiranInternet = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_internet", {
+                searchable: true,
+                fixedHeight: true
+            });
+        </script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        @include('sweet::alert')
+    @stop

@@ -95,15 +95,21 @@ Route::post('/bank-soalan-pengetahuan/subjective', [BanksoalanpengetahuanControl
 
 Route::resource('/bank-soalan-kemahiran', BanksoalankemahiranController::class);
 
-Route::get('//soalan-kemahiran-internet', function () {
-    return view('proses_penilaian.soalan_kemahiran.internet');
-});
+// Route::get('//soalan-kemahiran-internet', function () {
+//     return view('proses_penilaian.soalan_kemahiran.internet');
+// });
 
-// Route::resource('/soalan-kemahiran-internet', SoalankemahiraninternetController::class);
+Route::resource('/soalan-kemahiran-internet', SoalankemahiraninternetController::class);
 
-Route::get('/soalan-kemahiran-email', function () {
-    return view('proses_penilaian.soalan_kemahiran.email');
-});
+Route::post('/soalan-kemahiran-internet/{id}/page1', [SoalankemahiraninternetController::class, 'edit1']);
+
+Route::post('/soalan-kemahiran-internet/{id}/page2', [SoalankemahiraninternetController::class, 'edit2']);
+
+Route::post('/soalan-kemahiran-internet/{id}/page3', [SoalankemahiraninternetController::class, 'edit3']);
+
+// Route::get('/soalan-kemahiran-email', function () {
+//     return view('proses_penilaian.soalan_kemahiran.email');
+// });
 
 // Route::resource('/soalan-kemahiran-email', SoalankemahiranemailController::class);
 

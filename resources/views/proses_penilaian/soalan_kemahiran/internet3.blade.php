@@ -1,6 +1,21 @@
 @extends('base_exam')
 @section('content')
 
+    <style>
+        .btn-link {
+            border: none;
+            outline: none;
+            background: none;
+            cursor: pointer;
+            color: #0000EE;
+            padding: 0;
+            text-decoration: underline;
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+    </style>
+
     <div class="px-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -47,7 +62,8 @@
                             </ul>
                         </li>
                         <li>
-                            Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer di bawah.
+                            Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer di
+                            bawah.
                         </li>
                         <li>
                             Anda dikehendaki mencari maklumat mengenai Project Management. Gunakan Google Search Engine
@@ -65,10 +81,49 @@
                             Anda dikehendaki ke halaman sebelum dengan menekan butang kembali (Back Button).
                         </li>
                         <li>
-                            Untuk menamatkan bahagian ini, klik butang <span style="color: red">CLOSE [ X ]</span> untuk keluar dari Internet Explorer dan
+                            Untuk menamatkan bahagian ini, klik butang <span style="color: red">CLOSE [ X ]</span> untuk
+                            keluar dari Internet Explorer dan
                             klik butang TUTUP di bawah.
                         </li>
                     </ol>
+                </div>
+            </div>
+
+            <div class="card vh-100 mt-5">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-2 mb-3 mt-2" style="text-align: center">
+                            <img src="/assets/img/google.png" width="50%" alt="Google">
+                        </div>
+                        <div class="col-xl-8 mb-3">
+                            <div class="input-group">
+                                <input class="form-control" type="text" value="{{ $jawapancalons->carian_teks }}">
+                                <span class="input-group-text"><i class="fas fa-microphone me-sm-1 text-dark"></i></span>
+                                <span class="input-group-text"><i class="fas fa-search me-sm-1 text-dark"></i></span>
+                            </div>
+                            <div class="card-body pt-5">
+                                <h6>
+                                    https://en.wikipedia.org › wiki › Project_management
+                                </h6>
+                                <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page1" method="POST">
+                                    @csrf
+                                    <h3>
+                                        <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
+                                        <button type="submit" class="btn-link">Project management - Wikipedia</button>
+                                        {{-- <a style="color: blue" type="submit">Project management - Wikipedia</a> --}}
+                                    </h3>
+                                </form>
+
+                                <p>
+                                    Project management is the process of leading the work of a team to achieve all project
+                                    goals within the given constraints. This information is usually ...
+                                </p>
+                                <p>
+                                    ‎History · ‎Project management types · ‎Approaches of project... · ‎Project managers
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

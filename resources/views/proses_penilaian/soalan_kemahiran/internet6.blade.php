@@ -47,7 +47,8 @@
                             </ul>
                         </li>
                         <li>
-                            Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer di bawah.
+                            Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer di
+                            bawah.
                         </li>
                         <li>
                             Anda dikehendaki mencari maklumat mengenai Project Management. Gunakan Google Search Engine
@@ -65,10 +66,20 @@
                             Anda dikehendaki ke halaman sebelum dengan menekan butang kembali (Back Button).
                         </li>
                         <li>
-                            Untuk menamatkan bahagian ini, klik butang <span style="color: red">CLOSE [ X ]</span> untuk keluar dari Internet Explorer dan
+                            Untuk menamatkan bahagian ini, klik butang <span style="color: red">CLOSE [ X ]</span> untuk
+                            keluar dari Internet Explorer dan
                             klik butang TUTUP di bawah.
                         </li>
                     </ol>
+                </div>
+            </div>
+
+            <div class="card vh-100 mt-5">
+                <div class="card-body mt-10" style="text-align: center">
+                    <h3>Anda telah berjaya menjawab soalan di bahagian ini. Sila klik <b>Seterusnya</b> utk ke halaman
+                        bahagian soalan seterusnya.</h3>
+                    {{-- <a href="/soalan-kemahiran-email" class="btn btn-success">Seterusnya</a> --}}
+                    <a href="/profil" class="btn btn-success">Seterusnya</a>
                 </div>
             </div>
         </div>
