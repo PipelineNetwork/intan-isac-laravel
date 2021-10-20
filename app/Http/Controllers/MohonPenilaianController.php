@@ -267,22 +267,22 @@ class MohonPenilaianController extends Controller
             'sesi_id' => $sesi_id
         ]);
 
-        // if ($details == 'Tiada maklumat HRMIS dijumpai') {
-        //     // buat form
-        //     return view('mohonPenilaian.penyelaras.isi_maklumat', [
-        //         'sesi' => $sesi,
-        //         'calon' => $calon,
-        //         'sesi_id' => $sesi_id
-        //     ]);
-        // } else {
-        //     // papar maklumat
-        //     return view('mohonPenilaian.penyelaras.papar_maklumat', [
-        //         'details' => $details,
-        //         'sesi' => $sesi,
-        //         'calon' => $calon,
-        //         'sesi_id' => $sesi_id
-        //     ]);
-        // }
+        if ($details == 'Tiada maklumat HRMIS dijumpai') {
+            // buat form
+            return view('mohonPenilaian.penyelaras.isi_maklumat', [
+                'sesi' => $sesi,
+                'calon' => $calon,
+                'sesi_id' => $sesi_id
+            ]);
+        } else {
+            // papar maklumat
+            return view('mohonPenilaian.penyelaras.papar_maklumat', [
+                'details' => $details,
+                'sesi' => $sesi,
+                'calon' => $calon,
+                'sesi_id' => $sesi_id
+            ]);
+        }
     }
 
     public function kemaskini_maklumat_calon(Request $request)
