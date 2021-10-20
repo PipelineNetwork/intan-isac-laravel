@@ -18,7 +18,7 @@ class KemasukanPenilaianController extends Controller
         if($jadual == null){
             // dd("tidak sah");
             alert("Id Penilaian tidak sah");
-            return back();
+            return redirect('/kemasukan-id');
         }
 
         $calon = MohonPenilaian::where("id_sesi", $id_penilaian)->get();
@@ -35,8 +35,8 @@ class KemasukanPenilaianController extends Controller
                     'id_penilaian'=>$id_penilaian
                 ]);
             }else{
-                alert("Anda tiada dalam");
-                return back();
+                alert("Anda tiada dalam senarai calon penilaian untuk id ini");
+                return redirect('/kemasukan-id');
             }
         }
     }
