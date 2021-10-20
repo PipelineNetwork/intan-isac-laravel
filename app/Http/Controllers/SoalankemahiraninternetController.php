@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bankjawapancalon;
 
 class SoalankemahiraninternetController extends Controller
 {
@@ -13,8 +14,11 @@ class SoalankemahiraninternetController extends Controller
      */
     public function index()
     {
-        dd('sdvfa');
-        return view('proses_penilaian.soalan_kemahiran.internet');
+        $jawapancalon = Bankjawapancalon::all();
+
+        return view('proses_penilaian.soalan_kemahiran.internet', [
+            'jawapancalons' => $jawapancalon,
+        ]);
     }
 
     /**
@@ -24,7 +28,7 @@ class SoalankemahiraninternetController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
