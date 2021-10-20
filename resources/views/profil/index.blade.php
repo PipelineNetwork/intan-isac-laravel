@@ -14,18 +14,22 @@
                     <div class="h-100">
                         <h5 class="mb-1">
                             {{-- {{ $user_profils->NAMA_PESERTA }} --}}
-                            @if (isset($user_profils->NAMA_PESERTA))
-                                {{ $user_profils->NAMA_PESERTA }}
-                            @else
+                            @if ($user_profils->NAMA_PESERTA == null)
+                                {{-- {{ $user_profils->NAMA_PESERTA }} --}}
                                 {{ $user_profils->name }}
+                            @else
+                                {{-- {{ $user_profils->name }} --}}
+                                {{ $user_profils->NAMA_PESERTA }}
                             @endif
                         </h5>
                         <p class="mb-0 font-weight-bold text-sm">
                             {{-- {{ $user_profils->EMEL_PESERTA }} --}}
-                            @if (isset($user_profils->EMEL_PESERTA))
-                                {{ $user_profils->EMEL_PESERTA }}
-                            @else
+                            @if ($user_profils->EMEL_PESERTA == null)
+                                {{-- {{ $user_profils->EMEL_PESERTA }} --}}
                                 {{ $user_profils->email }}
+                            @else
+                                {{-- {{ $user_profils->email }} --}}
+                                {{ $user_profils->EMEL_PESERTA }}
                             @endif
                         </p>
                         <p class="mb-0 font-weight-bold text-sm">

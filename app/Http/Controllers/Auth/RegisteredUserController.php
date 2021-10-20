@@ -62,8 +62,7 @@ class RegisteredUserController extends Controller
 
         $user = new User();
 
-        $upper = strtoupper($request->name);
-        $user->name = $upper;
+        $user->name = strtoupper($request->name);
         $user->email = $request->email;
         $user->ministry_code = $request->ministry_code;
         $user->office_number = $request->office_number;
