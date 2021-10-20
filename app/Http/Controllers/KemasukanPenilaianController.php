@@ -49,7 +49,10 @@ class KemasukanPenilaianController extends Controller
         $soalan_penilaian = Banksoalanpengetahuan::where('id_tahap_soalan', $tahap)->get();
 
         return view('kemasukan_id.kemasukan_penilaian',[
-            'soalan_penilaian'=>$soalan_penilaian
+            'soalan_penilaian'=>$soalan_penilaian,
+            'id_penilaian'=>$id_penilaian
         ]);
     }
+
+    
 }
