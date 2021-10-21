@@ -112,7 +112,7 @@ Route::post('/soalan-kemahiran-internet/{id}/page3', [SoalankemahiraninternetCon
 //     return view('proses_penilaian.soalan_kemahiran.email');
 // });
 
-// Route::resource('/soalan-kemahiran-email', SoalankemahiranemailController::class);
+Route::resource('/soalan-kemahiran-email', SoalankemahiranemailController::class);
 
 // Route::get('change-password', 'ChangePasswordController@index');
 
