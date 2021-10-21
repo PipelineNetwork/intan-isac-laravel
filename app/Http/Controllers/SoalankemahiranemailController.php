@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bankjawapancalon;
 
 class SoalankemahiranemailController extends Controller
 {
@@ -13,7 +14,11 @@ class SoalankemahiranemailController extends Controller
      */
     public function index()
     {
-        return view('proses_penilaian.soalan_kemahiran.email');
+        $jawapancalon = Bankjawapancalon::all();
+
+        return view('proses_penilaian.soalan_kemahiran.email', [
+            'jawapancalons' => $jawapancalon
+        ]);
     }
 
     /**
@@ -23,7 +28,7 @@ class SoalankemahiranemailController extends Controller
      */
     public function create()
     {
-        //
+        return view('proses_penilaian.soalan_kemahiran.email1');
     }
 
     /**
@@ -34,7 +39,23 @@ class SoalankemahiranemailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $current_user = $request->user();
+
+        $jawapancalon = new Bankjawapancalon();
+
+        $jawapancalon->input_to = $request->input_to;
+        $jawapancalon->input_subject = $request->input_subject;
+        $jawapancalon->input_mesej = $request->input_mesej;
+        $jawapancalon->user_id = $current_user->id;
+        if (!empty($request->file('fail_upload'))) {
+            $muat_naik_fail = $request->file('fail_upload')->store('jawapancalon');
+            $jawapancalon->fail_upload = $muat_naik_fail;
+        }
+        $jawapancalon->save();
+
+        return view('proses_penilaian.soalan_kemahiran.email2', [
+            'jawapancalons' => $jawapancalon
+        ]);
     }
 
     /**

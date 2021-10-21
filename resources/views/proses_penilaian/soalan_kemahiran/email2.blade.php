@@ -44,7 +44,7 @@
                             Anda dikehendaki klik pada butang Microsoft Outlook di bawah untuk memulakan aplikasi Emel
                             Microsoft Outlook.
                             <ul class="mt-2">
-                                <a class="btn btn-success" href="/soalan-kemahiran-email/create">Microsoft Outlook <span class="btn-inner--icon ml-2"><i class="fab fa-microsoft"></i></span></a>
+                                <a class="btn btn-success" href="/soalan-kemahiran-email/create">Microsoft Outlook</a>
                             </ul>
                         </li>
                         <li>
@@ -79,9 +79,19 @@
                         </ul>
                         </li>
                         <li>
-                            Hantarkan (Send) emel tersebut dan klik butang <span style="color: red">CLOSE [ X ]</span> di bawah.
+                            Hantarkan (Send) emel tersebut dan klik butang <span style="color: red">CLOSE [ X ]</span> di
+                            bawah.
                         </li>
                     </ol>
+                </div>
+            </div>
+
+            <div class="card vh-100 mt-5">
+                <div class="card-body mt-10" style="text-align: center">
+                    <h3>Anda telah berjaya menjawab soalan di bahagian ini. Sila klik <b>Seterusnya</b> utk ke halaman
+                        bahagian soalan seterusnya.</h3>
+                    {{-- <a href="/soalan-kemahiran-email" class="btn btn-success">Seterusnya</a> --}}
+                    <a href="/profil" class="btn btn-success">Seterusnya</a>
                 </div>
             </div>
         </div>
