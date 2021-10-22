@@ -8,12 +8,21 @@ use Illuminate\Http\Request;
 class BankjawapanpengetahuanController extends Controller
 {
     public function jawapan_calon(Request $request, $id_penilaian){
-        // dd($request->all(), $id_penilaian);
-        // $jawapans = $request->all();
-        // dd($jawapan);
-        // foreach($jawapans as $key=>$jawapan){
-        //     dd($jawapans[$key]);
+        // dd($request->all());
+        
+        $jawapans = $request->all();
+        $bilangan = count($jawapans);
+        // dd($bilangan);
+        // dd($jawapans['soalan_0']);
+
+        // for($i=0;$i<$bilangan-1; $i++){
+        //     if($jawapans['soalan_'.$i]){
+        //         $jawapans = $jawapans['soalan_'.$i];
+                
+        //     }
         // }
+        
+        
         return redirect('/kemasukan-id')->with('success', 'Tahniah, anda selesai menjawab');
     }
     /**
