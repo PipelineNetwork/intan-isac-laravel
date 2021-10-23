@@ -75,7 +75,7 @@
                                 <label for="user_group_id">Peranan :</label>
                                 <div class="form-group">
                                     <select class="form-control mb-3" type="text" name="user_group_id" id="pilih1" required>
-                                        <<option hidden selected> Sila Pilih </option>
+                                        <option hidden selected> Sila Pilih </option>
                                             <?php
                                         if(Auth::user()->user_group_id == '1'){
                                             ?>
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                             <div id="pilih2" style="display:none" class="col-6">
-                                <label for="">Kod kementerian :</label>
+                                <label for="">Kementerian/Jabatan :</label>
                                 <div class="input-group">
                                     <select class="form-control mb-3 hide" name="ministry_code" required>
                                         <option hidden selected> Sila Pilih </option>
@@ -351,7 +351,9 @@
                             <div class="col-6">
                                 <label for="">No Kad Pengenalan :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="text" name="nric" required maxlength="12" size="12">
+                                    <input class="form-control mb-3" type="text" name="nric" required maxlength="12"
+                                        size="12"
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                 </div>
                             </div>
                             <div class="col-6">

@@ -16,7 +16,7 @@ class PenggunaController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('updated_at', 'desc')->get();;
             
         return view('pengurusanpengguna.index',[
              'users'=> $users,
@@ -44,7 +44,12 @@ class PenggunaController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'nric' => 'required|string|max:255|unique:users',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'user_group_id' => 'required'
+        ]);
         
         $user = new User;
         $user ->name = $request->name;

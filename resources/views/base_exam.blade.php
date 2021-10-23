@@ -99,8 +99,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     {{-- ck editor --}}
-
-    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+    {{-- <script src="/ckeditor/skins/office2013"></script> --}}
+    {{-- <script src="/ckeditor/ckeditor.js"></script> --}}
+    {{-- <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script> --}}
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script> --}}
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -191,7 +193,7 @@
                                     @csrf
                                     <a class="dropdown-item border-radius-md" href="#"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    this.closest('form').submit();">
                                         <div class="d-flex py-1">
 
                                             {{ __('Log Keluar') }}

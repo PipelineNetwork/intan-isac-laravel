@@ -34,58 +34,6 @@
         </nav>
 
         <div class="container-fluid pb-3">
-            <div class="card mb-4">
-                <div class="card-header" style="background-color:#FFA500;">
-                    <h4>Sila jawab semua soalan.</h4>
-                </div>
-                <div class="card-body">
-                    <ol>
-                        <li>
-                            Anda dikehendaki klik pada butang Microsoft Outlook di bawah untuk memulakan aplikasi Emel
-                            Microsoft Outlook.
-                            <ul class="mt-2">
-                                <a class="btn btn-success" href="/soalan-kemahiran-email/create">Microsoft Outlook</a>
-                            </ul>
-                        </li>
-                        <li>
-                            Anda dikehendaki menghantar emel ke alamat <u>isac@intanbk.intan.my</u>.
-                        </li>
-                        <li>
-                            Sila <b>kepilkan (Attach)</b> salah satu gambar yang terdapat dalam folder Pictures.
-                        </li>
-                        <li>
-                            Pastikan emel tersebut mengandungi :-
-                            <ul>
-                                <li>
-                                    Cc : (kosongkan)
-                                </li>
-                                <li>
-                                    Subject : Penilaian ISAC
-                                </li>
-                            </ul>
-                        <li>
-                            Taipkan dalam kandungan mesej anda maklumat berikut :
-                        </li>
-                        <ul>
-                            <li>
-                                Tuan,
-                            </li>
-                            <li>
-                                Disertakan dokumen seperti diarahkan.
-                            </li>
-                            <li>
-                                Sekian terima kasih.
-                            </li>
-                        </ul>
-                        </li>
-                        <li>
-                            Hantarkan (Send) emel tersebut dan klik butang <span style="color: red">CLOSE [ X ]</span> di
-                            bawah.
-                        </li>
-                    </ol>
-                </div>
-            </div>
-
             <div class="card mt-5">
                 <div class="card-body bg-secondary" style="border-radius: 15px">
                     <form action="/soalan-kemahiran-email" method="POST" enctype="multipart/form-data">
@@ -98,8 +46,9 @@
                                     </div>
                                     <div class="col-lg-2 m-0 p-0 d-flex">
                                         <label class="btn form-control text-dark p-0 m-0" style="background-color: #BFBFBF">
-                                            <i class="fas fa-paperclip fa-3x mt-4 mb-2"></i><br> Attach File<input type="file"
-                                                style="display: none; border-radius: 0 !important;" class="form-control" hidden name="fail_upload">
+                                            <i class="fas fa-paperclip fa-3x mt-4 mb-2"></i><br> Attach File<input
+                                                type="file" style="display: none; border-radius: 0 !important;"
+                                                class="form-control" hidden name="fail_upload" id="banner-btn1">
                                         </label>
                                     </div>
                                 </div>
@@ -132,7 +81,10 @@
                             <div class="col-xl-10">
                                 <input class="form-control form-control-sm" id="input-to" type="text" name="input_to">
                                 <input class="form-control form-control-sm" id="input-cc" type="text">
-                                <input class="form-control form-control-sm" id="input-subject" type="text" name="input_subject">
+                                <input class="form-control form-control-sm" id="input-subject" type="text"
+                                    name="input_subject">
+
+                                <span id="banner-chosen1" class="mt-1 text-white"></span>
                             </div>
                             <div class="col-xl-12 mt-2">
                                 <textarea class="form-control" name="input_mesej" rows="15"></textarea>
@@ -154,4 +106,14 @@
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
+
+    <script>
+        const bannerBtn1 = document.getElementById('banner-btn1');
+
+        const bannerChosen1 = document.getElementById('banner-chosen1');
+
+        bannerBtn1.addEventListener('change', function() {
+            bannerChosen1.textContent = this.files[0].name
+        })
+    </script>
 @stop

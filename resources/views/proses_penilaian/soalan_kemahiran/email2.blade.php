@@ -34,64 +34,13 @@
         </nav>
 
         <div class="container-fluid pb-3">
-            <div class="card mb-4">
-                <div class="card-header" style="background-color:#FFA500;">
-                    <h4>Sila jawab semua soalan.</h4>
-                </div>
-                <div class="card-body">
-                    <ol>
-                        <li>
-                            Anda dikehendaki klik pada butang Microsoft Outlook di bawah untuk memulakan aplikasi Emel
-                            Microsoft Outlook.
-                            <ul class="mt-2">
-                                <a class="btn btn-success" href="/soalan-kemahiran-email/create">Microsoft Outlook</a>
-                            </ul>
-                        </li>
-                        <li>
-                            Anda dikehendaki menghantar emel ke alamat <u>isac@intanbk.intan.my</u>.
-                        </li>
-                        <li>
-                            Sila <b>kepilkan (Attach)</b> salah satu gambar yang terdapat dalam folder Pictures.
-                        </li>
-                        <li>
-                            Pastikan emel tersebut mengandungi :-
-                            <ul>
-                                <li>
-                                    Cc : (kosongkan)
-                                </li>
-                                <li>
-                                    Subject : Penilaian ISAC
-                                </li>
-                            </ul>
-                        <li>
-                            Taipkan dalam kandungan mesej anda maklumat berikut :
-                        </li>
-                        <ul>
-                            <li>
-                                Tuan,
-                            </li>
-                            <li>
-                                Disertakan dokumen seperti diarahkan.
-                            </li>
-                            <li>
-                                Sekian terima kasih.
-                            </li>
-                        </ul>
-                        </li>
-                        <li>
-                            Hantarkan (Send) emel tersebut dan klik butang <span style="color: red">CLOSE [ X ]</span> di
-                            bawah.
-                        </li>
-                    </ol>
-                </div>
-            </div>
 
             <div class="card vh-100 mt-5">
                 <div class="card-body mt-10" style="text-align: center">
-                    <h3>Anda telah berjaya menjawab soalan di bahagian ini. Sila klik <b>Seterusnya</b> utk ke halaman
-                        bahagian soalan seterusnya.</h3>
-                    {{-- <a href="/soalan-kemahiran-email" class="btn btn-success">Seterusnya</a> --}}
-                    <a href="/profil" class="btn btn-success">Seterusnya</a>
+                    <h3>Anda telah berjaya menjawab soalan di bahagian ini. Sila klik <b>Tutup</b> untuk menutup halaman.
+                    </h3>
+                    <button class="btn btn-info" onclick="windowClose();">Tutup</button>
+                    {{-- <a class="btn btn-info" href="javascript:close_window();">Tutup</a> --}}
                 </div>
             </div>
         </div>
@@ -107,4 +56,11 @@
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
+
+    <script language="javascript" type="text/javascript">
+        function windowClose() {
+            window.open('', '_parent', '');
+            window.close();
+        }
+    </script>
 @stop

@@ -1430,36 +1430,37 @@ Coded by www.creative-tim.com
                                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
+                                    <label>No. Kad Pengenalan</label>
+                                    <div class="mb-3">
+                                        <input id="nric" class="form-control" type="text" name="nric" required autofocus
+                                            maxlength="12" size="12"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
+                                    </div>
                                     <label>Nama</label>
                                     <div class="mb-3">
                                         <input id="name" class="form-control" type="text" name="name"
-                                            :value="old('name')" style="text-transform: uppercase" required autofocus>
+                                            :value="old('name')" style="text-transform: uppercase" required>
                                     </div>
                                     <label>E-mel</label>
                                     <div class="mb-3">
-                                        <x-input id="email" class="form-control" type="email" name="email"
+                                        <input id="email" class="form-control" type="email" name="email"
                                             :value="old('email')" required />
-                                    </div>
-                                    <label>No. Kad Pengenalan</label>
-                                    <div class="mb-3">
-                                        <x-input id="nric" class="form-control" type="text" name="nric" required
-                                            maxlength="12" size="12"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                                     </div>
                                     <label>Kata Laluan</label>
                                     <div class="mb-3">
-                                        <x-input id="password" class="form-control" type="password" name="password"
+                                        <input id="password" class="form-control" type="password" name="password"
                                             required autocomplete="new-password" minlength="8" />
                                     </div>
                                     <label>Pengesahan Kata Laluan</label>
                                     <div class="mb-3">
-                                        <x-input id="password_confirmation" class="form-control" type="password"
+                                        <input id="password_confirmation" class="form-control" type="password"
                                             name="password_confirmation" required minlength="8" />
                                     </div>
 
                                     <div class="text-center">
-                                        <x-button class="btn bg-gradient-warning w-100 mt-4 mb-0">
+                                        <button class="btn bg-gradient-warning w-100 mt-4 mb-0">
                                             {{ __('Daftar') }}
-                                        </x-button>
+                                        </button>
                                     </div>
                                 </form>
                             </div>

@@ -49,55 +49,15 @@
         </nav>
 
         <div class="container-fluid pb-3">
-            <div class="card mb-4">
-                <div class="card-header" style="background-color:#FFA500;">
-                    <h4>Sila jawab semua soalan</h4>
-                </div>
-                <div class="card-body">
-                    <ol>
-                        <li>
-                            Klik butang Google Chrome di bawah.
-                            <ul class="mt-2">
-                                <a class="btn btn-success" href="/soalan-kemahiran-internet/create">Google Chrome</a>
-                            </ul>
-                        </li>
-                        <li>
-                            Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer di
-                            bawah.
-                        </li>
-                        <li>
-                            Anda dikehendaki mencari maklumat mengenai Project Management. Gunakan Google Search Engine
-                            (GSE) untuk mencari artikel-artikel atau maklumat mengenai <b>Project Management</b>.
-                        </li>
-                        <li>
-                            Seterusnya klik kepada capaian (link) ini
-                            <ol>
-                                <li>
-                                    <b>Project management - Wikipedia, the free encyclopedia</b>
-                                </li>
-                            </ol>
-                        </li>
-                        <li>
-                            Anda dikehendaki ke halaman sebelum dengan menekan butang kembali (Back Button).
-                        </li>
-                        <li>
-                            Untuk menamatkan bahagian ini, klik butang <span style="color: red">CLOSE [ X ]</span> untuk
-                            keluar dari Internet Explorer dan
-                            klik butang TUTUP di bawah.
-                        </li>
-                    </ol>
-                </div>
-            </div>
 
-            <div class="card vh-100 mt-5">
+            <div class="card mt-5">
                 <div class="card-header" style="text-align: right">
                     <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page3" method="POST">
                         @csrf
-                        <h3>
+                        <h4>
                             <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
-                            <button class="btn btn-danger" type="submit"><i
-                                    class="fas fa-times"></i></button>
-                        </h3>
+                            <button class="btn btn-danger" type="submit"><i class="fas fa-times"></i></button>
+                        </h4>
                     </form>
                 </div>
                 <div class="card-body">
@@ -112,25 +72,79 @@
                                 <span class="input-group-text"><i class="fas fa-search me-sm-1 text-dark"></i></span>
                             </div>
                             <div class="card-body pt-5">
-                                <h6>
-                                    https://en.wikipedia.org › wiki › Project_management
-                                </h6>
-                                <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page1" method="POST">
-                                    @csrf
-                                    <h3>
-                                        <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
-                                        <button type="submit" class="btn-link">Project management - Wikipedia</button>
-                                        {{-- <a style="color: blue" type="submit">Project management - Wikipedia</a> --}}
-                                    </h3>
-                                </form>
+                                <div class="mb-5">
+                                    <h6>
+                                        https://en.wikipedia.org › wiki › Project_management
+                                    </h6>
+                                    <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page1"
+                                        method="POST">
+                                        @csrf
+                                        <h4>
+                                            <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
+                                            <button type="submit" class="btn-link">Project management -
+                                                Wikipedia</button>
+                                            {{-- <a style="color: blue" type="submit">Project management - Wikipedia</a> --}}
+                                        </h4>
+                                    </form>
 
-                                <p>
-                                    Project management is the process of leading the work of a team to achieve all project
-                                    goals within the given constraints. This information is usually ...
-                                </p>
-                                <p>
-                                    ‎History · ‎Project management types · ‎Approaches of project... · ‎Project managers
-                                </p>
+                                    <p>
+                                        Project management is the process of leading the work of a team to achieve all
+                                        project
+                                        goals within the given constraints. This information is usually ...
+                                    </p>
+                                    <p>
+                                        ‎History · ‎Project management types · ‎Approaches of project... · ‎Project managers
+                                    </p>
+                                </div>
+
+                                <div class="mb-5">
+                                    <h6>
+                                        https://www.pmi.org › About Us › Learn About PMI
+                                    </h6>
+                                    <h4>
+                                        <button type="submit" class="btn-link">What is Project Management |
+                                            PMI</button>
+                                    </h4>
+
+
+                                    <p>
+                                        Project management is the use of specific knowledge, skills, tools and techniques to
+                                        deliver something of value to people. The development of software for ...
+                                    </p>
+                                    <p>
+                                        ‎‎Project Professionals · ‎Core Values · ‎Founders
+                                    </p>
+                                </div>
+
+                                <div class="mb-5">
+                                    <h6>
+                                        https://www.investopedia.com › ... › Business Essentials
+                                    </h6>
+                                    <h4>
+                                        <button type="submit" class="btn-link">Project Management Definition -
+                                            Investopedia</button>
+                                    </h4>
+
+                                    <p>
+                                        Project management involves the planning and organization of a company's resources
+                                        to move a specific task, event, or duty towards completion.
+                                    </p>
+                                </div>
+
+                                <div class="mb-5">
+                                    <h6>
+                                        https://www.microsoft.com › en-my › microsoft-365
+                                    </h6>
+                                    <h4>
+                                        <button type="submit" class="btn-link">Project Management Software | Microsoft
+                                            Project</button>
+                                    </h4>
+
+                                    <p>
+                                        Easily plan projects and collaborate from virtually anywhere with the right tools
+                                        for project managers, project teams, and decision makers.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

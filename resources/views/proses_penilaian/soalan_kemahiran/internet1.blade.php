@@ -34,7 +34,7 @@
         </nav>
 
         <div class="container-fluid pb-3">
-            <div class="card mb-4">
+            {{-- <div class="card mb-4">
                 <div class="card-header" style="background-color:#FFA500;">
                     <h4>Sila jawab semua soalan</h4>
                 </div>
@@ -70,14 +70,17 @@
                         </li>
                     </ol>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="card vh-100 mt-5">
                 <div class="card-body">
                     <form action="/soalan-kemahiran-internet" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-xl-10">
+                            <div class="col-xl-2 text-center">
+                                <img src="/assets/img/google.png" style="width: 60%" alt="Google">
+                            </div>
+                            <div class="col-xl-8">
                                 <input class="form-control" type="text" name="url_teks">
                             </div>
                             <div class="col-xl-2 text-center">
