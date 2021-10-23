@@ -239,7 +239,7 @@
                             if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
                             ?>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/permohonan/senarai">
+                                <a class="nav-link " href="/mohonpenilaian">
                                     <span class="sidenav-normal"> Senarai Permohonan </span>
                                 </a>
                             </li>
@@ -259,7 +259,7 @@
                 ?>
 
                 <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '3' || Auth::user()->user_group_id == '5')) {
+                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '5')) {
                 ?>
                 <li class="nav-item">
                     <a class="nav-link" href="/mohonpenilaian">
