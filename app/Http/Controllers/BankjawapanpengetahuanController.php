@@ -14,32 +14,35 @@ class BankjawapanpengetahuanController extends Controller
         
         $jawapans = $request->all();
         $bilangan = count($jawapans);
+        // dd($jawapans);
 
-        // for($i=0;$i<$bilangan-1; $i++){
-        //     $simpan_jawapan = new Bankjawapanpengetahuan;
-        //     if($jawapans['soalan_'.$i]){
-        //         $jawapans = $jawapans['soalan_'.$i];
-        //         foreach($jawapans as $key=>$jawapan){
-        //             if($key == 0){
-        //                 $simpan_jawapan->id_soalan_pengetahuan = $jawapan;
-        //             }else{
-        //                 $simpan_jawapan->pilihan_jawapan = $jawapan;
-        //             }
-        //         }
-        //     }
-        //     $simpan_jawapan->id_calon = Auth::user()->nric;
-        //     $jawapan_betul = Banksoalanpengetahuan::where('id', $simpan_jawapan->id_soalan_pengetahuan)->first();
-        //     $jawapan_betul = $jawapan_betul->jawapan;
-        //     if($simpan_jawapan->pilihan_jawapan == $jawapan_betul){
-        //         $simpan_jawapan->markah = 1;
-        //     }else{
-        //         $simpan_jawapan->markah = 0;
-        //     }
-        // }
-        // dd($simpan_jawapan);
+        for($i=0;$i<$bilangan-2; $i++){
+            $simpan_jawapan = new Bankjawapanpengetahuan;
+            if($jawapans['soalan_'.$i]){
+                $jawapans_calon = $jawapans['soalan_'.$i];
+                foreach($jawapans_calon as $key=>$jawapan){
+                    if($key == 0){
+                        $simpan_jawapan->id_soalan_pengetahuan = $jawapan;
+                    }else{
+                        $simpan_jawapan->pilihan_jawapan = $jawapan;
+                    }
+                }
+            }
+            $simpan_jawapan->id_penilaian = $request->id_penilaian; 
+            $simpan_jawapan->id_calon = Auth::user()->nric;
+            $jawapan_betul = Banksoalanpengetahuan::where('id', $simpan_jawapan->id_soalan_pengetahuan)->first();
+            $jawapan_betul = $jawapan_betul->jawapan;
+            $simpan_jawapan->jawapan = $jawapan_betul;
+            if($simpan_jawapan->pilihan_jawapan == $jawapan_betul){
+                $simpan_jawapan->markah = 1;
+            }else{
+                $simpan_jawapan->markah = 0;
+            }
+            $simpan_jawapan->save();
+        }
         
         
-        return redirect('/kemasukan-id')->with('success', 'Tahniah, anda selesai menjawab');
+        return redirect('/soalan-kemahiran-internet')->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
     }
     /**
      * Display a listing of the resource.

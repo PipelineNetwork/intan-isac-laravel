@@ -339,7 +339,7 @@
                             if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3' || Auth::user()->user_group_id == '4')) {
                             ?>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/id-penilaian">
+                                <a class="nav-link " href="/kemasukan-id">
                                     <span class="sidenav-normal"> Kemasukan ID Penilaian </span>
                                 </a>
                             </li>
@@ -449,7 +449,7 @@
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                             <i class="fas fa-heartbeat me-sm-1 text-dark"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Pengurusan Aduan dan Rayuan</span>
+                        <span class="nav-link-text ms-1">Aduan dan Rayuan</span>
                     </a>
                     <div class="collapse " id="aduanrayuandrop">
                         <ul class="nav ms-4 ps-3">

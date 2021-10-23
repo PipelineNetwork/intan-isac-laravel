@@ -46,6 +46,9 @@
                             </div>
 
                             @foreach ($soalan_penilaian as $index => $soalan)
+                            <?php
+                            $soalanbetul = str_replace('&nbsp;', ' ', $soalan->soalan);
+                            ?>
                                 
                                 <div class="row m-3" style="display: none;" id="{{ $index }}">
                                     @if ($soalan->muat_naik_fail != null)
@@ -59,7 +62,7 @@
 
                                         {{-- single choice --}}
                                         @if ($soalan->jenis_soalan == 'single_choice')
-                                            {{ strip_tags($soalan->soalan) }}
+                                            {{ strip_tags($soalanbetul) }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <input type="hidden" id="checktextarea">
@@ -199,21 +202,22 @@
                             <div class="row">
                                 <div class="row mt-5">
                                     <div class="col-lg-2 ">
-                                        <a class="btn btn-sm btn-outline-secondary" onclick="kembali()">kembali</a>
+                                        <a class="btn btn-sm btn-outline-secondary" style="display: none;" id="kembali" onclick="kembali()" di>kembali</a>
                                     </div>
                                     <div class="col-lg-8">
                                         <div id="q-navigation"></div>
                                     </div>
                                     <div class="col-lg-2">
-                                        <a class="btn btn-sm btn-outline-secondary" onclick="seterusnya()">seterusnya</a>
+                                        <a class="btn btn-sm btn-outline-secondary" id="seterusnya" onclick="seterusnya()">seterusnya</a>
                                     </div>
                                 </div>
+                                <input type="hidden" name="id_sesi" value="{{$id_penilaian}}">
                                 <div class="row justify-content-center mt-3 mb-0">
                                     <button type="submit" class="btn bg-gradient-success">Hantar</button>
                                 </div>
                                 <div class="row justify-content-center">
                                     <a class="btn bg-gradient-info" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">Check status</a>
+                                        data-bs-target="#exampleModal">Semak status soalan</a>
                                 </div>
                             </div>
 
@@ -256,9 +260,10 @@
         // button utk go previous slide
         // button utk go jump soalan
         var pages = []
-        var current_page = ""
+        var current_page = 0
 
         $(document).ready(function() {
+            console.log(current_page);
             var soalan_array = <?php echo $soalan_penilaian; ?>
 
             for (let i = 0; i < soalan_array.length; i++) {
@@ -267,6 +272,7 @@
 
             createQNavigator(pages);
             createQNavigator2(pages);
+            setTimeout(function(){ alert("Hello"); }, 1200000);
             $("#0").show();
 
         });
@@ -326,6 +332,18 @@
                 }
             }
 
+            if((current_page-1) == -1){
+                $("#kembali").hide();
+            }else{
+                $("#kembali").show();
+            }
+
+            if((current_page+1) == (pages.length)){
+                $("#seterusnya").hide();
+            }else{
+                $("#seterusnya").show();
+            }
+
         }
 
         function goToSoalanModal(id) {
@@ -355,8 +373,12 @@
                     }
                 }
 
-            } else {
-                // alert("page first");
+                if((current_page-1) == -1){
+                    $("#kembali").hide();
+                }
+
+                $("#seterusnya").show();
+            } else{
                 $("#kembali").hide();
             }
         }
@@ -375,7 +397,11 @@
                         $("#" + i).hide();
                     }
                 }
+                if((current_page+1) == (pages.length)){
+                    $("#seterusnya").hide();
+                }
 
+                $("#kembali").show();
             } else {
                 // alert("page last");
                 $("#seterusnya").hide();
@@ -407,7 +433,7 @@
             function updateTimer() {
                 msLeft = endTime - (+new Date);
                 if (msLeft < 1000) {
-                    element.innerHTML = "Masa yang dicadangkan untuk menjawab soalan pengetahuan telah tamat.";
+                    element.innerHTML = '<h5 class="text-danger text-center">Peringatan: Masa yang dicadangkan untuk menjawab soalan pengetahuan telah tamat.</h5>';
                 } else {
                     time = new Date(msLeft);
                     hours = time.getUTCHours();

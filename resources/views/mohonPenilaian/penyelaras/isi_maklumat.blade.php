@@ -84,7 +84,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control" type="text" value="{{ $calon }}" name="no_ic">
+                                        <input class="form-control form-control-sm" type="text" value="{{ $calon }}" name="no_ic">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -94,7 +94,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control" type="text" name="nama">
+                                        <input class="form-control form-control-sm" type="text" name="nama">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -104,7 +104,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control " type="date" name="tarikh_lahir">
+                                        <input class="form-control form-control-sm" type="date" name="tarikh_lahir">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -114,7 +114,13 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control" type="text" name="jantina"> <!-- buat select -->
+                                        <select class="form-control form-control-sm ml-3" name="jantina"
+                                            id="input_kod_jantina" required>
+                                            <option hidden selected value="">
+                                                Sila pilih</option>
+                                            <option value="Lelaki">Lelaki</option>
+                                            <option value="Perempuan">Perempuan</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -124,7 +130,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="jawatan_ketua_jabatan">
+                                        <input class="form-control form-control-sm" type="text" name="jawatan_ketua_jabatan">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -134,7 +140,15 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="taraf_jawatan">
+                                        <select class="form-control form-control-sm ml-3" name="taraf_jawatan"
+                                            id="input_taraf_perjawatan" required>
+                                            <option hidden selected value="">Sila pilih
+                                            </option>
+                                            @foreach ($taraf_perjawatans as $taraf_perjawatan)
+                                                <option value="{{ $taraf_perjawatan->DESCRIPTION1 }}">
+                                                    {{ $taraf_perjawatan->DESCRIPTION1 }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -144,7 +158,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control" type="date" name="tarikh_lantikan">
+                                        <input class="form-control form-control-sm" type="date" name="tarikh_lantikan">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -154,7 +168,16 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="klasifikasi_perkhidmatan">
+                                        <select class="form-control form-control-sm ml-3"
+                                            name="klasifikasi_perkhidmatan" id="input_klasifikasi_perkhidmatan"
+                                            required>
+                                            <option hidden selected value="">Sila pilih
+                                            </option>
+                                            @foreach ($klasifikasi_perkhidmatans as $klasifikasi_perkhidmatan)
+                                                <option value="{{ $klasifikasi_perkhidmatan->DESCRIPTION1 }}">
+                                                    {{ $klasifikasi_perkhidmatan->DESCRIPTION1 }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -164,7 +187,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="no_telefon_pejabat">
+                                        <input class="form-control form-control-sm " type="text" name="no_telefon_pejabat">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -174,7 +197,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="alamat1_pejabat">
+                                        <input class="form-control form-control-sm " type="text" name="alamat1_pejabat">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -184,7 +207,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="alamat2_pejabat">
+                                        <input class="form-control form-control-sm " type="text" name="alamat2_pejabat">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -194,7 +217,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="poskod_pejabat">
+                                        <input class="form-control form-control-sm " type="text" name="poskod_pejabat">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -204,7 +227,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="nama_penyelia">
+                                        <input class="form-control form-control-sm " type="text" name="nama_penyelia">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -214,7 +237,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="emel_penyelia">
+                                        <input class="form-control form-control-sm " type="text" name="emel_penyelia">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -224,7 +247,7 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="no_telefon_penyelia">
+                                        <input class="form-control form-control-sm" type="text" name="no_telefon_penyelia">
                                     </div>
                                 </div>
                                 <div class="row mt-4">

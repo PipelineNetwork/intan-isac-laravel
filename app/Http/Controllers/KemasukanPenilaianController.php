@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Jadual;
 use App\Models\MohonPenilaian;
 use App\Models\Banksoalanpengetahuan;
+use App\Models\Bankjawapanpengetahuan;
 use Illuminate\Support\Facades\Auth;
 
 class KemasukanPenilaianController extends Controller
@@ -27,6 +28,18 @@ class KemasukanPenilaianController extends Controller
         // check calon match dengan id penilaian
         foreach($calon as $calon){
             $ic_calon = $calon->no_ic;
+            
+            // check calon dah jawab ke belum
+            $id_penilaian_done = Bankjawapanpengetahuan::where('id_penilaian', $id_penilaian)->get();
+            foreach($id_penilaian_done as $check_id){
+                $id_calon_done = $check_id->id_calon;
+                if($id_calon_done == $ic_calon){
+                    alert("Anda telah menjawab pernilaian ini.");
+                    return redirect('/kemasukan-id');
+                }
+            }
+
+
             if($nric == $ic_calon){
                 // dd('jadi');
                 return view('kemasukan_id.paparan_maklumat_penilaian',[

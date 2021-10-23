@@ -273,14 +273,38 @@ class MohonPenilaianController extends Controller
 
         $GetDataXMLbyIC = new GetDataXMLbyIC();
         $details = $GetDataXMLbyIC->getDataHrmis($calon);
-        // dd($details);
 
+        $kod_gelaran = Refgeneral::where('MASTERCODE', 10009)->get();
+
+        $peringkat = Refgeneral::where('MASTERCODE', 10023)->get();
+
+        $klasifikasi_perkhidmatan = Refgeneral::where('MASTERCODE', 10024)->get();
+
+        $gred_jawatan = Refgeneral::where('MASTERCODE', 10025)->get();
+
+        $taraf_perjawatan = Refgeneral::where('MASTERCODE', 10026)->get();
+
+        $jenis_perkhidmatan = Refgeneral::where('MASTERCODE', 10027)->get();
+
+        $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
+
+        $negeri = Refgeneral::where('MASTERCODE', 10021)->get();
+        
         if ($details == 'Tiada maklumat HRMIS dijumpai') {
             // buat form
             return view('mohonPenilaian.penyelaras.isi_maklumat', [
                 'sesi' => $sesi,
                 'calon' => $calon,
-                'sesi_id' => $sesi_id
+                'sesi_id' => $sesi_id,
+                
+                'kod_gelarans' => $kod_gelaran,
+                'peringkats' => $peringkat,
+                'klasifikasi_perkhidmatans' => $klasifikasi_perkhidmatan,
+                'gred_jawatans' => $gred_jawatan,
+                'taraf_perjawatans' => $taraf_perjawatan,
+                'jenis_perkhidmatans' => $jenis_perkhidmatan,
+                'kementerians' => $kementerian,
+                'negeris' => $negeri,
             ]);
         } else {
             // papar maklumat
