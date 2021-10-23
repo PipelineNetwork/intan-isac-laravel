@@ -18,6 +18,7 @@ use App\Http\Controllers\BankjawapankemahiranController;
 use App\Http\Controllers\BankjawapancalonController;
 use App\Http\Controllers\SoalankemahiraninternetController;
 use App\Http\Controllers\SoalankemahiranemailController;
+use App\Http\Controllers\SoalankemahiranwordController;
 use App\Http\Controllers\KemasukanPenilaianController;
 
 use Illuminate\Support\Facades\Route;
@@ -113,6 +114,8 @@ Route::post('/soalan-kemahiran-internet/{id}/page3', [SoalankemahiraninternetCon
 // });
 
 Route::resource('/soalan-kemahiran-email', SoalankemahiranemailController::class);
+
+Route::resource('/soalan-kemahiran-word', SoalankemahiranwordController::class);
 
 // Route::get('change-password', 'ChangePasswordController@index');
 

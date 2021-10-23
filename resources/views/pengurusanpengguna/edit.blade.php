@@ -65,7 +65,7 @@
                         <label for="user_group_id">Peranan :</label>
                         <div class="form-group">
                             <select class="form-control mb-3" type="text" name="user_group_id" id="pilih1" required>
-                                <<option hidden selected>
+                                <option hidden selected>
                                     @if ($user['user_group_id'] == 1)
                                         Pentadbir Sistem
                                     @elseif ($user['user_group_id'] == 2)

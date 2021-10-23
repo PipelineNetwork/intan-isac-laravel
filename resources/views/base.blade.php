@@ -395,6 +395,12 @@
                                                 <span class="sidenav-normal"> Emails </span>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link "
+                                                href="/soalan-kemahiran-word">
+                                                <span class="sidenav-normal"> Microsoft Words </span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

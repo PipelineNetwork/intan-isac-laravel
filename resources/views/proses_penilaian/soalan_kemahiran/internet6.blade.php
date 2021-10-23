@@ -34,52 +34,13 @@
         </nav>
 
         <div class="container-fluid pb-3">
-            <div class="card mb-4">
-                <div class="card-header" style="background-color:#FFA500;">
-                    <h4>Sila jawab semua soalan</h4>
-                </div>
-                <div class="card-body">
-                    <ol>
-                        <li>
-                            Klik butang Google Chrome di bawah.
-                            <ul class="mt-2">
-                                <a class="btn btn-success" href="/soalan-kemahiran-internet/create">Google Chrome</a>
-                            </ul>
-                        </li>
-                        <li>
-                            Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer di
-                            bawah.
-                        </li>
-                        <li>
-                            Anda dikehendaki mencari maklumat mengenai Project Management. Gunakan Google Search Engine
-                            (GSE) untuk mencari artikel-artikel atau maklumat mengenai <b>Project Management</b>.
-                        </li>
-                        <li>
-                            Seterusnya klik kepada capaian (link) ini
-                            <ol>
-                                <li>
-                                    <b>Project management - Wikipedia, the free encyclopedia</b>
-                                </li>
-                            </ol>
-                        </li>
-                        <li>
-                            Anda dikehendaki ke halaman sebelum dengan menekan butang kembali (Back Button).
-                        </li>
-                        <li>
-                            Untuk menamatkan bahagian ini, klik butang <span style="color: red">CLOSE [ X ]</span> untuk
-                            keluar dari Internet Explorer dan
-                            klik butang TUTUP di bawah.
-                        </li>
-                    </ol>
-                </div>
-            </div>
 
             <div class="card vh-100 mt-5">
                 <div class="card-body mt-10" style="text-align: center">
-                    <h3>Anda telah berjaya menjawab soalan di bahagian ini. Sila klik <b>Seterusnya</b> utk ke halaman
-                        bahagian soalan seterusnya.</h3>
-                    {{-- <a href="/soalan-kemahiran-email" class="btn btn-success">Seterusnya</a> --}}
-                    <a href="/profil" class="btn btn-success">Seterusnya</a>
+                    <h3>Anda telah berjaya menjawab soalan di bahagian ini. Sila klik <b>Tutup</b> untuk menutup halaman.
+                    </h3>
+                    <button class="btn btn-info" onclick="windowClose();">Tutup</button>
+                    {{-- <a class="btn btn-info" href="javascript:close_window();">Tutup</a> --}}
                 </div>
             </div>
         </div>
@@ -95,4 +56,11 @@
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
+
+    <script language="javascript" type="text/javascript">
+        function windowClose() {
+            window.open('', '_parent', '');
+            window.close();
+        }
+    </script>
 @stop

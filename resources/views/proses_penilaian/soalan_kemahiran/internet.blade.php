@@ -39,36 +39,46 @@
                     <h4>Sila jawab semua soalan</h4>
                 </div>
                 <div class="card-body">
-                    <ol>
-                        <li>
-                            Klik butang Google Chrome di bawah.
-                            <ul class="mt-2">
-                                <a class="btn btn-success" href="/soalan-kemahiran-internet/create">Google Chrome</a>
-                            </ul>
-                        </li>
-                        <li>
-                            Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer di bawah.
-                        </li>
-                        <li>
-                            Anda dikehendaki mencari maklumat mengenai Project Management. Gunakan Google Search Engine
-                            (GSE) untuk mencari artikel-artikel atau maklumat mengenai <b>Project Management</b>.
-                        </li>
-                        <li>
-                            Seterusnya klik kepada capaian (link) ini
-                            <ol>
-                                <li>
-                                    <b>Project management - Wikipedia, the free encyclopedia</b>
-                                </li>
-                            </ol>
-                        </li>
-                        <li>
-                            Anda dikehendaki ke halaman sebelum dengan menekan butang kembali (Back Button).
-                        </li>
-                        <li>
-                            Untuk menamatkan bahagian ini, klik butang <span style="color: red">CLOSE [ X ]</span> untuk keluar dari Internet Explorer dan
-                            klik butang TUTUP di bawah.
-                        </li>
-                    </ol>
+                    <div class="col-xl-12">
+                        <ol>
+                            <li>
+                                Klik butang Google Chrome di bawah.
+                                <ul class="mt-2">
+                                    <a class="btn btn-success" onclick="tsw_open_demo_window();">Google Chrome</a>
+                                </ul>
+                            </li>
+                            <li>
+                                Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer
+                                di bawah.
+                            </li>
+                            <li>
+                                Anda dikehendaki mencari maklumat mengenai Project Management. Gunakan Google Search Engine
+                                (GSE) untuk mencari artikel-artikel atau maklumat mengenai <b>Project Management</b>.
+                            </li>
+                            <li>
+                                Seterusnya klik kepada capaian (link) ini
+                                <ol>
+                                    <li>
+                                        <b>Project management - Wikipedia, the free encyclopedia</b>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                Anda dikehendaki ke halaman sebelum dengan menekan butang kembali (Back Button).
+                            </li>
+                            <li>
+                                Untuk menamatkan bahagian ini, klik butang <span style="color: red">TUTUP [ X ]</span> untuk
+                                keluar dari Pelayar Internet (Browser).
+                            </li>
+                            <li>
+                                Silan klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk kehalaman
+                                seterusnya.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-xl-12" style="text-align: right">
+                        <a href="/soalan-kemahiran-email" class="btn btn-success">Seterusnya</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,4 +94,10 @@
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
+
+    <script>
+        function tsw_open_demo_window() {
+            window.open("/soalan-kemahiran-internet/create");
+        }
+    </script>
 @stop

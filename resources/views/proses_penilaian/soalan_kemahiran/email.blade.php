@@ -39,49 +39,67 @@
                     <h4>Sila jawab semua soalan.</h4>
                 </div>
                 <div class="card-body">
-                    <ol>
-                        <li>
-                            Anda dikehendaki klik pada butang Microsoft Outlook di bawah untuk memulakan aplikasi Emel
-                            Microsoft Outlook.
-                            <ul class="mt-2">
-                                <a class="btn btn-success" href="/soalan-kemahiran-email/create">Microsoft Outlook <span class="btn-inner--icon ml-2"><i class="fab fa-microsoft"></i></span></a>
-                            </ul>
-                        </li>
-                        <li>
-                            Anda dikehendaki menghantar emel ke alamat <u>isac@intanbk.intan.my</u>.
-                        </li>
-                        <li>
-                            Sila <b>kepilkan (Attach)</b> salah satu gambar yang terdapat dalam folder Pictures.
-                        </li>
-                        <li>
-                            Pastikan emel tersebut mengandungi :-
-                            <ul>
-                                <li>
-                                    Cc : (kosongkan)
-                                </li>
-                                <li>
-                                    Subject : Penilaian ISAC
-                                </li>
-                            </ul>
-                        <li>
-                            Taipkan dalam kandungan mesej anda maklumat berikut :
-                        </li>
-                        <ul>
+                    <div class="col-xl-12">
+                        <ol>
                             <li>
-                                Tuan,
+                                Anda dikehendaki klik pada butang Microsoft Outlook di bawah untuk memulakan aplikasi Emel
+                                Microsoft Outlook.
+                                <ul class="mt-2">
+                                    <a class="btn btn-success" onclick="tsw_open_demo_window();">Microsoft Outlook <span
+                                            class="btn-inner--icon ml-2"><i class="fab fa-microsoft"></i></span></a>
+                                </ul>
+                                {{-- <ul class="mt-2">
+                                    <a class="btn btn-success" href="/soalan-kemahiran-email/create">Microsoft Outlook <span class="btn-inner--icon ml-2"><i class="fab fa-microsoft"></i></span></a>
+                                </ul> --}}
                             </li>
                             <li>
-                                Disertakan dokumen seperti diarahkan.
+                                Anda dikehendaki menghantar emel ke alamat <u>isac@intanbk.intan.my</u>.
                             </li>
                             <li>
-                                Sekian terima kasih.
+                                Sila <b>kepilkan (Attach)</b> salah satu gambar yang terdapat dalam folder Pictures.
                             </li>
-                        </ul>
-                        </li>
-                        <li>
-                            Hantarkan (Send) emel tersebut dan klik butang <span style="color: red">CLOSE [ X ]</span> di bawah.
-                        </li>
-                    </ol>
+                            <li>
+                                Pastikan emel tersebut mengandungi :-
+                                <ul>
+                                    <li>
+                                        Cc : (kosongkan)
+                                    </li>
+                                    <li>
+                                        Subject : Penilaian ISAC
+                                    </li>
+                                </ul>
+                            <li>
+                                Taipkan dalam kandungan mesej anda maklumat berikut :
+                            </li>
+                            <li>
+                                <ul>
+                                    <li>
+                                        Tuan,
+                                    </li>
+                                    <li>
+                                        Disertakan dokumen seperti diarahkan.
+                                    </li>
+                                    <li>
+                                        Sekian terima kasih.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                Hantarkan (Send) emel tersebut.
+                            </li>
+                            <li>
+                                Untuk menamatkan bahagian ini, klik butang <span style="color: red">TUTUP [ X ]</span> untuk
+                                keluar dari Pelayar Email.
+                            </li>
+                            <li>
+                                Silan klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk kehalaman
+                                seterusnya.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-xl-12" style="text-align: right">
+                        <a href="/soalan-kemahiran-word" class="btn btn-success">Seterusnya</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -97,4 +115,10 @@
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
+
+    <script>
+        function tsw_open_demo_window() {
+            window.open("/soalan-kemahiran-email/create");
+        }
+    </script>
 @stop

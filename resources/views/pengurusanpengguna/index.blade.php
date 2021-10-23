@@ -87,7 +87,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#modaldelete-{{ $user->id }}">
+                                    <a data-bs-toggle="modal" style="cursor: pointer" data-bs-target="#modaldelete-{{ $user->id }}">
                                         <i class="far fa-trash-alt"></i>
                                     </a>
                                     {{-- <form method="POST" action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
@@ -109,13 +109,13 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn bg-gradient-secondary"
-                                                    data-bs-dismiss="modal">Tutup</button>
+                                                    data-bs-dismiss="modal">Batal</button>
                                                 <form method="POST"
                                                     action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
                                                     @method('DELETE')
                                                     @csrf
 
-                                                    <button class="btn bg-gradient-danger" type="submit"> Hapus</button>
+                                                    <button class="btn bg-gradient-danger" style="cursor: pointer" type="submit"> Hapus</button>
                                                 </form>
                                             </div>
                                         </div>
