@@ -46,10 +46,7 @@
                             </div>
 
                             @foreach ($soalan_penilaian as $index => $soalan)
-                                <?php
-                                $soalanbetul = str_replace('<p>', '', $soalan->soalan);
-                                $soalanbetul = str_replace('</p>', '', $soalanbetul);
-                                ?>
+                                
                                 <div class="row m-3" style="display: none;" id="{{ $index }}">
                                     @if ($soalan->muat_naik_fail != null)
                                         <div class="row ">
@@ -59,8 +56,10 @@
                                         </div>
                                     @endif
                                     <div class="col">
+
+                                        {{-- single choice --}}
                                         @if ($soalan->jenis_soalan == 'single_choice')
-                                            {{ $soalanbetul }}
+                                            {{ strip_tags($soalan->soalan) }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <input type="hidden" id="checktextarea">
@@ -98,8 +97,10 @@
                                                         for="customRadio4">{{ $soalan->pilihan_jawapan3 }}</label>
                                                 </div>
                                             @endif
+
+                                        {{-- true_orfalse --}}
                                         @elseif($soalan->jenis_soalan == 'true_or_false')
-                                            {{ $soalanbetul }}
+                                            {{ $soalan->soalan }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-check mb-0">
@@ -112,8 +113,10 @@
                                                     name="soalan_{{ $index }}[]" id="customRadio2" value="False">
                                                 <label class="custom-control-label" for="customRadio2">Salah</label>
                                             </div>
+
+                                        {{-- fill in the blank --}}
                                         @elseif($soalan->jenis_soalan == 'fill_in_the_blank')
-                                            {{ $soalanbetul }}
+                                            {{ $soalan->soalan }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -121,8 +124,10 @@
                                                 <input class="form-control" type="text" id="fill_in_the_blank"
                                                     name="soalan_{{ $index }}[]">
                                             </div>
+
+                                        {{-- multiple choice --}}
                                         @elseif($soalan->jenis_soalan == 'multiple_choice')
-                                            {{ $soalanbetul }}
+                                            {{ $soalan->soalan }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -162,8 +167,10 @@
                                                     </div>
                                                 @endif
                                             </div>
+
+                                         {{-- ranking --}}
                                         @elseif($soalan->jenis_soalan == 'ranking')
-                                            {{ $soalanbetul }}
+                                            {{ $soalan->soalan }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -171,8 +178,10 @@
                                                 <input class="form-control" type="text"
                                                     name="soalan_{{ $index }}[]">
                                             </div>
+
+                                        {{-- subjective --}}
                                         @elseif($soalan->jenis_soalan == 'subjective')
-                                            {{ $soalanbetul }}
+                                            {{ $soalan->soalan }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -181,6 +190,8 @@
                                                     name="soalan_{{ $index }}[]">
                                             </div>
                                         @endif
+
+                                        
                                     </div>
                                 </div>
 
@@ -396,7 +407,7 @@
             function updateTimer() {
                 msLeft = endTime - (+new Date);
                 if (msLeft < 1000) {
-                    element.innerHTML = "Time is up!";
+                    element.innerHTML = "Masa yang dicadangkan untuk menjawab soalan pengetahuan telah tamat.";
                 } else {
                     time = new Date(msLeft);
                     hours = time.getUTCHours();

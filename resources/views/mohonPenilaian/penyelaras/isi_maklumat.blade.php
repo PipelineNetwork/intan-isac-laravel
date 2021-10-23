@@ -42,7 +42,7 @@
                             <form action="/mohonpenilaian" method="POST">
                                 @csrf
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             ID Sesi
                                         </label><label class="float-right">:</label>
@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             ID Calon
                                         </label><label class="float-right">:</label>
@@ -66,9 +66,9 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Tarikh sesi
+                                            Tarikh Sesi
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -78,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             No MyKad/Polis/Tentera/Pasport
                                         </label><label class="float-right">:</label>
@@ -88,17 +88,17 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Nama
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="nama">
+                                        <input class="form-control" type="text" name="nama">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Tarikh lahir
                                         </label><label class="float-right">:</label>
@@ -108,17 +108,17 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Jantina
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" name="jantina"> <!-- buat select -->
+                                        <input class="form-control" type="text" name="jantina"> <!-- buat select -->
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Jawatan
                                         </label><label class="float-right">:</label>
@@ -128,7 +128,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Taraf Jawatan
                                         </label><label class="float-right">:</label>
@@ -138,7 +138,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Tarikh lantikan
                                         </label><label class="float-right">:</label>
@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Klasifikasi perkhidmatan
                                         </label><label class="float-right">:</label>
@@ -158,7 +158,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Nombor telefon pejabat
                                         </label><label class="float-right">:</label>
@@ -168,7 +168,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Alamat pejabat 1
                                         </label><label class="float-right">:</label>
@@ -178,7 +178,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Alamat pejabat 2
                                         </label><label class="float-right">:</label>
@@ -188,7 +188,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Poskod
                                         </label><label class="float-right">:</label>
@@ -198,7 +198,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Nama penyelia
                                         </label><label class="float-right">:</label>
@@ -208,7 +208,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Emel penyelia
                                         </label><label class="float-right">:</label>
@@ -218,7 +218,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-3">
+                                    <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
                                             Nombor telefon penyelia
                                         </label><label class="float-right">:</label>

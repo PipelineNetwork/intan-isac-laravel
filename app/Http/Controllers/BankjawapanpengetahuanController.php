@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bankjawapanpengetahuan;
+use App\Models\Banksoalanpengetahuan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class BankjawapanpengetahuanController extends Controller
@@ -12,15 +14,29 @@ class BankjawapanpengetahuanController extends Controller
         
         $jawapans = $request->all();
         $bilangan = count($jawapans);
-        // dd($bilangan);
-        // dd($jawapans['soalan_0']);
 
         // for($i=0;$i<$bilangan-1; $i++){
+        //     $simpan_jawapan = new Bankjawapanpengetahuan;
         //     if($jawapans['soalan_'.$i]){
         //         $jawapans = $jawapans['soalan_'.$i];
-                
+        //         foreach($jawapans as $key=>$jawapan){
+        //             if($key == 0){
+        //                 $simpan_jawapan->id_soalan_pengetahuan = $jawapan;
+        //             }else{
+        //                 $simpan_jawapan->pilihan_jawapan = $jawapan;
+        //             }
+        //         }
+        //     }
+        //     $simpan_jawapan->id_calon = Auth::user()->nric;
+        //     $jawapan_betul = Banksoalanpengetahuan::where('id', $simpan_jawapan->id_soalan_pengetahuan)->first();
+        //     $jawapan_betul = $jawapan_betul->jawapan;
+        //     if($simpan_jawapan->pilihan_jawapan == $jawapan_betul){
+        //         $simpan_jawapan->markah = 1;
+        //     }else{
+        //         $simpan_jawapan->markah = 0;
         //     }
         // }
+        // dd($simpan_jawapan);
         
         
         return redirect('/kemasukan-id')->with('success', 'Tahniah, anda selesai menjawab');
