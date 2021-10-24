@@ -137,7 +137,7 @@
                         </button>
                         <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
                             <ul class="navbar-nav navbar-nav-hover mx-auto">
-                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                {{-- <li class="nav-item dropdown dropdown-hover mx-2">
                                     <a role="button"
                                         class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
                                         id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
@@ -259,7 +259,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </li>
+                                </li> --}}
 
                                 <li class="nav-item dropdown dropdown-hover mx-2">
                                     <a role="button"
@@ -446,8 +446,8 @@
                                     </div>
                                     <label>Kata Laluan</label>
                                     <div>
-                                        <x-input id="password" class="form-control w-75" type="password"
-                                            name="password" required autocomplete="current-password" minlength="8" />
+                                        <x-input id="password" class="form-control w-75" type="password" name="password"
+                                            required autocomplete="current-password" minlength="8" />
                                     </div>
 
                                     <a href="/forgot-password" target="_blank" style="color: red">Lupa Kata Laluan?</a>
@@ -521,7 +521,9 @@
 
                         </p>
                     </div>
-                    <div class="primary text-start border-radius-lg mt-6">
+                </div>
+                <div class="col-md-6">
+                    <div class="primary text-start border-radius-lg">
                         <div class="icon">
                             <svg class="text-primary" width="25px" height="25px" viewBox="0 0 40 40" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -553,9 +555,7 @@
 
                         </p>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="primary text-start border-radius-lg">
+                    <div class="primary text-start border-radius-lg mt-6">
                         <div class="icon">
                             <svg class="text-primary" width="25px" height="25px" viewBox="0 0 42 44" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -590,7 +590,7 @@
                         </ul>
                         </p>
                     </div>
-                    <div class="primary text-start border-radius-lg mt-6">
+                    {{-- <div class="primary text-start border-radius-lg mt-6">
                         <div class="icon">
                             <svg class="text-primary" width="25px" height="25px" viewBox="0 0 52 35" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -628,7 +628,7 @@
                             <li>Jabatan Perkhidmatan Awam (JPA)</li>
                         </ul>
 
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

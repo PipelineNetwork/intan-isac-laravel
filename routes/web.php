@@ -97,10 +97,6 @@ Route::post('/bank-soalan-pengetahuan/subjective', [BanksoalanpengetahuanControl
 
 Route::resource('/bank-soalan-kemahiran', BanksoalankemahiranController::class);
 
-// Route::get('//soalan-kemahiran-internet', function () {
-//     return view('proses_penilaian.soalan_kemahiran.internet');
-// });
-
 Route::resource('/soalan-kemahiran-internet', SoalankemahiraninternetController::class);
 
 Route::post('/soalan-kemahiran-internet/{id}/page1', [SoalankemahiraninternetController::class, 'edit1']);
@@ -109,13 +105,17 @@ Route::post('/soalan-kemahiran-internet/{id}/page2', [SoalankemahiraninternetCon
 
 Route::post('/soalan-kemahiran-internet/{id}/page3', [SoalankemahiraninternetController::class, 'edit3']);
 
-// Route::get('/soalan-kemahiran-email', function () {
-//     return view('proses_penilaian.soalan_kemahiran.email');
-// });
-
 Route::resource('/soalan-kemahiran-email', SoalankemahiranemailController::class);
 
 Route::resource('/soalan-kemahiran-word', SoalankemahiranwordController::class);
+
+Route::get('/tamat-penilaian', function () {
+    return view('proses_penilaian.tamat_penilaian');
+});
+
+Route::get('/papar-keputusan', function () {
+    return view('proses_penilaian.keputusan_penilaian');
+});
 
 // Route::get('change-password', 'ChangePasswordController@index');
 

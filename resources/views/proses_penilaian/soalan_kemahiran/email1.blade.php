@@ -30,7 +30,7 @@
                 </li>
                 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Soalan Kemahiran</li>
             </ol>
-            <h6 class="font-weight-bolder">Email</h6>
+            <h6 class="font-weight-bolder">E-mel</h6>
         </nav>
 
         <div class="container-fluid pb-3">

@@ -30,7 +30,7 @@
                 </li>
                 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Soalan Kemahiran</li>
             </ol>
-            <h6 class="font-weight-bolder">Microsoft Word</h6>
+            <h6 class="font-weight-bolder">Pemprosesan Perkataan</h6>
         </nav>
 
         <div class="container-fluid pb-3">
@@ -100,7 +100,7 @@
                         </ol>
                     </div>
                     <div class="col-xl-12" style="text-align: right">
-                        <a href="/profil" class="btn btn-success">Seterusnya</a>
+                        <a href="/soalan-kemahiran-email" class="btn btn-success">Seterusnya</a>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
     <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
         type="text/javascript"></script>
     <script type="text/javascript">
-        const dataTableSoalanKemahiranEmail = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_email", {
+        const dataTableSoalanKemahiranWord = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_word", {
             searchable: true,
             fixedHeight: true
         });

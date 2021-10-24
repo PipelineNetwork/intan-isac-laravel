@@ -1,4 +1,4 @@
-@extends('base_exam')
+@extends('base')
 @section('content')
 
     <div class="px-5">
@@ -28,76 +28,22 @@
                 </li>
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Penilaian</a>
                 </li>
-                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Soalan Kemahiran</li>
+                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Keputusan Penilaian</li>
             </ol>
-            <h6 class="font-weight-bolder">Internet</h6>
+            <h6 class="font-weight-bolder">Keputusan Penilaian</h6>
         </nav>
 
         <div class="container-fluid pb-3">
-            <div class="card mb-4">
-                <div class="card-header" style="background-color:#FFA500;">
-                    <h4>Sila jawab semua soalan</h4>
-                </div>
-                <div class="card-body">
-                    <div class="col-xl-12">
-                        <ol>
-                            <li>
-                                Klik butang Google Chrome di bawah.
-                                <ul class="mt-2">
-                                    <a class="btn btn-success" onclick="tsw_open_demo_window();">Google Chrome</a>
-                                </ul>
-                            </li>
-                            <li>
-                                Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer
-                                di bawah.
-                            </li>
-                            <li>
-                                Anda dikehendaki mencari maklumat mengenai Project Management. Gunakan Google Search Engine
-                                (GSE) untuk mencari artikel-artikel atau maklumat mengenai <b>Project Management</b>.
-                            </li>
-                            <li>
-                                Seterusnya klik kepada capaian (link) ini
-                                <ol>
-                                    <li>
-                                        <b>Project management - Wikipedia, the free encyclopedia</b>
-                                    </li>
-                                </ol>
-                            </li>
-                            <li>
-                                Anda dikehendaki ke halaman sebelum dengan menekan butang kembali (Back Button).
-                            </li>
-                            <li>
-                                Untuk menamatkan bahagian ini, klik butang <span style="color: red">TUTUP [ X ]</span> untuk
-                                keluar dari Pelayar Internet (Browser).
-                            </li>
-                            <li>
-                                Silan klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk kehalaman
-                                seterusnya.
-                            </li>
-                        </ol>
-                    </div>
-                    <div class="col-xl-12" style="text-align: right">
-                        <a href="/soalan-kemahiran-word" class="btn btn-success">Seterusnya</a>
-                    </div>
+
+            <div class="card vh-100 mt-5">
+                <div class="card-body mt-10" style="text-align: center">
+                    <h3>Tahniah! Anda telah <span style="color: #82d616">lulus</span> ujian ini.
+                    </h3>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
-    <script type="text/javascript">
-        const dataTableSoalanKemahiranInternet = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_internet", {
-            searchable: true,
-            fixedHeight: true
-        });
-    </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
-
-    <script>
-        function tsw_open_demo_window() {
-            window.open("/soalan-kemahiran-internet/create");
-        }
-    </script>
 @stop
