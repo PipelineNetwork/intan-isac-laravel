@@ -1,4 +1,4 @@
-@extends('base')
+@extends('base_exam')
 @section('content')
     <div class="container-fluid py-4">
         <nav aria-label="breadcrumb">
@@ -200,25 +200,29 @@
 
                             @endforeach
                             <div class="row">
-                                <div class="row mt-5">
-                                    <div class="col-lg-2 ">
-                                        <a class="btn btn-sm btn-outline-secondary" style="display: none;" id="kembali" onclick="kembali()" di>kembali</a>
+                                <div class="col">
+                                    <div class="row mt-5">
+                                        <div class="col-lg-2 text-center">
+                                            <a class="btn btn-sm btn-outline-secondary" style="display: none;" id="kembali" onclick="kembali()" di>kembali</a>
+                                        </div>
+                                        <div class="col-lg-8 text-center">
+                                            <div id="q-navigation"></div>
+                                        </div>
+                                        <div class="col-lg-2 text-center">
+                                            <a class="btn btn-sm btn-outline-secondary" id="seterusnya" onclick="seterusnya()">seterusnya</a>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-8">
-                                        <div id="q-navigation"></div>
+                                    <input type="hidden" name="id_sesi" value="{{$id_penilaian}}">
+                                    <input type="hidden" name="masa_mula" value="{{$masa_mula}}">
+                                    <div class="row justify-content-center mt-3 mb-0">
+                                        <button type="submit" class="btn bg-gradient-success">Hantar</button>
                                     </div>
-                                    <div class="col-lg-2">
-                                        <a class="btn btn-sm btn-outline-secondary" id="seterusnya" onclick="seterusnya()">seterusnya</a>
+                                    <div class="row justify-content-center">
+                                        <a class="btn bg-gradient-info" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">Semak status soalan</a>
                                     </div>
                                 </div>
-                                <input type="hidden" name="id_sesi" value="{{$id_penilaian}}">
-                                <div class="row justify-content-center mt-3 mb-0">
-                                    <button type="submit" class="btn bg-gradient-success">Hantar</button>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <a class="btn bg-gradient-info" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">Semak status soalan</a>
-                                </div>
+                                
                             </div>
 
                         </div>
@@ -272,7 +276,7 @@
 
             createQNavigator(pages);
             createQNavigator2(pages);
-            setTimeout(function(){ alert("Hello"); }, 1200000);
+            setTimeout(function(){ alert("Masa yang dicadangkan untuk menjawab soalan pengetahuan: 20 minit telah berlalu."); }, 1200000);
             $("#0").show();
 
         });
@@ -301,7 +305,7 @@
         function createQNavigator(pages) {
             var navigator = "";
             for (let i = 0; i < pages.length; i++) {
-                navigator = navigator + `<a class="btn btn-sm px-3 btn-secondary" onclick="goToSoalan(${i})">${i+1}</a> `
+                navigator = navigator + `<a class="btn btn-sm px-3 btn-outline-secondary" onclick="goToSoalan(${i})">${i+1}</a> `
             }
 
             $("#q-navigation").append(navigator);
@@ -423,32 +427,32 @@
             }
         }
 
-        function countdown(elementName, minutes, seconds) {
-            var element, endTime, hours, mins, msLeft, time;
+        // function countdown(elementName, minutes, seconds) {
+        //     var element, endTime, hours, mins, msLeft, time;
 
-            function twoDigits(n) {
-                return (n <= 9 ? "0" + n : n);
-            }
+        //     function twoDigits(n) {
+        //         return (n <= 9 ? "0" + n : n);
+        //     }
 
-            function updateTimer() {
-                msLeft = endTime - (+new Date);
-                if (msLeft < 1000) {
-                    element.innerHTML = '<h5 class="text-danger text-center">Peringatan: Masa yang dicadangkan untuk menjawab soalan pengetahuan telah tamat.</h5>';
-                } else {
-                    time = new Date(msLeft);
-                    hours = time.getUTCHours();
-                    mins = time.getUTCMinutes();
-                    element.innerHTML = (hours ? hours + ':' + twoDigits(mins) : mins) + ':' + twoDigits(time
-                        .getUTCSeconds());
-                    setTimeout(updateTimer, time.getUTCMilliseconds() + 500);
-                }
-            }
+        //     function updateTimer() {
+        //         msLeft = endTime - (+new Date);
+        //         if (msLeft < 1000) {
+        //             element.innerHTML = '<h5 class="text-danger text-center">Peringatan: Masa yang dicadangkan untuk menjawab soalan pengetahuan telah tamat.</h5>';
+        //         } else {
+        //             time = new Date(msLeft);
+        //             hours = time.getUTCHours();
+        //             mins = time.getUTCMinutes();
+        //             element.innerHTML = (hours ? hours + ':' + twoDigits(mins) : mins) + ':' + twoDigits(time
+        //                 .getUTCSeconds());
+        //             setTimeout(updateTimer, time.getUTCMilliseconds() + 500);
+        //         }
+        //     }
 
-            element = document.getElementById(elementName);
-            endTime = (+new Date) + 2000 * (60 * minutes + seconds) + 500;
-            updateTimer();
-        }
+        //     element = document.getElementById(elementName);
+        //     endTime = (+new Date) + 2000 * (60 * minutes + seconds) + 500;
+        //     updateTimer();
+        // }
 
-        countdown("ten-countdown", 10, 0);
+        // countdown("ten-countdown", 10, 0);
     </script>
 @stop

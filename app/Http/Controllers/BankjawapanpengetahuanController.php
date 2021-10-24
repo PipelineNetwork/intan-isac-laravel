@@ -16,7 +16,7 @@ class BankjawapanpengetahuanController extends Controller
         $bilangan = count($jawapans);
         // dd($jawapans);
 
-        for($i=0;$i<$bilangan-2; $i++){
+        for($i=0;$i<$bilangan-3; $i++){
             $simpan_jawapan = new Bankjawapanpengetahuan;
             if($jawapans['soalan_'.$i]){
                 $jawapans_calon = $jawapans['soalan_'.$i];
@@ -40,7 +40,11 @@ class BankjawapanpengetahuanController extends Controller
             }
             $simpan_jawapan->save();
         }
-        
+
+
+        $masa_tamat_a = time();
+
+        $range_masa = $masa_tamat_a - $request->masa_mula;
         
         return redirect('/soalan-kemahiran-internet')->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
     }
