@@ -60,10 +60,12 @@ class KemasukanPenilaianController extends Controller
         $tahap = $sesi->KOD_TAHAP;
         $tahap = str_replace('0', '', $tahap);
         $soalan_penilaian = Banksoalanpengetahuan::where('id_tahap_soalan', $tahap)->get();
+        $masa_mula = time();
 
         return view('kemasukan_id.kemasukan_penilaian',[
             'soalan_penilaian'=>$soalan_penilaian,
-            'id_penilaian'=>$id_penilaian
+            'id_penilaian'=>$id_penilaian,
+            'masa_mula'=>$masa_mula
         ]);
     }
 

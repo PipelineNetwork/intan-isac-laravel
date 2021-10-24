@@ -218,6 +218,12 @@
             </div>
         </nav>
         <!-- End Navbar -->
+        <div class="row">
+            <div class="col text-center">
+                <div class="h5" id="timer"></div>
+            </div>
+        </div>
+        
         @yield('content')
 
         {{-- <footer class="footer pt-3  ">
@@ -280,6 +286,52 @@
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
 
+    <script type="text/javascript">
+        // properties
+        var count = 0;
+        var counter = null;
+      
+        window.onload = function() {
+          initCounter();
+        };
+      
+        function initCounter() {
+          // get count from localStorage, or set to initial value of 1000
+          count = getLocalStorage('count') || 3600000;
+          counter = setInterval(timer, 1000); //1000 will  run it every 1 second
+          console.log(count);
+        }
+      
+        function setLocalStorage(key, val) {
+          if (window.localStorage) {
+            window.localStorage.setItem(key, val);
+          }
+      
+          return val;
+        }
+      
+        function getLocalStorage(key) {
+          return window.localStorage ? window.localStorage.getItem(key) : '';
+        }
+      
+        function timer() {
+          count = setLocalStorage('count', count - 1);
+          if (count <= -1) {
+            clearInterval(counter);
+            count = setLocalStorage('count', 3600000);
+            return;
+          }
+      
+          var seconds = count % 60;
+          var minutes = Math.floor(count / 60);
+          var hours = Math.floor(minutes / 60);
+          minutes %= 60;
+          hours %= 60;
+          
+          document.getElementById("timer").innerHTML = "Masa menjawab: " + minutes +  " minit dan "   + seconds +  "  saat."; // watch for spelling
+        }
+       </script>
+       
 </body>
 
 </html>
