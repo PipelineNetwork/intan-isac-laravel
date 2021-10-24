@@ -30,7 +30,7 @@
                 </li>
                 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Soalan Kemahiran</li>
             </ol>
-            <h6 class="font-weight-bolder">Microsoft Word</h6>
+            <h6 class="font-weight-bolder">Pemprosesan Perkataan</h6>
         </nav>
 
         <div class="container-fluid pb-3">

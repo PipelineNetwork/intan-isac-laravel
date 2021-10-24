@@ -190,7 +190,7 @@
                 ?>
 
                 <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2')) {
+                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
                 ?>
                 <li class="nav-item">
                     <a class="nav-link" href="/pengurusanpengguna">
@@ -370,7 +370,7 @@
                                     <span class="sidenav-normal"> Soalan Kemahiran </span>
                                 </a>
                             </li> --}}
-                            <li class="nav-item ">
+                            {{-- <li class="nav-item ">
                                 <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false"
                                     href="#soalankemahiran">
                                     <span class="sidenav-normal"> Soalan Kemahiran <b class="caret"></b></span>
@@ -383,27 +383,21 @@
                                                 <span class="sidenav-normal"> Internet </span>
                                             </a>
                                         </li>
-                                        {{-- <li class="nav-item">
-                                            <a class="nav-link "
-                                                href="/soalan-kemahiran-words">
-                                                <span class="sidenav-normal"> Words </span>
-                                            </a>
-                                        </li> --}}
                                         <li class="nav-item">
                                             <a class="nav-link "
-                                                href="/soalan-kemahiran-email">
-                                                <span class="sidenav-normal"> Emails </span>
+                                                href="/soalan-kemahiran-word">
+                                                <span class="sidenav-normal"> Pemprosesan Perkataan </span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link "
-                                                href="/soalan-kemahiran-word">
-                                                <span class="sidenav-normal"> Microsoft Words </span>
+                                                href="/soalan-kemahiran-email">
+                                                <span class="sidenav-normal"> E-mel </span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
                             <?php
                             }
                             ?>

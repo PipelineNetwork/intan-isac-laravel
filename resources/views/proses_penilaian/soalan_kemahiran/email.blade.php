@@ -30,7 +30,7 @@
                 </li>
                 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Soalan Kemahiran</li>
             </ol>
-            <h6 class="font-weight-bolder">Email</h6>
+            <h6 class="font-weight-bolder">E-mel</h6>
         </nav>
 
         <div class="container-fluid pb-3">
@@ -89,7 +89,7 @@
                             </li>
                             <li>
                                 Untuk menamatkan bahagian ini, klik butang <span style="color: red">TUTUP [ X ]</span> untuk
-                                keluar dari Pelayar Email.
+                                keluar dari Pelayar E-mel.
                             </li>
                             <li>
                                 Silan klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk kehalaman
@@ -98,7 +98,7 @@
                         </ol>
                     </div>
                     <div class="col-xl-12" style="text-align: right">
-                        <a href="/soalan-kemahiran-word" class="btn btn-success">Seterusnya</a>
+                        <a href="/tamat-penilaian" class="btn btn-success">Seterusnya</a>
                     </div>
                 </div>
             </div>
