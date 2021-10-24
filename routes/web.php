@@ -20,6 +20,7 @@ use App\Http\Controllers\SoalankemahiraninternetController;
 use App\Http\Controllers\SoalankemahiranemailController;
 use App\Http\Controllers\SoalankemahiranwordController;
 use App\Http\Controllers\KemasukanPenilaianController;
+use App\Http\Controllers\KeputusanPenilaianController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -138,3 +139,6 @@ Route::post('/mohonpenilaian/calon/pilih_jadual', [MohonPenilaianController::cla
 Route::post('/kemasukan_id/check_id', [KemasukanPenilaianController::class, 'kemasukan_id']);
 Route::get('/kemasukan_penilaian/{id_penilaian}/{soalan}', [KemasukanPenilaianController::class, 'kemasukan_penilaian']);
 Route::post('/kemasukan_penilaian/{id_penilaian}/jawapan_calon', [BankjawapanpengetahuanController::class, 'jawapan_calon']);
+
+Route::get('/slip_keputusan', [KeputusanPenilaianController::class, 'slip_keputusan']);
+Route::get('/sijil_penilaian', [KeputusanPenilaianController::class, 'sijil_isac']);

@@ -68,7 +68,7 @@
                             <div class="card-header">
                                 <div class="row" style="text-align: center">
                                     <div class="column-side">
-                                        <img src="{{ public_path('storage/jatanegara.png') }}" alt="PGN" height="80"
+                                        <img src="{{ public_path('img/jatanegara.png') }}" alt="PGN" height="80"
                                             style="">
                                     </div>
                                     <div class="column-center">
@@ -79,7 +79,7 @@
                                             Tel:03-20847777 (20 talian),http://www.intanbk.intan.my
                                     </div>
                                     <div class="column-side">
-                                        <img src="{{ public_path('storage/intan.png') }}" alt="PGN" height="80"
+                                        <img src="{{ public_path('img/intan.png') }}" alt="PGN" height="80"
                                             style="">
                                         {{-- <p  style="font-size: 10px;">
                                             Tel	: +603-8000 8000 (1MOCC) <br>
