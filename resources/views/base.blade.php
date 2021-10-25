@@ -310,7 +310,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/semakan-jawapan">
+                                <a class="nav-link " href="/papar-keputusan">
                                     <span class="sidenav-normal"> Semakan Jawapan </span>
                                 </a>
                             </li>
@@ -356,7 +356,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/semakan-keputusan">
+                                <a class="nav-link " href="/papar-keputusan">
                                     <span class="sidenav-normal"> Semakan Keputusan </span>
                                 </a>
                             </li>

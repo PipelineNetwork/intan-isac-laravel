@@ -511,7 +511,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="">Kod kementerian :</label>
+                                        <label for="">Kementerian :</label>
                                         <div class="input-group">
                                             <input class="form-control mb-3" type="text" name="ministry_code"
                                                 value="{{ $user_profils->ministry_code }}" required>

@@ -58,9 +58,9 @@
                                     <li>
                                         Tukar jenis Font kepada Font Tahoma saiz 12
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         Line Spacing Double (2)
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         Align Justify
                                     </li>
