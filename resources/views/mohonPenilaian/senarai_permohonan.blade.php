@@ -61,18 +61,33 @@
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombor Telefon Penyelia</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        @foreach ($peserta as $key=>$peserta)
-                        <tr>
-                            <td class="text-sm font-weight-normal">{{ $key+1 }}</td>
-                            <td class="text-sm font-weight-normal">{{ $peserta['id_calon'] }}</td>
-                            <td class="text-sm font-weight-normal">{{ $peserta['nama'] }}</td>
-                            <td class="text-sm font-weight-normal">{{ $peserta['no_telefon_pejabat'] }}</td>
-                            <td class="text-sm font-weight-normal">{{ $peserta['taraf_jawatan'] }}</td>
-                            <td class="text-sm font-weight-normal">{{ $peserta['nama_penyelia'] }}</td>
-                            <td class="text-sm font-weight-normal">{{ $peserta['no_telefon_penyelia'] }}</td>
-                        </tr>
-                        @endforeach
+                        @if(Auth::user()->user_group_id == "5")
+                            @foreach ($calon_3 as $key=>$calon_3)
+                            <tr>
+                                <td class="text-sm font-weight-normal">{{ $key+1 }}</td>
+                                <td class="text-sm font-weight-normal">{{ $calon_3['id_calon'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $calon_3['nama'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $calon_3['no_telefon_pejabat'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $calon_3['taraf_jawatan'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $calon_3['nama_penyelia'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $calon_3['no_telefon_penyelia'] }}</td>
+                            </tr>
+                            @endforeach
+                        @else
+                            @foreach ($peserta as $key=>$peserta)
+                            <tr>
+                                <td class="text-sm font-weight-normal">{{ $key+1 }}</td>
+                                <td class="text-sm font-weight-normal">{{ $peserta['id_calon'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $peserta['nama'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $peserta['no_telefon_pejabat'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $peserta['taraf_jawatan'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $peserta['nama_penyelia'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $peserta['no_telefon_penyelia'] }}</td>
+                            </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

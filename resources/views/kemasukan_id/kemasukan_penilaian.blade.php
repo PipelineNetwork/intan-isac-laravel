@@ -62,7 +62,15 @@
 
                                         {{-- single choice --}}
                                         @if ($soalan->jenis_soalan == 'single_choice')
-                                            {{ strip_tags($soalanbetul) }}
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                {{ $index+1 }}. 
+                                            </div>
+                                            <div class="col">
+                                                {!! $soalanbetul !!}
+                                            </div>
+                                        </div>
+                                            
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <input type="hidden" id="checktextarea">
