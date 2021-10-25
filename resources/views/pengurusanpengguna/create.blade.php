@@ -27,7 +27,6 @@
             </li>
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pengurusan Pengguna</a>
             </li>
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;"></a></li>
             <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Daftar Pengguna</li>
         </ol>
         <h6 class="font-weight-bolder">Daftar Pengguna</h6>
@@ -74,8 +73,8 @@
                             <div class="col-6">
                                 <label for="user_group_id">Peranan :</label>
                                 <div class="form-group">
-                                    <select class="form-control mb-3" type="text" name="user_group_id" id="pilih1" required>
-                                        <option hidden selected> Sila Pilih </option>
+                                    <select class="form-control mb-3" name="user_group_id" id="pilih1" required>
+                                        <option hidden selected value=""> Sila Pilih </option>
                                             <?php
                                         if(Auth::user()->user_group_id == '1'){
                                             ?>
@@ -107,7 +106,7 @@
                                 <label for="">Kementerian/Jabatan :</label>
                                 <div class="input-group">
                                     <select class="form-control mb-3 hide" name="ministry_code" required>
-                                        <option hidden selected> Sila Pilih </option>
+                                        <option hidden selected value=""> Sila Pilih </option>
                                         <option value="361">Jabatan Ketua Menteri Sabah</option>
 
                                         <option value="481">Jabatan Ketua Menteri Sarawak
