@@ -420,7 +420,7 @@
         <div class="page-header min-vh-75">
             <div class="oblique position-absolute top-0 h-100 d-md-block d-none">
                 <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
-                    style=" filter: grayscale(100%); background-image:url('https://www.intanbk.intan.my/iportal/images/klus_imatec/kluster/imatecentrance.jpg')">
+                    style="background-image:url('https://www.intanbk.intan.my/iportal/images/klus_imatec/kluster/imatecentrance.jpg')">
                 </div>
             </div>
             <div class="container">

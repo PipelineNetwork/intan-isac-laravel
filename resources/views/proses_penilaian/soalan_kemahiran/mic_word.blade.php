@@ -68,7 +68,7 @@
                             <li>
                                 Warnakan perkataan Microsoft Office di perenggan kedua dokumen anda kepada warna Standard
                                 Color
-                                (GREEN).
+                                (Strong Red).
                             </li>
                             <li>
                                 Hitamkan (Bold) setiap perkataan XML.
