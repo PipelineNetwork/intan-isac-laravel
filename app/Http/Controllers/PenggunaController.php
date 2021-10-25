@@ -61,6 +61,8 @@ class PenggunaController extends Controller
         $user ->telephone_number = $request->telephone_number;
         $user ->user_group_id = $request->user_group_id;
         $user ->password = Hash::make($request->password);
+
+        dd($user);
         $user ->save();
         return redirect('/pengurusanpengguna');
             
