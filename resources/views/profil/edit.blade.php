@@ -416,7 +416,7 @@
                                         <div class="col-8">
                                             <select class="form-control form-control-sm ml-3" name="KOD_NEGERI"
                                                 id="input_negeri" required>
-                                                <option hidden selected value="">{{ $user_profils->KOD_NEGERI }}
+                                                <option hidden selected value="{{ $user_profils->KOD_NEGERI }}">{{ $user_profils->KOD_NEGERI }}
                                                 </option>
                                                 @foreach ($negeris as $negeri)
                                                     <option value="{{ $negeri->DESCRIPTION1 }}">
