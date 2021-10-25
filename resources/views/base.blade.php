@@ -494,7 +494,7 @@
                 ?>
 
                 <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '4' || Auth::user()->user_group_id == '6')) {
+                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '4' || Auth::user()->user_group_id == '6')) {
                 ?>
                 <li class="nav-item">
                     <a class="nav-link" href="/laporan">

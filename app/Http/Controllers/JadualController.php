@@ -24,6 +24,7 @@ class JadualController extends Controller
         $penyelaras = User::where('user_group_id', '3')->get();
         // dd($penyelaras);
         $jaduals = Jadual::orderBy('TARIKH_SESI', 'desc')
+            ->whereYear('TARIKH_SESI', '>=', 2021)
             ->get();
         return view('jadual.index', [
             'jaduals' => $jaduals,
