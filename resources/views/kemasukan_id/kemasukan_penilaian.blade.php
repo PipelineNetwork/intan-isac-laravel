@@ -227,7 +227,7 @@
                                     </div>
                                     <div class="row justify-content-center">
                                         <a class="btn bg-gradient-info" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">Semak status soalan</a>
+                                            data-bs-target="#exampleModal">Status soalan</a>
                                     </div>
                                 </div>
                                 

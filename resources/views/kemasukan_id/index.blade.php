@@ -52,7 +52,7 @@
                                         <input class="form-control" type="text" name="id_penilaian">
                                     </div>
                                     <div class="col-auto">
-                                        <button class="btn bg-gradient-success btn-sm">Semak</button>
+                                        <button class="btn bg-gradient-success btn-sm">Mula</button>
                                     </div>
                                 </div>
                             </form>
