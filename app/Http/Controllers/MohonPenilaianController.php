@@ -29,10 +29,13 @@ class MohonPenilaianController extends Controller
      */
     public function index(Request $request)
     {
+        $ic = Auth::user()->nric;
+        $calon_3 = MohonPenilaian::where('no_ic', $ic)->get();
 
         $peserta = MohonPenilaian::all();
         return view('mohonPenilaian.senarai_permohonan', [
-            'peserta' => $peserta
+            'peserta' => $peserta,
+            'calon_3'=>$calon_3
         ]);
 
         // $id_group_user = Auth::user()->user_group_id;

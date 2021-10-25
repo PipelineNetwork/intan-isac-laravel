@@ -360,11 +360,11 @@
                                     <span class="sidenav-normal"> Semakan Keputusan </span>
                                 </a>
                             </li>
-                            <li class="nav-item ">
+                            {{-- <li class="nav-item ">
                                 <a class="nav-link " href="/soalan-pengetahuan">
                                     <span class="sidenav-normal"> Soalan Pengetahuan </span>
                                 </a>
-                            </li>
+                            </li> --}}
                             {{-- <li class="nav-item ">
                                 <a class="nav-link " href="/soalan-kemahiran">
                                     <span class="sidenav-normal"> Soalan Kemahiran </span>
