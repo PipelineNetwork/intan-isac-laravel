@@ -356,7 +356,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/papar-keputusan">
+                                <a class="nav-link " href="/semakan_penilaian">
                                     <span class="sidenav-normal"> Semakan Keputusan </span>
                                 </a>
                             </li>

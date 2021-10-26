@@ -209,7 +209,7 @@
                             @endforeach
                             <div class="row">
                                 <div class="col">
-                                    <div class="row mt-5">
+                                    <div class="row mt-5 mb-2">
                                         <div class="col-lg-2 text-center">
                                             <a class="btn btn-sm btn-outline-secondary" style="display: none;" id="kembali" onclick="kembali()" di>kembali</a>
                                         </div>
@@ -222,15 +222,15 @@
                                     </div>
                                     <input type="hidden" name="id_sesi" value="{{$id_penilaian}}">
                                     <input type="hidden" name="masa_mula" value="{{$masa_mula}}">
-                                    <div class="row justify-content-center mt-3 mb-0">
-                                        <button type="submit" class="btn bg-gradient-success">Hantar</button>
-                                    </div>
-                                    <div class="row justify-content-center">
-                                        <div class="col text-end">
+
+                                    <div class="row justify-content-between px-4">
+                                        <div class="col-lg-auto">
                                             <a class="btn bg-gradient-info" data-bs-toggle="modal"
                                             data-bs-target="#exampleModal">Semak status soalan</a>
                                         </div>
-                                        
+                                        <div class="col-lg-auto">
+                                            <button type="submit" class="btn bg-gradient-success">Hantar</button>
+                                        </div>
                                     </div>
                                 </div>
                                 

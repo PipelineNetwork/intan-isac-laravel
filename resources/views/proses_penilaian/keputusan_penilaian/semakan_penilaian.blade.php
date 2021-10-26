@@ -36,16 +36,37 @@
         <div class="container-fluid pb-3">
 
             <div class="card vh-100 mt-5">
-                <div class="card-body mt-10" style="text-align: center">
-                    <h3>Tahniah! Anda telah
-                        <span style="color: #82d616">lulus</span> ujian ini.
-                    </h3>
+                <div class="card-header pb-3" style="background-color:#FFA500;">
+                    <h5 class="text-white">Semakan Keputusan Penilaian</h5>
+                </div>
+                <div class="card-body">
                     <div class="row">
-                        <div class="col text-center mt-3">
-                            <a href="/slip_keputusan" class="btn bg-gradient-success">Slip Keputusan</a>
-                            <a href="/sijil_penilaian" class="btn bg-gradient-warning">Sijil Penilaian</a>
+                        <div class="col">
+                            <h3 class="h5">Sila masukkan nombor kad pengenalan anda dan ID Penilaian yang anda daftar.</h3>
                         </div>
                     </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <form action="/semak_keputusan" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label class="form-control-label">Nombor Kad Pengenalan</label>
+                                    <input class="form-control" type="text" name="ic">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">ID Penilaian</label>
+                                    <input class="form-control" type="text" name="id_penilaian" maxlength="12">
+                                </div>
+                                <div class="row">
+                                    <div class="col text-end">
+                                        <button class="btn bg-gradient-info">Semak</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
                 </div>
                 
             </div>
