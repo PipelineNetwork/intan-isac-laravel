@@ -1,6 +1,11 @@
 @extends('base_exam')
 @section('content')
 
+    <style>
+
+
+    </style>
+
     <div class="px-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -35,59 +40,63 @@
 
         <div class="container-fluid pb-3">
 
-            <div class="card mt-5">
-                <div class="card-body bg-secondary" style="border-radius: 15px">
-                    <form action="/soalan-kemahiran-word" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="editor">Jawapan</label>
-                                    <textarea id="editor" class="form-control" name="jawapan_word">
-                                                    <p>
-                                                        Overview of Microsoft Office Word 2007
-                                                    </p>
-                                                    <p>
-                                                        Welcome to Microsoft® Office Word 2007, included in the 2007 release of the Microsoft Office system. Word 2007 is a powerful authoring program that gives you the ability to create and share professional-looking documents by combining a comprehensive set of writing tools with an easy to-use interface.
-                                                    </p>
-                                                    <p>
-                                                        Office Word 2007 helps information workers create professional-looking content more quickly than ever before. With a host of new tools, you can quickly construct documents from predefined parts and styles, as well as as compose and publish blogs directly from within Word. Advanced integration with Microsoft Office SharePoint® Server 2007 and a new XML-based file format make Office Word 2007 the ideal choice for building integrated document management solutions.
-                                                    </p>
-                                                    <p>
-                                                        This document provides an overview of Office Word 2007, with an emphasis on new and improved features. It also covers Office Word 2007 in action to demonstrate its exciting new capabilities.
-                                                    </p>
-                                                    <p>
-                                                        Create Professional-Looking Content
-                                                    </p>
-                                                    <p>
-                                                        Together with the Microsoft Office Fluent™ interface, Office Word 2007 gives you the tools you need to create professional-looking content.
-                                                    </p>
-                                                    {{-- <p>
-                                            A		The Office Fluent user interface presents the right tools to you when you need them
-                                        </p>
-                                        <p>
-                                            B		Add Building Blocks of predefined content and reduce the errors associated with copying and pasting frequently used content.
-                                        </p>
-                                        <p>
-                                            C		Quick Styles save you time by quickly formatting text and tables throughout your document.
-                                        </p>
-                                        <p>
-                                            D		Document Themes apply the same tubers, fonts, and effects to your documents for a consistent look.
-                                        </p>
-                                        <p>
-                                            E		SmartArt™ diagrams and a new charting engine help you add a professional look to documents. Shared diagramming and charting with Microsoft Office Excel® 2007 spreadsheet software and the Microsoft Office PowerPoint® 2007 presentation graphics program help ensure a consistent look across your documents, spreadsheets, and presentations.
-                                        </p>
-                                        <p>
-                                            F		The Equation Builder helps you construct editable, in-line mathematical equations using real mathematical symbols, prebuilt equations, and automatic formatting
-                                        </p> --}}
-                                                </textarea>
+            <div class="card mt-5 bg-secondary">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <div class="card-body bg-secondary" style="border-radius: 15px; max-width:700px">
+                            <form action="/soalan-kemahiran-word" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <label class="form-control-label text-white" for="editor">Jawapan</label>
+                                            <textarea id="editor" class="form-control" name="jawapan_word">
+                                                        <p>
+                                                            Overview of Microsoft Office Word 2007
+                                                        </p>
+                                                        <p>
+                                                            Welcome to Microsoft® Office Word 2007, included in the 2007 release of the Microsoft Office system. Word 2007 is a powerful authoring program that gives you the ability to create and share professional-looking documents by combining a comprehensive set of writing tools with an easy to-use interface.
+                                                        </p>
+                                                        <p>
+                                                            Office Word 2007 helps information workers create professional-looking content more quickly than ever before. With a host of new tools, you can quickly construct documents from predefined parts and styles, as well as as compose and publish blogs directly from within Word. Advanced integration with Microsoft Office SharePoint® Server 2007 and a new XML-based file format make Office Word 2007 the ideal choice for building integrated document management solutions.
+                                                        </p>
+                                                        <p>
+                                                            This document provides an overview of Office Word 2007, with an emphasis on new and improved features. It also covers Office Word 2007 in action to demonstrate its exciting new capabilities.
+                                                        </p>
+                                                        <p>
+                                                            Create Professional-Looking Content
+                                                        </p>
+                                                        <p>
+                                                            Together with the Microsoft Office Fluent™ interface, Office Word 2007 gives you the tools you need to create professional-looking content.
+                                                        </p>
+                                                                        {{-- <p>
+                                                    A		The Office Fluent user interface presents the right tools to you when you need them
+                                                </p>
+                                                <p>
+                                                    B		Add Building Blocks of predefined content and reduce the errors associated with copying and pasting frequently used content.
+                                                </p>
+                                                <p>
+                                                    C		Quick Styles save you time by quickly formatting text and tables throughout your document.
+                                                </p>
+                                                <p>
+                                                    D		Document Themes apply the same tubers, fonts, and effects to your documents for a consistent look.
+                                                </p>
+                                                <p>
+                                                    E		SmartArt™ diagrams and a new charting engine help you add a professional look to documents. Shared diagramming and charting with Microsoft Office Excel® 2007 spreadsheet software and the Microsoft Office PowerPoint® 2007 presentation graphics program help ensure a consistent look across your documents, spreadsheets, and presentations.
+                                                </p>
+                                                <p>
+                                                    F		The Equation Builder helps you construct editable, in-line mathematical equations using real mathematical symbols, prebuilt equations, and automatic formatting
+                                                </p> --}}
+                                                    </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12" style="text-align: end;">
+                                        <button class="btn btn-success" type="submit">Hantar</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12" style="text-align: end;">
-                                <button class="btn btn-success" type="submit">Hantar</button>
-                            </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,7 +105,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 
-    <script src="//cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script>
+    {{-- <script src="//cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script> --}}
     <script type="text/javascript">
         CKEDITOR.replace('editor', {
             language: 'en',
@@ -106,4 +115,15 @@
             bodyClass: 'document-editor',
         });
     </script>
+    {{-- <script src="/ckeditor5/ckeditor.js"></script> --}}
+    {{-- <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script> --}}
 @stop
