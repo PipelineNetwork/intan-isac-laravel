@@ -49,7 +49,7 @@ $penyelaras = User::where('user_group_id', '3')->get();
         </div>
 
         <div class="col-10">
-            @if ($errors->any())
+            {{-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <strong>Terdapat beberapa kesalahan:<br><br>
                         <ul>
@@ -58,7 +58,7 @@ $penyelaras = User::where('user_group_id', '3')->get();
                             @endforeach
                         </ul>
                 </div>
-            @endif
+            @endif --}}
 
 
             <form method="POST" action="/jaduals" enctype="multipart/form-data">
@@ -73,7 +73,7 @@ $penyelaras = User::where('user_group_id', '3')->get();
                             <div class="col-6 form-group">
                                 <label for="KOD_SESI_PENILAIAN">Sesi :</label>
                                 <div class="form-group">
-                                    <select class="form-control mb-3" type="text" name="KOD_SESI_PENILAIAN">
+                                    <select class="form-control mb-0" type="text" name="KOD_SESI_PENILAIAN">
                                         <option hidden value=""> Sila Pilih </option>
                                         <option value="01" {{ old('KOD_SESI_PENILAIAN') == '01' ? 'selected' : '' }}>1
                                         </option>
@@ -82,17 +82,23 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         <option value="03" {{ old('KOD_SESI_PENILAIAN') == '03' ? 'selected' : '' }}>3
                                         </option>
                                     </select>
+                                    @error('KOD_SESI_PENILAIAN')
+                                    <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-6">
                                 <label for="KOD_TAHAP">Tahap :</label>
                                 <div class="form-group">
-                                    <select class="form-control mb-3" type="text" name="KOD_TAHAP">
+                                    <select class="form-control mb-0" type="text" name="KOD_TAHAP">
                                         <option hidden value=""> Sila Pilih </option>
                                         <option value="01" {{ old('KOD_TAHAP') == '01' ? 'selected' : '' }}>Asas</option>
                                         <option value="02" {{ old('KOD_TAHAP') == '02' ? 'selected' : '' }}>Lanjutan
                                         </option>
                                     </select>
+                                    @error('KOD_TAHAP')
+                                    <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -102,66 +108,87 @@ $penyelaras = User::where('user_group_id', '3')->get();
                             <div class="col-6">
                                 <label for="KOD_MASA_MULA">Masa Mula :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3 hide" type="time" name="KOD_MASA_MULA"
+                                    <input class="form-control mb-0 hide" type="time" name="KOD_MASA_MULA"
                                         value="{{ old('KOD_MASA_MULA') }}">
                                 </div>
+                                @error('KOD_MASA_MULA')
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                        @enderror
                             </div>
                             <div class="col-6">
                                 <label for="KOD_MASA_TAMAT">Masa Tamat :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="time" name="KOD_MASA_TAMAT"
+                                    <input class="form-control mb-0" type="time" name="KOD_MASA_TAMAT"
                                         value="{{ old('KOD_MASA_TAMAT') }}">
                                 </div>
+                                @error('KOD_MASA_TAMAT')
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                        @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label for="TARIKH_SESI">Tarikh :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="date" name="TARIKH_SESI"
+                                    <input class="form-control mb-0" type="date" name="TARIKH_SESI"
                                         value="{{ old('TARIKH_SESI') }}">
                                 </div>
+                                @error('TARIKH_SESI')
+                                <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                @enderror
                             </div>
                             <div class="col-6">
                                 <label for="JUMLAH_KESELURUHAN">Jumlah Calon</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="text" name="JUMLAH_KESELURUHAN"
+                                    <input class="form-control mb-0" type="text" name="JUMLAH_KESELURUHAN"
                                         value="{{ old('JUMLAH_KESELURUHAN') }}">
                                 </div>
+                                @error('JUMLAH_KESELURUHAN')
+                                <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label for="KOD_KATEGORI_PESERTA">Kategori Peserta :</label>
                                 <div class="form-group">
-                                    <select class="form-control mb-3" name="KOD_KATEGORI_PESERTA" id="pilih1">
+                                    <select class="form-control mb-0" name="KOD_KATEGORI_PESERTA" id="pilih1">
                                         <option hidden value=""> Sila Pilih </option>
                                         <option value="01" {{ old('KOD_KATEGORI_PESERTA') == '01' ? 'selected' : '' }}>
                                             Individu</option>
                                         <option value="02" {{ old('KOD_KATEGORI_PESERTA') == '02' ? 'selected' : '' }}>
                                             Kumpulan</option>
                                     </select>
+                                    @error('KOD_KATEGORI_PESERTA')
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                        @enderror
                                 </div>
                             </div>
                             <div id="pilih2" style="display:none" class="col-6">
                                 <label for="KOD_KEMENTERIAN">Kementerian/Agensi :</label>
                                 <div class="form-group">
-                                    <select class="form-control mb-3 hide" name="KOD_KEMENTERIAN">
+                                    <select class="form-control mb-0 hide" name="KOD_KEMENTERIAN">
                                         <option hidden value=""> Sila Pilih </option>
                                         @foreach ($kementerians as $kementerian)
                                             <option value="{{ $kementerian->REFERENCECODE }}">
                                                 {{ $kementerian->DESCRIPTION1 }}</option>
                                         @endforeach
                                     </select>
+                                    @error('KOD_KEMENTERIAN')
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                        @enderror
                                 </div>
                                 <label>Penyelaras: </label>
                                 <div class="form-group">
-                                    <select class="form-control mb-3 hide" name="user_id">
+                                    <select class="form-control mb-0 hide" name="user_id">
                                         <option hidden value=""> Sila Pilih </option>
                                         @foreach ($penyelaras as $penyelaras)
                                             <option value="{{ $penyelaras->id }}">{{ $penyelaras->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('user_id')
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                        @enderror
                                 </div>
                             </div>
                         </div>
@@ -169,17 +196,20 @@ $penyelaras = User::where('user_group_id', '3')->get();
                             <div class="col-6 form-group">
                                 <label for="platform">Platform :</label>
                                 <div class="form-group">
-                                    <select class="form-control mb-3" name="platform" id="pilih3">
+                                    <select class="form-control mb-0" name="platform" id="pilih3">
                                         <option hidden value=""> Sila Pilih </option>
                                         <option value="Atas talian">Atas Talian</option>
                                         <option value="Fizikal">Fizikal</option>
                                     </select>
+                                    @error('platform')
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                        @enderror
                                 </div>
                             </div>
                             <div id="pilih4" style="display:none" class="col-6">
                                 <label for="LOKASI">Lokasi :</label>
                                 <div class="form-group">
-                                    <select class="form-control mb-3" name="LOKASI">
+                                    <select class="form-control mb-0" name="LOKASI">
                                         <option hidden value=""> Sila Pilih </option>
                                         <option value="Kampus Utama (INTAN Bukit Kiara)">Kampus Utama (INTAN Bukit
                                             Kiara)
@@ -198,6 +228,9 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                             09)</option>
                                         <option value="INTAN LOCAL">INTAN LOCAL</option>
                                     </select>
+                                    @error('LOKASI')
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                        @enderror
                                 </div>
                             </div>
                         </div>

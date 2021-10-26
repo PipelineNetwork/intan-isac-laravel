@@ -144,7 +144,7 @@ class ProfilController extends Controller
             $user_profils3->EMEL_PENYELIA = $request->EMEL_PENYELIA;
             $user_profils3->NO_TELEFON_PENYELIA = $request->NO_TELEFON_PENYELIA;
             $user_profils3->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
-            $user_profils3->GELARAN_KETUA_JABATAN = $request->GELARAN_KETUA_JABATAN;
+            $user_profils3->GELARAN_KETUA_JABATAN = strtoupper($request->GELARAN_KETUA_JABATAN);
             $user_profils3->BAHAGIAN = $request->BAHAGIAN;
             $user_profils3->BANDAR = $request->BANDAR;
             // dd($user_profils3);

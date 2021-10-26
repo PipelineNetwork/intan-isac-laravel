@@ -129,8 +129,8 @@ class JadualController extends Controller
             'KOD_MASA_TAMAT.required' => 'Sila isi masa tamat',
             'TARIKH_SESI.required' => 'Sila pilih tarikh sesi',
             'JUMLAH_KESELURUHAN.required' => 'Sila isi jumlah calon',
-            'KOD_KATEGORI_PESERTA.required' => 'Sila pilih kumpulan',
-            'platform.required' => 'Sila pilih plaform',
+            'KOD_KATEGORI_PESERTA.required' => 'Sila pilih kategori',
+            'platform.required' => 'Sila pilih platform',
             'KOD_KEMENTERIAN.required' => 'Sila pilih jabatan kementerian',
             'LOKASI.required'=>'Sila pilih lokasi',
             'user_id.required'=>'Sila pilih penyelaras'

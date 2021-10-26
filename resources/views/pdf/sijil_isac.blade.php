@@ -45,7 +45,7 @@
                         <p style="margin-bottom:0%; padding-bottom:0%">diadakan pada</p>
                         <h3 style="margin-top:0% padding-top:0%">{{$tarikh}}</h3>
                     </div>
-                </div>
+                </div><br><br><br>
                 <div class="row">
                     <div class="col" style="text-align: center">
                         <p style="margin-bottom: 0%; padding-bottom:0%;">Pengarah</p>
@@ -53,7 +53,12 @@
                         <p style="margin-top: 0%; padding-top:0%;">Jabatan Perkhidmatan Awam</p>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 190px">
+                <div class="row">
+                    <div class="col" style="text-align: right">
+                        <img src="{{ public_path('img/cop_intan.jpeg') }}" alt="cop" height="130" style="padding-right: 100px">
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col" style="text-align: center">
                         <h6 style="margin-bottom: 0%; padding-bottom:0%;">Ini adalah cetakan komputer. Tandatangan tidak diperlukan.</h6>
                         <h6 style="margin-top: 0%; padding-top:0%;">Sebarang pertanyaan, sila hubungi 03-20847777 atau isachelp@intanbk.intan.my</h6>

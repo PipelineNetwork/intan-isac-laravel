@@ -25,11 +25,11 @@
                     </svg>
                 </a>
             </li>
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Penilaian</a></li>
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Senarai Penilaian</a></li>
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Permohonan Penilaian</a></li>
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Senarai Permohonan</a></li>
         </ol>
         </br>
-        <h5 class="font-weight-bolder">Pengurusan Penilaian</h5>
+        <h5 class="font-weight-bolder">Permohonan Penilaian</h5>
     </nav>
     
     @if($role == "3" || $role == "5")
@@ -44,7 +44,7 @@
     
     <div class="card">
         <div class="card-header" style="background-color:#FFA500;">
-            <b class="text-white">Senarai Penilaian</b>
+            <b class="text-white">Senarai Permohonan</b>
         </div>
     
         <div class="card-body p-0">
@@ -53,12 +53,14 @@
                     <thead class="thead-light">
                         <tr>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID Pengguna</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID Penilaian</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.Pejabat</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarikh</th>
+                            {{-- masa --}}
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jawatan</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Penyelia</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombor Telefon Penyelia</th>
+                            @if(Auth::user()->user_group_id == "5")
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Surat Tawaran</th>
+                            @endif
                         </tr>
                     </thead>
 
@@ -67,24 +69,25 @@
                             @foreach ($calon_3 as $key=>$calon_3)
                             <tr>
                                 <td class="text-sm font-weight-normal">{{ $key+1 }}</td>
-                                <td class="text-sm font-weight-normal">{{ $calon_3['id_calon'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $calon_3['id_sesi'] }}</td>
                                 <td class="text-sm font-weight-normal">{{ $calon_3['nama'] }}</td>
-                                <td class="text-sm font-weight-normal">{{ $calon_3['no_telefon_pejabat'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $calon_3['tarikh_sesi'] }}</td>
+                                {{-- tambah masa --}}
                                 <td class="text-sm font-weight-normal">{{ $calon_3['taraf_jawatan'] }}</td>
-                                <td class="text-sm font-weight-normal">{{ $calon_3['nama_penyelia'] }}</td>
-                                <td class="text-sm font-weight-normal">{{ $calon_3['no_telefon_penyelia'] }}</td>
+                                <td class="text-sm font-weight-normal text-center">
+                                    <a href="#"><i class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                </td>
                             </tr>
                             @endforeach
                         @else
                             @foreach ($peserta as $key=>$peserta)
                             <tr>
                                 <td class="text-sm font-weight-normal">{{ $key+1 }}</td>
-                                <td class="text-sm font-weight-normal">{{ $peserta['id_calon'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $peserta['id_sesi'] }}</td>
                                 <td class="text-sm font-weight-normal">{{ $peserta['nama'] }}</td>
-                                <td class="text-sm font-weight-normal">{{ $peserta['no_telefon_pejabat'] }}</td>
+                                <td class="text-sm font-weight-normal">{{ $peserta['tarikh_sesi'] }}</td>
+                                {{-- masa --}}
                                 <td class="text-sm font-weight-normal">{{ $peserta['taraf_jawatan'] }}</td>
-                                <td class="text-sm font-weight-normal">{{ $peserta['nama_penyelia'] }}</td>
-                                <td class="text-sm font-weight-normal">{{ $peserta['no_telefon_penyelia'] }}</td>
                             </tr>
                             @endforeach
                         @endif
