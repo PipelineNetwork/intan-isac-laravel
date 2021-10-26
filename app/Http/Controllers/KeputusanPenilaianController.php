@@ -5,9 +5,35 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
+use App\Models\Bankjawapanpengetahuan;
 
 class KeputusanPenilaianController extends Controller
 {
+    public function semak_keputusan(Request $request){
+        $ic = $request->ic;
+        $id_penilaian = $request->id_penilaian;
+
+        $keputusan = Bankjawapanpengetahuan::where('id_calon', $ic)
+        ->where('id_penilaian', $id_penilaian)
+        ->get();
+
+        if($keputusan == null){
+            alert("Tiada rekod");
+            return view('proses_penilaian.keputusan_penilaian.semakan_penilaian');
+        }
+        
+        $bilangan = count($keputusan);
+        $markah = 0;
+        foreach($keputusan as $keputusan){
+            $markah = $markah + $keputusan->markah;
+        }
+        
+        return view('proses_penilaian.keputusan_penilaian',[
+            'markah'=>$markah,
+            'semua'=>$bilangan
+        ]);
+    }
+
     public function slip_keputusan(){
         $nama = Auth::user()->name;
         $ic = Auth::user()->nric;

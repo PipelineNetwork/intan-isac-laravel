@@ -75,7 +75,7 @@
                                 {{-- tambah masa --}}
                                 <td class="text-sm font-weight-normal">{{ $calon_3['taraf_jawatan'] }}</td>
                                 <td class="text-sm font-weight-normal text-center">
-                                    <a href="#"><i class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                    <a href="/cetak_surat/{{ $calon_3['id'] }}"><i class="far fa-file-pdf fa-lg text-danger"></i></a>
                                 </td>
                             </tr>
                             @endforeach

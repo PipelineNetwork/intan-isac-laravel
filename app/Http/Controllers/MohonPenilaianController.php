@@ -496,29 +496,39 @@ class MohonPenilaianController extends Controller
         ]);
     }
 
-    public function print_surat($id_peserta, $id_penilaian){
+    public function cetak_surat($id){
 
-        // $maklumat_calon = Tugas::where('ID_PESERTA', $id_peserta)->first();
-        // $jadual = Jadual::where('ID_PENILAIAN',$id_penilaian)->first();
+        $id_permohonan = MohonPenilaian::where('id', $id)->first();
+        $id_peserta = $id_permohonan->id_calon;
+        $id_penilaian = $id_permohonan->id_sesi;
 
-        // $pdf = PDF::loadView('pdf.pendaftaran_calon',[
-        //     'jkj'=>$permohonan->jawatan_ketua_jabatan,
-        //     'kementerian'=>$maklumat_calon->KOD_KEMENTERIAN,
-        //     'al1'=>$permohonan->alamat1_pejabat,
-        //     'al2'=>$permohonan->alamat2_pejabat,
-        //     'poskod'=>$permohonan->poskod_pejabat,
-        //     'bandar'=>$maklumat_calon->BANDAR,
-        //     'negeri'=>$maklumat_calon->KOD_NEGERI,
-        //     'nama_penyelaras'=>$permohonan->nama_penyelia,
-        //     'hari' => date('d - m - Y'),
-        //     'nama' => $permohonan->nama,
-        //     'ic' => $permohonan->no_ic,
-        //     'tarikh'=>$permohonan->tarikh_sesi,
-        //     'tahap'=>$tahap,
-        //     'masa_mula'=>$masa_mula,
-        //     'masa_tamat'=>$masa_tamat,
-        //     'id_sesi'=>$request->id_sesi
-        // ]);
-        //  return $pdf->download('Surat_tawaran_'.$permohonan->no_ic.'.pdf');
+        $maklumat_calon = Tugas::where('ID_PESERTA', $id_peserta)->first();
+        $jadual = Jadual::where('ID_PENILAIAN',$id_penilaian)->first();
+
+        if($jadual->KOD_TAHAP == "01"){
+            $tahap = "Asas";
+        }else{
+            $tahap = "Lanjutan";
+        }
+
+        $pdf = PDF::loadView('pdf.pendaftaran_calon',[
+            'jkj'=>$id_permohonan->jawatan_ketua_jabatan,
+            'kementerian'=>$maklumat_calon->KOD_KEMENTERIAN,
+            'al1'=>$id_permohonan->alamat1_pejabat,
+            'al2'=>$id_permohonan->alamat2_pejabat,
+            'poskod'=>$id_permohonan->poskod_pejabat,
+            'bandar'=>$maklumat_calon->BANDAR,
+            'negeri'=>$maklumat_calon->KOD_NEGERI,
+            'nama_penyelaras'=>$id_permohonan->nama_penyelia,
+            'hari' => date('d - m - Y'),
+            'nama' => $id_permohonan->nama,
+            'ic' => $id_permohonan->no_ic,
+            'tarikh'=>$id_permohonan->tarikh_sesi,
+            'tahap'=>$tahap,
+            'masa_mula'=>$jadual->KOD_MASA_MULA,
+            'masa_tamat'=>$jadual->KOD_MASA_TAMAT,
+            'id_sesi'=>$id_penilaian
+        ]);
+         return $pdf->download('Surat_tawaran_'.$id_permohonan->no_ic.'.pdf');
     }
 }
