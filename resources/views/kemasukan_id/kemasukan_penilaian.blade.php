@@ -226,8 +226,11 @@
                                         <button type="submit" class="btn bg-gradient-success">Hantar</button>
                                     </div>
                                     <div class="row justify-content-center">
-                                        <a class="btn bg-gradient-info" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">Status soalan</a>
+                                        <div class="col text-end">
+                                            <a class="btn bg-gradient-info" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">Semak status soalan</a>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 
@@ -245,7 +248,7 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Check status</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Status soalan</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>

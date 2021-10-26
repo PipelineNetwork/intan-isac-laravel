@@ -496,11 +496,10 @@ class MohonPenilaianController extends Controller
         ]);
     }
 
-    public function print_surat($id_penilaian){
+    public function print_surat($id_peserta, $id_penilaian){
 
-
-
-        // $maklumat_calon = Tugas::where('ID_PESERTA', $permohonan->id_calon)->first();
+        // $maklumat_calon = Tugas::where('ID_PESERTA', $id_peserta)->first();
+        // $jadual = Jadual::where('ID_PENILAIAN',$id_penilaian)->first();
 
         // $pdf = PDF::loadView('pdf.pendaftaran_calon',[
         //     'jkj'=>$permohonan->jawatan_ketua_jabatan,
@@ -520,6 +519,6 @@ class MohonPenilaianController extends Controller
         //     'masa_tamat'=>$masa_tamat,
         //     'id_sesi'=>$request->id_sesi
         // ]);
-        //  return $pdf->download('Surat_tawaran_'.$permohonan->no_ic.'.pdf');/print_surat/{{ $calon_3['id_sesi'] }}
+        //  return $pdf->download('Surat_tawaran_'.$permohonan->no_ic.'.pdf');
     }
 }
