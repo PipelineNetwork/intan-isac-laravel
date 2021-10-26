@@ -78,7 +78,8 @@
                         @csrf
                         <div class="row">
                             <div class="col-xl-2 text-center">
-                                <img src="/assets/img/google.png" style="width: 60%" alt="Google">
+                                {{-- <img src="/assets/img/google.png" style="width: 60%" alt="Google"> --}}
+                                <h4>URL :</h4>
                             </div>
                             <div class="col-xl-8">
                                 <input class="form-control" type="text" name="url_teks">

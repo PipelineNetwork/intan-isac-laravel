@@ -340,7 +340,7 @@
                             ?>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/kemasukan-id">
-                                    <span class="sidenav-normal"> Kemasukan ID Penilaian </span>
+                                    <span class="sidenav-normal"> Kemasukan ID Penilaian (Pemantauan)</span>
                                 </a>
                             </li>
                             <?php

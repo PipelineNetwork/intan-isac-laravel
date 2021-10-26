@@ -62,7 +62,7 @@ class PenggunaController extends Controller
         $user ->user_group_id = $request->user_group_id;
         $user ->password = Hash::make($request->password);
 
-        dd($user);
+        // dd($user);
         $user ->save();
         return redirect('/pengurusanpengguna');
             
