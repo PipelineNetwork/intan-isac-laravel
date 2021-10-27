@@ -174,7 +174,7 @@ class ProfilController extends Controller
             $user_profils->save();
         }
         // dd($user_profils);
-        return redirect('/profil');
+        return redirect('/profil')->with('success', 'Berjaya disimpan');
     }
 
     public function edit($profil)

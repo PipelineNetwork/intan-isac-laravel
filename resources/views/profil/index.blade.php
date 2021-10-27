@@ -2,44 +2,6 @@
 @section('content')
 
     @if ($current_user == '5')
-        <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
-            <div class="row gx-6">
-                <div class="col-auto">
-                    <div class="avatar avatar-xl position-relative">
-                        <img src="https://st3.depositphotos.com/13159112/17145/v/600/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg"
-                            alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-                    </div>
-                </div>
-                <div class="col-auto my-auto">
-                    <div class="h-100">
-                        <h5 class="mb-1">
-                            {{-- {{ $user_profils->NAMA_PESERTA }} --}}
-                            @if ($user_profils->NAMA_PESERTA == null)
-                                {{-- {{ $user_profils->NAMA_PESERTA }} --}}
-                                {{ $user_profils->name }}
-                            @else
-                                {{-- {{ $user_profils->name }} --}}
-                                {{ $user_profils->NAMA_PESERTA }}
-                            @endif
-                        </h5>
-                        <p class="mb-0 font-weight-bold text-sm">
-                            {{-- {{ $user_profils->EMEL_PESERTA }} --}}
-                            @if ($user_profils->EMEL_PESERTA == null)
-                                {{-- {{ $user_profils->EMEL_PESERTA }} --}}
-                                {{ $user_profils->email }}
-                            @else
-                                {{-- {{ $user_profils->email }} --}}
-                                {{ $user_profils->EMEL_PESERTA }}
-                            @endif
-                        </p>
-                        <p class="mb-0 font-weight-bold text-sm">
-
-                            Calon
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="container-fluid py-4">
             <div class="row mt-3">
                 <div class="col-12 ">
@@ -72,6 +34,44 @@
                         </ol>
                         <h6 class="font-weight-bolder">Profil</h6>
                     </nav>
+                    <div class="card card-body blur shadow-blur mx-4 my-3">
+                        <div class="row gx-6">
+                            <div class="col-auto">
+                                <div class="avatar avatar-xl position-relative">
+                                    <img src="https://st3.depositphotos.com/13159112/17145/v/600/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg"
+                                        alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                                </div>
+                            </div>
+                            <div class="col-auto my-auto">
+                                <div class="h-100">
+                                    <h5 class="mb-1">
+                                        {{-- {{ $user_profils->NAMA_PESERTA }} --}}
+                                        @if ($user_profils->NAMA_PESERTA == null)
+                                            {{-- {{ $user_profils->NAMA_PESERTA }} --}}
+                                            {{ $user_profils->name }}
+                                        @else
+                                            {{-- {{ $user_profils->name }} --}}
+                                            {{ $user_profils->NAMA_PESERTA }}
+                                        @endif
+                                    </h5>
+                                    <p class="mb-0 font-weight-bold text-sm">
+                                        {{-- {{ $user_profils->EMEL_PESERTA }} --}}
+                                        @if ($user_profils->EMEL_PESERTA == null)
+                                            {{-- {{ $user_profils->EMEL_PESERTA }} --}}
+                                            {{ $user_profils->email }}
+                                        @else
+                                            {{-- {{ $user_profils->email }} --}}
+                                            {{ $user_profils->EMEL_PESERTA }}
+                                        @endif
+                                    </p>
+                                    <p class="mb-0 font-weight-bold text-sm">
+
+                                        Calon
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card">
                         <div class="card-header p-3" style="background-color:#FFA500;">
                             <div class="row">
@@ -158,61 +158,6 @@
                                 </div>
 
                             </div>
-                        </div>
-                    </div>
-                    <div class="card my-4">
-                        <div class="card-header">
-                            <h6 class="mb-1">Kata Laluan</h6>
-                            <p class="text-sm">Tukar Kata Laluan</p>
-                        </div>
-                        <div class="card-body">
-                            <form method="POST" action="/change-password">
-                                @csrf
-
-                                @foreach ($errors->all() as $error)
-                                    <p class="text-danger">{{ $error }}</p>
-                                @endforeach
-
-                                <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">Kata Laluan
-                                        Lama
-                                    </label>
-
-                                    <div class="col-md-6">
-                                        <input id="password" type="password" class="form-control" name="current_password"
-                                            autocomplete="current-password" minlength="8">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">Kata Laluan
-                                        Baru</label>
-
-                                    <div class="col-md-6">
-                                        <input id="new_password" type="password" class="form-control" name="new_password"
-                                            autocomplete="current-password" minlength="8">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">Sah Kata
-                                        Laluan
-                                    </label>
-
-                                    <div class="col-md-6">
-                                        <input id="new_confirm_password" type="password" class="form-control"
-                                            name="new_confirm_password" autocomplete="current-password" minlength="8">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row mb-0">
-                                    <div class="col-md-8 offset-md-4">
-                                        <button type="submit" class="btn bg-gradient-warning">
-                                            Kemaskini Kata Laluan
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
 
@@ -934,45 +879,66 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="card my-4">
+                        <div class="card-header">
+                            <h6 class="mb-1">Kata Laluan</h6>
+                            <p class="text-sm">Tukar Kata Laluan</p>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="/change-password">
+                                @csrf
+
+                                @foreach ($errors->all() as $error)
+                                    <p class="text-danger">{{ $error }}</p>
+                                @endforeach
+
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Kata Laluan
+                                        Lama
+                                    </label>
+
+                                    <div class="col-md-6">
+                                        <input id="password" type="password" class="form-control" name="current_password"
+                                            autocomplete="current-password" minlength="8">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Kata Laluan
+                                        Baru</label>
+
+                                    <div class="col-md-6">
+                                        <input id="new_password" type="password" class="form-control" name="new_password"
+                                            autocomplete="current-password" minlength="8">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Sah Kata
+                                        Laluan
+                                    </label>
+
+                                    <div class="col-md-6">
+                                        <input id="new_confirm_password" type="password" class="form-control"
+                                            name="new_confirm_password" autocomplete="current-password" minlength="8">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn bg-gradient-warning">
+                                            Kemaskini Kata Laluan
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     @else
-        <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
-            <div class="row gx-6">
-                <div class="col-auto">
-                    <div class="avatar avatar-xl position-relative">
-                        <img src="https://st3.depositphotos.com/13159112/17145/v/600/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg"
-                            alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-                    </div>
-                </div>
-                <div class="col-auto my-auto">
-                    <div class="h-100">
-                        <h5 class="mb-1">
-                            {{ $user_profils->name }}
-                        </h5>
-                        <p class="mb-0 font-weight-bold text-sm">
-                            {{ $user_profils->email }}
-                        </p>
-                        <p class="mb-0 font-weight-bold text-sm">
-                            @if ($user_profils->user_group_id == 1)
-                                Pentadbir Sistem
-                            @elseif ($user_profils->user_group_id == 2)
-                                Pentadbir Penilaian
-                            @elseif ($user_profils->user_group_id == 3)
-                                Penyelaras
-                            @elseif ($user_profils->user_group_id == 4)
-                                Pengawas
-                            @elseif ($user_profils->user_group_id == 5)
-                                Calon
-                            @else
-                                Pegawai Korporat
-                            @endif
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="container-fluid py-4">
             <div class="row mt-3">
                 <div class="col-12 ">
@@ -1012,6 +978,41 @@
                         </ol>
                         <h6 class="font-weight-bolder">Profil</h6>
                     </nav>
+                    <div class="card card-body blur shadow-blur mx-4 my-3">
+                        <div class="row gx-6">
+                            <div class="col-auto">
+                                <div class="avatar avatar-xl position-relative">
+                                    <img src="https://st3.depositphotos.com/13159112/17145/v/600/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg"
+                                        alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                                </div>
+                            </div>
+                            <div class="col-auto my-auto">
+                                <div class="h-100">
+                                    <h5 class="mb-1">
+                                        {{ $user_profils->name }}
+                                    </h5>
+                                    <p class="mb-0 font-weight-bold text-sm">
+                                        {{ $user_profils->email }}
+                                    </p>
+                                    <p class="mb-0 font-weight-bold text-sm">
+                                        @if ($user_profils->user_group_id == 1)
+                                            Pentadbir Sistem
+                                        @elseif ($user_profils->user_group_id == 2)
+                                            Pentadbir Penilaian
+                                        @elseif ($user_profils->user_group_id == 3)
+                                            Penyelaras
+                                        @elseif ($user_profils->user_group_id == 4)
+                                            Pengawas
+                                        @elseif ($user_profils->user_group_id == 5)
+                                            Calon
+                                        @else
+                                            Pegawai Korporat
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card">
                         <div class="card-header pb-0 p-3" style="background-color:#FFA500;">
                             <div class="row">
@@ -1159,4 +1160,6 @@
         </div>
     @endif
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @include('sweet::alert')
 @stop
