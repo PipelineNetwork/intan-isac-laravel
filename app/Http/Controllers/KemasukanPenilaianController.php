@@ -30,14 +30,14 @@ class KemasukanPenilaianController extends Controller
             $ic_calon = $calon->no_ic;
             
             // check calon dah jawab ke belum
-            // $id_penilaian_done = Bankjawapanpengetahuan::where('id_penilaian', $id_penilaian)->get();
-            // foreach($id_penilaian_done as $check_id){
-            //     $id_calon_done = $check_id->id_calon;
-            //     if($id_calon_done == $ic_calon){
-            //         alert("Anda telah menjawab pernilaian ini.");
-            //         return redirect('/kemasukan-id');
-            //     }
-            // }
+            $id_penilaian_done = Bankjawapanpengetahuan::where('id_penilaian', $id_penilaian)->get();
+            foreach($id_penilaian_done as $check_id){
+                $id_calon_done = $check_id->id_calon;
+                if($id_calon_done == $ic_calon){
+                    alert("Anda telah menjawab pernilaian ini.");
+                    return redirect('/kemasukan-id');
+                }
+            }
 
 
             if($nric == $ic_calon){

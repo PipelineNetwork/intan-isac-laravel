@@ -422,6 +422,9 @@ class MohonPenilaianController extends Controller
             ->orderBy('TARIKH_SESI', 'desc')
             ->get();
 
+
+        alert('Maklumat berjaya dikemaskini.');
+
         return view('mohonPenilaian.calon.pilih_jadual', [
             'no_ic' => $no_ic,
             'nama' => $nama,
@@ -440,7 +443,7 @@ class MohonPenilaianController extends Controller
             'emel_penyelia' => $emel_penyelia,
             'no_telefon_penyelia' => $no_telefon_penyelia,
             'jadual' => $jadual
-        ]);
+        ])->with('success', 'Maklumat berjaya dikemaskini');
     }
 
     public function pilih_jadual_calon(Request $request)
