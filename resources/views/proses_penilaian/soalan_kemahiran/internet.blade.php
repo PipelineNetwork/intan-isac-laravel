@@ -59,7 +59,7 @@
                                 Seterusnya klik kepada capaian (link) ini
                                 <ol>
                                     <li>
-                                        <b>Project management - Wikipedia, the free encyclopedia</b>
+                                        <b>Project Management - Wikipedia, the free encyclopedia</b>
                                     </li>
                                 </ol>
                             </li>
@@ -67,12 +67,13 @@
                                 Anda dikehendaki ke halaman sebelum dengan menekan butang kembali (Back Button).
                             </li>
                             <li>
-                                Untuk menamatkan bahagian ini, klik butang <span style="color: red">TUTUP [ X ]</span> untuk
+                                Untuk menamatkan bahagian ini, klik butang <span style="color: red">[ X ]</span> dan <span
+                                    style="color: red">TUTUP</span> untuk
                                 keluar dari Pelayar Internet (Browser).
                             </li>
                             <li>
-                                Silan klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk kehalaman
-                                seterusnya.
+                                Sila klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk kebahagian
+                                soalan seterusnya.
                             </li>
                         </ol>
                     </div>

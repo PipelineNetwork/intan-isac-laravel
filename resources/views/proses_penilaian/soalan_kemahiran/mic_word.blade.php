@@ -42,10 +42,9 @@
                     <div class="col-xl-12">
                         <ol>
                             <li>
-                                Anda dikehendaki klik butang Microsoft Word di bawah untuk memulakan aplikasi Microsoft
-                                Word.
+                                Anda dikehendaki klik butang Pemprosesan Perkataan di bawah untuk memulakan aplikasi Pemprosesan Perkataan.
                                 <ul class="mt-2">
-                                    <a class="btn btn-success" onclick="tsw_open_demo_window();">Microsoft Word <span
+                                    <a class="btn btn-success" onclick="tsw_open_demo_window();"> Pemprosesan Perkataan <span
                                             class="btn-inner--icon ml-2"><i class="fab fa-microsoft"></i></span></a>
                                 </ul>
                             </li>
@@ -85,17 +84,17 @@
                             <li>
                                 Insert Page Number ke dalam dokumen anda dan pilih Page Number : Bottom of Page : Plain
                                 Number 1.
-                            </li>
-                            <li>
-                                Sila Simpan (Save) dokumen anda.
                             </li> --}}
                             <li>
-                                Untuk menamatkan bahagian ini, klik butang <span style="color: red">TUTUP [ X ]</span> untuk
-                                keluar dari Words.
+                                Sila klik butang Simpan (Save) untuk tamat menjawab soalan Pemprosesan Perkataan.
                             </li>
                             <li>
-                                Silan klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk kehalaman
-                                seterusnya.
+                                Untuk menamatkan bahagian ini, klik butang <span style="color: red">TUTUP</span> untuk
+                                keluar dari Pemprosesan Perkataan.
+                            </li>
+                            <li>
+                                Sila klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk kebahagian
+                                soalan seterusnya.
                             </li>
                         </ol>
                     </div>

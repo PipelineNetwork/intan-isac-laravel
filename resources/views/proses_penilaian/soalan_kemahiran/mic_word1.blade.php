@@ -90,9 +90,9 @@
                                                     </textarea>
                                         </div>
                                     </div>
-                                    <div class="col-12" style="text-align: end;">
+                                    {{-- <div class="col-12" style="text-align: end;">
                                         <button class="btn btn-success" type="submit">Hantar</button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </form>
                         </div>

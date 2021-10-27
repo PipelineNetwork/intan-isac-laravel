@@ -56,7 +56,8 @@
                         @csrf
                         <h4>
                             <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
-                            <button class="btn btn-danger" type="submit"><i class="fas fa-times"></i></button>
+                            <button class="btn btn-danger" type="submit" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Close"><i class="fas fa-times"></i></button>
                         </h4>
                     </form>
                 </div>
