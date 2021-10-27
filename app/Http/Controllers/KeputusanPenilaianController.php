@@ -17,21 +17,21 @@ class KeputusanPenilaianController extends Controller
         ->where('id_penilaian', $id_penilaian)
         ->get();
 
-        if($keputusan == null){
-            alert("Tiada rekod");
-            return view('proses_penilaian.keputusan_penilaian.semakan_penilaian');
-        }
-        
         $bilangan = count($keputusan);
-        $markah = 0;
-        foreach($keputusan as $keputusan){
-            $markah = $markah + $keputusan->markah;
+        if ($bilangan == 0) {
+            alert('Maaf, tiada dalam rekod.');
+            return view('proses_penilaian.keputusan_penilaian.semakan_penilaian');
+        }else{
+            $markah = 0;
+            foreach($keputusan as $keputusan){
+                $markah = $markah + $keputusan->markah;
+            }
+            
+            return view('proses_penilaian.keputusan_penilaian',[
+                'markah'=>$markah,
+                'semua'=>$bilangan
+            ]);
         }
-        
-        return view('proses_penilaian.keputusan_penilaian',[
-            'markah'=>$markah,
-            'semua'=>$bilangan
-        ]);
     }
 
     public function slip_keputusan(){

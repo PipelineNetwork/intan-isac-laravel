@@ -223,7 +223,7 @@
                                     <input type="hidden" name="id_sesi" value="{{$id_penilaian}}">
                                     <input type="hidden" name="masa_mula" value="{{$masa_mula}}">
 
-                                    <div class="row justify-content-between px-4">
+                                    <div class="row justify-content-center px-4">
                                         <div class="col-lg-auto">
                                             <a class="btn bg-gradient-info" data-bs-toggle="modal"
                                             data-bs-target="#exampleModal">Semak status soalan</a>

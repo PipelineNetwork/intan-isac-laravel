@@ -74,15 +74,15 @@
                     </nav>
                     <div class="card">
                         <div class="card-header p-3" style="background-color:#FFA500;">
-                            <div class="row">
+                            <div class="row align-item-center">
                                 <div class="col-md-8 d-flex align-items-center">
                                     <h4 class="mb-0 text-white">Profil</h4>
                                 </div>
-                                <div class="col-md-4 text-end">
+                                <div class="col-md-4 text-end ">
                                     <a href="javascript:;">
                                         <a href="/profil/{{ $user_profils->id }}"
-                                            class="fas fa-user-edit text-secondary text-sm button  text-white "
-                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini"></a>
+                                            class="btn bg-gradient-info text-white "
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini">Kemaskini Maklumat</a>
                                     </a>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                                             value="{{ $user_profils->EMEL_PESERTA }}" disabled="" required>
                                     </div>
                                 </div>
-                                <div class="row mb-2">
+                                {{-- <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_kod_kementerian">
                                             Kod Kementerian
@@ -155,7 +155,7 @@
                                                 id="input_kod_kementerian" type="text" value="" disabled="" required>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div>
                         </div>
@@ -1072,7 +1072,7 @@
                                                 value="{{ $user_profils->email }}" disabled="" required>
                                         </div>
                                     </div>
-                                    <div class="row mb-2">
+                                    {{-- <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4"
                                                 for="{{ $user_profils->ministry_code }}">
@@ -1084,7 +1084,7 @@
                                                 id="{{ $user_profils->ministry_code }}" type="text"
                                                 value="{{ $user_profils->ministry_code }}" disabled="" required>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                             </div>
