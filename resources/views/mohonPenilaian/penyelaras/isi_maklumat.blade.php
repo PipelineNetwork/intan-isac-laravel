@@ -80,7 +80,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            No MyKad/Polis/Tentera/Pasport
+                                            No MyKad/Polis/Tentera/Pasport<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -90,7 +90,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Nama
+                                            Nama<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -100,7 +100,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Tarikh lahir
+                                            Tarikh lahir<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -110,7 +110,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Jantina
+                                            Jantina<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -126,7 +126,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Jawatan
+                                            Jawatan<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -136,7 +136,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Taraf Jawatan
+                                            Taraf Jawatan<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -154,7 +154,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Tarikh lantikan
+                                            Tarikh lantikan<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -164,7 +164,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Klasifikasi perkhidmatan
+                                            Klasifikasi perkhidmatan<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -183,7 +183,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Nombor telefon pejabat
+                                            Nombor telefon pejabat<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -193,7 +193,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Alamat pejabat 1
+                                            Alamat pejabat 1<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -213,7 +213,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Poskod
+                                            Poskod<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -223,7 +223,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Nama penyelia
+                                            Nama penyelia<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -233,7 +233,7 @@
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
                                         <label class="form-control-label mr-4">
-                                            Emel penyelia
+                                            Emel penyelia<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">

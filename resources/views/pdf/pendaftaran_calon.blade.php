@@ -14,8 +14,8 @@
     }
 
     .mx-6 {
-        margin-left: 50px;
-        margin-right: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
     }
 
     /* Create two equal columns that floats next to each other */
@@ -104,7 +104,7 @@
                                     {{ $kementerian }}<br>
                                     {{ $al1 }}<br>
                                     @if ($al2 != null)
-                                        {{ $al2 }}
+                                        {{ $al2 }}<br>
                                     @endif
                                     {{ $poskod }}, {{ $bandar }}<br>
                                     {{ $negeri }}<br>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bankjawapanpengetahuan;
 use App\Models\Banksoalanpengetahuan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class BankjawapanpengetahuanController extends Controller
@@ -38,6 +39,15 @@ class BankjawapanpengetahuanController extends Controller
             }else{
                 $simpan_jawapan->markah = 0;
             }
+
+            // $rules = [
+            //     'pilihan_jawapan' => 'required',
+            // ];
+            // $messages = [
+            //     'pilihan_jawapan.required' => 'Sila jawab semua soalan.',
+            // ];
+
+            // Validator::make($request->input(), $rules, $messages)->validate();
             $simpan_jawapan->save();
         }
 

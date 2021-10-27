@@ -80,7 +80,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="{{ $user_profils->NAMA_PESERTA }}}">
-                                            Nama Penuh
+                                            Nama Penuh<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -93,7 +93,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="{{ $user_profils->TARIKH_LAHIR }}">
-                                            Tarikh Lahir
+                                            Tarikh Lahir<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -105,7 +105,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_kod_jantina">
-                                            Jantina
+                                            Jantina<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -130,7 +130,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_kod_gelaran_jawatan">
-                                            Gelaran Jawatan
+                                            Gelaran Jawatan<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -144,7 +144,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_peringkat">
-                                            Peringkat
+                                            Peringkat<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -164,7 +164,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_klasifikasi_perkhidmatan">
-                                            Klasifikasi Perkhidmatan
+                                            Klasifikasi Perkhidmatan<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -187,7 +187,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_gred_jawatan">
-                                            Gred Jawatan
+                                            Gred Jawatan<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -207,7 +207,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_taraf_perjawatan">
-                                            Taraf Perjawatan
+                                            Taraf Perjawatan<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -228,7 +228,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_jenis_perkhidmatan">
-                                            Jenis Perkhidmatan
+                                            Jenis Perkhidmatan<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -250,7 +250,7 @@
                                     <div class="col-3">
                                         <label class="form-control-label mr-4"
                                             for="{{ $user_profils->TARIKH_LANTIKAN }}">
-                                            Tarikh Lantikan
+                                            Tarikh Lantikan<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -262,7 +262,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_no_tel_pejabat">
-                                            No Telefon Pejabat
+                                            No Telefon Pejabat<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -303,7 +303,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_kementerian">
-                                            Kementerian/Agensi
+                                            Kementerian/Agensi<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -324,7 +324,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="{{ $user_profils->BAHAGIAN }}">
-                                            Bahagian
+                                            Bahagian<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -336,7 +336,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_alamat_1">
-                                            Alamat Pejabat 1
+                                            Alamat Pejabat 1<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -360,7 +360,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_poskod">
-                                            Poskod
+                                            Poskod<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -373,7 +373,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="{{ $user_profils->BANDAR }}">
-                                            Bandar
+                                            Bandar<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -385,7 +385,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_negeri">
-                                            Negeri
+                                            Negeri<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -418,7 +418,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="{{ $user_profils->EMEL_PENYELIA }}">
-                                            E-mel Penyelia
+                                            E-mel Penyelia<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">

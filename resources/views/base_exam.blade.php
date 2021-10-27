@@ -105,7 +105,7 @@
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script> --}}
 </head>
 
-<body class="g-sidenav-show  bg-gray-100">
+<body class="g-sidenav-show  bg-gray-100" oncopy="return false" oncut="return false" onpaste="return false" oncontextmenu="return false">
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
@@ -297,9 +297,10 @@
       
         function initCounter() {
           // get count from localStorage, or set to initial value of 1000
-          count = getLocalStorage('count') || 3600000;
+          count = getLocalStorage('count') || 3600;
           counter = setInterval(timer, 1000); //1000 will  run it every 1 second
           console.log(count);
+
         }
       
         function setLocalStorage(key, val) {
@@ -316,9 +317,10 @@
       
         function timer() {
           count = setLocalStorage('count', count - 1);
+          console.log(count);
           if (count <= -1) {
             clearInterval(counter);
-            count = setLocalStorage('count', 3600000);
+            count = setLocalStorage('count', 3600);
             return;
           }
       
