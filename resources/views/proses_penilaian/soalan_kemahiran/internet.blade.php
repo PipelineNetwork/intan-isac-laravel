@@ -48,8 +48,8 @@
                                 </ul>
                             </li>
                             <li>
-                                Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer
-                                di bawah.
+                                Taipkan alamat URL https://www.google.com pada Address Bar di dalam simulator browser pada
+                                tab sebelah.
                             </li>
                             <li>
                                 Anda dikehendaki mencari maklumat mengenai Project Management. Gunakan Google Search Engine
@@ -78,7 +78,29 @@
                         </ol>
                     </div>
                     <div class="col-xl-12" style="text-align: right">
-                        <a href="/soalan-kemahiran-word" class="btn btn-success">Seterusnya</a>
+                        <a class="btn btn-success" data-bs-toggle="modal" style="cursor: pointer"
+                            data-bs-target="#modal-email-seterusnya">
+                            Seterusnya
+                        </a>
+
+                        <div class="modal fade" id="modal-email-seterusnya" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        <i class="fas fa-exclamation-circle fa-7x" style="color: #d4872f"></i>
+                                        <br>
+                                        Adakah anda pasti untuk terus ke soalan seterusnya? Anda tidak boleh kembali
+                                        menjawab bahagian ini jika anda teruskan.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn bg-gradient-secondary"
+                                            data-bs-dismiss="modal">Batal</button>
+                                        <a href="/soalan-kemahiran-word" class="btn btn-success">Seterusnya</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

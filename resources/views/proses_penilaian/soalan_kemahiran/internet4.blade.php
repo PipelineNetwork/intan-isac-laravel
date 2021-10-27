@@ -46,13 +46,13 @@
                                         <div class="col">
                                             <div class="btn-group" role="group">
                                                 <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
-                                                <button class="btn"
-                                                    style="border: none; background: none; cursor: pointer" type="submit"><i
-                                                        class="fas fa-arrow-left" data-bs-toggle="tooltip"
+                                                <button class="btn btn-secondary"
+                                                    style="border-radius: 5px; cursor: pointer;" type="submit"><i
+                                                        class="fas fa-arrow-left fa-lg" data-bs-toggle="tooltip"
                                                         data-bs-placement="bottom" title="Back"></i></button>
                                                 <button class="btn"
-                                                    style="border: none; background: none; cursor: pointer" disabled><i
-                                                        class="fas fa-arrow-right"></i></button>
+                                                    style="border-radius: 5px; background: none; cursor: pointer" disabled><i
+                                                        class="fas fa-arrow-right fa-lg"></i></button>
                                             </div>
                                         </div>
                                     </div>

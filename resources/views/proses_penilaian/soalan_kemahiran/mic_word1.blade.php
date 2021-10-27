@@ -43,7 +43,7 @@
             <div class="card mt-5 bg-secondary">
                 <div class="row justify-content-center">
                     <div class="col-auto">
-                        <div class="card-body bg-secondary" style="border-radius: 15px; max-width:700px">
+                        <div class="card-body bg-secondary" style="border-radius: 15px; max-width:800px">
                             <form action="/soalan-kemahiran-word" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">

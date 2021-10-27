@@ -75,28 +75,28 @@
                                 <div class="form-group">
                                     <select class="form-control mb-3" name="user_group_id" id="pilih1" required>
                                         <option hidden selected value=""> Sila Pilih </option>
-                                            <?php
+                                        <?php
                                         if(Auth::user()->user_group_id == '1'){
                                             ?>
-                                            <option value="1">Pentadbir Sistem</option>
-                                            <?php
+                                        <option value="1">Pentadbir Sistem</option>
+                                        <?php
                                         }
                                         ?>
-                                            <?php
+                                        <?php
                                         if(Auth::user()->user_group_id != '3'){
                                             ?>
-                                            <option value="2">Pentadbir Penilaian</option>
-                                            <option value="3">Penyelaras</option>
-                                            <?php
+                                        <option value="2">Pentadbir Penilaian</option>
+                                        <option value="3">Penyelaras</option>
+                                        <?php
                                         }
                                         ?>
-                                            <option value="4">Pengawas</option>
-                                            <?php
+                                        <option value="4">Pengawas</option>
+                                        <?php
                                         if(Auth::user()->user_group_id != '3'){
                                             ?>
-                                            {{-- <option value="5">Calon</option> --}}
-                                            <option value="6">Pegawai Korporat</option>
-                                            <?php
+                                        {{-- <option value="5">Calon</option> --}}
+                                        <option value="6">Pegawai Korporat</option>
+                                        <?php
                                         }
                                         ?>
                                     </select>
@@ -105,7 +105,7 @@
                             <div id="pilih2" style="display:none" class="col-6">
                                 <label for="">Kementerian/Jabatan :</label>
                                 <div class="input-group">
-                                    <select class="form-control mb-3 hide" name="ministry_code" required>
+                                    {{-- <select class="form-control mb-3 hide" name="ministry_code" required>
                                         <option hidden selected value=""> Sila Pilih </option>
                                         <option value="361">Jabatan Ketua Menteri Sabah</option>
 
@@ -341,8 +341,17 @@
                                         <option value="207"> Pentadbiran Kerajaan
                                             Pulau Pinang
                                         </option>
+                                    </select> --}}
+                                    <select class="form-control form-control-sm ml-3" name="ministry_code"
+                                        id="input_kementerian" required>
+                                        <option hidden selected>
+                                            Sila pilih
+                                        </option>
+                                        @foreach ($kementerians as $kementerian)
+                                            <option value="{{ $kementerian->DESCRIPTION1 }}">
+                                                {{ $kementerian->DESCRIPTION1 }}</option>
+                                        @endforeach
                                     </select>
-
                                 </div>
                             </div>
                         </div>

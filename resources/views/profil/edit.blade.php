@@ -47,7 +47,7 @@
                                         <input type="hidden" name="ID_PESERTA" value="{{ $user_profils->ID_PESERTA }}">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4">
-                                                No MyKad/Polis/Tentera/Pasport
+                                                No MyKad/Polis/Tentera/Pasport <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -61,7 +61,7 @@
                                         <div class="col-3">
                                             <label class="form-control-label mr-4"
                                                 for="{{ $user_profils->EMEL_PESERTA }}">
-                                                E-mel
+                                                E-mel <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -73,13 +73,13 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_kod_gelaran">
-                                                Gelaran
+                                                Gelaran <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
                                             @if ($user_profils->KOD_GELARAN != null)
                                                 <select class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran">
+                                                    id="input_kod_gelaran" required>
                                                     {{-- <option hidden selected>{{ $gelaran_user->DESCRIPTION1 }}</option> --}}
                                                     <option hidden selected value="{{ $gelaran_user->KOD_GELARAN }}">
                                                         {{ $gelaran_user->DESCRIPTION1 }}</option>
@@ -90,7 +90,7 @@
                                                 </select>
                                             @else
                                                 <select class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran">
+                                                    id="input_kod_gelaran" required>
                                                     <option hidden selected value="">Sila Pilih</option>
                                                     @foreach ($kod_gelarans as $kod_gelaran)
                                                         <option value="{{ $kod_gelaran->REFERENCECODE }}">
@@ -104,7 +104,7 @@
                                         <div class="col-3">
                                             <label class="form-control-label mr-4"
                                                 for="{{ $user_profils->NAMA_PESERTA }}}">
-                                                Nama Penuh
+                                                Nama Penuh <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -118,7 +118,7 @@
                                         <div class="col-3">
                                             <label class="form-control-label mr-4"
                                                 for="{{ $user_profils->TARIKH_LAHIR }}">
-                                                Tarikh Lahir
+                                                Tarikh Lahir <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -130,7 +130,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_kod_jantina">
-                                                Jantina
+                                                Jantina <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -155,7 +155,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_kod_gelaran_jawatan">
-                                                Gelaran Jawatan
+                                                Gelaran Jawatan <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -169,13 +169,14 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_peringkat">
-                                                Peringkat
+                                                Peringkat <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
                                             <select class="form-control form-control-sm ml-3" name="KOD_PERINGKAT"
                                                 id="input_peringkat" required>
-                                                <option hidden selected value="{{ $user_profils->KOD_PERINGKAT }}">{{ $user_profils->KOD_PERINGKAT }}</option>
+                                                <option hidden selected value="{{ $user_profils->KOD_PERINGKAT }}">
+                                                    {{ $user_profils->KOD_PERINGKAT }}</option>
                                                 @foreach ($peringkats as $peringkat)
                                                     <option value="{{ $peringkat->DESCRIPTION1 }}">
                                                         {{ $peringkat->DESCRIPTION1 }}</option>
@@ -189,14 +190,16 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_klasifikasi_perkhidmatan">
-                                                Klasifikasi Perkhidmatan
+                                                Klasifikasi Perkhidmatan <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
                                             <select class="form-control form-control-sm ml-3"
                                                 name="KOD_KLASIFIKASI_PERKHIDMATAN" id="input_klasifikasi_perkhidmatan"
                                                 required>
-                                                <option hidden selected value="{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}">{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}
+                                                <option hidden selected
+                                                    value="{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}">
+                                                    {{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}
                                                 </option>
                                                 @foreach ($klasifikasi_perkhidmatans as $klasifikasi_perkhidmatan)
                                                     <option value="{{ $klasifikasi_perkhidmatan->DESCRIPTION1 }}">
@@ -212,13 +215,14 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_gred_jawatan">
-                                                Gred Jawatan
+                                                Gred Jawatan <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
                                             <select class="form-control form-control-sm ml-3" name="KOD_GRED_JAWATAN"
                                                 id="input_gred_jawatan" required>
-                                                <option hidden selected value="{{ $user_profils->KOD_GRED_JAWATAN }}">{{ $user_profils->KOD_GRED_JAWATAN }}</option>
+                                                <option hidden selected value="{{ $user_profils->KOD_GRED_JAWATAN }}">
+                                                    {{ $user_profils->KOD_GRED_JAWATAN }}</option>
                                                 @foreach ($gred_jawatans as $gred_jawatan)
                                                     <option value="{{ $gred_jawatan->DESCRIPTION1 }}">
                                                         {{ $gred_jawatan->DESCRIPTION1 }}</option>
@@ -232,13 +236,15 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_taraf_perjawatan">
-                                                Taraf Perjawatan
+                                                Taraf Perjawatan <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
                                             <select class="form-control form-control-sm ml-3" name="KOD_TARAF_PERJAWATAN"
                                                 id="input_taraf_perjawatan" required>
-                                                <option hidden selected value="{{ $user_profils->KOD_TARAF_PERJAWATAN }}">{{ $user_profils->KOD_TARAF_PERJAWATAN }}
+                                                <option hidden selected
+                                                    value="{{ $user_profils->KOD_TARAF_PERJAWATAN }}">
+                                                    {{ $user_profils->KOD_TARAF_PERJAWATAN }}
                                                 </option>
                                                 @foreach ($taraf_perjawatans as $taraf_perjawatan)
                                                     <option value="{{ $taraf_perjawatan->DESCRIPTION1 }}">
@@ -253,13 +259,15 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_jenis_perkhidmatan">
-                                                Jenis Perkhidmatan
+                                                Jenis Perkhidmatan <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
                                             <select class="form-control form-control-sm ml-3" name="KOD_JENIS_PERKHIDMATAN"
                                                 id="input_jenis_perkhidmatan" required>
-                                                <option hidden selected value="{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}">{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}
+                                                <option hidden selected
+                                                    value="{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}">
+                                                    {{ $user_profils->KOD_JENIS_PERKHIDMATAN }}
                                                 </option>
                                                 @foreach ($jenis_perkhidmatans as $jenis_perkhidmatan)
                                                     <option value="{{ $jenis_perkhidmatan->DESCRIPTION1 }}">
@@ -275,7 +283,7 @@
                                         <div class="col-3">
                                             <label class="form-control-label mr-4"
                                                 for="{{ $user_profils->TARIKH_LANTIKAN }}">
-                                                Tarikh Lantikan
+                                                Tarikh Lantikan <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -287,7 +295,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_no_tel_pejabat">
-                                                No Telefon Pejabat
+                                                No Telefon Pejabat <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -301,7 +309,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_no_tel_bimbit">
-                                                No Telefon Bimbit
+                                                No Telefon Bimbit <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -315,7 +323,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_gelaran_ketua_jabatan">
-                                                Jawatan Ketua Jabatan
+                                                Jawatan Ketua Jabatan <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -328,13 +336,14 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_kementerian">
-                                                Kementerian/Agensi
+                                                Kementerian/Agensi <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
                                             <select class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN"
                                                 id="input_kementerian" required>
-                                                <option hidden selected value="{{ $user_profils->KOD_KEMENTERIAN }}">{{ $user_profils->KOD_KEMENTERIAN }}
+                                                <option hidden selected value="{{ $user_profils->KOD_KEMENTERIAN }}">
+                                                    {{ $user_profils->KOD_KEMENTERIAN }}
                                                 </option>
                                                 @foreach ($kementerians as $kementerian)
                                                     <option value="{{ $kementerian->DESCRIPTION1 }}">
@@ -349,7 +358,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="{{ $user_profils->BAHAGIAN }}">
-                                                Bahagian
+                                                Bahagian <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -361,7 +370,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_alamat_1">
-                                                Alamat Pejabat 1
+                                                Alamat Pejabat 1 <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -385,7 +394,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_poskod">
-                                                Poskod
+                                                Poskod <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -398,7 +407,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="{{ $user_profils->BANDAR }}">
-                                                Bandar
+                                                Bandar <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -410,13 +419,14 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_negeri">
-                                                Negeri
+                                                Negeri <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
                                             <select class="form-control form-control-sm ml-3" name="KOD_NEGERI"
                                                 id="input_negeri" required>
-                                                <option hidden selected value="{{ $user_profils->KOD_NEGERI }}">{{ $user_profils->KOD_NEGERI }}
+                                                <option hidden selected value="{{ $user_profils->KOD_NEGERI }}">
+                                                    {{ $user_profils->KOD_NEGERI }}
                                                 </option>
                                                 @foreach ($negeris as $negeri)
                                                     <option value="{{ $negeri->DESCRIPTION1 }}">
@@ -467,7 +477,7 @@
                                                 value="{{ $user_profils->NO_TELEFON_PENYELIA }}" maxlength="11">
                                         </div>
                                     </div>
-
+                                    <label><span style="color: red">*</span> Ruangan mandatori.</label>
                                 </div>
 
                                 <button class="btn bg-gradient-warning" type="submit">Simpan</button>
@@ -511,17 +521,31 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="">Kementerian :</label>
+                                        <label class="form-control-label mr-4" for="input_kementerian">
+                                            Kementerian/Agensi
+                                        </label><label class="float-right">:</label>
+                                        <select class="form-control mb-3" name="ministry_code"
+                                            id="input_kementerian" required>
+                                            <option hidden selected value="{{ $user_profils->ministry_code }}">
+                                                {{ $user_profils->ministry_code }}
+                                            </option>
+                                            @foreach ($kementerians as $kementerian)
+                                                <option value="{{ $kementerian->DESCRIPTION1 }}">
+                                                    {{ $kementerian->DESCRIPTION1 }}</option>
+                                            @endforeach
+                                        </select>
+                                        {{-- <label for="">Kementerian :</label>
                                         <div class="input-group">
                                             <input class="form-control mb-3" type="text" name="ministry_code"
                                                 value="{{ $user_profils->ministry_code }}" required>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="col-6">
                                         <label for="">No Kad. Pengenalan :</label>
                                         <div class="input-group">
                                             <input class="form-control mb-3" type="text" name="nric"
-                                                value="{{ $user_profils->nric }}" required maxlength="12" size="12">
+                                                value="{{ $user_profils->nric }}" required maxlength="12" size="12"
+                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                         </div>
                                     </div>
                                 </div>

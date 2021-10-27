@@ -59,71 +59,131 @@
                             <th>Hapus</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    @if ($current_user == 3)
+                        <tbody>
 
-                        @foreach ($users as $user)
-                            <tr>
-                                <td>{{ $user['name'] }}</td>
-                                <td>{{ $user['email'] }}</td>
-                                <td>
-                                    @if ($user['user_group_id'] == 1)
-                                        Pentadbir Sistem
-                                    @elseif ($user['user_group_id'] == 2)
-                                        Pentadbir Penilaian
-                                    @elseif ($user['user_group_id'] == 3)
-                                        Penyelaras
-                                    @elseif ($user['user_group_id'] == 4)
+                            @foreach ($user_pengawas as $user_pengawas)
+                                <tr>
+                                    <td>{{ $user_pengawas['name'] }}</td>
+                                    <td>{{ $user_pengawas['email'] }}</td>
+                                    <td>
                                         Pengawas
-                                    @elseif ($user['user_group_id'] == 5)
-                                        Calon
-                                    @else
-                                        Pegawai Korporat
-                                    @endif
-                                    {{-- {{ $user['user_group_id'] }} --}}
-                                </td>
-                                <td><a class="btn btn-info text-white" href="/pengurusanpengguna/{{ $user->id }}/edit"
-                                        style="color:black;"> Kemaskini
-                                    </a>
-                                </td>
-                                <td>
-                                    <a data-bs-toggle="modal" style="cursor: pointer" data-bs-target="#modaldelete-{{ $user->id }}">
-                                        <i class="far fa-trash-alt"></i>
-                                    </a>
-                                    {{-- <form method="POST" action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
+                                        {{-- {{ $user['user_group_id'] }} --}}
+                                    </td>
+                                    <td><a class="btn btn-info text-white"
+                                            href="/pengurusanpengguna/{{ $user_pengawas->id }}/edit" style="color:black;">
+                                            Kemaskini
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a data-bs-toggle="modal" style="cursor: pointer"
+                                            data-bs-target="#modaldelete-{{ $user_pengawas->id }}">
+                                            <i class="far fa-trash-alt"></i>
+                                        </a>
+                                        {{-- <form method="POST" action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
                                         @method('DELETE')
                                         @csrf
     
                                         <button type="submit"> Hapus</button>
                                     </form> --}}
-                                </td>
+                                    </td>
 
-                                <div class="modal fade" id="modaldelete-{{ $user->id }}" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-body text-center">
-                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
-                                                <br>
-                                                Anda pasti untuk menghapus pengguna?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn bg-gradient-secondary"
-                                                    data-bs-dismiss="modal">Batal</button>
-                                                <form method="POST"
-                                                    action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
-                                                    @method('DELETE')
-                                                    @csrf
+                                    <div class="modal fade" id="modaldelete-{{ $user_pengawas->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body text-center">
+                                                    <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                    <br>
+                                                    Anda pasti untuk menghapus pengguna?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn bg-gradient-secondary"
+                                                        data-bs-dismiss="modal">Batal</button>
+                                                    <form method="POST"
+                                                        action="{{ route('pengurusanpengguna.destroy', $user_pengawas['id']) }}">
+                                                        @method('DELETE')
+                                                        @csrf
 
-                                                    <button class="btn bg-gradient-danger" style="cursor: pointer" type="submit"> Hapus</button>
-                                                </form>
+                                                        <button class="btn bg-gradient-danger" style="cursor: pointer"
+                                                            type="submit"> Hapus</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    @else
+                        <tbody>
 
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $user['name'] }}</td>
+                                    <td>{{ $user['email'] }}</td>
+                                    <td>
+                                        @if ($user['user_group_id'] == 1)
+                                            Pentadbir Sistem
+                                        @elseif ($user['user_group_id'] == 2)
+                                            Pentadbir Penilaian
+                                        @elseif ($user['user_group_id'] == 3)
+                                            Penyelaras
+                                        @elseif ($user['user_group_id'] == 4)
+                                            Pengawas
+                                        @elseif ($user['user_group_id'] == 5)
+                                            Calon
+                                        @else
+                                            Pegawai Korporat
+                                        @endif
+                                        {{-- {{ $user['user_group_id'] }} --}}
+                                    </td>
+                                    <td><a class="btn btn-info text-white"
+                                            href="/pengurusanpengguna/{{ $user->id }}/edit" style="color:black;">
+                                            Kemaskini
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a data-bs-toggle="modal" style="cursor: pointer"
+                                            data-bs-target="#modaldelete-{{ $user->id }}">
+                                            <i class="far fa-trash-alt"></i>
+                                        </a>
+                                        {{-- <form method="POST" action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
+                                        @method('DELETE')
+                                        @csrf
+    
+                                        <button type="submit"> Hapus</button>
+                                    </form> --}}
+                                    </td>
+
+                                    <div class="modal fade" id="modaldelete-{{ $user->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body text-center">
+                                                    <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                    <br>
+                                                    Anda pasti untuk menghapus pengguna?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn bg-gradient-secondary"
+                                                        data-bs-dismiss="modal">Batal</button>
+                                                    <form method="POST"
+                                                        action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
+                                                        @method('DELETE')
+                                                        @csrf
+
+                                                        <button class="btn bg-gradient-danger" style="cursor: pointer"
+                                                            type="submit"> Hapus</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    @endif
                 </table>
             </div>
         </div>

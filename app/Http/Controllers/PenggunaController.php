@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Refgeneral;
 
 class PenggunaController extends Controller
 {
@@ -16,14 +17,17 @@ class PenggunaController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('updated_at', 'desc')->get();;
-            
-        return view('pengurusanpengguna.index',[
-             'users'=> $users,
-        
+        $users = User::orderBy('updated_at', 'desc')->get();
+
+        $user_pengawas = User::where('user_group_id', '=', '4')->orderBy('updated_at', 'desc')->get();
+
+        $current_user = Auth::user()->user_group_id;
+        // dd($current_user);
+        return view('pengurusanpengguna.index', [
+            'users' => $users,
+            'user_pengawas' => $user_pengawas,
+            'current_user' => $current_user
         ]);
-    
-        
     }
 
     /**
@@ -33,7 +37,11 @@ class PenggunaController extends Controller
      */
     public function create()
     {
-        return view('pengurusanpengguna.create');
+        $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
+
+        return view('pengurusanpengguna.create', [
+            'kementerians' => $kementerian
+        ]);
     }
 
     /**
@@ -50,22 +58,23 @@ class PenggunaController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'user_group_id' => 'required'
         ]);
-        
+
         $user = new User;
-        $user ->name = $request->name;
-        $user ->email = $request->email;
-        $user ->nric = $request->nric;
-        $user ->ministry_code = $request->ministry_code;
-        $user ->office_number = $request->office_number;
-        $user ->fax_number = $request->fax_number;
-        $user ->telephone_number = $request->telephone_number;
-        $user ->user_group_id = $request->user_group_id;
-        $user ->password = Hash::make($request->password);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->nric = $request->nric;
+        if (!empty($request->ministry_code)) {
+            $user->ministry_code = $request->ministry_code;
+        }
+        $user->office_number = $request->office_number;
+        $user->fax_number = $request->fax_number;
+        $user->telephone_number = $request->telephone_number;
+        $user->user_group_id = $request->user_group_id;
+        $user->password = Hash::make($request->password);
 
         // dd($user);
-        $user ->save();
+        $user->save();
         return redirect('/pengurusanpengguna');
-            
     }
 
     /**
@@ -77,7 +86,7 @@ class PenggunaController extends Controller
     public function show(User $user)
     {
         return view('pengurusanpengguna.edit', [
-            'user'=> $user,
+            'user' => $user,
         ]);
     }
 
@@ -90,8 +99,11 @@ class PenggunaController extends Controller
     public function edit($user)
     {
         $user = User::find($user);
+
+        $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
         return view('pengurusanpengguna.edit', [
-            'user'=> $user,
+            'user' => $user,
+            'kementerians' => $kementerian
         ]);
     }
 
@@ -103,19 +115,19 @@ class PenggunaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $user)
-    { 
+    {
         // dd($request->all());
         $user = User::find($user);
-        $user ->name = $request->name;
-        $user ->email = $request->email;
-        $user ->nric = $request->nric;
-        $user ->ministry_code = $request->ministry_code;
-        $user ->office_number = $request->office_number;
-        $user ->fax_number = $request->fax_number;
-        $user ->telephone_number = $request->telephone_number;
-        $user ->user_group_id = $request->user_group_id;
-        $user ->password = Hash::make($request->password);
-        $user ->save();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->nric = $request->nric;
+        $user->ministry_code = $request->ministry_code;
+        $user->office_number = $request->office_number;
+        $user->fax_number = $request->fax_number;
+        $user->telephone_number = $request->telephone_number;
+        $user->user_group_id = $request->user_group_id;
+        $user->password = Hash::make($request->password);
+        $user->save();
         return redirect('/pengurusanpengguna');
     }
     /**
