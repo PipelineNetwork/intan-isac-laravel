@@ -47,10 +47,11 @@
                                             <div class="btn-group" role="group">
                                                 <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
                                                 <button class="btn"
-                                                    style="border: none; background: none;" type="submit"><i
-                                                        class="fas fa-arrow-left"></i></button>
+                                                    style="border: none; background: none; cursor: pointer" type="submit"><i
+                                                        class="fas fa-arrow-left" data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom" title="Back"></i></button>
                                                 <button class="btn"
-                                                    style="border: none; background: none; " disabled><i
+                                                    style="border: none; background: none; cursor: pointer" disabled><i
                                                         class="fas fa-arrow-right"></i></button>
                                             </div>
                                         </div>

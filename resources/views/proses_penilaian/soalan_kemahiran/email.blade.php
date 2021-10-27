@@ -42,10 +42,9 @@
                     <div class="col-xl-12">
                         <ol>
                             <li>
-                                Anda dikehendaki klik pada butang Microsoft Outlook di bawah untuk memulakan aplikasi Emel
-                                Microsoft Outlook.
+                                Anda dikehendaki klik pada butang E-mel di bawah untuk memulakan Aplikasi E-mel.
                                 <ul class="mt-2">
-                                    <a class="btn btn-success" onclick="tsw_open_demo_window();">Microsoft Outlook <span
+                                    <a class="btn btn-success" onclick="tsw_open_demo_window();"> Aplikasi E-mel <span
                                             class="btn-inner--icon ml-2"><i class="fab fa-microsoft"></i></span></a>
                                 </ul>
                                 {{-- <ul class="mt-2">
@@ -53,13 +52,13 @@
                                 </ul> --}}
                             </li>
                             <li>
-                                Anda dikehendaki menghantar emel ke alamat <u>isac@intanbk.intan.my</u>.
+                                Anda dikehendaki menghantar e-mel ke alamat <u>isac@intanbk.intan.my</u>.
                             </li>
                             <li>
                                 Sila <b>kepilkan (Attach)</b> salah satu gambar yang terdapat dalam folder Pictures.
                             </li>
                             <li>
-                                Pastikan emel tersebut mengandungi :-
+                                Pastikan e-mel tersebut mengandungi :-
                                 <ul>
                                     <li>
                                         Cc : (kosongkan)
@@ -85,15 +84,10 @@
                                 </ul>
                             </li>
                             <li>
-                                Hantarkan (Send) emel tersebut.
+                                Hantarkan (Send) e-mel tersebut.
                             </li>
                             <li>
-                                Untuk menamatkan bahagian ini, klik butang <span style="color: red">TUTUP [ X ]</span> untuk
-                                keluar dari Pelayar E-mel.
-                            </li>
-                            <li>
-                                Silan klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk kehalaman
-                                seterusnya.
+                                Sila klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk menamatkan penilaian.
                             </li>
                         </ol>
                     </div>
