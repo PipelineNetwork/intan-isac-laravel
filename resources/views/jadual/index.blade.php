@@ -67,7 +67,7 @@
                                     <th>Tahap</th>
                                     <th>Masa Mula</th>
                                     <th>Masa Tamat</th>
-                                    <th>Tarikh</th>
+                                    <th>Tarikh Penilaian</th>
                                     <th>Kategori Peserta</th>
                                     <th>Jumlah Peserta</th>
                                     <th>Kekosongan</th>

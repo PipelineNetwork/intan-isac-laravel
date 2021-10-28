@@ -340,7 +340,7 @@
                             ?>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/kemasukan-id">
-                                    <span class="sidenav-normal"> Kemasukan ID Penilaian (Pemantauan)</span>
+                                    <span class="sidenav-normal"> Jawab Penilaian (Pemantauan)</span>
                                 </a>
                             </li>
                             <?php
@@ -352,7 +352,7 @@
                             ?>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/kemasukan-id">
-                                    <span class="sidenav-normal"> Kemasukan ID Penilaian </span>
+                                    <span class="sidenav-normal"> Jawab Penilaian </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
