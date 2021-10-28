@@ -27,14 +27,14 @@
                 </li>
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Penilaian</a></li>
             </ol>
-            <h5 class="font-weight-bolder">Kemasukan Penilaian</h5>
+            <h5 class="font-weight-bolder">Penilaian ISAC</h5>
         </nav>
 
         <div class="row">
             <div class="col">
                 <div class="card m-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <h5 class="text-white mb-0">Kemasukkan Penilaian</h5>
+                        <h5 class="text-white mb-0">Penilaian ISAC</h5>
                     </div>
                     <div class="card-body">
                         <p><em>Sila masukkan id penilaian yang anda terima.</em></p>
@@ -48,11 +48,11 @@
                                         </label>
                                         <label class="float-right">:</label>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-3">
                                         <input class="form-control" type="text" name="id_penilaian">
                                     </div>
                                     <div class="col-auto">
-                                        <button class="btn bg-gradient-success btn-sm">Mula</button>
+                                        <button class="btn bg-gradient-success btn-sm">MULA MENJAWAB</button>
                                     </div>
                                 </div>
                             </form>
