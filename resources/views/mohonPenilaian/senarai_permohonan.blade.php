@@ -56,7 +56,7 @@
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID Penilaian</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarikh Penilaian</th>
-                            masa dgn lokasi
+                            {{-- masa dgn lokasi --}}
                             {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jawatan</th> --}}
                             @if(Auth::user()->user_group_id == "5")
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Surat Tawaran</th>
