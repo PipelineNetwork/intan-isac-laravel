@@ -264,9 +264,11 @@ class MohonPenilaianController extends Controller
      * @param  \App\Models\MohonPenilaian  $mohonPenilaian
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MohonPenilaian $mohonPenilaian)
+    public function destroy($mohonPenilaian)
     {
-        //
+        $mohonPenilaian = MohonPenilaian::find($mohonPenilaian);
+        $mohonPenilaian->delete();
+        return redirect('/mohonpenilaian')->with('success','Berjaya dihapus!');
     }
 
     public function pilih_jadual(Request $request)

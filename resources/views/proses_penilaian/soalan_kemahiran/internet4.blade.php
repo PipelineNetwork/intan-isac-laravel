@@ -46,7 +46,7 @@
                                         <div class="col">
                                             <div class="btn-group" role="group">
                                                 <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
-                                                <button class="btn btn-secondary"
+                                                <button class="btn btn-danger"
                                                     style="border-radius: 5px; cursor: pointer;" type="submit"><i
                                                         class="fas fa-arrow-left fa-lg" data-bs-toggle="tooltip"
                                                         data-bs-placement="bottom" title="Back"></i></button>

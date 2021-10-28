@@ -42,9 +42,9 @@
                     <div class="col-xl-12">
                         <ol>
                             <li>
-                                Klik butang Google Chrome di bawah.
+                                Klik butang Internet di bawah.
                                 <ul class="mt-2">
-                                    <a class="btn btn-success" onclick="tsw_open_demo_window();">Google Chrome</a>
+                                    <a class="btn btn-success" onclick="tsw_open_demo_window();">Internet</a>
                                 </ul>
                             </li>
                             <li>
@@ -96,7 +96,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn bg-gradient-secondary"
                                             data-bs-dismiss="modal">Batal</button>
-                                        <a href="/soalan-kemahiran-word" class="btn btn-success">Seterusnya</a>
+                                        <a href="/soalan-kemahiran-word" class="btn btn-success">Ok</a>
                                     </div>
                                 </div>
                             </div>
