@@ -55,9 +55,9 @@
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID Penilaian</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarikh</th>
-                            {{-- masa --}}
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jawatan</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarikh Penilaian</th>
+                            masa dgn lokasi
+                            {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jawatan</th> --}}
                             @if(Auth::user()->user_group_id == "5")
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Surat Tawaran</th>
                             @endif
@@ -72,8 +72,8 @@
                                 <td class="text-sm font-weight-normal">{{ $calon_3['id_sesi'] }}</td>
                                 <td class="text-sm font-weight-normal">{{ $calon_3['nama'] }}</td>
                                 <td class="text-sm font-weight-normal">{{ $calon_3['tarikh_sesi'] }}</td>
-                                {{-- tambah masa --}}
-                                <td class="text-sm font-weight-normal">{{ $calon_3['taraf_jawatan'] }}</td>
+                                {{-- tambah masa dgn lokasi--}}
+                                {{-- <td class="text-sm font-weight-normal">{{ $calon_3['taraf_jawatan'] }}</td> --}}
                                 <td class="text-sm font-weight-normal text-center">
                                     <a href="/cetak_surat/{{ $calon_3['id'] }}"><i class="far fa-file-pdf fa-lg text-danger"></i></a>
                                 </td>
@@ -87,7 +87,7 @@
                                 <td class="text-sm font-weight-normal">{{ $peserta['nama'] }}</td>
                                 <td class="text-sm font-weight-normal">{{ $peserta['tarikh_sesi'] }}</td>
                                 {{-- masa --}}
-                                <td class="text-sm font-weight-normal">{{ $peserta['taraf_jawatan'] }}</td>
+                                {{-- <td class="text-sm font-weight-normal">{{ $peserta['taraf_jawatan'] }}</td> --}}
                             </tr>
                             @endforeach
                         @endif
