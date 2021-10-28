@@ -45,7 +45,7 @@
                                 Anda dikehendaki klik pada butang E-mel di bawah untuk memulakan Aplikasi E-mel.
                                 <ul class="mt-2">
                                     <a class="btn btn-success" onclick="tsw_open_demo_window();"> Aplikasi E-mel <span
-                                            class="btn-inner--icon ml-2"><i class="fab fa-microsoft"></i></span></a>
+                                            class="btn-inner--icon ml-2"></span></a>
                                 </ul>
                                 {{-- <ul class="mt-2">
                                     <a class="btn btn-success" href="/soalan-kemahiran-email/create">Microsoft Outlook <span class="btn-inner--icon ml-2"><i class="fab fa-microsoft"></i></span></a>
@@ -69,8 +69,6 @@
                                 </ul>
                             <li>
                                 Taipkan dalam kandungan mesej anda maklumat berikut :
-                            </li>
-                            <li>
                                 <ul>
                                     <li>
                                         Tuan,
@@ -111,7 +109,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn bg-gradient-secondary"
                                             data-bs-dismiss="modal">Batal</button>
-                                        <a href="/tamat-penilaian" class="btn btn-success">Seterusnya</a>
+                                        <a href="/tamat-penilaian" class="btn btn-success">Ok</a>
                                     </div>
                                 </div>
                             </div>

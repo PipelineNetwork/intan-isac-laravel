@@ -60,6 +60,7 @@
                             {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jawatan</th> --}}
                             @if(Auth::user()->user_group_id == "5")
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Surat Tawaran</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Tindakan</th>
                             @endif
                         </tr>
                     </thead>
@@ -75,7 +76,14 @@
                                 {{-- tambah masa dgn lokasi--}}
                                 {{-- <td class="text-sm font-weight-normal">{{ $calon_3['taraf_jawatan'] }}</td> --}}
                                 <td class="text-sm font-weight-normal text-center">
-                                    <a href="/cetak_surat/{{ $calon_3['id'] }}"><i class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                    <a href="/cetak_surat/{{ $calon_3['id'] }}" class="btn mb-0">Cetak&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                </td>
+                                <td class="text-sm font-weight-normal text-center">
+                                    <form method="POST" action="{{ route('mohonpenilaian.destroy', $calon_3['id']) }}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class="btn mb-0 btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach

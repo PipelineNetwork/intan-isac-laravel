@@ -105,7 +105,8 @@
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script> --}}
 </head>
 
-<body class="g-sidenav-show  bg-gray-100" oncopy="return false" oncut="return false" onpaste="return false" oncontextmenu="return false">
+<body class="g-sidenav-show  bg-gray-100" oncopy="return false" oncut="return false" onpaste="return false"
+    oncontextmenu="return false">
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
@@ -193,7 +194,7 @@
                                     @csrf
                                     <a class="dropdown-item border-radius-md" href="#"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        this.closest('form').submit();">
                                         <div class="d-flex py-1">
 
                                             {{ __('Log Keluar') }}
@@ -223,7 +224,7 @@
                 <div class="h5" id="timer"></div>
             </div>
         </div>
-        
+
         @yield('content')
 
         {{-- <footer class="footer pt-3  ">
@@ -290,50 +291,60 @@
         // properties
         var count = 0;
         var counter = null;
-      
+
+        // function preventBack() {
+        //     window.history.forward();
+        // }
+        // setTimeout("preventBack()", 0);
+        // window.onunload = function() {
+        //     null
+        // };
+
+
         window.onload = function() {
-          initCounter();
+            initCounter();
         };
-      
+
         function initCounter() {
-          // get count from localStorage, or set to initial value of 1000
-          count = getLocalStorage('count') || 3600;
-          counter = setInterval(timer, 1000); //1000 will  run it every 1 second
-          console.log(count);
+            // get count from localStorage, or set to initial value of 1000
+            count = getLocalStorage('count') || 3600;
+            counter = setInterval(timer, 1000); //1000 will  run it every 1 second
+            console.log(count);
 
         }
-      
+
         function setLocalStorage(key, val) {
-          if (window.localStorage) {
-            window.localStorage.setItem(key, val);
-          }
-      
-          return val;
+            if (window.localStorage) {
+                window.localStorage.setItem(key, val);
+            }
+
+            return val;
         }
-      
+
         function getLocalStorage(key) {
-          return window.localStorage ? window.localStorage.getItem(key) : '';
+            return window.localStorage ? window.localStorage.getItem(key) : '';
         }
-      
+
         function timer() {
-          count = setLocalStorage('count', count - 1);
-          console.log(count);
-          if (count <= -1) {
-            clearInterval(counter);
-            count = setLocalStorage('count', 3600);
-            return;
-          }
-      
-          var seconds = count % 60;
-          var minutes = Math.floor(count / 60);
-          var hours = Math.floor(minutes / 60);
-          minutes %= 60;
-          hours %= 60;
-          
-          document.getElementById("timer").innerHTML = "Masa menjawab: " + minutes +  " minit dan "   + seconds +  "  saat."; // watch for spelling
+            count = setLocalStorage('count', count - 1);
+            console.log(count);
+            if (count <= -1) {
+                clearInterval(counter);
+                count = setLocalStorage('count', 3600);
+                return;
+            }
+
+            var seconds = count % 60;
+            var minutes = Math.floor(count / 60);
+            var hours = Math.floor(minutes / 60);
+            minutes %= 60;
+            hours %= 60;
+
+            document.getElementById("timer").innerHTML = "Masa menjawab: " + minutes + " minit dan " + seconds +
+            "  saat."; // watch for spelling
         }
-       </script>
-       
+    </script>
+
 </body>
 
 </html>

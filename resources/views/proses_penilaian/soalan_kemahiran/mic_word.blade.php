@@ -46,7 +46,7 @@
                                 Pemprosesan Perkataan.
                                 <ul class="mt-2">
                                     <a class="btn btn-success" onclick="tsw_open_demo_window();"> Pemprosesan Perkataan
-                                        <span class="btn-inner--icon ml-2"><i class="fab fa-microsoft"></i></span></a>
+                                        <span class="btn-inner--icon ml-2"></span></a>
                                 </ul>
                             </li>
                             {{-- <li>
@@ -118,7 +118,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn bg-gradient-secondary"
                                             data-bs-dismiss="modal">Batal</button>
-                                        <a href="/soalan-kemahiran-email" class="btn btn-success">Seterusnya</a>
+                                        <a href="/soalan-kemahiran-email" class="btn btn-success">Ok</a>
                                     </div>
                                 </div>
                             </div>
