@@ -57,29 +57,39 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                </div>
                 <div class="row" data-bs-toggle="collapse">
                     <div class="col-6">
                         <label for="user_group_id">Peranan :</label>
                         <div class="form-group">
                             <select class="form-control mb-3" type="text" name="user_group_id" id="pilih1" required>
-                                <option hidden selected>
-                                    @if ($user['user_group_id'] == 1)
+
+                                @if ($user['user_group_id'] == 1)
+                                    <option hidden selected value="1">
                                         Pentadbir Sistem
-                                    @elseif ($user['user_group_id'] == 2)
+                                    </option>
+                                @elseif ($user['user_group_id'] == 2)
+                                    <option hidden selected value="2">
                                         Pentadbir Penilaian
-                                    @elseif ($user['user_group_id'] == 3)
+                                    </option>
+                                @elseif ($user['user_group_id'] == 3)
+                                    <option hidden selected value="3">
                                         Penyelaras
-                                    @elseif ($user['user_group_id'] == 4)
+                                    </option>
+                                @elseif ($user['user_group_id'] == 4)
+                                    <option hidden selected value="4">
                                         Pengawas
-                                    @elseif ($user['user_group_id'] == 5)
+                                    </option>
+                                @elseif ($user['user_group_id'] == 5)
+                                    <option hidden selected value="5">
                                         Calon
-                                    @else
+                                    </option>
+                                @else
+                                    <option hidden selected value="6">
                                         Pegawai Korporat
-                                    @endif
-                                    {{-- {{ $user->user_group_id }} --}}
-                                </option>
+                                    </option>
+                                @endif
+                                {{-- {{ $user->user_group_id }} --}}
+
                                 <?php
                                 if(Auth::user()->user_group_id == '1'){
                                     ?>
@@ -379,17 +389,17 @@
                 </div>
                 <div class="row">
                     <!-- <div class="col-6">
-                                <label for="">No office :</label>
-                                <div class="input-group">
-                                    <input class="form-control mb-3" type="text" name="office_number"
-                                        value="{{ $user->office_number }}">
-                                </div> -->
+                                            <label for="">No office :</label>
+                                            <div class="input-group">
+                                                <input class="form-control mb-3" type="text" name="office_number"
+                                                    value="{{ $user->office_number }}">
+                                            </div> -->
                     <!-- <div class="col-6">
-                                <label for="">No fax :</label>
-                                <div class="input-group">
-                                    <input class="form-control mb-3" type="text" name="fax_number" value="{{ $user->fax_number }}">
-                                </div>
-                            </div> -->
+                                            <label for="">No fax :</label>
+                                            <div class="input-group">
+                                                <input class="form-control mb-3" type="text" name="fax_number" value="{{ $user->fax_number }}">
+                                            </div>
+                                        </div> -->
                 </div>
 
                 <button class="btn bg-gradient-warning" type="submit">Simpan</button>
