@@ -116,6 +116,9 @@ class PenggunaController extends Controller
      */
     public function update(Request $request, $user)
     {
+        $request->validate([
+            'user_group_id' => 'required'
+        ]);
         // dd($request->all());
         $user = User::find($user);
         $user->name = $request->name;
