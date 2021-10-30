@@ -39,40 +39,53 @@
                 <div class="card-header pb-3" style="background-color:#FFA500;">
                     <h5 class="text-white">Semakan Keputusan Penilaian</h5>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <h3 class="h5">Sila masukkan nombor kad pengenalan anda dan ID Penilaian yang anda daftar.</h3>
-                        </div>
-                    </div>
 
-                    <div class="row mt-3">
-                        <div class="col">
-                            <form action="/semak_keputusan" method="POST">
-                                @csrf
-                                <div class="form-group">
-                                    <label class="form-control-label">Nombor Kad Pengenalan</label>
-                                    <input class="form-control" type="text" name="ic">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-control-label">ID Penilaian</label>
-                                    <input class="form-control" type="text" name="id_penilaian" maxlength="12">
-                                </div>
-                                <div class="row">
-                                    <div class="col text-end">
-                                        <button class="btn bg-gradient-info">Semak</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-flush" id="datatable-peserta">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama Peserta</th>
+                                    <th>No. Kad Pengenalan</th>
+                                    <th>ID Penilaian</th>
+                                    <th>Tarikh Penilaian</th>
+                                    <th>Lokasi</th>
+                                    <th>Keputusan</th>
+                                    <th>Dokumen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($keputusans as $key => $keputusan)
+                                <tr>
+                                    <td>{{$key+1}}</td>
+                                    <td>{{$keputusan->nama_peserta}}</td>
+                                    <td>{{$keputusan->ic_peserta}}</td>
+                                    <td>{{$keputusan->id_penilaian}}</td>
+                                    <td>{{$keputusan->tarikh_penilaian}}</td>
+                                    <td>{{$keputusan->lokasi}}</td>
+                                    <td>{{$keputusan->keputusan}}</td>
+                                    <td>
+                                        <a href="/slip_keputusan" class="btn mb-0">Slip&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                        <a href="/sijil_isac" class="btn mb-0">Sijil&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    
                 </div>
-                
             </div>
         </div>
     </div>
 
+    <script src="../../assets/js/plugins/datatables.js"></script>
+    <script type="text/javascript">
+        const dataTableBasickategori = new simpleDatatables.DataTable("#datatable-peserta", {
+            searchable: true,
+            fixedHeight: true
+        });
+    </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 @stop

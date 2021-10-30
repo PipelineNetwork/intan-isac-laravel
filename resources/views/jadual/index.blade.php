@@ -121,7 +121,11 @@
                                         <td>{{ $jadual['status'] }}</td>
                                         <td>{{ $jadual['keterangan'] }}</td>
                                         <td>
-                                            <!-- <a href="/jaduals/{{ $jadual['ID_SESI'] }}/edit" class="btn bg-light btn-sm"> Kemaskini</a> -->
+                                            <form method="POST" action="{{ route('jaduals.destroy', $jadual['ID_SESI']) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button class="btn mb-0 btn-danger" type="submit">Hapus&emsp;<i class="fas fa-trash-alt"></i></button>
+                                            </form>
                                             <div class="dropdown">
                                                 <button class="btn btn-info dropdown-toggle" type="button"
                                                     id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

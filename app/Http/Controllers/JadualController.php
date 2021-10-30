@@ -305,8 +305,9 @@ class JadualController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jadual $jadual)
+    public function destroy($jadual)
     {
+
         $jadual = Jadual::find($jadual);
         $jadual->delete();
         return redirect('/jaduals');
