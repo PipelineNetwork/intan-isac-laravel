@@ -75,7 +75,7 @@ class RegisteredUserController extends Controller
         $user->save();
 
         $current_user = $request->user();
-        Mail::to($user->email)->send(new PenggunaDidaftar($user));
+        // Mail::to($user->email)->send(new PenggunaDidaftar($user));
         // $user_reg = User::where('id', '=', $current_user)->get();
         // foreach ($user_reg as $users) {
         //     Mail::to($users->email)->send(new PenggunaDidaftar($user));
@@ -173,6 +173,14 @@ class RegisteredUserController extends Controller
                 'ID_PESERTA' => $peserta->ID_PESERTA,
             ]);
         }
+
+        $user->name = strtoupper($peserta->NAMA_PESERTA);
+        // dd($user->name);
+        
+        $user->save();
+
+        $current_user = $request->user();
+        Mail::to($user->email)->send(new PenggunaDidaftar($user));
         // dd($hrmisData);
         event(new Registered($user));
         Auth::login($user);

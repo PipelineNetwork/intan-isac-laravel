@@ -70,9 +70,9 @@ $penyelaras = User::where('user_group_id', '3')->get();
                     </br>
                     <div class="card-body pt-0">
                         <div class="row">
-                            <div class="col-6 form-group">
+                            <div class="col-6">
                                 <label for="KOD_SESI_PENILAIAN">Sesi :</label>
-                                <div class="form-group">
+                                <div class="input-group">
                                     <select class="form-control mb-0" type="text" name="KOD_SESI_PENILAIAN">
                                         <option hidden value=""> Sila Pilih </option>
                                         <option value="01" {{ old('KOD_SESI_PENILAIAN') == '01' ? 'selected' : '' }}>1
@@ -89,7 +89,7 @@ $penyelaras = User::where('user_group_id', '3')->get();
                             </div>
                             <div class="col-6">
                                 <label for="KOD_TAHAP">Tahap :</label>
-                                <div class="form-group">
+                                <div class="input-group">
                                     <select class="form-control mb-0" type="text" name="KOD_TAHAP">
                                         <option hidden value=""> Sila Pilih </option>
                                         <option value="01" {{ old('KOD_TAHAP') == '01' ? 'selected' : '' }}>Asas</option>
@@ -224,9 +224,6 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         <option value="Kampus Intan Sabah ">Kampus Intan Sabah </option>
                                         <option value="Kampus Intan Sarawak">Kampus Intan Sarawak</option>
                                         <option value="Jabatan Perkhidmatan Awam">Jabatan Perkhidmatan Awam</option>
-                                        <option value="Kampus UTAMA (Bukit Kiara - 09)">Kampus UTAMA (Bukit Kiara -
-                                            09)</option>
-                                        <option value="INTAN LOCAL">INTAN LOCAL</option>
                                     </select>
                                     @error('LOKASI')
                                         <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>

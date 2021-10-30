@@ -90,7 +90,7 @@
                                                     @if ($jadual->KEKOSONGAN != 0)
                                                         <input type="hidden" name="sesi"
                                                             value="{{ $jadual->ID_PENILAIAN }}">
-                                                        <button class="btn btn-sm bg-gradient-info">Daftar</button>
+                                                        <button class="btn btn-sm bg-gradient-info">PILIH</button>
                                                     @else
                                                         <button class="btn btn-sm bg-gradient-secondary"
                                                             disabled>Penuh</button>
