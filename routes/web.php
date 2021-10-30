@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PenggunaController;
 // use App\Http\Controllers\PenyelarasController;
@@ -21,7 +22,7 @@ use App\Http\Controllers\SoalankemahiranemailController;
 use App\Http\Controllers\SoalankemahiranwordController;
 use App\Http\Controllers\KemasukanPenilaianController;
 use App\Http\Controllers\KeputusanPenilaianController;
-
+use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,25 +61,25 @@ Route::get('/profil/{id}', [ProfilController::class, 'kemaskiniform']);
 
 Route::post('/profil/{id}/edit', [ProfilController::class, 'kemaskiniprofil']);
 
-Route::resource('/pengurusanpengguna',PenggunaController::class);
+Route::resource('/pengurusanpengguna', PenggunaController::class);
 
 // Route::resource('/penyelaraspengguna',PenyelarasController::class);
 
 // Route::resource('/pengawaspengguna',PengawasController::class);
 
-Route::resource('/tambahaduans',TambahAduanController::class);
+Route::resource('/tambahaduans', TambahAduanController::class);
 
-Route::resource('/tambahrayuans',TambahRayuanController::class);
+Route::resource('/tambahrayuans', TambahRayuanController::class);
 
-Route::resource('/balasaduans',TambahAduanController::class);
+Route::resource('/balasaduans', TambahAduanController::class);
 
-Route::resource('/balasrayuans',TambahRayuanController::class);
+Route::resource('/balasrayuans', TambahRayuanController::class);
 
-Route::resource('/permohanans',PermohananController::class);
+Route::resource('/permohanans', PermohananController::class);
 
-Route::resource('/jaduals',JadualController::class);
+Route::resource('/jaduals', JadualController::class);
 
-Route::resource('/mohonpenilaian',MohonPenilaianController::class);
+Route::resource('/mohonpenilaian', MohonPenilaianController::class);
 
 Route::resource('/bank-soalan-pengetahuan', BanksoalanpengetahuanController::class);
 
@@ -124,12 +125,12 @@ Route::get('/papar-keputusan', function () {
 
 // Route::post('change-password', 'ChangePasswordController@store')->name('change.password');
 
-Route::resource('/change-password',ChangePasswordController::class);
+Route::resource('/change-password', ChangePasswordController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // custom action najhan
 Route::post('/jadual/kemaskini_status/{id}', [JadualController::class, 'kemaskini_status']);
@@ -150,3 +151,13 @@ Route::post('/semak_keputusan', [KeputusanPenilaianController::class, 'semak_kep
 Route::get('/semakan_penilaian', function () {
     return view('proses_penilaian.keputusan_penilaian.semakan_penilaian');
 });
+
+Route::get('/laporan/penilaian-isac-mengikut-kementerian', [LaporanController::class, 'laporan_penilaian_isac_mengikut_kementerian']);
+Route::get('/laporan/senarai-keputusan-penilaian', [LaporanController::class, 'senarai_keputusan_penilaian']);
+Route::get('/laporan/statistik-penilaian-mengikut-klasifikasi-gred-jawatan', [LaporanController::class, 'statistik_penilaian_gred_jawatan']);
+Route::get('/laporan/statistik-keseluruhan', [LaporanController::class, 'statistik_keseluruhan']);
+Route::get('/laporan/statistik-keseluruhan-pencapaian-penilaian-isac-mengikut-bulan', [LaporanController::class, 'statistik_keseluruhan_pencapaian_penilaian_isac_ikut_bulan']);
+Route::get('/laporan/statistik-isac-mengikut-kategori-calon', [LaporanController::class, 'statistik_isac_kategori_calon']);
+Route::get('/laporan/keseluruhan-penilaian-isac-mengikut-iac', [LaporanController::class, 'keseluruhan_penilaian_isac_iac']);
+Route::get('/laporan/aduan', [LaporanController::class, 'laporan_aduan']);
+Route::get('/laporan/rayuan', [LaporanController::class, 'laporan_rayuan']);
