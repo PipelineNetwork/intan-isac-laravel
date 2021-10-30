@@ -182,7 +182,7 @@
                     <div class="collapse " id="pentadbiranpenggunadrop">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
-                                <a class="nav-link " href="/kebenaran-kumpulan-pengguna">
+                                <a class="nav-link " href="#">
                                     <span class="sidenav-normal"> Kebenaran Kumpulan Pengguna </span>
                                 </a>
                             </li>
@@ -235,7 +235,7 @@
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                             <i class="fas fa-edit me-sm-1 text-dark"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Permohonan</span>
+                        <span class="nav-link-text ms-1">Permohonan Penilaian</span>
                     </a>
                     <div class="collapse " id="permohonanadrop">
                         <ul class="nav ms-4 ps-3">
@@ -251,7 +251,7 @@
                             }
                             ?>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/permohonan/rayuan-calon-blacklist">
+                                <a class="nav-link " href="#">
                                     <span class="sidenav-normal"> Senarai Rayuan Calon Blacklist </span>
                                 </a>
                             </li>
@@ -301,7 +301,7 @@
                             if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
                             ?>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/senarai-slip_keputusan">
+                                <a class="nav-link " href="#">
                                     <span class="sidenav-normal"> Senarai Slip Keputusan </span>
                                 </a>
                             </li>
@@ -309,13 +309,13 @@
                             }
                             ?>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/senarai-sijil-kelulusan">
+                                <a class="nav-link " href="#">
                                     <span class="sidenav-normal"> Senarai Sijil Kelulusan </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/papar-keputusan">
-                                    <span class="sidenav-normal"> Semakan Jawapan </span>
+                                    <span class="sidenav-normal"> Semakan Keputusan </span>
                                 </a>
                             </li>
                         </ul>
@@ -432,7 +432,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/bank-soalan-kemahiran">
+                                <a class="nav-link " href="#">
                                     <span class="sidenav-normal"> Bank Soalan Kemahiran </span>
                                 </a>
                             </li>
@@ -590,22 +590,22 @@
                     <div class="collapse " id="kawalansistemdrop">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
-                                <a class="nav-link " href="/balasaduans">
+                                <a class="nav-link " href="#">
                                     <span class="sidenav-normal"> Maklumat Selenggara Kawalan Sistem </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/balasrayuans">
+                                <a class="nav-link " href="#">
                                     <span class="sidenav-normal"> Maklumat Notifikasi E-mel </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/tambahaduans">
+                                <a class="nav-link " href="#">
                                     <span class="sidenav-normal"> Maklumat Laman Utama </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/tambahrayuans">
+                                <a class="nav-link " href="#">
                                     <span class="sidenav-normal"> Maklumat Video dan Nota </span>
                                 </a>
                             </li>

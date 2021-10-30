@@ -36,7 +36,7 @@
     <div>
         <div class="row">
             <div class="column-12">
-                <a href="/mohonpenilaian/create" class="btn bg-gradient-primary " type="submit" style="float: right;">MOHON</a>
+                <a href="/mohonpenilaian/create" class="btn bg-gradient-primary " type="submit" style="float: right;">PILIH JADUAL</a>
             </div>
         </div>
     </div>

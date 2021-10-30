@@ -3,12 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\KeputusanPenilaian;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 use App\Models\Bankjawapanpengetahuan;
 
 class KeputusanPenilaianController extends Controller
 {
+
+    public function index(){
+
+        $keputusans = KeputusanPenilaian::all();
+        return view('proses_penilaian.keputusan_penilaian.semakan_penilaian',[
+            'keputusans'=>$keputusans
+        ]);
+
+    }
     public function semak_keputusan(Request $request){
         $ic = $request->ic;
         $id_penilaian = $request->id_penilaian;

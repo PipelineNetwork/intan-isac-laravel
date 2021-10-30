@@ -111,6 +111,8 @@ Route::resource('/soalan-kemahiran-email', SoalankemahiranemailController::class
 
 Route::resource('/soalan-kemahiran-word', SoalankemahiranwordController::class);
 
+Route::resource('/keputusan_penilaian', KeputusanPenilaianController::class);
+
 Route::get('/tamat-penilaian', function () {
     return view('proses_penilaian.tamat_penilaian');
 });

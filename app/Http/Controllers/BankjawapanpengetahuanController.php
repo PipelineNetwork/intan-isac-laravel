@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Bankjawapanpengetahuan;
 use App\Models\Banksoalanpengetahuan;
+use App\Models\KeputusanPenilaian;
+use App\Models\MohonPenilaian;
+use App\Models\Jadual;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -39,23 +42,43 @@ class BankjawapanpengetahuanController extends Controller
             }else{
                 $simpan_jawapan->markah = 0;
             }
-
-            // $rules = [
-            //     'pilihan_jawapan' => 'required',
-            // ];
-            // $messages = [
-            //     'pilihan_jawapan.required' => 'Sila jawab semua soalan.',
-            // ];
-
-            // Validator::make($request->input(), $rules, $messages)->validate();
             $simpan_jawapan->save();
         }
 
+        $ic = Auth::user()->nric;
+        $peserta = MohonPenilaian::where('no_ic', $ic)->first();
+        $jadual = Jadual::where('ID_PENILAIAN', $request->id_penilaian)->first();
 
-        $masa_tamat_a = time();
+        $keputusan = Bankjawapanpengetahuan::where('id_calon', $ic)
+        ->where('id_penilaian', $id_penilaian)
+        ->get();
 
-        $range_masa = $masa_tamat_a - $request->masa_mula;
-        
+        $markah = 0;
+        foreach($keputusan as $keputusan){
+            $markah = $markah + $keputusan->markah;
+        }
+
+        $keputusan = new KeputusanPenilaian;
+        $keputusan->id_peserta = $peserta->id_calon;
+        $keputusan->id_penilaian = $request->id_penilaian;
+        $keputusan->nama_peserta = $peserta->nama;
+        $keputusan->ic_peserta = $ic;
+        $keputusan->tarikh_penilaian = $jadual->TARIKH_SESI;
+        if($jadual->LOKASI != null){
+            $keputusan->lokasi = $jadual->LOKASI;
+        }else{
+            $keputusan->lokasi = "Atas Talian";
+        }
+        $keputusan->markah_pengetahuan = $markah;
+        $keputusan->markah_kemahiran = 0;
+        $keputusan->markah_keseluruhan = $keputusan->markah_pengetahuan+$keputusan->markah_kemahiran;
+        if($keputusan->markah_keseluruhan >= 0){
+            $keputusan->keputusan = "Lulus";
+        }else{
+            $keputusan->keputusan = "Gagal";
+        }
+        $keputusan->save();
+
         return redirect('/soalan-kemahiran-internet')->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
     }
     /**
