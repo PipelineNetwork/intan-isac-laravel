@@ -47,6 +47,10 @@
     <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="../../assets/css/soft-ui-dashboard.min.css?v=1.0.3" rel="stylesheet" />
+    {{-- datatable.net --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
     <!-- Anti-flicker snippet (recommended)  -->
     <style>
         .async-hide {
@@ -497,13 +501,75 @@
                 if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '4' || Auth::user()->user_group_id == '6')) {
                 ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="/laporan">
+                    <a data-bs-toggle="collapse" href="#laporandrop" class="nav-link "
+                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
                         <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                             <i class="fas fa-chart-bar me-sm-1 text-dark"></i>
                         </div>
                         <span class="nav-link-text ms-1">Laporan</span>
                     </a>
+                    <div class="collapse " id="laporandrop">
+                        <ul class="nav ms-4 ps-3">
+                            <li class="nav-item ">
+                                {{-- <a class="nav-link " href="/laporan/penilaian-isac-mengikut-kementerian-jabatan">
+                                    <span class="sidenav-normal"> Laporan Penilaian ISAC Mengikut Kementerian & Jabatan
+                                    </span>
+                                </a> --}}
+                                <a class="nav-link " href="/laporan/penilaian-isac-mengikut-kementerian">
+                                    <span class="sidenav-normal"> Laporan Penilaian ISAC Mengikut Kementerian
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="/laporan/senarai-keputusan-penilaian">
+                                    <span class="sidenav-normal"> Laporan Senarai Keputusan Penilaian </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link "
+                                    href="/laporan/statistik-penilaian-mengikut-klasifikasi-gred-jawatan">
+                                    <span class="sidenav-normal"> Laporan Statistik Penilaian Mengikut Klasifikasi Gred
+                                        & Jawatan
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="/laporan/statistik-keseluruhan">
+                                    <span class="sidenav-normal"> Laporan Statistik Keseluruhan </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link "
+                                    href="/laporan/statistik-keseluruhan-pencapaian-penilaian-isac-mengikut-bulan">
+                                    <span class="sidenav-normal"> Laporan Statistik Keseluruhan Pencapaian Penilaian
+                                        ISAC Mengikut Bulan </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="/laporan/statistik-isac-mengikut-kategori-calon">
+                                    <span class="sidenav-normal"> Laporan Statistik ISAC Mengikut Kategori Calon
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="/laporan/keseluruhan-penilaian-isac-mengikut-iac">
+                                    <span class="sidenav-normal"> Laporan Keseluruhan Penilaian ISAC Mengikut IAC
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="/laporan/aduan">
+                                    <span class="sidenav-normal"> Laporan Aduan </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="/laporan/rayuan">
+                                    <span class="sidenav-normal"> Laporan Rayuan </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <?php
                 }
@@ -595,7 +661,7 @@
                                     @csrf
                                     <a class="dropdown-item border-radius-md" href="#"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            this.closest('form').submit();">
                                         <div class="d-flex py-1">
 
                                             {{ __('Log Keluar') }}
