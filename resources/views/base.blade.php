@@ -301,7 +301,7 @@
                             if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
                             ?>
                             <li class="nav-item ">
-                                <a class="nav-link " href="#">
+                                <a class="nav-link " href="/keputusan_penilaian">
                                     <span class="sidenav-normal"> Senarai Slip Keputusan </span>
                                 </a>
                             </li>

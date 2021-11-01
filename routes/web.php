@@ -23,6 +23,8 @@ use App\Http\Controllers\SoalankemahiranwordController;
 use App\Http\Controllers\KemasukanPenilaianController;
 use App\Http\Controllers\KeputusanPenilaianController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VideoDanNotaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,6 +71,8 @@ Route::resource('/pengurusanpengguna', PenggunaController::class);
 
 Route::resource('/tambahaduans', TambahAduanController::class);
 
+// Route::resource('/dashboard', DashboardController::class);
+
 Route::resource('/tambahrayuans', TambahRayuanController::class);
 
 Route::resource('/balasaduans', TambahAduanController::class);
@@ -112,6 +116,8 @@ Route::resource('/soalan-kemahiran-email', SoalankemahiranemailController::class
 Route::resource('/soalan-kemahiran-word', SoalankemahiranwordController::class);
 
 Route::resource('/keputusan_penilaian', KeputusanPenilaianController::class);
+
+Route::resource('/videodannota', VideoDanNotaController::class);
 
 Route::get('/tamat-penilaian', function () {
     return view('proses_penilaian.tamat_penilaian');

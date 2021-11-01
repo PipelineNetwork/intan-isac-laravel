@@ -12,61 +12,21 @@
         <div class="col">
             <div class="card m-3">
                 <div class="card-header" style="background-color:#FFA500;">
-                    <b class="text-white">Senarai Jadual</b>
+                    <b class="text-white">Video dan Nota</b>
                 </div>
-
-                <div class="table-responsive">
-                    <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-
-                        <thead>
-                            <tr>
-                                <th>Kod Sesi</th>
-                                <th>Tahap</th>
-                                <th>Masa Mula</th>
-                                <th>Masa Tamat</th>
-                                <th>Tarikh</th>
-                                <th>Kategori Peserta</th>
-                                <th>Jumlah Peserta</th>
-                                <th>Kementerian/Agensi</th>
-                                <th>Platform</th>
-                                <th>Lokasi</th>
-                                <th>Status</th>
-                                <th>Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            @foreach ($jaduals as $jadual)
-                                <tr>
-                                    <td class="text-center">{{ $jadual['KOD_SESI_PENILAIAN'] }}</td>
-                                    <td class="text-center">
-                                        @if ($jadual->KOD_TAHAP == '01')
-                                            Asas
-                                        @else
-                                            Lanjutan
-                                        @endif
-                                    </td>
-                                    <td class="text-center">{{ $jadual['KOD_MASA_MULA'] }}</td>
-                                    <td class="text-center">{{ $jadual['KOD_MASA_TAMAT'] }}</td>
-                                    <td>{{ $jadual['TARIKH_SESI'] }}</td>
-                                    <td class="text-center">
-                                        @if ($jadual->KOD_KATEGORI_PESERTA == '01')
-                                            Individu
-                                        @else
-                                            Kumpulan
-                                        @endif
-                                    </td>
-                                    <!-- <td class="text-center">{{ $jadual['KOD_KATEGORI_PESERTA'] }}</td> -->
-                                    <td class="text-center">{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
-                                    <td class="text-center">{{ $jadual['KOD_KEMENTERIAN'] }}</td>
-                                    <td>{{ $jadual['platform'] }}</td>
-                                    <td>{{ $jadual['LOKASI'] }}</td>
-                                    <td>{{ $jadual['status'] }}</td>
-                                    <td>{{ $jadual['keterangan'] }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach($videodannotas as $video)
+                        <li class="list-group-item">
+                            <h3>{{$video->tajuk}}</h3>
+                            <p>{{$video->nota}}</p>
+                            <video width="400" controls>
+                                <source src="/storage/{{$video->video}}" type="video/mp4">
+                                Your browser does not support HTML video.
+                              </video>
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
