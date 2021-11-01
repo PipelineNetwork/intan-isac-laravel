@@ -605,7 +605,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="#">
+                                <a class="nav-link " href="/videodannota">
                                     <span class="sidenav-normal"> Maklumat Video dan Nota </span>
                                 </a>
                             </li>
