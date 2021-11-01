@@ -67,7 +67,7 @@
                                     <td>{{$keputusan->keputusan}}</td>
                                     <td>
                                         <a href="/slip_keputusan" class="btn mb-0">Slip&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a>
-                                        <a href="/sijil_isac" class="btn mb-0">Sijil&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                        {{-- <a href="/sijil_isac" class="btn mb-0">Sijil&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a> --}}
                                     </td>
                                 </tr>
                                 @endforeach

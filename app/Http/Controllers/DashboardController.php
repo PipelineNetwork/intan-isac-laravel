@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadual;
+use App\Models\VideoDanNota;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -10,9 +11,9 @@ class DashboardController extends Controller
     //
     public function index()
     {
-        $jaduals = Jadual::all();
+        $videodannotas = VideoDanNota::all();
         return view('dashboard',[
-           'jaduals'=> $jaduals
+           'videodannotas' => $videodannotas
         ]);
     }
 }
