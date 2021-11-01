@@ -47,8 +47,8 @@
 
                             <div class="col-2">
                                 <label for="startdate">Tahun</label>
-                                <input class="form-control form-control-sm" type="text" name="tahun" placeholder=""
-                                    id="tahun" autocomplete="off" />
+                                <input class="form-control form-control-sm" type="text" name="tahun"
+                                    placeholder="Sila Pilih" id="tahun" autocomplete="off" />
                             </div>
                             <div class="col-5">
                                 <label for="input_kementerian">Kementerian/Agensi</label>
@@ -65,8 +65,7 @@
                             </div>
                             <div class="col-5">
                                 <label for="input_jabatan">Jabatan</label>
-                                <select class="form-control form-control-sm" name="input_jabatan"
-                                    id="input_jabatan">
+                                <select class="form-control form-control-sm" name="input_jabatan" id="input_jabatan">
                                     <option hidden selected value="">
                                         Sila Pilih
                                     </option>
@@ -94,10 +93,13 @@
             <div class="card-header" style="background-color: #FFA500;">
 
                 <div class="row  mb-0">
-                    <div class="col">
-                        <h5 class="text-white"> LAPORAN PENCAPAIAN PENILAIAN ISAC</h5>
-
-                        {{-- <h6> BAGI TAHUN {{ $tahuns }} </h6> --}}
+                    <div class="col text-center">
+                        <h5 class="text-white"> LAPORAN PENCAPAIAN PENILAIAN ISAC </h5>
+                        @if ($tahuns != null)
+                            <h6 class="text-white">BAGI TAHUN {{ $tahuns }}</h6>
+                        @else
+                            <h6 class="text-white">SEHINGGA TAHUN {{ $tahun_semasas }}</h6>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -108,7 +110,7 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
-                                    No.</th>
+                                    Bil.</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Bulan</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
@@ -532,9 +534,18 @@
                 "info": false,
                 "paging": false,
                 buttons: [{
-                    extend: 'excelHtml5',
-                    title: 'LAPORAN PENCAPAIAN PENILAIAN ISAC'
-                }],
+                        extend: 'excelHtml5',
+                        title: 'LAPORAN PENCAPAIAN PENILAIAN ISAC'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'LAPORAN PENCAPAIAN PENILAIAN ISAC'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'LAPORAN PENCAPAIAN PENILAIAN ISAC'
+                    },
+                ],
             });
         });
     </script>

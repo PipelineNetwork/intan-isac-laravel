@@ -27,9 +27,9 @@
             </li>
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Laporan</a>
             </li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Laporan Aduan</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Laporan Statistik Aduan</li>
         </ol>
-        <h6 class="font-weight-bolder">Laporan Aduan</h6>
+        <h6 class="font-weight-bolder">Laporan Statistik Aduan</h6>
     </nav>
 
     <div class="container-fluid py-4">
@@ -46,8 +46,8 @@
 
                             <div class="col-12">
                                 <label for="startdate">Tahun</label>
-                                <input class="form-control form-control-sm" type="text" name="tahun" placeholder=""
-                                    id="tahun" autocomplete="off" />
+                                <input class="form-control form-control-sm" type="text" name="tahun"
+                                    placeholder="Sila Pilih" id="tahun" autocomplete="off" />
                             </div>
                             <div class="col d-flex justify-content-end align-items-end mt-3">
 
@@ -68,11 +68,11 @@
 
                 <div class="row  mb-0">
                     <div class="col text-center">
-                        <h5 class="text-white"> LAPORAN ADUAN </h5>
+                        <h5 class="text-white"> LAPORAN STATISTIK ADUAN </h5>
                         @if ($tahuns != null)
                             <h6 class="text-white">BAGI TAHUN {{ $tahuns }}</h6>
                         @else
-                            <h6 class="text-white">BAGI TAHUN {{ $tahun_semasas }}</h6>
+                            <h6 class="text-white">SEHINGGA TAHUN {{ $tahun_semasas }}</h6>
                         @endif
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
-                                    No.</th>
+                                    Bil.</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Bulan</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">

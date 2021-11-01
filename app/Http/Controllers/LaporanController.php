@@ -71,6 +71,7 @@ class LaporanController extends Controller
 
         return view('laporan.penilaian_isac_mengikut_kementerian_jabatan', [
             'tahuns' => $tahun,
+            'tahun_semasas' => $tahun_semasa,
             'kementerians' => $kementerian,
             'jabatans' => $jabatan,
             // 'bil_mohon_jan' => $bil_mohon_jan,
@@ -86,6 +87,9 @@ class LaporanController extends Controller
         //tahun semasa
         $tahun_semasa = date('Y');
 
+        //keputusan
+        $keputusan = $request->input_keputusan;
+
         //request kementerian
         $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
 
@@ -95,6 +99,8 @@ class LaporanController extends Controller
 
         return view('laporan.senarai_keputusan_penilaian', [
             'tahuns' => $tahun,
+            'tahun_semasas' => $tahun_semasa,
+            'keputusans' => $keputusan,
             'kementerians' => $kementerian,
             'jabatans' => $jabatan
         ]);
@@ -103,38 +109,36 @@ class LaporanController extends Controller
     public function statistik_penilaian_gred_jawatan(Request $request)
     {
         //request tahun
-        $tahun = Carbon::parse($request->tahun)->format('Y');
-
-        //request klasifikasi perkhidmatan
-        $klasifikasi_perkhidmatan = Refgeneral::where('MASTERCODE', 10024)->get();
-
-        //request gred jawatan
-        $gred_jawatan = Refgeneral::where('MASTERCODE', 10025)->get();
-
-        //request kementerian
-        $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
-
-        return view('laporan.statistik_penilaian_mengikut_gred_jawatan', [
-            'tahuns' => $tahun,
-            'kementerians' => $kementerian,
-            'klasifikasi_perkhidmatans' => $klasifikasi_perkhidmatan,
-            'gred_jawatans' => $gred_jawatan,
-        ]);
-    }
-
-    public function statistik_keseluruhan(Request $request)
-    {
-        //request tahun
         $tahun = $request->tahun;
 
         //tahun semasa
         $tahun_semasa = date('Y');
 
+        //request klasifikasi perkhidmatan
+        $klasifikasi_perkhidmatan = Refgeneral::where('MASTERCODE', 10024)->get();
+        $perkhidmatan = $request->input_perkidmatan;
+
+        //request gred jawatan
+        $gred_jawatan = Refgeneral::where('MASTERCODE', 10025)->get();
+        $jawatan = $request->input_jawatan;
+
+        return view('laporan.statistik_penilaian_mengikut_gred_jawatan', [
+            'tahuns' => $tahun,
+            'tahun_semasas' => $tahun_semasa,
+            'klasifikasi_perkhidmatans' => $klasifikasi_perkhidmatan,
+            'gred_jawatans' => $gred_jawatan,
+            'perkhidmatans' => $perkhidmatan,
+            'jawatans' => $jawatan,
+        ]);
+    }
+
+    public function statistik_keseluruhan(Request $request)
+    {
         //request kementerian
         $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
+        $ministry = $request->input_kementerian;
 
         return view('laporan.statistik_keseluruhan', [
-            'tahuns' => $tahun,
             'kementerians' => $kementerian,
         ]);
     }
@@ -147,12 +151,9 @@ class LaporanController extends Controller
         //tahun semasa
         $tahun_semasa = date('Y');
 
-        //request kementerian
-        $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
-
         return view('laporan.statistik_keseluruhan_pencapaian_penilaian_isac_mengikut_bulan', [
             'tahuns' => $tahun,
-            'kementerians' => $kementerian,
+            'tahun_semasas' => $tahun_semasa,
         ]);
     }
 
@@ -164,12 +165,12 @@ class LaporanController extends Controller
         //tahun semasa
         $tahun_semasa = date('Y');
 
-        //request kementerian
-        $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
+        $kategori = $request->input_kategori_peserta;
 
         return view('laporan.statistik_isac_mengikut_kategori_calon', [
             'tahuns' => $tahun,
-            'kementerians' => $kementerian,
+            'tahun_semasas' => $tahun_semasa,
+            'kategoris' => $kategori,
         ]);
     }
 
@@ -181,12 +182,9 @@ class LaporanController extends Controller
         //tahun semasa
         $tahun_semasa = date('Y');
 
-        //request kementerian
-        $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
-
         return view('laporan.keseluruhan_penilaian_isac_mengikut_iac', [
             'tahuns' => $tahun,
-            'kementerians' => $kementerian,
+            'tahun_semasas' => $tahun_semasa
         ]);
     }
 

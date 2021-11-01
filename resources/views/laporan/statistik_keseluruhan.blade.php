@@ -60,8 +60,8 @@
 
                                 <button class="btn  bg-gradient-info text-uppercases mx-2" type="submit" name="search"><i
                                         class="fas fa-search"></i> cari</button>
-                                <a href="/laporan/statistik-keseluruhan"
-                                    class="btn  bg-gradient-danger text-uppercases" (click)="reset()">set
+                                <a href="/laporan/statistik-keseluruhan" class="btn  bg-gradient-danger text-uppercases"
+                                    (click)="reset()">set
                                     semula</a>
                             </div>
                         </div>
@@ -74,10 +74,8 @@
             <div class="card-header" style="background-color: #FFA500;">
 
                 <div class="row  mb-0">
-                    <div class="col">
-                        <h5 class="text-white"> LAPORAN PENCAPAIAN PENILAIAN ISAC</h5>
-
-                        {{-- <h6> BAGI TAHUN {{ $tahuns }} </h6> --}}
+                    <div class="col text-center">
+                        <h5 class="text-white"> STATISTIK KESELURUHAN PENCAPAIAN PENILAIAN ISAC </h5>
                     </div>
                 </div>
             </div>
@@ -88,9 +86,11 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
-                                    No.</th>
+                                    Bil.</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
-                                    Bulan</th>
+                                    Tahun</th>
+                                <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
+                                    Bil. Sesi</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Bil. Memohon</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
@@ -98,30 +98,34 @@
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Bil. Lulus</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
+                                    % Lulus</th>
+                                <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Bil. Gagal</th>
+                                <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
+                                    % Gagal</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            {{-- <tr>
                                 <td class="text-sm text-center font-weight-normal">
                                     1</td>
                                 <td class="text-sm text-center font-weight-normal">
                                     Januari
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
+                                    @if ($bil_mohon_jan == null)
                                         0
                                     @else
                                         {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                    @endif
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
+                                    @if ($bil_duduk_jan == null)
                                         0
                                     @else
                                         {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                    @endif
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -130,355 +134,7 @@
                                 <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    2</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    Februari
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    3</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    Mac
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    4</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    April
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    5</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    Mei
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    6</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    Jun
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    7</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    Julai
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    8</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    Ogos
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    9</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    September
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    10</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    Oktober
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    11</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    November
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    12</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    Disember
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    <b>Jumlah</b>
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    <b>0</b>
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    <b>0</b>
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    <b>0</b>
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    <b>0</b>
-                                </td>
-                            </tr>
+                            </tr> --}}
                         </tbody>
                     </table>
                 </div>
@@ -506,15 +162,33 @@
         $(document).ready(function() {
             $('#tablestatistikkeseluruhan').DataTable({
                 dom: 'Bfrtip',
-                pageLength: 13,
-                "ordering": false,
-                "searching": false,
-                "info": false,
-                "paging": false,
+                "ordering": true,
+                "searching": true,
+                "info": true,
+                "paging": true,
                 buttons: [{
-                    extend: 'excelHtml5',
-                    title: 'LAPORAN PENCAPAIAN PENILAIAN ISAC'
-                }],
+                        extend: 'excelHtml5',
+                        title: 'SENARAI PENCAPAIAN PENILAIAN ISAC'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'SENARAI PENCAPAIAN PENILAIAN ISAC'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'SENARAI PENCAPAIAN PENILAIAN ISAC'
+                    },
+                ],
+                "oLanguage": {
+                    "sSearch": "Carian:",
+                    "sZeroRecords": "Tiada rekod ditemui",
+                    "oPaginate": {
+                        "sNext": ">",
+                        "sPrevious": "<",
+                    },
+                    "sInfo": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ data",
+                    "sInfoEmpty": "Menunjukkan 0 ke 0 daripada 0 data",
+                }
             });
         });
     </script>

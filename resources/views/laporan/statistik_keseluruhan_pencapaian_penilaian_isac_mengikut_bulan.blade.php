@@ -49,8 +49,8 @@
 
                             <div class="col-12">
                                 <label for="startdate">Tahun</label>
-                                <input class="form-control form-control-sm" type="text" name="tahun" placeholder=""
-                                    id="tahun" autocomplete="off" />
+                                <input class="form-control form-control-sm" type="text" name="tahun"
+                                    placeholder="Sila Pilih" id="tahun" autocomplete="off" />
                             </div>
                             <div class="col d-flex justify-content-end align-items-end mt-3">
 
@@ -70,10 +70,13 @@
             <div class="card-header" style="background-color: #FFA500;">
 
                 <div class="row  mb-0">
-                    <div class="col">
-                        <h5 class="text-white"> LAPORAN PENCAPAIAN PENILAIAN ISAC</h5>
-
-                        {{-- <h6> BAGI TAHUN {{ $tahuns }} </h6> --}}
+                    <div class="col text-center">
+                        <h5 class="text-white"> STATISTIK KESELURUHAN PENCAPAIAN PENILAIAN ISAC </h5>
+                        @if ($tahuns != null)
+                            <h6 class="text-white">BAGI TAHUN {{ $tahuns }}</h6>
+                        @else
+                            <h6 class="text-white">SEHINGGA TAHUN {{ $tahun_semasas }}</h6>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -84,9 +87,11 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
-                                    No.</th>
+                                    Bil.</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
-                                    Bulan</th>
+                                    Tahun</th>
+                                <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
+                                    Bil. Sesi</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Bil. Memohon</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
@@ -94,7 +99,11 @@
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Bil. Lulus</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
+                                    % Lulus</th>
+                                <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Bil. Gagal</th>
+                                <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
+                                    % Gagal</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,18 +115,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -135,18 +153,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -164,18 +191,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -193,18 +229,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -222,18 +267,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -251,18 +305,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -280,18 +343,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -309,18 +381,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -338,18 +419,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -367,18 +457,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -396,18 +495,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -425,18 +533,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    0
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     0
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -454,18 +571,27 @@
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_mohon_jan }}
+                                        @endif --}}
                                     <b>0</b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jan }}
+                                        @endif --}}
+                                    <b>0</b>
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    <b>0</b>
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    <b>0</b>
+                                </td>
+                                <td class="text-sm text-center font-weight-normal">
                                     <b>0</b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
@@ -508,9 +634,18 @@
                 "info": false,
                 "paging": false,
                 buttons: [{
-                    extend: 'excelHtml5',
-                    title: 'LAPORAN PENCAPAIAN PENILAIAN ISAC'
-                }],
+                        extend: 'excelHtml5',
+                        title: 'STATISTIK KESELURUHAN PENCAPAIAN PENILAIAN ISAC'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'STATISTIK KESELURUHAN PENCAPAIAN PENILAIAN ISAC'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'STATISTIK KESELURUHAN PENCAPAIAN PENILAIAN ISAC'
+                    },
+                ],
             });
         });
     </script>
