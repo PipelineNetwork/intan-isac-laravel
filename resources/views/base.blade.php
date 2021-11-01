@@ -560,12 +560,12 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/laporan/aduan">
-                                    <span class="sidenav-normal"> Laporan Aduan </span>
+                                    <span class="sidenav-normal"> Laporan Statistik Aduan </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/laporan/rayuan">
-                                    <span class="sidenav-normal"> Laporan Rayuan </span>
+                                    <span class="sidenav-normal"> Laporan Statistik Rayuan </span>
                                 </a>
                             </li>
                         </ul>
