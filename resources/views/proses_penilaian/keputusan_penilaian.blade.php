@@ -40,12 +40,12 @@
                     <h3>Tahniah! Anda telah
                         <span style="color: #82d616">lulus</span> ujian ini.
                     </h3>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col text-center mt-3">
                             <a href="/slip_keputusan" class="btn bg-gradient-success">Slip Keputusan</a>
                             <a href="/sijil_penilaian" class="btn bg-gradient-warning">Sijil Penilaian</a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 
             </div>

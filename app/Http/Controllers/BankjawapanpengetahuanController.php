@@ -164,8 +164,8 @@ class BankjawapanpengetahuanController extends Controller
         ->get();
         $bilangan_rekod = count($rekodtarikh);
         $no_sijil_latest = $rekodtarikh[$bilangan_rekod-1]->no_sijil;
-        // dd($no_sijil_latest);
-        if($no_sijil_latest == null){
+        dd($no_sijil_latest);
+        if($no_sijil_latest == null || $no_sijil_latest == -1){
             // dd('sini null');
             $no_sijil = 00000+1;
             $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);

@@ -34,7 +34,7 @@
                                         </tr>
                                         <tr>
                                             <td class="h5" style="width: 150px;">TARIKH</td>
-                                            <td>: {{$tarikh}}</td>
+                                            <td>: {{ date('d-m-Y', strtotime($tarikh)) }}</td>
                                         </tr>
                                         <tr>
                                             <td class="h5" style="width: 150px;">TAHAP PENILAIAN</td>
