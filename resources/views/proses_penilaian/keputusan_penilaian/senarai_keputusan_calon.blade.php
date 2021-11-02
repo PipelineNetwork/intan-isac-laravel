@@ -36,23 +36,56 @@
         <div class="container-fluid pb-3">
 
             <div class="card vh-100 mt-5">
-                <div class="card-body mt-10" style="text-align: center">
-                    <h3>Tahniah! Anda telah
-                        <span style="color: #82d616">lulus</span> ujian ini.
-                    </h3>
-                    <p>Sila ke bahagian Semakan Keputusan untuk slip dan sijil</p>
-                    {{-- <div class="row">
-                        <div class="col text-center mt-3">
-                            <a href="/slip_keputusan" class="btn bg-gradient-success">Slip Keputusan</a>
-                            <a href="/sijil_penilaian" class="btn bg-gradient-warning">Sijil Penilaian</a>
-                        </div>
-                    </div> --}}
+                <div class="card-header pb-3" style="background-color:#FFA500;">
+                    <h5 class="text-white">Semakan Keputusan Penilaian</h5>
                 </div>
-                
+
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-flush" id="datatable-peserta">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama Peserta</th>
+                                    <th>No. Kad Pengenalan</th>
+                                    <th>ID Penilaian</th>
+                                    <th>Tarikh Penilaian</th>
+                                    <th>Lokasi</th>
+                                    <th>Keputusan</th>
+                                    <th>Dokumen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($keputusans as $key => $keputusan)
+                                <tr>
+                                    <td>{{$key+1}}</td>
+                                    <td>{{$keputusan->nama_peserta}}</td>
+                                    <td>{{$keputusan->ic_peserta}}</td>
+                                    <td>{{$keputusan->id_penilaian}}</td>
+                                    <td>{{ date('d-m-Y', strtotime($keputusan->tarikh_penilaian)) }}</td>
+                                    <td>{{$keputusan->lokasi}}</td>
+                                    <td>{{$keputusan->keputusan}}</td>
+                                    <td>
+                                        <a href="/slip_keputusan/{{$keputusan->id}}" class="btn mb-0">Slip&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                        <a href="/sijil_penilaian/{{$keputusan->id}}" class="btn mb-0"><?php echo sprintf("%'.05d\n", $keputusan->no_sijil)?>&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <script src="../../assets/js/plugins/datatables.js"></script>
+    <script type="text/javascript">
+        const dataTableBasickategori = new simpleDatatables.DataTable("#datatable-peserta", {
+            searchable: true,
+            fixedHeight: true
+        });
+    </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 @stop

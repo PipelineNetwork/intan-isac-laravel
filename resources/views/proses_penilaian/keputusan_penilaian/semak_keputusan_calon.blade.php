@@ -53,7 +53,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label class="form-control-label">Nombor Kad Pengenalan</label>
-                                        <input class="form-control" type="text" name="ic">
+                                        <input class="form-control" type="text" name="ic" value="{{Auth::user()->nric}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-control-label">ID Penilaian</label>
