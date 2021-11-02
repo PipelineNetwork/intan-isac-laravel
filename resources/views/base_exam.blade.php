@@ -53,6 +53,24 @@
             opacity: 0 !important
         }
 
+        #container {
+            margin: 0px auto;
+            width: 100px;
+            height: 70px;
+            border: 1px #333 solid;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        #videoElement {
+            width: 100px;
+            height: 70px;
+            background-color: #666;
+            display: block;
+            position: relative;
+        }
+
     </style>
     <script>
         (function(a, s, y, n, c, h, i, d, e) {
@@ -188,13 +206,18 @@
                         <ul class="navbar-nav ml-auto mb-2 mb-md-0">
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="/welcome"></a>
+                                <div id="container">
+                                    <video autoplay="true" id="videoElement">
+                        
+                                    </video>
+                                </div>
                             </li>
                             <li class="nav-item">
                                 <form method="POST" action="/logout">
                                     @csrf
                                     <a class="dropdown-item border-radius-md" href="#"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        this.closest('form').submit();">
                                         <div class="d-flex py-1">
 
                                             {{ __('Log Keluar') }}
@@ -341,7 +364,23 @@
             hours %= 60;
 
             document.getElementById("timer").innerHTML = "Masa menjawab: " + minutes + " minit dan " + seconds +
-            "  saat."; // watch for spelling
+                "  saat."; // watch for spelling
+        }
+    </script>
+
+    <script>
+        var video = document.querySelector("#videoElement");
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({
+                    video: true
+                })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function(err0r) {
+                    console.log("Something went wrong!");
+                });
         }
     </script>
 
