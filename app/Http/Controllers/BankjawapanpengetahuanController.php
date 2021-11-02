@@ -13,6 +13,87 @@ use Illuminate\Http\Request;
 
 class BankjawapanpengetahuanController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $jawapan_calon = Bankjawapanpengetahuan::distinct()->get(['id_calon','id_penilaian']);
+
+        // dd($jawapan_calon);
+        return view('proses_penilaian.keputusan_penilaian.semak_keputusan_admin',[
+            'jawapan_calon'=>$jawapan_calon
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Bankjawapanpengetahuan  $bankjawapanpengetahuan
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Bankjawapanpengetahuan $bankjawapanpengetahuan)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Bankjawapanpengetahuan  $bankjawapanpengetahuan
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Bankjawapanpengetahuan $bankjawapanpengetahuan)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Bankjawapanpengetahuan  $bankjawapanpengetahuan
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Bankjawapanpengetahuan $bankjawapanpengetahuan)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Bankjawapanpengetahuan  $bankjawapanpengetahuan
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Bankjawapanpengetahuan $bankjawapanpengetahuan)
+    {
+        //
+    }
+
     public function jawapan_calon(Request $request, $id_penilaian){
         // dd($request->all());
         
@@ -94,85 +175,8 @@ class BankjawapanpengetahuanController extends Controller
             $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
         }
         
-        $keputusan->save();
-        dd($keputusan->no_sijil);
-        
+        $keputusan->save();        
 
         return redirect('/soalan-kemahiran-internet')->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Bankjawapanpengetahuan  $bankjawapanpengetahuan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Bankjawapanpengetahuan $bankjawapanpengetahuan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Bankjawapanpengetahuan  $bankjawapanpengetahuan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Bankjawapanpengetahuan $bankjawapanpengetahuan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bankjawapanpengetahuan  $bankjawapanpengetahuan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Bankjawapanpengetahuan $bankjawapanpengetahuan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Bankjawapanpengetahuan  $bankjawapanpengetahuan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Bankjawapanpengetahuan $bankjawapanpengetahuan)
-    {
-        //
     }
 }
