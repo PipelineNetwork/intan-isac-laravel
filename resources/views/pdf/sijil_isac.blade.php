@@ -13,7 +13,7 @@
             <div class=" container-fluid">
                 <div class="row">
                     <div class="col">
-                        <p style="text-align: right; margin-bottom:80px;">No. Sijil: <strong>ISAC/01/2022/04463</strong></p>
+                        <p style="text-align: right; margin-bottom:80px;">No. Sijil: <strong>ISAC/{{ date('m/Y', strtotime($tarikh)) }}/<?php echo sprintf("%'.05d\n", $no_sijil)?></strong></p>
                     </div>
                 </div>
                 <div class="row">
@@ -43,7 +43,7 @@
                 <div class="row">
                     <div class="col" style="text-align: center">
                         <p style="margin-bottom:0%; padding-bottom:0%">diadakan pada</p>
-                        <h3 style="margin-top:0% padding-top:0%">{{$tarikh}}</h3>
+                        <h3 style="margin-top:0% padding-top:0%">{{ date('d-m-Y', strtotime($tarikh)) }}</h3>
                     </div>
                 </div><br><br><br>
                 <div class="row">

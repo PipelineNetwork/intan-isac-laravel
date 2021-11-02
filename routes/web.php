@@ -71,7 +71,8 @@ Route::resource('/pengurusanpengguna', PenggunaController::class);
 
 Route::resource('/tambahaduans', TambahAduanController::class);
 
-// Route::resource('/dashboard', DashboardController::class);
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+require __DIR__ . '/auth.php';
 
 Route::resource('/tambahrayuans', TambahRayuanController::class);
 
@@ -133,14 +134,13 @@ Route::get('/papar-keputusan', function () {
 
 Route::resource('/change-password', ChangePasswordController::class);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-require __DIR__ . '/auth.php';
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+// require __DIR__ . '/auth.php';
 
 // custom action najhan
 Route::post('/jadual/kemaskini_status/{id}', [JadualController::class, 'kemaskini_status']);
-// Route::resource('/dashboard',DashboardController::class);
 Route::post('/mohonpenilaian/penyelaras/pilih_jadual', [MohonPenilaianController::class, 'pilih_jadual']);
 Route::post('/mohonpenilaian/penyelaras/pilih_calon', [MohonPenilaianController::class, 'pilih_calon']);
 Route::post('/mohonpenilaian/calon/kemaskini_maklumat_calon', [MohonPenilaianController::class, 'kemaskini_maklumat_calon']);
@@ -151,11 +151,13 @@ Route::post('/kemasukan_penilaian/{id_penilaian}/jawapan_calon', [Bankjawapanpen
 
 Route::get('/cetak_surat/{id}', [MohonPenilaianController::class, 'cetak_surat']);
 Route::get('/slip_keputusan', [KeputusanPenilaianController::class, 'slip_keputusan']);
-Route::get('/sijil_penilaian', [KeputusanPenilaianController::class, 'sijil_isac']);
+Route::get('/sijil_penilaian/{id}', [KeputusanPenilaianController::class, 'sijil_isac']);
 Route::post('/semak_keputusan', [KeputusanPenilaianController::class, 'semak_keputusan']);
 
-Route::get('/semakan_penilaian', function () {
-    return view('proses_penilaian.keputusan_penilaian.semakan_penilaian');
+Route::get('/senarai_sijil', [KeputusanPenilaianController::class, 'senarai_sijil']);
+
+Route::get('/semakan_keputusan_calon', function () {
+    return view('proses_penilaian.keputusan_penilaian.semak_keputusan_calon');
 });
 
 Route::get('/laporan/penilaian-isac-mengikut-kementerian', [LaporanController::class, 'laporan_penilaian_isac_mengikut_kementerian']);

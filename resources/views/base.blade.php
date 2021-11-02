@@ -157,6 +157,22 @@
                     </a>
                 </li> --}}
 
+                <?php
+                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '5')) {
+                ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fas fa-user-alt me-sm-1 text-dark"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Dashboard</span>
+                    </a>
+                </li>
+                <?php
+                }
+                ?>
+
                 <li class="nav-item">
                     <a class="nav-link" href="/profil">
                         <div
@@ -309,7 +325,7 @@
                             }
                             ?>
                             <li class="nav-item ">
-                                <a class="nav-link " href="#">
+                                <a class="nav-link " href="/senarai_sijil">
                                     <span class="sidenav-normal"> Senarai Sijil Kelulusan </span>
                                 </a>
                             </li>
@@ -360,7 +376,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="/semakan_penilaian">
+                                <a class="nav-link " href="/semakan_keputusan_calon">
                                     <span class="sidenav-normal"> Semakan Keputusan </span>
                                 </a>
                             </li>

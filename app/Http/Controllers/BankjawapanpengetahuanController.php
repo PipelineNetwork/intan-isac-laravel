@@ -77,7 +77,26 @@ class BankjawapanpengetahuanController extends Controller
         }else{
             $keputusan->keputusan = "Gagal";
         }
+        // $keputusan->save();
+
+        $rekodtarikh = KeputusanPenilaian::where('id_penilaian', $request->id_penilaian)
+        ->get();
+        $bilangan_rekod = count($rekodtarikh);
+        $no_sijil_latest = $rekodtarikh[$bilangan_rekod-1]->no_sijil;
+        // dd($no_sijil_latest);
+        if($no_sijil_latest == null){
+            // dd('sini null');
+            $no_sijil = 00000+1;
+            $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
+        }else{
+            // dd('sini tak null');
+            $no_sijil = $no_sijil_latest+00001;
+            $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
+        }
+        
         $keputusan->save();
+        dd($keputusan->no_sijil);
+        
 
         return redirect('/soalan-kemahiran-internet')->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
     }

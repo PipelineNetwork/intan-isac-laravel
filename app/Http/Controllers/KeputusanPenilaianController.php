@@ -14,11 +14,21 @@ class KeputusanPenilaianController extends Controller
     public function index(){
 
         $keputusans = KeputusanPenilaian::all();
-        return view('proses_penilaian.keputusan_penilaian.semakan_penilaian',[
+        return view('proses_penilaian.senarai_slip',[
             'keputusans'=>$keputusans
         ]);
 
     }
+
+    public function senarai_sijil(){
+
+        $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->get();
+        return view('proses_penilaian.senarai_sijil',[
+            'keputusans'=>$keputusans
+        ]);
+
+    }
+    
     public function semak_keputusan(Request $request){
         $ic = $request->ic;
         $id_penilaian = $request->id_penilaian;
@@ -30,7 +40,7 @@ class KeputusanPenilaianController extends Controller
         $bilangan = count($keputusan);
         if ($bilangan == 0) {
             alert('Maaf, tiada dalam rekod.');
-            return view('proses_penilaian.keputusan_penilaian.semakan_penilaian');
+            return view('proses_penilaian.senarai_slip');
         }else{
             $markah = 0;
             foreach($keputusan as $keputusan){
@@ -57,15 +67,18 @@ class KeputusanPenilaianController extends Controller
          return $pdf->download('Slip_keputusan_'.$ic.'.pdf');
 
     }
-    public function sijil_isac(){
-        $nama = Auth::user()->name;
-        $ic = Auth::user()->nric;
-        $tarikh = date("d-m-Y");
+    public function sijil_isac($id){
+        $rekod_sijil = KeputusanPenilaian::find($id);
+        $nama = $rekod_sijil->nama_peserta;
+        $ic = $rekod_sijil->ic_peserta;
+        $tarikh = $rekod_sijil->tarikh_penilaian;
+        $no_sijil = $rekod_sijil->no_sijil; 
 
         $pdf = PDF::loadView('pdf.sijil_isac',[
             'nama'=>$nama,
             'ic'=>$ic,
             'tarikh'=>$tarikh,
+            'no_sijil'=>$no_sijil
         ]);
          return $pdf->download('Sijil_ISAC_'.$ic.'.pdf');
 
