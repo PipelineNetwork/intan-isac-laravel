@@ -55,8 +55,8 @@
                                     <option hidden selected value="">
                                         Sila Pilih
                                     </option>
-                                    <option value="1">Lulus</option>
-                                    <option value="0">Gagal</option>
+                                    <option value="Lulus">Lulus</option>
+                                    <option value="Gagal">Gagal</option>
                                 </select>
                             </div>
                             <div class="col-6">
@@ -110,9 +110,9 @@
                         @else
                             <h6 class="text-white">SEHINGGA TAHUN {{ $tahun_semasas }}</h6>
                         @endif
-                        @if ($keputusans == 1)
+                        @if ($keputusans == 'Lulus')
                             <h6 class="text-white">KEPUTUSAN : LULUS</h6>
-                        @elseif ($keputusans == 0)
+                        @elseif ($keputusans == 'Gagal')
                             <h6 class="text-white">KEPUTUSAN : GAGAL</h6>
                         @else
                             <h6 class="text-white">KEPUTUSAN : LULUS & GAGAL</h6>
@@ -198,9 +198,9 @@
     <script>
         $(document).ready(function() {
             $('#tablesenaraikeputusanpenilaian').DataTable({
-                dom: 'Bfrtip',
-                // pageLength: true,
-                // "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: 'Blfrtip',
+                // pageLength: 10,
+                // lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "ordering": true,
                 "searching": true,
                 "info": true,
@@ -225,8 +225,9 @@
                         "sNext": ">",
                         "sPrevious": "<",
                     },
-                    // "sInfo": "Menunjukkan _PAGE_ of _PAGES_",
+                    "sInfo": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ data",
                     "sInfoEmpty": "Menunjukkan 0 ke 0 daripada 0 data",
+                    "sLengthMenu":    "Menunjukkan _MENU_ data",
                 }
             });
         });
