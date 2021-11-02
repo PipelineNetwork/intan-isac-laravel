@@ -33,25 +33,11 @@ class KeputusanPenilaianController extends Controller
         $ic = $request->ic;
         $id_penilaian = $request->id_penilaian;
 
-        $keputusan = Bankjawapanpengetahuan::where('id_calon', $ic)
-        ->where('id_penilaian', $id_penilaian)
-        ->get();
-
-        $bilangan = count($keputusan);
-        if ($bilangan == 0) {
-            alert('Maaf, tiada dalam rekod.');
-            return view('proses_penilaian.senarai_slip');
-        }else{
-            $markah = 0;
-            foreach($keputusan as $keputusan){
-                $markah = $markah + $keputusan->markah;
-            }
-            
-            return view('proses_penilaian.keputusan_penilaian',[
-                'markah'=>$markah,
-                'semua'=>$bilangan
-            ]);
-        }
+        $keputusans = KeputusanPenilaian::where('id_penilaian', $id_penilaian)
+        ->where('ic_peserta', $ic)->get();
+        return view('proses_penilaian.keputusan_penilaian.senarai_keputusan_calon',[
+            'keputusans'=>$keputusans
+        ]);
     }
 
     public function slip_keputusan($id){

@@ -40,7 +40,7 @@
                     <h3 class="mb-5">Anda telah berjaya menjawab semua bahagian soalan. Sila klik <b>Papar Keputusan</b> untuk menutup halaman.
                     </h3>
                     {{-- <button class="btn btn-info" onclick="windowClose();">Tutup</button> --}}
-                    <a class="btn btn-info" href="/papar-keputusan">Semak Keputusan</a>
+                    <a class="btn btn-info" href="/semakan_keputusan_calon">Semak Keputusan</a>
                 </div>
             </div>
         </div>
