@@ -1,4 +1,4 @@
-@extends('base_exam')
+@extends('base')
 @section('content')
     <div class="container-fluid py-4">
         <nav aria-label="breadcrumb">
