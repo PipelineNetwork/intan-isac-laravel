@@ -54,10 +54,11 @@ class KeputusanPenilaianController extends Controller
         }
     }
 
-    public function slip_keputusan(){
-        $nama = Auth::user()->name;
-        $ic = Auth::user()->nric;
-        $tarikh = date("d-m-Y");
+    public function slip_keputusan($id){
+        $rekod_sijil = KeputusanPenilaian::find($id);
+        $nama = $rekod_sijil->nama_peserta;
+        $ic = $rekod_sijil->ic_peserta;
+        $tarikh = $rekod_sijil->tarikh_penilaian;
 
         $pdf = PDF::loadView('pdf.slip_keputusan',[
             'nama'=>$nama,
