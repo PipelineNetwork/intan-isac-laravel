@@ -120,6 +120,8 @@ Route::resource('/keputusan_penilaian', KeputusanPenilaianController::class);
 
 Route::resource('/videodannota', VideoDanNotaController::class);
 
+Route::resource('/semak_jawapan', BankjawapanpengetahuanController::class);
+
 Route::get('/tamat-penilaian', function () {
     return view('proses_penilaian.tamat_penilaian');
 });
