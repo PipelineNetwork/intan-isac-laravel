@@ -48,11 +48,8 @@
                                     <th>No.</th>
                                     <th>Nama Peserta</th>
                                     <th>No. Kad Pengenalan</th>
-                                    <th>ID Penilaian</th>
-                                    <th>Tarikh Penilaian</th>
-                                    <th>Lokasi</th>
-                                    <th>Keputusan</th>
-                                    <th>Dokumen</th>
+                                    <th>Status</th>
+                                    <th>Sijil Penilaian</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,12 +58,9 @@
                                     <td>{{$key+1}}</td>
                                     <td>{{$keputusan->nama_peserta}}</td>
                                     <td>{{$keputusan->ic_peserta}}</td>
-                                    <td>{{$keputusan->id_penilaian}}</td>
-                                    <td>{{$keputusan->tarikh_penilaian}}</td>
-                                    <td>{{$keputusan->lokasi}}</td>
                                     <td>{{$keputusan->keputusan}}</td>
                                     <td>
-                                        <a href="/slip_keputusan" class="btn mb-0">Slip&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                        <a href="/sijil_penilaian/{{$keputusan->id}}"><?php echo sprintf("%'.05d\n", $keputusan->no_sijil)?>&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a>
                                         {{-- <a href="/sijil_isac" class="btn mb-0">Sijil&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a> --}}
                                     </td>
                                 </tr>

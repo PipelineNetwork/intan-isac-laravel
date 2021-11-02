@@ -18,12 +18,24 @@
                     <ul class="list-group">
                         @foreach($videodannotas as $video)
                         <li class="list-group-item">
-                            <h3>{{$video->tajuk}}</h3>
-                            <p>{{$video->nota}}</p>
-                            <video width="400" controls>
-                                <source src="/storage/{{$video->video}}" type="video/mp4">
-                                Your browser does not support HTML video.
-                              </video>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <video width="500" controls >
+                                        <source src="/storage/{{$video->video}}" type="video/mp4">
+                                        Your browser does not support HTML video.
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h3>{{$video->tajuk}}</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>{{$video->nota}}</p>
+                                </div>
+                            </div>
                         </li>
                         @endforeach
                     </ul>
