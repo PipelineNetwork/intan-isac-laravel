@@ -46,7 +46,7 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Peserta</th>
+                                    <th>Nama Calon</th>
                                     <th>No. Kad Pengenalan</th>
                                     <th>Status</th>
                                     <th>Sijil Penilaian</th>
