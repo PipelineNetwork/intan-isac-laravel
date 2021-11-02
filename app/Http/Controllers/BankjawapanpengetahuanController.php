@@ -163,6 +163,7 @@ class BankjawapanpengetahuanController extends Controller
         $rekodtarikh = KeputusanPenilaian::where('id_penilaian', $request->id_penilaian)
         ->get();
         $bilangan_rekod = count($rekodtarikh);
+        dd($bilangan_rekod);
         $no_sijil_latest = $rekodtarikh[$bilangan_rekod-1]->no_sijil;
         dd($no_sijil_latest);
         if($no_sijil_latest == null || $no_sijil_latest == -1){
