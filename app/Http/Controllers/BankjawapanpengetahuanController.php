@@ -158,14 +158,18 @@ class BankjawapanpengetahuanController extends Controller
         }else{
             $keputusan->keputusan = "Gagal";
         }
-        // $keputusan->save();
+        $keputusan->save();
 
         $rekodtarikh = KeputusanPenilaian::where('id_penilaian', $request->id_penilaian)
         ->get();
         $bilangan_rekod = count($rekodtarikh);
-        dd($bilangan_rekod);
+        // dd($bilangan_rekod);
+        $bilangan = $bilangan_rekod-1;
+        if($bilangan == -1){
+            $bilangan_rekod = 1;
+        }
         $no_sijil_latest = $rekodtarikh[$bilangan_rekod-1]->no_sijil;
-        dd($no_sijil_latest);
+        // dd($no_sijil_latest);
         if($no_sijil_latest == null || $no_sijil_latest == -1){
             // dd('sini null');
             $no_sijil = 00000+1;
