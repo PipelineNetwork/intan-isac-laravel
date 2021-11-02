@@ -178,7 +178,7 @@
     <script>
         $(document).ready(function() {
             $('#tablepenilaianisacmengikutkategoricalon').DataTable({
-                dom: 'Bfrtip',
+                dom: 'Blfrtip',
                 "ordering": true,
                 "searching": true,
                 "info": true,
@@ -192,7 +192,7 @@
                     },
                     "sInfo": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ data",
                     "sInfoEmpty": "Menunjukkan 0 ke 0 daripada 0 data",
-                },
+                    "sLengthMenu":    "Menunjukkan _MENU_ data",
                 buttons: [{
                         extend: 'excelHtml5',
                         title: 'STATISTIK PENCAPAIAN PENILAIAN ISAC'

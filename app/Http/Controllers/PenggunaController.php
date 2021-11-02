@@ -126,10 +126,10 @@ class PenggunaController extends Controller
         $user->nric = $request->nric;
         $user->ministry_code = $request->ministry_code;
         $user->office_number = $request->office_number;
-        $user->fax_number = $request->fax_number;
-        $user->telephone_number = $request->telephone_number;
+        // $user->fax_number = $request->fax_number;
+        // $user->telephone_number = $request->telephone_number;
         $user->user_group_id = $request->user_group_id;
-        $user->password = Hash::make($request->password);
+        // $user->password = Hash::make($request->password);
         $user->save();
         return redirect('/pengurusanpengguna');
     }

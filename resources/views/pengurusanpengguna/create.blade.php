@@ -57,13 +57,13 @@
                             <div class="col-6">
                                 <label for="">Nama :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="text" name="name" required>
+                                    <input class="form-control mb-3" type="text" name="name" :value="old('name')" required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <label for="">E-mel :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="email" name="email" required>
+                                    <input class="form-control mb-3" type="email" name="email" :value="old('email')" required>
                                 </div>
                             </div>
                         </div>
@@ -360,7 +360,7 @@
                                 <label for="">No Kad Pengenalan :</label>
                                 <div class="input-group">
                                     <input class="form-control mb-3" type="text" name="nric" required maxlength="12"
-                                        size="12"
+                                        size="12" :value="old('nric')"
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                 </div>
                             </div>
