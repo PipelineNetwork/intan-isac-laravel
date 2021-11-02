@@ -166,11 +166,15 @@ class BankjawapanpengetahuanController extends Controller
         // dd($bilangan_rekod);
         $bilangan = $bilangan_rekod-1;
         if($bilangan == -1){
-            $bilangan_rekod = 1;
+            $bilangan= 0;
+            $no_sijil_latest = $rekodtarikh[$bilangan]->no_sijil;
+        }else{
+            $no_sijil_latest = $rekodtarikh[$bilangan-1]->no_sijil;
         }
-        $no_sijil_latest = $rekodtarikh[$bilangan_rekod-1]->no_sijil;
-        // dd($no_sijil_latest);
-        if($no_sijil_latest == null || $no_sijil_latest == -1){
+        // dd($bilangan);
+        // $no_sijil_latest = $rekodtarikh[$bilangan]->no_sijil;
+        // dd($rekodtarikh);
+        if($no_sijil_latest == null){
             // dd('sini null');
             $no_sijil = 00000+1;
             $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
