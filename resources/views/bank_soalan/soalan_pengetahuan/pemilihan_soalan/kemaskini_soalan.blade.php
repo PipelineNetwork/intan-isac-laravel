@@ -139,7 +139,7 @@
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
                                         <select class="form-control" name="id_kategori_pengetahuan" required>
-                                            <option hidden value="{{ $pilihan->KOD_TAHAP_SOALAN }}" selected>
+                                            <option hidden value="{{ $pilihan->KOD_KATEGORI_SOALAN }}" selected>
                                                 @if ($pilihan->KOD_TAHAP_SOALAN == '01')
                                                     EG
                                                 @elseif($pilihan->KOD_TAHAP_SOALAN == "02")
