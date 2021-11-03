@@ -15,7 +15,7 @@ class VideoDanNotaController extends Controller
     public function index()
     {
         $videodannotas = VideoDanNota::all();
-        return view('VideoDanNota.index',[
+        return view('kawalan_sistem.VideoDanNota.index',[
             'videodannotas'=>$videodannotas
         ]);
     }
@@ -27,7 +27,7 @@ class VideoDanNotaController extends Controller
      */
     public function create()
     {
-        return view('VideoDanNota.create');
+        return view('kawalan_sistem.VideoDanNota.create');
     }
 
     /**
@@ -68,7 +68,7 @@ class VideoDanNotaController extends Controller
     {
         $videodannota = VideoDanNota::find($id);
 
-        return view('VideoDanNota.edit',[
+        return view('kawalan_sistem.VideoDanNota.edit',[
             'videodannota'=>$videodannota
         ]);
     }

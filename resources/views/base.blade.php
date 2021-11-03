@@ -606,7 +606,7 @@
                     <div class="collapse " id="kawalansistemdrop">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
-                                <a class="nav-link " href="#">
+                                <a class="nav-link " href="/selenggara_kawalan_sistem">
                                     <span class="sidenav-normal"> Maklumat Selenggara Kawalan Sistem </span>
                                 </a>
                             </li>
