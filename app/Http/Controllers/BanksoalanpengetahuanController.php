@@ -463,6 +463,6 @@ class BanksoalanpengetahuanController extends Controller
     }
 
     public function simpan(Request $request, $id){
-        
+
     }
 }
