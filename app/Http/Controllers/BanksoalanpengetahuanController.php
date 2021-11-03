@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banksoalanpengetahuan;
+use App\Models\PemilihanSoalan;
+use App\Models\PemilihanSoalanKumpulan;
+use App\Models\Refgeneral;
 use Illuminate\Http\Request;
 
 class BanksoalanpengetahuanController extends Controller
@@ -438,5 +441,28 @@ class BanksoalanpengetahuanController extends Controller
         // $CF_Id[] =['id'=>$fac->id,'name'=>$fac->name];
 
         // $soalan->jawapan = $CF_Id;
+    }
+    public function pemilihan(Request $request){
+        $pemilihan = PemilihanSoalan::all();
+        return view('bank_soalan.soalan_pengetahuan.pemilihan_soalan.pemilihan_soalan',[
+            'pemilihan'=>$pemilihan
+        ]);
+    }
+
+    public function kemaskini($id){
+        $kemaskini = PemilihanSoalan::where('ID_PEMILIHAN_SOALAN', $id)->first();
+        $pilihan = PemilihanSoalanKumpulan::where('ID_PEMILIHAN_SOALAN', $id)->get();
+        $kategori = Refgeneral::where('MASTERCODE', 10033)
+        ->get();
+
+        return view('bank_soalan.soalan_pengetahuan.pemilihan_soalan.kemaskini_soalan',[
+            'kemaskini'=>$kemaskini,
+            'pilihan'=>$pilihan,
+            'kategori'=>$kategori
+        ]);
+    }
+
+    public function simpan(Request $request, $id){
+        
     }
 }
