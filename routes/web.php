@@ -151,6 +151,9 @@ Route::post('/kemasukan_id/check_id', [KemasukanPenilaianController::class, 'kem
 Route::get('/kemasukan_penilaian/{id_penilaian}/{soalan}', [KemasukanPenilaianController::class, 'kemasukan_penilaian']);
 Route::post('/kemasukan_penilaian/{id_penilaian}/jawapan_calon', [BankjawapanpengetahuanController::class, 'jawapan_calon']);
 
+Route::get('/pengurusan_penilaian/pemilihan_soalan_pengetahuan', [BanksoalanpengetahuanController::class, 'pemilihan']);
+Route::get('/pengurusan_penilaian/pemilihan_soalan_pengetahuan/{id}', [BanksoalanpengetahuanController::class, 'kemaskini']);
+
 Route::get('/cetak_surat/{id}', [MohonPenilaianController::class, 'cetak_surat']);
 Route::get('/slip_keputusan/{id}', [KeputusanPenilaianController::class, 'slip_keputusan']);
 Route::get('/sijil_penilaian/{id}', [KeputusanPenilaianController::class, 'sijil_isac']);
