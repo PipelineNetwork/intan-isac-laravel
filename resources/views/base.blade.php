@@ -309,7 +309,7 @@
                     <div class="collapse " id="pengurusanpenilaiandrop">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
-                                <a class="nav-link " href="#">
+                                <a class="nav-link " href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan">
                                     <span class="sidenav-normal"> Pemilihan Soalan Pengetahuan </span>
                                 </a>
                             </li>
