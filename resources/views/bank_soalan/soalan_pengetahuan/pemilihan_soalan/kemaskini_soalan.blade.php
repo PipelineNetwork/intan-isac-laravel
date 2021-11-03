@@ -140,31 +140,31 @@
                                     <td class="text-sm text-center font-weight-normal">
                                         <select class="form-control" name="id_kategori_pengetahuan" required>
                                             <option hidden value="{{ $pilihan->KOD_KATEGORI_SOALAN }}" selected>
-                                                @if ($pilihan->KOD_TAHAP_SOALAN == '01')
+                                                @if ($pilihan->KOD_KATEGORI_SOALAN == '01')
                                                     EG
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "02")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "02")
                                                     Electronic Mail
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "03")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "03")
                                                     General
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "04")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "04")
                                                     Government Mobility
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "05")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "05")
                                                     Hardware
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "06")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "06")
                                                     ICT Security
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "07")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "07")
                                                     Inisiatif ICT Sektor Awam
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "08")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "08")
                                                     Internet
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "09")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "09")
                                                     Media Sosial
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "10")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "10")
                                                     MSC
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "11")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "11")
                                                     Office Productivity
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "12")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "12")
                                                     Rangkaian dan Wifi
-                                                @elseif($pilihan->KOD_TAHAP_SOALAN == "13")
+                                                @elseif($pilihan->KOD_KATEGORI_SOALAN == "13")
                                                     Software
                                                 @endif
                                             </option>
