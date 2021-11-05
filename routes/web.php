@@ -26,6 +26,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VideoDanNotaController;
 use App\Http\Controllers\SelenggaraKawalanSistemController;
+use App\Http\Controllers\NotifikasiEmailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -124,6 +125,8 @@ Route::resource('/videodannota', VideoDanNotaController::class);
 Route::resource('/semak_jawapan', BankjawapanpengetahuanController::class);
 
 Route::resource('/selenggara_kawalan_sistem', SelenggaraKawalanSistemController::class);
+
+Route::resource('/notifikasi_email', NotifikasiEmailController::class);
 
 Route::get('/tamat-penilaian', function () {
     return view('proses_penilaian.tamat_penilaian');
