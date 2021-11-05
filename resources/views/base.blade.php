@@ -611,7 +611,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="#">
+                                <a class="nav-link " href="/notifikasi_email">
                                     <span class="sidenav-normal"> Maklumat Notifikasi E-mel </span>
                                 </a>
                             </li>
