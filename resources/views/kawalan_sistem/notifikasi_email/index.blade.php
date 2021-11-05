@@ -62,7 +62,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                {{$noti->tawaran_penilaian_individu}}&emsp;Hari (kepada Peserta, Penyelia dan Penyelia ISAC)
+                                <strong>{{$noti->tawaran_penilaian_individu}}</strong>&emsp;Hari (kepada Peserta, Penyelia dan Penyelia ISAC)
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -72,7 +72,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                {{$noti->tawaran_penilaian_kumpulan}}&emsp;Hari (kepada Penyelaras dan Penyelia ISAC)
+                                <strong>{{$noti->tawaran_penilaian_kumpulan}}</strong>&emsp;Hari (kepada Penyelaras dan Penyelia ISAC)
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -82,7 +82,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                {{$noti->peringatan_penilaian}}&emsp;Hari sebelum tarikh penilaian
+                                <strong>{{$noti->peringatan_penilaian}}</strong>&emsp;Hari sebelum tarikh penilaian
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -92,7 +92,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                {{$noti->peringatan_tidak_hadir}}&emsp;Hari selepas tarikh penilaian (Individu: Peserta dan Penyelia, Kumpulan: Penyelaras)
+                                <strong>{{$noti->peringatan_tidak_hadir}}</strong>&emsp;Hari selepas tarikh penilaian (Individu: Peserta dan Penyelia, Kumpulan: Penyelaras)
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -102,7 +102,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                {{$noti->jadual_penilaian}}&emsp;Hari sebelum tarikh penilaian
+                                <strong>{{$noti->jadual_penilaian}}</strong>&emsp;Hari sebelum tarikh penilaian
                             </div>
                         </div>
                     </div>

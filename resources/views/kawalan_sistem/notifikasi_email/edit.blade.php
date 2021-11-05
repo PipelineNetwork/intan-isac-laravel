@@ -62,7 +62,7 @@
                                 <div class="col-1">
                                     <input type="text" class="form-control" name="tawaran_penilaian_individu" value="{{$noti->tawaran_penilaian_individu}}">
                                 </div>
-                                <div class="col">&emsp;Hari (kepada Peserta, Penyelia dan Penyelia ISAC)</div>
+                                <div class="col">Hari (kepada Peserta, Penyelia dan Penyelia ISAC)</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4">
@@ -73,7 +73,7 @@
                                 <div class="col-1">
                                     <input type="text" class="form-control" name="tawaran_penilaian_kumpulan" value="{{$noti->tawaran_penilaian_kumpulan}}">
                                 </div>
-                                <div class="col">&emsp;Hari (kepada Penyelaras dan Penyelia ISAC)</div>
+                                <div class="col">Hari (kepada Penyelaras dan Penyelia ISAC)</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4">
@@ -84,7 +84,7 @@
                                 <div class="col-1">
                                     <input type="text" class="form-control" name="peringatan_penilaian" value="{{$noti->peringatan_penilaian}}">
                                 </div>
-                                <div class="col">&emsp;Hari sebelum tarikh penilaian</div>
+                                <div class="col">Hari sebelum tarikh penilaian</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4">
@@ -95,7 +95,7 @@
                                 <div class="col-1">
                                     <input type="text" class="form-control" name="peringatan_tidak_hadir" value="{{$noti->peringatan_tidak_hadir}}">
                                 </div>
-                                <div class="col">&emsp;Hari selepas tarikh penilaian (Individu: Peserta dan Penyelia, Kumpulan: Penyelaras)</div>
+                                <div class="col">Hari selepas tarikh penilaian (Individu: Peserta dan Penyelia, Kumpulan: Penyelaras)</div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4">
@@ -106,7 +106,7 @@
                                 <div class="col-1">
                                     <input type="text" class="form-control" name="jadual_penilaian" value="{{$noti->jadual_penilaian}}">
                                 </div>
-                                <div class="col">&emsp;Hari sebelum tarikh penilaian</div>
+                                <div class="col">Hari sebelum tarikh penilaian</div>
                             </div>
     
                             <div class="row">
