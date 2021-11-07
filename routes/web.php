@@ -27,6 +27,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VideoDanNotaController;
 use App\Http\Controllers\SelenggaraKawalanSistemController;
 use App\Http\Controllers\NotifikasiEmailController;
+use App\Http\Controllers\LamanUtamaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -89,44 +90,30 @@ Route::resource('/jaduals', JadualController::class);
 Route::resource('/mohonpenilaian', MohonPenilaianController::class);
 
 Route::resource('/bank-soalan-pengetahuan', BanksoalanpengetahuanController::class);
-
 Route::post('/bank-soalan-pengetahuan/fill-in-the-blank', [BanksoalanpengetahuanController::class, 'fillblank']);
-
 Route::post('/bank-soalan-pengetahuan/multiple-choice', [BanksoalanpengetahuanController::class, 'multiplechoice']);
-
 Route::post('/bank-soalan-pengetahuan/ranking', [BanksoalanpengetahuanController::class, 'ranking']);
-
 Route::post('/bank-soalan-pengetahuan/single-choice', [BanksoalanpengetahuanController::class, 'singlechoice']);
-
 Route::post('/bank-soalan-pengetahuan/true-false', [BanksoalanpengetahuanController::class, 'truefalse']);
-
 Route::post('/bank-soalan-pengetahuan/subjective', [BanksoalanpengetahuanController::class, 'subjective']);
 
 // Route::post('/bank-soalan-pengetahuan/{id}/delete', [BanksoalanpengetahuanController::class, 'destroy']);
 
 Route::resource('/bank-soalan-kemahiran', BanksoalankemahiranController::class);
-
 Route::resource('/soalan-kemahiran-internet', SoalankemahiraninternetController::class);
-
 Route::post('/soalan-kemahiran-internet/{id}/page1', [SoalankemahiraninternetController::class, 'edit1']);
-
 Route::post('/soalan-kemahiran-internet/{id}/page2', [SoalankemahiraninternetController::class, 'edit2']);
-
 Route::post('/soalan-kemahiran-internet/{id}/page3', [SoalankemahiraninternetController::class, 'edit3']);
-
 Route::resource('/soalan-kemahiran-email', SoalankemahiranemailController::class);
-
 Route::resource('/soalan-kemahiran-word', SoalankemahiranwordController::class);
 
 Route::resource('/keputusan_penilaian', KeputusanPenilaianController::class);
-
-Route::resource('/videodannota', VideoDanNotaController::class);
-
 Route::resource('/semak_jawapan', BankjawapanpengetahuanController::class);
 
+Route::resource('/videodannota', VideoDanNotaController::class);
 Route::resource('/selenggara_kawalan_sistem', SelenggaraKawalanSistemController::class);
-
 Route::resource('/notifikasi_email', NotifikasiEmailController::class);
+Route::resource('/laman_utama', LamanUtamaController::class);
 
 Route::get('/tamat-penilaian', function () {
     return view('proses_penilaian.tamat_penilaian');
