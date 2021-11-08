@@ -193,13 +193,13 @@
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                             <i class="fas fa-house-user me-sm-1 text-dark"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Pentadbiran Pengguna</span>
+                        <span class="nav-link-text ms-1">Pentadbiran <br> Pengguna</span>
                     </a>
                     <div class="collapse " id="pentadbiranpenggunadrop">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
                                 <a class="nav-link " href="#">
-                                    <span class="sidenav-normal"> Kebenaran Kumpulan Pengguna </span>
+                                    <span class="sidenav-normal"> Kebenaran Kumpulan <br> Pengguna </span>
                                 </a>
                             </li>
                         </ul>
@@ -251,7 +251,7 @@
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                             <i class="fas fa-edit me-sm-1 text-dark"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Permohonan Penilaian</span>
+                        <span class="nav-link-text ms-1">Permohonan <br> Penilaian</span>
                     </a>
                     <div class="collapse " id="permohonanadrop">
                         <ul class="nav ms-4 ps-3">
@@ -268,7 +268,7 @@
                             ?>
                             <li class="nav-item ">
                                 <a class="nav-link " href="#">
-                                    <span class="sidenav-normal"> Senarai Rayuan Calon Blacklist </span>
+                                    <span class="sidenav-normal"> Senarai Rayuan Calon <br> Blacklist </span>
                                 </a>
                             </li>
                         </ul>
@@ -287,7 +287,7 @@
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fas fa-user-edit me-sm-1 text-dark"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Permohonan Penilaian</span>
+                        <span class="nav-link-text ms-1">Permohonan <br> Penilaian</span>
                     </a>
                 </li>
                 <?php
@@ -304,13 +304,13 @@
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                             <i class="fas fa-user-clock me-sm-1 text-dark"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Pengurusan Penilaian</span>
+                        <span class="nav-link-text ms-1">Pengurusan <br> Penilaian</span>
                     </a>
                     <div class="collapse " id="pengurusanpenilaiandrop">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
                                 <a class="nav-link " href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan">
-                                    <span class="sidenav-normal"> Pemilihan Soalan Pengetahuan </span>
+                                    <span class="sidenav-normal"> Pemilihan Soalan <br> Pengetahuan </span>
                                 </a>
                             </li>
                             <?php
@@ -360,7 +360,7 @@
                             ?>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/kemasukan-id">
-                                    <span class="sidenav-normal"> Jawab Penilaian (Pemantauan)</span>
+                                    <span class="sidenav-normal"> Jawab Penilaian <br> (Pemantauan)</span>
                                 </a>
                             </li>
                             <?php
@@ -533,44 +533,44 @@
                                     </span>
                                 </a> --}}
                                 <a class="nav-link " href="/laporan/penilaian-isac-mengikut-kementerian">
-                                    <span class="sidenav-normal"> Laporan Penilaian ISAC Mengikut Kementerian
+                                    <span class="sidenav-normal"> Laporan Penilaian ISAC <br> Mengikut Kementerian
                                     </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/laporan/senarai-keputusan-penilaian">
-                                    <span class="sidenav-normal"> Laporan Senarai Keputusan Penilaian </span>
+                                    <span class="sidenav-normal"> Laporan Senarai <br> Keputusan Penilaian </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link "
                                     href="/laporan/statistik-penilaian-mengikut-klasifikasi-gred-jawatan">
-                                    <span class="sidenav-normal"> Laporan Statistik Penilaian Mengikut Klasifikasi Gred
+                                    <span class="sidenav-normal"> Laporan Statistik Penilaian <br> Mengikut Klasifikasi <br> Gred
                                         & Jawatan
                                     </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/laporan/statistik-keseluruhan">
-                                    <span class="sidenav-normal"> Laporan Statistik Keseluruhan </span>
+                                    <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link "
                                     href="/laporan/statistik-keseluruhan-pencapaian-penilaian-isac-mengikut-bulan">
-                                    <span class="sidenav-normal"> Laporan Statistik Keseluruhan Pencapaian Penilaian
-                                        ISAC Mengikut Bulan </span>
+                                    <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan Pencapaian <br> Penilaian
+                                        ISAC Mengikut <br> Bulan </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/laporan/statistik-isac-mengikut-kategori-calon">
-                                    <span class="sidenav-normal"> Laporan Statistik ISAC Mengikut Kategori Calon
+                                    <span class="sidenav-normal"> Laporan Statistik ISAC <br> Mengikut Kategori Calon
                                     </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/laporan/keseluruhan-penilaian-isac-mengikut-iac">
-                                    <span class="sidenav-normal"> Laporan Keseluruhan Penilaian ISAC Mengikut IAC
+                                    <span class="sidenav-normal"> Laporan Keseluruhan <br> Penilaian ISAC Mengikut <br> IAC
                                     </span>
                                 </a>
                             </li>
@@ -607,7 +607,7 @@
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
                                 <a class="nav-link " href="/selenggara_kawalan_sistem">
-                                    <span class="sidenav-normal"> Maklumat Selenggara Kawalan Sistem </span>
+                                    <span class="sidenav-normal"> Maklumat Selenggara <br> Kawalan Sistem </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
@@ -622,7 +622,7 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/videodannota">
-                                    <span class="sidenav-normal"> Maklumat Video dan Nota </span>
+                                    <span class="sidenav-normal"> Maklumat Video dan <br> Nota </span>
                                 </a>
                             </li>
                         </ul>
