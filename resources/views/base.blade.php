@@ -105,6 +105,7 @@
     {{-- ck editor --}}
 
     <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
