@@ -33,40 +33,42 @@
             <h6 class="font-weight-bolder">Keputusan Penilaian</h6>
         </nav>
 
-        <div class="container-fluid pb-3">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header pb-3" style="background-color:#FFA500;">
+                        <h5 class="text-white">Jawapan Calon</h5>
+                    </div>
+                    <div class="card-body p-0">
 
-            <div class="card vh-100 mt-5">
-                <div class="card-header pb-3" style="background-color:#FFA500;">
-                    <h5 class="text-white">Senarai Sijil Kelulusan</h5>
-                </div>
+                        <div class="table-responsive">
+                            <table class="table table-flush" id="datatable-peserta">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Jawapan Calon</th>
+                                        <th>Jawapan Sebenar</th>
+                                        <th>Markah Diberi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($jawapan as $key => $jawapan)
+                                    <tr>
+                                        <td>{{$key+1}}</td>
+                                        <td>{{$jawapan->pilihan_jawapan}}</td>
+                                        <td>{{$jawapan->jawapan}}</td>
+                                        <td>{{$jawapan->markah}}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-flush" id="datatable-peserta">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Nama Calon</th>
-                                    <th>No. Kad Pengenalan</th>
-                                    <th>Status</th>
-                                    <th>Sijil Penilaian</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($keputusans as $key => $keputusan)
-                                <tr>
-                                    <td>{{$key+1}}</td>
-                                    <td>{{$keputusan->nama_peserta}}</td>
-                                    <td>{{$keputusan->ic_peserta}}</td>
-                                    <td>{{$keputusan->keputusan}}</td>
-                                    <td>
-                                        <a href="/sijil_penilaian/{{$keputusan->id}}"><?php echo sprintf("%'.05d\n", $keputusan->no_sijil)?>&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a>
-                                        {{-- <a href="/sijil_isac" class="btn mb-0">Sijil&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a> --}}
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="row px-3">
+                            <div class="col text-end">
+                                <a href="/semak_jawapan" class="btn bg-gradient-primary">Kembali</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

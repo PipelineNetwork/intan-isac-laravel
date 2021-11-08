@@ -54,7 +54,7 @@
                                     <tr>
                                         <td>{{$key+1}}</td>
                                         <td>{{$calon->id_calon}}</td>
-                                        <td><a href="#" class="text-info">{{$calon->id_penilaian}}</a></td>
+                                        <td><a href="/semak_jawapan/{{$calon->id_calon}}/{{$calon->id_penilaian}}" class="text-info">{{$calon->id_penilaian}}</a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
