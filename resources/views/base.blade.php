@@ -329,11 +329,11 @@
                                     <span class="sidenav-normal"> Senarai Sijil Kelulusan </span>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item ">
-                                <a class="nav-link " href="/papar-keputusan">
+                            <li class="nav-item ">
+                                <a class="nav-link " href="/semak_jawapan">
                                     <span class="sidenav-normal"> Semakan Keputusan </span>
                                 </a>
-                            </li> --}}
+                            </li>
                         </ul>
                     </div>
                 </li>
