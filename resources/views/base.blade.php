@@ -331,7 +331,7 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/semak_jawapan">
-                                    <span class="sidenav-normal"> Semakan Keputusan </span>
+                                    <span class="sidenav-normal"> Semakan Jawapan </span>
                                 </a>
                             </li>
                         </ul>

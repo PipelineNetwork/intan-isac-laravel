@@ -189,4 +189,14 @@ class BankjawapanpengetahuanController extends Controller
 
         return redirect('/soalan-kemahiran-internet')->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
     }
+
+    public function check_jawapan($ic, $id){
+        $jawapan = Bankjawapanpengetahuan::where('id_calon', $ic)
+        ->where('id_penilaian', $id)
+        ->get();
+
+        return view('proses_penilaian.keputusan_penilaian.senarai_jawapan',[
+            'jawapan'=>$jawapan
+        ]);
+    }
 }
