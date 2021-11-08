@@ -72,8 +72,8 @@
                                         <label class="form-control-label mr-4">
                                             Keterangan
                                         </label><label class="float-right">:</label>
-                                        <textarea class="form-control" id="editor"
-                                            name="KETERANGAN">{{ $laman_utama->KETERANGAN }}</textarea>
+                                        <textarea id="editor-soalan" class="form-control" name="KETERANGAN" rows="10">{{ $laman_utama->KETERANGAN }}</textarea>
+
                                     </div>
                                 </div>
                             </div>
@@ -84,8 +84,17 @@
                                     </label><label class="float-right">:</label>
                                 </div>
                                 <div class="col-lg-11">
-                                    <input type="text" class="form-control" name="STATUS"
-                                        value="{{ $laman_utama->STATUS }}">
+                                    <select class="form-control" id="exampleFormControlSelect1">
+                                        <option value="{{ $laman_utama->STATUS }}" selected hidden>
+                                            @if ($laman_utama->STATUS == '01')
+                                                Tidak Aktif
+                                            @else
+                                                Aktif
+                                            @endif
+                                        </option>
+                                        <option value="01">Tidak Aktif</option>
+                                        <option value="02">Aktif</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -102,9 +111,16 @@
                 </div>
             </div>
         </div>
-
     </div>
 
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor-soalan'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    {{-- <script src="../../assets/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         CKEDITOR.replace('editor', {
             language: 'en',
@@ -113,6 +129,6 @@
             width: 'auto',
             bodyClass: 'document-editor',
         });
-    </script>
+    </script> --}}
 
 @stop
