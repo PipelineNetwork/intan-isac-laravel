@@ -295,38 +295,6 @@
                             </tr>
                             <tr>
                                 <td class="text-sm text-center font-weight-normal">
-                                    7</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    INTAN LOCAL
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
                                     <b>Jumlah</b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
