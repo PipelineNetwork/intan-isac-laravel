@@ -64,7 +64,7 @@
                                             <td style="text-align: center; border: 1px solid black;"><strong>Emel: </strong>Melepasi</td>
                                         </tr>
                                         <tr>
-                                            <td style="color: red; text-align: center; border: 1px solid black;">KEPUTUSAN KESULURUHAN</td>
+                                            <td style="color: red; text-align: center; border: 1px solid black;">KEPUTUSAN KESELURUHAN</td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center; border: 1px solid black;">Lulus</td>

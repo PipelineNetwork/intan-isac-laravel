@@ -72,7 +72,7 @@
                 <div class="row mb-2">
                     <div class="col-3">
                         <label class="form-control-label mr-4">
-                            Jumlah Kesuluruhan Soalan
+                            Jumlah Keseluruhan Soalan
                         </label><label class="float-right">:</label>
                     </div>
                     <div class="col-8">

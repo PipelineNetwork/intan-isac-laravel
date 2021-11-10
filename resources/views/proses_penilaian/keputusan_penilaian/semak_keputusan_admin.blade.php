@@ -37,7 +37,7 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header pb-3" style="background-color:#FFA500;">
-                        <h5 class="text-white">Semakan Keputusan Penilaian</h5>
+                        <h5 class="text-white">Senarai Perincian Jawapan Calon</h5>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
