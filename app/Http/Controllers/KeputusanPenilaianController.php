@@ -59,15 +59,20 @@ class KeputusanPenilaianController extends Controller
         $nama = $rekod_sijil->nama_peserta;
         $ic = $rekod_sijil->ic_peserta;
         $tarikh = $rekod_sijil->tarikh_penilaian;
-        $no_sijil = $rekod_sijil->no_sijil; 
+        $no_sijil = $rekod_sijil->no_sijil;
+
+        $text_qr = "No. Kad Pengenalan: ".$ic."
+No. Sijil: ".sprintf("%'.05d\n", $no_sijil);
+        $qr_encode = urlencode($text_qr);
 
         $pdf = PDF::loadView('pdf.sijil_isac',[
             'nama'=>$nama,
             'ic'=>$ic,
             'tarikh'=>$tarikh,
-            'no_sijil'=>$no_sijil
+            'no_sijil'=>$no_sijil,
+            'qr'=>$qr_encode
         ]);
-         return $pdf->download('Sijil_ISAC_'.$ic.'.pdf');
+         return $pdf->stream('Sijil_ISAC_'.$ic.'.pdf');
 
     }
 }
