@@ -29,8 +29,10 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kawalan Sistem</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Video dan Nota</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kawalan
+                                Sistem</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Video dan
+                                Nota</a></li>
                     </ol>
                 </nav>
             </div>
@@ -46,23 +48,31 @@
             <div class="col">
                 <div class="card m-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Butiran Video dan Nota</b>
+                        <b class="text-white">Butiran Video/Nota</b>
                     </div>
                     <div class="card-body">
                         <form action="/videodannota" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
+                                <label>Jenis Dokumen</label>
+                                <select class="form-control" name="jenis">
+                                    <option value="" hidden selected>Sila Pilih</option>
+                                    <option value="Nota">Nota</option>
+                                    <option value="Video">Video</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="tajuk" class="form-control-label">Tajuk</label>
                                 <input class="form-control" type="text" id="tajuk" name="tajuk">
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label">Nota</label>
+                                <label class="form-control-label">Keterangan</label>
                                 <div class="input-group">
-                                  <textarea class="form-control" name="nota"></textarea>
+                                    <textarea class="form-control" name="nota"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label">Video</label>
+                                <label class="form-control-label">Fail</label>
                                 <input class="form-control dropzone" name="video" type="file" multiple />
                             </div>
                             <div class="form-group mt-4 text-end">

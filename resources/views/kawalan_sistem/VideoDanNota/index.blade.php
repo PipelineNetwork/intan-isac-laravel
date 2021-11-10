@@ -56,15 +56,14 @@
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Senarai Video dan Nota</b>
                     </div>
-
                     <div class="table-responsive">
                         <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>Tajuk</th>
-                                    <th>Nota</th>
+                                    <th>Keterangan</th>
+                                    <th>Jenis Dokumen</th>
                                     <th>Kemaskini/Hapus</th>
                                 </tr>
                             </thead>
@@ -74,6 +73,7 @@
                                         <td>{{ $key + 1 }}.</td>
                                         <td><a href="/storage/{{ $videodannota['video'] }}">{{ $videodannota['tajuk'] }}</a></td>
                                         <td>{{ $videodannota['nota'] }}</td>
+                                        <td>{{ $videodannota['jenis'] }}</td>
                                         <td class="text-center">
                                             <div class="row">
                                                 <div class="col-auto p-0 m-1">
@@ -92,12 +92,10 @@
                                                     </form>
                                                 </div>
                                             </div>
-
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
-
                         </table>
                     </div>
                 </div>
