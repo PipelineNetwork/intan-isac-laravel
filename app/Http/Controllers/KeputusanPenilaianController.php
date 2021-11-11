@@ -72,7 +72,7 @@ No. Sijil: ".sprintf("%'.05d\n", $no_sijil);
             'no_sijil'=>$no_sijil,
             'qr'=>$qr_encode
         ]);
-         return $pdf->stream('Sijil_ISAC_'.$ic.'.pdf');
+         return $pdf->download('Sijil_ISAC_'.$ic.'.pdf');
 
     }
 }
