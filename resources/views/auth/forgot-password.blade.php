@@ -16,7 +16,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/BM/INTAN.jpg" >
-        <form method="POST" action="{{ route('password.email') }}">
+        <form method="POST" action="/forgot-password">
             @csrf
 
             <!-- Email Address -->

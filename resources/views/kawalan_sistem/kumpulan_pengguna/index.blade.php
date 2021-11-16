@@ -29,10 +29,8 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kawalan
-                                Sistem</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Paparan Laman
-                                Utama</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kawalan Sistem</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kebenaran Pengguna</a></li>
                     </ol>
                 </nav>
             </div>
@@ -40,46 +38,48 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <h5 class="font-weight-bolder">Paparan Laman Utama</h5>
+                <h5 class="font-weight-bolder">Kebenaran Pengguna</h5>
             </div>
+            {{-- <div class="col-lg-6">
+                <div class="column-12">
+                    <a href="/notifikasi_email/{{$noti->id}}/edit" class="btn bg-gradient-primary mx-4" type="submit"
+                        style="float: right;">Kemaskini</a>
+                </div>
+            </div> --}}
         </div>
 
         <div class="row">
             <div class="col">
                 <div class="card m-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Maklumat</b>
+                        <b class="text-white">Pengguna</b>
                     </div>
                     <div class="card-body">
-                        <ul class="list-group">
-                            @foreach ($laman_utama as $key => $laman_utama)
-                                <li class="list-group-item">
-                                    <div class="row mt-4">
-                                        <div class="col-1">
-                                            {{ $key + 1 }}.
-                                        </div>
-                                        <div class="col-9">
-                                            <h5>{{ $laman_utama->TAJUK }}</h5>
-                                            <p>{!! $laman_utama->KETERANGAN !!}</p>
-                                        </div>
-                                        <div class="col-2 text-end">
-                                            <p class="mb-0">Status: 
-                                                @if($laman_utama->STATUS == '01')
-                                                Tidak Aktif
-                                                @else
-                                                Aktif
-                                                @endif
-                                            </p>
-                                            <a href="laman_utama/{{$laman_utama->ID}}/edit" class="btn bg-gradient-info mt-0">Kemaskini</a>
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Pengguna</th>
+                                        <th>Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($roles as $key => $role)
+                                        <tr>
+                                            <td>{{ $key + 1 }}.</td>
+                                            <td>{{$role->DESCRIPTION}}</td>
+                                            <td><a href="/kebenaran_pengguna/{{$role->GROUP_ID}}/edit" class="btn bg-gradient-info">Kemaskini</a></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script src="../../assets/js/plugins/datatables.js"></script>
