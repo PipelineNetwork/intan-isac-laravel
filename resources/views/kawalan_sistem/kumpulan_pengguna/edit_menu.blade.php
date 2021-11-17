@@ -89,8 +89,8 @@
                             <div class="row">
                                 <div class="col text-end">
                                     {{-- <button class="btn btn-success" type="submit">Simpan</button> --}}
-                                    <a href="/kebenaran_pengguna/{{$id_kumpulan}}" class="btn btn-success">Simpan</a>
-                                    <a href="/kebenaran_pengguna/{{$id_kumpulan}}" class="btn btn-danger">Kembali</a>
+                                    <a href="/kebenaran_pengguna/{{$id_kumpulan}}/edit" class="btn btn-success">Simpan</a>
+                                    <a href="/kebenaran_pengguna/{{$id_kumpulan}}/edit" class="btn btn-danger">Kembali</a>
                                 </div>
                             </div>
                         </form>
