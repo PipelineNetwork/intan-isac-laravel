@@ -219,6 +219,11 @@
                                     <span class="sidenav-normal"> Kebenaran Kumpulan <br> Pengguna </span>
                                 </a>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="/pengurusanpengguna">
+                                    <span class="sidenav-normal"> Pengurusan Pengguna </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -226,7 +231,7 @@
                 }
                 ?>
 
-                <?php
+                {{-- <?php
                 if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
                 ?>
                 <li class="nav-item">
@@ -240,7 +245,7 @@
                 </li>
                 <?php
                 }
-                ?>
+                ?> --}}
 
                 <?php
                 if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2')) {

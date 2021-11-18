@@ -104,11 +104,14 @@
     <?php
     
     use App\Models\Jadual;
+    use App\Models\LamanUtama;
     
     $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
         ->orderBy('TARIKH_SESI', 'desc')
         ->whereYear('TARIKH_SESI', '>=', 2021)
         ->get();
+
+    $lamanutama = LamanUtama::all();
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -560,6 +563,19 @@
                     </div>
                 </div>
             </div>
+
+            @foreach ($lamanutama as $lamanutama)
+            <div class="card m-5">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5>{{$lamanutama->TAJUK}}</h5>
+                            {!!$lamanutama->KETERANGAN!!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
 
             <div class="row pt-5" id="jadual">
                 <div class="col">

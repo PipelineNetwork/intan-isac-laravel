@@ -121,7 +121,7 @@
                                         <td>{{ $jadual['status'] }}</td>
                                         <td>{{ $jadual['keterangan'] }}</td>
                                         <td>
-                                            <form method="POST" action="{{ route('jaduals.destroy', $jadual['ID_SESI']) }}">
+                                            <form method="POST" action="jaduals/{{ $jadual->ID_SESI }}">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="btn mb-0 btn-danger" type="submit">Hapus&emsp;<i class="fas fa-trash-alt"></i></button>

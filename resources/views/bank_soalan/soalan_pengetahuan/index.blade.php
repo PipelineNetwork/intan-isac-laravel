@@ -258,7 +258,7 @@
                                                     <button type="button" class="btn bg-gradient-secondary"
                                                         data-bs-dismiss="modal">Tutup</button>
                                                     <form method="POST"
-                                                        action="{{ route('bank-soalan-pengetahuan.destroy', $banksoalanpengetahuan['id']) }}">
+                                                        action="/bank-soalan-pengetahuan/{{$banksoalanpengetahuan->id}}">
                                                         @method('DELETE')
                                                         @csrf
     
