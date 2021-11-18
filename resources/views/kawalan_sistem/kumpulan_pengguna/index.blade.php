@@ -40,12 +40,12 @@
             <div class="col-lg-6">
                 <h5 class="font-weight-bolder">Kebenaran Pengguna</h5>
             </div>
-            {{-- <div class="col-lg-6">
+            <div class="col-lg-6">
                 <div class="column-12">
-                    <a href="/notifikasi_email/{{$noti->id}}/edit" class="btn bg-gradient-primary mx-4" type="submit"
-                        style="float: right;">Kemaskini</a>
+                    <a href="/kebenaran_pengguna/create" class="btn bg-gradient-warning mx-4" type="submit"
+                        style="float: right;">TAMBAH</a>
                 </div>
-            </div> --}}
+            </div>
         </div>
 
         <div class="row">
@@ -69,7 +69,7 @@
                                         <tr>
                                             <td>{{ $key + 1 }}.</td>
                                             <td>{{$role->DESCRIPTION}}</td>
-                                            <td><a href="/kebenaran_pengguna/{{$role->GROUP_ID}}/edit" class="btn bg-gradient-info">Kemaskini</a></td>
+                                            <td><a href="/kebenaran_pengguna/{{$role->GROUP_ID}}/edit" class="btn bg-gradient-info">Tunjuk Senarai</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

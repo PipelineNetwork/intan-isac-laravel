@@ -79,7 +79,7 @@
                                     <a href="/cetak_surat/{{ $calon_3['id'] }}" class="btn mb-0">Cetak&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a>
                                 </td>
                                 <td class="text-sm font-weight-normal text-center">
-                                    <form method="POST" action="{{ route('mohonpenilaian.destroy', $calon_3['id']) }}">
+                                    <form method="POST" action="/mohonpenilaian/{{$calon_3->id}}">
                                         @method('DELETE')
                                         @csrf
                                         <button class="btn mb-0 btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>

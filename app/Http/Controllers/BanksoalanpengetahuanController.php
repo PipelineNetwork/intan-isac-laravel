@@ -444,6 +444,9 @@ class BanksoalanpengetahuanController extends Controller
     }
     public function pemilihan(Request $request){
         $pemilihan = PemilihanSoalan::all();
+
+        // dd($pemilihan);
+
         return view('bank_soalan.soalan_pengetahuan.pemilihan_soalan.pemilihan_soalan',[
             'pemilihan'=>$pemilihan
         ]);

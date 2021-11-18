@@ -1428,7 +1428,7 @@ Coded by www.creative-tim.com
                             </div>
                             <div class="card-body pb-3">
                                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" action="/register">
                                     @csrf
                                     <label>No. Kad Pengenalan</label>
                                     <div class="mb-3">

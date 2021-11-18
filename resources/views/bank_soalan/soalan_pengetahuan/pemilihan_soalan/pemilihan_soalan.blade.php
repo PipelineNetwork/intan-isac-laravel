@@ -62,7 +62,7 @@
                                 <tr>
                                     <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
                                     <td class="text-sm text-center font-weight-normal">{{$pemilihan->NAMA_PEMILIHAN_SOALAN}}</td>
-                                    <td class="text-sm text-center font-weight-normal">{{$pemilihan->JUMLAH_KESULURUHAN_SOALAN}}</td>
+                                    <td class="text-sm text-center font-weight-normal">{{$pemilihan->JUMLAH_KESELURUHAN_SOALAN}}</td>
                                     <td class="text-sm text-center font-weight-normal">{{$pemilihan->KOD_TAHAP_SOALAN}}</td>
                                     <td class="text-sm text-center font-weight-normal">{{$pemilihan->TARIKH_CIPTA}}</td>
                                     <td class="text-sm text-center font-weight-normal">{{$pemilihan->TARIKH_KEMASKINI}}</td>

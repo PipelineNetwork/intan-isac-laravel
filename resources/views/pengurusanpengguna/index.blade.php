@@ -101,7 +101,7 @@
                                                     <button type="button" class="btn bg-gradient-secondary"
                                                         data-bs-dismiss="modal">Batal</button>
                                                     <form method="POST"
-                                                        action="{{ route('pengurusanpengguna.destroy', $user_pengawas['id']) }}">
+                                                        action="/pengurusanpengguna/{{$user_pengawas->id}}">
                                                         @method('DELETE')
                                                         @csrf
 
@@ -169,7 +169,7 @@
                                                     <button type="button" class="btn bg-gradient-secondary"
                                                         data-bs-dismiss="modal">Batal</button>
                                                     <form method="POST"
-                                                        action="{{ route('pengurusanpengguna.destroy', $user['id']) }}">
+                                                        action="/pengurusanpengguna/{{$user->id}}">
                                                         @method('DELETE')
                                                         @csrf
 

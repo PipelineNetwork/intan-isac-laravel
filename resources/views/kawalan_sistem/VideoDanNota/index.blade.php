@@ -84,7 +84,7 @@
                                                 <div class="col-auto p-0 m-1">
                                                     {{-- delete --}}
                                                     <form method="POST"
-                                                        action="{{ route('videodannota.destroy', $videodannota['id']) }}">
+                                                        action="videodannota/{{ $videodannota->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn mb-0 btn-danger px-3" type="submit"><i

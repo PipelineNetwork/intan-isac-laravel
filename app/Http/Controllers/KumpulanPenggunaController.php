@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\KumpulanPengguna;
 use App\Models\KebenaranPengguna;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
@@ -41,6 +42,13 @@ class KumpulanPenggunaController extends Controller
     public function store(Request $request)
     {
         $pengguna = new KumpulanPengguna;
+
+        $pengguna->DESCRIPTION = $request->DESCRIPTION;
+        $pengguna->GROUP_CODE = $request->GROUP_CODE;
+        $pengguna->ADDED_BY = Auth::id();
+
+        $pengguna->save();
+        return redirect('/kebenaran_pengguna');
     }
 
     /**
