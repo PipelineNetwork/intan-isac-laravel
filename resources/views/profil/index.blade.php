@@ -978,41 +978,7 @@
                         </ol>
                         <h6 class="font-weight-bolder">Profil</h6>
                     </nav>
-                    <div class="card card-body blur shadow-blur mx-4 my-3">
-                        <div class="row gx-6">
-                            <div class="col-auto">
-                                <div class="avatar avatar-xl position-relative">
-                                    <img src="https://st3.depositphotos.com/13159112/17145/v/600/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg"
-                                        alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-                                </div>
-                            </div>
-                            <div class="col-auto my-auto">
-                                <div class="h-100">
-                                    <h5 class="mb-1">
-                                        {{ $user_profils->name }}
-                                    </h5>
-                                    <p class="mb-0 font-weight-bold text-sm">
-                                        {{ $user_profils->email }}
-                                    </p>
-                                    <p class="mb-0 font-weight-bold text-sm">
-                                        @if ($user_profils->user_group_id == 1)
-                                            Pentadbir Sistem
-                                        @elseif ($user_profils->user_group_id == 2)
-                                            Pentadbir Penilaian
-                                        @elseif ($user_profils->user_group_id == 3)
-                                            Penyelaras
-                                        @elseif ($user_profils->user_group_id == 4)
-                                            Pengawas
-                                        @elseif ($user_profils->user_group_id == 5)
-                                            Calon
-                                        @else
-                                            Pegawai Korporat
-                                        @endif
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="card">
                         <div class="card-header pb-0 p-3" style="background-color:#FFA500;">
                             <div class="row">

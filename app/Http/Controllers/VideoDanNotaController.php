@@ -42,6 +42,7 @@ class VideoDanNotaController extends Controller
         $videodannota->tajuk = $request->tajuk;
         $videodannota->video = $request->file('video')->store('videodannota');
         $videodannota->nota = $request->nota;
+        $videodannota->jenis = $request->jenis;
 
         $videodannota->save();
         return redirect('/videodannota');

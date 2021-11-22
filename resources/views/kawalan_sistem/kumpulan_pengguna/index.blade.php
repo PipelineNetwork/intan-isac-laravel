@@ -29,10 +29,8 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kawalan
-                                Sistem</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Video dan
-                                Nota</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kawalan Sistem</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kebenaran Pengguna</a></li>
                     </ol>
                 </nav>
             </div>
@@ -40,12 +38,12 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <h5 class="font-weight-bolder">Video dan Nota</h5>
+                <h5 class="font-weight-bolder">Kebenaran Pengguna</h5>
             </div>
             <div class="col-lg-6">
                 <div class="column-12">
-                    <a href="/videodannota/create" class="btn bg-gradient-warning mx-4" type="submit"
-                        style="float: right;">CIPTA</a>
+                    <a href="/kebenaran_pengguna/create" class="btn bg-gradient-warning mx-4" type="submit"
+                        style="float: right;">TAMBAH</a>
                 </div>
             </div>
         </div>
@@ -54,53 +52,34 @@
             <div class="col">
                 <div class="card m-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Senarai Video dan Nota</b>
+                        <b class="text-white">Pengguna</b>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Tajuk</th>
-                                    <th>Keterangan</th>
-                                    <th>Jenis Dokumen</th>
-                                    <th>Kemaskini/Hapus</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($videodannotas as $key => $videodannota)
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+                                <thead>
                                     <tr>
-                                        <td>{{ $key + 1 }}.</td>
-                                        <td><a href="/storage/{{ $videodannota['video'] }}">{{ $videodannota['tajuk'] }}</a></td>
-                                        <td>{{ $videodannota['nota'] }}</td>
-                                        <td>{{ $videodannota['jenis'] }}</td>
-                                        <td class="text-center">
-                                            <div class="row">
-                                                <div class="col-auto p-0 m-1">
-                                                    {{-- update --}}
-                                                    <a href="/videodannota/{{ $videodannota['id'] }}/edit"
-                                                        class="btn btn-info mb-0 px-3"><i class="fas fa-edit"></i></a>
-                                                </div>
-                                                <div class="col-auto p-0 m-1">
-                                                    {{-- delete --}}
-                                                    <form method="POST"
-                                                        action="videodannota/{{ $videodannota->id }}">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button class="btn mb-0 btn-danger px-3" type="submit"><i
-                                                                class="fas fa-trash-alt"></i></button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <th>No.</th>
+                                        <th>Pengguna</th>
+                                        <th>Tindakan</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($roles as $key => $role)
+                                        <tr>
+                                            <td>{{ $key + 1 }}.</td>
+                                            <td>{{$role->DESCRIPTION}}</td>
+                                            <td><a href="/kebenaran_pengguna/{{$role->GROUP_ID}}/edit" class="btn bg-gradient-info">Tunjuk Senarai</a></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script src="../../assets/js/plugins/datatables.js"></script>

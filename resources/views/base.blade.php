@@ -103,11 +103,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     {{-- ck editor --}}
-
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script> --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
+    <?php
+        use Illuminate\Support\Facades\Auth;
+        $current_user = Auth::user()->user_group_id;
+        $checkid2 = Auth::user()->id;
+        if ($current_user == 5) {
+            $user_profils = DB::table('users')
+                ->where('id', '=', $checkid2)
+                ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+                ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+                ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
+                ->get()->first();
+        } else {
+            $user_profils = Auth::user();
+        }
+    ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
@@ -198,8 +214,13 @@
                     <div class="collapse " id="pentadbiranpenggunadrop">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
-                                <a class="nav-link " href="#">
+                                <a class="nav-link " href="/kebenaran_pengguna">
                                     <span class="sidenav-normal"> Kebenaran Kumpulan <br> Pengguna </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="/pengurusanpengguna">
+                                    <span class="sidenav-normal"> Pengurusan Pengguna </span>
                                 </a>
                             </li>
                         </ul>
@@ -209,7 +230,7 @@
                 }
                 ?>
 
-                <?php
+                {{-- <?php
                 if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
                 ?>
                 <li class="nav-item">
@@ -223,7 +244,7 @@
                 </li>
                 <?php
                 }
-                ?>
+                ?> --}}
 
                 <?php
                 if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2')) {
@@ -639,8 +660,45 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <nav class="navbar navbar-main navbar-expand-lg mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky"
             id="navbarBlur">
-            <div class="container-fluid py-1 px-3">
-                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+            <div class="container-fluid px-0">
+                @auth
+                    <div class="card card-body blur shadow-blur m-0">
+                        <div class="row align-items-center px-4">
+                            <div class="col-lg-10">
+                                <div class="h-100">
+                                    <h5 class="mb-1">
+                                        {{ $user_profils->name }}
+                                    </h5>
+                                    <p class="mb-0 font-weight-bold text-sm">
+                                        {{ $user_profils->email }}
+                                    </p>
+                                    <p class="mb-0 font-weight-bold text-sm">
+                                        @if ($user_profils->user_group_id == 1)
+                                            Pentadbir Sistem
+                                        @elseif ($user_profils->user_group_id == 2)
+                                            Pentadbir Penilaian
+                                        @elseif ($user_profils->user_group_id == 3)
+                                            Penyelaras
+                                        @elseif ($user_profils->user_group_id == 4)
+                                            Pengawas
+                                        @elseif ($user_profils->user_group_id == 5)
+                                            Calon
+                                        @else
+                                            Pegawai Korporat
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 text-end">
+                                <form method="POST" action="/logout">
+                                    @csrf
+                                    <button class="btn mb-0 bg-gradient-danger" type="submit">Log Keluar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @endauth
+                <div class=" mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         <div class="input-group">
                             <!-- <span class="input-group-text text-body"><i class="fas fa-search"
@@ -667,27 +725,7 @@
                             </ul>
                         </ul>
                     @endguest
-                    @auth
-                        <ul class="navbar-nav ml-auto mb-2 mb-md-0">
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="/welcome"></a>
-                            </li>
-                            <li class="nav-item">
-                                <form method="POST" action="/logout">
-                                    @csrf
-                                    <a class="dropdown-item border-radius-md" href="#"
-                                        onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            this.closest('form').submit();">
-                                        <div class="d-flex py-1">
-
-                                            {{ __('Log Keluar') }}
-
-                                        </div>
-                                    </a>
-                                </form>
-                            </li>
-                        </ul>
-                    @endauth
+                    
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                         <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                             <div class="sidenav-toggler-inner">

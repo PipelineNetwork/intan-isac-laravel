@@ -80,7 +80,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <script src="../../assets/js/plugins/datatables.js"></script>

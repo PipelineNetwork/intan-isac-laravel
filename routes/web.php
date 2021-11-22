@@ -32,6 +32,7 @@ use App\Http\Controllers\BanksoalankemahiraninternetController;
 use App\Http\Controllers\BanksoalankemahiranwordController;
 use App\Http\Controllers\BanksoalankemahiranemailController;
 use App\Models\Banksoalankemahiran;
+use App\Http\Controllers\KumpulanPenggunaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -127,6 +128,9 @@ Route::resource('/videodannota', VideoDanNotaController::class);
 Route::resource('/selenggara_kawalan_sistem', SelenggaraKawalanSistemController::class);
 Route::resource('/notifikasi_email', NotifikasiEmailController::class);
 Route::resource('/laman_utama', LamanUtamaController::class);
+Route::resource('/kebenaran_pengguna', KumpulanPenggunaController::class);
+Route::get('/kebenaran_pengguna/{id_kumpulan}/{menu_id}', [KumpulanPenggunaController::class, 'edit_menu']);
+Route::post('/kebenaran_pengguna/kemaskini/{id_kumpulan}/{menu_id}', [KumpulanPenggunaController::class, 'update_kebenaran']);
 
 Route::get('/tamat-penilaian', function () {
     return view('proses_penilaian.tamat_penilaian');
