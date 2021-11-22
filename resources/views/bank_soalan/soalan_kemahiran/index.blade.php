@@ -32,8 +32,54 @@
         <h6 class="font-weight-bolder">Soalan Kemahiran</h6>
     </nav>
 
-    <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
+    <div class="container-fluid py-4">
+        <div class="card card-frame mt-4">
+
+            <div class="card-header position-relative z-index-1" style="background-color:#FFA500;">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h5 class="text-white">Senarai Set Soalan Kemahiran</h5>
+                    </div>
+                    <div class="col-4" style="text-align: end">
+                        <a href="/bank-soalan-kemahiran/create" class="btn bg-gradient-info">Tambah</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-flush" id="datatable_soalan_kemahiran">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">No</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Set Soalan</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Disediakan</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemaskini</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($banksoalankemahirans as $banksoalankemahiran)
+                                <tr>
+                                    <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
+                                    <td class="text-sm text-center font-weight-normal">Set {{ $banksoalankemahiran->id }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ date('d/m/Y', strtotime($banksoalankemahiran->created_at)) }}</td>
+                                    <td class="text-sm text-center font-weight-normal"><a
+                                            href="/bank-soalan-kemahiran/{{ $banksoalankemahiran->id }}">
+                                            <i class="fas fa-pencil-alt"></i> Kemaskini
+                                        </a></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
+        type="text/javascript"></script> --}}
+    <script src="/assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
         const dataTableSoalanKemahiran = new simpleDatatables.DataTable("#datatable_soalan_kemahiran", {
             searchable: true,

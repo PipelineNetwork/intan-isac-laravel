@@ -155,7 +155,8 @@ return [
 
     'attributes' => array(
         'email' =>'Email',
-        'nric' => 'No. Kad Pengenalan'
+        'nric' => 'No. Kad Pengenalan',
+        'no_set_soalan' => 'Set Soalan'
     ),
 
 ];
