@@ -28,6 +28,10 @@ use App\Http\Controllers\VideoDanNotaController;
 use App\Http\Controllers\SelenggaraKawalanSistemController;
 use App\Http\Controllers\NotifikasiEmailController;
 use App\Http\Controllers\LamanUtamaController;
+use App\Http\Controllers\BanksoalankemahiraninternetController;
+use App\Http\Controllers\BanksoalankemahiranwordController;
+use App\Http\Controllers\BanksoalankemahiranemailController;
+use App\Models\Banksoalankemahiran;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -100,6 +104,15 @@ Route::post('/bank-soalan-pengetahuan/subjective', [BanksoalanpengetahuanControl
 // Route::post('/bank-soalan-pengetahuan/{id}/delete', [BanksoalanpengetahuanController::class, 'destroy']);
 
 Route::resource('/bank-soalan-kemahiran', BanksoalankemahiranController::class);
+// Route::resource('/bank-soalan-kemahiran', BanksoalankemahiranController::class)->only(['show']);
+Route::get('/bank-soalan-kemahiran/{soalan}/internet', [BanksoalankemahiraninternetController::class, 'createsoalankemahiraninternet']);
+Route::post('/bank-soalan-kemahiran/{soalan}/internet/save', [BanksoalankemahiraninternetController::class, 'soalankemahiraninternetsave']);
+Route::get('/bank-soalan-kemahiran/{soalan}/pemprosesan-perkataan', [BanksoalankemahiranwordController::class, 'soalankemahiranwordcreate']);
+Route::post('/bank-soalan-kemahiran/{soalan}/pemprosesan-perkataan/save', [BanksoalankemahiranwordController::class, 'soalankemahiranwordsave']);
+Route::get('/bank-soalan-kemahiran/{soalan}/emel', [BanksoalankemahiranemailController::class, 'soalankemahiranemailcreate']);
+Route::post('/bank-soalan-kemahiran/{soalan}/emel/save', [BanksoalankemahiranemailController::class, 'soalankemahiranemailsave']);
+
+
 Route::resource('/soalan-kemahiran-internet', SoalankemahiraninternetController::class);
 Route::post('/soalan-kemahiran-internet/{id}/page1', [SoalankemahiraninternetController::class, 'edit1']);
 Route::post('/soalan-kemahiran-internet/{id}/page2', [SoalankemahiraninternetController::class, 'edit2']);
@@ -159,6 +172,7 @@ Route::get('/semakan_keputusan_calon', function () {
     return view('proses_penilaian.keputusan_penilaian.semak_keputusan_calon');
 });
 
+//laporan
 Route::get('/laporan/penilaian-isac-mengikut-kementerian', [LaporanController::class, 'laporan_penilaian_isac_mengikut_kementerian']);
 Route::get('/laporan/senarai-keputusan-penilaian', [LaporanController::class, 'senarai_keputusan_penilaian']);
 Route::get('/laporan/statistik-penilaian-mengikut-klasifikasi-gred-jawatan', [LaporanController::class, 'statistik_penilaian_gred_jawatan']);

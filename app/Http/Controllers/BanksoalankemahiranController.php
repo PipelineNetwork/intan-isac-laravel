@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Banksoalankemahiran;
 use Illuminate\Http\Request;
 
+use App\Models\Soalankemahiraninternet;
+use App\Models\Soalankemahiranword;
+use App\Models\Soalankemahiranemail;
+
 class BanksoalankemahiranController extends Controller
 {
     /**
@@ -16,7 +20,7 @@ class BanksoalankemahiranController extends Controller
     {
         $banksoalankemahiran = Banksoalankemahiran::all();
 
-        return view('bank_soalan.soalan_kemahiran.index',[
+        return view('bank_soalan.soalan_kemahiran.index', [
             'banksoalankemahirans' => $banksoalankemahiran,
         ]);
     }
@@ -28,7 +32,7 @@ class BanksoalankemahiranController extends Controller
      */
     public function create()
     {
-        //
+        return view('bank_soalan.soalan_kemahiran.create');
     }
 
     /**
@@ -39,7 +43,17 @@ class BanksoalankemahiranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'no_set_soalan' => 'required|unique:banksoalankemahirans'
+        ]);
+
+        $banksoalankemahiran = new Banksoalankemahiran();
+
+        $banksoalankemahiran->no_set_soalan = $request->no_set_soalan;
+
+        $banksoalankemahiran->save();
+
+        return redirect('/bank-soalan-kemahiran');
     }
 
     /**
@@ -48,9 +62,21 @@ class BanksoalankemahiranController extends Controller
      * @param  \App\Models\Banksoalankemahiran  $banksoalankemahiran
      * @return \Illuminate\Http\Response
      */
-    public function show(Banksoalankemahiran $banksoalankemahiran)
+    public function show($id_soalankemahiran)
     {
-        //
+        $banksoalankemahiran = Banksoalankemahiran::find($id_soalankemahiran);
+        $soalankemahiraninternet =  Soalankemahiraninternet::where('id_soalankemahiran', $id_soalankemahiran)->get();
+        $soalankemahiranword =  Soalankemahiranword::where('id_soalankemahiran', $id_soalankemahiran)->get();
+        $soalankemahiranemail =  Soalankemahiranemail::where('id_soalankemahiran', $id_soalankemahiran)->get();
+
+        // dd($soalankemahiraninternet);
+
+        return view('bank_soalan.soalan_kemahiran.index_semua_soalan', [
+            'soalankemahiraninternets' => $soalankemahiraninternet,
+            'soalankemahiranwords' => $soalankemahiranword,
+            'soalankemahiranemails' => $soalankemahiranemail,
+            'banksoalankemahirans' => $banksoalankemahiran,
+        ]);
     }
 
     /**
