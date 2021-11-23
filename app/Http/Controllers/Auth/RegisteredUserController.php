@@ -71,6 +71,7 @@ class RegisteredUserController extends Controller
         $user->password = Hash::make($request->password);
         $user->nric = $request->nric;
         $user->user_group_id = 5;
+        $user->assignRole('calon');
 
         $user->save();
 
