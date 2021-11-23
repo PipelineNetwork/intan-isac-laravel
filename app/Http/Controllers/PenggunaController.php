@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use App\Models\Refgeneral;
 
 class PenggunaController extends Controller
@@ -38,9 +39,10 @@ class PenggunaController extends Controller
     public function create()
     {
         $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
-
+        $role = Role::all();
         return view('pengurusanpengguna.create', [
-            'kementerians' => $kementerian
+            'kementerians' => $kementerian,
+            'role'=>$role
         ]);
     }
 
@@ -69,20 +71,11 @@ class PenggunaController extends Controller
         $user->office_number = $request->office_number;
         $user->fax_number = $request->fax_number;
         $user->telephone_number = $request->telephone_number;
-        $user->user_group_id = $request->user_group_id;
-        if($request->user_group_id == "1"){
-            $user->assignRole('pentadbir sistem');
-        }elseif($request->user_group_id == "2"){
-            $user->assignRole('pentadbir penilaian');
-        }elseif($request->user_group_id == "3"){
-            $user->assignRole('penyelaras');
-        }elseif($request->user_group_id == "4"){
-            $user->assignRole('pengawas');
-        }elseif($request->user_group_id == "5"){
-            $user->assignRole('calon');
-        }elseif($request->user_group_id == "6"){
-            $user->assignRole('pegawai korporat');
-        }
+        
+        $user->user_group_id = $request->user_group_id; 
+        $roles = Role::find($request->user_group_id);
+        $user->assignRole($roles->name);
+        
         $user->password = Hash::make($request->password);
 
         // dd($user);
@@ -112,11 +105,12 @@ class PenggunaController extends Controller
     public function edit($user)
     {
         $user = User::find($user);
-
+        $role = Role::all();
         $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
         return view('pengurusanpengguna.edit', [
             'user' => $user,
-            'kementerians' => $kementerian
+            'kementerians' => $kementerian,
+            'role'=>$role
         ]);
     }
 

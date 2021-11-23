@@ -18,7 +18,7 @@ class KumpulanPenggunaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $roles = KumpulanPengguna::all();
+        $roles = Role::all();
 
         // dd($jawapan_calon);
         return view('kawalan_sistem.kumpulan_pengguna.index',[
@@ -68,8 +68,8 @@ class KumpulanPenggunaController extends Controller
      */
     public function edit($id)
     {
-        $peranan = KumpulanPengguna::find($id);
-        $kebenaran = KebenaranPengguna::all();
+        $peranan = Role::find($id);
+        $kebenaran = Permission::all();
         
         return view('kawalan_sistem.kumpulan_pengguna.edit',[
             'peranan'=>$peranan,
@@ -90,7 +90,7 @@ class KumpulanPenggunaController extends Controller
         $nama_role = Role::where('id', $id)->first();
         $nama_role = $nama_role->name;
         $role = Role::findByName($nama_role);
-        $kebenaran = KebenaranPengguna::get();
+        $kebenaran = Permission::get();
 
         foreach($kebenaran as $kebenaran){
             $role->revokePermissionTo($kebenaran->name);
@@ -115,8 +115,8 @@ class KumpulanPenggunaController extends Controller
     }
 
     public function edit_menu($id_kumpulan, $id_menu){
-        $peranan = KumpulanPengguna::find($id_kumpulan);
-        $kebenaran = KebenaranPengguna::all();
+        $peranan = Role::find($id_kumpulan);
+        $kebenaran = Permission::all();
         return view('kawalan_sistem.kumpulan_pengguna.edit_menu',[
             'peranan'=>$peranan,
             'kebenaran'=>$kebenaran,
