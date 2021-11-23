@@ -173,9 +173,7 @@
                     </a>
                 </li> --}}
 
-                <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '5')) {
-                ?>
+                @can('dashboard')
                 <li class="nav-item">
                     <a class="nav-link" href="/dashboard">
                         <div
@@ -185,10 +183,9 @@
                         <span class="nav-link-text ms-1">Dashboard</span>
                     </a>
                 </li>
-                <?php
-                }
-                ?>
+                @endcan
 
+                @can('profil')
                 <li class="nav-item">
                     <a class="nav-link" href="/profil">
                         <div
@@ -198,108 +195,84 @@
                         <span class="nav-link-text ms-1">Profil</span>
                     </a>
                 </li>
+                @endcan
 
-                <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1')) {
-                ?>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pentadbiranpenggunadrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fas fa-house-user me-sm-1 text-dark"></i>
+                @can('kebenaran pengguna' ?? 'pengurusan pengguna')
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#pentadbiranpenggunadrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fas fa-house-user me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pentadbiran <br> Pengguna</span>
+                        </a>
+                        <div class="collapse " id="pentadbiranpenggunadrop">
+                            <ul class="nav ms-4 ps-3">
+                                @can('kebenaran pengguna')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/kebenaran_pengguna">
+                                            <span class="sidenav-normal"> Kebenaran Kumpulan <br> Pengguna </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('pengurusan pengguna')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/pengurusanpengguna">
+                                            <span class="sidenav-normal"> Pengurusan Pengguna </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">Pentadbiran <br> Pengguna</span>
-                    </a>
-                    <div class="collapse " id="pentadbiranpenggunadrop">
-                        <ul class="nav ms-4 ps-3">
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/kebenaran_pengguna">
-                                    <span class="sidenav-normal"> Kebenaran Kumpulan <br> Pengguna </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/pengurusanpengguna">
-                                    <span class="sidenav-normal"> Pengurusan Pengguna </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <?php
-                }
-                ?>
+                    </li>
+                @endcan
+
+                @can('pengurusan jadual')
+                    <li class="nav-item">
+                        <a class="nav-link" href="/jaduals">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-calendar-alt me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengurusan Jadual</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('senarai permohonan' ?? 'senarai rayuan blacklist')
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#permohonanadrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fas fa-edit me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Permohonan <br> Penilaian</span>
+                        </a>
+                        <div class="collapse " id="permohonanadrop">
+                            <ul class="nav ms-4 ps-3">
+                                @can('senarai permohonan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/mohonpenilaian">
+                                            <span class="sidenav-normal"> Senarai Permohonan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                
+                                @can('senarai rayuan blacklist')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="#">
+                                            <span class="sidenav-normal"> Senarai Rayuan Calon <br> Blacklist </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </div>
+                    </li>
+                @endcan
 
                 {{-- <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
-                ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="/pengurusanpengguna">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fas fa-users me-sm-1 text-dark"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Pengurusan Pengguna</span>
-                    </a>
-                </li>
-                <?php
-                }
-                ?> --}}
-
-                <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2')) {
-                ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="/jaduals">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fas fa-calendar-alt me-sm-1 text-dark"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Pengurusan Jadual</span>
-                    </a>
-                </li>
-                <?php
-                }
-                ?>
-
-                <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
-                ?>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#permohonanadrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fas fa-edit me-sm-1 text-dark"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Permohonan <br> Penilaian</span>
-                    </a>
-                    <div class="collapse " id="permohonanadrop">
-                        <ul class="nav ms-4 ps-3">
-                            <?php
-                            if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
-                            ?>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/mohonpenilaian">
-                                    <span class="sidenav-normal"> Senarai Permohonan </span>
-                                </a>
-                            </li>
-                            <?php
-                            }
-                            ?>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="#">
-                                    <span class="sidenav-normal"> Senarai Rayuan Calon <br> Blacklist </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <?php
-                }
-                ?>
-
-                <?php
                 if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '5')) {
                 ?>
                 <li class="nav-item">
@@ -313,345 +286,322 @@
                 </li>
                 <?php
                 }
-                ?>
+                ?> --}}
 
-                <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
-                ?>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pengurusanpenilaiandrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fas fa-user-clock me-sm-1 text-dark"></i>
+                @can('pemilihan soalan' ?? 'slip' ?? 'sijil' ?? 'semakan jawapan')
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#pengurusanpenilaiandrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fas fa-user-clock me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengurusan <br> Penilaian</span>
+                        </a>
+                        <div class="collapse " id="pengurusanpenilaiandrop">
+                            <ul class="nav ms-4 ps-3">
+                                @can('pemilihan soalan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan">
+                                            <span class="sidenav-normal"> Pemilihan Soalan <br> Pengetahuan </span>
+                                        </a>
+                                    </li>   
+                                @endcan
+                                
+                                @can('slip')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/keputusan_penilaian">
+                                            <span class="sidenav-normal"> Senarai Slip Keputusan </span>
+                                        </a>
+                                    </li>    
+                                @endcan
+                                
+                                @can('sijil')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/senarai_sijil">
+                                            <span class="sidenav-normal"> Senarai Sijil Kelulusan </span>
+                                        </a>
+                                    </li>    
+                                @endcan
+                                
+                                @can('semakan jawapan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/semak_jawapan">
+                                            <span class="sidenav-normal"> Semakan Jawapan </span>
+                                        </a>
+                                    </li>    
+                                @endcan
+                                
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">Pengurusan <br> Penilaian</span>
-                    </a>
-                    <div class="collapse " id="pengurusanpenilaiandrop">
-                        <ul class="nav ms-4 ps-3">
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan">
-                                    <span class="sidenav-normal"> Pemilihan Soalan <br> Pengetahuan </span>
-                                </a>
-                            </li>
-                            <?php
-                            if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3')) {
-                            ?>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/keputusan_penilaian">
-                                    <span class="sidenav-normal"> Senarai Slip Keputusan </span>
-                                </a>
-                            </li>
-                            <?php
-                            }
-                            ?>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/senarai_sijil">
-                                    <span class="sidenav-normal"> Senarai Sijil Kelulusan </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/semak_jawapan">
-                                    <span class="sidenav-normal"> Semakan Jawapan </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <?php
-                }
-                ?>
+                    </li>
+                @endcan
 
-                <?php
-                if (isset(Auth::user()->user_group_id) && ( Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3' || Auth::user()->user_group_id == '4' || Auth::user()->user_group_id == '5')) {
-                ?>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#penilaiandrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fab fa-wpforms me-sm-1 text-dark"></i>
+                @can('jawab penilaian'??'pemantauan penilaian')
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#penilaiandrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fab fa-wpforms me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Penilaian</span>
+                        </a>
+                        <div class="collapse " id="penilaiandrop">
+                            <ul class="nav ms-4 ps-3">
+                                @can('jawab penilaian')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/kemasukan-id">
+                                            <span class="sidenav-normal"> Jawab Penilaian <br> (Pemantauan)</span>
+                                        </a>
+                                    </li>    
+                                @endcan
+                                
+                                @can('pemantauan penilaian')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/kemasukan-id">
+                                            <span class="sidenav-normal"> Jawab Penilaian </span>
+                                        </a>
+                                    </li>    
+                                @endcan
+                                
+                                @can('semakan keputusan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/semakan_keputusan_calon">
+                                            <span class="sidenav-normal"> Semakan Keputusan </span>
+                                        </a>
+                                    </li>    
+                                @endcan
+                                
+                                {{-- <li class="nav-item ">
+                                    <a class="nav-link " href="/soalan-pengetahuan">
+                                        <span class="sidenav-normal"> Soalan Pengetahuan </span>
+                                    </a>
+                                </li> --}}
+                                {{-- <li class="nav-item ">
+                                    <a class="nav-link " href="/soalan-kemahiran">
+                                        <span class="sidenav-normal"> Soalan Kemahiran </span>
+                                    </a>
+                                </li> --}}
+                                {{-- <li class="nav-item ">
+                                    <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false"
+                                        href="#soalankemahiran">
+                                        <span class="sidenav-normal"> Soalan Kemahiran <b class="caret"></b></span>
+                                    </a>
+                                    <div class="collapse " id="soalankemahiran">
+                                        <ul class="nav nav-sm flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link "
+                                                    href="/soalan-kemahiran-internet">
+                                                    <span class="sidenav-normal"> Internet </span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link "
+                                                    href="/soalan-kemahiran-word">
+                                                    <span class="sidenav-normal"> Pemprosesan Perkataan </span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link "
+                                                    href="/soalan-kemahiran-email">
+                                                    <span class="sidenav-normal"> E-mel </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li> --}}
+                                
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">Penilaian</span>
-                    </a>
-                    <div class="collapse " id="penilaiandrop">
-                        <ul class="nav ms-4 ps-3">
-                            <?php
-                            if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '3' || Auth::user()->user_group_id == '4')) {
-                            ?>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/kemasukan-id">
-                                    <span class="sidenav-normal"> Jawab Penilaian <br> (Pemantauan)</span>
-                                </a>
-                            </li>
-                            <?php
-                            }
-                            ?>
+                    </li>
+                @endcan
 
-                            <?php
-                            if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '5')) {
-                            ?>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/kemasukan-id">
-                                    <span class="sidenav-normal"> Jawab Penilaian </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/semakan_keputusan_calon">
-                                    <span class="sidenav-normal"> Semakan Keputusan </span>
-                                </a>
-                            </li>
-                            {{-- <li class="nav-item ">
-                                <a class="nav-link " href="/soalan-pengetahuan">
-                                    <span class="sidenav-normal"> Soalan Pengetahuan </span>
-                                </a>
-                            </li> --}}
-                            {{-- <li class="nav-item ">
-                                <a class="nav-link " href="/soalan-kemahiran">
-                                    <span class="sidenav-normal"> Soalan Kemahiran </span>
-                                </a>
-                            </li> --}}
-                            {{-- <li class="nav-item ">
-                                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false"
-                                    href="#soalankemahiran">
-                                    <span class="sidenav-normal"> Soalan Kemahiran <b class="caret"></b></span>
-                                </a>
-                                <div class="collapse " id="soalankemahiran">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link "
-                                                href="/soalan-kemahiran-internet">
-                                                <span class="sidenav-normal"> Internet </span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link "
-                                                href="/soalan-kemahiran-word">
-                                                <span class="sidenav-normal"> Pemprosesan Perkataan </span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link "
-                                                href="/soalan-kemahiran-email">
-                                                <span class="sidenav-normal"> E-mel </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li> --}}
-                            <?php
-                            }
-                            ?>
-                        </ul>
-                    </div>
-                </li>
-                <?php
-                }
-                ?>
-
-                <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2')) {
-                ?>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#banksoalandrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fas fa-question-circle me-sm-1 text-dark"></i>
+                @can('bank soalan')
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#banksoalandrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fas fa-question-circle me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Bank Soalan</span>
+                        </a>
+                        <div class="collapse " id="banksoalandrop">
+                            <ul class="nav ms-4 ps-3">
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/bank-soalan-pengetahuan">
+                                        <span class="sidenav-normal"> Bank Soalan Pengetahuan </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/bank-soalan-kemahiran">
+                                        <span class="sidenav-normal"> Bank Soalan Kemahiran </span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">Bank Soalan</span>
-                    </a>
-                    <div class="collapse " id="banksoalandrop">
-                        <ul class="nav ms-4 ps-3">
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/bank-soalan-pengetahuan">
-                                    <span class="sidenav-normal"> Bank Soalan Pengetahuan </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/bank-soalan-kemahiran">
-                                    <span class="sidenav-normal"> Bank Soalan Kemahiran </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <?php
-                }
-                ?>
-
-                <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '5')) {
-                ?>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#aduanrayuandrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fas fa-heartbeat me-sm-1 text-dark"></i>
+                    </li>    
+                @endcan
+                
+                @can('hantar aduan'??'balas aduan'??'hantar rayuan'??'balas rayuan')
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#aduanrayuandrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fas fa-heartbeat me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Aduan dan Rayuan</span>
+                        </a>
+                        <div class="collapse " id="aduanrayuandrop">
+                            <ul class="nav ms-4 ps-3">
+                                @can('balas aduan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/balasaduans">
+                                            <span class="sidenav-normal"> Balas Aduan </span>
+                                        </a>
+                                    </li>    
+                                @endcan
+                                @can('balas rayuan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/balasrayuans">
+                                            <span class="sidenav-normal"> Balas Rayuan </span>
+                                        </a>
+                                    </li>    
+                                @endcan
+                                
+                                @can('hantar aduan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/tambahaduans">
+                                            <span class="sidenav-normal"> Hantar Aduan </span>
+                                        </a>
+                                    </li>    
+                                @endcan
+                                
+                                @can('hantar rayuan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/tambahrayuans">
+                                            <span class="sidenav-normal"> Hantar Rayuan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">Aduan dan Rayuan</span>
-                    </a>
-                    <div class="collapse " id="aduanrayuandrop">
-                        <ul class="nav ms-4 ps-3">
-                            <?php
-                            if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2')) {
-                            ?>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/balasaduans">
-                                    <span class="sidenav-normal"> Balas Aduan </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/balasrayuans">
-                                    <span class="sidenav-normal"> Balas Rayuan </span>
-                                </a>
-                            </li>
-                            <?php
-                            }
-                            ?>
+                    </li>
+                @endcan
 
-                            <?php
-                            if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '5')) {
-                            ?>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/tambahaduans">
-                                    <span class="sidenav-normal"> Hantar Aduan </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/tambahrayuans">
-                                    <span class="sidenav-normal"> Hantar Rayuan </span>
-                                </a>
-                            </li>
-                            <?php
-                            }
-                            ?>
-                        </ul>
-                    </div>
-                </li>
-                <?php
-                }
-                ?>
-
-                <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1' || Auth::user()->user_group_id == '2' || Auth::user()->user_group_id == '4' || Auth::user()->user_group_id == '6')) {
-                ?>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#laporandrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fas fa-chart-bar me-sm-1 text-dark"></i>
+                @can('laporan')
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#laporandrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fas fa-chart-bar me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Laporan</span>
+                        </a>
+                        <div class="collapse " id="laporandrop">
+                            <ul class="nav ms-4 ps-3">
+                                <li class="nav-item ">
+                                    {{-- <a class="nav-link " href="/laporan/penilaian-isac-mengikut-kementerian-jabatan">
+                                        <span class="sidenav-normal"> Laporan Penilaian ISAC Mengikut Kementerian & Jabatan
+                                        </span>
+                                    </a> --}}
+                                    <a class="nav-link " href="/laporan/penilaian-isac-mengikut-kementerian">
+                                        <span class="sidenav-normal"> Laporan Penilaian ISAC <br> Mengikut Kementerian
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/laporan/senarai-keputusan-penilaian">
+                                        <span class="sidenav-normal"> Laporan Senarai <br> Keputusan Penilaian </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link "
+                                        href="/laporan/statistik-penilaian-mengikut-klasifikasi-gred-jawatan">
+                                        <span class="sidenav-normal"> Laporan Statistik Penilaian <br> Mengikut Klasifikasi <br> Gred
+                                            & Jawatan
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/laporan/statistik-keseluruhan">
+                                        <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link "
+                                        href="/laporan/statistik-keseluruhan-pencapaian-penilaian-isac-mengikut-bulan">
+                                        <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan Pencapaian <br> Penilaian
+                                            ISAC Mengikut <br> Bulan </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/laporan/statistik-isac-mengikut-kategori-calon">
+                                        <span class="sidenav-normal"> Laporan Statistik ISAC <br> Mengikut Kategori Calon
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/laporan/keseluruhan-penilaian-isac-mengikut-iac">
+                                        <span class="sidenav-normal"> Laporan Keseluruhan <br> Penilaian ISAC Mengikut <br> IAC
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/laporan/aduan">
+                                        <span class="sidenav-normal"> Laporan Statistik Aduan </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/laporan/rayuan">
+                                        <span class="sidenav-normal"> Laporan Statistik Rayuan </span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">Laporan</span>
-                    </a>
-                    <div class="collapse " id="laporandrop">
-                        <ul class="nav ms-4 ps-3">
-                            <li class="nav-item ">
-                                {{-- <a class="nav-link " href="/laporan/penilaian-isac-mengikut-kementerian-jabatan">
-                                    <span class="sidenav-normal"> Laporan Penilaian ISAC Mengikut Kementerian & Jabatan
-                                    </span>
-                                </a> --}}
-                                <a class="nav-link " href="/laporan/penilaian-isac-mengikut-kementerian">
-                                    <span class="sidenav-normal"> Laporan Penilaian ISAC <br> Mengikut Kementerian
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/laporan/senarai-keputusan-penilaian">
-                                    <span class="sidenav-normal"> Laporan Senarai <br> Keputusan Penilaian </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link "
-                                    href="/laporan/statistik-penilaian-mengikut-klasifikasi-gred-jawatan">
-                                    <span class="sidenav-normal"> Laporan Statistik Penilaian <br> Mengikut Klasifikasi <br> Gred
-                                        & Jawatan
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/laporan/statistik-keseluruhan">
-                                    <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link "
-                                    href="/laporan/statistik-keseluruhan-pencapaian-penilaian-isac-mengikut-bulan">
-                                    <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan Pencapaian <br> Penilaian
-                                        ISAC Mengikut <br> Bulan </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/laporan/statistik-isac-mengikut-kategori-calon">
-                                    <span class="sidenav-normal"> Laporan Statistik ISAC <br> Mengikut Kategori Calon
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/laporan/keseluruhan-penilaian-isac-mengikut-iac">
-                                    <span class="sidenav-normal"> Laporan Keseluruhan <br> Penilaian ISAC Mengikut <br> IAC
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/laporan/aduan">
-                                    <span class="sidenav-normal"> Laporan Statistik Aduan </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/laporan/rayuan">
-                                    <span class="sidenav-normal"> Laporan Statistik Rayuan </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <?php
-                }
-                ?>
+                    </li>
+                @endcan
 
-                <?php
-                if (isset(Auth::user()->user_group_id) && (Auth::user()->user_group_id == '1')) {
-                ?>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#kawalansistemdrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fas fa-cogs me-sm-1 text-dark"></i>
+                @can('kawalan sistem')
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#kawalansistemdrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fas fa-cogs me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Kawalan Sistem</span>
+                        </a>
+                        <div class="collapse " id="kawalansistemdrop">
+                            <ul class="nav ms-4 ps-3">
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/selenggara_kawalan_sistem">
+                                        <span class="sidenav-normal"> Maklumat Selenggara <br> Kawalan Sistem </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/notifikasi_email">
+                                        <span class="sidenav-normal"> Maklumat Notifikasi E-mel </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/laman_utama">
+                                        <span class="sidenav-normal"> Maklumat Laman Utama </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link " href="/videodannota">
+                                        <span class="sidenav-normal"> Maklumat Video dan <br> Nota </span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">Kawalan Sistem</span>
-                    </a>
-                    <div class="collapse " id="kawalansistemdrop">
-                        <ul class="nav ms-4 ps-3">
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/selenggara_kawalan_sistem">
-                                    <span class="sidenav-normal"> Maklumat Selenggara <br> Kawalan Sistem </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/notifikasi_email">
-                                    <span class="sidenav-normal"> Maklumat Notifikasi E-mel </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/laman_utama">
-                                    <span class="sidenav-normal"> Maklumat Laman Utama </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="/videodannota">
-                                    <span class="sidenav-normal"> Maklumat Video dan <br> Nota </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <?php
-                }
-                ?>
+                    </li>
+                @endcan
+                
             </ul>
         </div>
     </aside>

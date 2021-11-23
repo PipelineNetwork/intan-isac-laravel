@@ -70,6 +70,19 @@ class PenggunaController extends Controller
         $user->fax_number = $request->fax_number;
         $user->telephone_number = $request->telephone_number;
         $user->user_group_id = $request->user_group_id;
+        if($request->user_group_id == "1"){
+            $user->assignRole('pentadbir sistem');
+        }elseif($request->user_group_id == "2"){
+            $user->assignRole('pentadbir penilaian');
+        }elseif($request->user_group_id == "3"){
+            $user->assignRole('penyelaras');
+        }elseif($request->user_group_id == "4"){
+            $user->assignRole('pengawas');
+        }elseif($request->user_group_id == "5"){
+            $user->assignRole('calon');
+        }elseif($request->user_group_id == "6"){
+            $user->assignRole('pegawai korporat');
+        }
         $user->password = Hash::make($request->password);
 
         // dd($user);
@@ -128,7 +141,36 @@ class PenggunaController extends Controller
         $user->office_number = $request->office_number;
         // $user->fax_number = $request->fax_number;
         // $user->telephone_number = $request->telephone_number;
+
+        if($user->user_group_id == "1"){
+            $user->removeRole('pentadbir sistem');
+        }elseif($user->user_group_id == "2"){
+            $user->removeRole('pentadbir penilaian');
+        }elseif($user->user_group_id == "3"){
+            $user->removeRole('penyelaras');
+        }elseif($user->user_group_id == "4"){
+            $user->removeRole('pengawas');
+        }elseif($user->user_group_id == "5"){
+            $user->removeRole('calon');
+        }elseif($user->user_group_id == "6"){
+            $user->removeRole('pegawai korporat');
+        }
+
         $user->user_group_id = $request->user_group_id;
+
+        if($request->user_group_id == "1"){
+            $user->assignRole('pentadbir sistem');
+        }elseif($request->user_group_id == "2"){
+            $user->assignRole('pentadbir penilaian');
+        }elseif($request->user_group_id == "3"){
+            $user->assignRole('penyelaras');
+        }elseif($request->user_group_id == "4"){
+            $user->assignRole('pengawas');
+        }elseif($request->user_group_id == "5"){
+            $user->assignRole('calon');
+        }elseif($request->user_group_id == "6"){
+            $user->assignRole('pegawai korporat');
+        }
         // $user->password = Hash::make($request->password);
         $user->save();
         return redirect('/pengurusanpengguna');

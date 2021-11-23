@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\KumpulanPengguna;
 use App\Models\KebenaranPengguna;
+use App\Models\PerananDanKebenaran;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 use Illuminate\Http\Request;
 
@@ -41,13 +44,8 @@ class KumpulanPenggunaController extends Controller
      */
     public function store(Request $request)
     {
-        $pengguna = new KumpulanPengguna;
-
-        $pengguna->DESCRIPTION = $request->DESCRIPTION;
-        $pengguna->GROUP_CODE = $request->GROUP_CODE;
-        $pengguna->ADDED_BY = Auth::id();
-
-        $pengguna->save();
+        Role::create(['name' => $request->DESCRIPTION]);
+        
         return redirect('/kebenaran_pengguna');
     }
 
@@ -70,16 +68,13 @@ class KumpulanPenggunaController extends Controller
      */
     public function edit($id)
     {
-        $kumpulan_pengguna = KumpulanPengguna::find($id);
-        $id_kumpulan = $id;
-        $kump_pengguna = $kumpulan_pengguna->GROUP_ID;
-        // dd($kumpulan_pengguna);
-        $kebenaran = KebenaranPengguna::where('MENUPARENT', 0)->get();
+        $peranan = KumpulanPengguna::find($id);
+        $kebenaran = KebenaranPengguna::all();
+        
         return view('kawalan_sistem.kumpulan_pengguna.edit',[
-            'kumpulan_pengguna'=>$kumpulan_pengguna,
+            'peranan'=>$peranan,
             'kebenaran'=>$kebenaran,
-            'kump_pengguna'=>$kump_pengguna,
-            'id_kumpulan'=>$id_kumpulan
+            'id_kumpulan'=>$id
         ]);
     }
 
@@ -90,9 +85,22 @@ class KumpulanPenggunaController extends Controller
      * @param  \App\Models\KumpulanPengguna  $lamanUtama
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KumpulanPengguna $KumpulanPengguna)
+    public function update(Request $request, $id)
     {
-        //
+        $nama_role = Role::where('id', $id)->first();
+        $nama_role = $nama_role->name;
+        $role = Role::findByName($nama_role);
+        $kebenaran = KebenaranPengguna::get();
+
+        foreach($kebenaran as $kebenaran){
+            $role->revokePermissionTo($kebenaran->name);
+            $nama = str_replace(" ","_",$kebenaran->name);
+            if($request->$nama == "1"){
+                $role->givePermissionTo($kebenaran->name);
+            }
+        }
+        
+        return redirect('/kebenaran_pengguna');
     }
 
     /**
@@ -107,14 +115,12 @@ class KumpulanPenggunaController extends Controller
     }
 
     public function edit_menu($id_kumpulan, $id_menu){
-        $kumpulan_pengguna = KumpulanPengguna::find($id_kumpulan);
-        $kebenaran_title = KebenaranPengguna::where('MENUID', $id_menu)->first();
-        $kebenaran = KebenaranPengguna::where('MENUPARENT', $id_menu)->get();
+        $peranan = KumpulanPengguna::find($id_kumpulan);
+        $kebenaran = KebenaranPengguna::all();
         return view('kawalan_sistem.kumpulan_pengguna.edit_menu',[
-            'kumpulan_pengguna'=>$kumpulan_pengguna,
+            'peranan'=>$peranan,
             'kebenaran'=>$kebenaran,
             'id_kumpulan'=>$id_kumpulan,
-            'kebenaran_title'=>$kebenaran_title,
             'id_menu'=>$id_menu
         ]);
     }
