@@ -9,7 +9,7 @@ class KumpulanPengguna extends Model
 {
     use HasFactory;
 
-    protected $table = 'flc_user_group';
+    protected $table = 'roles';
 
-    protected $primaryKey = 'GROUP_ID';
+    protected $primaryKey = 'id';
 }

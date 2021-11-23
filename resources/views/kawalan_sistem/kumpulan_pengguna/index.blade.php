@@ -68,8 +68,8 @@
                                     @foreach ($roles as $key => $role)
                                         <tr>
                                             <td>{{ $key + 1 }}.</td>
-                                            <td>{{$role->DESCRIPTION}}</td>
-                                            <td><a href="/kebenaran_pengguna/{{$role->GROUP_ID}}/edit" class="btn bg-gradient-info">Tunjuk Senarai</a></td>
+                                            <td>{{ ucfirst(trans($role->name)) }}</td>
+                                            <td><a href="/kebenaran_pengguna/{{$role->id}}/edit" class="btn bg-gradient-info">Kemaskini Kebenaran</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
