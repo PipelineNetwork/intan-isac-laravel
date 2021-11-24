@@ -74,6 +74,7 @@ class PenggunaController extends Controller
         
         $user->user_group_id = $request->user_group_id; 
         $roles = Role::find($request->user_group_id);
+        dd($roles); //check role
         $user->assignRole($roles->name);
         
         $user->password = Hash::make($request->password);
