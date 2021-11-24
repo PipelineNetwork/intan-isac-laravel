@@ -105,7 +105,7 @@ class PenggunaController extends Controller
     {
         $user = User::find($user);
         $role = Role::all();
-        $role_name = Role::where('id', $user->user_group_id);
+        $role_name = Role::where('id', $user->user_group_id)->first();
         $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
         return view('pengurusanpengguna.edit', [
             'user' => $user,
@@ -127,7 +127,7 @@ class PenggunaController extends Controller
         $request->validate([
             'user_group_id' => 'required'
         ]);
-        
+
         $user = User::find($user);
         $user->name = $request->name;
         $user->email = $request->email;
