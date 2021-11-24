@@ -62,58 +62,10 @@
                         <label for="user_group_id">Peranan :</label>
                         <div class="form-group">
                             <select class="form-control mb-3" type="text" name="user_group_id" id="pilih1" required>
-
-                                @if ($user['user_group_id'] == 1)
-                                    <option hidden selected value="1">
-                                        Pentadbir Sistem
-                                    </option>
-                                @elseif ($user['user_group_id'] == 2)
-                                    <option hidden selected value="2">
-                                        Pentadbir Penilaian
-                                    </option>
-                                @elseif ($user['user_group_id'] == 3)
-                                    <option hidden selected value="3">
-                                        Penyelaras
-                                    </option>
-                                @elseif ($user['user_group_id'] == 4)
-                                    <option hidden selected value="4">
-                                        Pengawas
-                                    </option>
-                                @elseif ($user['user_group_id'] == 5)
-                                    <option hidden selected value="5">
-                                        Calon
-                                    </option>
-                                @else
-                                    <option hidden selected value="6">
-                                        Pegawai Korporat
-                                    </option>
-                                @endif
-                                {{-- {{ $user->user_group_id }} --}}
-
-                                <?php
-                                if(Auth::user()->user_group_id == '1'){
-                                    ?>
-                                <option value="1">Pentadbir Sistem</option>
-                                <?php
-                                }
-                                ?>
-                                <?php
-                                if(Auth::user()->user_group_id != '3'){
-                                    ?>
-                                <option value="2">Pentadbir Penilaian</option>
-                                <option value="3">Penyelaras</option>
-                                <?php
-                                }
-                                ?>
-                                <option value="4">Pengawas</option>
-                                <?php
-                                if(Auth::user()->user_group_id != '3'){
-                                    ?>
-                                <option value="5">Calon</option>
-                                <option value="6">Pegawai Korporat</option>
-                                <?php
-                                }
-                                ?>
+                                <option value="{{$user->user_group_id}}">{{$role_name}}</option>
+                                @foreach ($role as $role)
+                                    <option value="{{$role->id}}">{{ ucfirst(trans($role->name)) }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

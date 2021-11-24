@@ -123,6 +123,11 @@
         } else {
             $user_profils = Auth::user();
         }
+
+        use Spatie\Permission\Models\Role;
+        $role_id = Auth::user()->user_group_id;
+        $role = Role::where('id', $role_id)->first();
+        // dd($role);
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -623,7 +628,8 @@
                                         {{ $user_profils->email }}
                                     </p>
                                     <p class="mb-0 font-weight-bold text-sm">
-                                        @if ($user_profils->user_group_id == 1)
+                                        {{$role->name}}
+                                        {{-- @if ($user_profils->user_group_id == 1)
                                             Pentadbir Sistem
                                         @elseif ($user_profils->user_group_id == 2)
                                             Pentadbir Penilaian
@@ -635,7 +641,7 @@
                                             Calon
                                         @else
                                             Pegawai Korporat
-                                        @endif
+                                        @endif --}}
                                     </p>
                                 </div>
                             </div>
