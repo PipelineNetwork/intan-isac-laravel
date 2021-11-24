@@ -51,6 +51,11 @@
                                 ?>
 
                                 <div class="row m-3 mt-0" style="display: none;" id="{{ $index }}">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <strong>{{ $soalan->penyataan_soalan }}</strong>
+                                        </div>
+                                    </div>
                                     @if ($soalan->muat_naik_fail != null)
                                         <div class="row ">
                                             <div class="col text-center">
@@ -63,11 +68,7 @@
 
                                         {{-- single choice --}}
                                         @if ($soalan->jenis_soalan == 'single_choice')
-                                            <div class="row mb-3">
-                                                <div class="col">
-                                                    <strong>{{ $soalan->penyataan_soalan }}</strong>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="row">
                                                 <div class="col-auto">
                                                     {{ $index + 1 }}.
