@@ -62,7 +62,7 @@
                         <label for="user_group_id">Peranan :</label>
                         <div class="form-group">
                             <select class="form-control mb-3" type="text" name="user_group_id" id="pilih1" required>
-                                <option value="{{$user->user_group_id}}">{{$role_name}}</option>
+                                <option value="{{$user->user_group_id}}">{{$role_name->name}}</option>
                                 @foreach ($role as $role)
                                     <option value="{{$role->id}}">{{ ucfirst(trans($role->name)) }}</option>
                                 @endforeach
