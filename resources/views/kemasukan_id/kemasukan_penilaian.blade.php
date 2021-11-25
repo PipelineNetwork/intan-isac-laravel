@@ -71,7 +71,7 @@
                                                 {{ $index + 1 }}.
                                             </div>
                                             <div class="col">
-                                                {!! $soalanbetul !!}
+                                                {!! $soalanbetul !!} {{$soalan->id}}
                                             </div>
                                         </div>
 
