@@ -32,7 +32,7 @@
         <h5 class="font-weight-bolder">Permohonan Penilaian</h5>
     </nav>
     
-    @if($role == "3" || $role == "5")
+    @can('daftar permohonan')
     <div>
         <div class="row">
             <div class="column-12">
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    @endif
+    @endcan
     
     <div class="card">
         <div class="card-header" style="background-color:#FFA500;">

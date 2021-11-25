@@ -109,9 +109,13 @@ class KumpulanPenggunaController extends Controller
      * @param  \App\Models\KumpulanPengguna  $lamanUtama
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KumpulanPengguna $lamanUtama)
+    public function destroy($role)
     {
-        //
+        $role = Role::find($role);
+        $role->delete();
+
+        return redirect('/kebenaran_pengguna');
+
     }
 
     public function edit_menu($id_kumpulan, $id_menu){
