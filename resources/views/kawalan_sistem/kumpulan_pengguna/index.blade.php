@@ -68,8 +68,15 @@
                                     @foreach ($roles as $key => $role)
                                         <tr>
                                             <td>{{ $key + 1 }}.</td>
-                                            <td>{{ ucfirst(trans($role->name)) }}</td>
-                                            <td><a href="/kebenaran_pengguna/{{$role->id}}/edit" class="btn bg-gradient-info">Kemaskini Kebenaran</a></td>
+                                            <td>{{ ucwords($role->name) }}</td>
+                                            <td>
+                                                <a href="/kebenaran_pengguna/{{$role->id}}/edit" class="btn bg-gradient-info">Kemaskini Kebenaran</a>
+                                                <form method="POST" action="kebenaran_pengguna/{{ $role->id }}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn mb-0 bg-gradient-danger" type="submit">Hapus Peranan</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

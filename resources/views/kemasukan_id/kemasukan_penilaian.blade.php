@@ -66,17 +66,17 @@
                                     @endif
                                     <div class="col">
 
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                {{ $index + 1 }}.
+                                            </div>
+                                            <div class="col">
+                                                {!! $soalanbetul !!}
+                                            </div>
+                                        </div>
+
                                         {{-- single choice --}}
                                         @if ($soalan->jenis_soalan == 'single_choice')
-                                            
-                                            <div class="row">
-                                                <div class="col-auto">
-                                                    {{ $index + 1 }}.
-                                                </div>
-                                                <div class="col">
-                                                    {!! $soalanbetul !!}
-                                                </div>
-                                            </div>
 
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
@@ -118,7 +118,6 @@
 
                                             {{-- true_orfalse --}}
                                         @elseif($soalan->jenis_soalan == 'true_or_false')
-                                            {{ $soalan->soalan }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-check mb-0">
@@ -134,7 +133,6 @@
 
                                             {{-- fill in the blank --}}
                                         @elseif($soalan->jenis_soalan == 'fill_in_the_blank')
-                                            {{ $soalan->soalan }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -145,7 +143,6 @@
 
                                             {{-- multiple choice --}}
                                         @elseif($soalan->jenis_soalan == 'multiple_choice')
-                                            {{ $soalan->soalan }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -188,7 +185,7 @@
 
                                             {{-- ranking --}}
                                         @elseif($soalan->jenis_soalan == 'ranking')
-                                            {{ $soalan->soalan }}
+                                            
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -199,7 +196,7 @@
 
                                             {{-- subjective --}}
                                         @elseif($soalan->jenis_soalan == 'subjective')
-                                            {{ $soalan->soalan }}
+                                            
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -396,7 +393,7 @@
                 }
             }
 
-            if ((current_page - 1) == -1) {
+            if ((current_page - 1) > 0) {
                 $("#kembali").hide();
             } else {
                 $("#kembali").show();
@@ -418,7 +415,18 @@
                 if (i !== id) {
                     $("#" + i).hide();
                 }
-                $('#exampleModal').modal('hide');
+            }
+
+            if ((current_page - 1) == -1) {
+                $("#kembali").hide();
+            } else {
+                $("#kembali").show();
+            }
+
+            if ((current_page + 1) == (pages.length)) {
+                $("#seterusnya").hide();
+            } else {
+                $("#seterusnya").show();
             }
         }
 

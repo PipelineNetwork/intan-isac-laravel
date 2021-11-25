@@ -87,7 +87,7 @@ use App\Models\PerananDanKebenaran;
                                                         <td>
                                                             <div class="form-check form-switch">
                                                                 <input id='switch{{$kebenaran->id}}' class="form-check-input" type='checkbox'
-                                                                    value='1' name='{{$kebenaran->name}}' oncheck="active({{$kebenaran->id}})"
+                                                                    value='1' name='{{$kebenaran->name}}' onclick="active({{$kebenaran->id}})"
                                                                     <?php 
                                                                     $try = PerananDanKebenaran::where('role_id',$peranan->id)->where('permission_id', $kebenaran->id)->first();
                                                                     echo $try == true ? ' checked' : ''; 

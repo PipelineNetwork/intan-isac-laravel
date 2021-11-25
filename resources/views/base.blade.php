@@ -109,10 +109,14 @@
 
 <body class="g-sidenav-show  bg-gray-100">
     <?php
+        use Spatie\Permission\Models\Role;
         use Illuminate\Support\Facades\Auth;
+        $checkid2 = Auth::id();
         $current_user = Auth::user()->user_group_id;
-        $checkid2 = Auth::user()->id;
-        if ($current_user == 5) {
+        $check = Role::where('id', $current_user)->first();
+        $role = $check->name;
+        
+        if ($role == 'calon') {
             $user_profils = DB::table('users')
                 ->where('id', '=', $checkid2)
                 ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
@@ -123,11 +127,6 @@
         } else {
             $user_profils = Auth::user();
         }
-
-        use Spatie\Permission\Models\Role;
-        $role_id = Auth::user()->user_group_id;
-        $role = Role::where('id', $role_id)->first();
-        // dd($role);
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -628,7 +627,7 @@
                                         {{ $user_profils->email }}
                                     </p>
                                     <p class="mb-0 font-weight-bold text-sm">
-                                        {{$role->name}}
+                                        {{ucwords($role)}}
                                         {{-- @if ($user_profils->user_group_id == 1)
                                             Pentadbir Sistem
                                         @elseif ($user_profils->user_group_id == 2)
