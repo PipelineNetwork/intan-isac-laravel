@@ -1,10 +1,11 @@
 @extends('base_before')
 @section('content')
-    <div class="container-fluid py-4">
+
+    <div class="px-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li class="breadcrumb-item text-sm">
-                    <a class="opacity-3 text-dark" href="javascript:;">
+                    <a class="opacity-3 text-dark" href="/profil">
                         <svg width="12px" height="12px" class="mb-1" viewBox="0 0 45 40" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>shop </title>
@@ -25,49 +26,27 @@
                         </svg>
                     </a>
                 </li>
-                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Penilaian</a></li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Penilaian</a>
+                </li>
+                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tamat Penilaian</li>
             </ol>
-            <h5 class="font-weight-bolder">Kemasukan Penilaian</h5>
+            <h6 class="font-weight-bolder">Tamat Penilaian</h6>
         </nav>
 
-        <div class="row">
-            <div class="col">
-                <div class="card m-3">
-                    <div class="card-header" style="background-color:#FFA500;">
-                        <h5 class="text-white mb-0">Kemasukkan Penilaian</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-center py-3 my-3" >
-                            <div class="col-lg-10 py-4" style="border-style: solid;">
-                                <div class="row justify-content-center mb-3">
-                                    <div class="col-8 text-center">
-                                        <h5>Sesi Penilaian ICT INTAN-ISAC</h5>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-auto">
-                                        <p class="mb-0">Tarikh</p>
-                                        <p  class="mb-0">Masa</p>
-                                        <p class="mb-0">Nama Calon</p>
-                                        <p class="mb-0">No. Kad Pengenalan Calon</p>
-                                    </div>
-                                    <div class="col-auto">
-                                        <p class="mb-0">: {{$jadual->TARIKH_SESI}}</p>
-                                        <p class="mb-0">: {{$jadual->KOD_MASA_MULA}} - {{$jadual->KOD_MASA_TAMAT}}</p>
-                                        <p class="mb-0">: {{$calon->nama}}</p>
-                                        <p class="mb-0">: {{$calon->no_ic}}</p>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-auto mb-0">
-                                        <a href="/kemasukan_penilaian/{{$id_penilaian}}/1" class="btn bg-gradient-info mt-4 mb-0 text-center">Mula Penilaian</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="container-fluid pb-3">
+
+            <div class="card vh-100 mt-5">
+                <div class="card-body mt-10" style="text-align: center">
+                    <h3 class="mb-5">Masa telah tamat untuk menjawab semua bahagian soalan. <br>Sila klik butang <span class="text-info">Laman Utama</span> untuk menutup halaman.
+                    </h3>
+                    {{-- <button class="btn btn-info" onclick="windowClose();">Tutup</button> --}}
+                    {{-- <a class="btn btn-info" href="/semakan_keputusan_calon">Semak Keputusan</a> --}}
+                    <a class="btn btn-info" href="/profil">Laman Utama</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @include('sweet::alert')
 @stop

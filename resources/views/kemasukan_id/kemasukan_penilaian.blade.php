@@ -36,7 +36,7 @@
                     <div class="card-header" style="background-color:#FFA500;">
                         <h5 class="text-white mb-0">Sesi Penilaian</h5>
                     </div>
-                    <form action="/kemasukan_penilaian/{{ $id_penilaian }}/jawapan_calon" method="POST">
+                    <form action="/kemasukan_penilaian/{{ $id_penilaian }}/jawapan_calon" method="POST" id="penilaian">
                         @csrf
                         <div class=" card-body">
                             <div class="row justify-content-center">
@@ -71,7 +71,7 @@
                                                 {{ $index + 1 }}.
                                             </div>
                                             <div class="col">
-                                                {!! $soalanbetul !!} {{$soalan->id}}
+                                                {!! $soalanbetul !!}
                                             </div>
                                         </div>
 

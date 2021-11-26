@@ -139,6 +139,9 @@ Route::get('/tamat-penilaian', function () {
 Route::get('/papar-keputusan', function () {
     return view('proses_penilaian.keputusan_penilaian');
 });
+Route::get('/masa_tamat', function () {
+    return view('kemasukan_id.masa_tamat');
+});
 
 // Route::get('change-password', 'ChangePasswordController@index');
 
