@@ -1,4 +1,4 @@
-@extends('base_exam')
+@extends('base_before')
 @section('content')
 
     <div class="px-5">
@@ -37,10 +37,11 @@
 
             <div class="card vh-100 mt-5">
                 <div class="card-body mt-10" style="text-align: center">
-                    <h3 class="mb-5">Anda telah berjaya menjawab semua bahagian soalan. Sila klik <b>Papar Keputusan</b> untuk menutup halaman.
+                    <h3 class="mb-5">Anda telah berjaya menjawab semua bahagian soalan. <br>Sila klik butang <span class="text-info">Laman Utama</span> untuk menutup halaman.
                     </h3>
                     {{-- <button class="btn btn-info" onclick="windowClose();">Tutup</button> --}}
-                    <a class="btn btn-info" href="/semakan_keputusan_calon">Semak Keputusan</a>
+                    {{-- <a class="btn btn-info" href="/semakan_keputusan_calon">Semak Keputusan</a> --}}
+                    <a class="btn btn-info" href="/profil">Laman Utama</a>
                 </div>
             </div>
         </div>
