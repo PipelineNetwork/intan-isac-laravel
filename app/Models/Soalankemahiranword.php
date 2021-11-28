@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Banksoalankemahiran;
+use App\Models\Bankjawapancalon;
 
 class Soalankemahiranword extends Model
 {
@@ -14,5 +15,9 @@ class Soalankemahiranword extends Model
     public function banksoalankemahirans()
     {
         return $this->belongsTo(Banksoalankemahiran::class);
+    }
+
+    public function bankjawapancalons() {
+        return $this->belongsTo(Bankjawapancalon::class);
     }
 }

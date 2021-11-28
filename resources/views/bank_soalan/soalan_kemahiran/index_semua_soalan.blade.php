@@ -143,7 +143,7 @@
                                     <td class="text-sm text-center font-weight-normal">
                                         Pemprosesan Perkataan</td>
                                     <td class="text-sm text-center font-weight-normal">
-                                        @if ($soalankemahiraninternet->status_soalan == 1)
+                                        @if ($soalankemahiranword->status_soalan == 1)
                                             Aktif
                                         @else
                                             Tidak Aktif
@@ -207,7 +207,7 @@
                                     <td class="text-sm text-center font-weight-normal">
                                         E-mel</td>
                                     <td class="text-sm text-center font-weight-normal">
-                                        @if ($soalankemahiraninternet->status_soalan == 1)
+                                        @if ($soalankemahiranemail->status_soalan == 1)
                                             Aktif
                                         @else
                                             Tidak Aktif

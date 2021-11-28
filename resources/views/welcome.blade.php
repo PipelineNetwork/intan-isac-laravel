@@ -763,27 +763,27 @@
         </div>
     </footer>
     <!--   Core JS Files   -->
-    <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    {{-- <script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script> --}}
     <!--  Plugin for TypedJS, full documentation here: https://github.com/mattboldt/typed.js/ -->
-    <script src="../assets/js/plugins/typedjs.js"></script>
+    {{-- <script src="/assets/js/plugins/typedjs.js"></script> --}}
     <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
-    <script src="../assets/js/plugins/parallax.min.js"></script>
+    {{-- <script src="/assets/js/plugins/parallax.min.js"></script> --}}
     <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    <script src="../assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+    {{-- <script src="/assets/js/plugins/nouislider.min.js" type="text/javascript"></script> --}}
     <!--  Plugin for the GlideJS Carousel, full documentation here: http://kenwheeler.github.io/slick/ -->
-    <script src="../assets/js/plugins/glidejs.min.js" type="text/javascript"></script>
+    {{-- <script src="/assets/js/plugins/glidejs.min.js" type="text/javascript"></script> --}}
     <!--  Plugin for the blob animation -->
-    <script src="../assets/js/plugins/anime.min.js" type="text/javascript"></script>
+    {{-- <script src="/assets/js/plugins/anime.min.js" type="text/javascript"></script> --}}
     <!-- Chart JS -->
-    <script src="../assets/js/plugins/chartjs.min.js"></script>
+    {{-- <script src="/assets/js/plugins/chartjs.min.js"></script> --}}
     <!-- Control Center for Soft UI Kit: parallax effects, scripts for the example pages etc -->
     <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script> --}}
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="../assets/js/soft-design-system-pro.min.js?v=1.0.8" type="text/javascript"></script>
+    {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
+    {{-- <script src="/assets/js/soft-design-system-pro.min.js?v=1.0.8" type="text/javascript"></script> --}}
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')

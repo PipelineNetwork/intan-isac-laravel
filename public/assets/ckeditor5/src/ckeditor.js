@@ -118,7 +118,7 @@ Editor.defaultConfig = {
 			'mediaEmbed',
 			'undo',
 			'redo'
-		],
+		]
 	},
 	language: 'en',
 	image: {

@@ -67,24 +67,24 @@
                                     <h6>
                                         https://en.wikipedia.org › wiki › Project_management
                                     </h6>
-                                    <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page1"
+                                    <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page4"
                                         method="POST">
                                         @csrf
                                         <h4>
                                             <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
-                                            <button type="submit" class="btn-link">Project management -
+                                            <button type="submit" class="btn-link">{{ $jawapancalons->carian_teks }} -
                                                 Wikipedia</button>
                                             {{-- <a style="color: blue" type="submit">Project management - Wikipedia</a> --}}
                                         </h4>
                                     </form>
 
                                     <p>
-                                        Project management is the process of leading the work of a team to achieve all
+                                        {{ $jawapancalons->carian_teks }} is the process of leading the work of a team to achieve all
                                         project
                                         goals within the given constraints. This information is usually ...
                                     </p>
                                     <p>
-                                        ‎History · ‎Project management types · ‎Approaches of project... · ‎Project managers
+                                        ‎History · ‎{{ $jawapancalons->carian_teks }} types · ‎Approaches of project... 
                                     </p>
                                 </div>
 
@@ -93,13 +93,13 @@
                                         https://www.pmi.org › About Us › Learn About PMI
                                     </h6>
                                     <h4>
-                                        <button type="submit" class="btn-link">What is Project Management |
+                                        <button type="submit" class="btn-link">What is {{ $jawapancalons->carian_teks }} |
                                             PMI</button>
                                     </h4>
 
 
                                     <p>
-                                        Project management is the use of specific knowledge, skills, tools and techniques to
+                                        {{ $jawapancalons->carian_teks }} is the use of specific knowledge, skills, tools and techniques to
                                         deliver something of value to people. The development of software for ...
                                     </p>
                                     <p>
@@ -112,12 +112,12 @@
                                         https://www.investopedia.com › ... › Business Essentials
                                     </h6>
                                     <h4>
-                                        <button type="submit" class="btn-link">Project Management Definition -
+                                        <button type="submit" class="btn-link">{{ $jawapancalons->carian_teks }} Definition -
                                             Investopedia</button>
                                     </h4>
 
                                     <p>
-                                        Project management involves the planning and organization of a company's resources
+                                        {{ $jawapancalons->carian_teks }} involves the planning and organization of a company's resources
                                         to move a specific task, event, or duty towards completion.
                                     </p>
                                 </div>
@@ -127,7 +127,7 @@
                                         https://www.microsoft.com › en-my › microsoft-365
                                     </h6>
                                     <h4>
-                                        <button type="submit" class="btn-link">Project Management Software | Microsoft
+                                        <button type="submit" class="btn-link">{{ $jawapancalons->carian_teks }} Software | Microsoft
                                             Project</button>
                                     </h4>
 

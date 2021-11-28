@@ -108,8 +108,10 @@ class BanksoalankemahiranController extends Controller
      * @param  \App\Models\Banksoalankemahiran  $banksoalankemahiran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Banksoalankemahiran $banksoalankemahiran)
+    public function destroy($banksoalankemahiran)
     {
-        //
+        $banksoalankemahiran = Banksoalankemahiran::find($banksoalankemahiran);
+        $banksoalankemahiran->delete();
+        return redirect('/bank-soalan-kemahiran');
     }
 }
