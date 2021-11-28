@@ -106,20 +106,21 @@
 
 <body class="g-sidenav-show  bg-gray-100">
     <?php
-        use Illuminate\Support\Facades\Auth;
-        $current_user = Auth::user()->user_group_id;
-        $checkid2 = Auth::user()->id;
-        if ($current_user == 5) {
-            $user_profils = DB::table('users')
-                ->where('id', '=', $checkid2)
-                ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
-                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
-                ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
-                ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
-                ->get()->first();
-        } else {
-            $user_profils = Auth::user();
-        }
+    use Illuminate\Support\Facades\Auth;
+    $current_user = Auth::user()->user_group_id;
+    $checkid2 = Auth::user()->id;
+    if ($current_user == 5) {
+        $user_profils = DB::table('users')
+            ->where('id', '=', $checkid2)
+            ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+            ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+            ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+            ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
+            ->get()
+            ->first();
+    } else {
+        $user_profils = Auth::user();
+    }
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -589,7 +590,8 @@
                             <li class="nav-item ">
                                 <a class="nav-link "
                                     href="/laporan/statistik-penilaian-mengikut-klasifikasi-gred-jawatan">
-                                    <span class="sidenav-normal"> Laporan Statistik Penilaian <br> Mengikut Klasifikasi <br> Gred
+                                    <span class="sidenav-normal"> Laporan Statistik Penilaian <br> Mengikut Klasifikasi
+                                        <br> Gred
                                         & Jawatan
                                     </span>
                                 </a>
@@ -602,7 +604,8 @@
                             <li class="nav-item ">
                                 <a class="nav-link "
                                     href="/laporan/statistik-keseluruhan-pencapaian-penilaian-isac-mengikut-bulan">
-                                    <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan Pencapaian <br> Penilaian
+                                    <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan Pencapaian <br>
+                                        Penilaian
                                         ISAC Mengikut <br> Bulan </span>
                                 </a>
                             </li>
@@ -614,7 +617,8 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="/laporan/keseluruhan-penilaian-isac-mengikut-iac">
-                                    <span class="sidenav-normal"> Laporan Keseluruhan <br> Penilaian ISAC Mengikut <br> IAC
+                                    <span class="sidenav-normal"> Laporan Keseluruhan <br> Penilaian ISAC Mengikut <br>
+                                        IAC
                                     </span>
                                 </a>
                             </li>
@@ -720,7 +724,7 @@
                             </div>
                         </div>
                     </div>
-                    @endauth
+                @endauth
                 <div class=" mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         <div class="input-group">
@@ -748,7 +752,7 @@
                             </ul>
                         </ul>
                     @endguest
-                    
+
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                         <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                             <div class="sidenav-toggler-inner">

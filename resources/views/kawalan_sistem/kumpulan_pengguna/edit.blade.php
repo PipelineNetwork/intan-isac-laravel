@@ -1,5 +1,8 @@
 @extends('base')
 @section('content')
+<?php 
+use App\Models\PerananDanKebenaran;
+?>
 
     <div class="container-fluid py-4">
         <div class="row">
@@ -59,31 +62,59 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5>{{ $kumpulan_pengguna->DESCRIPTION }} </h5>
+                                <h5>{{ ucfirst(trans($peranan->name)) }}</h5>
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No.</th>
-                                        <th>Menu Utama</th>
-                                        <th class="text-center">Kemaskini/Hapus</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($kebenaran as $key => $kebenaran)
-                                        <tr>
-                                            <td class="text-center">{{ $key + 1 }}.</td>
-                                            <td>{{ $kebenaran->MENUNAME }}</td>
-                                            <td class="text-center"><a
-                                                    href="/kebenaran_pengguna/{{ $id_kumpulan }}/{{ $kebenaran->MENUID }}"
-                                                    class="btn bg-gradient-primary">Kemaskini Kebenaran</a></td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        <form action="/kebenaran_pengguna/{{$peranan->id}}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <div class="row">
+                                <div class="col">
+                                    <div class="table-responsive">
+                                        <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">No.</th>
+                                                    <th class="px-2">Menu Utama</th>
+                                                    <th class="px-2">Kebenaran</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($kebenaran as $key => $kebenaran)
+                                                    <tr>
+                                                        <td class="text-center">{{ $key + 1 }}.</td>
+                                                        <td>{{ ucfirst(trans($kebenaran->name)) }}</td>
+                                                        <td>
+                                                            <div class="form-check form-switch">
+                                                                <input id='switch{{$kebenaran->id}}' class="form-check-input" type='checkbox'
+                                                                    value='1' name='{{$kebenaran->name}}' onclick="active({{$kebenaran->id}})"
+                                                                    <?php 
+                                                                    $try = PerananDanKebenaran::where('role_id',$peranan->id)->where('permission_id', $kebenaran->id)->first();
+                                                                    echo $try == true ? ' checked' : ''; 
+                                                                    ?>>
+                                                                <label class="form-check-label" for="switch{{$kebenaran->id}}" id="label{{$kebenaran->id}}">
+                                                                    @if ($try == true)
+                                                                        Dibenarkan
+                                                                    @else
+                                                                        Tiada Kebenaran
+                                                                    @endif
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-end">
+                                    <button type="submit" class="btn btn-success">Simpan</button>
+                                    <a href="/kebenaran_pengguna" class="btn btn-danger">Kembali</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -92,6 +123,18 @@
     </div>
 
     <script src="../../assets/js/plugins/datatables.js"></script>
+    <script >
+        function active(key) {
+            var a = document.getElementById('switch' + key);
+            var b = document.getElementById('label' + key);
+
+            if(a.checked){
+                b.innerHTML = "Dibenarkan";
+            }else{
+                b.innerHTML = "Tidak dibenarkan";
+            }
+        }
+    </script>
     {{-- <script type="text/javascript">
         const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
             searchable: true,

@@ -36,7 +36,7 @@
                     <div class="card-header" style="background-color:#FFA500;">
                         <h5 class="text-white mb-0">Sesi Penilaian</h5>
                     </div>
-                    <form action="/kemasukan_penilaian/{{ $id_penilaian }}/jawapan_calon" method="POST">
+                    <form action="/kemasukan_penilaian/{{ $id_penilaian }}/jawapan_calon" method="POST" id="penilaian">
                         @csrf
                         <div class=" card-body">
                             <div class="row justify-content-center">
@@ -51,6 +51,11 @@
                                 ?>
 
                                 <div class="row m-3 mt-0" style="display: none;" id="{{ $index }}">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <strong>{{ $soalan->penyataan_soalan }}</strong>
+                                        </div>
+                                    </div>
                                     @if ($soalan->muat_naik_fail != null)
                                         <div class="row ">
                                             <div class="col text-center">
@@ -61,21 +66,17 @@
                                     @endif
                                     <div class="col">
 
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                {{ $index + 1 }}.
+                                            </div>
+                                            <div class="col">
+                                                {!! $soalanbetul !!}
+                                            </div>
+                                        </div>
+
                                         {{-- single choice --}}
                                         @if ($soalan->jenis_soalan == 'single_choice')
-                                            <div class="row mb-3">
-                                                <div class="col">
-                                                    <strong>{{ $soalan->penyataan_soalan }}</strong>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-auto">
-                                                    {{ $index + 1 }}.
-                                                </div>
-                                                <div class="col">
-                                                    {!! $soalanbetul !!}
-                                                </div>
-                                            </div>
 
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
@@ -117,7 +118,6 @@
 
                                             {{-- true_orfalse --}}
                                         @elseif($soalan->jenis_soalan == 'true_or_false')
-                                            {{ $soalan->soalan }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-check mb-0">
@@ -133,7 +133,6 @@
 
                                             {{-- fill in the blank --}}
                                         @elseif($soalan->jenis_soalan == 'fill_in_the_blank')
-                                            {{ $soalan->soalan }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -144,7 +143,6 @@
 
                                             {{-- multiple choice --}}
                                         @elseif($soalan->jenis_soalan == 'multiple_choice')
-                                            {{ $soalan->soalan }}
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -187,7 +185,7 @@
 
                                             {{-- ranking --}}
                                         @elseif($soalan->jenis_soalan == 'ranking')
-                                            {{ $soalan->soalan }}
+                                            
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -198,7 +196,7 @@
 
                                             {{-- subjective --}}
                                         @elseif($soalan->jenis_soalan == 'subjective')
-                                            {{ $soalan->soalan }}
+                                            
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -395,7 +393,7 @@
                 }
             }
 
-            if ((current_page - 1) == -1) {
+            if ((current_page - 1) > 0) {
                 $("#kembali").hide();
             } else {
                 $("#kembali").show();
@@ -417,7 +415,18 @@
                 if (i !== id) {
                     $("#" + i).hide();
                 }
-                $('#exampleModal').modal('hide');
+            }
+
+            if ((current_page - 1) == -1) {
+                $("#kembali").hide();
+            } else {
+                $("#kembali").show();
+            }
+
+            if ((current_page + 1) == (pages.length)) {
+                $("#seterusnya").hide();
+            } else {
+                $("#seterusnya").show();
             }
         }
 

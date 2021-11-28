@@ -98,7 +98,9 @@
                         <tbody>
                             @foreach ($banksoalanpengetahuans as $banksoalanpengetahuan)
                                 <tr>
-                                    <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $loop->index + 1 }}
+                                    </td>
                                     <td class="text-sm text-center font-weight-normal">
                                         @if ($banksoalanpengetahuan->id_tahap_soalan == '1')
                                             Rendah

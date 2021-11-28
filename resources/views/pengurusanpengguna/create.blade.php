@@ -74,31 +74,10 @@
                                 <label for="user_group_id">Peranan :</label>
                                 <div class="form-group">
                                     <select class="form-control mb-3" name="user_group_id" id="pilih1" required>
-                                        <option hidden selected value=""> Sila Pilih </option>
-                                        <?php
-                                        if(Auth::user()->user_group_id == '1'){
-                                            ?>
-                                        <option value="1">Pentadbir Sistem</option>
-                                        <?php
-                                        }
-                                        ?>
-                                        <?php
-                                        if(Auth::user()->user_group_id != '3'){
-                                            ?>
-                                        <option value="2">Pentadbir Penilaian</option>
-                                        <option value="3">Penyelaras</option>
-                                        <?php
-                                        }
-                                        ?>
-                                        <option value="4">Pengawas</option>
-                                        <?php
-                                        if(Auth::user()->user_group_id != '3'){
-                                            ?>
-                                        {{-- <option value="5">Calon</option> --}}
-                                        <option value="6">Pegawai Korporat</option>
-                                        <?php
-                                        }
-                                        ?>
+                                        <option value="" selected hidden>Sila pilih</option>
+                                        @foreach ($role as $role)
+                                        <option value="{{$role->id}}">{{ ucfirst(trans($role->name)) }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

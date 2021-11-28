@@ -10,6 +10,7 @@ use App\Models\Refgeneral;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class ProfilController extends Controller
 {
@@ -20,14 +21,12 @@ class ProfilController extends Controller
 
     public function kemaskini(Request $request)
     {
+        $checkid2 = Auth::id();
         $current_user = Auth::user()->user_group_id;
-        $checkid = Auth::id();
-        $checkid2 = Auth::user()->id;
-        // dd($current_user, $checkid, $checkid2);
-
-        // $current_user = $request->user();
-        // $group_id = User::where('user_group_id', '=', '5')->get();
-        if ($current_user == 5) {
+        $check = Role::where('id', $current_user)->first();
+        $role = $check->name;
+        
+        if ($role == 'calon') {
             $user_profils = DB::table('users')
                 ->where('id', '=', $checkid2)
                 ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
@@ -36,10 +35,8 @@ class ProfilController extends Controller
                 ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
                 ->get()->first();
         } else {
-            $user_profils = $request->user();
+            $user_profils = Auth::user();
         }
-
-        // dd($user_profils);
         return view('profil.index', [
             'current_user' => $current_user,
             'user_profils' => $user_profils,
@@ -188,7 +185,7 @@ class ProfilController extends Controller
 
     public function edit($profil)
     {
-
+        
         return view('profil.edit');
     }
 }

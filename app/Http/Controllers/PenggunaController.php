@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use App\Models\Refgeneral;
 
 class PenggunaController extends Controller
@@ -43,9 +44,10 @@ class PenggunaController extends Controller
     public function create()
     {
         $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
-
+        $role = Role::all();
         return view('pengurusanpengguna.create', [
-            'kementerians' => $kementerian
+            'kementerians' => $kementerian,
+            'role'=>$role
         ]);
     }
 
@@ -74,10 +76,13 @@ class PenggunaController extends Controller
         $user->office_number = $request->office_number;
         $user->fax_number = $request->fax_number;
         $user->telephone_number = $request->telephone_number;
-        $user->user_group_id = $request->user_group_id;
+        
+        $user->user_group_id = $request->user_group_id; 
+        $roles = Role::find($request->user_group_id);
+        $user->assignRole($roles->name);
+        
         $user->password = Hash::make($request->password);
 
-        // dd($user);
         $user->save();
         return redirect('/pengurusanpengguna');
     }
@@ -104,11 +109,14 @@ class PenggunaController extends Controller
     public function edit($user)
     {
         $user = User::find($user);
-
+        $role = Role::all();
+        $role_name = Role::where('id', $user->user_group_id)->first();
         $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
         return view('pengurusanpengguna.edit', [
             'user' => $user,
-            'kementerians' => $kementerian
+            'kementerians' => $kementerian,
+            'role'=>$role,
+            'role_name'=>$role_name
         ]);
     }
 
@@ -124,7 +132,7 @@ class PenggunaController extends Controller
         $request->validate([
             'user_group_id' => 'required'
         ]);
-        // dd($request->all());
+
         $user = User::find($user);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -133,7 +141,42 @@ class PenggunaController extends Controller
         $user->office_number = $request->office_number;
         // $user->fax_number = $request->fax_number;
         // $user->telephone_number = $request->telephone_number;
+
+        $role = Role::where('id', $user->user_group_id)->first();
+        $user->removeRole($role->name);
+
+        // if($user->user_group_id == "1"){
+        //     $user->removeRole('pentadbir sistem');
+        // }elseif($user->user_group_id == "2"){
+        //     $user->removeRole('pentadbir penilaian');
+        // }elseif($user->user_group_id == "3"){
+        //     $user->removeRole('penyelaras');
+        // }elseif($user->user_group_id == "4"){
+        //     $user->removeRole('pengawas');
+        // }elseif($user->user_group_id == "5"){
+        //     $user->removeRole('calon');
+        // }elseif($user->user_group_id == "6"){
+        //     $user->removeRole('pegawai korporat');
+        // }
+
         $user->user_group_id = $request->user_group_id;
+
+        $role_update = Role::where('id', $request->user_group_id)->first();
+        $user->assignRole($role_update->name);
+
+        // if($request->user_group_id == "1"){
+        //     $user->assignRole('pentadbir sistem');
+        // }elseif($request->user_group_id == "2"){
+        //     $user->assignRole('pentadbir penilaian');
+        // }elseif($request->user_group_id == "3"){
+        //     $user->assignRole('penyelaras');
+        // }elseif($request->user_group_id == "4"){
+        //     $user->assignRole('pengawas');
+        // }elseif($request->user_group_id == "5"){
+        //     $user->assignRole('calon');
+        // }elseif($request->user_group_id == "6"){
+        //     $user->assignRole('pegawai korporat');
+        // }
         // $user->password = Hash::make($request->password);
         $user->save();
         return redirect('/pengurusanpengguna');

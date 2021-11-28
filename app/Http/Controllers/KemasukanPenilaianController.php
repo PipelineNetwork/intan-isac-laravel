@@ -7,6 +7,7 @@ use App\Models\Jadual;
 use App\Models\MohonPenilaian;
 use App\Models\Banksoalanpengetahuan;
 use App\Models\Bankjawapanpengetahuan;
+use App\Models\PemilihanSoalanKumpulan;
 use Illuminate\Support\Facades\Auth;
 
 class KemasukanPenilaianController extends Controller
@@ -55,12 +56,28 @@ class KemasukanPenilaianController extends Controller
     }
 
     public function kemasukan_penilaian($id_penilaian, $soalan){
-        // dd($id_penilaian, $soalan);
         $sesi = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
         $tahap = $sesi->KOD_TAHAP;
-        $tahap = str_replace('0', '', $tahap);
         $soalan_penilaian = Banksoalanpengetahuan::where('id_tahap_soalan', $tahap)->get();
+        $pemilihan_soalan = PemilihanSoalanKumpulan::all();
+
+       
+        $set_soalan = [];
+        foreach($pemilihan_soalan as $ps){
+            $soalan = Banksoalanpengetahuan::where('id_tahap_soalan', $tahap)->where('id_kategori_pengetahuan', $ps->KOD_KATEGORI_SOALAN)->inRandomOrder()->limit($ps->NILAI_JUMLAH_SOALAN)->get();
+            if(count($soalan)!=0){
+                array_push($set_soalan, $soalan);    
+            }
+        }
+
+        $s_penilaian = [];
+        foreach ($set_soalan as $set) {
+            foreach ($set as $s) {
+                array_push($s_penilaian, $s);
+            }
+        }
         $masa_mula = time();
+        $soalan_penilaian = collect($s_penilaian);
 
         return view('kemasukan_id.kemasukan_penilaian',[
             'soalan_penilaian'=>$soalan_penilaian,
