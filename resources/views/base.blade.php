@@ -102,9 +102,6 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    {{-- ck editor --}}
-    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-    <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -473,6 +470,32 @@
                                     <span class="sidenav-normal"> Bank Soalan Kemahiran </span>
                                 </a>
                             </li>
+                            {{-- <li class="nav-item ">
+                                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false"
+                                    href="#banksoalankemahirandropdown">
+                                    <span class="sidenav-normal"> Kemahiran</span>
+                                </a>
+                                <div class="collapse " id="banksoalankemahirandropdown">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link " href="/bank-soalan-kemahiran/internet">
+                                                <span class="sidenav-normal"> Internet </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link "
+                                                href="/bank-soalan-kemahiran/pemprosesan-perkataan">
+                                                <span class="sidenav-normal"> Pemprosesan <br>Perkataan </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link " href="/bank-soalan-kemahiran/emel">
+                                                <span class="sidenav-normal"> Internet </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li> --}}
                         </ul>
                     </div>
                 </li>

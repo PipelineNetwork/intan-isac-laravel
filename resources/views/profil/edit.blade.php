@@ -25,14 +25,14 @@
                 </a>
             </li>
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Profil</a></li>
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kemaskini Profil</a></li>
+            <li class="breadcrumb-item text-sm text-dark active">Kemaskini Profil</a></li>
         </ol>
         <h6 class="font-weight-bolder">Kemaskini Profil</h6>
     </nav>
 
     @if ($user_profils->user_group_id == '5')
         <div class="container-fluid py-4">
-            <div class="row mt-3">
+            <div class="row">
                 <div class="col-12 mb-3">
                     <form method="POST" action="/profil/{{ $user_profils->id }}/edit">
                         @csrf
@@ -357,6 +357,25 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
+                                            <label class="form-control-label mr-4" for="input_kementerian">
+                                                Jabatan <span style="color: red">*</span>
+                                            </label><label class="float-right">:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select class="form-control form-control-sm ml-3" name="KOD_JABATAN"
+                                                id="input_jabatan" required>
+                                                <option hidden selected value="{{ $user_profils->KOD_JABATAN }}">
+                                                    {{ $user_profils->KOD_JABATAN }}
+                                                </option>
+                                                @foreach ($jabatans as $jabatan)
+                                                    <option value="{{ $jabatan->DESCRIPTION1 }}">
+                                                        {{ $jabatan->DESCRIPTION1 }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3">
                                             <label class="form-control-label mr-4" for="{{ $user_profils->BAHAGIAN }}">
                                                 Bahagian <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
@@ -490,7 +509,7 @@
         </div>
     @else
         <div class="container-fluid py-4">
-            <div class="row mt-3">
+            <div class="row ">
                 <div class="col-12 mb-3">
                     <form method="POST" action="/profil/{{ $user_profils->id }}/edit">
                         @csrf
@@ -524,8 +543,8 @@
                                         <label class="form-control-label mr-4" for="input_kementerian">
                                             Kementerian/Agensi
                                         </label><label class="float-right">:</label>
-                                        <select class="form-control mb-3" name="ministry_code"
-                                            id="input_kementerian" required>
+                                        <select class="form-control mb-3" name="ministry_code" id="input_kementerian"
+                                            required>
                                             <option hidden selected value="{{ $user_profils->ministry_code }}">
                                                 {{ $user_profils->ministry_code }}
                                             </option>

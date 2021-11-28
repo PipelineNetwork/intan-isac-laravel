@@ -32,7 +32,7 @@ class BanksoalankemahiraninternetController extends Controller
         $soalankemahiraninternet->arahan_soalan = $request->arahan_soalan;
         $soalankemahiraninternet->status_soalan = $request->status_soalan;
         $soalankemahiraninternet->id_soalankemahiran = $request->id_soalankemahiran;
-
+        $soalankemahiraninternet->url_wikipedia = $request->url_wikipedia;
         if (!empty($request->soalan_1)) {
             $soalankemahiraninternet->soalan_1 = $request->soalan_1;
             $soalankemahiraninternet->jawapan_1 = $request->jawapan_1;

@@ -40,16 +40,88 @@
                 </div>
                 <div class="card-body">
                     <div class="col-xl-12">
-                        <ol>
+                        @foreach ($soalankemahiranemails as $soalankemahiranemail)
+                            @if ($soalankemahiranemail->arahan_umum != null)
+                                <h5>{!! $soalankemahiranemail->arahan_umum !!}</h5>
+                            @endif
+
+                            <hr class="my-3" style="width:100%; margin:0; height: 5px; color: #F7B42C">
+
+                            @if ($soalankemahiranemail->arahan_soalan != null)
+                                <h6>{!! $soalankemahiranemail->arahan_soalan !!}</h6>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_1 != null)
+                                <p>{!! $soalankemahiranemail->soalan_1 !!}</p>
+                                <ul class="mt-2">
+                                    <button class="btn btn-success" value="{{ $soalankemahiranemail->id }}" type="submit"
+                                        onclick="tsw_open_demo_window();">Internet</button>
+                                </ul>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_2 != null)
+                                <p>{!! $soalankemahiranemail->soalan_2 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_3 != null)
+                                <p>{!! $soalankemahiranemail->soalan_3 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_4 != null)
+                                <p>{!! $soalankemahiranemail->soalan_4 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_5 != null)
+                                <p>{!! $soalankemahiranemail->soalan_5 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_6 != null)
+                                <p>{!! $soalankemahiranemail->soalan_6 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_7 != null)
+                                <p>{!! $soalankemahiranemail->soalan_7 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_8 != null)
+                                <p>{!! $soalankemahiranemail->soalan_8 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_9 != null)
+                                <p>{!! $soalankemahiranemail->soalan_9 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_10 != null)
+                                <p>{!! $soalankemahiranemail->soalan_10 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_11 != null)
+                                <p>{!! $soalankemahiranemail->soalan_11 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_12 != null)
+                                <p>{!! $soalankemahiranemail->soalan_12 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_13 != null)
+                                <p>{!! $soalankemahiranemail->soalan_13 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_14 != null)
+                                <p>{!! $soalankemahiranemail->soalan_14 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranemail->soalan_15 != null)
+                                <p>{!! $soalankemahiranemail->soalan_15 !!}</p>
+                            @endif
+                        @endforeach
+                        {{-- <ol>
                             <li>
                                 Anda dikehendaki klik pada butang E-mel di bawah untuk memulakan Aplikasi E-mel.
                                 <ul class="mt-2">
                                     <a class="btn btn-success" onclick="tsw_open_demo_window();"> Aplikasi E-mel <span
                                             class="btn-inner--icon ml-2"></span></a>
                                 </ul>
-                                {{-- <ul class="mt-2">
-                                    <a class="btn btn-success" href="/soalan-kemahiran-email/create">Microsoft Outlook <span class="btn-inner--icon ml-2"><i class="fab fa-microsoft"></i></span></a>
-                                </ul> --}}
                             </li>
                             <li>
                                 Anda dikehendaki menghantar e-mel ke alamat <u>isac@intanbk.intan.my</u>.
@@ -88,10 +160,11 @@
                                 Sila klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk menamatkan
                                 penilaian.
                             </li>
-                        </ol>
+                        </ol> --}}
                     </div>
                     <div class="col-xl-12" style="text-align: right">
-                        <a class="btn btn-success" data-bs-toggle="modal" style="cursor: pointer" data-bs-target="#modal-email-seterusnya">
+                        <a class="btn btn-success" data-bs-toggle="modal" style="cursor: pointer"
+                            data-bs-target="#modal-email-seterusnya">
                             Seterusnya
                         </a>
                         {{-- <a href="/tamat-penilaian" class="btn btn-success">Seterusnya</a> --}}
@@ -133,7 +206,7 @@
 
     <script>
         function tsw_open_demo_window() {
-            window.open("/soalan-kemahiran-email/create");
+            window.open("/soalan-kemahiran-email/{{ $soalankemahiranemail->id }}");
         }
     </script>
 @stop

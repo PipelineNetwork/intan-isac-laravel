@@ -45,12 +45,12 @@
 
                         <div class="row">
 
-                            <div class="col-2">
+                            <div class="col-4">
                                 <label for="startdate">Tahun</label>
                                 <input class="form-control form-control-sm" type="text" name="tahun"
                                     placeholder="Sila Pilih" id="tahun" autocomplete="off" />
                             </div>
-                            <div class="col-5">
+                            <div class="col-8">
                                 <label for="input_kementerian">Kementerian/Agensi</label>
                                 <select class="form-control form-control-sm" name="input_kementerian"
                                     id="input_kementerian">
@@ -63,7 +63,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-5">
+                            {{-- <div class="col-5">
                                 <label for="input_jabatan">Jabatan</label>
                                 <select class="form-control form-control-sm" name="input_jabatan" id="input_jabatan">
                                     <option hidden selected value="">
@@ -74,7 +74,7 @@
                                             {{ $jabatan->DESCRIPTION1 }}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
                             <div class="col d-flex justify-content-end align-items-end mt-3">
 
                                 <button class="btn  bg-gradient-info text-uppercases mx-2" type="submit" name="search"><i
@@ -131,12 +131,11 @@
                                     Januari
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
+                                    @if ($bil_mohon_jans == null)
                                         0
                                     @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
+                                        {{ $bil_mohon_jans }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
                                     {{-- @if ($bil_duduk_jan == null)

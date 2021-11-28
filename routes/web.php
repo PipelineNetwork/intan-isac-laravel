@@ -114,11 +114,16 @@ Route::get('/bank-soalan-kemahiran/{soalan}/emel', [BanksoalankemahiranemailCont
 Route::post('/bank-soalan-kemahiran/{soalan}/emel/save', [BanksoalankemahiranemailController::class, 'soalankemahiranemailsave']);
 
 
-Route::resource('/soalan-kemahiran-internet', SoalankemahiraninternetController::class);
-Route::post('/soalan-kemahiran-internet/{id}/page1', [SoalankemahiraninternetController::class, 'edit1']);
-Route::post('/soalan-kemahiran-internet/{id}/page2', [SoalankemahiraninternetController::class, 'edit2']);
-Route::post('/soalan-kemahiran-internet/{id}/page3', [SoalankemahiraninternetController::class, 'edit3']);
+Route::get('/soalan-kemahiran-internet', [SoalankemahiraninternetController::class, 'index']);
+Route::get('/soalan-kemahiran-internet/{soalan}', [SoalankemahiraninternetController::class, 'page1']);
+Route::post('/soalan-kemahiran-internet/{soalan}/page1', [SoalankemahiraninternetController::class, 'savepage1']);
+// Route::post('/soalan-kemahiran-internet/{soalan}/page2', [SoalankemahiraninternetController::class, 'page2']);
+Route::post('/soalan-kemahiran-internet/{id}/page3', [SoalankemahiraninternetController::class, 'savepage2']);
+Route::post('/soalan-kemahiran-internet/{id}/page4', [SoalankemahiraninternetController::class, 'page3']);
+Route::post('/soalan-kemahiran-internet/{id}/page5', [SoalankemahiraninternetController::class, 'page4']);
+Route::post('/soalan-kemahiran-internet/{id}/page6', [SoalankemahiraninternetController::class, 'page5']);
 Route::resource('/soalan-kemahiran-email', SoalankemahiranemailController::class);
+Route::post('/soalan-kemahiran-email/{soalan}/save', [SoalankemahiranemailController::class, 'savepage1']);
 Route::resource('/soalan-kemahiran-word', SoalankemahiranwordController::class);
 
 Route::resource('/keputusan_penilaian', KeputusanPenilaianController::class);

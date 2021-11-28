@@ -763,6 +763,19 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
+                                            <label class="form-control-label mr-4"
+                                                for="{{ $user_profils->KOD_JABATAN }}">
+                                                Jabatan
+                                            </label><label class="float-right">:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input class="form-control form-control-sm ml-3" name="KOD_JABATAN"
+                                                id="{{ $user_profils->KOD_JABATAN }}" type="text"
+                                                value="{{ $user_profils->KOD_JABATAN }}" disabled="" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3">
                                             <label class="form-control-label mr-4" for="{{ $user_profils->BAHAGIAN }}">
                                                 Bahagian
                                             </label><label class="float-right">:</label>
@@ -968,19 +981,13 @@
                                     </svg>
                                 </a>
                             </li>
-                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
-                                    href="javascript:;">Pages</a>
-                            </li>
-                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
-                                    href="javascript:;">Account</a>
-                            </li>
                             <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Profil</li>
                         </ol>
                         <h6 class="font-weight-bolder">Profil</h6>
                     </nav>
                     
                     <div class="card">
-                        <div class="card-header pb-0 p-3" style="background-color:#FFA500;">
+                        <div class="card-header p-3" style="background-color:#FFA500;">
                             <div class="row">
                                 <div class="col-md-8 d-flex align-items-center">
                                     <h4 class="mb-0 text-white">Profil</h4>

@@ -119,7 +119,7 @@
     {{-- ck editor --}}
     {{-- <script src="/ckeditor/skins/office2013"></script> --}}
     {{-- <script src="/ckeditor/ckeditor.js"></script> --}}
-    <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script> --}}
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script> --}}
 </head>
 

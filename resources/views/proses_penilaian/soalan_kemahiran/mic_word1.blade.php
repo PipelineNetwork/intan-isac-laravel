@@ -105,25 +105,12 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 
-    {{-- <script src="//cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script> --}}
+    <script src="/assets/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         CKEDITOR.replace('editor', {
             language: 'en',
-            uiColor: '#0067b8',
             height: '800px',
             width: 'auto',
-            bodyClass: 'document-editor',
         });
     </script>
-    {{-- <script src="/ckeditor5/ckeditor.js"></script> --}}
-    {{-- <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script> --}}
 @stop

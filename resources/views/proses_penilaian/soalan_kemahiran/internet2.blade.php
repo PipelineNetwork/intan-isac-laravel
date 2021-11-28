@@ -161,13 +161,13 @@
                             alt="Google Logo" />
 
                         <!-- Search Starts -->
-                        <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}" method="POST">
-                            @method('PUT')
+                        <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page3" method="POST">
+                            {{-- @method('PUT') --}}
                             @csrf
                             <div class="search mt-3">
                                 <div class="col-xl-8 m-auto">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="carian_teks">
+                                        <input type="text" class="form-control" name="carian_teks" autocomplete="off">
                                         <span class="input-group-text"><i
                                                 class="fas fa-microphone me-sm-1 text-dark"></i></span>
                                     </div>
