@@ -38,6 +38,7 @@
                 <div class="card-body bg-secondary" style="border-radius: 15px">
                     <form action="/soalan-kemahiran-email/{{ $soalankemahiranemails->id }}/save" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="timer" value="" id="timer">
                         <div class="row">
                             <div class="col-xl-12 mb-3">
                                 <div class="row">

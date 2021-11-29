@@ -76,6 +76,7 @@
                 <div class="card-body">
                     <form action="/soalan-kemahiran-internet/{{ $soalankemahiraninternets->id}}/page1" method="POST">
                         @csrf
+                        <input type="hidden" name="timer" value="" id="timer">
                         <div class="row">
                             <div class="col-xl-2 text-center">
                                 {{-- <img src="/assets/img/google.png" style="width: 60%" alt="Google"> --}}

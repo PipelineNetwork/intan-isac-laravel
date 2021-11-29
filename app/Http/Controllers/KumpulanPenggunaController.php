@@ -118,18 +118,18 @@ class KumpulanPenggunaController extends Controller
 
     }
 
-    public function edit_menu($id_kumpulan, $id_menu){
-        $peranan = Role::find($id_kumpulan);
-        $kebenaran = Permission::all();
+    public function edit_menu($role_id, $permission_id){
+        $kebenaran = Permission::where('id', $permission_id)->first();
         return view('kawalan_sistem.kumpulan_pengguna.edit_menu',[
-            'peranan'=>$peranan,
             'kebenaran'=>$kebenaran,
-            'id_kumpulan'=>$id_kumpulan,
-            'id_menu'=>$id_menu
+            'peranan'=>$role_id
         ]);
     }
 
-    public function update_kebenaran(Request $request, $id_kumpulan, $menu_id){
-// dd($request);
+    public function update_kebenaran(Request $request, $role_id, $permission_id){
+        $kebenaran = Permission::where('id', $permission_id)->first();
+        $kebenaran->name = $request->name;
+        $kebenaran->save();
+        return redirect('/kebenaran_pengguna/'.$role_id.'/edit');
     }
 }

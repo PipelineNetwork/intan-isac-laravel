@@ -35,7 +35,7 @@
         <div class="col-xl-12">
             @if ($errors->any())
                 <div class="alert alert-danger">
-                    <strong>Whoops!</strong> Sila isi maklumat di ruang yang di sediakan<br><br>
+                    {{-- <strong>Whoops!</strong> Sila isi maklumat di ruang yang di sediakan<br><br> --}}
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
