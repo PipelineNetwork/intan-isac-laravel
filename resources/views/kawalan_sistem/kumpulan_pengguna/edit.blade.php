@@ -100,7 +100,7 @@ use App\Models\PerananDanKebenaran;
                                                                     @endif
                                                                 </label>
                                                             </div>
-                                                            <a href="/kebenaran_pengguna/{{$peranan->id}}/{{$kebenaran->id}}" class="btn bg-gradient-info">Kemaskini Peranan</a>
+                                                            {{-- <a href="/kebenaran_pengguna/{{$peranan->id}}/{{$kebenaran->id}}" class="btn bg-gradient-info">Kemaskini Peranan</a> --}}
                                                         </td>
                                                     </tr>
                                                 @endforeach
