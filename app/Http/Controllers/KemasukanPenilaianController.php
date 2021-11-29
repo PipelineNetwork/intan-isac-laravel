@@ -40,8 +40,10 @@ class KemasukanPenilaianController extends Controller
             //     }
             // }
 
+            date_default_timezone_set("Asia/Kuala_Lumpur");
             $masa = date('H:i');
             $masa_mula = $jadual->KOD_MASA_MULA;
+            $masa_tamat = $jadual->KOD_MASA_TAMAT;
 
 
             if($nric == $ic_calon){
@@ -51,7 +53,8 @@ class KemasukanPenilaianController extends Controller
                     'calon'=>$calon,
                     'id_penilaian'=>$id_penilaian,
                     'masa'=>$masa,
-                    'masa_mula'=>$masa_mula
+                    'masa_mula'=>$masa_mula,
+                    'masa_tamat'=>$masa_tamat
                 ]);
             }
         }

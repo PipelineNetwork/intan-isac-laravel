@@ -67,7 +67,7 @@ class MohonPenilaianController extends Controller
     {
         $id_group_user = Auth::user()->user_group_id;
         // dd($id_group_user);
-        if ($id_group_user == "3") {
+        if ($id_group_user == "7") {
             // dd("Penyelaras");
             // JADUAL_PENYELIA
             $id_penyelia = Auth::id();
@@ -76,7 +76,7 @@ class MohonPenilaianController extends Controller
             return view('mohonPenilaian.penyelaras.pilih_jadual', [
                 'jadual_penyelia' => $jadual_penyelia
             ]);
-        } elseif ($id_group_user == "5") {
+        } elseif ($id_group_user == "9") {
             $status = Auth::user()->nric;
             $check_status = MohonPenilaian::where('id_calon', $status)->first();
 
@@ -107,7 +107,7 @@ class MohonPenilaianController extends Controller
 
                 $negeri = Refgeneral::where('MASTERCODE', 10021)->get();
 
-                if ($current_user == 5) {
+                if ($current_user == 9) {
                     $user_profils = User::where('id', $checkid2)
                         ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
                         ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')

@@ -58,7 +58,7 @@
                                         <p class="mb-0">: {{$calon->no_ic}}</p>
                                     </div>
                                 </div>
-                                @if($masa < $masa_mula)
+                                @if($masa < $masa_mula && $masa > $masa_tamat)
                                 <div class="row justify-content-center">
                                     <div class="col-auto mb-0">
                                         <button class="btn bg-gradient-info mt-4 mb-0 text-center" disabled>Mula Penilaian</button>
