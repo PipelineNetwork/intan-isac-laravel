@@ -55,7 +55,7 @@
                                 <p>{!! $soalankemahiranemail->soalan_1 !!}</p>
                                 <ul class="mt-2">
                                     <button class="btn btn-success" value="{{ $soalankemahiranemail->id }}" type="submit"
-                                        onclick="tsw_open_demo_window();">Internet</button>
+                                        onclick="tsw_open_demo_window();">E-mel</button>
                                 </ul>
                             @endif
 
@@ -165,7 +165,7 @@
                     <div class="col-xl-12" style="text-align: right">
                         <a class="btn btn-success" data-bs-toggle="modal" style="cursor: pointer"
                             data-bs-target="#modal-email-seterusnya">
-                            Seterusnya
+                            Tamat
                         </a>
                         {{-- <a href="/tamat-penilaian" class="btn btn-success">Seterusnya</a> --}}
 

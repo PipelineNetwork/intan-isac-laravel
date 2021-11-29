@@ -164,7 +164,7 @@
                                     <div class="modal-body text-center">
                                         <i class="fas fa-exclamation-circle fa-7x" style="color: #d4872f"></i>
                                         <br>
-                                        Adakah anda pasti untuk terus ke soalan seterusnya? Anda tidak boleh kembali
+                                        Adakah anda pasti untuk ke soalan seterusnya? Anda tidak boleh kembali
                                         menjawab bahagian ini jika anda teruskan.
                                     </div>
                                     <div class="modal-footer">
