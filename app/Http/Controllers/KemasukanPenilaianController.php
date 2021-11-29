@@ -40,13 +40,18 @@ class KemasukanPenilaianController extends Controller
             //     }
             // }
 
+            $masa = date('H:i');
+            $masa_mula = $jadual->KOD_MASA_MULA;
+
 
             if($nric == $ic_calon){
                 // dd('jadi');
                 return view('kemasukan_id.paparan_maklumat_penilaian',[
                     'jadual'=>$jadual,
                     'calon'=>$calon,
-                    'id_penilaian'=>$id_penilaian
+                    'id_penilaian'=>$id_penilaian,
+                    'masa'=>$masa,
+                    'masa_mula'=>$masa_mula
                 ]);
             }
         }
