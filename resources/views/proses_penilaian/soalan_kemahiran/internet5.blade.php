@@ -55,7 +55,7 @@
                     <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page6" method="POST">
                         @csrf
                         <h4>
-                            <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
+                            {{-- <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}"> --}}
                             <button class="btn btn-danger" type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 title="Close"><i class="fas fa-times"></i></button>
                         </h4>
