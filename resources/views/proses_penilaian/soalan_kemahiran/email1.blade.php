@@ -36,8 +36,9 @@
         <div class="container-fluid pb-3">
             <div class="card mt-5">
                 <div class="card-body bg-secondary" style="border-radius: 15px">
-                    <form action="/soalan-kemahiran-email" method="POST" enctype="multipart/form-data">
+                    <form action="/soalan-kemahiran-email" method="POST" enctype="multipart/form-data" id="penilaian">
                         @csrf
+                        <input type="hidden" name="timer" value="" id="timer">
                         <div class="row">
                             <div class="col-xl-12 mb-3">
                                 <div class="row">

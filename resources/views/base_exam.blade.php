@@ -344,10 +344,13 @@
         }
 
         window.onload = function() {
-            var countDownTime = window.sessionStorage.getItem(COUNTER_KEY) || 30;
+            var countDownTime = window.sessionStorage.getItem(COUNTER_KEY) || 3600;
             countDown(countDownTime, function() {
-                // document.forms["penilaian"].submit();
-                window.location.replace("/masa_tamat");
+                // console.log(countDownTime);
+                $("#penilaian input[name=timer]").val(countDownTime);
+                document.forms["penilaian"].submit();
+                
+                //window.location.replace("/masa_tamat");
                 // window.sessionStorage.getItem(COUNTER_KEY) || 3600
             });
         };

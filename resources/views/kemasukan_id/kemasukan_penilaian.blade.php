@@ -51,11 +51,11 @@
                                 ?>
 
                                 <div class="row m-3 mt-0" style="display: none;" id="{{ $index }}">
-                                    <div class="row mb-3">
+                                    {{-- <div class="row mb-3">
                                         <div class="col">
                                             <strong>{{ $soalan->penyataan_soalan }}</strong>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     @if ($soalan->muat_naik_fail != null)
                                         <div class="row ">
                                             <div class="col text-center">
@@ -231,6 +231,7 @@
                                     </div>
                                     <input type="hidden" name="id_sesi" value="{{ $id_penilaian }}">
                                     <input type="hidden" name="masa_mula" value="{{ $masa_mula }}">
+                                    <input type="hidden" name="timer" value="" id="timer">
 
                                     <div class="row justify-content-center px-4">
                                         {{-- <div class="col-lg-auto">

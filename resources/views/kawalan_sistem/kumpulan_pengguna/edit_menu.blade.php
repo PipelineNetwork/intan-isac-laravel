@@ -48,49 +48,24 @@
             <div class="col">
                 <div class="card m-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Kebenaran</b>
+                        <b class="text-white">Kemaskini Kebenaran</b>
                     </div>
                     <div class="card-body">
-                        <form action="/kebenaran_pengguna/kemaskini/{{$id_kumpulan}}/{{$id_menu}}" method="POST">
+                        <form action="/kebenaran_pengguna/kemaskini/{{$peranan}}/{{$kebenaran->id}}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col">
-                                    <h5>{{ $kumpulan_pengguna->DESCRIPTION }} - {{ $kebenaran_title->MENUNAME }}</h5>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Nama Kebenaran</label>
+                                        <input class="form-control" type="text" value="{{$kebenaran->name}}" name="name">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-                                    {{-- <thead>
-                                        <tr>
-                                            <th class="px-1">No.</th>
-                                            <th class="px-1">Keterangan</th>
-                                            <th class="px-1">Kebolehcapaian</th>
-                                        </tr>
-                                    </thead> --}}
-                                    <tbody>
-                                        @foreach ($kebenaran as $key => $kebenaran)
-                                            <tr>
-                                                <td>{{ $key + 1 }}.</td>
-                                                <td>{{ $kebenaran->MENUNAME }}</td>
-                                                <td>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input " type="checkbox"
-                                                            id="checkbox{{ $key + 1 }}" value="1"
-                                                            onclick="active({{$key+1}})" name="{{ $kebenaran->MENUNAME }}">
-                                                        <label class="form-check-label" for="checkbox{{ $key + 1 }}"
-                                                            id="label{{ $key + 1 }}">Tiada Kebenaran</label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
                             </div>
                             <div class="row">
                                 <div class="col text-end">
-                                    {{-- <button class="btn btn-success" type="submit">Simpan</button> --}}
-                                    <a href="/kebenaran_pengguna/{{$id_kumpulan}}/edit" class="btn btn-success">Simpan</a>
-                                    <a href="/kebenaran_pengguna/{{$id_kumpulan}}/edit" class="btn btn-danger">Kembali</a>
+                                    <button class="btn btn-success" type="submit">Simpan</button>
+                                    {{-- <a href="/kebenaran_pengguna/{{$id_kumpulan}}/edit" class="btn btn-success">Simpan</a> --}}
+                                    <a href="/kebenaran_pengguna/{{$peranan}}/edit" class="btn btn-danger">Kembali</a>
                                 </div>
                             </div>
                         </form>

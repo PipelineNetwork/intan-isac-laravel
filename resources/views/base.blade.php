@@ -209,7 +209,7 @@
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                                 <i class="fas fa-house-user me-sm-1 text-dark"></i>
                             </div>
-                            <span class="nav-link-text ms-1">Pentadbiran <br> Pengguna</span>
+                            <span class="nav-link-text ms-1">Pengurusan <br> Pengguna</span>
                         </a>
                         <div class="collapse " id="pentadbiranpenggunadrop">
                             <ul class="nav ms-4 ps-3">
@@ -220,10 +220,10 @@
                                         </a>
                                     </li>
                                 @endcan
-                                @can('pengurusan pengguna')
+                                @can('senarai pengguna berdaftar')
                                     <li class="nav-item ">
                                         <a class="nav-link " href="/pengurusanpengguna">
-                                            <span class="sidenav-normal"> Pengurusan Pengguna </span>
+                                            <span class="sidenav-normal"> Senarai Pengguna Berdaftar </span>
                                         </a>
                                     </li>
                                 @endcan

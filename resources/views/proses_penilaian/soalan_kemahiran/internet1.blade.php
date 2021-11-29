@@ -74,8 +74,9 @@
 
             <div class="card vh-100 mt-5">
                 <div class="card-body">
-                    <form action="/soalan-kemahiran-internet" method="POST">
+                    <form action="/soalan-kemahiran-internet" method="POST" id="penilaian">
                         @csrf
+                        <input type="hidden" name="timer" value="" id="timer">
                         <div class="row">
                             <div class="col-xl-2 text-center">
                                 {{-- <img src="/assets/img/google.png" style="width: 60%" alt="Google"> --}}

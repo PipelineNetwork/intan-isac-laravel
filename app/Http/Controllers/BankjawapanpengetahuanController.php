@@ -101,7 +101,7 @@ class BankjawapanpengetahuanController extends Controller
         $bilangan = count($jawapans);
         // dd($jawapans);
 
-        for($i=0;$i<$bilangan-3; $i++){
+        for($i=0;$i<$bilangan-4; $i++){
             $simpan_jawapan = new Bankjawapanpengetahuan;
             if($jawapans['soalan_'.$i]){
                 $jawapans_calon = $jawapans['soalan_'.$i];
@@ -185,9 +185,15 @@ class BankjawapanpengetahuanController extends Controller
             $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
         }
         
-        $keputusan->save();        
+        $keputusan->save();
+        
+        if($request->timer == null){
+            return redirect('/soalan-kemahiran-internet')->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
+        }else{
+            return view('kemasukan_id.masa_tamat');
+        }
 
-        return redirect('/soalan-kemahiran-internet')->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
+        
     }
 
     public function check_jawapan($ic, $id){
