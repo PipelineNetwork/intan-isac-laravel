@@ -50,7 +50,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        //return redirect('/');
-        return view('auth.login');
+        return redirect('/');
+        // return view('auth.login');
+        // return view('welcome');
     }
 }

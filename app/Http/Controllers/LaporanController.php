@@ -27,42 +27,40 @@ class LaporanController extends Controller
         $check_kementerian = $request->input_kementerian;
 
         //request jabatan
-        $jabatan = Refgeneral::where('MASTERCODE', 10029)->get();
-        // $check_kementerian = $request->input_jabatan;
-
-        // if($request->input_kementerian != null){
-        //     $check_kementerian = $request->input_kementerian;
-        // }
+        // $jabatan = Refgeneral::where('MASTERCODE', 10029)->get();
+        // $check_jabatan = $request->input_jabatan;
 
         //count bil memohon
         //januari
-        // if ($tahun != null) {
-        //     if ($check_kementerian != null) {
-        //         $bil_mohon_jan = Jadual::whereDate('YEAR(created_at)', $tahun)
-        //             ->where('KOD_KEMENTERIAN', $check_kementerian)
-        //             ->count();
-        //     } else {
-        //         $bil_mohon_jan = Jadual::whereDate('YEAR(created_at)', $tahun)
-        //             ->count();
-        //     }
-        // } else {
-        //     $bil_mohon_jan = Jadual::all();
-        // }
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_jan = MohonPenilaian::whereYear('created_at', $tahun)
+                        ->where('KOD_KEMENTERIAN', $check_kementerian)
+                        ->count();
+            } else {
+                $bil_mohon_jan = MohonPenilaian::whereYear('created_at', $tahun)
+                    ->count();
+            }
+        } else {
+            $bil_mohon_jan = MohonPenilaian::count();
+        }
+
+        // dd($bil_mohon_jan);
 
         //count bil menduduki
         //januari
-        // if ($tahun != null) {
-        //     if ($check_kementerian != null) {
-        //         $bil_duduk_jan = MohonPenilaian::whereDate('YEAR(created_at)', $tahun)
-        //             ->where('KOD_KEMENTERIAN', $check_kementerian)
-        //             ->count();
-        //     } else {
-        //         $bil_duduk_jan = MohonPenilaian::whereDate('YEAR(created_at)', $tahun)
-        //             ->count();
-        //     }
-        // } else {
-        //     $bil_duduk_jan = MohonPenilaian::all();
-        // }
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_jan = MohonPenilaian::whereDate('YEAR(created_at)', $tahun)
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_jan = MohonPenilaian::whereDate('YEAR(created_at)', $tahun)
+                    ->count();
+            }
+        } else {
+            $bil_duduk_jan = MohonPenilaian::all();
+        }
 
         //count bil lulus
 
@@ -73,8 +71,8 @@ class LaporanController extends Controller
             'tahuns' => $tahun,
             'tahun_semasas' => $tahun_semasa,
             'kementerians' => $kementerian,
-            'jabatans' => $jabatan,
-            // 'bil_mohon_jan' => $bil_mohon_jan,
+            // 'jabatans' => $jabatan,
+            'bil_mohon_jans' => $bil_mohon_jan,
             // 'bil_duduk_jan' => $bil_duduk_jan
         ]);
     }

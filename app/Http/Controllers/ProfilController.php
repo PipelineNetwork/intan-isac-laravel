@@ -14,6 +14,11 @@ use Spatie\Permission\Models\Role;
 
 class ProfilController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function kemaskini(Request $request)
     {
         $checkid2 = Auth::id();
@@ -62,9 +67,11 @@ class ProfilController extends Controller
 
         $jenis_perkhidmatan = Refgeneral::where('MASTERCODE', 10027)->get();
 
-        $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
+        $kementerian = Refgeneral::where('MASTERCODE', 10028)->orderBy('DESCRIPTION1')->get();
 
         $negeri = Refgeneral::where('MASTERCODE', 10021)->get();
+
+        $jabatan = Refgeneral::where('MASTERCODE', 10029)->orderBy('DESCRIPTION1')->get();
 
         if ($current_user == 5) {
             $user_profils = DB::table('users')
@@ -92,6 +99,7 @@ class ProfilController extends Controller
             'jenis_perkhidmatans' => $jenis_perkhidmatan,
             'kementerians' => $kementerian,
             'negeris' => $negeri,
+            'jabatans' => $jabatan,
         ]);
     }
 
@@ -141,6 +149,7 @@ class ProfilController extends Controller
             $user_profils3->EMEL_PENYELIA = $request->EMEL_PENYELIA;
             $user_profils3->NO_TELEFON_PENYELIA = $request->NO_TELEFON_PENYELIA;
             $user_profils3->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
+            $user_profils3->KOD_JABATAN = $request->KOD_JABATAN;
             $user_profils3->GELARAN_KETUA_JABATAN = strtoupper($request->GELARAN_KETUA_JABATAN);
             $user_profils3->BAHAGIAN = $request->BAHAGIAN;
             $user_profils3->BANDAR = $request->BANDAR;

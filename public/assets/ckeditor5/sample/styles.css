@@ -57,6 +57,10 @@ main .ck-editor[role='application'] {
 	justify-content: center;
 }
 
+.editor-soalan-1 {
+	max-width: 100px;
+}
+
 /* --------- DECOUPLED (DOCUMENT) BUILD. ---------------------------------------------*/
 body[data-editor='DecoupledDocumentEditor'] .document-editor__toolbar {
 	width: 100%;

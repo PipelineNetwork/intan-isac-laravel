@@ -40,7 +40,81 @@
                 </div>
                 <div class="card-body">
                     <div class="col-xl-12">
-                        <ol>
+                        @foreach ($soalankemahiraninternets as $soalankemahiraninternet)
+                            @if ($soalankemahiraninternet->arahan_umum != null)
+                                <h5>{!! $soalankemahiraninternet->arahan_umum !!}</h5>
+                            @endif
+
+                            <hr class="my-3" style="width:100%; margin:0; height: 5px; color: #F7B42C">
+
+                            @if ($soalankemahiraninternet->arahan_soalan != null)
+                                <h6>{!! $soalankemahiraninternet->arahan_soalan !!}</h6>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_1 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_1 !!}</p>
+                                <ul class="mt-2">
+                                    <button class="btn btn-success" value="{{ $soalankemahiraninternet->id }}" type="submit" onclick="tsw_open_demo_window();">Internet</button>
+                                </ul>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_2 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_2 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_3 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_3 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_4 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_4 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_5 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_5 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_6 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_6 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_7 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_7 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_8 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_8 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_9 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_9 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_10 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_10 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_11 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_11 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_12 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_12 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_13 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_13 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_14 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_14 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiraninternet->soalan_15 != null)
+                                <p>{!! $soalankemahiraninternet->soalan_15 !!}</p>
+                            @endif
+                        @endforeach
+                        {{-- <ol>
                             <li>
                                 Klik butang Internet di bawah.
                                 <ul class="mt-2">
@@ -75,7 +149,7 @@
                                 Sila klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk kebahagian
                                 soalan seterusnya.
                             </li>
-                        </ol>
+                        </ol> --}}
                     </div>
                     <div class="col-xl-12" style="text-align: right">
                         <a class="btn btn-success" data-bs-toggle="modal" style="cursor: pointer"
@@ -120,7 +194,7 @@
 
     <script>
         function tsw_open_demo_window() {
-            window.open("/soalan-kemahiran-internet/create");
+            window.open("/soalan-kemahiran-internet/{{ $soalankemahiraninternet->id }}");
         }
     </script>
 @stop

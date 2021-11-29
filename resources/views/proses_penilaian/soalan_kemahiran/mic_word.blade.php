@@ -40,7 +40,82 @@
                 </div>
                 <div class="card-body">
                     <div class="col-xl-12">
-                        <ol>
+                        @foreach ($soalankemahiranwords as $soalankemahiranword)
+                            @if ($soalankemahiranword->arahan_umum != null)
+                                <h5>{!! $soalankemahiranword->arahan_umum !!}</h5>
+                            @endif
+
+                            <hr class="my-3" style="width:100%; margin:0; height: 5px; color: #F7B42C">
+
+                            @if ($soalankemahiranword->arahan_soalan != null)
+                                <h6>{!! $soalankemahiranword->arahan_soalan !!}</h6>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_1 != null)
+                                <p>{!! $soalankemahiranword->soalan_1 !!}</p>
+                                <ul class="mt-2">
+                                    <button class="btn btn-success" value="{{ $soalankemahiranword->id }}" type="submit"
+                                        onclick="tsw_open_demo_window();">Pemprosesan Perkataan</button>
+                                </ul>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_2 != null)
+                                <p>{!! $soalankemahiranword->soalan_2 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_3 != null)
+                                <p>{!! $soalankemahiranword->soalan_3 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_4 != null)
+                                <p>{!! $soalankemahiranword->soalan_4 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_5 != null)
+                                <p>{!! $soalankemahiranword->soalan_5 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_6 != null)
+                                <p>{!! $soalankemahiranword->soalan_6 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_7 != null)
+                                <p>{!! $soalankemahiranword->soalan_7 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_8 != null)
+                                <p>{!! $soalankemahiranword->soalan_8 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_9 != null)
+                                <p>{!! $soalankemahiranword->soalan_9 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_10 != null)
+                                <p>{!! $soalankemahiranword->soalan_10 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_11 != null)
+                                <p>{!! $soalankemahiranword->soalan_11 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_12 != null)
+                                <p>{!! $soalankemahiranword->soalan_12 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_13 != null)
+                                <p>{!! $soalankemahiranword->soalan_13 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_14 != null)
+                                <p>{!! $soalankemahiranword->soalan_14 !!}</p>
+                            @endif
+
+                            @if ($soalankemahiranword->soalan_15 != null)
+                                <p>{!! $soalankemahiranword->soalan_15 !!}</p>
+                            @endif
+                        @endforeach
+                        {{-- <ol>
                             <li>
                                 Anda dikehendaki klik butang Pemprosesan Perkataan di bawah untuk memulakan aplikasi
                                 Pemprosesan Perkataan.
@@ -49,18 +124,18 @@
                                         <span class="btn-inner--icon ml-2"></span></a>
                                 </ul>
                             </li>
-                            {{-- <li>
+                            <li>
                                 Perenggan B hingga F hendaklah diisih (Sort) mengikut turutan abjad (Ascending).
-                            </li> --}}
+                            </li>
                             <li>
                                 Perenggan pertama dokumen hendaklah diformatkan seperti berikut :-
                                 <ul>
                                     <li>
                                         Tukar jenis Font kepada Font Tahoma saiz 12
                                     </li>
-                                    {{-- <li>
+                                    <li>
                                         Line Spacing Double (2)
-                                    </li> --}}
+                                    </li>
                                     <li>
                                         Align Justify
                                     </li>
@@ -78,14 +153,14 @@
                                 Font
                                 14.
                             </li>
-                            {{-- <li>
+                            <li>
                                 Insert Header ke dalam dokumen anda dan pilih Header : Alphabet. Taip Tajuk dokumen ke dalam
                                 ruang yang disediakan dalam Header.
                             </li>
                             <li>
                                 Insert Page Number ke dalam dokumen anda dan pilih Page Number : Bottom of Page : Plain
                                 Number 1.
-                            </li> --}}
+                            </li>
                             <li>
                                 Sila klik butang Simpan (Save) untuk tamat menjawab soalan Pemprosesan Perkataan.
                             </li>
@@ -97,7 +172,7 @@
                                 Sila klik butang <span style="color: green">SETERUSNYA</span> dibawah untuk kebahagian
                                 soalan seterusnya.
                             </li>
-                        </ol>
+                        </ol> --}}
                     </div>
                     <div class="col-xl-12" style="text-align: right">
                         <a class="btn btn-success" data-bs-toggle="modal" style="cursor: pointer"
@@ -142,7 +217,7 @@
 
     <script>
         function tsw_open_demo_window() {
-            window.open("/soalan-kemahiran-word/create");
+            window.open("/soalan-kemahiran-word/{{ $soalankemahiranword->id }}");
         }
     </script>
 @stop

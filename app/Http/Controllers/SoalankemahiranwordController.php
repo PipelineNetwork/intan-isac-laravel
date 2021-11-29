@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bankjawapancalon;
+use App\Models\Soalankemahiranword;
 
 class SoalankemahiranwordController extends Controller
 {
@@ -16,8 +17,12 @@ class SoalankemahiranwordController extends Controller
     {
         $jawapancalon = Bankjawapancalon::all();
 
+        $soalankemahiranword = Soalankemahiranword::where('status_soalan', 1)->inRandomOrder()->limit(1)->get();
+
+        // dd($soalankemahiranword);
         return view('proses_penilaian.soalan_kemahiran.mic_word', [
             'jawapancalons' => $jawapancalon,
+            'soalankemahiranwords' => $soalankemahiranword
         ]);
     }
 
@@ -28,7 +33,7 @@ class SoalankemahiranwordController extends Controller
      */
     public function create()
     {
-        return view('proses_penilaian.soalan_kemahiran.mic_word1');
+        // return view('proses_penilaian.soalan_kemahiran.mic_word1');
     }
 
     /**
@@ -58,9 +63,13 @@ class SoalankemahiranwordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_word)
     {
-        //
+        $soalankemahiranword = Soalankemahiranword::where('id', $id_word)->get()->first();
+
+        return view('proses_penilaian.soalan_kemahiran.mic_word1', [
+            'soalankemahiranwords' => $soalankemahiranword
+        ]);
     }
 
     /**
@@ -71,7 +80,7 @@ class SoalankemahiranwordController extends Controller
      */
     public function edit($id)
     {
-        return view('proses_penilaian.soalan_kemahiran.mic_word2');
+        // return view('proses_penilaian.soalan_kemahiran.mic_word2');
     }
 
     /**

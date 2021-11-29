@@ -54,6 +54,7 @@
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Set Soalan</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Disediakan</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemaskini</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Hapus</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,7 +69,33 @@
                                             href="/bank-soalan-kemahiran/{{ $banksoalankemahiran->id }}">
                                             <i class="fas fa-pencil-alt"></i> Kemaskini
                                         </a></td>
+                                    <td class="text-sm text-center font-weight-normal" style="cursor: pointer"><a data-bs-toggle="modal"
+                                            data-bs-target="#modaldeleteSoalanKemahiran-{{ $banksoalankemahiran->id }}">
+                                            <i class="far fa-trash-alt"></i> Hapus
+                                        </a></td>
                                 </tr>
+
+                                <div class="modal fade" id="modaldeleteSoalanKemahiran-{{ $banksoalankemahiran->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body text-center">
+                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                <br>
+                                                Anda pasti mahu hapus?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn bg-gradient-secondary"
+                                                    data-bs-dismiss="modal">Tutup</button>
+                                                <form method="POST" action="/bank-soalan-kemahiran/{{ $banksoalankemahiran->id }}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-danger" type="submit">Hapus</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>

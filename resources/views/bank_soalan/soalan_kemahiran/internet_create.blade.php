@@ -78,19 +78,25 @@
                                     name="arahan_soalan">Soalan ini menguji langkah-langkah melayari Internet menggunakan Internet Explorer.  Enjin Carian Google <em>(Google Search Engine, GSE)</em> digunakan bagi mencari sesuatu maklumat. Ikut arahan seperti di bawah :-</textarea>
                             </div>
                         </div>
-                        <div class="col-xl-4">
+                        <div class="col-xl-6">
                             <div class="form-group">
                                 <label class="form-control-label">Bahagian Soalan</label>
                                 <input class="form-control" type="text" value="Bahagian A" disabled="">
                             </div>
                         </div>
-                        <div class="col-xl-4">
+                        <div class="col-xl-6">
                             <div class="form-group">
                                 <label class="form-control-label">Bentuk Soalan</label>
                                 <input class="form-control" type="text" value="Internet" disabled="">
                             </div>
                         </div>
-                        <div class="col-xl-4">
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <label class="form-control-label">URL Wikipedia</label>
+                                <input class="form-control" type="text" name="url_wikipedia">
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
                             <div class="form-group">
                                 <label class="form-control-label">Status Soalan</label>
                                 <select class="form-control" name="status_soalan" required>

@@ -186,7 +186,7 @@
                         </div>
                         <span class="nav-link-text ms-1">Dashboard</span>
                     </a>
-                </li>
+                </li>ƒsoala
                 @endcan
 
                 @can('profil')
