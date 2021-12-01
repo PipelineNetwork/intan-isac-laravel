@@ -67,11 +67,11 @@
                                         {{ date('d/m/Y', strtotime($banksoalankemahiran->created_at)) }}</td>
                                     <td class="text-sm text-center font-weight-normal"><a
                                             href="/bank-soalan-kemahiran/{{ $banksoalankemahiran->id }}">
-                                            <i class="fas fa-pencil-alt"></i> Kemaskini
+                                            <i class="fas fa-pencil-alt"></i>
                                         </a></td>
                                     <td class="text-sm text-center font-weight-normal" style="cursor: pointer"><a data-bs-toggle="modal"
                                             data-bs-target="#modaldeleteSoalanKemahiran-{{ $banksoalankemahiran->id }}">
-                                            <i class="far fa-trash-alt"></i> Hapus
+                                            <i class="far fa-trash-alt"></i> 
                                         </a></td>
                                 </tr>
 

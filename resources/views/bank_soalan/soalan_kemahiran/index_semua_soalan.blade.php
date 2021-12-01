@@ -43,8 +43,7 @@
                         <h5 class="text-white">Senarai Soalan Kemahiran Internet</h5>
                     </div>
                     <div class="col-4" style="text-align: end">
-                        <a href="/bank-soalan-kemahiran/{{ $banksoalankemahirans->id }}/internet"
-                            class="btn bg-gradient-info">Tambah</a>
+                        <a href="/{{ $banksoalankemahirans->id }}/internet" class="btn bg-gradient-info">Tambah</a>
                     </div>
                 </div>
             </div>
@@ -88,10 +87,38 @@
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ date('d/m/Y', strtotime($soalankemahiraninternet->created_at)) }}</td>
                                     <td class="text-sm text-center font-weight-normal"><a
-                                            href="/bank-soalan-kemahiran/{{ $soalankemahiraninternet->id }}">
-                                            <i class="fas fa-pencil-alt"></i> Kemaskini
-                                        </a></td>
+                                            href="/{{ $soalankemahiraninternet->id_soalankemahiran }}/internet/{{ $soalankemahiraninternet->id }}">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a data-bs-toggle="modal"
+                                            data-bs-target="#modaldeleteSoalanKemahiraninternet-{{ $soalankemahiraninternet->id }}">
+                                            <i class="far fa-trash-alt" style="cursor: pointer"></i>
+                                        </a>
+                                    </td>
                                 </tr>
+
+                                <div class="modal fade" id="modaldeleteSoalanKemahiraninternet-{{ $soalankemahiraninternet->id }}"
+                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body text-center">
+                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                <br>
+                                                Anda pasti mahu hapus?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn bg-gradient-secondary"
+                                                    data-bs-dismiss="modal">Tutup</button>
+                                                <form method="POST"
+                                                    action="/{{ $soalankemahiraninternet->id_soalankemahiran }}/internet/{{ $soalankemahiraninternet->id }}/delete">
+                                                    @method('POST')
+                                                    @csrf
+                                                    <button class="btn btn-danger" type="submit">Hapus</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -107,7 +134,7 @@
                         <h5 class="text-white">Senarai Soalan Kemahiran Pemprosesan Perkataan</h5>
                     </div>
                     <div class="col-4" style="text-align: end">
-                        <a href="/bank-soalan-kemahiran/{{ $banksoalankemahirans->id }}/pemprosesan-perkataan"
+                        <a href="/{{ $banksoalankemahirans->id }}/pemprosesan-perkataan"
                             class="btn bg-gradient-info">Tambah</a>
                     </div>
                 </div>
@@ -152,10 +179,38 @@
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ date('d/m/Y', strtotime($soalankemahiranword->created_at)) }}</td>
                                     <td class="text-sm text-center font-weight-normal"><a
-                                            href="/bank-soalan-kemahiran/{{ $soalankemahiranword->id }}">
-                                            <i class="fas fa-pencil-alt"></i> Kemaskini
-                                        </a></td>
+                                            href="/{{ $soalankemahiranword->id_soalankemahiran }}/pemprosesan-perkataan/{{ $soalankemahiranword->id }}">
+                                            <i class="fas fa-pencil-alt"></i> 
+                                        </a>
+                                        <a data-bs-toggle="modal"
+                                            data-bs-target="#modaldeleteSoalanKemahiranword-{{ $soalankemahiranword->id }}">
+                                            <i class="far fa-trash-alt" style="cursor: pointer"></i>
+                                        </a>
+                                    </td>
                                 </tr>
+
+                                <div class="modal fade" id="modaldeleteSoalanKemahiranword-{{ $soalankemahiranword->id }}"
+                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body text-center">
+                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                <br>
+                                                Anda pasti mahu hapus?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn bg-gradient-secondary"
+                                                    data-bs-dismiss="modal">Tutup</button>
+                                                <form method="POST"
+                                                    action="/{{ $soalankemahiranword->id_soalankemahiran }}/internet/{{ $soalankemahiranword->id }}/delete">
+                                                    @method('POST')
+                                                    @csrf
+                                                    <button class="btn btn-danger" type="submit">Hapus</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -171,8 +226,7 @@
                         <h5 class="text-white">Senarai Soalan Kemahiran E-mel</h5>
                     </div>
                     <div class="col-4" style="text-align: end">
-                        <a href="/bank-soalan-kemahiran/{{ $banksoalankemahirans->id }}/emel"
-                            class="btn bg-gradient-info">Tambah</a>
+                        <a href="/{{ $banksoalankemahirans->id }}/emel" class="btn bg-gradient-info">Tambah</a>
                     </div>
                 </div>
             </div>
@@ -216,10 +270,38 @@
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ date('d/m/Y', strtotime($soalankemahiranemail->created_at)) }}</td>
                                     <td class="text-sm text-center font-weight-normal"><a
-                                            href="/bank-soalan-kemahiran/{{ $soalankemahiranemail->id }}">
-                                            <i class="fas fa-pencil-alt"></i> Kemaskini
-                                        </a></td>
+                                            href="/{{ $soalankemahiranemail->id_soalankemahiran }}/emel/{{ $soalankemahiranemail->id }}">
+                                            <i class="fas fa-pencil-alt"></i> 
+                                        </a>
+                                        <a data-bs-toggle="modal"
+                                            data-bs-target="#modaldeleteSoalanKemahiranemail-{{ $soalankemahiranemail->id }}">
+                                            <i class="far fa-trash-alt" style="cursor: pointer"></i>
+                                        </a>
+                                    </td>
                                 </tr>
+
+                                <div class="modal fade" id="modaldeleteSoalanKemahiranemail-{{ $soalankemahiranemail->id }}"
+                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body text-center">
+                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                <br>
+                                                Anda pasti mahu hapus?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn bg-gradient-secondary"
+                                                    data-bs-dismiss="modal">Tutup</button>
+                                                <form method="POST"
+                                                    action="/{{ $soalankemahiranemail->id_soalankemahiran }}/internet/{{ $soalankemahiranemail->id }}/delete">
+                                                    @method('POST')
+                                                    @csrf
+                                                    <button class="btn btn-danger" type="submit">Hapus</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>
