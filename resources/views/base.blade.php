@@ -103,30 +103,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     {{-- ck editor --}}
-    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-    <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script> --}}
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
     <?php
-        use Spatie\Permission\Models\Role;
-        use Illuminate\Support\Facades\Auth;
-        $checkid2 = Auth::id();
-        $current_user = Auth::user()->user_group_id;
-        $check = Role::where('id', $current_user)->first();
-        $role = $check->name;
-        
-        if ($role == 'calon') {
-            $user_profils = DB::table('users')
-                ->where('id', '=', $checkid2)
-                ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
-                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
-                ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
-                ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
-                ->get()->first();
-        } else {
-            $user_profils = Auth::user();
-        }
+    use Spatie\Permission\Models\Role;
+    use Illuminate\Support\Facades\Auth;
+    $checkid2 = Auth::id();
+    $current_user = Auth::user()->user_group_id;
+    $check = Role::where('id', $current_user)->first();
+    $role = $check->name;
+    
+    if ($role == 'calon') {
+        $user_profils = DB::table('users')
+            ->where('id', '=', $checkid2)
+            ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+            ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+            ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+            ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
+            ->get()
+            ->first();
+    } else {
+        $user_profils = Auth::user();
+    }
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -178,27 +179,27 @@
                 </li> --}}
 
                 @can('dashboard')
-                <li class="nav-item">
-                    <a class="nav-link" href="/dashboard">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fas fa-user-alt me-sm-1 text-dark"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Dashboard</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-user-alt me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Dashboard</span>
+                        </a>
+                    </li>
                 @endcan
 
                 @can('profil')
-                <li class="nav-item">
-                    <a class="nav-link" href="/profil">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fas fa-user-alt me-sm-1 text-dark"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Profil</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profil">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-user-alt me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Profil</span>
+                        </a>
+                    </li>
                 @endcan
 
                 @can('kebenaran pengguna' ?? 'pengurusan pengguna')
@@ -263,7 +264,7 @@
                                         </a>
                                     </li>
                                 @endcan
-                                
+
                                 @can('senarai rayuan blacklist')
                                     <li class="nav-item ">
                                         <a class="nav-link " href="#">
@@ -292,7 +293,7 @@
                 }
                 ?> --}}
 
-                @can('pemilihan soalan' ?? 'slip' ?? 'sijil' ?? 'semakan jawapan')
+                @can('pemilihan soalan' ?? ('slip' ?? ('sijil' ?? 'semakan jawapan')))
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#pengurusanpenilaiandrop" class="nav-link "
                             aria-controls="applicationsExamples" role="button" aria-expanded="false">
@@ -309,39 +310,39 @@
                                         <a class="nav-link " href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan">
                                             <span class="sidenav-normal"> Pemilihan Soalan <br> Pengetahuan </span>
                                         </a>
-                                    </li>   
+                                    </li>
                                 @endcan
-                                
+
                                 @can('slip')
                                     <li class="nav-item ">
                                         <a class="nav-link " href="/keputusan_penilaian">
                                             <span class="sidenav-normal"> Senarai Slip Keputusan </span>
                                         </a>
-                                    </li>    
+                                    </li>
                                 @endcan
-                                
+
                                 @can('sijil')
                                     <li class="nav-item ">
                                         <a class="nav-link " href="/senarai_sijil">
                                             <span class="sidenav-normal"> Senarai Sijil Kelulusan </span>
                                         </a>
-                                    </li>    
+                                    </li>
                                 @endcan
-                                
+
                                 @can('semakan jawapan')
                                     <li class="nav-item ">
                                         <a class="nav-link " href="/semak_jawapan">
                                             <span class="sidenav-normal"> Semakan Jawapan </span>
                                         </a>
-                                    </li>    
+                                    </li>
                                 @endcan
-                                
+
                             </ul>
                         </div>
                     </li>
                 @endcan
 
-                @can('jawab penilaian'??'pemantauan penilaian')
+                @can('jawab penilaian' ?? 'pemantauan penilaian')
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#penilaiandrop" class="nav-link "
                             aria-controls="applicationsExamples" role="button" aria-expanded="false">
@@ -358,25 +359,25 @@
                                         <a class="nav-link " href="/kemasukan-id">
                                             <span class="sidenav-normal"> Jawab Penilaian <br> (Pemantauan)</span>
                                         </a>
-                                    </li>    
+                                    </li>
                                 @endcan
-                                
+
                                 @can('pemantauan penilaian')
                                     <li class="nav-item ">
                                         <a class="nav-link " href="/kemasukan-id">
                                             <span class="sidenav-normal"> Jawab Penilaian </span>
                                         </a>
-                                    </li>    
+                                    </li>
                                 @endcan
-                                
+
                                 @can('semakan keputusan')
                                     <li class="nav-item ">
                                         <a class="nav-link " href="/semakan_keputusan_calon">
                                             <span class="sidenav-normal"> Semakan Keputusan </span>
                                         </a>
-                                    </li>    
+                                    </li>
                                 @endcan
-                                
+
                                 {{-- <li class="nav-item ">
                                     <a class="nav-link " href="/soalan-pengetahuan">
                                         <span class="sidenav-normal"> Soalan Pengetahuan </span>
@@ -415,7 +416,7 @@
                                         </ul>
                                     </div>
                                 </li> --}}
-                                
+
                             </ul>
                         </div>
                     </li>
@@ -445,10 +446,10 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>    
+                    </li>
                 @endcan
-                
-                @can('hantar aduan'??'balas aduan'??'hantar rayuan'??'balas rayuan')
+
+                @can('hantar aduan' ?? ('balas aduan' ?? ('hantar rayuan' ?? 'balas rayuan')))
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#aduanrayuandrop" class="nav-link "
                             aria-controls="applicationsExamples" role="button" aria-expanded="false">
@@ -465,24 +466,24 @@
                                         <a class="nav-link " href="/balasaduans">
                                             <span class="sidenav-normal"> Balas Aduan </span>
                                         </a>
-                                    </li>    
+                                    </li>
                                 @endcan
                                 @can('balas rayuan')
                                     <li class="nav-item ">
                                         <a class="nav-link " href="/balasrayuans">
                                             <span class="sidenav-normal"> Balas Rayuan </span>
                                         </a>
-                                    </li>    
+                                    </li>
                                 @endcan
-                                
+
                                 @can('hantar aduan')
                                     <li class="nav-item ">
                                         <a class="nav-link " href="/tambahaduans">
                                             <span class="sidenav-normal"> Hantar Aduan </span>
                                         </a>
-                                    </li>    
+                                    </li>
                                 @endcan
-                                
+
                                 @can('hantar rayuan')
                                     <li class="nav-item ">
                                         <a class="nav-link " href="/tambahrayuans">
@@ -525,7 +526,8 @@
                                 <li class="nav-item ">
                                     <a class="nav-link "
                                         href="/laporan/statistik-penilaian-mengikut-klasifikasi-gred-jawatan">
-                                        <span class="sidenav-normal"> Laporan Statistik Penilaian <br> Mengikut Klasifikasi <br> Gred
+                                        <span class="sidenav-normal"> Laporan Statistik Penilaian <br> Mengikut Klasifikasi
+                                            <br> Gred
                                             & Jawatan
                                         </span>
                                     </a>
@@ -538,7 +540,8 @@
                                 <li class="nav-item ">
                                     <a class="nav-link "
                                         href="/laporan/statistik-keseluruhan-pencapaian-penilaian-isac-mengikut-bulan">
-                                        <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan Pencapaian <br> Penilaian
+                                        <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan Pencapaian <br>
+                                            Penilaian
                                             ISAC Mengikut <br> Bulan </span>
                                     </a>
                                 </li>
@@ -550,7 +553,8 @@
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link " href="/laporan/keseluruhan-penilaian-isac-mengikut-iac">
-                                        <span class="sidenav-normal"> Laporan Keseluruhan <br> Penilaian ISAC Mengikut <br> IAC
+                                        <span class="sidenav-normal"> Laporan Keseluruhan <br> Penilaian ISAC Mengikut <br>
+                                            IAC
                                         </span>
                                     </a>
                                 </li>
@@ -605,7 +609,7 @@
                         </div>
                     </li>
                 @endcan
-                
+
             </ul>
         </div>
     </aside>
@@ -627,7 +631,7 @@
                                         {{ $user_profils->email }}
                                     </p>
                                     <p class="mb-0 font-weight-bold text-sm">
-                                        {{ucwords($role)}}
+                                        {{ ucwords($role) }}
                                         {{-- @if ($user_profils->user_group_id == 1)
                                             Pentadbir Sistem
                                         @elseif ($user_profils->user_group_id == 2)
@@ -652,7 +656,7 @@
                             </div>
                         </div>
                     </div>
-                    @endauth
+                @endauth
                 <div class=" mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         <div class="input-group">
@@ -680,7 +684,7 @@
                             </ul>
                         </ul>
                     @endguest
-                    
+
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                         <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                             <div class="sidenav-toggler-inner">

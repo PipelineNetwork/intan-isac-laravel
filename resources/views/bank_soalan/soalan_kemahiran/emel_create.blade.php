@@ -81,13 +81,13 @@
                         <div class="col-xl-4">
                             <div class="form-group">
                                 <label class="form-control-label">Bahagian Soalan</label>
-                                <input class="form-control" type="text" value="Bahagian A" disabled="">
+                                <input class="form-control" type="text" value="Bahagian C" disabled="">
                             </div>
                         </div>
                         <div class="col-xl-4">
                             <div class="form-group">
                                 <label class="form-control-label">Bentuk Soalan</label>
-                                <input class="form-control" type="text" value="Internet" disabled="">
+                                <input class="form-control" type="text" value="E-mel" disabled="">
                             </div>
                         </div>
                         <div class="col-xl-4">
