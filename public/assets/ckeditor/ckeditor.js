@@ -43886,14 +43886,14 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                         },
                         b
                     ),
-                    letterspacing: new CKEDITOR.spacingControl(
-                        {
-                            name: "letterspacing",
-                            min: a(CKEDITOR.config.letterspacing_min, -20),
-                            max: a(CKEDITOR.config.letterspacing_max, 20),
-                        },
-                        b
-                    ),
+                    // letterspacing: new CKEDITOR.spacingControl(
+                    //     {
+                    //         name: "letterspacing",
+                    //         min: a(CKEDITOR.config.letterspacing_min, -20),
+                    //         max: a(CKEDITOR.config.letterspacing_max, 20),
+                    //     },
+                    //     b
+                    // ),
                 },
                 a = [];
             for (name in e) a.push(e[name].createStyle());

@@ -117,7 +117,7 @@
                 if ($(this).val() == "3") {
                     $("#pilih2").show();
                 } else {
-                    $("#pilih2").show();
+                    $("#pilih2").hide();
                 }
             });
         });

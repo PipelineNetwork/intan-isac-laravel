@@ -106,13 +106,21 @@ Route::post('/bank-soalan-pengetahuan/subjective', [BanksoalanpengetahuanControl
 
 Route::resource('/bank-soalan-kemahiran', BanksoalankemahiranController::class);
 // Route::resource('/bank-soalan-kemahiran', BanksoalankemahiranController::class)->only(['show']);
-Route::get('/bank-soalan-kemahiran/{soalan}/internet', [BanksoalankemahiraninternetController::class, 'createsoalankemahiraninternet']);
-Route::post('/bank-soalan-kemahiran/{soalan}/internet/save', [BanksoalankemahiraninternetController::class, 'soalankemahiraninternetsave']);
-Route::get('/bank-soalan-kemahiran/{soalan}/pemprosesan-perkataan', [BanksoalankemahiranwordController::class, 'soalankemahiranwordcreate']);
-Route::post('/bank-soalan-kemahiran/{soalan}/pemprosesan-perkataan/save', [BanksoalankemahiranwordController::class, 'soalankemahiranwordsave']);
-Route::get('/bank-soalan-kemahiran/{soalan}/emel', [BanksoalankemahiranemailController::class, 'soalankemahiranemailcreate']);
-Route::post('/bank-soalan-kemahiran/{soalan}/emel/save', [BanksoalankemahiranemailController::class, 'soalankemahiranemailsave']);
+Route::get('/{soalan}/internet', [BanksoalankemahiraninternetController::class, 'createsoalankemahiraninternet']);
+Route::post('/{soalan}/internet/save', [BanksoalankemahiraninternetController::class, 'soalankemahiraninternetsave']);
+Route::get('/{soalan}/internet/{internet}', [BanksoalankemahiraninternetController::class, 'editsoalankemahiraninternet']);
+Route::post('/{soalan}/internet/{internet}/save', [BanksoalankemahiraninternetController::class, 'updatesoalankemahiraninternetsave']);
+Route::post('/{soalan}/internet/{internet}/delete', [BanksoalankemahiraninternetController::class, 'deletesoalankemahiraninternet']);
 
+Route::get('/{soalan}/pemprosesan-perkataan', [BanksoalankemahiranwordController::class, 'soalankemahiranwordcreate']);
+Route::post('/bank-soalan-kemahiran/{soalan}/pemprosesan-perkataan/save', [BanksoalankemahiranwordController::class, 'soalankemahiranwordsave']);
+Route::get('/{soalan}/pemprosesan-perkataan/{word}', [BanksoalankemahiranwordController::class, 'soalankemahiranwordedit']);
+Route::post('/{soalan}/pemprosesan-perkataan/{word}/save', [BanksoalankemahiranwordController::class, 'soalankemahiranwordeditsave']);
+
+Route::get('/{soalan}/emel', [BanksoalankemahiranemailController::class, 'soalankemahiranemailcreate']);
+Route::post('/{soalan}/emel/save', [BanksoalankemahiranemailController::class, 'soalankemahiranemailsave']);
+Route::get('/{soalan}/emel/{emel}', [BanksoalankemahiranemailController::class, 'soalankemahiranemailedit']);
+Route::post('/{soalan}/emel/{emel}/save', [BanksoalankemahiranemailController::class, 'soalankemahiranemaileditsave']);
 
 Route::get('/soalan-kemahiran-internet', [SoalankemahiraninternetController::class, 'index']);
 Route::get('/soalan-kemahiran-internet/{soalan}', [SoalankemahiraninternetController::class, 'page1']);

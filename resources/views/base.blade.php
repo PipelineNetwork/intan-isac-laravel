@@ -103,30 +103,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     {{-- ck editor --}}
-    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-    <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script> --}}
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
     <?php
-        use Spatie\Permission\Models\Role;
-        use Illuminate\Support\Facades\Auth;
-        $checkid2 = Auth::id();
-        $current_user = Auth::user()->user_group_id;
-        $check = Role::where('id', $current_user)->first();
-        $role = $check->name;
-        
-        if ($role == 'calon') {
-            $user_profils = DB::table('users')
-                ->where('id', '=', $checkid2)
-                ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
-                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
-                ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
-                ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
-                ->get()->first();
-        } else {
-            $user_profils = Auth::user();
-        }
+    use Spatie\Permission\Models\Role;
+    use Illuminate\Support\Facades\Auth;
+    $checkid2 = Auth::id();
+    $current_user = Auth::user()->user_group_id;
+    $check = Role::where('id', $current_user)->first();
+    $role = $check->name;
+    
+    if ($role == 'calon') {
+        $user_profils = DB::table('users')
+            ->where('id', '=', $checkid2)
+            ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+            ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+            ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+            ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
+            ->get()
+            ->first();
+    } else {
+        $user_profils = Auth::user();
+    }
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -178,27 +179,27 @@
                 </li> --}}
 
                 @can('dashboard')
-                <li class="nav-item">
-                    <a class="nav-link" href="/dashboard">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fas fa-user-alt me-sm-1 text-dark"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Dashboard</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-user-alt me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Dashboard</span>
+                        </a>
+                    </li>
                 @endcan
 
                 @can('profil')
-                <li class="nav-item">
-                    <a class="nav-link" href="/profil">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fas fa-user-alt me-sm-1 text-dark"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Profil</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profil">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-user-alt me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Profil</span>
+                        </a>
+                    </li>
                 @endcan
 
                 @if (auth()->user()->can('kebenaran pengguna')||auth()->user()->can('pengurusan pengguna'))
@@ -243,7 +244,6 @@
                         </a>
                     </li>
                 @endcan
-
                 @if (auth()->user()->can('senarai permohonan')||auth()->user()->can('senarai rayuan blacklist'))
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#permohonanadrop" class="nav-link "
@@ -292,6 +292,7 @@
                 }
                 ?> --}}
 
+<<<<<<< HEAD
                 @if (auth()->user()->can('pemilihan soalan')||auth()->user()->can('slip')||auth()->user()->can('sijil')||auth()->user()->can('semakan jawapan'))
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#pengurusanpenilaiandrop" class="nav-link "
@@ -445,7 +446,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>    
+                    </li>
                 @endcan
                 
                 @if (auth()->user()->can('hantar aduan')||auth()->user()->can('balas aduan')||auth()->user()->can('hantar rayuan')||auth()->user()->can('balas rayuan'))
@@ -525,7 +526,8 @@
                                 <li class="nav-item ">
                                     <a class="nav-link "
                                         href="/laporan/statistik-penilaian-mengikut-klasifikasi-gred-jawatan">
-                                        <span class="sidenav-normal"> Laporan Statistik Penilaian <br> Mengikut Klasifikasi <br> Gred
+                                        <span class="sidenav-normal"> Laporan Statistik Penilaian <br> Mengikut Klasifikasi
+                                            <br> Gred
                                             & Jawatan
                                         </span>
                                     </a>
@@ -538,7 +540,8 @@
                                 <li class="nav-item ">
                                     <a class="nav-link "
                                         href="/laporan/statistik-keseluruhan-pencapaian-penilaian-isac-mengikut-bulan">
-                                        <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan Pencapaian <br> Penilaian
+                                        <span class="sidenav-normal"> Laporan Statistik <br> Keseluruhan Pencapaian <br>
+                                            Penilaian
                                             ISAC Mengikut <br> Bulan </span>
                                     </a>
                                 </li>
@@ -550,7 +553,8 @@
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link " href="/laporan/keseluruhan-penilaian-isac-mengikut-iac">
-                                        <span class="sidenav-normal"> Laporan Keseluruhan <br> Penilaian ISAC Mengikut <br> IAC
+                                        <span class="sidenav-normal"> Laporan Keseluruhan <br> Penilaian ISAC Mengikut <br>
+                                            IAC
                                         </span>
                                     </a>
                                 </li>
@@ -605,7 +609,7 @@
                         </div>
                     </li>
                 @endcan
-                
+
             </ul>
         </div>
     </aside>
@@ -627,7 +631,7 @@
                                         {{ $user_profils->email }}
                                     </p>
                                     <p class="mb-0 font-weight-bold text-sm">
-                                        {{ucwords($role)}}
+                                        {{ ucwords($role) }}
                                         {{-- @if ($user_profils->user_group_id == 1)
                                             Pentadbir Sistem
                                         @elseif ($user_profils->user_group_id == 2)
@@ -652,7 +656,7 @@
                             </div>
                         </div>
                     </div>
-                    @endauth
+                @endauth
                 <div class=" mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         <div class="input-group">
@@ -680,7 +684,7 @@
                             </ul>
                         </ul>
                     @endguest
-                    
+
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                         <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                             <div class="sidenav-toggler-inner">
