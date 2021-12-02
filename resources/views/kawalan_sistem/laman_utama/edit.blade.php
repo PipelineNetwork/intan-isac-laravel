@@ -46,7 +46,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="card m-3">
+                <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Kemaskini</b>
                     </div>

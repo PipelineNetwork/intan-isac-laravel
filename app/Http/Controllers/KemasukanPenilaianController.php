@@ -12,55 +12,55 @@ use Illuminate\Support\Facades\Auth;
 
 class KemasukanPenilaianController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function kemasukan_id(Request $request){
-        $id_penilaian = $request->id_penilaian;
-        $jadual = Jadual::where("ID_PENILAIAN", $id_penilaian)->first();
 
         // check availability ID_PENILAIAN
+        $id_penilaian = $request->id_penilaian;
+        $jadual = Jadual::where("ID_PENILAIAN", $id_penilaian)->first();
         if($jadual == null){
             // dd("tidak sah");
             alert("Id Penilaian tidak sah");
             return redirect('/kemasukan-id');
         }
 
-        $calon = MohonPenilaian::where("id_sesi", $id_penilaian)->get();
+        // check calon match dgn id
         $nric = Auth::user()->nric;
-
-        // check calon match dengan id penilaian
-        foreach($calon as $calon){
-            $ic_calon = $calon->no_ic;
-            
-            // check calon dah jawab ke belum
-            // $id_penilaian_done = Bankjawapanpengetahuan::where('id_penilaian', $id_penilaian)->get();
-            // foreach($id_penilaian_done as $check_id){
-            //     $id_calon_done = $check_id->id_calon;
-            //     if($id_calon_done == $ic_calon){
-            //         alert("Anda telah menjawab pernilaian ini.");
-            //         return redirect('/kemasukan-id');
-            //     }
-            // }
-
-            date_default_timezone_set("Asia/Kuala_Lumpur");
-            $masa = date('H:i');
-            $masa_mula = $jadual->KOD_MASA_MULA;
-            $masa_tamat = $jadual->KOD_MASA_TAMAT;
-
-
-            if($nric == $ic_calon){
-                // dd('jadi');
-                return view('kemasukan_id.paparan_maklumat_penilaian',[
-                    'jadual'=>$jadual,
-                    'calon'=>$calon,
-                    'id_penilaian'=>$id_penilaian,
-                    'masa'=>$masa,
-                    'masa_mula'=>$masa_mula,
-                    'masa_tamat'=>$masa_tamat
-                ]);
-            }
+        $check_id = MohonPenilaian::where('no_ic', $nric)->where('id_sesi', $id_penilaian)->first();
+        if($check_id == null){
+            alert("Anda tiada dalam senarai calon penilaian untuk sesi ini");
+            return redirect('/kemasukan-id');
         }
 
-        alert("Anda tiada dalam senarai calon penilaian untuk id ini");
-        return redirect('/kemasukan-id');
+        // check calon dah jawab ke belum
+        $id_penilaian_done = Bankjawapanpengetahuan::where('id_calon', $nric)->where('id_penilaian', $id_penilaian)->first();
+        if($id_penilaian_done != null){
+            alert("Anda telah menjawab pernilaian ini.");
+            return redirect('/kemasukan-id');
+        }
+
+        //semua check passed, baru exam
+        $calon = MohonPenilaian::where("id_sesi", $id_penilaian)->get();
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $masa = date('H:i');
+        $masa_mula = $jadual->KOD_MASA_MULA;
+        $masa_tamat = $jadual->KOD_MASA_TAMAT;
+
+        $tarikh = date('d-m-Y');
+        $tarikh_penilaian = date('d-m-Y', strtotime($jadual->TARIKH_SESI));
+        return view('kemasukan_id.paparan_maklumat_penilaian',[
+            
+            'calon'=>$calon,
+            'id_penilaian'=>$id_penilaian,
+            'masa'=>$masa,
+            'masa_mula'=>$masa_mula,
+            'masa_tamat'=>$masa_tamat,
+            'tarikh'=>$tarikh,
+            'tarikh_penilaian'=>$tarikh_penilaian
+        ]);
     }
 
     public function kemasukan_penilaian($id_penilaian, $soalan){

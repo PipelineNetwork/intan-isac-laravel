@@ -104,11 +104,14 @@
     <?php
     
     use App\Models\Jadual;
+    use App\Models\LamanUtama;
     
     $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
         ->orderBy('TARIKH_SESI', 'desc')
         ->whereYear('TARIKH_SESI', '>=', 2021)
         ->get();
+
+    $lamanutama = LamanUtama::all();
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -137,131 +140,7 @@
                         </button>
                         <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
                             <ul class="navbar-nav navbar-nav-hover mx-auto">
-                                <li class="nav-item dropdown dropdown-hover mx-2">
-                                    <a role="button"
-                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                                        id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Kampus INTAN
-                                        <img src="../assets/img/down-arrow-dark.svg" alt="down-arrow"
-                                            class="arrow ms-1">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-animation dropdown-xl p-3 border-radius-xl mt-0 mt-lg-3"
-                                        aria-labelledby="dropdownMenuPages">
-                                        <div class="row d-none d-lg-block">
-                                            <div class="col-12 px-4 py-2">
-                                                <div class="row">
-                                                    <div class="col-4 position-relative">
-                                                        <div
-                                                            class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center px-0">
-                                                            <div class="d-inline-block">
-                                                                <div
-                                                                    class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center">
-                                                                    <svg width="12px" height="12px" viewBox="0 0 45 40"
-                                                                        version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                        xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                        <title>shop </title>
-                                                                        <g stroke="none" stroke-width="1" fill="none"
-                                                                            fill-rule="evenodd">
-                                                                            <g transform="translate(-1716.000000, -439.000000)"
-                                                                                fill="#FFFFFF" fill-rule="nonzero">
-                                                                                <g
-                                                                                    transform="translate(1716.000000, 291.000000)">
-                                                                                    <g
-                                                                                        transform="translate(0.000000, 148.000000)">
-                                                                                        <path
-                                                                                            d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
-                                                                                            opacity="0.598981585">
-                                                                                        </path>
-                                                                                        <path
-                                                                                            d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-                                                                                        </path>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                            Semenanjung Malaysia
-                                                        </div>
-                                                        <a href="http://www.mytc.gov.my/index.php?page=hotels&hid=5178"
-                                                            class="dropdown-item border-radius-md">
-                                                            <span class="ps-3">Kampus Utama</span>
-                                                        </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/index.php/ms/3-about-intan/organisational/47-kampus-intengah"
-                                                            class="dropdown-item border-radius-md">
-                                                            <span class="ps-3">Kampus Tengah</span>
-                                                        </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/ms/kikwas"
-                                                            class="dropdown-item border-radius-md">
-                                                            <span class="ps-3">Kampus Wilayah Selatan</span>
-                                                        </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/ms/kintura"
-                                                            class="dropdown-item border-radius-md">
-                                                            <span class="ps-3">Kampus Wilayah Utara</span>
-                                                        </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/index.php/ms/kintim"
-                                                            class="dropdown-item border-radius-md">
-                                                            <span class="ps-3">Kampus Wilayah Timur</span>
-                                                        </a>
-                                                        <a href=".https://www.jpa.gov.my/info-korporat/program-bahagian/26-maklumat-bahagian/173-intan"
-                                                            class="dropdown-item border-radius-md">
-                                                            <span class="ps-3">Jabatan Perkhidmatan
-                                                                Awam</span>
-                                                        </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/ms/intan-kampus-satelit-putrajaya"
-                                                            class="dropdown-item border-radius-md">
-                                                            <span class="ps-3">INTAN LOCAL</span>
-                                                        </a>
-                                                        <div
-                                                            class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-0 mt-3">
-                                                            <div class="d-inline-block">
-                                                                <div
-                                                                    class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
-                                                                    <svg width="12px" height="12px" viewBox="0 0 42 42"
-                                                                        version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                                        xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                        <title>office</title>
-                                                                        <g stroke="none" stroke-width="1" fill="none"
-                                                                            fill-rule="evenodd">
-                                                                            <g transform="translate(-1869.000000, -293.000000)"
-                                                                                fill="#FFFFFF" fill-rule="nonzero">
-                                                                                <g
-                                                                                    transform="translate(1716.000000, 291.000000)">
-                                                                                    <g
-                                                                                        transform="translate(153.000000, 2.000000)">
-                                                                                        <path
-                                                                                            d="M12.25,17.5 L8.75,17.5 L8.75,1.75 C8.75,0.78225 9.53225,0 10.5,0 L31.5,0 C32.46775,0 33.25,0.78225 33.25,1.75 L33.25,12.25 L29.75,12.25 L29.75,3.5 L12.25,3.5 L12.25,17.5 Z"
-                                                                                            opacity="0.6"></path>
-                                                                                        <path
-                                                                                            d="M40.25,14 L24.5,14 C23.53225,14 22.75,14.78225 22.75,15.75 L22.75,38.5 L19.25,38.5 L19.25,22.75 C19.25,21.78225 18.46775,21 17.5,21 L1.75,21 C0.78225,21 0,21.78225 0,22.75 L0,40.25 C0,41.21775 0.78225,42 1.75,42 L40.25,42 C41.21775,42 42,41.21775 42,40.25 L42,15.75 C42,14.78225 41.21775,14 40.25,14 Z M12.25,36.75 L7,36.75 L7,33.25 L12.25,33.25 L12.25,36.75 Z M12.25,29.75 L7,29.75 L7,26.25 L12.25,26.25 L12.25,29.75 Z M35,36.75 L29.75,36.75 L29.75,33.25 L35,33.25 L35,36.75 Z M35,29.75 L29.75,29.75 L29.75,26.25 L35,26.25 L35,29.75 Z M35,22.75 L29.75,22.75 L29.75,19.25 L35,19.25 L35,22.75 Z">
-                                                                                        </path>
-                                                                                    </g>
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                            Sabah/Sarawak
-                                                        </div>
-                                                        <a href="https://www.intanbk.intan.my/iportal/ms/ksabah"
-                                                            class="dropdown-item border-radius-md">
-                                                            <span class="ps-3">Kampus INTAN Sabah</span>
-                                                        </a>
-                                                        <a href="https://www.intanbk.intan.my/iportal/ms/ksarawak"
-                                                            class="dropdown-item border-radius-md">
-                                                            <span class="ps-3">Kampus INTAN Sarawak</span>
-                                                        </a>
-                                                        <hr class="vertical dark">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li class="nav-item dropdown dropdown-hover mx-2">
+                                {{-- <li class="nav-item dropdown dropdown-hover mx-2">
                                     <a role="button"
                                         class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
                                         id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
@@ -380,27 +259,29 @@
                                             </div>
                                         </div>
                                     </div>
-                                </li>
+                                </li> --}}
 
                                 <li class="nav-item mx-2">
-                                    <a role="button" href="/tambahrayuans"
+                                    <a role="button" href="#infoisac"
                                         class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
-                                        Rayuan
+                                        Mengenai ISAC
                                     </a>
                                 </li>
 
                                 <li class="nav-item mx-2">
-                                    <a role="button" href="/tambahaduans"
-                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
-                                        Aduan
-                                    </a>
-                                </li>
-                                <li class="nav-item mx-2">
-                                    <a role="button" href="#one"
+                                    <a role="button" href="#jadual"
                                         class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
                                         Jadual
                                     </a>
                                 </li>
+
+                                <li class="nav-item mx-2">
+                                    <a role="button" href="#contact"
+                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
+                                        Hubungi Kami
+                                    </a>
+                                </li>
+
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
                                 <li class="nav-item">
@@ -420,11 +301,11 @@
         <div class="page-header min-vh-75">
             <div class="oblique position-absolute top-0 h-100 d-md-block d-none">
                 <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
-                    style=" filter: grayscale(100%); background-image:url('https://www.intanbk.intan.my/iportal/images/klus_imatec/kluster/imatecentrance.jpg')">
+                    style="background-image:url('img/JPA4.jpeg')">
                 </div>
             </div>
             <div class="container">
-                <div class="row">
+                <div class="row vh-100">
 
                     <div
                         class="col-lg-6 col-md-7 d-flex justify-content-center text-md-start text-center flex-column mt-7">
@@ -437,16 +318,17 @@
                                 <form method="POST" action="/login">
                                     @csrf
 
-                                    {{ Auth::user() }}
+                                    {{-- {{ Auth::user() }} --}}
                                     <label>ID Pengguna (No MyKad/Polis/Tentera)</label>
                                     <div>
                                         <x-input id="nric" class="form-control w-75" type="nric" name="nric"
-                                            :value="old('nric')" required autofocus maxlength="12" size="12" />
+                                            :value="old('nric')" required autofocus maxlength="12" size="12"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                     </div>
                                     <label>Kata Laluan</label>
                                     <div>
-                                        <x-input id="password" class="form-control w-75" type="password"
-                                            name="password" required autocomplete="current-password" minlength="8" />
+                                        <x-input id="password" class="form-control w-75" type="password" name="password"
+                                            required autocomplete="current-password" minlength="8" />
                                     </div>
 
                                     <a href="/forgot-password" target="_blank" style="color: red">Lupa Kata Laluan?</a>
@@ -469,7 +351,7 @@
     <!-- -------- END HEADER 1 w/ text and image on right ------- -->
     <!-- -------- START Features w/ 4 cols w/ colored icon & title & text -------- -->
 
-    <section class="py-md-7 bg-gradient-warning">
+    <section class="py-md-7 bg-gradient-warning" id="infoisac">
 
 
         <div class="container">
@@ -520,7 +402,9 @@
 
                         </p>
                     </div>
-                    <div class="primary text-start border-radius-lg mt-6">
+                </div>
+                <div class="col-md-6">
+                    <div class="primary text-start border-radius-lg">
                         <div class="icon">
                             <svg class="text-primary" width="25px" height="25px" viewBox="0 0 40 40" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -552,9 +436,7 @@
 
                         </p>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="primary text-start border-radius-lg">
+                    <div class="primary text-start border-radius-lg mt-6">
                         <div class="icon">
                             <svg class="text-primary" width="25px" height="25px" viewBox="0 0 42 44" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -589,7 +471,7 @@
                         </ul>
                         </p>
                     </div>
-                    <div class="primary text-start border-radius-lg mt-6">
+                    {{-- <div class="primary text-start border-radius-lg mt-6">
                         <div class="icon">
                             <svg class="text-primary" width="25px" height="25px" viewBox="0 0 52 35" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -627,7 +509,7 @@
                             <li>Jabatan Perkhidmatan Awam (JPA)</li>
                         </ul>
 
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -682,7 +564,20 @@
                 </div>
             </div>
 
-            <div class="row pt-5" id="one">
+            @foreach ($lamanutama as $lamanutama)
+            <div class="card m-5">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5>{{$lamanutama->TAJUK}}</h5>
+                            {!!$lamanutama->KETERANGAN!!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+
+            <div class="row pt-5" id="jadual">
                 <div class="col">
                     <div class="card">
                         <div class="card-header" style="background-color:#FFA500;">
@@ -703,10 +598,10 @@
 
                                     @foreach ($jaduals as $jadual)
                                         <tr>
-                                            <td class="text-center">{{ $loop->index + 1 }}</td>
+                                            {{-- <td class="text-center">{{ $loop->index + 1 }}</td>
                                             <td class="text-center">
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
-                                            </td>
+                                            </td> --}}
                                             <td class="text-center">{{ $loop->index + 1 }}</td>
                                             <td class="text-center">
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
@@ -778,7 +673,7 @@
             </div>
         </div>
     </section>
-    <footer class="footer pt-4 mt-3">
+    <footer class="footer pt-4 mt-3" id="contact">
         <hr class="horizontal dark mb-5">
         <div class="container">
             <div class=" row">
@@ -868,27 +763,27 @@
         </div>
     </footer>
     <!--   Core JS Files   -->
-    <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    {{-- <script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script> --}}
     <!--  Plugin for TypedJS, full documentation here: https://github.com/mattboldt/typed.js/ -->
-    <script src="../assets/js/plugins/typedjs.js"></script>
+    {{-- <script src="/assets/js/plugins/typedjs.js"></script> --}}
     <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
-    <script src="../assets/js/plugins/parallax.min.js"></script>
+    {{-- <script src="/assets/js/plugins/parallax.min.js"></script> --}}
     <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    <script src="../assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+    {{-- <script src="/assets/js/plugins/nouislider.min.js" type="text/javascript"></script> --}}
     <!--  Plugin for the GlideJS Carousel, full documentation here: http://kenwheeler.github.io/slick/ -->
-    <script src="../assets/js/plugins/glidejs.min.js" type="text/javascript"></script>
+    {{-- <script src="/assets/js/plugins/glidejs.min.js" type="text/javascript"></script> --}}
     <!--  Plugin for the blob animation -->
-    <script src="../assets/js/plugins/anime.min.js" type="text/javascript"></script>
+    {{-- <script src="/assets/js/plugins/anime.min.js" type="text/javascript"></script> --}}
     <!-- Chart JS -->
-    <script src="../assets/js/plugins/chartjs.min.js"></script>
+    {{-- <script src="/assets/js/plugins/chartjs.min.js"></script> --}}
     <!-- Control Center for Soft UI Kit: parallax effects, scripts for the example pages etc -->
     <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script> --}}
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="../assets/js/soft-design-system-pro.min.js?v=1.0.8" type="text/javascript"></script>
+    {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
+    {{-- <script src="/assets/js/soft-design-system-pro.min.js?v=1.0.8" type="text/javascript"></script> --}}
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')

@@ -43,7 +43,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="column-12">
-                    <a href="/selenggara_kawalan_sistem/{{$kawalan->ID_KAWALAN_SISTEM}}/edit" class="btn bg-gradient-primary mx-4" type="submit"
+                    <a href="/selenggara_kawalan_sistem/{{$kawalan->ID_KAWALAN_SISTEM}}/edit" class="btn bg-gradient-primary mb-0" type="submit"
                         style="float: right;">Kemaskini</a>
                 </div>
             </div>
@@ -51,7 +51,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="card m-3">
+                <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Option Papar Keputusan</b>
                     </div>
@@ -77,7 +77,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="card m-3">
+                <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Tempoh Masa Penilaian</b>
                     </div>
@@ -119,7 +119,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="card m-3">
+                <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Tempoh Kebenaran Permohonan</b>
                     </div>
@@ -154,7 +154,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="card m-3">
+                <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Tempoh Kebenaran Penjadualan Semula</b>
                     </div>

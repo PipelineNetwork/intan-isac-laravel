@@ -1,7 +1,7 @@
 @extends('base')
 @section('content')
 
-    @if ($current_user == '5')
+    @role('calon')
         <div class="container-fluid py-4">
             <div class="row mt-3">
                 <div class="col-12 ">
@@ -32,20 +32,26 @@
                             </li>
                             <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Profil</li>
                         </ol>
-                        <h6 class="font-weight-bolder">Profil</h6>
+                        {{-- <h5 class="font-weight-bolder">Profil</h5> --}}
                     </nav>
-                    
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h5 class="font-weight-bolder">Profil</h5>
+                        </div>
+                    </div>
+
                     <div class="card">
                         <div class="card-header p-3" style="background-color:#FFA500;">
                             <div class="row align-item-center">
                                 <div class="col-md-8 d-flex align-items-center">
-                                    <h4 class="mb-0 text-white">Profil</h4>
+                                    <b class="mb-0 text-white">Profil</b>
                                 </div>
                                 <div class="col-md-4 text-end ">
                                     <a href="javascript:;">
-                                        <a href="/profil/{{ $user_profils->id }}"
-                                            class="btn bg-gradient-info text-white "
-                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini">Kemaskini Maklumat</a>
+                                        <a href="/profil/{{ $user_profils->id }}" class="btn bg-gradient-info text-white mb-0"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini">Kemaskini
+                                            Maklumat</a>
                                     </a>
                                 </div>
                             </div>
@@ -78,16 +84,15 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-3">
-                                        <label class="form-control-label mr-4"
-                                            for="{{ $user_profils->NO_KAD_PENGENALAN }}">
+                                        <label class="form-control-label mr-4" for="{{ $user_profils->NO_KAD_PENGENALAN }}">
                                             No MyKad/Polis/Tentera/Pasport
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
                                         <input class="form-control form-control-sm ml-3" name="NO_KAD_PENGENALAN"
                                             id="{{ $user_profils->NO_KAD_PENGENALAN }}" type="text"
-                                            value="{{ $user_profils->NO_KAD_PENGENALAN }}" disabled="" required
-                                            maxlength="12" size="12">
+                                            value="{{ $user_profils->NO_KAD_PENGENALAN }}" disabled="" required maxlength="12"
+                                            size="12">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -103,22 +108,22 @@
                                     </div>
                                 </div>
                                 {{-- <div class="row mb-2">
-                                    <div class="col-3">
-                                        <label class="form-control-label mr-4" for="input_kod_kementerian">
-                                            Kod Kementerian
-                                        </label><label class="float-right">:</label>
-                                    </div>
-                                    <div class="col-8">
-                                        @if ($user_profils->KOD_KEMENTERIAN != null)
-                                            <input class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN"
-                                                id="input_kod_kementerian" type="text"
-                                                value="{{ $user_profils->KOD_KEMENTERIAN }}" disabled="" required>
-                                        @else
-                                            <input class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN"
-                                                id="input_kod_kementerian" type="text" value="" disabled="" required>
-                                        @endif
-                                    </div>
-                                </div> --}}
+                            <div class="col-3">
+                                <label class="form-control-label mr-4" for="input_kod_kementerian">
+                                    Kod Kementerian
+                                </label><label class="float-right">:</label>
+                            </div>
+                            <div class="col-8">
+                                @if ($user_profils->KOD_KEMENTERIAN != null)
+                                    <input class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN"
+                                        id="input_kod_kementerian" type="text"
+                                        value="{{ $user_profils->KOD_KEMENTERIAN }}" disabled="" required>
+                                @else
+                                    <input class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN"
+                                        id="input_kod_kementerian" type="text" value="" disabled="" required>
+                                @endif
+                            </div>
+                        </div> --}}
 
                             </div>
                         </div>
@@ -128,7 +133,7 @@
                         <div class="card-header p-3" style="background-color:#FFA500;">
                             <div class="row">
                                 <div class="col-md-8 d-flex align-items-center">
-                                    <h4 class="mb-0 text-white">Maklumat Permohonan</h4>
+                                    <b class="mb-0 text-white">Maklumat Permohonan</b>
                                 </div>
                                 <div class="col-md-4 text-end">
                                     <a href="javascript:;">
@@ -166,8 +171,7 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->EMEL_PESERTA }}">
+                                            <label class="form-control-label mr-4" for="{{ $user_profils->EMEL_PESERTA }}">
                                                 E-mel
                                             </label><label class="float-right">:</label>
                                         </div>
@@ -196,12 +200,10 @@
                                                     id="input_kod_gelaran" type="text" value="Datin" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '04')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datin Amar" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datin Amar" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '05')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datin Dr." disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datin Dr." disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '06')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Datin Paduka" disabled=""
@@ -212,20 +214,18 @@
                                                     required>
                                             @elseif ($user_profils->KOD_GELARAN == '08')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datin Professor Dr."
-                                                    disabled="" required>
+                                                    id="input_kod_gelaran" type="text" value="Datin Professor Dr." disabled=""
+                                                    required>
                                             @elseif ($user_profils->KOD_GELARAN == '09')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datin Seri" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datin Seri" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '10')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Datin Seri Utama" disabled=""
                                                     required>
                                             @elseif ($user_profils->KOD_GELARAN == '11')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datin Sri" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datin Sri" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '12')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Datin Sri Cempaka" disabled=""
@@ -236,24 +236,19 @@
                                                     required>
                                             @elseif ($user_profils->KOD_GELARAN == '14')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datin Wira" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datin Wira" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '15')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Dato Dr." disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Dato Dr." disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '16')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Dato Ir." disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Dato Ir." disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '17')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Dato Ir Dr." disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Dato Ir Dr." disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '18')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Dato Paduka" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Dato Paduka" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '19')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Dato  Paduka Dr." disabled=""
@@ -272,24 +267,21 @@
                                                     required>
                                             @elseif ($user_profils->KOD_GELARAN == '23')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Dato Seri" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Dato Seri" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '24')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Dato Seri Panglima"
-                                                    disabled="" required>
+                                                    id="input_kod_gelaran" type="text" value="Dato Seri Panglima" disabled=""
+                                                    required>
                                             @elseif ($user_profils->KOD_GELARAN == '25')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Dato Seri Utama" disabled=""
                                                     required>
                                             @elseif ($user_profils->KOD_GELARAN == '26')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Dato Sri" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Dato Sri" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '27')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Dato Wira" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Dato Wira" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '28')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Datu" disabled="" required>
@@ -298,24 +290,21 @@
                                                     id="input_kod_gelaran" type="text" value="Datuk" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '30')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Amar" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Amar" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '31')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Bentara Luar"
-                                                    disabled="" required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Bentara Luar" disabled=""
+                                                    required>
                                             @elseif ($user_profils->KOD_GELARAN == '32')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Bentara Raja"
-                                                    disabled="" required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Bentara Raja" disabled=""
+                                                    required>
                                             @elseif ($user_profils->KOD_GELARAN == '33')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Dr." disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Dr." disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '34')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Kol." disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Kol." disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '35')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Datuk Patinggi" disabled=""
@@ -326,44 +315,40 @@
                                                     required>
                                             @elseif ($user_profils->KOD_GELARAN == '37')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Professor Dr."
-                                                    disabled="" required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Professor Dr." disabled=""
+                                                    required>
                                             @elseif ($user_profils->KOD_GELARAN == '38')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Seri" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Seri" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '39')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Seri Panglima"
-                                                    disabled="" required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Seri Panglima" disabled=""
+                                                    required>
                                             @elseif ($user_profils->KOD_GELARAN == '40')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Datuk Seri Utama" disabled=""
                                                     required>
                                             @elseif ($user_profils->KOD_GELARAN == '41')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Setia" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Setia" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '42')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Setia Wangsa"
-                                                    disabled="" required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Setia Wangsa" disabled=""
+                                                    required>
                                             @elseif ($user_profils->KOD_GELARAN == '43')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Sri" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Sri" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '44')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Sri Amar Diraja"
-                                                    disabled="" required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Sri Amar Diraja" disabled=""
+                                                    required>
                                             @elseif ($user_profils->KOD_GELARAN == '45')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Datuk Sri Dr." disabled=""
                                                     required>
                                             @elseif ($user_profils->KOD_GELARAN == '46')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Datuk Wira" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Datuk Wira" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '47')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Datuk Wira Jaya" disabled=""
@@ -403,12 +388,10 @@
                                                     id="input_kod_gelaran" type="text" value="Major" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '59')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Pehin Sri" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Pehin Sri" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '60')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Professor" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Professor" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '61')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Professor Diraja" disabled=""
@@ -423,15 +406,14 @@
                                                     required>
                                             @elseif ($user_profils->KOD_GELARAN == '64')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Professor Madya Dr."
-                                                    disabled="" required>
+                                                    id="input_kod_gelaran" type="text" value="Professor Madya Dr." disabled=""
+                                                    required>
                                             @elseif ($user_profils->KOD_GELARAN == '65')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Puan" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '66')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Puan Sri" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Puan Sri" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '67')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Puan Sri Datin" disabled=""
@@ -477,8 +459,7 @@
                                                     disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '78')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Tan Sri Dr." disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Tan Sri Dr." disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '79')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Tan Sri Jeneral" disabled=""
@@ -492,22 +473,20 @@
                                                     id="input_kod_gelaran" type="text" value="To Puan" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '82')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Toh Puan Seri Utama"
-                                                    disabled="" required>
+                                                    id="input_kod_gelaran" type="text" value="Toh Puan Seri Utama" disabled=""
+                                                    required>
                                             @elseif ($user_profils->KOD_GELARAN == '83')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Tuan" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '84')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Tuan Haji" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Tuan Haji" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '85')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="Tun" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == '86')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                    id="input_kod_gelaran" type="text" value="Yang Mulia" disabled=""
-                                                    required>
+                                                    id="input_kod_gelaran" type="text" value="Yang Mulia" disabled="" required>
                                             @elseif ($user_profils->KOD_GELARAN == null)
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN"
                                                     id="input_kod_gelaran" type="text" value="" disabled="" required>
@@ -520,8 +499,7 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->NAMA_PESERTA }}}">
+                                            <label class="form-control-label mr-4" for="{{ $user_profils->NAMA_PESERTA }}}">
                                                 Nama Penuh
                                             </label><label class="float-right">:</label>
                                         </div>
@@ -533,8 +511,7 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->TARIKH_LAHIR }}">
+                                            <label class="form-control-label mr-4" for="{{ $user_profils->TARIKH_LAHIR }}">
                                                 Tarikh Lahir
                                             </label><label class="float-right">:</label>
                                         </div>
@@ -546,8 +523,7 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_JANTINA }}">
+                                            <label class="form-control-label mr-4" for="{{ $user_profils->KOD_JANTINA }}">
                                                 Jantina
                                             </label><label class="float-right">:</label>
                                         </div>
@@ -570,12 +546,12 @@
                                                     disabled="" required>
                                             @else
                                                 <input class="form-control form-control-sm ml-3" name="KOD_JANTINA"
-                                                    id="{{ $user_profils->KOD_JANTINA }}" type="text" value=""
-                                                    disabled="" required>
+                                                    id="{{ $user_profils->KOD_JANTINA }}" type="text" value="" disabled=""
+                                                    required>
                                             @endif
                                             {{-- <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->KOD_JANTINA }}" type="text"
-                                                value="{{ $user_profils->KOD_JANTINA }}" disabled="" required> --}}
+                                        id="{{ $user_profils->KOD_JANTINA }}" type="text"
+                                        value="{{ $user_profils->KOD_JANTINA }}" disabled="" required> --}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -593,8 +569,7 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_PERINGKAT }}">
+                                            <label class="form-control-label mr-4" for="{{ $user_profils->KOD_PERINGKAT }}">
                                                 Peringkat
                                             </label><label class="float-right">:</label>
                                         </div>
@@ -726,8 +701,7 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_JABATAN }}">
+                                            <label class="form-control-label mr-4" for="{{ $user_profils->KOD_JABATAN }}">
                                                 Jabatan
                                             </label><label class="float-right">:</label>
                                         </div>
@@ -799,8 +773,7 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->KOD_NEGERI }}">
+                                            <label class="form-control-label mr-4" for="{{ $user_profils->KOD_NEGERI }}">
                                                 Negeri
                                             </label><label class="float-right">:</label>
                                         </div>
@@ -812,8 +785,7 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->NAMA_PENYELIA }}">
+                                            <label class="form-control-label mr-4" for="{{ $user_profils->NAMA_PENYELIA }}">
                                                 Nama Penyelia
                                             </label><label class="float-right">:</label>
                                         </div>
@@ -825,8 +797,7 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4"
-                                                for="{{ $user_profils->EMEL_PENYELIA }}">
+                                            <label class="form-control-label mr-4" for="{{ $user_profils->EMEL_PENYELIA }}">
                                                 E-mel Penyelia
                                             </label><label class="float-right">:</label>
                                         </div>
@@ -846,8 +817,7 @@
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="NO_TELEFON_PENYELIA"
                                                 id="{{ $user_profils->NO_TELEFON_PENYELIA }}" type="text"
-                                                value="{{ $user_profils->NO_TELEFON_PENYELIA }}" disabled=""
-                                                maxlength="11">
+                                                value="{{ $user_profils->NO_TELEFON_PENYELIA }}" disabled="" maxlength="11">
                                         </div>
                                     </div>
 
@@ -916,15 +886,14 @@
         </div>
     @else
         <div class="container-fluid py-4">
-            <div class="row mt-3">
-                <div class="col-12 ">
+            <div class="row">
+                <div class="col">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                             <li class="breadcrumb-item text-sm">
                                 <a class="opacity-3 text-dark" href="javascript:;">
-                                    <svg width="12px" height="12px" class="mb-1" viewBox="0 0 45 40"
-                                        version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <svg width="12px" height="12px" class="mb-1" viewBox="0 0 45 40" version="1.1"
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <title>shop </title>
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                             <g transform="translate(-1716.000000, -439.000000)" fill="#252f40"
@@ -944,22 +913,31 @@
                                     </svg>
                                 </a>
                             </li>
-                            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Profil</li>
+                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Profil</a></li>
                         </ol>
-                        <h6 class="font-weight-bolder">Profil</h6>
                     </nav>
-                    
-                    <div class="card">
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5 class="font-weight-bolder">Profil</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card mt-3">
                         <div class="card-header p-3" style="background-color:#FFA500;">
                             <div class="row">
                                 <div class="col-md-8 d-flex align-items-center">
-                                    <h4 class="mb-0 text-white">Profil</h4>
+                                    <b class="mb-0 text-white">Profil</b>
                                 </div>
                                 <div class="col-md-4 text-end">
                                     <a href="javascript:;">
-                                        <a href="/profil/{{ $user_profils->id }}"
-                                            class="fas fa-user-edit text-secondary text-sm button  text-white "
-                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini"></a>
+                                        <a href="/profil/{{ $user_profils->id }}" class="btn bg-gradient-info text-white mb-0"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini">Kemaskini
+                                            Maklumat</a>
                                     </a>
                                 </div>
                             </div>
@@ -980,9 +958,8 @@
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->name }}" type="text"
-                                                value=" {{ $user_profils->name }}" disabled="" required>
+                                            <input class="form-control form-control-sm ml-3" id="{{ $user_profils->name }}"
+                                                type="text" value=" {{ $user_profils->name }}" disabled="" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -992,9 +969,8 @@
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3"
-                                                id="{{ $user_profils->nric }}" type="text"
-                                                value="{{ $user_profils->nric }}" disabled="" required maxlength="12"
+                                            <input class="form-control form-control-sm ml-3" id="{{ $user_profils->nric }}"
+                                                type="text" value="{{ $user_profils->nric }}" disabled="" required maxlength="12"
                                                 size="12">
                                         </div>
                                     </div>
@@ -1022,79 +998,78 @@
                                                 value="{{ $user_profils->ministry_code }}" disabled="" required>
                                         </div>
                                     </div> --}}
-
+        
                                 </div>
                             </div>
-
+        
                             <hr class="horizontal gray-light my-4">
-
+        
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="row mt-4">
-                        <div class="col-12">
-                            <div class="card mb-4">
-                                <div class="card-header pb-0 p-3">
-                                    <h6 class="mb-1">Kata Laluan</h6>
-                                    <p class="text-sm">Tukar Kata Laluan</p>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0 p-3">
+                            <h6 class="mb-1">Kata Laluan</h6>
+                            <p class="text-sm">Tukar Kata Laluan</p>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="/change-password">
+                                @csrf
+
+                                @foreach ($errors->all() as $error)
+                                    <p class="text-danger">{{ $error }}</p>
+                                @endforeach
+
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Kata Laluan
+                                        Lama
+                                    </label>
+
+                                    <div class="col-md-6">
+                                        <input id="password" type="password" class="form-control" name="current_password"
+                                            autocomplete="current-password" minlength="8">
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <form method="POST" action="/change-password">
-                                        @csrf
 
-                                        @foreach ($errors->all() as $error)
-                                            <p class="text-danger">{{ $error }}</p>
-                                        @endforeach
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Kata Laluan
+                                        Baru</label>
 
-                                        <div class="form-group row">
-                                            <label for="password" class="col-md-4 col-form-label text-md-right">Kata Laluan
-                                                Lama
-                                            </label>
-
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control"
-                                                    name="current_password" autocomplete="current-password" minlength="8">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="password" class="col-md-4 col-form-label text-md-right">Kata Laluan
-                                                Baru</label>
-
-                                            <div class="col-md-6">
-                                                <input id="new_password" type="password" class="form-control"
-                                                    name="new_password" autocomplete="current-password" minlength="8">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="password" class="col-md-4 col-form-label text-md-right">Sah Kata
-                                                Laluan
-                                            </label>
-
-                                            <div class="col-md-6">
-                                                <input id="new_confirm_password" type="password" class="form-control"
-                                                    name="new_confirm_password" autocomplete="current-password"
-                                                    minlength="8">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row mb-0">
-                                            <div class="col-md-8 offset-md-4">
-                                                <button type="submit" class="btn bg-gradient-warning">
-                                                    Kemaskini Kata Laluan
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <div class="col-md-6">
+                                        <input id="new_password" type="password" class="form-control" name="new_password"
+                                            autocomplete="current-password" minlength="8">
+                                    </div>
                                 </div>
-                            </div>
+
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Sah Kata
+                                        Laluan
+                                    </label>
+
+                                    <div class="col-md-6">
+                                        <input id="new_confirm_password" type="password" class="form-control"
+                                            name="new_confirm_password" autocomplete="current-password" minlength="8">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn bg-gradient-warning">
+                                            Kemaskini Kata Laluan
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    @endif
+    @endrole
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')

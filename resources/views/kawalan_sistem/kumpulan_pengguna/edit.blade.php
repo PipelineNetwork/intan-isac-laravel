@@ -41,7 +41,7 @@ use App\Models\PerananDanKebenaran;
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-lg-6">
                 <h5 class="font-weight-bolder">Kebenaran Pengguna</h5>
             </div>
@@ -55,7 +55,7 @@ use App\Models\PerananDanKebenaran;
 
         <div class="row">
             <div class="col">
-                <div class="card m-3">
+                <div class="card">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Kebenaran</b>
                     </div>

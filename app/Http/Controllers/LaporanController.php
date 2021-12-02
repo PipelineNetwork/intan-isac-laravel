@@ -12,6 +12,11 @@ use Carbon\Carbon;
 
 class LaporanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function laporan_penilaian_isac_mengikut_kementerian(Request $request)
     {
 

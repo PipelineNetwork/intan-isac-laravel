@@ -42,7 +42,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="column-12">
-                    <a href="/notifikasi_email/{{$noti->id}}/edit" class="btn bg-gradient-primary mx-4" type="submit"
+                    <a href="/notifikasi_email/{{$noti->id}}/edit" class="btn bg-gradient-warning mb-0" type="submit"
                         style="float: right;">Kemaskini</a>
                 </div>
             </div>
@@ -50,7 +50,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="card m-3">
+                <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Notifikasi</b>
                     </div>

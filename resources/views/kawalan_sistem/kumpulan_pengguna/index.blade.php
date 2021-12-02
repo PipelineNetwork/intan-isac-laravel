@@ -29,8 +29,8 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kawalan Sistem</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kebenaran Pengguna</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pengurusan Pengguna</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kebenaran Kumpulan Pengguna</a></li>
                     </ol>
                 </nav>
             </div>
@@ -38,11 +38,11 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <h5 class="font-weight-bolder">Kebenaran Pengguna</h5>
+                <h5 class="font-weight-bolder">Kebenaran Kumpulan Pengguna</h5>
             </div>
             <div class="col-lg-6">
                 <div class="column-12">
-                    <a href="/kebenaran_pengguna/create" class="btn bg-gradient-warning mx-4" type="submit"
+                    <a href="/kebenaran_pengguna/create" class="btn bg-gradient-warning" type="submit"
                         style="float: right;">TAMBAH</a>
                 </div>
             </div>
@@ -50,7 +50,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="card m-3">
+                <div class="card">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Pengguna</b>
                     </div>

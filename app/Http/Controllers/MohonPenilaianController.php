@@ -22,6 +22,11 @@ use Illuminate\Support\Facades\Validator;
 
 class MohonPenilaianController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -30,9 +35,9 @@ class MohonPenilaianController extends Controller
     public function index(Request $request)
     {
         $ic = Auth::user()->nric;
-        $calon_3 = MohonPenilaian::where('no_ic', $ic)->get();
+        $calon_3 = MohonPenilaian::where('no_ic', $ic)->orderBy('created_at', 'desc')->get();
 
-        $peserta = MohonPenilaian::all();
+        $peserta = MohonPenilaian::orderBy('created_at', 'desc')->get();
         return view('mohonPenilaian.senarai_permohonan', [
             'peserta' => $peserta,
             'calon_3'=>$calon_3

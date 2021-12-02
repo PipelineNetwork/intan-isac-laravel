@@ -44,7 +44,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="column-12">
-                    <a href="/videodannota/create" class="btn bg-gradient-warning mx-4" type="submit"
+                    <a href="/videodannota/create" class="btn bg-gradient-warning mb-0" type="submit"
                         style="float: right;">CIPTA</a>
                 </div>
             </div>
@@ -52,7 +52,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="card m-3">
+                <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Senarai Video dan Nota</b>
                     </div>

@@ -1,5 +1,8 @@
 @extends('base')
 @section('content')
+<?php
+use App\Models\Refgeneral;
+?>
 
     <div class="container-fluid py-4">
         <div class="row">
@@ -43,7 +46,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="column-12">
-                    <a href="/jaduals/create" class="btn bg-gradient-warning mx-4" type="submit"
+                    <a href="/jaduals/create" class="btn bg-gradient-warning" type="submit"
                         style="float: right;">Tambah
                         Jadual</a>
                 </div>
@@ -52,168 +55,191 @@
 
         <div class="row">
             <div class="col">
-                <div class="card m-3">
+                <div class="card">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Senarai Jadual</b>
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Kod Sesi</th>
-                                    <th>Tahap</th>
-                                    <th>Masa Mula</th>
-                                    <th>Masa Tamat</th>
-                                    <th>Tarikh Penilaian</th>
-                                    <th>Kategori Peserta</th>
-                                    <th>Jumlah Peserta</th>
-                                    <th>Kekosongan</th>
-                                    <th>Kementerian/Agensi</th>
-                                    <th>Platform</th>
-                                    <th>Lokasi</th>
-                                    <th>Status</th>
-                                    <th>Keterangan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach ($jaduals as $key => $jadual)
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+    
+                                <thead>
                                     <tr>
-                                        <td class="text-center">{{ $key+1 }}.</td>
-                                        <td class="text-center">{{ $jadual['KOD_SESI_PENILAIAN'] }}</td>
-                                        <td class="text-center">
-                                            @if ($jadual->KOD_TAHAP == '01')
-                                                Asas
-                                            @else
-                                                Lanjutan
-                                            @endif
-                                        </td>
-                                        <td class="text-center">{{ $jadual['KOD_MASA_MULA'] }}</td>
-                                        <td class="text-center">{{ $jadual['KOD_MASA_TAMAT'] }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}</td>
-                                        <td class="text-center">
-                                            @if ($jadual->KOD_KATEGORI_PESERTA == '01')
-                                                Individu
-                                            @else
-                                                Kumpulan
-                                            @endif
-                                        </td>
-                                        <td class="text-center">{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
-                                        <td class="text-center">{{ $jadual['KEKOSONGAN'] }}</td>
-                                        <td class="text-center">
-                                            @if ($jadual['KOD_KEMENTERIAN'] == null)
-                                                -
-                                            @else
-                                                {{ $jadual['KOD_KEMENTERIAN'] }}
-                                            @endif
-                                        </td>
-                                        <td>{{ $jadual['platform'] }}</td>
-                                        <td>
-                                            @if ($jadual['KOD_KEMENTERIAN'] == null)
-                                                -
-                                            @else
-                                                {{ $jadual['LOKASI'] }}
-                                            @endif
-                                        </td>
-                                        <td>{{ $jadual['status'] }}</td>
-                                        <td>{{ $jadual['keterangan'] }}</td>
-                                        <td>
-                                            <form method="POST" action="jaduals/{{ $jadual->ID_SESI }}">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button class="btn mb-0 btn-danger" type="submit">Hapus&emsp;<i class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                            <div class="dropdown">
-                                                <button class="btn btn-info dropdown-toggle" type="button"
-                                                    id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Kemaskini
-                                                </button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <li><a class="dropdown-item"
-                                                            href="/jaduals/{{ $jadual['ID_SESI'] }}/edit">Perubahan</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#penangguhan{{ $jadual['ID_SESI'] }}">Penangguhan</a>
-                                                    </li>
-                                                    <li><a class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#pembatalan{{ $jadual['ID_SESI'] }}">Pembatalan</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <div class="modal fade" id="penangguhan{{ $jadual['ID_SESI'] }}" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Penangguhan
-                                                        </h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <form action="/jadual/kemaskini_status/{{ $jadual['ID_SESI'] }}"
-                                                        method="POST">
-                                                        <div class="modal-body">
-                                                            @csrf
-                                                            <div class="form-group">
-                                                                <label for="keterangan"
-                                                                    class="form-control-label">Keterangan</label>
-                                                                <input class="form-control" type="text" name="keterangan">
-                                                                <input type="hidden" name="status" value="Penangguhan">
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn bg-gradient-secondary"
-                                                                data-bs-dismiss="modal">Tutup</button>
-                                                            <button type="submit"
-                                                                class="btn bg-gradient-primary">Kemaskini</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal fade" id="pembatalan{{ $jadual['ID_SESI'] }}" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Pembatalan
-                                                        </h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <form action="/jadual/kemaskini_status/{{ $jadual['ID_SESI'] }}"
-                                                        method="POST">
-                                                        <div class="modal-body">
-                                                            @csrf
-                                                            <div class="form-group">
-                                                                <label for="keterangan"
-                                                                    class="form-control-label">Keterangan</label>
-                                                                <input class="form-control" type="text" name="keterangan">
-                                                                <input type="hidden" name="status" value="Pembatalan">
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn bg-gradient-secondary"
-                                                                data-bs-dismiss="modal">Tutup</button>
-                                                            <button type="submit"
-                                                                class="btn bg-gradient-primary">Kemaskini</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <th>No.</th>
+                                        <th>Sesi</th>
+                                        <th>Tahap</th>
+                                        <th>Masa Mula</th>
+                                        {{-- <th>Masa Tamat</th> --}}
+                                        <th>Tarikh Penilaian</th>
+                                        <th>Kategori Peserta</th>
+                                        <th>Jumlah Peserta</th>
+                                        <th>Kekosongan</th>
+                                        <th>Kementerian/Agensi</th>
+                                        <th>Platform</th>
+                                        <th>Lokasi</th>
+                                        <th>Status</th>
+                                        <th>Keterangan</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+    
+                                    @foreach ($jaduals as $key => $jadual)
+                                        <tr>
+                                            <td class="text-center">{{ $key+1 }}.</td>
+                                            <td class="text-center">
+                                                @if($jadual['KOD_SESI_PENILAIAN'] == "01")
+                                                Pertama
+                                                @elseif($jadual['KOD_SESI_PENILAIAN'] == "02")
+                                                Kedua
+                                                @elseif($jadual['KOD_SESI_PENILAIAN'] == "03")
+                                                Ketiga
+                                                @endif
+                                                {{-- {{ $jadual['KOD_SESI_PENILAIAN'] }} --}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($jadual->KOD_TAHAP == '01')
+                                                    Asas
+                                                @else
+                                                    Lanjutan
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $jadual['KOD_MASA_MULA'] }}</td>
+                                            {{-- <td class="text-center">{{ $jadual['KOD_MASA_TAMAT'] }}</td> --}}
+                                            <td>{{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual->KOD_KATEGORI_PESERTA == '01')
+                                                    Individu
+                                                @else
+                                                    Kumpulan
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual['KEKOSONGAN'] == null)
+                                                    0
+                                                @else
+                                                    {{ $jadual['KEKOSONGAN'] }}
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($jadual['KOD_KEMENTERIAN'] == null)
+                                                    -
+                                                @else
+
+                                                <?php 
+                                                $kementerian = Refgeneral::where('MASTERCODE', '10028')->where('REFERENCECODE', $jadual->KOD_KEMENTERIAN)->first();
+                                                // $kementerian = $kementerian->DESCRIPTION1;
+                                                ?>
+                                                {{$kementerian['DESCRIPTION1']}}
+                                                    {{-- {{ $jadual['KOD_KEMENTERIAN'] }} --}}
+                                                @endif
+                                            </td>
+                                            <td>{{ $jadual['platform'] }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual['LOKASI'] == null)
+                                                    -
+                                                @else
+                                                    {{ $jadual['LOKASI'] }}
+                                                @endif
+                                            </td>
+                                            <td>{{ $jadual['status'] }}</td>
+                                            <td>{{ $jadual['keterangan'] }}</td>
+                                            <td>
+                                                <form method="POST" action="jaduals/{{ $jadual->ID_SESI }}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn mb-0 btn-danger" type="submit">Hapus&emsp;<i class="fas fa-trash-alt"></i></button>
+                                                </form>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-info dropdown-toggle" type="button"
+                                                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Kemaskini
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <li><a class="dropdown-item"
+                                                                href="/jaduals/{{ $jadual['ID_SESI'] }}/edit">Perubahan</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                                                data-bs-target="#penangguhan{{ $jadual['ID_SESI'] }}">Penangguhan</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" data-bs-toggle="modal"
+                                                                data-bs-target="#pembatalan{{ $jadual['ID_SESI'] }}">Pembatalan</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <div class="modal fade" id="penangguhan{{ $jadual['ID_SESI'] }}" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Penangguhan
+                                                            </h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="/jadual/kemaskini_status/{{ $jadual['ID_SESI'] }}"
+                                                            method="POST">
+                                                            <div class="modal-body">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label for="keterangan"
+                                                                        class="form-control-label">Keterangan</label>
+                                                                    <input class="form-control" type="text" name="keterangan">
+                                                                    <input type="hidden" name="status" value="Penangguhan">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn bg-gradient-secondary"
+                                                                    data-bs-dismiss="modal">Tutup</button>
+                                                                <button type="submit"
+                                                                    class="btn bg-gradient-primary">Kemaskini</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="pembatalan{{ $jadual['ID_SESI'] }}" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Pembatalan
+                                                            </h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="/jadual/kemaskini_status/{{ $jadual['ID_SESI'] }}"
+                                                            method="POST">
+                                                            <div class="modal-body">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label for="keterangan"
+                                                                        class="form-control-label">Keterangan</label>
+                                                                    <input class="form-control" type="text" name="keterangan">
+                                                                    <input type="hidden" name="status" value="Pembatalan">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn bg-gradient-secondary"
+                                                                    data-bs-dismiss="modal">Tutup</button>
+                                                                <button type="submit"
+                                                                    class="btn bg-gradient-primary">Kemaskini</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -33,40 +33,84 @@
             <h6 class="font-weight-bolder">Keputusan Penilaian</h6>
         </nav>
 
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header pb-3" style="background-color:#FFA500;">
-                        <h5 class="text-white">Semakan Keputusan Penilaian</h5>
+        <div class="card">
+            <div class="card-header pb-3" style="background-color:#FFA500;">
+                <h5 class="text-white">Semakan Keputusan Penilaian</h5>
+            </div>
+
+            <div class="card-body p-5">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h6 class="mb-0 text-dark">Nama</h6>
                     </div>
-    
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <h3 class="h5">Sila masukkan nombor kad pengenalan anda dan ID Penilaian yang anda daftar.</h3>
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <div class="col">
-                                <form action="/semak_keputusan" method="POST">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label class="form-control-label">Nombor Kad Pengenalan</label>
-                                        <input class="form-control" type="text" name="ic" value="{{Auth::user()->nric}}" readonly="readonly">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-control-label">ID Penilaian</label>
-                                        <input class="form-control" type="text" name="id_penilaian" maxlength="6">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-end">
-                                            <button class="btn bg-gradient-info">Semak</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class="col-lg-9">
+                        <p class="mb-0">: {{ $keputusan->nama_peserta }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h6 class="mb-0 text-dark">No. ID</h6>
+                    </div>
+                    <div class="col-lg-9">
+                        <p class="mb-0">: {{ $keputusan->ic_peserta }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h6 class="mb-0 text-dark">Tarikh</h6>
+                    </div>
+                    <div class="col-lg-9">
+                        <p class="mb-0">: {{ date('d-m-Y', strtotime($keputusan->tarikh_penilaian)) }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h6 class="mb-0 text-dark">Tahap Penilaian</h6>
+                    </div>
+                    <div class="col-lg-9">
+                        <p class="mb-0">: Asas</p>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col">
+                        <table class="w-100 text-center">
+                            <tr>
+                                <td class="text-danger" style="border: 1px solid black;">PENGETAHUAN</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;">Melepasi</td>
+                            </tr>
+                            <tr>
+                                <td class="text-danger" style="border: 1px solid black;">KEMAHIRAN</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;"><strong>Internet: </strong>Melepasi
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;"><strong>Aplikasi Pejabat:
+                                    </strong>Melepasi</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;"><strong>Emel: </strong>Melepasi</td>
+                            </tr>
+                            <tr>
+                                <td class="text-danger" style="border: 1px solid black;">KEPUTUSAN KESELURUHAN</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;">{{$keputusan->keputusan}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col text-center">
+                        <a href="#" class="btn btn-info">Slip Keputusan</a>
+                        @if ($keputusan->keputusan == "Lulus")
+                            <a href="#" class="btn btn-info">Sijil Penilaian</a>
+                        @endif
                     </div>
                 </div>
             </div>

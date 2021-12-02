@@ -46,7 +46,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="card m-3">
+                <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Butiran Video/Nota</b>
                     </div>
@@ -76,7 +76,7 @@
                                 <input class="form-control dropzone" name="video" type="file" multiple />
                             </div>
                             <div class="form-group mt-4 text-end">
-                                <button class="btn bg-gradient-info" type="submit">Simpan</button>
+                                <button class="btn bg-gradient-success" type="submit">Simpan</button>
                             </div>
                         </form>
                     </div>

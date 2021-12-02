@@ -49,7 +49,7 @@
     
             <div class="row">
                 <div class="col">
-                    <div class="card m-3">
+                    <div class="card mt-3">
                         <div class="card-header" style="background-color:#FFA500;">
                             <b class="text-white">Option Papar Keputusan</b>
                         </div>
@@ -83,7 +83,7 @@
     
             <div class="row">
                 <div class="col">
-                    <div class="card m-3">
+                    <div class="card mt-3">
                         <div class="card-header" style="background-color:#FFA500;">
                             <b class="text-white">Tempoh Masa Penilaian</b>
                         </div>
@@ -128,7 +128,7 @@
     
             <div class="row">
                 <div class="col">
-                    <div class="card m-3">
+                    <div class="card mt-3">
                         <div class="card-header" style="background-color:#FFA500;">
                             <b class="text-white">Tempoh Kebenaran Permohonan</b>
                         </div>
@@ -165,7 +165,7 @@
     
             <div class="row">
                 <div class="col">
-                    <div class="card m-3">
+                    <div class="card mt-3">
                         <div class="card-header" style="background-color:#FFA500;">
                             <b class="text-white">Tempoh Kebenaran Penjadualan Semula</b>
                         </div>

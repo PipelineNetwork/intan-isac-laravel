@@ -1,5 +1,9 @@
 @extends('base')
 @section('content')
+<?php 
+use App\Models\MohonPenilaian;
+use Illuminate\Support\Facades\Auth;
+?>
     <div class="container-fluid py-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -60,7 +64,13 @@
                                                 <td>{{ $jadual->KOD_TAHAP }}</td>
                                                 <td>{{ $jadual->KOD_MASA_MULA }} - {{ $jadual->KOD_MASA_TAMAT }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
-                                                <td>{{ $jadual->KEKOSONGAN }}</td>
+                                                <td>
+                                                    @if($jadual->KEKOSONGAN == null)
+                                                    0
+                                                    @else
+                                                    {{ $jadual->KEKOSONGAN }}
+                                                    @endif
+                                                </td>
                                                 <td>{{ $jadual->platform }}</td>
                                                 <td>
                                                     @if ($jadual['KOD_KEMENTERIAN'] == null)
@@ -70,48 +80,57 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    @if ($jadual->KEKOSONGAN != 0)
-                                                        <form action="/mohonpenilaian/calon/pilih_jadual" method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="no_ic" value="{{ $no_ic }}">
-                                                            <input type="hidden" name="nama" value="{{ $nama }}">
-                                                            <input type="hidden" name="id_peserta"
-                                                                value="{{ $id_peserta }}">
-                                                            <input type="hidden" name="tarikh_lahir"
-                                                                value="{{ $tarikh_lahir }}">
-                                                            <input type="hidden" name="jantina"
-                                                                value="{{ $jantina }}">
-                                                            <input type="hidden" name="jawatan_ketua_jabatan"
-                                                                value="{{ $jawatan_ketua_jabatan }}">
-                                                            <input type="hidden" name="taraf_jawatan"
-                                                                value="{{ $taraf_jawatan }}">
-                                                            <input type="hidden" name="tarikh_lantikan"
-                                                                value="{{ $tarikh_lantikan }}">
-                                                            <input type="hidden" name="klasifikasi_perkhidmatan"
-                                                                value="{{ $klasifikasi_perkhidmatan }}">
-                                                            <input type="hidden" name="no_telefon_pejabat"
-                                                                value="{{ $no_telefon_pejabat }}">
-                                                            <input type="hidden" name="alamat1_pejabat"
-                                                                value="{{ $alamat1_pejabat }}">
-                                                            <input type="hidden" name="alamat2_pejabat"
-                                                                value="{{ $alamat2_pejabat }}">
-                                                            <input type="hidden" name="poskod_pejabat"
-                                                                value="{{ $poskod_pejabat }}">
-                                                            <input type="hidden" name="nama_penyelia"
-                                                                value="{{ $nama_penyelia }}">
-                                                            <input type="hidden" name="emel_penyelia"
-                                                                value="{{ $emel_penyelia }}">
-                                                            <input type="hidden" name="no_telefon_penyelia"
-                                                                value="{{ $no_telefon_penyelia }}">
-                                                            <input type="hidden" name="sesi"
-                                                                value="{{ $jadual->ID_PENILAIAN }}">
-                                                            <button class="btn btn-sm bg-gradient-info"
-                                                                type="submit">Daftar</button>
+                                                    <?php 
+                                                    $no_ic = Auth::user()->nric;
+                                                    $done_daftar = MohonPenilaian::where('no_ic', $no_ic)->where('id_sesi', $jadual->ID_PENILAIAN)->first();
+                                                    ?>
+                                                    @if($done_daftar == null)
+                                                        @if ($jadual->KEKOSONGAN != 0)
+                                                            <form action="/mohonpenilaian/calon/pilih_jadual" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="no_ic" value="{{ $no_ic }}">
+                                                                <input type="hidden" name="nama" value="{{ $nama }}">
+                                                                <input type="hidden" name="id_peserta"
+                                                                    value="{{ $id_peserta }}">
+                                                                <input type="hidden" name="tarikh_lahir"
+                                                                    value="{{ $tarikh_lahir }}">
+                                                                <input type="hidden" name="jantina"
+                                                                    value="{{ $jantina }}">
+                                                                <input type="hidden" name="jawatan_ketua_jabatan"
+                                                                    value="{{ $jawatan_ketua_jabatan }}">
+                                                                <input type="hidden" name="taraf_jawatan"
+                                                                    value="{{ $taraf_jawatan }}">
+                                                                <input type="hidden" name="tarikh_lantikan"
+                                                                    value="{{ $tarikh_lantikan }}">
+                                                                <input type="hidden" name="klasifikasi_perkhidmatan"
+                                                                    value="{{ $klasifikasi_perkhidmatan }}">
+                                                                <input type="hidden" name="no_telefon_pejabat"
+                                                                    value="{{ $no_telefon_pejabat }}">
+                                                                <input type="hidden" name="alamat1_pejabat"
+                                                                    value="{{ $alamat1_pejabat }}">
+                                                                <input type="hidden" name="alamat2_pejabat"
+                                                                    value="{{ $alamat2_pejabat }}">
+                                                                <input type="hidden" name="poskod_pejabat"
+                                                                    value="{{ $poskod_pejabat }}">
+                                                                <input type="hidden" name="nama_penyelia"
+                                                                    value="{{ $nama_penyelia }}">
+                                                                <input type="hidden" name="emel_penyelia"
+                                                                    value="{{ $emel_penyelia }}">
+                                                                <input type="hidden" name="no_telefon_penyelia"
+                                                                    value="{{ $no_telefon_penyelia }}">
+                                                                <input type="hidden" name="sesi"
+                                                                    value="{{ $jadual->ID_PENILAIAN }}">
+                                                                <button class="btn btn-sm bg-gradient-info"
+                                                                    type="submit">Daftar</button>
 
-                                                        </form>
+                                                            </form>
+                                                        @else
+                                                            <button class="btn btn-sm bg-gradient-danger"
+                                                                disabled>Penuh</button>
+                                                        @endif
                                                     @else
-                                                        <button class="btn btn-sm bg-gradient-secondary"
-                                                            disabled>Penuh</button>
+                                                    <button class="btn btn-sm bg-gradient-success"
+                                                                disabled>Telah daftar</button>
                                                     @endif
                                                 </td>
                                             </tr>

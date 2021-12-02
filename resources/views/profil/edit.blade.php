@@ -30,7 +30,7 @@
         <h6 class="font-weight-bolder">Kemaskini Profil</h6>
     </nav>
 
-    @if ($user_profils->user_group_id == '5')
+    @role ('calon')
         <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-12 mb-3">
@@ -603,7 +603,7 @@
             </div>
 
         </div>
-    @endif
+    @endrole
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')

@@ -46,6 +46,7 @@ class ProfilController extends Controller
     public function kemaskiniform(Request $request)
     {
         $current_user = Auth::user()->user_group_id;
+        $current_user = Role::where('id', $current_user)->first();
         $checkid = Auth::id();
         $checkid2 = Auth::user()->id;
         $gelaran_user = Refgeneral::where('MASTERCODE', 10009)
@@ -73,7 +74,7 @@ class ProfilController extends Controller
 
         $jabatan = Refgeneral::where('MASTERCODE', 10029)->orderBy('DESCRIPTION1')->get();
 
-        if ($current_user == 5) {
+        if ($current_user->name == 'calon') {
             $user_profils = DB::table('users')
                 ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
                 ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')

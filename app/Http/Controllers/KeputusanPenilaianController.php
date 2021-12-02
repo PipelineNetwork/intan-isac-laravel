@@ -10,6 +10,10 @@ use App\Models\Bankjawapanpengetahuan;
 
 class KeputusanPenilaianController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index(){
 
@@ -34,9 +38,14 @@ class KeputusanPenilaianController extends Controller
         $id_penilaian = $request->id_penilaian;
 
         $keputusans = KeputusanPenilaian::where('id_penilaian', $id_penilaian)
-        ->where('ic_peserta', $ic)->get();
-        return view('proses_penilaian.keputusan_penilaian.senarai_keputusan_calon',[
-            'keputusans'=>$keputusans
+        ->where('ic_peserta', $ic)->first();
+
+        if ($keputusans == null) {
+            alert('Tiada dalam rekod penilaian');
+            return redirect('/semakan_keputusan_calon');
+        }
+        return view('proses_penilaian.keputusan_penilaian.keputusan_calon',[
+            'keputusan'=>$keputusans
         ]);
     }
 
