@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\TambahRayuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RayuanDicipta;
+use App\Mail\RayuanDibalas;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class TambahRayuanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,10 +23,32 @@ class TambahRayuanController extends Controller
      */
     public function index()
     {
-        $tambahrayuans = TambahRayuan::all();
-        return view('tambahrayuan.index',[
-            'tambahrayuans'=> $tambahrayuans
-        ]);
+        // $tambahrayuans = TambahRayuan::all();
+
+        $current_user = Auth::user()->id;
+        $user_role = Auth::user()->user_group_id;
+
+        if ($user_role == '5') {
+            $tambahrayuans = TambahRayuan::where('user_id', $current_user)
+                ->join('users', 'tambah_rayuans.user_id', 'users.id')
+                ->select('tambah_rayuans.*', 'users.name', 'users.email')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } else {
+            $tambahrayuans = TambahRayuan::join('users', 'tambah_rayuans.user_id', 'users.id')
+                ->select('tambah_rayuans.*', 'users.name', 'users.email')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        if (Auth::check()) {
+            return view('tambahrayuan.index', [
+                'tambahrayuans' => $tambahrayuans
+            ]);
+        } else {
+
+            return redirect('/')->with('warning', 'Sila log masuk untuk lihat Rayuan!');
+        }
     }
 
     /**
@@ -38,21 +69,31 @@ class TambahRayuanController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'tajuk'=> 'required',
-
+        $request->validate([
+            'tajuk' => 'required',
+            'file_rayuan_send' => 'required|mimes:pdf|max:5128'
         ]);
-        $file_rayuan_send = $request ->file('file_rayuan_send')->store('dokumen');
-       
-        $tambahrayuan = new TambahRayuan;
-        $tambahrayuan ->id= $request->id;
-        $tambahrayuan ->tajuk= $request->tajuk;
-        $tambahrayuan ->keterangan_rayuan_send = $request->keterangan_rayuan_send;
-        $tambahrayuan ->file_rayuan_send = $file_rayuan_send;
-        $tambahrayuan-> status = "baru";
 
-        $tambahrayuan->save(); 
-        return redirect('/tambahrayuans'); 
+        $file_rayuan_send = $request->file('file_rayuan_send')->store('dokumen');
+
+        $current_user = $request->user();
+
+        $tambahrayuan = new TambahRayuan;
+        $tambahrayuan->id = $request->id;
+        $tambahrayuan->tajuk = $request->tajuk;
+        $tambahrayuan->keterangan_rayuan_send = $request->keterangan_rayuan_send;
+        $tambahrayuan->file_rayuan_send = $file_rayuan_send;
+        $tambahrayuan->status = "baru";
+        $tambahrayuan->user_id = $current_user->id;
+
+        $tambahrayuan->save();
+
+        $users = User::where('user_group_id', '=', '1')->get();
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new RayuanDibalas($tambahrayuan));
+        }
+
+        return redirect('/tambahrayuans');
     }
 
     /**
@@ -64,7 +105,7 @@ class TambahRayuanController extends Controller
     public function show(TambahRayuan $tambahRayuan)
     {
         return view('tambahrayuan.show', [
-            'tambahrayuan'=> $tambahrayuan
+            'tambahrayuan' => $tambahRayuan
         ]);
     }
 
@@ -89,14 +130,30 @@ class TambahRayuanController extends Controller
      */
     public function update(Request $request, TambahRayuan $tambahRayuan)
     {
-        $tambahrayuan = TambahRayuan::where('id', $request->id)-> first();
-        $file_rayuan_reply = $request ->file('file_rayuan_reply')->store('dokumen');
-        $tambahrayuan->keterangan_rayuan_reply = $request->keterangan_rayuan_reply;
-        $tambahrayuan->file_rayuan_reply= $file_rayuan_reply;
-        $tambahrayuan-> status = "dibalas";
+        $request->validate([
+            'file_rayuan_reply' => 'max:5128'
+        ]);
 
-        $tambahrayuan->save(); 
-        return redirect('/tambahrayuans'); 
+        $tambahrayuan = TambahRayuan::where('id', $request->id)->first();
+        if (!empty($request->file('file_rayuan_reply'))) {
+            $file_rayuan_reply = $request->file('file_rayuan_reply')->store('dokumen');
+        }
+        $tambahrayuan->keterangan_rayuan_reply = $request->keterangan_rayuan_reply;
+        if (!empty($request->file('file_rayuan_reply'))) {
+            $tambahrayuan->file_rayuan_reply = $file_rayuan_reply;
+        }
+        // $file_rayuan_reply = $request->file('file_rayuan_reply')->store('dokumen');
+        $tambahrayuan->keterangan_rayuan_reply = $request->keterangan_rayuan_reply;
+        // $tambahrayuan->file_rayuan_reply = $file_rayuan_reply;
+        $tambahrayuan->status = "dibalas";
+        $tambahrayuan->save();
+
+        $user = User::where('id', '=', $tambahrayuan->user_id)
+            ->select('email')
+            ->get();
+
+        Mail::to($user)->send(new RayuanDibalas($tambahrayuan));
+        return redirect('/tambahrayuans');
     }
 
     /**

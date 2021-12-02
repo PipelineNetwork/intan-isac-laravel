@@ -2,14 +2,24 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Jadual;
+use App\Models\Refgeneral;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Permohanan;
 use App\Models\Tugas;
 use App\Models\Perkhidmatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Helpers\Hrmis\GetDataXMLbyIC;
+
 class PermohananController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +27,27 @@ class PermohananController extends Controller
      */
     public function index()
     {
+        $icnumb = Auth::user()->nric;
+        // dd($icnumb);
+        $GetDataXMLbyIC = new GetDataXMLbyIC();
+        // $hrmisData = $GetDataXMLbyIC->getDataHrmis($icnumb);
+        $hrmisData = $GetDataXMLbyIC->getDataHrmis('860331236086');
+        // dd($hrmisData);
+
+        $gelarans = Refgeneral::where('MASTERCODE', '10009')->get();
+        $peringkats = Refgeneral::where('MASTERCODE', '10023')->get();
+        $gred_jawatans = Refgeneral::where('MASTERCODE', '10025')->get();
+        $taraf_jawatans = Refgeneral::where('MASTERCODE', '10026')->get();
+        $jenis_jawatans = Refgeneral::where('MASTERCODE', '10027')->get();
+        $kementerians = Refgeneral::where('MASTERCODE', '10028')->get();
+        $negeris = Refgeneral::where('MASTERCODE', '10021')->get();
+
+        // JADUAL_PENYELIA
+        $id_penyelia = Auth::id();
+        $jadual_penyelia = Jadual::where('user_id', $id_penyelia)->get();
+
+        // 
+        $jaduals = Jadual::all();
         $group_users = User::where('user_group_id','3')->get();
         $pro_peserta=Permohanan::all();
         $users = DB::table('users')
@@ -29,7 +60,17 @@ class PermohananController extends Controller
         return view('permohanan.index',[
             'group_users'=> $group_users,
             'pro_peserta' => $pro_peserta,
-            'users'=>$users,       
+            'users'=>$users,     
+            'jaduals'=>$jaduals,
+            'gelarans'=>$gelarans,
+            'peringkats'=>$peringkats,
+            'gred_jawatans'=>$gred_jawatans,
+            'taraf_jawatans'=>$taraf_jawatans,
+            'jenis_jawatans'=>$jenis_jawatans,
+            'kementerians'=>$kementerians,
+            'negeris'=>$negeris,
+            'jadual_penyelia'=>$jadual_penyelia,
+            'hrmisData'=>$hrmisData
         ]);
     }
 
@@ -53,7 +94,7 @@ class PermohananController extends Controller
     {
 
         $user = new User;
-        $user ->user_group_id = "3";
+        // $user ->user_group_id = "3";
         $user ->name= $request->name;
         $user ->email= $request->email;
         $user ->password= $request->password;
@@ -128,7 +169,7 @@ class PermohananController extends Controller
      * @param  \App\Models\User  $permohanan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $user)
+    public function update(Request $request, $user, $pro_peserta)
     {
         $user ->user_group_id = "3";
         $user -> nric= $request->nric;

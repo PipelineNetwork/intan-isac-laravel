@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Mail\PenggunaDidaftar;
+use Illuminate\Support\Facades\Mail;
 
 class RegisteredUserController extends Controller
 {
@@ -38,28 +40,49 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
+            'nric' => 'required|string|max:255|unique:users',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'ministry_code' => 'string|nullable',
-            'office_number' => 'string|nullable',
-            'fax_number' => 'string|nullable',
-            'telephone_number' => 'string|nullable',
-            'user_group_id'=>'string|nullable',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'ministry_code' => $request->ministry_code,
-            'office_number' => $request->office_number,
-            'fax_number' => $request->fax_number,
-            'telephone_number' => $request->telephone_number,
-            'user_group_id' => $request->user_group_id,
-            'password' => Hash::make($request->password),
-            'nric' => $request->nric,
-        ]);
+        // $user = User::create([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'ministry_code' => $request->ministry_code,
+        //     'office_number' => $request->office_number,
+        //     'fax_number' => $request->fax_number,
+        //     'telephone_number' => $request->telephone_number,
+        //     'password' => Hash::make($request->password),
+        //     'nric' => $request->nric,
+        //     'user_group_id' => 5,
+        // ]);
+
+        $user = new User();
+
+        $user->name = strtoupper($request->name);
+        $user->email = $request->email;
+        $user->ministry_code = $request->ministry_code;
+        $user->office_number = $request->office_number;
+        $user->fax_number = $request->fax_number;
+        $user->telephone_number = $request->telephone_number;
+        $user->password = Hash::make($request->password);
+        $user->nric = $request->nric;
+        $user->user_group_id = 5;
+        $user->assignRole('calon');
+
+        $user->save();
+
+        $current_user = $request->user();
+        // Mail::to($user->email)->send(new PenggunaDidaftar($user));
+        // $user_reg = User::where('id', '=', $current_user)->get();
+        // foreach ($user_reg as $users) {
+        //     Mail::to($users->email)->send(new PenggunaDidaftar($user));
+        // }
+
+        // dd($user_reg);
 
         $GetDataXMLbyIC = new GetDataXMLbyIC();
         $hrmisData = $GetDataXMLbyIC->getDataHrmis($request->nric);
@@ -74,10 +97,10 @@ class RegisteredUserController extends Controller
             $negeri = Refgeneral::where('MASTERCODE', 10021)->where('DESCRIPTION1', $hrmisData->Negeri)->get()->toArray();
 
             // To get reference of KLASIFIKASI_PERKHIDMATAN from table refgeneral
-            $klasifikasiPerkhidmatan = Refgeneral::where('MASTERCODE', 10024)->where('DESCRIPTION1', 'like', '('.str_replace(' ', '', $hrmisData->KlasifikasiPerkhidmatan).')%' )->get()->toArray();
+            $klasifikasiPerkhidmatan = Refgeneral::where('MASTERCODE', 10024)->where('DESCRIPTION1', 'like', '(' . str_replace(' ', '', $hrmisData->KlasifikasiPerkhidmatan) . ')%')->get()->toArray();
 
             // To get reference of GRED_JAWATAN from table refgeneral
-            $gredJawatan = Refgeneral::where('MASTERCODE', 10025)->where('DESCRIPTION1', 'like', '%'.substr($hrmisData->GredGaji, 1, 2).'%' )->get()->toArray();
+            $gredJawatan = Refgeneral::where('MASTERCODE', 10025)->where('DESCRIPTION1', 'like', '%' . substr($hrmisData->GredGaji, 1, 2) . '%')->get()->toArray();
 
             // To get reference of TARAF_JAWATAN from table refgeneral
             $tarafJawatan = Refgeneral::where('MASTERCODE', 10026)->where('DESCRIPTION1', 'like', $hrmisData->StatusPerkhidmatan)->get()->toArray();
@@ -142,12 +165,29 @@ class RegisteredUserController extends Controller
                 'NO_TELEFON_PEJABAT' => NULL,
                 'user_id' => $user->id,
             ]);
+
+            $tempat_tugas = Tugas::create([
+                'ID_PESERTA' => $peserta->ID_PESERTA,
+            ]);
+
+            $perkhidmatan = Perkhidmatan::create([
+                'ID_PESERTA' => $peserta->ID_PESERTA,
+            ]);
         }
 
-        event(new Registered($user));
+        $user->name = strtoupper($peserta->NAMA_PESERTA);
+        // dd($user->name);
+        
+        $user->save();
 
+        $current_user = $request->user();
+        Mail::to($user->email)->send(new PenggunaDidaftar($user));
+        // dd($hrmisData);
+        event(new Registered($user));
         Auth::login($user);
 
+        // dd($user);
+        // return redirect('/profil')->with('success', 'Berjaya didaftarkan!');
         return redirect(RouteServiceProvider::HOME);
     }
 }

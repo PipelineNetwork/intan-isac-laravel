@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\TambahAduan;
 use Illuminate\Http\Request;
+use App\Models\User;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AduanDicipta;
+use App\Mail\AduanDibalas;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TambahAduanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,10 +25,31 @@ class TambahAduanController extends Controller
      */
     public function index()
     {
-        $tambahaduans = TambahAduan::all();
-        return view('tambahaduan.index',[
-            'tambahaduans'=> $tambahaduans
-        ]);
+        $current_user = Auth::user()->id;
+        $user_role = Auth::user()->user_group_id;
+
+        if ($user_role == '5'){
+            $tambahaduans = TambahAduan::where('user_id', $current_user)
+            ->join('users', 'tambah_aduans.user_id', 'users.id')
+            ->select('tambah_aduans.*', 'users.name', 'users.email')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        }
+        else {
+            $tambahaduans = TambahAduan::join('users', 'tambah_aduans.user_id', 'users.id')
+            ->select('tambah_aduans.*', 'users.name', 'users.email')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        }
+        // dd($tambahaduans);
+        if (Auth::check()) {
+            return view('tambahaduan.index', [
+                'tambahaduans' => $tambahaduans
+            ]);
+        } else {
+
+            return redirect('/')->with('warning', 'Sila log masuk untuk lihat Aduan!');
+        }
     }
 
     /**
@@ -38,22 +70,34 @@ class TambahAduanController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        $validated = $request->validate([
-            'tajuk'=> 'required',
-
+        $request->validate([
+            'tajuk' => 'required',
+            'file_aduan_send' => 'max:5128',
         ]);
- 
-        $file_aduan_send = $request ->file('file_aduan_send')->store('dokumen');
+
+        $current_user = $request->user();
+
+        if (!empty($request->file('file_aduan_send'))) {
+            $file_aduan_send = $request->file('file_aduan_send')->store('dokumen');
+        }
+
         $tambahaduan = new TambahAduan;
-        $tambahaduan ->file_aduan_send = $file_aduan_send;
-        $tambahaduan ->id= $request->id;
-        $tambahaduan ->tajuk= $request->tajuk;
-        $tambahaduan ->keterangan_aduan_send = $request->keterangan_aduan_send;
-        $tambahaduan-> status = "baru";
-        $tambahaduan->save(); 
-        return redirect('/tambahaduans'); 
+        if (!empty($request->file('file_aduan_send'))) {
+            $tambahaduan->file_aduan_send = $file_aduan_send;
+        }
+        $tambahaduan->id = $request->id;
+        $tambahaduan->tajuk = $request->tajuk;
+        $tambahaduan->keterangan_aduan_send = $request->keterangan_aduan_send;
+        $tambahaduan->status = "baru";
+        $tambahaduan->user_id = $current_user->id;
+        $tambahaduan->save();
+
+        $users = User::where('user_group_id', '=', '1')->get();
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new AduanDicipta($tambahaduan));
+        }
+
+        return redirect('/tambahaduans');
     }
 
     /**
@@ -65,7 +109,7 @@ class TambahAduanController extends Controller
     public function show(TambahAduan $tambahAduan)
     {
         return view('tambahaduan.show', [
-            'tambahaduan'=> $tambahaduan
+            'tambahaduan' => $tambahAduan
         ]);
     }
 
@@ -88,16 +132,31 @@ class TambahAduanController extends Controller
      * @param  \App\Models\TambahAduan  $tambahAduan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TambahAduan $tambahAduan)
+    public function update(Request $request, TambahAduan $tambahaduan)
     {
-        $tambahaduan = TambahAduan::where('id', $request->id)-> first();
-        $file_aduan_reply = $request ->file('file_aduan_reply')->store('dokumen');
-        $tambahaduan ->keterangan_aduan_reply = $request->keterangan_aduan_reply;
-        $tambahaduan ->file_aduan_reply = $file_aduan_reply;
-        $tambahaduan-> status = "dibalas";
-        $tambahaduan->save(); 
-        return redirect('/tambahaduans'); 
+        $request->validate([
+            'file_aduan_reply' => 'max:5128',
+        ]);
 
+        $tambahaduan = TambahAduan::where('id', $request->id)->first();
+        if (!empty($request->file('file_aduan_reply'))) {
+            $file_aduan_reply = $request->file('file_aduan_reply')->store('dokumen');
+        }
+        $tambahaduan->keterangan_aduan_reply = $request->keterangan_aduan_reply;
+        if (!empty($request->file('file_aduan_reply'))) {
+            $tambahaduan->file_aduan_reply = $file_aduan_reply;
+        }
+        $tambahaduan->status = "dibalas";
+        $tambahaduan->user_id = $request->user_id;
+        $tambahaduan->save();
+
+        $user = User::where('id', '=', $tambahaduan->user_id)
+            ->select('email')
+            ->get();
+
+        Mail::to($user)->send(new AduanDibalas($tambahaduan));
+
+        return redirect('/tambahaduans');
     }
 
     /**
