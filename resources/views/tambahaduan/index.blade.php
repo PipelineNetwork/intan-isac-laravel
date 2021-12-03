@@ -29,8 +29,8 @@
                                 </svg>
                             </a>
                         </li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Aduan dan Rayuan</a></li>
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Aduan</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Senarai Aduan</a></li>
                     </ol>
                 </nav>
             </div>
@@ -38,7 +38,7 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <h5 class="font-weight-bolder">Senarai Aduan</h5>
+                <h5 class="font-weight-bolder">Aduan</h5>
             </div>
             @role('calon')
             <div class="col-lg-6">
