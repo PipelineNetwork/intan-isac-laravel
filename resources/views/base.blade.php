@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../../assets/img/INTAN.jpeg">
+    <link rel="icon" type="image/png" href="../../img/intan.png">
     <title>
         ISAC
     </title>
@@ -291,8 +291,7 @@
                 <?php
                 }
                 ?> --}}
-
-<<<<<<< HEAD
+                
                 @if (auth()->user()->can('pemilihan soalan')||auth()->user()->can('slip')||auth()->user()->can('sijil')||auth()->user()->can('semakan jawapan'))
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#pengurusanpenilaiandrop" class="nav-link "

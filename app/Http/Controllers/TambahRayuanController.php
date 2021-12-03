@@ -9,6 +9,7 @@ use App\Mail\RayuanDicipta;
 use App\Mail\RayuanDibalas;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class TambahRayuanController extends Controller
 {
@@ -27,8 +28,10 @@ class TambahRayuanController extends Controller
 
         $current_user = Auth::user()->id;
         $user_role = Auth::user()->user_group_id;
+        $role = Role::where('id', $user_role)->first();
+        $role = $role->name;
 
-        if ($user_role == '5') {
+        if ($role == 'calon'){
             $tambahrayuans = TambahRayuan::where('user_id', $current_user)
                 ->join('users', 'tambah_rayuans.user_id', 'users.id')
                 ->select('tambah_rayuans.*', 'users.name', 'users.email')

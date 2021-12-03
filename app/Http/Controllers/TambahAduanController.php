@@ -11,6 +11,7 @@ use App\Mail\AduanDicipta;
 use App\Mail\AduanDibalas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class TambahAduanController extends Controller
 {
@@ -27,8 +28,10 @@ class TambahAduanController extends Controller
     {
         $current_user = Auth::user()->id;
         $user_role = Auth::user()->user_group_id;
+        $role = Role::where('id', $user_role)->first();
+        $role = $role->name;
 
-        if ($user_role == '5'){
+        if ($role == 'calon'){
             $tambahaduans = TambahAduan::where('user_id', $current_user)
             ->join('users', 'tambah_aduans.user_id', 'users.id')
             ->select('tambah_aduans.*', 'users.name', 'users.email')

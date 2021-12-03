@@ -29,8 +29,8 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Aduan</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Senarai Aduan</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Aduan dan Rayuan</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Rayuan</a></li>
                     </ol>
                 </nav>
             </div>
@@ -38,7 +38,7 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <h5 class="font-weight-bolder">Senarai Aduan</h5>
+                <h5 class="font-weight-bolder">Rayuan</h5>
             </div>
             @role('calon')
             <div class="col-lg-6">
@@ -52,7 +52,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="card">
+                <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Senarai Rayuan</b>
                     </div>
