@@ -83,7 +83,7 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         </option>
                                     </select>
                                     @error('KOD_SESI_PENILAIAN')
-                                    <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
                                     @enderror
                                 </div>
                             </div>
@@ -97,7 +97,7 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         </option>
                                     </select>
                                     @error('KOD_TAHAP')
-                                    <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
                                     @enderror
                                 </div>
                             </div>
@@ -112,8 +112,8 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         value="{{ old('KOD_MASA_MULA') }}">
                                 </div>
                                 @error('KOD_MASA_MULA')
-                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
-                                        @enderror
+                                    <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
+                                @enderror
                             </div>
                             <div class="col-6">
                                 <label for="KOD_MASA_TAMAT">Masa Tamat :</label>
@@ -122,8 +122,8 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         value="{{ old('KOD_MASA_TAMAT') }}">
                                 </div>
                                 @error('KOD_MASA_TAMAT')
-                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
-                                        @enderror
+                                    <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
+                                @enderror
                             </div>
                         </div>
                         <div class="row">
@@ -134,7 +134,7 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         value="{{ old('TARIKH_SESI') }}">
                                 </div>
                                 @error('TARIKH_SESI')
-                                <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                    <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
                                 @enderror
                             </div>
                             <div class="col-6">
@@ -144,7 +144,7 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         value="{{ old('JUMLAH_KESELURUHAN') }}">
                                 </div>
                                 @error('JUMLAH_KESELURUHAN')
-                                <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
+                                    <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
                                 @enderror
                             </div>
                         </div>
@@ -160,8 +160,8 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                             Kumpulan</option>
                                     </select>
                                     @error('KOD_KATEGORI_PESERTA')
-                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
-                                        @enderror
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
+                                    @enderror
                                 </div>
                             </div>
                             <div id="pilih2" style="display:none" class="col-6">
@@ -175,8 +175,8 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         @endforeach
                                     </select>
                                     @error('KOD_KEMENTERIAN')
-                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
-                                        @enderror
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
+                                    @enderror
                                 </div>
                                 <label>Penyelaras: </label>
                                 <div class="form-group">
@@ -187,8 +187,8 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         @endforeach
                                     </select>
                                     @error('user_id')
-                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
-                                        @enderror
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -202,8 +202,8 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         <option value="Fizikal">Fizikal</option>
                                     </select>
                                     @error('platform')
-                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
-                                        @enderror
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
+                                    @enderror
                                 </div>
                             </div>
                             <div id="pilih4" style="display:none" class="col-6">
@@ -226,8 +226,8 @@ $penyelaras = User::where('user_group_id', '3')->get();
                                         <option value="Jabatan Perkhidmatan Awam">Jabatan Perkhidmatan Awam</option>
                                     </select>
                                     @error('LOKASI')
-                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{$message}}</em></label>
-                                        @enderror
+                                        <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

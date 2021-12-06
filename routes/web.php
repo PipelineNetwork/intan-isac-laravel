@@ -33,6 +33,7 @@ use App\Http\Controllers\BanksoalankemahiranwordController;
 use App\Http\Controllers\BanksoalankemahiranemailController;
 use App\Models\Banksoalankemahiran;
 use App\Http\Controllers\KumpulanPenggunaController;
+use App\Http\Controllers\RayuanCalonBlacklistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -93,6 +94,8 @@ Route::resource('/permohanans', PermohananController::class);
 Route::resource('/jaduals', JadualController::class);
 
 Route::resource('/mohonpenilaian', MohonPenilaianController::class);
+
+Route::resource('/rayuan_calon_blacklist', RayuanCalonBlacklistController::class);
 
 Route::resource('/bank-soalan-pengetahuan', BanksoalanpengetahuanController::class);
 Route::post('/bank-soalan-pengetahuan/fill-in-the-blank', [BanksoalanpengetahuanController::class, 'fillblank']);
