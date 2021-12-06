@@ -14,6 +14,9 @@
             font-size: inherit;
         }
 
+        .qcont:first-letter {
+            text-transform: capitalize
+        }
     </style>
 
     <div class="px-5">
@@ -58,7 +61,7 @@
                         </div>
                         <div class="col-xl-8 mb-3">
                             <div class="input-group">
-                                <input class="form-control" type="text" value="{{ $jawapancalons->carian_teks }}">
+                                <input class="form-control" type="text" style="text-transform: capitalize" value="{{ $jawapancalons->carian_teks }}">
                                 <span class="input-group-text"><i class="fas fa-microphone me-sm-1 text-dark"></i></span>
                                 <span class="input-group-text"><i class="fas fa-search me-sm-1 text-dark"></i></span>
                             </div>
@@ -72,18 +75,18 @@
                                         @csrf
                                         <h4>
                                             <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
-                                            <button type="submit" class="btn-link">{{ $jawapancalons->carian_teks }} -
+                                            <button type="submit" class="btn-link" style="text-transform: capitalize">{{ $jawapancalons->carian_teks }} -
                                                 Wikipedia</button>
                                             {{-- <a style="color: blue" type="submit">Project management - Wikipedia</a> --}}
                                         </h4>
                                     </form>
 
-                                    <p>
+                                    <p class="qcont">
                                         {{ $jawapancalons->carian_teks }} is the process of leading the work of a team to achieve all
                                         project
                                         goals within the given constraints. This information is usually ...
                                     </p>
-                                    <p>
+                                    <p style="text-transform: capitalize">
                                         ‎History · ‎{{ $jawapancalons->carian_teks }} types · ‎Approaches of project... 
                                     </p>
                                 </div>
@@ -93,12 +96,12 @@
                                         https://www.pmi.org › About Us › Learn About PMI
                                     </h6>
                                     <h4>
-                                        <button type="submit" class="btn-link">What is {{ $jawapancalons->carian_teks }} |
+                                        <button type="submit" class="btn-link" onclick="check_the_click();">What is {{ $jawapancalons->carian_teks }} |
                                             PMI</button>
                                     </h4>
 
 
-                                    <p>
+                                    <p class="qcont">
                                         {{ $jawapancalons->carian_teks }} is the use of specific knowledge, skills, tools and techniques to
                                         deliver something of value to people. The development of software for ...
                                     </p>
@@ -112,11 +115,11 @@
                                         https://www.investopedia.com › ... › Business Essentials
                                     </h6>
                                     <h4>
-                                        <button type="submit" class="btn-link">{{ $jawapancalons->carian_teks }} Definition -
+                                        <button type="submit" class="btn-link" style="text-transform: capitalize" onclick="check_the_click();">{{ $jawapancalons->carian_teks }} Definition -
                                             Investopedia</button>
                                     </h4>
 
-                                    <p>
+                                    <p class="qcont">
                                         {{ $jawapancalons->carian_teks }} involves the planning and organization of a company's resources
                                         to move a specific task, event, or duty towards completion.
                                     </p>
@@ -127,7 +130,7 @@
                                         https://www.microsoft.com › en-my › microsoft-365
                                     </h6>
                                     <h4>
-                                        <button type="submit" class="btn-link">{{ $jawapancalons->carian_teks }} Software | Microsoft
+                                        <button type="submit" class="btn-link" style="text-transform: capitalize" onclick="check_the_click();">{{ $jawapancalons->carian_teks }} Software | Microsoft
                                             Project</button>
                                     </h4>
 
@@ -154,4 +157,10 @@
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
+
+    <script>
+        function check_the_click() {
+            alert("Sila klik pautan yang betul!");
+        }
+    </script>
 @stop

@@ -41,6 +41,7 @@
                 <div class="card-body">
                     <div class="col-xl-12">
                         @foreach ($soalankemahiranwords as $soalankemahiranword)
+                            <h3 class="h5">Set {{ $soalankemahiranword->id_soalankemahiran }}</h3>
                             @if ($soalankemahiranword->arahan_umum != null)
                                 <h5>{!! $soalankemahiranword->arahan_umum !!}</h5>
                             @endif
@@ -55,7 +56,7 @@
                                 <p>{!! $soalankemahiranword->soalan_1 !!}</p>
                                 <ul class="mt-2">
                                     <button class="btn btn-success" value="{{ $soalankemahiranword->id }}" type="submit"
-                                        onclick="tsw_open_demo_window();">Pemprosesan Perkataan</button>
+                                        onclick="tsw_open_demo_window();" target="popup">Pemprosesan Perkataan</button>
                                 </ul>
                             @endif
 
@@ -187,7 +188,7 @@
                                     <div class="modal-body text-center">
                                         <i class="fas fa-exclamation-circle fa-7x" style="color: #d4872f"></i>
                                         <br>
-                                        Adakah anda pasti untuk terus ke soalan seterusnya? Anda tidak boleh kembali
+                                        Adakah anda pasti untuk ke soalan seterusnya? Anda tidak boleh kembali
                                         menjawab bahagian ini jika anda teruskan.
                                     </div>
                                     <div class="modal-footer">
@@ -217,7 +218,7 @@
 
     <script>
         function tsw_open_demo_window() {
-            window.open("/soalan-kemahiran-word/{{ $soalankemahiranword->id }}");
+            window.open("/soalan-kemahiran-word/{{ $soalankemahiranword->id }}", "popup", "width=600", "height=400");
         }
     </script>
 @stop

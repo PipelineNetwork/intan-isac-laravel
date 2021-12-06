@@ -14,6 +14,10 @@
             font-size: inherit;
         }
 
+        .qcont:first-letter {
+            text-transform: capitalize
+        }
+
     </style>
 
     <div class="px-5">
@@ -68,7 +72,8 @@
                         </div>
                         <div class="col-xl-8 mb-3">
                             <div class="input-group">
-                                <input class="form-control" type="text" value="{{ $jawapancalons->carian_teks }}">
+                                <input class="form-control" type="text" style="text-transform: capitalize"
+                                    value="{{ $jawapancalons->carian_teks }}">
                                 <span class="input-group-text"><i class="fas fa-microphone me-sm-1 text-dark"></i></span>
                                 <span class="input-group-text"><i class="fas fa-search me-sm-1 text-dark"></i></span>
                             </div>
@@ -82,19 +87,20 @@
                                         @csrf
                                         <h4>
                                             <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
-                                            <button type="submit" class="btn-link">{{ $jawapancalons->carian_teks }}
+                                            <button type="submit" style="text-transform: capitalize"
+                                                class="btn-link">{{ $jawapancalons->carian_teks }}
                                                 -
                                                 Wikipedia</button>
                                         </h4>
                                     </form>
 
-                                    <p>
+                                    <p class="qcont">
                                         {{ $jawapancalons->carian_teks }} is the process of leading the work of a team to
                                         achieve all
                                         project
                                         goals within the given constraints. This information is usually ...
                                     </p>
-                                    <p>
+                                    <p style="text-transform: capitalize">
                                         ‎History · ‎{{ $jawapancalons->carian_teks }} types · ‎Approaches of project...
                                     </p>
                                 </div>
@@ -125,7 +131,8 @@
                                         https://www.investopedia.com › ... › Business Essentials
                                     </h6>
                                     <h4>
-                                        <button type="submit" class="btn-link">{{ $jawapancalons->carian_teks }}
+                                        <button type="submit" style="text-transform: capitalize"
+                                            class="btn-link">{{ $jawapancalons->carian_teks }}
                                             Definition -
                                             Investopedia</button>
                                     </h4>
@@ -142,7 +149,8 @@
                                         https://www.microsoft.com › en-my › microsoft-365
                                     </h6>
                                     <h4>
-                                        <button type="submit" class="btn-link">{{ $jawapancalons->carian_teks }}
+                                        <button type="submit" style="text-transform: capitalize"
+                                            class="btn-link">{{ $jawapancalons->carian_teks }}
                                             Software | Microsoft
                                             Project</button>
                                     </h4>

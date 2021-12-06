@@ -116,11 +116,13 @@ Route::get('/{soalan}/pemprosesan-perkataan', [BanksoalankemahiranwordController
 Route::post('/bank-soalan-kemahiran/{soalan}/pemprosesan-perkataan/save', [BanksoalankemahiranwordController::class, 'soalankemahiranwordsave']);
 Route::get('/{soalan}/pemprosesan-perkataan/{word}', [BanksoalankemahiranwordController::class, 'soalankemahiranwordedit']);
 Route::post('/{soalan}/pemprosesan-perkataan/{word}/save', [BanksoalankemahiranwordController::class, 'soalankemahiranwordeditsave']);
+Route::post('/{soalan}/pemprosesan-perkataan/{word}/delete', [BanksoalankemahiranwordController::class, 'soalankemahiranworddelete']);
 
 Route::get('/{soalan}/emel', [BanksoalankemahiranemailController::class, 'soalankemahiranemailcreate']);
 Route::post('/{soalan}/emel/save', [BanksoalankemahiranemailController::class, 'soalankemahiranemailsave']);
 Route::get('/{soalan}/emel/{emel}', [BanksoalankemahiranemailController::class, 'soalankemahiranemailedit']);
 Route::post('/{soalan}/emel/{emel}/save', [BanksoalankemahiranemailController::class, 'soalankemahiranemaileditsave']);
+Route::post('/{soalan}/emel/{emel}/delete', [BanksoalankemahiranemailController::class, 'soalankemahiranemaildelete']);
 
 Route::get('/soalan-kemahiran-internet', [SoalankemahiraninternetController::class, 'index']);
 Route::get('/soalan-kemahiran-internet/{soalan}', [SoalankemahiraninternetController::class, 'page1']);

@@ -48,6 +48,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-12">
+                                        <input type="hidden" name="id_soalankemahiranword" value="{{ $soalankemahiranwords->id }}">
                                         <div class="form-group">
                                             <label class="form-control-label text-white" for="editor">Jawapan</label>
                                             <textarea id="editor" class="form-control" name="jawapan_word">
@@ -105,12 +106,14 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 
+    {{-- <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script> --}} --}}
     <script src="/assets/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         CKEDITOR.replace('editor', {
             language: 'en',
             height: '800px',
             width: 'auto',
+            extraPlugins: 'save'
         });
     </script>
 @stop
