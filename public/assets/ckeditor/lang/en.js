@@ -218,7 +218,7 @@ CKEDITOR.lang["en"] = {
             F0F8FF: "Alice Blue",
             E6E6FA: "Lavender",
             FFF: "White",
-            "1ABC9C": "Strong Cyan",
+            "008000": "Green",
             "2ECC71": "Emerald",
             "3498DB": "Bright Blue",
             "9B59B6": "Amethyst",

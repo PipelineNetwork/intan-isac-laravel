@@ -41,6 +41,7 @@
                 <div class="card-body">
                     <div class="col-xl-12">
                         @foreach ($soalankemahiranemails as $soalankemahiranemail)
+                        <h3 class="h5">Set {{ $soalankemahiranemail->id_soalankemahiran }}</h3>
                             @if ($soalankemahiranemail->arahan_umum != null)
                                 <h5>{!! $soalankemahiranemail->arahan_umum !!}</h5>
                             @endif
@@ -206,7 +207,7 @@
 
     <script>
         function tsw_open_demo_window() {
-            window.open("/soalan-kemahiran-email/{{ $soalankemahiranemail->id }}");
+            window.open("/soalan-kemahiran-email/{{ $soalankemahiranemail->id }}", "popup", "width=600", "height=400");
         }
     </script>
 @stop

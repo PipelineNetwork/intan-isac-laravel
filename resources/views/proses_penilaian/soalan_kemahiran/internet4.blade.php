@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-xl-8 mb-3">
                             <div class="input-group">
-                                <input class="form-control" type="text" value="{{ $jawapancalons->carian_teks }}">
+                                <input class="form-control" type="text" style="text-transform: capitalize" value="{{ $jawapancalons->carian_teks }}">
                                 <span class="input-group-text"><i class="fas fa-microphone me-sm-1 text-dark"></i></span>
                                 <span class="input-group-text"><i class="fas fa-search me-sm-1 text-dark"></i></span>
                             </div>

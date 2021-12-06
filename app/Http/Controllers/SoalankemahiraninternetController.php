@@ -43,12 +43,12 @@ class SoalankemahiraninternetController extends Controller
 
         $jawapancalon->url_teks = $request->url_teks;
         $jawapancalon->jawapansebenar_urlteks = $request->jawapansebenar_urlteks;
-        if ($request->url_teks == $request->jawapansebenar_urlteks) {
+        if ($jawapancalon->url_teks == $jawapancalon->jawapansebenar_urlteks) {
             $jawapancalon->markah_urlteks = 1;
         } else {
             $jawapancalon->markah_urlteks = 0;
         }
-        $jawapancalon->jawapansebenar_carianteks = $request->jawapansebenar_carianteks;
+        $jawapancalon->jawapansebenar_carianteks = strtolower($request->jawapansebenar_carianteks);
         $jawapancalon->user_id = $current_user->id;
         $jawapancalon->id_soalankemahiraninternet = $request->id_soalankemahiraninternet;
         $jawapancalon->save();
@@ -95,8 +95,8 @@ class SoalankemahiraninternetController extends Controller
     {
         $jawapancalon = Bankjawapancalon::find($id);
 
-        $jawapancalon->carian_teks = $request->carian_teks;
-        if ($request->carian_teks == $jawapancalon->jawapansebenar_carianteks) {
+        $jawapancalon->carian_teks = strtolower($request->carian_teks);
+        if ($jawapancalon->carian_teks == $jawapancalon->jawapansebenar_carianteks) {
             $jawapancalon->markah_carianteks = 1;
         } else {
             $jawapancalon->markah_carianteks = 0;

@@ -50,6 +50,7 @@ class SoalankemahiranwordController extends Controller
 
         $jawapancalon->jawapan_word = $request->jawapan_word;
         $jawapancalon->user_id = $current_user->id;
+        $jawapancalon->id_soalankemahiranword = $request->id_soalankemahiranword;
         $jawapancalon->save();
 
         return view('proses_penilaian.soalan_kemahiran.mic_word2', [
@@ -67,6 +68,7 @@ class SoalankemahiranwordController extends Controller
     {
         $soalankemahiranword = Soalankemahiranword::where('id', $id_word)->get()->first();
 
+        // dd($soalankemahiranword);
         return view('proses_penilaian.soalan_kemahiran.mic_word1', [
             'soalankemahiranwords' => $soalankemahiranword
         ]);

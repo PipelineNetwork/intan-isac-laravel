@@ -41,6 +41,7 @@
                 <div class="card-body">
                     <div class="col-xl-12">
                         @foreach ($soalankemahiraninternets as $soalankemahiraninternet)
+                            <h3 class="h5">Set {{ $soalankemahiraninternet->id_soalankemahiran }}</h3>
                             @if ($soalankemahiraninternet->arahan_umum != null)
                                 <h5>{!! $soalankemahiraninternet->arahan_umum !!}</h5>
                             @endif
@@ -54,7 +55,8 @@
                             @if ($soalankemahiraninternet->soalan_1 != null)
                                 <p>{!! $soalankemahiraninternet->soalan_1 !!}</p>
                                 <ul class="mt-2">
-                                    <button class="btn btn-success" value="{{ $soalankemahiraninternet->id }}" type="submit" onclick="tsw_open_demo_window();">Internet</button>
+                                    <button class="btn btn-success" value="{{ $soalankemahiraninternet->id }}"
+                                        type="submit" target="popup" onclick="tsw_open_demo_window();">Internet</button>
                                 </ul>
                             @endif
 
@@ -193,8 +195,15 @@
     @include('sweet::alert')
 
     <script>
+        // var windowObjectReference;
+        // var windowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
+
+        // function tsw_open_demo_window() {
+        //     windowObjectReference = window.open("/soalan-kemahiran-internet/{{ $soalankemahiraninternet->id }}", windowFeatures);
+        // }
+
         function tsw_open_demo_window() {
-            window.open("/soalan-kemahiran-internet/{{ $soalankemahiraninternet->id }}");
+            window.open("/soalan-kemahiran-internet/{{ $soalankemahiraninternet->id }}", "popup", "width=600","height=400");
         }
     </script>
 @stop
