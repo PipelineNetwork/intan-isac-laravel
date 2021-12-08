@@ -94,7 +94,11 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
+                                        @if($details!=null)
+                                        <input class="form-control form-control-sm" type="text" name="nama" value="{{$details->name}}">
+                                        @else
                                         <input class="form-control form-control-sm" type="text" name="nama">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -104,7 +108,12 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm" type="date" name="tarikh_lahir">
+                                        @if ($details != null)
+                                            <input class="form-control form-control-sm" type="date" name="tarikh_lahir" value="{{$details->TARIKH_LAHIR}}">
+                                        @else
+                                            <input class="form-control form-control-sm" type="date" name="tarikh_lahir">
+                                        @endif
+                                        
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -116,8 +125,12 @@
                                     <div class="col-8">
                                         <select class="form-control form-control-sm ml-3" name="jantina"
                                             id="input_kod_jantina" required>
-                                            <option hidden selected value="">
+                                            @if ($details != null)
+                                                <option hidden selected value="{{$details->KOD_JANTINA}}" selected hidden>{{$details->KOD_JANTINA}}</option>
+                                            @else
+                                                <option hidden selected value="">
                                                 Sila pilih</option>
+                                            @endif
                                             <option value="Lelaki">Lelaki</option>
                                             <option value="Perempuan">Perempuan</option>
                                         </select>
@@ -130,7 +143,11 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm" type="text" name="jawatan_ketua_jabatan">
+                                        @if ($details != null)
+                                            <input class="form-control form-control-sm" type="text" name="jawatan_ketua_jabatan" value="{{$details->KOD_GELARAN_JAWATAN}}">
+                                        @else
+                                            <input class="form-control form-control-sm" type="text" name="jawatan_ketua_jabatan">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -142,8 +159,13 @@
                                     <div class="col-8">
                                         <select class="form-control form-control-sm ml-3" name="taraf_jawatan"
                                             id="input_taraf_perjawatan" required>
+                                            @if ($details != null)
+                                            <option hidden selected value="{{$details->KOD_TARAF_PERJAWATAN}}">{{$details->KOD_TARAF_PERJAWATAN}}
+                                            </option>
+                                            @else
                                             <option hidden selected value="">Sila pilih
                                             </option>
+                                            @endif
                                             @foreach ($taraf_perjawatans as $taraf_perjawatan)
                                                 <option value="{{ $taraf_perjawatan->DESCRIPTION1 }}">
                                                     {{ $taraf_perjawatan->DESCRIPTION1 }}</option>
@@ -158,7 +180,11 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm" type="date" name="tarikh_lantikan">
+                                        @if ($details != null)
+                                            <input class="form-control form-control-sm" type="date" name="tarikh_lantikan" value="{{$details->TARIKH_LANTIKAN}}">
+                                        @else
+                                            <input class="form-control form-control-sm" type="date" name="tarikh_lantikan">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -171,8 +197,11 @@
                                         <select class="form-control form-control-sm ml-3"
                                             name="klasifikasi_perkhidmatan" id="input_klasifikasi_perkhidmatan"
                                             required>
-                                            <option hidden selected value="">Sila pilih
-                                            </option>
+                                            @if ($details != null)
+                                                <option hidden selected value="{{$details->KOD_KLASIFIKASI_PERKHIDMATAN}}">{{$details->KOD_KLASIFIKASI_PERKHIDMATAN}}</option>
+                                            @else
+                                                <option hidden selected value="">Sila pilih</option>
+                                            @endif
                                             @foreach ($klasifikasi_perkhidmatans as $klasifikasi_perkhidmatan)
                                                 <option value="{{ $klasifikasi_perkhidmatan->DESCRIPTION1 }}">
                                                     {{ $klasifikasi_perkhidmatan->DESCRIPTION1 }}</option>
@@ -187,7 +216,11 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm " type="text" name="no_telefon_pejabat">
+                                        @if ($details != null)
+                                            <input class="form-control form-control-sm " type="text" name="no_telefon_pejabat" maxlength="11" value="{{$details->NO_TELEFON_PEJABAT}}">
+                                        @else
+                                            <input class="form-control form-control-sm " type="text" name="no_telefon_pejabat" maxlength="11">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -197,7 +230,11 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm " type="text" name="alamat1_pejabat">
+                                        @if ($details != null)
+                                            <input class="form-control form-control-sm " type="text" name="alamat1_pejabat" value="{{$details->ALAMAT_1}}">
+                                        @else
+                                            <input class="form-control form-control-sm " type="text" name="alamat1_pejabat">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -207,7 +244,11 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm " type="text" name="alamat2_pejabat">
+                                        @if ($details != null)
+                                            <input class="form-control form-control-sm " type="text" name="alamat2_pejabat" value="{{$details->ALAMAT_2}}">
+                                        @else
+                                            <input class="form-control form-control-sm " type="text" name="alamat2_pejabat">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -217,7 +258,11 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm " type="text" name="poskod_pejabat">
+                                        @if ($details != null)
+                                            <input class="form-control form-control-sm " type="text" name="poskod_pejabat" value="{{$details->POSKOD}}" maxlength="5">
+                                        @else
+                                            <input class="form-control form-control-sm " type="text" name="poskod_pejabat" maxlength="5">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -227,7 +272,11 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm " type="text" name="nama_penyelia">
+                                        @if ($details != null)
+                                            <input class="form-control form-control-sm " type="text" name="nama_penyelia" value="{{$details->NAMA_PENYELIA}}">
+                                        @else
+                                            <input class="form-control form-control-sm " type="text" name="nama_penyelia">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -237,7 +286,11 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm " type="text" name="emel_penyelia">
+                                        @if ($details != null)
+                                            <input class="form-control form-control-sm " type="text" name="emel_penyelia" value="{{$details->EMEL_PENYELIA}}">
+                                        @else
+                                            <input class="form-control form-control-sm " type="text" name="emel_penyelia">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -247,7 +300,11 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm" type="text" name="no_telefon_penyelia">
+                                        @if ($details != null )
+                                            <input class="form-control form-control-sm" type="text" name="no_telefon_penyelia" value="{{$details->NO_TELEFON_PENYELIA}}" maxlength="11">
+                                        @else
+                                            <input class="form-control form-control-sm" type="text" name="no_telefon_penyelia" maxlength="11">
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row mt-4">

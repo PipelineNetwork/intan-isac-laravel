@@ -9,7 +9,7 @@
     <title>
         ISAC
     </title>
-    <!-- Extra details for Live View on GitHub Pages -->
+    {{-- <!-- Extra details for Live View on GitHub Pages -->
     <!-- Canonical SEO -->
     <link rel="canonical" href="https://www.creative-tim.com/product/soft-ui-dashboard-pro" />
     <!--  Social tags      -->
@@ -36,7 +36,7 @@
         content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg" />
     <meta property="og:description"
         content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
-    <meta property="og:site_name" content="Creative Tim" />
+    <meta property="og:site_name" content="Creative Tim" /> --}}
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
