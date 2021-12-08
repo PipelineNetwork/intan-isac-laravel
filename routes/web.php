@@ -116,7 +116,7 @@ Route::post('/{soalan}/internet/{internet}/save', [BanksoalankemahiraninternetCo
 Route::post('/{soalan}/internet/{internet}/delete', [BanksoalankemahiraninternetController::class, 'deletesoalankemahiraninternet']);
 
 Route::get('/{soalan}/pemprosesan-perkataan', [BanksoalankemahiranwordController::class, 'soalankemahiranwordcreate']);
-Route::post('/bank-soalan-kemahiran/{soalan}/pemprosesan-perkataan/save', [BanksoalankemahiranwordController::class, 'soalankemahiranwordsave']);
+Route::post('/{soalan}/pemprosesan-perkataan/save', [BanksoalankemahiranwordController::class, 'soalankemahiranwordsave']);
 Route::get('/{soalan}/pemprosesan-perkataan/{word}', [BanksoalankemahiranwordController::class, 'soalankemahiranwordedit']);
 Route::post('/{soalan}/pemprosesan-perkataan/{word}/save', [BanksoalankemahiranwordController::class, 'soalankemahiranwordeditsave']);
 Route::post('/{soalan}/pemprosesan-perkataan/{word}/delete', [BanksoalankemahiranwordController::class, 'soalankemahiranworddelete']);
