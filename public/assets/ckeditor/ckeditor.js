@@ -42597,71 +42597,197 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
             },
         });
     })();
-    CKEDITOR.plugins.add("tablesorter", {
-        lang: "de,en",
-        init: function (a) {
-            if (a.contextMenu) {
-                a.addMenuGroup("tablesorterGroup");
-                a.addMenuItem("sortasc", {
-                    label: a.lang.tablesorter.contextAsc,
-                    command: "sortasc",
-                    group: "tablesorterGroup",
-                });
-                a.addMenuItem("sortdesc", {
-                    label: a.lang.tablesorter.contextDesc,
-                    command: "sortdesc",
-                    group: "tablesorterGroup",
-                });
-                a.contextMenu.addListener(function (a) {
-                    if (a.getAscendant("tr", !0))
-                        return { sortasc: CKEDITOR.TRISTATE_OFF };
-                });
-                a.contextMenu.addListener(function (a) {
-                    if (a.getAscendant("tr", !0))
-                        return { sortdesc: CKEDITOR.TRISTATE_OFF };
-                });
-                a.addCommand("sortasc", {
-                    exec: function (a) {
-                        e("asc");
-                    },
-                });
-                a.addCommand("sortdesc", {
-                    exec: function (a) {
-                        e("desc");
-                    },
-                });
-                var e = function (e) {
-                    var d = a.getSelection().getStartElement();
-                    if (d) {
-                        var g = d.getAscendant({ td: 1, th: 1 }, !0).getIndex(),
-                            b = d.getAscendant({ table: 1 }),
-                            d = b.getElementsByTag("tbody").getItem(0);
-                        void 0 == d && (d = b);
-                        var b = d.$.childNodes,
-                            f = [],
-                            c;
-                        for (c in b) 1 == b[c].nodeType && f.push(b[c]);
-                        f.sort(function (a, d) {
-                            var c = a.childNodes[g].innerText.trim(),
-                                b = d.childNodes[g].innerText.trim();
-                            return c && 0 !== c.length
-                                ? b && 0 !== b.length
-                                    ? "desc" == e
-                                        ? b.localeCompare(c)
-                                        : c.localeCompare(b)
-                                    : -1
-                                : b && 0 !== b.length
-                                ? 1
-                                : 0;
-                        });
-                        for (c = 0; c < f.length; ++c) d.$.appendChild(f[c]);
-                    }
-                };
-            }
+    CKEDITOR.plugins.add("spacingsliders", {
+        requires: "panelbutton,floatpanel",
+        init: function (b) {
+            var d = b.lang.spacingsliders,
+                c = this.path + "skins/default.css",
+                a = function (a, b) {
+                    return void 0 === a ? b : a;
+                },
+                e = {
+                    lineheight: new CKEDITOR.spacingControl(
+                        {
+                            name: "lineheight",
+                            min: a(CKEDITOR.config.lineheight_min, 0),
+                            max: a(CKEDITOR.config.lineheight_max, 3),
+                            step: a(CKEDITOR.config.lineheight_step, 0.1),
+                        },
+                        b
+                    ),
+                },
+                // e = {
+                //     lineheight: new CKEDITOR.spacingControl(
+                //         {
+                //             name: "lineheight",
+                //             min: a(CKEDITOR.config.lineheight_min, 0),
+                //             max: a(CKEDITOR.config.lineheight_max, 3),
+                //             step: a(CKEDITOR.config.lineheight_step, 0.1),
+                //         },
+                //         b
+                //     ),
+                //     letterspacing: new CKEDITOR.spacingControl(
+                //         {
+                //             name: "letterspacing",
+                //             min: a(CKEDITOR.config.letterspacing_min, -20),
+                //             max: a(CKEDITOR.config.letterspacing_max, 20),
+                //         },
+                //         b
+                //     ),
+                // },
+                a = [];
+            for (name in e) a.push(e[name].createStyle());
+            b.ui.add("spacingsliders", CKEDITOR.UI_PANELBUTTON, {
+                label: d.title,
+                title: d.title,
+                modes: { wysiwyg: 1 },
+                editorFocus: 0,
+                toolbar: "styles,40",
+                allowedContent: a,
+                panel: {
+                    css: CKEDITOR.skin.getPath("editor"),
+                    attributes: { role: "listbox", "aria-label": d.panelTitle },
+                },
+                onBlock: function (a, b) {
+                    var d = b.element.getDocument();
+                    d.appendStyleSheet(c);
+                    d.getBody().setStyle("overflow", "hidden");
+                    b.autoSize = !0;
+                    b.element.addClass("cke_spacingblock");
+                    for (var f in e) e[f].render(b.element);
+                },
+                onOpen: function () {
+                    var a = b.getSelection(),
+                        a = a && a.getStartElement(),
+                        c = b.elementPath(a),
+                        d;
+                    for (d in e) e[d].update(c, a);
+                },
+            });
         },
     });
+    CKEDITOR.spacingControl = CKEDITOR.tools.createClass({
+        $: function (b, d) {
+            this.settings = b;
+            this.editor = d;
+            this.definition = d.config["spacingsliders_" + b.name + "Style"];
+        },
+        proto: {
+            createStyle: function (b) {
+                return new CKEDITOR.style(
+                    this.definition,
+                    b ? { size: b } : void 0
+                );
+            },
+            getValue: function () {
+                if (this.element) return this.input.$.value;
+            },
+            setValue: function (b) {
+                if (this.element) {
+                    this.input.$.value = b;
+                    this.label.setHtml(b);
+                    var d = this.createStyle(b),
+                        c = this.editor.elementPath();
+                    if (c && d.checkApplicable(c, this.editor)) {
+                        var c = this.editor.getSelection(),
+                            a = c.isLocked;
+                        a && c.unlock();
+                        this.editor.removeStyle(
+                            new CKEDITOR.style(this.definition, {
+                                size: "inherit",
+                            })
+                        );
+                        b && this.editor.applyStyle(d);
+                        a && c.lock();
+                    }
+                }
+            },
+            isEnabled: function () {
+                return this.element && !0 !== this.input.$.disabled;
+            },
+            setEnabled: function (b) {
+                this.element &&
+                    ((this.input.$.disabled = !b),
+                    b
+                        ? this.element.removeClass("disabled")
+                        : (this.element.addClass("disabled"),
+                          this.label.setHtml("-"),
+                          (this.input.value = 0)));
+            },
+            render: function (b) {
+                var d = CKEDITOR.tools.addFunction(function (a, b) {
+                        this.setValue(a);
+                        b && this.editor.fire("saveSnapshot");
+                    }, this),
+                    c = this.editor.lang.spacingsliders,
+                    a = [];
+                a.push('\x3cdiv id\x3d"');
+                a.push(this.settings.name);
+                a.push('" class\x3d"cke_spacingcontrol" title\x3d""\x3e');
+                a.push("\x3clabel\x3e");
+                a.push(c.labels[this.settings.name]);
+                a.push("\x3c/label\x3e");
+                a.push('\x3cinput type\x3d"range" ');
+                a.push(' oninput\x3d"CKEDITOR.tools.callFunction( ');
+                a.push(d);
+                a.push(', this.value );" ');
+                a.push(' onchange\x3d"CKEDITOR.tools.callFunction( ');
+                a.push(d);
+                a.push(', this.value, true );" ');
+                a.push('step\x3d"');
+                a.push(this.settings.step || 1);
+                a.push('" ');
+                a.push('min\x3d"');
+                a.push(this.settings.min || 0);
+                a.push('" ');
+                a.push('max\x3d"');
+                a.push(this.settings.max || 100);
+                a.push('" /\x3e');
+                a.push("\x3cspan\x3e");
+                a.push(0);
+                a.push("\x3c/span\x3e");
+                a.push("\x3c/div\x3e");
+                b.appendHtml(a.join(""));
+                this.element = b.findOne("#" + this.settings.name);
+                this.input = b.findOne("#" + this.settings.name + " input");
+                this.label = b.findOne("#" + this.settings.name + " span");
+            },
+            update: function (b, d) {
+                var c = b ? this.definition.getStyleValue(b, d) : void 0;
+                parseFloat(c) === c
+                    ? ((c = Math.round(10 * c) / 10),
+                      this.setEnabled(!0),
+                      (this.input.$.value = c),
+                      this.label.setHtml(c))
+                    : this.setEnabled(!1);
+            },
+        },
+    });
+    CKEDITOR.config.spacingsliders_lineheightStyle = {
+        type: CKEDITOR.STYLE_BLOCK,
+        element: "div",
+        styles: { "line-height": "#(size)" },
+        getStyleValue: function (b, d) {
+            var c = CKEDITOR.tools.convertToPx,
+                a = c(d.getComputedStyle("font-size")),
+                c = c(d.getComputedStyle("line-height"));
+            return a ? c / a : 0;
+        },
+    };
+    CKEDITOR.config.spacingsliders_letterspacingStyle = {
+        element: "div",
+        styles: { "letter-spacing": "#(size)px" },
+        getStyleValue: function (b, d) {
+            var c = b.lastElement.getComputedStyle("letter-spacing");
+            return /^[-]?[0-9\\.]+([a-z]*)$/.test(c)
+                ? c.startsWith("-")
+                    ? -1 * CKEDITOR.tools.convertToPx(c.substring(1))
+                    : CKEDITOR.tools.convertToPx(c)
+                : 0;
+        },
+    };
     CKEDITOR.config.plugins =
-        "dialogui,dialog,about,a11yhelp,dialogadvtab,basicstyles,bidi,blockquote,notification,button,toolbar,clipboard,panelbutton,panel,floatpanel,colorbutton,colordialog,xml,ajax,templates,menu,contextmenu,copyformatting,div,editorplaceholder,resize,elementspath,enterkey,entities,exportpdf,popup,filetools,filebrowser,find,floatingspace,listblock,richcombo,font,fakeobjects,forms,format,horizontalrule,htmlwriter,iframe,wysiwygarea,image,indent,indentblock,indentlist,smiley,justify,menubutton,language,link,list,liststyle,magicline,maximize,newpage,pagebreak,pastetext,pastetools,pastefromgdocs,pastefromlibreoffice,pastefromword,preview,print,removeformat,save,selectall,showblocks,showborders,sourcearea,specialchar,scayt,stylescombo,tab,table,tabletools,tableselection,undo,lineutils,widgetselection,widget,notificationaggregator,uploadwidget,uploadimage,tablesorter";
+        "dialogui,dialog,about,a11yhelp,dialogadvtab,basicstyles,bidi,blockquote,notification,button,toolbar,clipboard,panelbutton,panel,floatpanel,colorbutton,colordialog,xml,ajax,templates,menu,contextmenu,copyformatting,div,editorplaceholder,resize,elementspath,enterkey,entities,exportpdf,popup,filetools,filebrowser,find,floatingspace,listblock,richcombo,font,fakeobjects,forms,format,horizontalrule,htmlwriter,iframe,wysiwygarea,image,indent,indentblock,indentlist,smiley,justify,menubutton,language,link,list,liststyle,magicline,maximize,newpage,pagebreak,pastetext,pastetools,pastefromgdocs,pastefromlibreoffice,pastefromword,preview,print,removeformat,save,selectall,showblocks,showborders,sourcearea,specialchar,scayt,stylescombo,tab,table,tabletools,tableselection,undo,lineutils,widgetselection,widget,notificationaggregator,uploadwidget,uploadimage,spacingsliders";
     CKEDITOR.config.skin = "office2013";
     (function () {
         var setIcons = function (icons, strip) {
@@ -42676,12 +42802,12 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
         };
         if (CKEDITOR.env.hidpi)
             setIcons(
-                "about,0,,bold,24,,italic,48,,strike,72,,subscript,96,,superscript,120,,underline,144,,bidiltr,168,,bidirtl,192,,blockquote,216,,copy-rtl,240,,copy,264,,cut-rtl,288,,cut,312,,paste-rtl,336,,paste,360,,bgcolor,384,,textcolor,408,,templates-rtl,432,,templates,456,,copyformatting,480,,creatediv,504,,exportpdf,528,,find-rtl,552,,find,576,,replace,600,,button,624,,checkbox,648,,form,672,,hiddenfield,696,,imagebutton,720,,radio,744,,select-rtl,768,,select,792,,textarea-rtl,816,,textarea,840,,textfield-rtl,864,,textfield,888,,horizontalrule,912,,iframe,936,,image,960,,indent-rtl,984,,indent,1008,,outdent-rtl,1032,,outdent,1056,,smiley,1080,,justifyblock,1104,,justifycenter,1128,,justifyleft,1152,,justifyright,1176,,language,1200,,anchor-rtl,1224,,anchor,1248,,link,1272,,unlink,1296,,bulletedlist-rtl,1320,,bulletedlist,1344,,numberedlist-rtl,1368,,numberedlist,1392,,maximize,1416,,newpage-rtl,1440,,newpage,1464,,pagebreak-rtl,1488,,pagebreak,1512,,pastetext-rtl,1536,,pastetext,1560,,pastefromword-rtl,1584,,pastefromword,1608,,preview-rtl,1632,,preview,1656,,print,1680,,removeformat,1704,,save,1728,,selectall,1752,,showblocks-rtl,1776,,showblocks,1800,,source-rtl,1824,,source,1848,,specialchar,1872,,scayt,1896,,table,1920,,redo-rtl,1944,,redo,1968,,undo-rtl,1992,,undo,2016,",
+                "about,0,,bold,24,,italic,48,,strike,72,,subscript,96,,superscript,120,,underline,144,,bidiltr,168,,bidirtl,192,,blockquote,216,,copy-rtl,240,,copy,264,,cut-rtl,288,,cut,312,,paste-rtl,336,,paste,360,,bgcolor,384,,textcolor,408,,templates-rtl,432,,templates,456,,copyformatting,480,,creatediv,504,,exportpdf,528,,find-rtl,552,,find,576,,replace,600,,button,624,,checkbox,648,,form,672,,hiddenfield,696,,imagebutton,720,,radio,744,,select-rtl,768,,select,792,,textarea-rtl,816,,textarea,840,,textfield-rtl,864,,textfield,888,,horizontalrule,912,,iframe,936,,image,960,,indent-rtl,984,,indent,1008,,outdent-rtl,1032,,outdent,1056,,smiley,1080,,justifyblock,1104,,justifycenter,1128,,justifyleft,1152,,justifyright,1176,,language,1200,,anchor-rtl,1224,,anchor,1248,,link,1272,,unlink,1296,,bulletedlist-rtl,1320,,bulletedlist,1344,,numberedlist-rtl,1368,,numberedlist,1392,,maximize,1416,,newpage-rtl,1440,,newpage,1464,,pagebreak-rtl,1488,,pagebreak,1512,,pastetext-rtl,1536,,pastetext,1560,,pastefromword-rtl,1584,,pastefromword,1608,,preview-rtl,1632,,preview,1656,,print,1680,,removeformat,1704,,save,1728,,selectall,1752,,showblocks-rtl,1776,,showblocks,1800,,source-rtl,1824,,source,1848,,specialchar,1872,,scayt,1896,,table,1920,,redo-rtl,1944,,redo,1968,,undo-rtl,1992,,undo,2016,,spacingsliders,4080,auto",
                 "icons_hidpi.png"
             );
         else
             setIcons(
-                "about,0,auto,bold,24,auto,italic,48,auto,strike,72,auto,subscript,96,auto,superscript,120,auto,underline,144,auto,bidiltr,168,auto,bidirtl,192,auto,blockquote,216,auto,copy-rtl,240,auto,copy,264,auto,cut-rtl,288,auto,cut,312,auto,paste-rtl,336,auto,paste,360,auto,bgcolor,384,auto,textcolor,408,auto,templates-rtl,432,auto,templates,456,auto,copyformatting,480,auto,creatediv,504,auto,exportpdf,528,auto,find-rtl,552,auto,find,576,auto,replace,600,auto,button,624,auto,checkbox,648,auto,form,672,auto,hiddenfield,696,auto,imagebutton,720,auto,radio,744,auto,select-rtl,768,auto,select,792,auto,textarea-rtl,816,auto,textarea,840,auto,textfield-rtl,864,auto,textfield,888,auto,horizontalrule,912,auto,iframe,936,auto,image,960,auto,indent-rtl,984,auto,indent,1008,auto,outdent-rtl,1032,auto,outdent,1056,auto,smiley,1080,auto,justifyblock,1104,auto,justifycenter,1128,auto,justifyleft,1152,auto,justifyright,1176,auto,language,1200,auto,anchor-rtl,1224,auto,anchor,1248,auto,link,1272,auto,unlink,1296,auto,bulletedlist-rtl,1320,auto,bulletedlist,1344,auto,numberedlist-rtl,1368,auto,numberedlist,1392,auto,maximize,1416,auto,newpage-rtl,1440,auto,newpage,1464,auto,pagebreak-rtl,1488,auto,pagebreak,1512,auto,pastetext-rtl,1536,auto,pastetext,1560,auto,pastefromword-rtl,1584,auto,pastefromword,1608,auto,preview-rtl,1632,auto,preview,1656,auto,print,1680,auto,removeformat,1704,auto,save,1728,auto,selectall,1752,auto,showblocks-rtl,1776,auto,showblocks,1800,auto,source-rtl,1824,auto,source,1848,auto,specialchar,1872,auto,scayt,1896,auto,table,1920,auto,redo-rtl,1944,auto,redo,1968,auto,undo-rtl,1992,auto,undo,2016,auto",
+                "about,0,auto,bold,24,auto,italic,48,auto,strike,72,auto,subscript,96,auto,superscript,120,auto,underline,144,auto,bidiltr,168,auto,bidirtl,192,auto,blockquote,216,auto,copy-rtl,240,auto,copy,264,auto,cut-rtl,288,auto,cut,312,auto,paste-rtl,336,auto,paste,360,auto,bgcolor,384,auto,textcolor,408,auto,templates-rtl,432,auto,templates,456,auto,copyformatting,480,auto,creatediv,504,auto,exportpdf,528,auto,find-rtl,552,auto,find,576,auto,replace,600,auto,button,624,auto,checkbox,648,auto,form,672,auto,hiddenfield,696,auto,imagebutton,720,auto,radio,744,auto,select-rtl,768,auto,select,792,auto,textarea-rtl,816,auto,textarea,840,auto,textfield-rtl,864,auto,textfield,888,auto,horizontalrule,912,auto,iframe,936,auto,image,960,auto,indent-rtl,984,auto,indent,1008,auto,outdent-rtl,1032,auto,outdent,1056,auto,smiley,1080,auto,justifyblock,1104,auto,justifycenter,1128,auto,justifyleft,1152,auto,justifyright,1176,auto,language,1200,auto,anchor-rtl,1224,auto,anchor,1248,auto,link,1272,auto,unlink,1296,auto,bulletedlist-rtl,1320,auto,bulletedlist,1344,auto,numberedlist-rtl,1368,auto,numberedlist,1392,auto,maximize,1416,auto,newpage-rtl,1440,auto,newpage,1464,auto,pagebreak-rtl,1488,auto,pagebreak,1512,auto,pastetext-rtl,1536,auto,pastetext,1560,auto,pastefromword-rtl,1584,auto,pastefromword,1608,auto,preview-rtl,1632,auto,preview,1656,auto,print,1680,auto,removeformat,1704,auto,save,1728,auto,selectall,1752,auto,showblocks-rtl,1776,auto,showblocks,1800,auto,source-rtl,1824,auto,source,1848,auto,specialchar,1872,auto,scayt,1896,auto,table,1920,auto,redo-rtl,1944,auto,redo,1968,auto,undo-rtl,1992,auto,undo,2016,auto,spacingsliders,2040,auto",
                 "icons.png"
             );
     })();

@@ -46,11 +46,15 @@ class SoalankemahiranwordController extends Controller
     {
         $current_user = $request->user();
 
+        $array_jawapansebenar = [$request->jawapan_1, $request->jawapan_2, $request->jawapan_3, $request->jawapan_4, $request->jawapan_5, $request->jawapan_6, $request->jawapan_7, $request->jawapan_8, $request->jawapan_9, $request->jawapan_10, $request->jawapan_11, $request->jawapan_12, $request->jawapan_13, $request->jawapan_14, $request->jawapan_15];
+
         $jawapancalon = new Bankjawapancalon();
 
-        $jawapancalon->jawapan_word = $request->jawapan_word;
+        $jawapancalon->jawapan_word =  explode("<p>" ,$request->jawapan_word);
+
         $jawapancalon->user_id = $current_user->id;
         $jawapancalon->id_soalankemahiranword = $request->id_soalankemahiranword;
+        dd($array_jawapansebenar);
         $jawapancalon->save();
 
         return view('proses_penilaian.soalan_kemahiran.mic_word2', [
