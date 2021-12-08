@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="/bank-soalan-kemahiran/{{ $banksoalankemahirans->id }}/pemprosesan-perkataan/save"
+                <form method="POST" action="/{{ $banksoalankemahirans->id }}/pemprosesan-perkataan/save"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="row">
