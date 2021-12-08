@@ -125,6 +125,16 @@
 
 <body class="g-sidenav-show  bg-gray-100" oncopy="return false" oncut="return false" onpaste="return false"
     oncontextmenu="return false">
+    <?php 
+    use App\Models\SelenggaraKawalanSistem;
+    $masa_penilaian = SelenggaraKawalanSistem::where('ID_KAWALAN_SISTEM', '1')->first();
+    $masa_keseluruhan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
+    $masa_keseluruhan = $masa_keseluruhan*60;
+
+    $masa_nama = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
+    $masa_pengetahuan = $masa_nama*60*1000;
+
+    ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
@@ -347,9 +357,10 @@
             // letak masa dynamic
             var masa_penilaian = <?php echo $masa_keseluruhan; ?>;
             var masa_pengetahuan = <?php echo $masa_pengetahuan; ?>;
+            var masa_nama = <?php echo $masa_nama ?>
             // console.log("masa:", masa_penilaian);
-            setTimeout(masa_pengetahuan, function() {
-                alert("Masa yang dicadangkan untuk menjawab soalan pengetahuan: 20 minit telah berlalu.");
+            setTimeout(function() {
+                alert("Masa yang dicadangkan untuk menjawab soalan pengetahuan: "+masa_nama+" minit telah berlalu.");
             }, masa_pengetahuan);
             var countDownTime = window.sessionStorage.getItem(COUNTER_KEY) || masa_penilaian;
             countDown(countDownTime, function() {
