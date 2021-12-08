@@ -320,9 +320,7 @@
 
             createQNavigator(pages);
             createQNavigator2(pages);
-            setTimeout(function() {
-                alert("Masa yang dicadangkan untuk menjawab soalan pengetahuan: 20 minit telah berlalu.");
-            }, 1200000);
+            
             $("#0").show();
 
 

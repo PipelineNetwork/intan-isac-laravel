@@ -27,7 +27,7 @@ class MohonPenilaianController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +41,7 @@ class MohonPenilaianController extends Controller
         $peserta = MohonPenilaian::orderBy('created_at', 'desc')->get();
         return view('mohonPenilaian.senarai_permohonan', [
             'peserta' => $peserta,
-            'calon_3'=>$calon_3
+            'calon_3' => $calon_3
         ]);
 
         // $id_group_user = Auth::user()->user_group_id;
@@ -74,59 +74,47 @@ class MohonPenilaianController extends Controller
         $id_group_user = Auth::user()->user_group_id;
         $role = Role::where('id', $id_group_user)->first();
         $role = $role->name;
-        
-        if($role == 'penyelaras'){
+
+        if ($role == 'penyelaras') {
             $id_penyelia = Auth::id();
             $jadual_penyelia = Jadual::where('user_id', $id_penyelia)->get();
 
             return view('mohonPenilaian.penyelaras.pilih_jadual', [
                 'jadual_penyelia' => $jadual_penyelia
             ]);
-        }elseif($role == 'calon'){
-            $status = Auth::user()->nric;
-            $check_status = MohonPenilaian::where('id_calon', $status)->first();
+        } elseif ($role == 'calon') {
+            $current_user = Auth::user()->user_group_id;
+            $checkid = Auth::id();
+            $checkid2 = Auth::user()->id;
+            $gelaran_user = Refgeneral::where('MASTERCODE', 10009)
+                ->join('pro_peserta', 'refgeneral.REFERENCECODE', 'pro_peserta.KOD_GELARAN')
+                ->select('refgeneral.MASTERCODE', 'refgeneral.REFERENCECODE', 'refgeneral.DESCRIPTION1', 'pro_peserta.KOD_GELARAN')
+                ->where('pro_peserta.user_id', $checkid2)
+                ->get()->first();
 
-            if ($check_status == null) {
-                $current_user = Auth::user()->user_group_id;
-                $checkid = Auth::id();
-                $checkid2 = Auth::user()->id;
-                $gelaran_user = Refgeneral::where('MASTERCODE', 10009)
-                    ->join('pro_peserta', 'refgeneral.REFERENCECODE', 'pro_peserta.KOD_GELARAN')
-                    ->select('refgeneral.MASTERCODE', 'refgeneral.REFERENCECODE', 'refgeneral.DESCRIPTION1', 'pro_peserta.KOD_GELARAN')
-                    ->where('pro_peserta.user_id', $checkid2)
-                    ->get()->first();
+            $kod_gelaran = Refgeneral::where('MASTERCODE', 10009)
+                ->get();
 
-                $kod_gelaran = Refgeneral::where('MASTERCODE', 10009)
-                    ->get();
+            $peringkat = Refgeneral::where('MASTERCODE', 10023)->get();
 
-                $peringkat = Refgeneral::where('MASTERCODE', 10023)->get();
+            $klasifikasi_perkhidmatan = Refgeneral::where('MASTERCODE', 10024)->get();
 
-                $klasifikasi_perkhidmatan = Refgeneral::where('MASTERCODE', 10024)->get();
+            $gred_jawatan = Refgeneral::where('MASTERCODE', 10025)->get();
 
-                $gred_jawatan = Refgeneral::where('MASTERCODE', 10025)->get();
+            $taraf_perjawatan = Refgeneral::where('MASTERCODE', 10026)->get();
 
-                $taraf_perjawatan = Refgeneral::where('MASTERCODE', 10026)->get();
+            $jenis_perkhidmatan = Refgeneral::where('MASTERCODE', 10027)->get();
 
-                $jenis_perkhidmatan = Refgeneral::where('MASTERCODE', 10027)->get();
+            $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
 
-                $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
+            $negeri = Refgeneral::where('MASTERCODE', 10021)->get();
 
-                $negeri = Refgeneral::where('MASTERCODE', 10021)->get();
-
-                if ($current_user == 9) {
-                    $user_profils = User::where('id', $checkid2)
-                        ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
-                        ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
-                        ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
-                        ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
-                        ->get()->first();
-                        // dd($user_profils);
-                } else {
-                    $user_profils = $request->user();
-                }
-            } else {
-                alert("calon telah mendaftar");
-            }
+            $user_profils = User::where('id', $checkid2)
+                ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+                ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+                ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
+                ->get()->first();
 
             return view('mohonPenilaian.calon.kemaskini_maklumat', [
                 'user_profils' => $user_profils,
@@ -181,9 +169,9 @@ class MohonPenilaianController extends Controller
         $kekosongan->save();
 
         $tahap = $kekosongan->KOD_TAHAP;
-        if($tahap == "01"){
+        if ($tahap == "01") {
             $tahap = "Asas";
-        }else{
+        } else {
             $tahap = "Lanjutan";
         }
 
@@ -198,25 +186,25 @@ class MohonPenilaianController extends Controller
         // $pdf->loadHTML('<h1>Contoh surat</h1>');
         // return $pdf->download('surat.pdf');
 
-        $pdf = PDF::loadView('pdf.pendaftaran_calon',[
-            'jkj'=>$permohonan->jawatan_ketua_jabatan,
-            'kementerian'=>$maklumat_calon->KOD_KEMENTERIAN,
-            'al1'=>$permohonan->alamat1_pejabat,
-            'al2'=>$permohonan->alamat2_pejabat,
-            'poskod'=>$permohonan->poskod_pejabat,
-            'bandar'=>$maklumat_calon->BANDAR,
-            'negeri'=>$maklumat_calon->KOD_NEGERI,
-            'nama_penyelaras'=>$permohonan->nama_penyelia,
+        $pdf = PDF::loadView('pdf.pendaftaran_calon', [
+            'jkj' => $permohonan->jawatan_ketua_jabatan,
+            'kementerian' => $maklumat_calon->KOD_KEMENTERIAN,
+            'al1' => $permohonan->alamat1_pejabat,
+            'al2' => $permohonan->alamat2_pejabat,
+            'poskod' => $permohonan->poskod_pejabat,
+            'bandar' => $maklumat_calon->BANDAR,
+            'negeri' => $maklumat_calon->KOD_NEGERI,
+            'nama_penyelaras' => $permohonan->nama_penyelia,
             'hari' => date('d - m - Y'),
             'nama' => $permohonan->nama,
             'ic' => $permohonan->no_ic,
-            'tarikh'=>$permohonan->tarikh_sesi,
-            'tahap'=>$tahap,
-            'masa_mula'=>$masa_mula,
-            'masa_tamat'=>$masa_tamat,
-            'id_sesi'=>$request->id_sesi
+            'tarikh' => $permohonan->tarikh_sesi,
+            'tahap' => $tahap,
+            'masa_mula' => $masa_mula,
+            'masa_tamat' => $masa_tamat,
+            'id_sesi' => $request->id_sesi
         ]);
-         return $pdf->download('Surat_tawaran_'.$permohonan->no_ic.'.pdf');
+        return $pdf->download('Surat_tawaran_' . $permohonan->no_ic . '.pdf');
 
         // if ($pdf->download('Surat_tawaran.pdf')){
         //     return redirect('/mohonpenilaian')->with('success', 'Berjaya didaftar');
@@ -269,7 +257,7 @@ class MohonPenilaianController extends Controller
     {
         $mohonPenilaian = MohonPenilaian::find($mohonPenilaian);
         $mohonPenilaian->delete();
-        return redirect('/mohonpenilaian')->with('success','Berjaya dihapus!');
+        return redirect('/mohonpenilaian')->with('success', 'Berjaya dihapus!');
     }
 
     public function pilih_jadual(Request $request)
@@ -305,23 +293,23 @@ class MohonPenilaianController extends Controller
         $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
 
         $negeri = Refgeneral::where('MASTERCODE', 10021)->get();
-        
+
         if ($details == 'Tiada maklumat HRMIS dijumpai') {
             // buat form
             $details = DB::table('users')
-            ->where('nric', '=', $calon)
-            ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
-            ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
-            ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
-            ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
-            ->get()->first();
+                ->where('nric', '=', $calon)
+                ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+                ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+                ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
+                ->get()->first();
             // dd($details);
             return view('mohonPenilaian.penyelaras.isi_maklumat', [
                 'sesi' => $sesi,
                 'calon' => $calon,
                 'sesi_id' => $sesi_id,
-                'details'=>$details,
-                
+                'details' => $details,
+
                 'kod_gelarans' => $kod_gelaran,
                 'peringkats' => $peringkat,
                 'klasifikasi_perkhidmatans' => $klasifikasi_perkhidmatan,
@@ -358,7 +346,7 @@ class MohonPenilaianController extends Controller
         $user_profils2->TARIKH_LAHIR = $request->TARIKH_LAHIR;
         $user_profils2->ID_PESERTA = $request->ID_PESERTA;
         $user_profils2->KOD_GELARAN = $request->KOD_GELARAN;
-        
+
         $user_profils3 = Tugas::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();
         $user_profils3->ALAMAT_1 = $request->ALAMAT_1;
         $user_profils3->ALAMAT_2 = $request->ALAMAT_2;
@@ -511,39 +499,40 @@ class MohonPenilaianController extends Controller
         ]);
     }
 
-    public function cetak_surat($id){
+    public function cetak_surat($id)
+    {
 
         $id_permohonan = MohonPenilaian::where('id', $id)->first();
         $id_peserta = $id_permohonan->id_calon;
         $id_penilaian = $id_permohonan->id_sesi;
 
         $maklumat_calon = Tugas::where('ID_PESERTA', $id_peserta)->first();
-        $jadual = Jadual::where('ID_PENILAIAN',$id_penilaian)->first();
+        $jadual = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
 
-        if($jadual->KOD_TAHAP == "01"){
+        if ($jadual->KOD_TAHAP == "01") {
             $tahap = "Asas";
-        }else{
+        } else {
             $tahap = "Lanjutan";
         }
 
-        $pdf = PDF::loadView('pdf.pendaftaran_calon',[
-            'jkj'=>$id_permohonan->jawatan_ketua_jabatan,
-            'kementerian'=>$maklumat_calon->KOD_KEMENTERIAN,
-            'al1'=>$id_permohonan->alamat1_pejabat,
-            'al2'=>$id_permohonan->alamat2_pejabat,
-            'poskod'=>$id_permohonan->poskod_pejabat,
-            'bandar'=>$maklumat_calon->BANDAR,
-            'negeri'=>$maklumat_calon->KOD_NEGERI,
-            'nama_penyelaras'=>$id_permohonan->nama_penyelia,
+        $pdf = PDF::loadView('pdf.pendaftaran_calon', [
+            'jkj' => $id_permohonan->jawatan_ketua_jabatan,
+            'kementerian' => $maklumat_calon->KOD_KEMENTERIAN,
+            'al1' => $id_permohonan->alamat1_pejabat,
+            'al2' => $id_permohonan->alamat2_pejabat,
+            'poskod' => $id_permohonan->poskod_pejabat,
+            'bandar' => $maklumat_calon->BANDAR,
+            'negeri' => $maklumat_calon->KOD_NEGERI,
+            'nama_penyelaras' => $id_permohonan->nama_penyelia,
             'hari' => date('d - m - Y'),
             'nama' => $id_permohonan->nama,
             'ic' => $id_permohonan->no_ic,
-            'tarikh'=>$id_permohonan->tarikh_sesi,
-            'tahap'=>$tahap,
-            'masa_mula'=>$jadual->KOD_MASA_MULA,
-            'masa_tamat'=>$jadual->KOD_MASA_TAMAT,
-            'id_sesi'=>$id_penilaian
+            'tarikh' => $id_permohonan->tarikh_sesi,
+            'tahap' => $tahap,
+            'masa_mula' => $jadual->KOD_MASA_MULA,
+            'masa_tamat' => $jadual->KOD_MASA_TAMAT,
+            'id_sesi' => $id_penilaian
         ]);
-         return $pdf->download('Surat_tawaran_'.$id_permohonan->no_ic.'.pdf');
+        return $pdf->download('Surat_tawaran_' . $id_permohonan->no_ic . '.pdf');
     }
 }
