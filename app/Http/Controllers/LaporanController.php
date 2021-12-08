@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permohanan;
+use App\Models\Tugas;
 use App\Models\MohonPenilaian;
+use App\Models\KeputusanPenilaian;
 use App\Models\Jadual;
 use App\Models\Refgeneral;
 use App\Models\TambahAduan;
@@ -16,7 +19,7 @@ class LaporanController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function laporan_penilaian_isac_mengikut_kementerian(Request $request)
     {
 
@@ -39,46 +42,1866 @@ class LaporanController extends Controller
         //januari
         if ($tahun != null) {
             if ($check_kementerian != null) {
-                $bil_mohon_jan = MohonPenilaian::whereYear('created_at', $tahun)
-                        ->where('KOD_KEMENTERIAN', $check_kementerian)
-                        ->count();
+                $bil_mohon_jan = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 1)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('mohon_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
             } else {
-                $bil_mohon_jan = MohonPenilaian::whereYear('created_at', $tahun)
+                $bil_mohon_jan = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 1)
+                    ->whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('mohon_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
                     ->count();
             }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_jan = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 1)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('mohon_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
         } else {
-            $bil_mohon_jan = MohonPenilaian::count();
+            $bil_mohon_jan = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 1)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('mohon_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                ->count();
         }
 
-        // dd($bil_mohon_jan);
+        //februari
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_feb = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 2)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_feb = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 2)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_feb = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 2)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_mohon_feb = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 2)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //mac
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_mac = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 3)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_mac = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 3)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_mac = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 3)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_mohon_mac = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 3)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //april
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_apr = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 4)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_apr = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 4)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_apr = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 4)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_mohon_apr = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 4)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //mei
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_mei = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 5)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_mei = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 5)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_mei = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 5)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_mohon_mei = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 5)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //jun
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_jun = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 6)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_jun = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 6)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_jun = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 6)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_mohon_jun = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 6)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //julai
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_julai = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 7)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_julai = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 7)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_julai = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 7)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_mohon_julai = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 7)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //ogos
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_ogos = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 8)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_ogos = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 8)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_ogos = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 8)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_mohon_ogos = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 8)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //september
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_sep = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 9)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_sep = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 9)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_sep = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 9)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_mohon_sep = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 9)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //oktober
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_okt = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 10)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_okt = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 10)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_okt = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 10)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_mohon_okt = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 10)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //november
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_nov = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 11)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_nov = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 11)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_nov = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 11)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_mohon_nov = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 11)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //disember
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_dis = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 12)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_dis = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 12)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_dis = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 12)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_mohon_dis = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 12)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //jumlah memohon
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_mohon_jumlah = MohonPenilaian::whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_mohon_jumlah = MohonPenilaian::whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_mohon_jumlah = MohonPenilaian::where('KOD_KEMENTERIAN', $check_kementerian)
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        } else {
+            $bil_mohon_jumlah = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
 
         //count bil menduduki
         //januari
         if ($tahun != null) {
             if ($check_kementerian != null) {
-                $bil_duduk_jan = MohonPenilaian::whereDate('YEAR(created_at)', $tahun)
+                $bil_duduk_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
                     ->where('KOD_KEMENTERIAN', $check_kementerian)
                     ->count();
             } else {
-                $bil_duduk_jan = MohonPenilaian::whereDate('YEAR(created_at)', $tahun)
+                $bil_duduk_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                    ->whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
                     ->count();
             }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
         } else {
-            $bil_duduk_jan = MohonPenilaian::all();
+            $bil_duduk_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                ->count();
+        }
+
+        //februari
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_duduk_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //mac
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_duduk_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //april
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_duduk_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //mei
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_duduk_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //jun
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_duduk_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //julai
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_duduk_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //ogos
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_duduk_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //september
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_duduk_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //oktober
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_duduk_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //november
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_duduk_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //disember
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->count();
+        } else {
+            $bil_duduk_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        }
+
+        //jumlah menduduki
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_duduk_jumlah = KeputusanPenilaian::whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->count();
+            } else {
+                $bil_duduk_jumlah = KeputusanPenilaian::whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_duduk_jumlah = KeputusanPenilaian::where('KOD_KEMENTERIAN', $check_kementerian)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
+        } else {
+            $bil_duduk_jumlah = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->count();
         }
 
         //count bil lulus
+        //januari
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                    ->whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
 
+        //februari
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //mac
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //april
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //mei
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //jun
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //julai
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //ogos
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //september
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //oktober
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //november
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //disember
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //jumlah lulus
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_lulus_jumlah = KeputusanPenilaian::whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            } else {
+                $bil_lulus_jumlah = KeputusanPenilaian::whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Lulus')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_lulus_jumlah = KeputusanPenilaian::where('KOD_KEMENTERIAN', $check_kementerian)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        } else {
+            $bil_lulus_jumlah = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
 
         //count bil gagal
+        //januari
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                    ->whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //februari
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_feb = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 2)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //mac
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_mac = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 3)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //april
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_apr = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 4)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //mei
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_mei = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 5)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //jun
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_jun = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 6)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //julai
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_julai = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 7)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //ogos
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_ogos = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 8)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //september
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_sep = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 9)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //oktober
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_okt = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 10)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //november
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_nov = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 11)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //disember
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('KOD_KEMENTERIAN', $check_kementerian)
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_dis = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 12)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //jumlah gagal
+        if ($tahun != null) {
+            if ($check_kementerian != null) {
+                $bil_gagal_jumlah = KeputusanPenilaian::whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('KOD_KEMENTERIAN', $check_kementerian)
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            } else {
+                $bil_gagal_jumlah = KeputusanPenilaian::whereYear('created_at', $tahun)
+                    ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                    ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                    ->select('*')
+                    ->where('keputusan', 'Gagal')
+                    ->count();
+            }
+        } elseif ($check_kementerian != null) {
+            $bil_gagal_jumlah = KeputusanPenilaian::where('KOD_KEMENTERIAN', $check_kementerian)
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        } else {
+            $bil_gagal_jumlah = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->select('*')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
 
         return view('laporan.penilaian_isac_mengikut_kementerian_jabatan', [
             'tahuns' => $tahun,
             'tahun_semasas' => $tahun_semasa,
             'kementerians' => $kementerian,
-            // 'jabatans' => $jabatan,
             'bil_mohon_jans' => $bil_mohon_jan,
-            // 'bil_duduk_jan' => $bil_duduk_jan
+            'bil_mohon_febs' => $bil_mohon_feb,
+            'bil_mohon_macs' => $bil_mohon_mac,
+            'bil_mohon_aprs' => $bil_mohon_apr,
+            'bil_mohon_meis' => $bil_mohon_mei,
+            'bil_mohon_juns' => $bil_mohon_jun,
+            'bil_mohon_julais' => $bil_mohon_julai,
+            'bil_mohon_ogoss' => $bil_mohon_ogos,
+            'bil_mohon_seps' => $bil_mohon_sep,
+            'bil_mohon_okts' => $bil_mohon_okt,
+            'bil_mohon_novs' => $bil_mohon_nov,
+            'bil_mohon_diss' => $bil_mohon_dis,
+            'bil_mohon_jumlahs' => $bil_mohon_jumlah,
+            'bil_duduk_jans' => $bil_duduk_jan,
+            'bil_duduk_febs' => $bil_duduk_feb,
+            'bil_duduk_macs' => $bil_duduk_mac,
+            'bil_duduk_aprs' => $bil_duduk_apr,
+            'bil_duduk_meis' => $bil_duduk_mei,
+            'bil_duduk_juns' => $bil_duduk_jun,
+            'bil_duduk_julais' => $bil_duduk_julai,
+            'bil_duduk_ogoss' => $bil_duduk_ogos,
+            'bil_duduk_seps' => $bil_duduk_sep,
+            'bil_duduk_okts' => $bil_duduk_okt,
+            'bil_duduk_novs' => $bil_duduk_nov,
+            'bil_duduk_diss' => $bil_duduk_dis,
+            'bil_duduk_jumlahs' => $bil_duduk_jumlah,
+            'bil_lulus_jans' => $bil_lulus_jan,
+            'bil_lulus_febs' => $bil_lulus_feb,
+            'bil_lulus_macs' => $bil_lulus_mac,
+            'bil_lulus_aprs' => $bil_lulus_apr,
+            'bil_lulus_meis' => $bil_lulus_mei,
+            'bil_lulus_juns' => $bil_lulus_jun,
+            'bil_lulus_julais' => $bil_lulus_julai,
+            'bil_lulus_ogoss' => $bil_lulus_ogos,
+            'bil_lulus_seps' => $bil_lulus_sep,
+            'bil_lulus_okts' => $bil_lulus_okt,
+            'bil_lulus_novs' => $bil_lulus_nov,
+            'bil_lulus_diss' => $bil_lulus_dis,
+            'bil_lulus_jumlahs' => $bil_lulus_jumlah,
+            'bil_gagal_jans' => $bil_gagal_jan,
+            'bil_gagal_febs' => $bil_gagal_feb,
+            'bil_gagal_macs' => $bil_gagal_mac,
+            'bil_gagal_aprs' => $bil_gagal_apr,
+            'bil_gagal_meis' => $bil_gagal_mei,
+            'bil_gagal_juns' => $bil_gagal_jun,
+            'bil_gagal_julais' => $bil_gagal_julai,
+            'bil_gagal_ogoss' => $bil_gagal_ogos,
+            'bil_gagal_seps' => $bil_gagal_sep,
+            'bil_gagal_okts' => $bil_gagal_okt,
+            'bil_gagal_novs' => $bil_gagal_nov,
+            'bil_gagal_diss' => $bil_gagal_dis,
+            'bil_gagal_jumlahs' => $bil_gagal_jumlah,
         ]);
     }
 
