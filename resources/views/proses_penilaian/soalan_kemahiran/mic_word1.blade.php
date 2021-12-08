@@ -48,7 +48,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-12">
-                                        <input type="hidden" name="id_soalankemahiranword" value="{{ $soalankemahiranwords->id }}">
+                                        <input type="hidden" name="id_soalankemahiranword" value="{{ $soalankemahiranwords->id }}" id="penilaian">
                                         <div class="form-group">
                                             <label class="form-control-label text-white" for="editor">Jawapan</label>
                                             <textarea id="editor" class="form-control" name="jawapan_word">
