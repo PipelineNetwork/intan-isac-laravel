@@ -344,13 +344,20 @@
         }
 
         window.onload = function() {
-            var countDownTime = window.sessionStorage.getItem(COUNTER_KEY) || 3600;
+            // letak masa dynamic
+            var masa_penilaian = <?php echo $masa_keseluruhan; ?>;
+            var masa_pengetahuan = <?php echo $masa_pengetahuan; ?>;
+            // console.log("masa:", masa_penilaian);
+            setTimeout(masa_pengetahuan, function() {
+                alert("Masa yang dicadangkan untuk menjawab soalan pengetahuan: 20 minit telah berlalu.");
+            }, masa_pengetahuan);
+            var countDownTime = window.sessionStorage.getItem(COUNTER_KEY) || masa_penilaian;
             countDown(countDownTime, function() {
                 // console.log(countDownTime);
                 $("#penilaian input[name=timer]").val(countDownTime);
                 document.forms["penilaian"].submit();
                 
-                //window.location.replace("/masa_tamat");
+                // window.location.replace("/masa_tamat");
                 // window.sessionStorage.getItem(COUNTER_KEY) || 3600
             });
         };

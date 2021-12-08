@@ -39,6 +39,15 @@
                     </div>
                     <div class="card-body">
                         <div class="pl-lg-4 pb-lg-4 mt-lg-4">
+                            @if ($details == null)
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <p><em>Nombor MyKad/Polis/Tentera/Pasport ini tiada dalam senarai HRMIS dan
+                                                pangkalan data sistem, sila arahkan calon tersebut untuk daftar ISAC menggunakan nombor
+                                                MyKad/Polis/Tentera/Pasport ini.</em></p>
+                                    </div>
+                                </div>
+                            @endif
                             <form action="/mohonpenilaian" method="POST">
                                 @csrf
                                 <div class="row mb-2">
@@ -84,7 +93,8 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm" type="text" value="{{ $calon }}" name="no_ic">
+                                        <input class="form-control form-control-sm" type="text" value="{{ $calon }}"
+                                            name="no_ic">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -94,10 +104,11 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        @if($details!=null)
-                                        <input class="form-control form-control-sm" type="text" name="nama" value="{{$details->name}}">
+                                        @if ($details != null)
+                                            <input class="form-control form-control-sm" type="text" name="nama"
+                                                value="{{ $details->name }}">
                                         @else
-                                        <input class="form-control form-control-sm" type="text" name="nama">
+                                            <input class="form-control form-control-sm" type="text" name="nama">
                                         @endif
                                     </div>
                                 </div>
@@ -109,11 +120,12 @@
                                     </div>
                                     <div class="col-8">
                                         @if ($details != null)
-                                            <input class="form-control form-control-sm" type="date" name="tarikh_lahir" value="{{$details->TARIKH_LAHIR}}">
+                                            <input class="form-control form-control-sm" type="date" name="tarikh_lahir"
+                                                value="{{ $details->TARIKH_LAHIR }}">
                                         @else
                                             <input class="form-control form-control-sm" type="date" name="tarikh_lahir">
                                         @endif
-                                        
+
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -126,10 +138,11 @@
                                         <select class="form-control form-control-sm ml-3" name="jantina"
                                             id="input_kod_jantina" required>
                                             @if ($details != null)
-                                                <option hidden selected value="{{$details->KOD_JANTINA}}" selected hidden>{{$details->KOD_JANTINA}}</option>
+                                                <option hidden selected value="{{ $details->KOD_JANTINA }}" selected hidden>
+                                                    {{ $details->KOD_JANTINA }}</option>
                                             @else
                                                 <option hidden selected value="">
-                                                Sila pilih</option>
+                                                    Sila pilih</option>
                                             @endif
                                             <option value="Lelaki">Lelaki</option>
                                             <option value="Perempuan">Perempuan</option>
@@ -144,11 +157,16 @@
                                     </div>
                                     <div class="col-8">
                                         @if ($details != null)
-                                            <input class="form-control form-control-sm" type="text" name="jawatan_ketua_jabatan" value="{{$details->KOD_GELARAN_JAWATAN}}">
+                                            <input class="form-control form-control-sm" type="text"
+                                                name="jawatan_ketua_jabatan" value="{{ $details->KOD_GELARAN_JAWATAN }}">
                                         @else
-                                            <input class="form-control form-control-sm" type="text" name="jawatan_ketua_jabatan">
+                                            <input class="form-control form-control-sm" type="text"
+                                                name="jawatan_ketua_jabatan">
                                         @endif
+                                        <span><small><i>Contoh: Pegawai Teknologi Maklumat, Gred
+                                            F41/F44</i></small></span>
                                     </div>
+                                    
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-xl-3">
@@ -160,11 +178,12 @@
                                         <select class="form-control form-control-sm ml-3" name="taraf_jawatan"
                                             id="input_taraf_perjawatan" required>
                                             @if ($details != null)
-                                            <option hidden selected value="{{$details->KOD_TARAF_PERJAWATAN}}">{{$details->KOD_TARAF_PERJAWATAN}}
-                                            </option>
+                                                <option hidden selected value="{{ $details->KOD_TARAF_PERJAWATAN }}">
+                                                    {{ $details->KOD_TARAF_PERJAWATAN }}
+                                                </option>
                                             @else
-                                            <option hidden selected value="">Sila pilih
-                                            </option>
+                                                <option hidden selected value="">Sila pilih
+                                                </option>
                                             @endif
                                             @foreach ($taraf_perjawatans as $taraf_perjawatan)
                                                 <option value="{{ $taraf_perjawatan->DESCRIPTION1 }}">
@@ -181,7 +200,8 @@
                                     </div>
                                     <div class="col-8">
                                         @if ($details != null)
-                                            <input class="form-control form-control-sm" type="date" name="tarikh_lantikan" value="{{$details->TARIKH_LANTIKAN}}">
+                                            <input class="form-control form-control-sm" type="date" name="tarikh_lantikan"
+                                                value="{{ $details->TARIKH_LANTIKAN }}">
                                         @else
                                             <input class="form-control form-control-sm" type="date" name="tarikh_lantikan">
                                         @endif
@@ -194,11 +214,12 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <select class="form-control form-control-sm ml-3"
-                                            name="klasifikasi_perkhidmatan" id="input_klasifikasi_perkhidmatan"
-                                            required>
+                                        <select class="form-control form-control-sm ml-3" name="klasifikasi_perkhidmatan"
+                                            id="input_klasifikasi_perkhidmatan" required>
                                             @if ($details != null)
-                                                <option hidden selected value="{{$details->KOD_KLASIFIKASI_PERKHIDMATAN}}">{{$details->KOD_KLASIFIKASI_PERKHIDMATAN}}</option>
+                                                <option hidden selected
+                                                    value="{{ $details->KOD_KLASIFIKASI_PERKHIDMATAN }}">
+                                                    {{ $details->KOD_KLASIFIKASI_PERKHIDMATAN }}</option>
                                             @else
                                                 <option hidden selected value="">Sila pilih</option>
                                             @endif
@@ -217,9 +238,12 @@
                                     </div>
                                     <div class="col-8">
                                         @if ($details != null)
-                                            <input class="form-control form-control-sm " type="text" name="no_telefon_pejabat" maxlength="11" value="{{$details->NO_TELEFON_PEJABAT}}">
+                                            <input class="form-control form-control-sm " type="text"
+                                                name="no_telefon_pejabat" maxlength="11"
+                                                value="{{ $details->NO_TELEFON_PEJABAT }}">
                                         @else
-                                            <input class="form-control form-control-sm " type="text" name="no_telefon_pejabat" maxlength="11">
+                                            <input class="form-control form-control-sm " type="text"
+                                                name="no_telefon_pejabat" maxlength="11">
                                         @endif
                                     </div>
                                 </div>
@@ -231,9 +255,11 @@
                                     </div>
                                     <div class="col-8">
                                         @if ($details != null)
-                                            <input class="form-control form-control-sm " type="text" name="alamat1_pejabat" value="{{$details->ALAMAT_1}}">
+                                            <input class="form-control form-control-sm " type="text" name="alamat1_pejabat"
+                                                value="{{ $details->ALAMAT_1 }}">
                                         @else
-                                            <input class="form-control form-control-sm " type="text" name="alamat1_pejabat">
+                                            <input class="form-control form-control-sm " type="text"
+                                                name="alamat1_pejabat">
                                         @endif
                                     </div>
                                 </div>
@@ -245,9 +271,11 @@
                                     </div>
                                     <div class="col-8">
                                         @if ($details != null)
-                                            <input class="form-control form-control-sm " type="text" name="alamat2_pejabat" value="{{$details->ALAMAT_2}}">
+                                            <input class="form-control form-control-sm " type="text" name="alamat2_pejabat"
+                                                value="{{ $details->ALAMAT_2 }}">
                                         @else
-                                            <input class="form-control form-control-sm " type="text" name="alamat2_pejabat">
+                                            <input class="form-control form-control-sm " type="text"
+                                                name="alamat2_pejabat">
                                         @endif
                                     </div>
                                 </div>
@@ -259,9 +287,11 @@
                                     </div>
                                     <div class="col-8">
                                         @if ($details != null)
-                                            <input class="form-control form-control-sm " type="text" name="poskod_pejabat" value="{{$details->POSKOD}}" maxlength="5">
+                                            <input class="form-control form-control-sm " type="text" name="poskod_pejabat"
+                                                value="{{ $details->POSKOD }}" maxlength="5">
                                         @else
-                                            <input class="form-control form-control-sm " type="text" name="poskod_pejabat" maxlength="5">
+                                            <input class="form-control form-control-sm " type="text" name="poskod_pejabat"
+                                                maxlength="5">
                                         @endif
                                     </div>
                                 </div>
@@ -273,7 +303,8 @@
                                     </div>
                                     <div class="col-8">
                                         @if ($details != null)
-                                            <input class="form-control form-control-sm " type="text" name="nama_penyelia" value="{{$details->NAMA_PENYELIA}}">
+                                            <input class="form-control form-control-sm " type="text" name="nama_penyelia"
+                                                value="{{ $details->NAMA_PENYELIA }}">
                                         @else
                                             <input class="form-control form-control-sm " type="text" name="nama_penyelia">
                                         @endif
@@ -287,7 +318,8 @@
                                     </div>
                                     <div class="col-8">
                                         @if ($details != null)
-                                            <input class="form-control form-control-sm " type="text" name="emel_penyelia" value="{{$details->EMEL_PENYELIA}}">
+                                            <input class="form-control form-control-sm " type="text" name="emel_penyelia"
+                                                value="{{ $details->EMEL_PENYELIA }}">
                                         @else
                                             <input class="form-control form-control-sm " type="text" name="emel_penyelia">
                                         @endif
@@ -300,10 +332,13 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        @if ($details != null )
-                                            <input class="form-control form-control-sm" type="text" name="no_telefon_penyelia" value="{{$details->NO_TELEFON_PENYELIA}}" maxlength="11">
+                                        @if ($details != null)
+                                            <input class="form-control form-control-sm" type="text"
+                                                name="no_telefon_penyelia" value="{{ $details->NO_TELEFON_PENYELIA }}"
+                                                maxlength="11">
                                         @else
-                                            <input class="form-control form-control-sm" type="text" name="no_telefon_penyelia" maxlength="11">
+                                            <input class="form-control form-control-sm" type="text"
+                                                name="no_telefon_penyelia" maxlength="11">
                                         @endif
                                     </div>
                                 </div>
@@ -328,5 +363,5 @@
             }, 2000);
         });
     </script>
-    
+
 @stop

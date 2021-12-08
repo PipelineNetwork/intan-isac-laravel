@@ -77,8 +77,9 @@ class SelenggaraKawalanSistemController extends Controller
      * @param  \App\Models\SelenggaraKawalanSistem  $selenggaraKawalanSistem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SelenggaraKawalanSistem $kawalan)
+    public function update(Request $request, $kawalan)
     {
+        $kawalan = SelenggaraKawalanSistem::where('ID_KAWALAN_SISTEM', $kawalan)->first();
         $kawalan->OPTION_PAPAR_KEPUTUSAN = $request->OPTION_PAPAR_KEPUTUSAN;
         $kawalan->TEMPOH_MASA_KESELURUHAN_PENILAIAN = $request->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
         $kawalan->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN = $request->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
