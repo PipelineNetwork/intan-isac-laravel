@@ -195,13 +195,6 @@
     @include('sweet::alert')
 
     <script>
-        // var windowObjectReference;
-        // var windowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
-
-        // function tsw_open_demo_window() {
-        //     windowObjectReference = window.open("/soalan-kemahiran-internet/{{ $soalankemahiraninternet->id }}", windowFeatures);
-        // }
-
         function tsw_open_demo_window() {
             window.open("/soalan-kemahiran-internet/{{ $soalankemahiraninternet->id }}", "popup", "width=600","height=400");
         }
