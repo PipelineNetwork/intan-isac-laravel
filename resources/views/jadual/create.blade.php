@@ -1,10 +1,5 @@
 @extends('base')
-<?php
-use App\Models\Refgeneral;
-$kementerians = Refgeneral::where('MASTERCODE', '10028')->get();
-use App\Models\User;
-$penyelaras = User::where('user_group_id', '3')->get();
-?>
+
 @section('content')
 
     <div class="container-fluid py-4">

@@ -19,6 +19,7 @@ use App\Models\Permohanan;
 use App\Models\Tugas;
 use App\Models\Perkhidmatan;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class MohonPenilaianController extends Controller
 {
@@ -71,17 +72,17 @@ class MohonPenilaianController extends Controller
     public function create(Request $request)
     {
         $id_group_user = Auth::user()->user_group_id;
-        // dd($id_group_user);
-        if ($id_group_user == "7") {
-            // dd("Penyelaras");
-            // JADUAL_PENYELIA
+        $role = Role::where('id', $id_group_user)->first();
+        $role = $role->name;
+        
+        if($role == 'penyelaras'){
             $id_penyelia = Auth::id();
             $jadual_penyelia = Jadual::where('user_id', $id_penyelia)->get();
 
             return view('mohonPenilaian.penyelaras.pilih_jadual', [
                 'jadual_penyelia' => $jadual_penyelia
             ]);
-        } elseif ($id_group_user == "9") {
+        }elseif($role == 'calon'){
             $status = Auth::user()->nric;
             $check_status = MohonPenilaian::where('id_calon', $status)->first();
 
@@ -141,11 +142,6 @@ class MohonPenilaianController extends Controller
                 'negeris' => $negeri,
             ]);
         }
-
-        // $peserta = MohonPenilaian::all();
-        // return view('mohonPenilaian.senarai_permohonan', [
-        //     'peserta' => $peserta
-        // ]);
     }
 
     /**
@@ -312,10 +308,19 @@ class MohonPenilaianController extends Controller
         
         if ($details == 'Tiada maklumat HRMIS dijumpai') {
             // buat form
+            $details = DB::table('users')
+            ->where('nric', '=', $calon)
+            ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+            ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+            ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+            ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
+            ->get()->first();
+            // dd($details);
             return view('mohonPenilaian.penyelaras.isi_maklumat', [
                 'sesi' => $sesi,
                 'calon' => $calon,
                 'sesi_id' => $sesi_id,
+                'details'=>$details,
                 
                 'kod_gelarans' => $kod_gelaran,
                 'peringkats' => $peringkat,

@@ -10,6 +10,8 @@ use App\Mail\JadualKemaskini;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Permohanan;
 use App\Models\MohonPenilaian;
+use App\Models\Refgeneral;
+use Spatie\Permission\Models\Role;
 
 class JadualController extends Controller
 {
@@ -42,7 +44,14 @@ class JadualController extends Controller
      */
     public function create()
     {
-        return view('jadual.create');
+        $kementerians = Refgeneral::where('MASTERCODE', '10028')->get();
+        $role = Role::where('name', 'penyelaras')->first();
+        $role_id = $role->id;
+        $penyelaras = User::where('user_group_id', $role_id)->get();
+        return view('jadual.create',[
+            'kementerians'=>$kementerians,
+            'penyelaras'=>$penyelaras
+        ]);
     }
 
     /**

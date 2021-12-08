@@ -73,9 +73,9 @@ use App\Models\Refgeneral;
                                         <th>Tahap</th>
                                         <th>Tarikh Permohonan</th>
                                         <th>Status</th>
-                                        @role('pentadbir sistem|pentadbir penilaian')
+                                        @hasanyrole('pentadbir sistem|pentadbir penilaian')
                                         <th>Tindakan</th>
-                                        @endrole
+                                        @endhasanyrole
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,11 +96,11 @@ use App\Models\Refgeneral;
                                                     <span class="badge badge-danger">Ditolak</span>
                                                 @endif
                                             </td>
-                                            @role('pentadbir sistem|pentadbir penilaian')
+                                            @hasanyrole('pentadbir sistem|pentadbir penilaian')
                                             <td>
                                                 <a class="btn bg-gradient-info" data-bs-toggle="modal" data-bs-target="#status{{ $rayuan->id }}">Kemaskini</a>
                                             </td>
-                                            @endrole
+                                            @endhasanyrole
                                             <div class="modal fade" id="status{{ $rayuan->id }}" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
