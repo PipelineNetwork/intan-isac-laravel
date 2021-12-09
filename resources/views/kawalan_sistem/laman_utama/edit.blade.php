@@ -72,7 +72,8 @@
                                         <label class="form-control-label mr-4">
                                             Keterangan
                                         </label><label class="float-right">:</label>
-                                        <textarea id="editor-soalan" class="form-control" name="KETERANGAN" rows="10">{{ $laman_utama->KETERANGAN }}</textarea>
+                                        <textarea id="editor-soalan" class="form-control" name="KETERANGAN"
+                                            rows="10">{{ $laman_utama->KETERANGAN }}</textarea>
 
                                     </div>
                                 </div>
@@ -113,6 +114,7 @@
         </div>
     </div>
 
+    <script src="/assets/ckeditor5/build/ckeditor.js"></script>
     <script>
         ClassicEditor
             .create(document.querySelector('#editor-soalan'))
@@ -120,14 +122,11 @@
                 console.error(error);
             });
     </script>
-    {{-- <script src="../../assets/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript">
+
+    {{-- <script type="text/javascript">
         CKEDITOR.replace('editor', {
             language: 'en',
             uiColor: '#0067b8',
-            height: '800px',
-            width: 'auto',
-            bodyClass: 'document-editor',
         });
     </script> --}}
 
