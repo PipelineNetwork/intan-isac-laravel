@@ -18,7 +18,9 @@
 <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
 
 @section('content')
-
+<?php
+use App\Models\Refgeneral;
+?>
     <div class="container-fluid py-4">
         <div class="row mb-0">
             <div class="col-lg-6">
@@ -184,6 +186,100 @@
             </div>
         </div>
 @endunlessrole
+
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header" style="background-color:#FFA500;">
+                        <b class="text-white">Jadual Penilaian</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+    
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Sesi</th>
+                                        <th>Tahap</th>
+                                        <th>Masa Mula</th>
+                                        <th>Tarikh Penilaian</th>
+                                        <th>Kategori Peserta</th>
+                                        <th>Jumlah Peserta</th>
+                                        <th>Kekosongan</th>
+                                        <th>Kementerian/Agensi</th>
+                                        <th>Platform</th>
+                                        <th>Lokasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+    
+                                    @foreach ($jaduals as $key => $jadual)
+                                        <tr>
+                                            <td class="text-center">{{ $key+1 }}.</td>
+                                            <td class="text-center">
+                                                @if($jadual['KOD_SESI_PENILAIAN'] == "01")
+                                                Pertama
+                                                @elseif($jadual['KOD_SESI_PENILAIAN'] == "02")
+                                                Kedua
+                                                @elseif($jadual['KOD_SESI_PENILAIAN'] == "03")
+                                                Ketiga
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($jadual->KOD_TAHAP == '01')
+                                                    Asas
+                                                @else
+                                                    Lanjutan
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $jadual['KOD_MASA_MULA'] }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual->KOD_KATEGORI_PESERTA == '01')
+                                                    Individu
+                                                @else
+                                                    Kumpulan
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual['KEKOSONGAN'] == null)
+                                                    0
+                                                @else
+                                                    {{ $jadual['KEKOSONGAN'] }}
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($jadual['KOD_KEMENTERIAN'] == null)
+                                                    -
+                                                @else
+
+                                                <?php 
+                                                $kementerian = Refgeneral::where('MASTERCODE', '10028')->where('REFERENCECODE', $jadual->KOD_KEMENTERIAN)->first();
+                                                // $kementerian = $kementerian->DESCRIPTION1;
+                                                ?>
+                                                {{$kementerian['DESCRIPTION1']}}
+                                                    {{-- {{ $jadual['KOD_KEMENTERIAN'] }} --}}
+                                                @endif
+                                            </td>
+                                            <td>{{ $jadual['platform'] }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual['LOKASI'] == null)
+                                                    -
+                                                @else
+                                                    {{ $jadual['LOKASI'] }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col">
                 <div class="card mt-3">
