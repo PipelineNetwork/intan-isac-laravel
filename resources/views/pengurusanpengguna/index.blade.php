@@ -1,5 +1,8 @@
 @extends('base')
 @section('content')
+<?php
+use Spatie\Permission\Models\Role;
+?>
 
     <div class="container-fluid py-4">
         <div class="row">
@@ -130,20 +133,10 @@
                                             <td>{{ $user['name'] }}</td>
                                             <td>{{ $user['email'] }}</td>
                                             <td>
-                                                @if ($user['user_group_id'] == 1)
-                                                    Pentadbir Sistem
-                                                @elseif ($user['user_group_id'] == 2)
-                                                    Pentadbir Penilaian
-                                                @elseif ($user['user_group_id'] == 3)
-                                                    Penyelaras
-                                                @elseif ($user['user_group_id'] == 4)
-                                                    Pengawas
-                                                @elseif ($user['user_group_id'] == 5)
-                                                    Calon
-                                                @else
-                                                    Pegawai Korporat
-                                                @endif
-                                                {{-- {{ $user['user_group_id'] }} --}}
+                                                <?php
+                                                    $role = Role::where('id', $user['user_group_id'])->get()->first();
+                                                ?>
+                                                {{$role['name']}}
                                             </td>
                                             <td><a class="btn btn-info text-white"
                                                     href="/pengurusanpengguna/{{ $user->id }}/edit" style="color:black;">
