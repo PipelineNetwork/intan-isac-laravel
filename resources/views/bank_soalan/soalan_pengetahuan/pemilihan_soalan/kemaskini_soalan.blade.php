@@ -44,188 +44,200 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col">
-                <div class="card mt-3">
-                    <div class="card-header position-relative z-index-1" style="background-color:#FFA500;">
-                        <div class="row d-flex flex-nowrap">
-                            <div class="col align-items-center">
-                                <b class="text-white">Pemilihan Soalan</b>
+        <form action="/kemaskini_pemilihan_soalan/{{ $kemaskini->ID_PEMILIHAN_SOALAN }}" method="POST"
+            id="jumlahsemua">
+            @csrf
+            <div class="row">
+                <div class="col">
+                    <div class="card mt-3">
+                        <div class="card-header position-relative z-index-1" style="background-color:#FFA500;">
+                            <div class="row d-flex flex-nowrap">
+                                <div class="col align-items-center">
+                                    <b class="text-white">Pemilihan Soalan</b>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row mb-2">
-                            <div class="col-3">
-                                <label class="form-control-label mr-4">
-                                    Nama Pemilihan
-                                </label><label class="float-right">:</label>
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-3">
+                                    <label class="form-control-label mr-4">
+                                        Nama Pemilihan
+                                    </label><label class="float-right">:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input class="form-control  " type="text" value="{{ $kemaskini->NAMA_PEMILIHAN_SOALAN }}"
+                                        name="NAMA_PEMILIHAN_SOALAN">
+                                </div>
                             </div>
-                            <div class="col-8">
-                                <input class="form-control  " type="text" value="{{ $kemaskini->NAMA_PEMILIHAN_SOALAN }}"
-                                    name="NAMA_PEMILIHAN_SOALAN">
+                            <div class="row mb-2">
+                                <div class="col-3">
+                                    <label class="form-control-label mr-4">
+                                        Tahap Pemilihan Set Soalan
+                                    </label><label class="float-right">:</label>
+                                </div>
+                                <div class="col-8">
+                                    <select class="form-control ml-3" name="KOD_TAHAP_SOALAN" id="input_kod_gelaran">
+                                        <option hidden selected value="{{ $kemaskini->KOD_TAHAP_SOALAN }}">
+                                            Asas</option>
+                                        <option value="01">
+                                            Asas</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-3">
-                                <label class="form-control-label mr-4">
-                                    Tahap Pemilihan Set Soalan
-                                </label><label class="float-right">:</label>
+                            <div class="row mb-2">
+                                <div class="col-3">
+                                    <label class="form-control-label mr-4">
+                                        Jumlah Keseluruhan Soalan
+                                    </label><label class="float-right">:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input class="form-control  " type="text" name="JUMLAH_KESELURUHAN_SOALAN" id="sum">
+                                </div>
                             </div>
-                            <div class="col-8">
-                                <select class="form-control form-control-sm ml-3" name="KOD_TAHAP_SOALAN"
-                                    id="input_kod_gelaran">
-                                    <option hidden selected value="{{ $kemaskini->KOD_TAHAP_SOALAN }}">
-                                        Asas</option>
-                                    <option value="01">
-                                        Asas</option>
-                                </select>
+                            <div class="row mb-2">
+                                <div class="col-3">
+                                    <label class="form-control-label mr-4">
+                                        Nilai Jumlah Markah
+                                    </label><label class="float-right">:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input class="form-control  " type="text" id="sum2" name="NILAI_JUMLAH_MARKAH">
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-3">
-                                <label class="form-control-label mr-4">
-                                    Jumlah Keseluruhan Soalan
-                                </label><label class="float-right">:</label>
-                            </div>
-                            <div class="col-8">
-                                <input class="form-control  " type="text"
-                                    value="{{ $kemaskini->JUMLAH_KESELURUHAN_SOALAN }}" name="JUMLAH_KESULURUHAN_SOALAN">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-3">
-                                <label class="form-control-label mr-4">
-                                    Nilai Jumlah Markah
-                                </label><label class="float-right">:</label>
-                            </div>
-                            <div class="col-8">
-                                <input class="form-control  " type="text" value="{{ $kemaskini->NILAI_JUMLAH_MARKAH }}"
-                                    name="NILAI_JUMLAH_MARKAH">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-3">
-                                <label class="form-control-label mr-4">
-                                    Nilai Markah Lulus
-                                </label><label class="float-right">:</label>
-                            </div>
-                            <div class="col-8">
-                                <input class="form-control  " type="text" value="{{ $kemaskini->NILAI_MARKAH_LULUS }}"
-                                    name="NILAI_MARKAH_LULUS">
+                            <div class="row mb-2">
+                                <div class="col-3">
+                                    <label class="form-control-label mr-4">
+                                        Nilai Markah Lulus
+                                    </label><label class="float-right">:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input class="form-control  " type="text" value="{{ $kemaskini->NILAI_MARKAH_LULUS }}"
+                                        name="NILAI_MARKAH_LULUS">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-
-                <div class="card mt-3">
-
-                    <div class="card-header position-relative z-index-1" style="background-color:#FFA500;">
-                        <div class="row d-flex flex-nowrap">
-                            <div class="col align-items-center">
-                                <b class="text-white">Maklumat Soalan</b>
+    
+            <div class="row">
+                <div class="col">
+    
+                    <div class="card mt-3">
+    
+                        <div class="card-header position-relative z-index-1" style="background-color:#FFA500;">
+                            <div class="row d-flex flex-nowrap">
+                                <div class="col align-items-center">
+                                    <b class="text-white">Maklumat Soalan</b>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-flush" id="datatable_soalan_pengetahuan">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap Soalan
-                                        </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Kategori Soalan
-                                        </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jumlah Soalan
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($pilihan as $pilihan)
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-flush" id="datatable_soalan_pengetahuan">
+                                    <thead class="thead-light">
                                         <tr>
-                                            <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                <select class="form-control" name="id_tahap_soalan" required>
-                                                    <option hidden selected value="{{ $pilihan->KOD_TAHAP_SOALAN }}">Asas
-                                                    </option>
-                                                    <option value="1">Asas</option>
-                                                    <option value="2">Lanjutan</option>
-                                                </select>
-                                            </td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                <select class="form-control" name="id_kategori_pengetahuan" required>
-                                                    <option hidden value="{{ $pilihan->KOD_KATEGORI_SOALAN }}" selected>
-                                                        @if ($pilihan->KOD_KATEGORI_SOALAN == '01')
-                                                            EG
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "02")
-                                                            Electronic Mail
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "03")
-                                                            General
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "04")
-                                                            Government Mobility
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "05")
-                                                            Hardware
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "06")
-                                                            ICT Security
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "07")
-                                                            Inisiatif ICT Sektor Awam
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "08")
-                                                            Internet
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "09")
-                                                            Media Sosial
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "10")
-                                                            MSC
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "11")
-                                                            Office Productivity
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "12")
-                                                            Rangkaian dan Wifi
-                                                        @elseif($pilihan->KOD_KATEGORI_SOALAN == "13")
-                                                            Software
-                                                        @endif
-                                                    </option>
-                                                    <option value="1">EG</option>
-                                                    <option value="2">Electronic Mail</option>
-                                                    <option value="3">General</option>
-                                                    <option value="4">Government Mobility</option>
-                                                    <option value="5">Hardware</option>
-                                                    <option value="6">ICT Security</option>
-                                                    <option value="7">Inisiatif ICT Sektor Awam</option>
-                                                    <option value="8">Internet</option>
-                                                    <option value="9">Media Sosial</option>
-                                                    <option value="10">MSC</option>
-                                                    <option value="11">Office Productivity</option>
-                                                    <option value="12">Rangkaian dan Wifi</option>
-                                                    <option value="13">Software</option>
-                                                </select>
-                                            </td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                <input type="text" class="form-control text-center"
-                                                    value="{{ $pilihan->NILAI_JUMLAH_SOALAN }}"
-                                                    name="NILAI_JUMLAH_SOALAN">
-                                            </td>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap Soalan
+                                            </th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Kategori
+                                                Soalan
+                                            </th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Jumlah
+                                                Soalan
+                                            </th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row">
-                            <div class="col text-end">
-                                <a href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan" class="btn bg-gradient-success"
-                                    type="submit">Kemaskini</a>
-                                <a href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan"
-                                    class="btn bg-gradient-danger">Kembali</a>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($pilihan as $pilihan)
+                                            <tr>
+                                                <input type="text" name="field{{ $loop->index + 1 }}"
+                                                    value="{{ $pilihan->ID_PEMILIHAN_SOALAN_KUMPULAN }}"
+                                                    style="display:none;">
+                                                <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    <select class="form-control"
+                                                        name="id_tahap_soalan{{ $loop->index + 1 }}" required>
+                                                        <option hidden selected value="{{ $pilihan->KOD_TAHAP_SOALAN }}">
+                                                            Asas
+                                                        </option>
+                                                        <option value="01">Asas</option>
+                                                        <option value="02">Lanjutan</option>
+                                                    </select>
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    <select class="form-control"
+                                                        name="id_kategori_pengetahuan{{ $loop->index + 1 }}" required>
+                                                        <option hidden value="{{ $pilihan->KOD_KATEGORI_SOALAN }}" selected>
+                                                            @if ($pilihan->KOD_KATEGORI_SOALAN == '01')
+                                                                EG
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "02")
+                                                                Electronic Mail
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "03")
+                                                                General
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "04")
+                                                                Government Mobility
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "05")
+                                                                Hardware
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "06")
+                                                                ICT Security
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "07")
+                                                                Inisiatif ICT Sektor Awam
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "08")
+                                                                Internet
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "09")
+                                                                Media Sosial
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "10")
+                                                                MSC
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "11")
+                                                                Office Productivity
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "12")
+                                                                Rangkaian dan Wifi
+                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "13")
+                                                                Software
+                                                            @endif
+                                                        </option>
+                                                        <option value="01">EG</option>
+                                                        <option value="02">Electronic Mail</option>
+                                                        <option value="03">General</option>
+                                                        <option value="04">Government Mobility</option>
+                                                        <option value="05">Hardware</option>
+                                                        <option value="06">ICT Security</option>
+                                                        <option value="07">Inisiatif ICT Sektor Awam</option>
+                                                        <option value="08">Internet</option>
+                                                        <option value="09">Media Sosial</option>
+                                                        <option value="10">MSC</option>
+                                                        <option value="11">Office Productivity</option>
+                                                        <option value="12">Rangkaian dan Wifi</option>
+                                                        <option value="13">Software</option>
+                                                    </select>
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    <input type="text" class="form-control text-center"
+                                                        value="{{ $pilihan->NILAI_JUMLAH_SOALAN }}"
+                                                        name="NILAI_JUMLAH_SOALAN{{ $loop->index + 1 }}" id="jumlah"
+                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col text-end">
+                                    <button class="btn bg-gradient-success" type="submit">Kemaskini</button>
+                                    <a href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan"
+                                        class="btn bg-gradient-danger">Kembali</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
+        
     </div>
 
     <script src="../../assets/js/plugins/datatables.js"></script>
@@ -234,6 +246,52 @@
             searchable: true,
             fixedHeight: true
         });
+    </script>
+    <script>
+        $(document).ready(function() {
+            var sum = 0;
+            kirajumlah();
+            //iterate through each textboxes and add keyup
+            //handler to trigger sum event
+            // $('#jumlahsemua').each(function() {
+
+            //     $(this).keyup(function() {
+            //         //iterate through each textboxes and add the values
+            //         $('#jumlah').each(function() {
+
+            //             //add only if the value is number
+            //             if (!isNaN(this.value) && this.value.length != 0) {
+            //                 sum += parseFloat(this.value);
+            //             }
+
+            //         });
+            //         //.toFixed() method will roundoff the final sum to 2 decimal places
+            //         $("#sum").html(sum.toFixed(0));
+            //     });
+            // });
+
+
+
+        });
+
+
+        $("#jumlahsemua").keyup(function() {
+            kirajumlah();
+        })
+
+        function kirajumlah() {
+            let form_data = ($("#jumlahsemua").serializeArray());
+
+            //fix jumlah soalan
+            let total = 0;
+            for (let i = 1; i <= 8; i++) {
+                let filter = "NILAI_JUMLAH_SOALAN" + i;
+                total = total + +($("#jumlahsemua input[name=" + filter + "]").val());
+            }
+            console.log(total)
+            $("#sum").val(total);
+            $("#sum2").val(total);
+        }
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
