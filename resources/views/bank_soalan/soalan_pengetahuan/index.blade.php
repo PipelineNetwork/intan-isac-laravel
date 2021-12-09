@@ -130,13 +130,33 @@
                                                 @endif
                                                 {{-- {{ $banksoalanpengetahuan->id_tahap_soalan }}</td> --}}
                                             <td class="text-sm text-center font-weight-normal">
-                                                @if ($banksoalanpengetahuan->id_kategori_pengetahuan == '1')
-                                                    Rendah
-                                                @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '2')
-                                                    Sederhana
-                                                @else
-                                                    Tinggi
-                                                @endif
+                                                    @if ($banksoalanpengetahuan->id_kategori_pengetahuan == '1')
+                                                    EG
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '2')
+                                                    Electronic Mail
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '3')
+                                                    General
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '4')
+                                                    Government Mobility
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '5')
+                                                    Hardware
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '6')
+                                                    ICT Security
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '7')
+                                                    Inisiatif ICT Sektor Awam
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '8')
+                                                    Internet
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '9')
+                                                    Media Sosial
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '10')
+                                                    MSC
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '11')
+                                                    Office Productivity
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '12')
+                                                    Rangkaian dan Wifi
+                                                    @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '13')
+                                                    Software
+                                                    @endif
                                                 {{-- {{ $banksoalanpengetahuan->id_kategori_pengetahuan }}</td> --}}
                                             <td class="text-sm text-center font-weight-normal">
                                                 @if ($banksoalanpengetahuan->jenis_soalan == 'fill_in_the_blank')

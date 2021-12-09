@@ -1,6 +1,6 @@
 @extends('base')
 @section('content')
-
+<?php use App\Models\User; ?>
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col">
@@ -73,10 +73,18 @@
                                             <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
                                             <td class="text-sm text-center font-weight-normal">{{$pemilihan->NAMA_PEMILIHAN_SOALAN}}</td>
                                             <td class="text-sm text-center font-weight-normal">{{$pemilihan->JUMLAH_KESELURUHAN_SOALAN}}</td>
-                                            <td class="text-sm text-center font-weight-normal">{{$pemilihan->KOD_TAHAP_SOALAN}}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                @if ($pemilihan->KOD_TAHAP_SOALAN == 01)
+                                                    Asas
+                                                @else
+                                                    Lanjutan
+                                                @endif
+                                            </td>
                                             <td class="text-sm text-center font-weight-normal">{{date('d-m-Y', strtotime($pemilihan->TARIKH_CIPTA))}}</td>
                                             <td class="text-sm text-center font-weight-normal">{{date('d-m-Y', strtotime($pemilihan->TARIKH_KEMASKINI))}}</td>
-                                            <td class="text-sm text-center font-weight-normal">{{$pemilihan->ID_PENGGUNA}}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{$pemilihan->ID_PENGGUNA}}
+                                            </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 <a href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan/{{$pemilihan->ID_PEMILIHAN_SOALAN}}" class="btn bg-gradient-info btn-sm mb-0">Kemaskini</a>
                                             </td>

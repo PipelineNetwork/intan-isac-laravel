@@ -6,6 +6,7 @@ use App\Models\Bankjawapanpengetahuan;
 use App\Models\Banksoalanpengetahuan;
 use App\Models\KeputusanPenilaian;
 use App\Models\MohonPenilaian;
+use App\Models\PemilihanSoalan;
 use App\Models\Jadual;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -153,7 +154,11 @@ class BankjawapanpengetahuanController extends Controller
         $keputusan->markah_pengetahuan = $markah;
         $keputusan->markah_kemahiran = 0;
         $keputusan->markah_keseluruhan = $keputusan->markah_pengetahuan+$keputusan->markah_kemahiran;
-        if($keputusan->markah_keseluruhan >= 0){
+
+        $gred_lulus = PemilihanSoalan::where('ID_PEMILIHAN_SOALAN', '70')->first();
+        $lulus = $gred_lulus->NILAI_MARKAH_LULUS;
+
+        if($keputusan->markah_keseluruhan >= $lulus){
             $keputusan->keputusan = "Lulus";
         }else{
             $keputusan->keputusan = "Gagal";
