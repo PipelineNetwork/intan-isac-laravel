@@ -128,12 +128,17 @@
     <?php 
     use App\Models\SelenggaraKawalanSistem;
     $masa_penilaian = SelenggaraKawalanSistem::where('ID_KAWALAN_SISTEM', '1')->first();
+    // masa keseluruhan
     $masa_keseluruhan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
     $masa_keseluruhan = $masa_keseluruhan*60;
-
+    // masa penilaian pengetahuan
     $masa_nama = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
     $masa_pengetahuan = $masa_nama*60*1000;
 
+    // masa tamat
+    $peringatan_tamat = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
+    $peringatan_tamat = $masa_keseluruhan-$peringatan_tamat;
+    $peringatan_tamat = $peringatan_tamat*60*1000;
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -358,10 +363,14 @@
             var masa_penilaian = <?php echo $masa_keseluruhan; ?>;
             var masa_pengetahuan = <?php echo $masa_pengetahuan; ?>;
             var masa_nama = <?php echo $masa_nama ?>
+            var peringatan_tamat = <?php echo $peringatan_tamat ?>
             // console.log("masa:", masa_penilaian);
             setTimeout(function() {
                 alert("Masa yang dicadangkan untuk menjawab soalan pengetahuan: "+masa_nama+" minit telah berlalu.");
             }, masa_pengetahuan);
+            setTimeout(function() {
+                alert("Masa untuk menjawab hanya tinggal "+masa_nama+" minit sahaja lagi.");
+            }, peringatan_tamat);
             var countDownTime = window.sessionStorage.getItem(COUNTER_KEY) || masa_penilaian;
             countDown(countDownTime, function() {
                 // console.log(countDownTime);
