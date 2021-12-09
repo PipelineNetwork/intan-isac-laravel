@@ -9,4 +9,5 @@ class PemilihanSoalanKumpulan extends Model
 {
     use HasFactory;
     protected $table = 'pro_pemilihan_soalan_kumpulan';
+    protected $primaryKey = 'ID_PEMILIHAN_SOALAN_KUMPULAN';
 }

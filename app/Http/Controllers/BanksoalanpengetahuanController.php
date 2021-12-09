@@ -7,6 +7,7 @@ use App\Models\PemilihanSoalan;
 use App\Models\PemilihanSoalanKumpulan;
 use App\Models\Refgeneral;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BanksoalanpengetahuanController extends Controller
 {
@@ -444,8 +445,7 @@ class BanksoalanpengetahuanController extends Controller
     }
     public function pemilihan(Request $request){
         $pemilihan = PemilihanSoalan::all();
-
-        // dd($pemilihan);
+        
 
         return view('bank_soalan.soalan_pengetahuan.pemilihan_soalan.pemilihan_soalan',[
             'pemilihan'=>$pemilihan
@@ -466,6 +466,35 @@ class BanksoalanpengetahuanController extends Controller
     }
 
     public function simpan(Request $request, $id){
+        // dd($request);
+        $main = PemilihanSoalan::where('ID_PEMILIHAN_SOALAN', $id)->first();
+        $user = Auth::id();
 
+        $main->ID_PENGGUNA = $user;
+        $main->JUMLAH_KESELURUHAN_SOALAN = $request->JUMLAH_KESELURUHAN_SOALAN;
+        $main->NILAI_JUMLAH_MARKAH = $request->NILAI_JUMLAH_MARKAH;
+        $main->NILAI_MARKAH_LULUS = $request->NILAI_MARKAH_LULUS;
+        $main->save();
+
+        for($i=1; $i<15; $i++){
+            $check = 'field'.$i;
+            $check1 = $request->$check;
+            if($check1 == null){
+                $i=15;
+            }else{
+                $tahap = 'id_tahap_soalan'.$i;
+                $kategori = 'id_kategori_pengetahuan'.$i;
+                $jumlah = 'NILAI_JUMLAH_SOALAN'.$i;
+                $sub = PemilihanSoalanKumpulan::where('ID_PEMILIHAN_SOALAN_KUMPULAN', $request->$check)->first();
+                $sub->KOD_TAHAP_SOALAN = $request->$tahap;
+                $sub->KOD_KATEGORI_SOALAN = $request->$kategori;
+                $sub->NILAI_JUMLAH_SOALAN = $request->$jumlah;
+
+                $sub->save();
+            }
+        }
+
+        return redirect('/pengurusan_penilaian/pemilihan_soalan_pengetahuan');
+        // $sub = PemilihanSoalanKumpulan::where()
     }
 }
