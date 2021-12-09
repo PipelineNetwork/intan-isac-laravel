@@ -15,9 +15,13 @@ class DashboardController extends Controller
     //
     public function index()
     {
+        $jaduals = Jadual::orderBy('TARIKH_SESI', 'desc')
+            ->whereYear('TARIKH_SESI', '>=', 2021)
+            ->get();
         $videodannotas = VideoDanNota::all();
         return view('dashboard',[
-           'videodannotas' => $videodannotas
+           'videodannotas' => $videodannotas,
+           'jaduals'=>$jaduals
         ]);
     }
 }
