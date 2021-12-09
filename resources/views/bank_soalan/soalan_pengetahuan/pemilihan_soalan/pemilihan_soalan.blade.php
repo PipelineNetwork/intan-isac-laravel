@@ -87,7 +87,7 @@
                                                 $user = User::where('id', $pemilihan->ID_PENGGUNA)->first();
                                                 $nama = $user->name;
                                                 ?>
-                                                {{$nama}}
+                                                {{$pemilihan->ID_PENGGUNA}}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 <a href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan/{{$pemilihan->ID_PEMILIHAN_SOALAN}}" class="btn bg-gradient-info btn-sm mb-0">Kemaskini</a>
