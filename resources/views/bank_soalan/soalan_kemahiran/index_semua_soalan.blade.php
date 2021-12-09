@@ -29,9 +29,12 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Soalan Kemahiran</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Senarai Soalan Kemahiran</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a>
+                        </li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Soalan
+                                Kemahiran</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Senarai
+                                Soalan Kemahiran</a></li>
                     </ol>
                 </nav>
             </div>
@@ -50,10 +53,12 @@
                     <div class="col-8">
                         <b class="text-white mb-0">Senarai Soalan Kemahiran Internet</b>
                     </div>
-                    <div class="col-4" style="text-align: end">
-                        <a href="/{{ $banksoalankemahirans->id }}/internet"
-                            class="btn bg-gradient-info mb-0">Tambah</a>
-                    </div>
+                    @if (count($soalankemahiraninternets) == 0)
+                        <div class="col-4" style="text-align: end">
+                            <a href="/{{ $banksoalankemahirans->id }}/internet"
+                                class="btn bg-gradient-info mb-0">Tambah</a>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="card-body">
@@ -106,7 +111,8 @@
                                     </td>
                                 </tr>
 
-                                <div class="modal fade" id="modaldeleteSoalanKemahiraninternet-{{ $soalankemahiraninternet->id }}"
+                                <div class="modal fade"
+                                    id="modaldeleteSoalanKemahiraninternet-{{ $soalankemahiraninternet->id }}"
                                     tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
@@ -142,10 +148,12 @@
                     <div class="col-8">
                         <b class="text-white mb-0">Senarai Soalan Kemahiran Pemprosesan Perkataan</b>
                     </div>
-                    <div class="col-4" style="text-align: end">
-                        <a href="/{{ $banksoalankemahirans->id }}/pemprosesan-perkataan"
-                            class="btn bg-gradient-info mb-0">Tambah</a>
-                    </div>
+                    @if (count($soalankemahiraninternets) == 0)
+                        <div class="col-4" style="text-align: end">
+                            <a href="/{{ $banksoalankemahirans->id }}/pemprosesan-perkataan"
+                                class="btn bg-gradient-info mb-0">Tambah</a>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="card-body">
@@ -189,7 +197,7 @@
                                         {{ date('d/m/Y', strtotime($soalankemahiranword->created_at)) }}</td>
                                     <td class="text-sm text-center font-weight-normal"><a
                                             href="/{{ $soalankemahiranword->id_soalankemahiran }}/pemprosesan-perkataan/{{ $soalankemahiranword->id }}">
-                                            <i class="fas fa-pencil-alt"></i> 
+                                            <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <a data-bs-toggle="modal"
                                             data-bs-target="#modaldeleteSoalanKemahiranword-{{ $soalankemahiranword->id }}">
@@ -198,8 +206,9 @@
                                     </td>
                                 </tr>
 
-                                <div class="modal fade" id="modaldeleteSoalanKemahiranword-{{ $soalankemahiranword->id }}"
-                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade"
+                                    id="modaldeleteSoalanKemahiranword-{{ $soalankemahiranword->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-body text-center">
@@ -234,10 +243,11 @@
                     <div class="col-8">
                         <b class="text-white mb-0">Senarai Soalan Kemahiran E-mel</b>
                     </div>
-                    <div class="col-4" style="text-align: end">
-                        <a href="/{{ $banksoalankemahirans->id }}/emel"
-                            class="btn bg-gradient-info mb-0">Tambah</a>
-                    </div>
+                    @if (count($soalankemahiraninternets) == 0)
+                        <div class="col-4" style="text-align: end">
+                            <a href="/{{ $banksoalankemahirans->id }}/emel" class="btn bg-gradient-info mb-0">Tambah</a>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="card-body">
@@ -246,7 +256,8 @@
                         <thead class="thead-light">
                             <tr>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">No</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Id Soalan Kemahiran</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Id Soalan Kemahiran
+                                </th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap Soalan</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Bahagian Soalan</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Bentuk Soalan</th>
@@ -281,7 +292,7 @@
                                         {{ date('d/m/Y', strtotime($soalankemahiranemail->created_at)) }}</td>
                                     <td class="text-sm text-center font-weight-normal"><a
                                             href="/{{ $soalankemahiranemail->id_soalankemahiran }}/emel/{{ $soalankemahiranemail->id }}">
-                                            <i class="fas fa-pencil-alt"></i> 
+                                            <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <a data-bs-toggle="modal"
                                             data-bs-target="#modaldeleteSoalanKemahiranemail-{{ $soalankemahiranemail->id }}">
@@ -290,8 +301,9 @@
                                     </td>
                                 </tr>
 
-                                <div class="modal fade" id="modaldeleteSoalanKemahiranemail-{{ $soalankemahiranemail->id }}"
-                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade"
+                                    id="modaldeleteSoalanKemahiranemail-{{ $soalankemahiranemail->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-body text-center">

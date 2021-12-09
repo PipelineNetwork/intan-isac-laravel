@@ -29,8 +29,10 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Soalan Pengetahuan</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a>
+                        </li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Soalan
+                                Pengetahuan</a></li>
                     </ol>
                 </nav>
             </div>
@@ -47,7 +49,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col">
                 <div class="card card-frame mt-3">
@@ -64,8 +66,10 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap Soalan</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Kategori Pengetahuan
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap Soalan
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Kategori
+                                            Pengetahuan
                                         </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">
                                             Jenis Soalan</th>
@@ -79,15 +83,20 @@
                                         </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Fail
                                         </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan 1
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan
+                                            1
                                         </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan 2
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan
+                                            2
                                         </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan 3
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan
+                                            3
                                         </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan 4
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan
+                                            4
                                         </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan 5
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pilihan Jawapan
+                                            5
                                         </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan 1
                                         </th>
@@ -246,19 +255,19 @@
                                                 @endif
                                             </td>
                                             <td class="text-sm font-weight-normal">
-                                                {{-- <a class="btn"
-                                                    href="/bank-soalan-pengetahuan/{{ $banksoalanpengetahuan->id }}/edit">
+                                                <a href="/bank-soalan-pengetahuan/{{ $banksoalanpengetahuan->id }}/edit">
                                                     <i class="fas fa-pencil-alt"></i>
-                                                </a> --}}
+                                                </a>
                                                 <a data-bs-toggle="modal"
                                                     data-bs-target="#modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}">
-                                                    <i class="far fa-trash-alt"></i>
+                                                    <i class="far fa-trash-alt" style="cursor: pointer"></i>
                                                 </a>
                                             </td>
-        
+
                                             <div class="modal fade"
-                                                id="modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}" tabindex="-1"
-                                                role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                id="modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-body text-center">
@@ -270,11 +279,12 @@
                                                             <button type="button" class="btn bg-gradient-secondary"
                                                                 data-bs-dismiss="modal">Tutup</button>
                                                             <form method="POST"
-                                                                action="/bank-soalan-pengetahuan/{{$banksoalanpengetahuan->id}}">
+                                                                action="/bank-soalan-pengetahuan/{{ $banksoalanpengetahuan->id }}">
                                                                 @method('DELETE')
                                                                 @csrf
-            
-                                                                <button class="btn bg-gradient-danger" type="submit"> Hapus</button>
+
+                                                                <button class="btn bg-gradient-danger" type="submit"
+                                                                    style="cursor: pointer"> Hapus</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -295,7 +305,8 @@
     <script type="text/javascript">
         const dataTableSoalanPengetahuan = new simpleDatatables.DataTable("#datatable_soalan_pengetahuan", {
             searchable: true,
-            fixedHeight: true
+            fixedHeight: true,
+            sortable: false
         });
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

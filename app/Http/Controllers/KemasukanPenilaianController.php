@@ -39,7 +39,7 @@ class KemasukanPenilaianController extends Controller
         // check calon dah jawab ke belum
         $id_penilaian_done = Bankjawapanpengetahuan::where('id_calon', $nric)->where('id_penilaian', $id_penilaian)->first();
         if($id_penilaian_done != null){
-            alert("Anda telah menjawab pernilaian ini.");
+            alert("Anda telah menjawab penilaian ini.");
             return redirect('/kemasukan-id');
         }
 

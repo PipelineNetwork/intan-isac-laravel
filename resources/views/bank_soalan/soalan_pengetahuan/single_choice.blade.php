@@ -79,7 +79,7 @@
                                     <input class="form-control" type="text" name="penyataan_soalan">
                                 </div>
                             </div>
-        
+
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <label class="form-control-label">Status Soalan</label>
@@ -90,21 +90,21 @@
                                     </select>
                                 </div>
                             </div>
-        
+
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <label class="form-control-label">Soalan</label>
                                     <textarea id="editor-soalan" class="form-control" name="soalan" rows="3"></textarea>
                                 </div>
                             </div>
-        
+
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <label class="form-control-label">Muat Naik Fail</label>
                                     <input class="form-control" type="file" name="muat_naik_fail">
                                 </div>
                             </div>
-        
+
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <label class="form-control-label">Pilihan Jawapan</label>
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div style="text-align: right">
                                 <button class="btn bg-gradient-success" type="submit">Simpan</button>
                             </div>
@@ -148,7 +148,7 @@
                     x++;
                     $(wrapper).append(
                         '<div class="form-check mb-3"><input class="form-check-input" type="checkbox" name="jawapan' +
-                        x + '"><input class="form-control d-flex" type="text" name="pilihan_jawapan' +
+                        x + '"><input class="form-control d-flex mb-2" type="text" name="pilihan_jawapan' +
                         x + '"><a href="#" class="delete btn bg-gradient-danger">Hapus</a></div>'
                     ); //add input box
                 } else {
@@ -163,6 +163,7 @@
             })
         });
     </script>
+    <script src="/assets/ckeditor5/build/ckeditor.js"></script>
     <script>
         ClassicEditor
             .create(document.querySelector('#editor-soalan'))

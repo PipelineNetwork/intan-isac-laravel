@@ -52,18 +52,18 @@ class BanksoalanpengetahuanController extends Controller
         // $banksoalanpengetahuan->penyataan_soalan = $request->penyataan_soalan;
         // $banksoalanpengetahuan->id_status_soalan = $request->id_status_soalan;
         // $banksoalanpengetahuan->pilihan_jawapan = $request->pilihan_jawapan;
-        if (!empty($request->pilihan_jawapan1)) {
-            $banksoalanpengetahuan->pilihan_jawapan1 = $request->pilihan_jawapan1;
-        }
-        if (!empty($request->pilihan_jawapan2)) {
-            $banksoalanpengetahuan->pilihan_jawapan2 = $request->pilihan_jawapan2;
-        }
-        if (!empty($request->pilihan_jawapan3)) {
-            $banksoalanpengetahuan->pilihan_jawapan3 = $request->pilihan_jawapan3;
-        }
-        if (!empty($request->pilihan_jawapan4)) {
-            $banksoalanpengetahuan->pilihan_jawapan4 = $request->pilihan_jawapan4;
-        }
+        // if (!empty($request->pilihan_jawapan1)) {
+        //     $banksoalanpengetahuan->pilihan_jawapan1 = $request->pilihan_jawapan1;
+        // }
+        // if (!empty($request->pilihan_jawapan2)) {
+        //     $banksoalanpengetahuan->pilihan_jawapan2 = $request->pilihan_jawapan2;
+        // }
+        // if (!empty($request->pilihan_jawapan3)) {
+        //     $banksoalanpengetahuan->pilihan_jawapan3 = $request->pilihan_jawapan3;
+        // }
+        // if (!empty($request->pilihan_jawapan4)) {
+        //     $banksoalanpengetahuan->pilihan_jawapan4 = $request->pilihan_jawapan4;
+        // }
         // $banksoalanpengetahuan->jawapan = $request->jawapan;
         // if (!empty($request->file('muat_naik_fail'))) {
         //     $muat_naik_fail = $request->file('muat_naik_fail')->store('soalan');
@@ -123,9 +123,35 @@ class BanksoalanpengetahuanController extends Controller
     {
         $banksoalanpengetahuan = Banksoalanpengetahuan::find($id);
 
-        return view('bank_soalan.soalan_pengetahuan.edit', [
-            'banksoalanpengetahuan' => $banksoalanpengetahuan,
-        ]);
+        if ($banksoalanpengetahuan->jenis_soalan == 'fill_in_the_blank') {
+            return view('bank_soalan.soalan_pengetahuan.fill_in_the_blank_edit', [
+                'banksoalanpengetahuan' => $banksoalanpengetahuan,
+            ]);
+        } elseif ($banksoalanpengetahuan->jenis_soalan == 'multiple_choice') {
+            return view('bank_soalan.soalan_pengetahuan.multiple_choice_edit', [
+                'banksoalanpengetahuan' => $banksoalanpengetahuan,
+            ]);
+        } elseif ($banksoalanpengetahuan->jenis_soalan == 'ranking') {
+            return view('bank_soalan.soalan_pengetahuan.ranking_edit', [
+                'banksoalanpengetahuan' => $banksoalanpengetahuan,
+            ]);
+        } elseif ($banksoalanpengetahuan->jenis_soalan == 'single_choice') {
+            return view('bank_soalan.soalan_pengetahuan.single_choice_edit', [
+                'banksoalanpengetahuan' => $banksoalanpengetahuan,
+            ]);
+        } elseif ($banksoalanpengetahuan->jenis_soalan == 'true_or_false') {
+            return view('bank_soalan.soalan_pengetahuan.true_or_false_edit', [
+                'banksoalanpengetahuan' => $banksoalanpengetahuan,
+            ]);
+        } else {
+            return view('bank_soalan.soalan_pengetahuan.subjective_edit', [
+                'banksoalanpengetahuan' => $banksoalanpengetahuan,
+            ]);
+        }
+
+        // return view('bank_soalan.soalan_pengetahuan.edit', [
+        //     'banksoalanpengetahuan' => $banksoalanpengetahuan,
+        // ]);
     }
 
     /**
@@ -139,14 +165,298 @@ class BanksoalanpengetahuanController extends Controller
     {
         $banksoalanpengetahuan = Banksoalanpengetahuan::find($request->id);
 
-        $banksoalanpengetahuan->id_tahap_soalan = $request->id_tahap_soalan;
-        $banksoalanpengetahuan->id_kategori_pengetahuan = $request->id_kategori_pengetahuan;
-        $banksoalanpengetahuan->jenis_soalan = $request->jenis_soalan;
+        if ($banksoalanpengetahuan->jenis_soalan == 'fill_in_the_blank') {
 
-        // dd($banksoalanpengetahuan);
-        $banksoalanpengetahuan->save();
+            $banksoalanpengetahuan->id_tahap_soalan = $request->id_tahap_soalan;
+            $banksoalanpengetahuan->id_kategori_pengetahuan = $request->id_kategori_pengetahuan;
+            $banksoalanpengetahuan->jenis_soalan = $request->jenis_soalan;
 
-        return redirect('/bank-soalan-pengetahuan');
+            $banksoalanpengetahuan->knowledge_area = $request->knowledge_area;
+            $banksoalanpengetahuan->topik_soalan = $request->topik_soalan;
+            $banksoalanpengetahuan->penyataan_soalan = $request->penyataan_soalan;
+            $banksoalanpengetahuan->id_status_soalan = $request->id_status_soalan;
+            $banksoalanpengetahuan->pilihan_jawapan = $request->pilihan_jawapan;
+            if (empty($request->pilihan_jawapan1)) {
+                $banksoalanpengetahuan->pilihan_jawapan1 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan1 = $request->pilihan_jawapan1;
+            }
+            if (empty($request->pilihan_jawapan2)) {
+                $banksoalanpengetahuan->pilihan_jawapan2 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan2 = $request->pilihan_jawapan2;
+            }
+            if (empty($request->pilihan_jawapan3)) {
+                $banksoalanpengetahuan->pilihan_jawapan3 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan3 = $request->pilihan_jawapan3;
+            }
+            if (empty($request->pilihan_jawapan4)) {
+                $banksoalanpengetahuan->pilihan_jawapan4 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan4 = $request->pilihan_jawapan4;
+            }
+            if (empty($request->jawapan)) {
+                $banksoalanpengetahuan->jawapan = null;
+            } else {
+                $banksoalanpengetahuan->jawapan = $request->jawapan;
+            }
+            if (empty($request->jawapan1)) {
+                $banksoalanpengetahuan->jawapan1 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan1 = $request->jawapan1;
+            }
+            if (empty($request->jawapan2)) {
+                $banksoalanpengetahuan->jawapan2 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan2 = $request->jawapan2;
+            }
+            if (empty($request->jawapan3)) {
+                $banksoalanpengetahuan->jawapan3 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan3 = $request->jawapan3;
+            }
+            if (empty($request->jawapan4)) {
+                $banksoalanpengetahuan->jawapan4 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan4 = $request->jawapan4;
+            }
+            $banksoalanpengetahuan->soalan = $request->soalan;
+            if (!empty($request->file('muat_naik_fail'))) {
+                $muat_naik_fail = $request->file('muat_naik_fail')->store('soalan');
+                $banksoalanpengetahuan->muat_naik_fail = $muat_naik_fail;
+            }
+
+            // dd($banksoalanpengetahuan);
+            $banksoalanpengetahuan->save();
+
+            return redirect('/bank-soalan-pengetahuan');
+        } elseif ($banksoalanpengetahuan->jenis_soalan == 'multiple_choice') {
+
+            $banksoalanpengetahuan->id_tahap_soalan = $request->id_tahap_soalan;
+            $banksoalanpengetahuan->id_kategori_pengetahuan = $request->id_kategori_pengetahuan;
+            $banksoalanpengetahuan->jenis_soalan = $request->jenis_soalan;
+
+            $banksoalanpengetahuan->knowledge_area = $request->knowledge_area;
+            $banksoalanpengetahuan->topik_soalan = $request->topik_soalan;
+            $banksoalanpengetahuan->penyataan_soalan = $request->penyataan_soalan;
+            $banksoalanpengetahuan->id_status_soalan = $request->id_status_soalan;
+            $banksoalanpengetahuan->pilihan_jawapan = $request->pilihan_jawapan;
+            if (empty($request->pilihan_jawapan1)) {
+                $banksoalanpengetahuan->pilihan_jawapan1 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan1 = $request->pilihan_jawapan1;
+            }
+            if (empty($request->pilihan_jawapan2)) {
+                $banksoalanpengetahuan->pilihan_jawapan2 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan2 = $request->pilihan_jawapan2;
+            }
+            if (empty($request->pilihan_jawapan3)) {
+                $banksoalanpengetahuan->pilihan_jawapan3 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan3 = $request->pilihan_jawapan3;
+            }
+            if (empty($request->pilihan_jawapan4)) {
+                $banksoalanpengetahuan->pilihan_jawapan4 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan4 = $request->pilihan_jawapan4;
+            }
+            if (empty($request->jawapan)) {
+                $banksoalanpengetahuan->jawapan = null;
+            } else {
+                $banksoalanpengetahuan->jawapan = $request->pilihan_jawapan;
+            }
+            if (empty($request->jawapan1)) {
+                $banksoalanpengetahuan->jawapan1 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan1 = $request->pilihan_jawapan1;
+            }
+            if (empty($request->jawapan2)) {
+                $banksoalanpengetahuan->jawapan2 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan2 = $request->pilihan_jawapan2;
+            }
+            if (empty($request->jawapan3)) {
+                $banksoalanpengetahuan->jawapan3 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan3 = $request->pilihan_jawapan3;
+            }
+            if (empty($request->jawapan4)) {
+                $banksoalanpengetahuan->jawapan4 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan4 = $request->pilihan_jawapan4;
+            }
+            $banksoalanpengetahuan->soalan = $request->soalan;
+            if (!empty($request->file('muat_naik_fail'))) {
+                $muat_naik_fail = $request->file('muat_naik_fail')->store('soalan');
+                $banksoalanpengetahuan->muat_naik_fail = $muat_naik_fail;
+            }
+
+            // dd($banksoalanpengetahuan);
+            $banksoalanpengetahuan->save();
+
+            return redirect('/bank-soalan-pengetahuan');
+        } elseif ($banksoalanpengetahuan->jenis_soalan == 'ranking') {
+
+            $banksoalanpengetahuan->id_tahap_soalan = $request->id_tahap_soalan;
+            $banksoalanpengetahuan->id_kategori_pengetahuan = $request->id_kategori_pengetahuan;
+            $banksoalanpengetahuan->jenis_soalan = $request->jenis_soalan;
+
+            $banksoalanpengetahuan->knowledge_area = $request->knowledge_area;
+            $banksoalanpengetahuan->topik_soalan = $request->topik_soalan;
+            $banksoalanpengetahuan->penyataan_soalan = $request->penyataan_soalan;
+            $banksoalanpengetahuan->id_status_soalan = $request->id_status_soalan;
+            $banksoalanpengetahuan->pilihan_jawapan = $request->pilihan_jawapan;
+            if (empty($request->pilihan_jawapan1)) {
+                $banksoalanpengetahuan->pilihan_jawapan1 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan1 = $request->pilihan_jawapan1;
+            }
+            if (empty($request->pilihan_jawapan2)) {
+                $banksoalanpengetahuan->pilihan_jawapan2 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan2 = $request->pilihan_jawapan2;
+            }
+            if (empty($request->pilihan_jawapan3)) {
+                $banksoalanpengetahuan->pilihan_jawapan3 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan3 = $request->pilihan_jawapan3;
+            }
+            if (empty($request->pilihan_jawapan4)) {
+                $banksoalanpengetahuan->pilihan_jawapan4 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan4 = $request->pilihan_jawapan4;
+            }
+            $upper = strtoupper($request->jawapan);
+            $banksoalanpengetahuan->jawapan = $upper;
+            $banksoalanpengetahuan->soalan = $request->soalan;
+            if (!empty($request->file('muat_naik_fail'))) {
+                $muat_naik_fail = $request->file('muat_naik_fail')->store('soalan');
+                $banksoalanpengetahuan->muat_naik_fail = $muat_naik_fail;
+            }
+
+            // dd($banksoalanpengetahuan);
+            $banksoalanpengetahuan->save();
+
+            return redirect('/bank-soalan-pengetahuan');
+        } elseif ($banksoalanpengetahuan->jenis_soalan == 'single_choice') {
+
+            $banksoalanpengetahuan->id_tahap_soalan = $request->id_tahap_soalan;
+            $banksoalanpengetahuan->id_kategori_pengetahuan = $request->id_kategori_pengetahuan;
+            $banksoalanpengetahuan->jenis_soalan = $request->jenis_soalan;
+
+            $banksoalanpengetahuan->knowledge_area = $request->knowledge_area;
+            $banksoalanpengetahuan->topik_soalan = $request->topik_soalan;
+            $banksoalanpengetahuan->penyataan_soalan = $request->penyataan_soalan;
+            $banksoalanpengetahuan->id_status_soalan = $request->id_status_soalan;
+            $banksoalanpengetahuan->pilihan_jawapan = $request->pilihan_jawapan;
+            if (empty($request->pilihan_jawapan1)) {
+                $banksoalanpengetahuan->pilihan_jawapan1 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan1 = $request->pilihan_jawapan1;
+            }
+            if (empty($request->pilihan_jawapan2)) {
+                $banksoalanpengetahuan->pilihan_jawapan2 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan2 = $request->pilihan_jawapan2;
+            }
+            if (empty($request->pilihan_jawapan3)) {
+                $banksoalanpengetahuan->pilihan_jawapan3 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan3 = $request->pilihan_jawapan3;
+            }
+            if (empty($request->pilihan_jawapan4)) {
+                $banksoalanpengetahuan->pilihan_jawapan4 = null;
+            } else {
+                $banksoalanpengetahuan->pilihan_jawapan4 = $request->pilihan_jawapan4;
+            }
+            if (!empty($request->jawapan)) {
+                $banksoalanpengetahuan->jawapan = $request->pilihan_jawapan;
+            } elseif (!empty($request->jawapan1)) {
+                $banksoalanpengetahuan->jawapan = $request->pilihan_jawapan1;
+            } elseif (!empty($request->jawapan2)) {
+                $banksoalanpengetahuan->jawapan = $request->pilihan_jawapan2;
+            } elseif (!empty($request->jawapan3)) {
+                $banksoalanpengetahuan->jawapan = $request->pilihan_jawapan3;
+            } else {
+                $banksoalanpengetahuan->jawapan = $request->pilihan_jawapan4;
+            }
+            $banksoalanpengetahuan->soalan = $request->soalan;
+            if (!empty($request->file('muat_naik_fail'))) {
+                $muat_naik_fail = $request->file('muat_naik_fail')->store('soalan');
+                $banksoalanpengetahuan->muat_naik_fail = $muat_naik_fail;
+            }
+
+            // dd($banksoalanpengetahuan);
+            $banksoalanpengetahuan->save();
+
+            return redirect('/bank-soalan-pengetahuan');
+        } elseif ($banksoalanpengetahuan->jenis_soalan == 'true_or_false') {
+
+            $banksoalanpengetahuan->id_tahap_soalan = $request->id_tahap_soalan;
+            $banksoalanpengetahuan->id_kategori_pengetahuan = $request->id_kategori_pengetahuan;
+            $banksoalanpengetahuan->jenis_soalan = $request->jenis_soalan;
+
+            $banksoalanpengetahuan->knowledge_area = $request->knowledge_area;
+            $banksoalanpengetahuan->topik_soalan = $request->topik_soalan;
+            $banksoalanpengetahuan->penyataan_soalan = $request->penyataan_soalan;
+            $banksoalanpengetahuan->id_status_soalan = $request->id_status_soalan;
+            $banksoalanpengetahuan->jawapan = $request->jawapan;
+            $banksoalanpengetahuan->soalan = $request->soalan;
+            if (!empty($request->file('muat_naik_fail'))) {
+                $muat_naik_fail = $request->file('muat_naik_fail')->store('soalan');
+                $banksoalanpengetahuan->muat_naik_fail = $muat_naik_fail;
+            }
+
+            // dd($banksoalanpengetahuan);
+            $banksoalanpengetahuan->save();
+
+            return redirect('/bank-soalan-pengetahuan');
+        } else {
+
+            $banksoalanpengetahuan->id_tahap_soalan = $request->id_tahap_soalan;
+            $banksoalanpengetahuan->id_kategori_pengetahuan = $request->id_kategori_pengetahuan;
+            $banksoalanpengetahuan->jenis_soalan = $request->jenis_soalan;
+
+            $banksoalanpengetahuan->knowledge_area = $request->knowledge_area;
+            $banksoalanpengetahuan->topik_soalan = $request->topik_soalan;
+            $banksoalanpengetahuan->penyataan_soalan = $request->penyataan_soalan;
+            $banksoalanpengetahuan->id_status_soalan = $request->id_status_soalan;
+            $banksoalanpengetahuan->soalan = $request->soalan;
+
+            if (empty($request->jawapan1)) {
+                $banksoalanpengetahuan->jawapan1 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan1 = $request->jawapan1;
+            }
+            if (empty($request->jawapan2)) {
+                $banksoalanpengetahuan->jawapan2 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan2 = $request->jawapan2;
+            }
+            if (empty($request->jawapan3)) {
+                $banksoalanpengetahuan->jawapan3 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan3 = $request->jawapan3;
+            }
+            if (empty($request->jawapan4)) {
+                $banksoalanpengetahuan->jawapan4 = null;
+            } else {
+                $banksoalanpengetahuan->jawapan4 = $request->jawapan4;
+            }
+
+            // $banksoalanpengetahuan->jawapan = $request->jawapan;
+            if (!empty($request->file('muat_naik_fail'))) {
+                $muat_naik_fail = $request->file('muat_naik_fail')->store('soalan');
+                $banksoalanpengetahuan->muat_naik_fail = $muat_naik_fail;
+            }
+
+            // dd($banksoalanpengetahuan);
+            $banksoalanpengetahuan->save();
+
+            return redirect('/bank-soalan-pengetahuan');
+        }
     }
 
     /**
@@ -347,32 +657,7 @@ class BanksoalanpengetahuanController extends Controller
         $banksoalanpengetahuan->topik_soalan = $request->topik_soalan;
         $banksoalanpengetahuan->penyataan_soalan = $request->penyataan_soalan;
         $banksoalanpengetahuan->id_status_soalan = $request->id_status_soalan;
-        // $banksoalanpengetahuan->pilihan_jawapan = $request->pilihan_jawapan;
-        // if (!empty($request->pilihan_jawapan1)) {
-        //     $banksoalanpengetahuan->pilihan_jawapan1 = $request->pilihan_jawapan1;
-        // }
-        // if (!empty($request->pilihan_jawapan2)) {
-        //     $banksoalanpengetahuan->pilihan_jawapan2 = $request->pilihan_jawapan2;
-        // }
-        // if (!empty($request->pilihan_jawapan3)) {
-        //     $banksoalanpengetahuan->pilihan_jawapan3 = $request->pilihan_jawapan3;
-        // }
-        // if (!empty($request->pilihan_jawapan4)) {
-        //     $banksoalanpengetahuan->pilihan_jawapan4 = $request->pilihan_jawapan4;
-        // }
         $banksoalanpengetahuan->jawapan = $request->jawapan;
-        if (!empty($request->jawapan1)) {
-            $banksoalanpengetahuan->jawapan1 = $request->jawapan1;
-        }
-        if (!empty($request->jawapan2)) {
-            $banksoalanpengetahuan->jawapan2 = $request->jawapan2;
-        }
-        if (!empty($request->jawapan3)) {
-            $banksoalanpengetahuan->jawapan3 = $request->jawapan3;
-        }
-        if (!empty($request->jawapan4)) {
-            $banksoalanpengetahuan->jawapan4 = $request->jawapan4;
-        }
         $banksoalanpengetahuan->soalan = $request->soalan;
         if (!empty($request->file('muat_naik_fail'))) {
             $muat_naik_fail = $request->file('muat_naik_fail')->store('soalan');
@@ -399,30 +684,18 @@ class BanksoalanpengetahuanController extends Controller
         // foreach($request->pilihan_jawapan as $p){
         //     $pilihan_jawapan[] = ['jawapan' => $p];    
         // }
-        $banksoalanpengetahuan->pilihan_jawapan = $request->pilihan_jawapan;
-        if (!empty($request->pilihan_jawapan1)) {
-            $banksoalanpengetahuan->pilihan_jawapan1 = $request->pilihan_jawapan1;
+        $banksoalanpengetahuan->jawapan = $request->jawapan;
+        if (!empty($request->jawapan1)) {
+            $banksoalanpengetahuan->jawapan1 = $request->jawapan1;
         }
-        if (!empty($request->pilihan_jawapan2)) {
-            $banksoalanpengetahuan->pilihan_jawapan2 = $request->pilihan_jawapan2;
+        if (!empty($request->jawapan2)) {
+            $banksoalanpengetahuan->jawapan2 = $request->jawapan2;
         }
-        if (!empty($request->pilihan_jawapan3)) {
-            $banksoalanpengetahuan->pilihan_jawapan3 = $request->pilihan_jawapan3;
+        if (!empty($request->jawapan3)) {
+            $banksoalanpengetahuan->jawapan3 = $request->jawapan3;
         }
-        if (!empty($request->pilihan_jawapan4)) {
-            $banksoalanpengetahuan->pilihan_jawapan4 = $request->pilihan_jawapan4;
-        }
-        if (!empty($request->pilihan_jawapan1)) {
-            $banksoalanpengetahuan->pilihan_jawapan1 = $request->pilihan_jawapan1;
-        }
-        if (!empty($request->pilihan_jawapan2)) {
-            $banksoalanpengetahuan->pilihan_jawapan2 = $request->pilihan_jawapan2;
-        }
-        if (!empty($request->pilihan_jawapan3)) {
-            $banksoalanpengetahuan->pilihan_jawapan3 = $request->pilihan_jawapan3;
-        }
-        if (!empty($request->pilihan_jawapan4)) {
-            $banksoalanpengetahuan->pilihan_jawapan4 = $request->pilihan_jawapan4;
+        if (!empty($request->jawapan4)) {
+            $banksoalanpengetahuan->jawapan4 = $request->jawapan4;
         }
 
         // $banksoalanpengetahuan->jawapan = $request->jawapan;
@@ -442,30 +715,32 @@ class BanksoalanpengetahuanController extends Controller
 
         // $soalan->jawapan = $CF_Id;
     }
-    public function pemilihan(Request $request){
+    public function pemilihan(Request $request)
+    {
         $pemilihan = PemilihanSoalan::all();
 
         // dd($pemilihan);
 
-        return view('bank_soalan.soalan_pengetahuan.pemilihan_soalan.pemilihan_soalan',[
-            'pemilihan'=>$pemilihan
+        return view('bank_soalan.soalan_pengetahuan.pemilihan_soalan.pemilihan_soalan', [
+            'pemilihan' => $pemilihan
         ]);
     }
 
-    public function kemaskini($id){
+    public function kemaskini($id)
+    {
         $kemaskini = PemilihanSoalan::where('ID_PEMILIHAN_SOALAN', $id)->first();
         $pilihan = PemilihanSoalanKumpulan::where('ID_PEMILIHAN_SOALAN', $id)->get();
         $kategori = Refgeneral::where('MASTERCODE', 10033)
-        ->get();
+            ->get();
 
-        return view('bank_soalan.soalan_pengetahuan.pemilihan_soalan.kemaskini_soalan',[
-            'kemaskini'=>$kemaskini,
-            'pilihan'=>$pilihan,
-            'kategori'=>$kategori
+        return view('bank_soalan.soalan_pengetahuan.pemilihan_soalan.kemaskini_soalan', [
+            'kemaskini' => $kemaskini,
+            'pilihan' => $pilihan,
+            'kategori' => $kategori
         ]);
     }
 
-    public function simpan(Request $request, $id){
-
+    public function simpan(Request $request, $id)
+    {
     }
 }
