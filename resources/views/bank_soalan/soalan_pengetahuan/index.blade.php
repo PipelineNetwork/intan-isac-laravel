@@ -113,11 +113,31 @@
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 @if ($banksoalanpengetahuan->id_tahap_soalan == '1')
-                                                    Rendah
+                                                EG
                                                 @elseif ($banksoalanpengetahuan->id_tahap_soalan == '2')
-                                                    Sederhana
-                                                @else
-                                                    Tinggi
+                                                Electronic Mail
+                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '3')
+                                                General
+                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '4')
+                                                Government Mobility
+                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '5')
+                                                Hardware
+                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '6')
+                                                ICT Security
+                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '7')
+                                                Inisiatif ICT Sektor Awam
+                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '8')
+                                                Internet
+                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '9')
+                                                Media Sosial
+                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '10')
+                                                MSC
+                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '11')
+                                                Office Productivity
+                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '12')
+                                                Rangkaian dan Wifi
+                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '13')
+                                                Software
                                                 @endif
                                                 {{-- {{ $banksoalanpengetahuan->id_tahap_soalan }}</td> --}}
                                             <td class="text-sm text-center font-weight-normal">
