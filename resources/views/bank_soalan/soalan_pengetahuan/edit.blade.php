@@ -44,7 +44,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="/bank-soalan-pengetahuan/{{ $banksoalanpengetahuan->id }}" enctype="multipart/form-data">
+                <form method="POST" action="/bank-soalan-pengetahuan/{{ $banksoalanpengetahuan->id }}"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -161,7 +162,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xl-12">
+                        {{-- <div class="col-xl-12">
                             <div class="form-group">
                                 <label class="form-control-label">Pilihan</label>
                                 <input class="form-control" type="text" name="pilihan_jawapan"
@@ -182,7 +183,41 @@
                                 <a href="/soalan/{{ $banksoalanpengetahuan->muat_naik_fail }}" target="_blank" id="banner-chosen1"
                                     class="mt-1">{{ $banksoalanpengetahuan->muat_naik_fail }}</a>
                             </div>
-                        </div>
+                        </div> --}}
+
+                        @if ($banksoalanpengetahuan->jenis_soalan == 'fill_in_the_blank')
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <label class="form-control-label">Soalan</label>
+                                    <textarea id="editor-soalan" class="form-control" name="soalan" rows="3">{{ $banksoalanpengetahuan->soalan }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <label class="form-control-label">Muat Naik Fail</label>
+                                    <input class="form-control" type="file" name="muat_naik_fail" id="banner-chosen1">
+                                    <span id="banner-btn1" class="mt-1">Tiada Dokumen Dipilih</span>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <label class="form-control-label">Jawapan</label>
+                                    <div class="container1">
+                                        <textarea id="editor-jawapan" class="form-control mb-2" name="jawapan"
+                                            rows="3"></textarea>
+                                        <div style="text-align: center">
+                                            <button class="btn bg-gradient-info add_form_field">Tambah Baru&nbsp;
+                                                <span style="font-size:16px; font-weight:bold;">+ </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+
+                        @endif
 
                         <div style="text-align: right">
                             <button class="btn bg-gradient-warning" type="submit">Simpan</button>

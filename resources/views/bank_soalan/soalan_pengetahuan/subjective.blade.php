@@ -79,7 +79,7 @@
                                     <input class="form-control" type="text" name="penyataan_soalan">
                                 </div>
                             </div>
-        
+
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <label class="form-control-label">Status Soalan</label>
@@ -90,26 +90,26 @@
                                     </select>
                                 </div>
                             </div>
-        
+
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <label class="form-control-label">Soalan</label>
                                     <textarea id="editor-soalan" class="form-control" name="soalan" rows="3"></textarea>
                                 </div>
                             </div>
-        
+
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <label class="form-control-label">Muat Naik Fail</label>
                                     <input class="form-control" type="file" name="muat_naik_fail">
                                 </div>
                             </div>
-        
+
                             <div class="col-xl-12">
                                 <div class="form-group">
-                                    <label class="form-control-label">Pilihan Jawapan</label>
+                                    <label class="form-control-label">Jawapan</label>
                                     <div class="container1">
-                                        <textarea id="editor-jawapan" class="form-control mb-2" name="pilihan_jawapan"
+                                        <textarea id="editor-jawapan" class="form-control mb-2" name="jawapan"
                                             rows="3"></textarea>
                                         <div style="text-align: center">
                                             <button class="btn bg-gradient-info add_form_field">Tambah Baru&nbsp;
@@ -119,7 +119,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div style="text-align: right">
                                 <button class="btn bg-gradient-success" type="submit">Simpan</button>
                             </div>
@@ -145,7 +145,7 @@
                 if (x < max_fields) {
                     x++;
                     $(wrapper).append(
-                        '<div><textarea class="form-control mb-2" name="pilihan_jawapan' + x +
+                        '<div><textarea class="form-control mb-2" name="jawapan' + x +
                         '" rows="3"></textarea><a href="#" class="delete btn bg-gradient-danger">Hapus</a></div>'
                     ); //add input box
                 } else {
@@ -160,6 +160,7 @@
             })
         });
     </script>
+    <script src="/assets/ckeditor5/build/ckeditor.js"></script>
     <script>
         ClassicEditor
             .create(document.querySelector('#editor-soalan'))

@@ -60,65 +60,69 @@
                     <div class="card-body">
                         <form method="POST" action="/bank-soalan-pengetahuan/subjective" enctype="multipart/form-data">
                             @csrf
-                            <div class="col-xl-12">
-                                <div class="form-group">
-                                    <input type="hidden" name="id" value="{{ $banksoalanpengetahuan->id }}">
-                                    <label class="form-control-label">Knowledge Area</label>
-                                    <input class="form-control" type="text" name="knowledge_area">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="form-group">
+                                        <input type="hidden" name="id" value="{{ $banksoalanpengetahuan->id }}">
+                                        <label class="form-control-label">Knowledge Area</label>
+                                        <input class="form-control" type="text" name="knowledge_area">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-12">
-                                <div class="form-group">
-                                    <label class="form-control-label">Topik Soalan</label>
-                                    <input class="form-control" type="text" name="topik_soalan">
+                                <div class="col-xl-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Topik Soalan</label>
+                                        <input class="form-control" type="text" name="topik_soalan">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-12">
-                                <div class="form-group">
-                                    <label class="form-control-label">Penyataan Soalan</label>
-                                    <input class="form-control" type="text" name="penyataan_soalan">
+                                <div class="col-xl-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Penyataan Soalan</label>
+                                        <input class="form-control" type="text" name="penyataan_soalan">
+                                    </div>
                                 </div>
-                            </div>
-        
-                            <div class="col-xl-12">
-                                <div class="form-group">
-                                    <label class="form-control-label">Status Soalan</label>
-                                    <select class="form-control" name="id_status_soalan">
-                                        <option hidden selected>Sila Pilih</option>
-                                        <option value="1">Aktif</option>
-                                        <option value="2">Tidak Aktif</option>
-                                    </select>
+
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Status Soalan</label>
+                                        <select class="form-control" name="id_status_soalan">
+                                            <option hidden selected>Sila Pilih</option>
+                                            <option value="1">Aktif</option>
+                                            <option value="2">Tidak Aktif</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-        
-                            <div class="col-xl-12">
-                                <div class="form-group">
-                                    <label class="form-control-label">Soalan</label>
-                                    <textarea id="editor-soalan" class="form-control" name="soalan" rows="3"></textarea>
+
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Muat Naik Fail</label>
+                                        <input class="form-control" type="file" name="muat_naik_fail">
+                                    </div>
                                 </div>
-                            </div>
-        
-                            <div class="col-xl-12">
-                                <div class="form-group">
-                                    <label class="form-control-label">Muat Naik Fail</label>
-                                    <input class="form-control" type="file" name="muat_naik_fail">
+
+                                <div class="col-xl-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Soalan</label>
+                                        <textarea id="editor-soalan" class="form-control" name="soalan"
+                                            rows="3"></textarea>
+                                    </div>
                                 </div>
-                            </div>
-        
-                            <div class="col-xl-12">
-                                <div class="form-group">
-                                    <label class="form-control-label">Jawapan</label>
-                                    <div class="container1">
-                                        <textarea id="editor-jawapan" class="form-control mb-2" name="jawapan" rows="3"></textarea>
-                                        <div style="text-align: center">
-                                            <button class="btn bg-gradient-info add_form_field">Tambah Baru&nbsp;
-                                                <span style="font-size:16px; font-weight:bold;">+ </span>
-                                            </button>
+
+                                <div class="col-xl-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Jawapan</label>
+                                        <div class="container1">
+                                            <textarea id="editor-jawapan" class="form-control mb-2" name="jawapan"
+                                                rows="3"></textarea>
+                                            <div style="text-align: center">
+                                                <button class="btn bg-gradient-info add_form_field">Tambah Baru&nbsp;
+                                                    <span style="font-size:16px; font-weight:bold;">+ </span>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div style="text-align: right">
                                 <button class="btn bg-gradient-success" type="submit">Simpan</button>
                             </div>
@@ -159,6 +163,7 @@
             })
         });
     </script>
+    <script src="/assets/ckeditor5/build/ckeditor.js"></script>
     <script>
         ClassicEditor
             .create(document.querySelector('#editor-soalan'))
