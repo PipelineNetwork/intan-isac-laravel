@@ -83,10 +83,6 @@
                                             <td class="text-sm text-center font-weight-normal">{{date('d-m-Y', strtotime($pemilihan->TARIKH_CIPTA))}}</td>
                                             <td class="text-sm text-center font-weight-normal">{{date('d-m-Y', strtotime($pemilihan->TARIKH_KEMASKINI))}}</td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                <?php
-                                                $user = User::where('id', $pemilihan->ID_PENGGUNA)->first();
-                                                $nama = $user->name;
-                                                ?>
                                                 {{$pemilihan->ID_PENGGUNA}}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
