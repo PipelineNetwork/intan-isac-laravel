@@ -125,20 +125,21 @@
 
 <body class="g-sidenav-show  bg-gray-100" oncopy="return false" oncut="return false" onpaste="return false"
     oncontextmenu="return false">
-    <?php 
+    <?php
     use App\Models\SelenggaraKawalanSistem;
     $masa_penilaian = SelenggaraKawalanSistem::where('ID_KAWALAN_SISTEM', '1')->first();
     // masa keseluruhan
     $masa_keseluruhan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
-    $masa_keseluruhan = $masa_keseluruhan*60;
+    $masa_keseluruhan = $masa_keseluruhan * 60;
+
     // masa penilaian pengetahuan
     $masa_nama = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
-    $masa_pengetahuan = $masa_nama*60*1000;
-
+    $masa_pengetahuan = $masa_nama * 60 * 1000;
+    
     // masa tamat
     $peringatan_tamat = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
-    $peringatan_tamat = $masa_keseluruhan-$peringatan_tamat;
-    $peringatan_tamat = $peringatan_tamat*60*1000;
+    $peringatan_tamat = $masa_keseluruhan - $peringatan_tamat;
+    $peringatan_tamat = $peringatan_tamat * 60 * 1000;
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -232,7 +233,7 @@
                                     @csrf
                                     <a class="dropdown-item border-radius-md" href="#"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    this.closest('form').submit();">
                                         <div class="d-flex py-1">
 
                                             {{ __('Log Keluar') }}
@@ -328,6 +329,22 @@
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
 
+    <script>
+        var video = document.querySelector("#videoElement");
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({
+                    video: true
+                })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function(err0r) {
+                    console.log("Something went wrong!");
+                });
+        }
+    </script>
+
     <script type="text/javascript">
         // properties
         var count = 0;
@@ -361,42 +378,29 @@
         window.onload = function() {
             // letak masa dynamic
             var masa_penilaian = <?php echo $masa_keseluruhan; ?>;
-            var masa_pengetahuan = <?php echo $masa_pengetahuan; ?>;
-            var masa_nama = <?php echo $masa_nama ?>
-            var peringatan_tamat = <?php echo $peringatan_tamat ?>
-            // console.log("masa:", masa_penilaian);
-            setTimeout(function() {
-                alert("Masa yang dicadangkan untuk menjawab soalan pengetahuan: "+masa_nama+" minit telah berlalu.");
-            }, masa_pengetahuan);
-            setTimeout(function() {
-                alert("Masa untuk menjawab hanya tinggal "+masa_nama+" minit sahaja lagi.");
-            }, peringatan_tamat);
             var countDownTime = window.sessionStorage.getItem(COUNTER_KEY) || masa_penilaian;
             countDown(countDownTime, function() {
                 // console.log(countDownTime);
                 $("#penilaian input[name=timer]").val(countDownTime);
                 document.forms["penilaian"].submit();
-                
+
                 // window.location.replace("/masa_tamat");
                 // window.sessionStorage.getItem(COUNTER_KEY) || 3600
             });
+            
+            var masa_pengetahuan = <?php echo $masa_pengetahuan; ?>;
+            var masa_nama = <?php echo $masa_nama; ?>;
+            var peringatan_tamat = <?php echo $peringatan_tamat; ?>;
+            // console.log("masa:", masa_penilaian);
+            setTimeout(function() {
+                alert("Masa yang dicadangkan untuk menjawab soalan pengetahuan: " + masa_nama +
+                    " minit telah berlalu.");
+            }, masa_pengetahuan);
+            setTimeout(function() {
+                alert("Masa untuk menjawab hanya tinggal " + masa_nama + " minit sahaja lagi.");
+            }, peringatan_tamat);
+
         };
-    </script>
-
-    <script>
-        var video = document.querySelector("#videoElement");
-
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({
-                    video: true
-                })
-                .then(function(stream) {
-                    video.srcObject = stream;
-                })
-                .catch(function(err0r) {
-                    console.log("Something went wrong!");
-                });
-        }
     </script>
 
 </body>
