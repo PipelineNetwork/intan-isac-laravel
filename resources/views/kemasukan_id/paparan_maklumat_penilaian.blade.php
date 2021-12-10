@@ -58,12 +58,21 @@
                                         <p class="mb-0">: {{$calon->no_ic}}</p>
                                     </div>
                                 </div>
-                                @if ($tarikh == $tarikh_penilaian && $masa > $masa_mula || $masa < $masa_tamat)
+                                @if ($tarikh == $tarikh_penilaian)
+                                    @if ($masa > $masa_mula && $masa < $masa_tamat)
                                         <div class="row justify-content-center">
                                             <div class="col-auto mb-0">
                                                 <a href="/kemasukan_penilaian/{{$id_penilaian}}/1" class="btn bg-gradient-info mt-4 mb-0 text-center">Mula Penilaian</a>
                                             </div>
                                         </div>
+                                    @else
+                                        <div class="row justify-content-center">
+                                            <div class="col-auto mb-0">
+                                                <button class="btn bg-gradient-info mt-4 mb-0 text-center" disabled>Mula Penilaian</button>
+                                                {{-- <a href="/kemasukan_penilaian/{{$id_penilaian}}/1" class="btn bg-gradient-info mt-4 mb-0 text-center" disabled>Mula Penilaian</a> --}}
+                                            </div>
+                                        </div>
+                                    @endif
                                 @else
                                     <div class="row justify-content-center">
                                         <div class="col-auto mb-0">
