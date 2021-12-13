@@ -163,6 +163,9 @@ class BankjawapanpengetahuanController extends Controller
         }else{
             $keputusan->keputusan = "Gagal";
         }
+        $m_penilaian = MohonPenilaian::where('no_ic', $ic)->where('id_sesi', $request->id_penilaian)->first();
+        $m_penilaian->status_penilaian = $keputusan->keputusan;
+        $m_penilaian->save();
         $keputusan->save();
 
         $rekodtarikh = KeputusanPenilaian::where('id_penilaian', $request->id_penilaian)

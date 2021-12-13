@@ -71,6 +71,19 @@ class MohonPenilaianController extends Controller
      */
     public function create(Request $request)
     {
+        $status_ic = Auth::user()->nric;
+        $status_lulus = MohonPenilaian::where('no_ic', $status_ic)->where('status_penilaian','Lulus')->first();
+        $status_baru = MohonPenilaian::where('no_ic', $status_ic)->where('status_penilaian','Baru')->first();
+        
+        // dd($status_pen);
+        if($status_lulus != null){
+            alert('Anda telah lulus penilaian ID '.$status_lulus->id_sesi.'. Anda tidak dibenarkan untuk daftar penilaian lain.');
+            return redirect('/mohonpenilaian');
+        }
+        if($status_baru != null){
+            alert('Anda telah mendaftar untuk penilaian ID '.$status_baru->id_sesi);
+            return redirect('/mohonpenilaian');
+        }
         $id_group_user = Auth::user()->user_group_id;
         $role = Role::where('id', $id_group_user)->first();
         $role = $role->name;
@@ -160,6 +173,7 @@ class MohonPenilaianController extends Controller
         $permohonan->nama_penyelia = $request->nama_penyelia;
         $permohonan->emel_penyelia = $request->emel_penyelia;
         $permohonan->no_telefon_penyelia = $request->no_telefon_penyelia;
+        $permohonan->status_penilaian = 'Baru';
         $permohonan->save();
 
         $kekosongan = Jadual::where('ID_PENILAIAN', $permohonan->id_sesi)->first();
