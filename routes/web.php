@@ -190,6 +190,7 @@ Route::get('/cetak_surat/{id}', [MohonPenilaianController::class, 'cetak_surat']
 Route::get('/slip_keputusan/{id}', [KeputusanPenilaianController::class, 'slip_keputusan']);
 Route::get('/sijil_penilaian/{id}', [KeputusanPenilaianController::class, 'sijil_isac']);
 Route::post('/semak_keputusan', [KeputusanPenilaianController::class, 'semak_keputusan']);
+Route::get('/senarai_penilaian/{ic}', [BankjawapanpengetahuanController::class, 'senarai_penilaian']);
 Route::get('/semak_jawapan/{ic}/{id}', [BankjawapanpengetahuanController::class, 'check_jawapan']);
 
 Route::get('/senarai_sijil', [KeputusanPenilaianController::class, 'senarai_sijil']);

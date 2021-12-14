@@ -48,7 +48,7 @@
             <div class="col">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Senarai Perincian Jawapan Calon</b>
+                        <b class="text-white">Senarai Penilaian Calon {{$ic}}</b>
                     </div>
                     <div class="card-body pt-0">
                         <div class="table-responsive">
@@ -56,17 +56,19 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Nama</th>
-                                        <th>No. Kad Pengenalan</th>
+                                        <th>ID Penilaian</th>
+                                        <th>Tarikh Penilaian</th>
+                                        <th>Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($jawapan_calon as $key => $calon)
+                                    @foreach ($penilaian as $key => $penilaian)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $calon->nama }}</td>
-                                            <td><a href="/senarai_penilaian/{{ $calon->no_ic }}"
-                                                    class="text-info">{{ $calon->no_ic }}</a></td>
+                                            <td>{{ $penilaian->id_sesi }}</td>
+                                            <td>{{date('d-m-Y', strtotime($penilaian->tarikh_sesi))}}</td>
+                                            <td><a href="/semak_jawapan/{{ $penilaian->no_ic }}/{{$penilaian->id_sesi}}"
+                                                    class="btn bg-gradient-info">Perincian</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
