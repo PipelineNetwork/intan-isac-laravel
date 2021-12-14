@@ -77,7 +77,7 @@
 
                         <div class="row px-3">
                             <div class="col text-end">
-                                <a href="/semak_jawapan" class="btn bg-gradient-primary">Kembali</a>
+                                <a href="/senarai_penilaian/{{$ic}}" class="btn bg-gradient-primary">Kembali</a>
                             </div>
                         </div>
                     </div>

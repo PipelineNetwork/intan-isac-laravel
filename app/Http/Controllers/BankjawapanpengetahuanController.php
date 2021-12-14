@@ -21,7 +21,7 @@ class BankjawapanpengetahuanController extends Controller
      */
     public function index()
     {
-        $jawapan_calon = Bankjawapanpengetahuan::distinct()->get(['id_calon','id_penilaian']);
+        $jawapan_calon = MohonPenilaian::distinct()->get(['no_ic', 'nama']);
 
         // dd($jawapan_calon);
         return view('proses_penilaian.keputusan_penilaian.semak_keputusan_admin',[
@@ -204,13 +204,24 @@ class BankjawapanpengetahuanController extends Controller
         
     }
 
+    public function senarai_penilaian($ic){
+        $penilaian = MohonPenilaian::where('no_ic', $ic)->get();
+        $ic = $ic;
+        return view('proses_penilaian.keputusan_penilaian.senarai_penilaian', [
+            'penilaian'=>$penilaian,
+            'ic'=>$ic
+        ]);
+    }
+
     public function check_jawapan($ic, $id){
         $jawapan = Bankjawapanpengetahuan::where('id_calon', $ic)
         ->where('id_penilaian', $id)
         ->get();
 
+        $ic = $ic;
         return view('proses_penilaian.keputusan_penilaian.senarai_jawapan',[
-            'jawapan'=>$jawapan
+            'jawapan'=>$jawapan,
+            'ic'=>$ic
         ]);
     }
 }
