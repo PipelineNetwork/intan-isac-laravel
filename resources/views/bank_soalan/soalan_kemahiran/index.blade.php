@@ -74,7 +74,7 @@
                                     @foreach ($banksoalankemahirans as $banksoalankemahiran)
                                         <tr>
                                             <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
-                                            <td class="text-sm text-center font-weight-normal">Set {{ $banksoalankemahiran->id }}
+                                            <td class="text-sm text-center font-weight-normal">Set {{ $banksoalankemahiran->no_set_soalan }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ date('d/m/Y', strtotime($banksoalankemahiran->created_at)) }}</td>

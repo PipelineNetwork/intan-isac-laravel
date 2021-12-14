@@ -80,7 +80,7 @@
                             <div class="form-group">
                                 <label class="form-control-label">Arahan Soalan</label>
                                 <textarea class="form-control" rows="3"
-                                    name="arahan_soalan">Soalan ini menguji langkah-langkah melayari Internet menggunakan Internet Explorer.  Enjin Carian Google <em>(Google Search Engine, GSE)</em> digunakan bagi mencari sesuatu maklumat. Ikut arahan seperti di bawah :-</textarea>
+                                    name="arahan_soalan">{{ $soalankemahiraninternets->arahan_soalan }}</textarea>
                             </div>
                         </div>
                         <div class="col-xl-6">

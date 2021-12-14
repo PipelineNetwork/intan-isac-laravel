@@ -148,7 +148,7 @@
                     <div class="col-8">
                         <b class="text-white mb-0">Senarai Soalan Kemahiran Pemprosesan Perkataan</b>
                     </div>
-                    @if (count($soalankemahiraninternets) == 0)
+                    @if (count($soalankemahiranwords) == 0)
                         <div class="col-4" style="text-align: end">
                             <a href="/{{ $banksoalankemahirans->id }}/pemprosesan-perkataan"
                                 class="btn bg-gradient-info mb-0">Tambah</a>
@@ -243,7 +243,7 @@
                     <div class="col-8">
                         <b class="text-white mb-0">Senarai Soalan Kemahiran E-mel</b>
                     </div>
-                    @if (count($soalankemahiraninternets) == 0)
+                    @if (count($soalankemahiranemails) == 0)
                         <div class="col-4" style="text-align: end">
                             <a href="/{{ $banksoalankemahirans->id }}/emel" class="btn bg-gradient-info mb-0">Tambah</a>
                         </div>
