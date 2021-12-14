@@ -123,7 +123,7 @@ class SoalankemahiraninternetController extends Controller
     public function page3($id)
     {
         $jawapancalon = Bankjawapancalon::join('soalankemahiraninternets', 'bankjawapancalons.id_soalankemahiraninternet', 'soalankemahiraninternets.id')
-            // ->where('bankjawapancalons.id', $id)
+            ->where('bankjawapancalons.id', $id)
             ->select('bankjawapancalons.*', 'soalankemahiraninternets.*')
             ->get()->first();
 
@@ -139,7 +139,7 @@ class SoalankemahiraninternetController extends Controller
     public function page4($id)
     {
         $jawapancalon = Bankjawapancalon::join('soalankemahiraninternets', 'bankjawapancalons.id_soalankemahiraninternet', 'soalankemahiraninternets.id')
-            // ->where('bankjawapancalons.id', $id)
+            ->where('bankjawapancalons.id_soalankemahiraninternet', $id)
             ->select('bankjawapancalons.*', 'soalankemahiraninternets.*')
             ->get()->first();
 
