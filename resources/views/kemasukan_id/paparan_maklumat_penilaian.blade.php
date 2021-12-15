@@ -59,10 +59,16 @@
                                     </div>
                                 </div>
                                 @if ($tarikh == $tarikh_penilaian)
-                                    @if (($masa == $masa_mula || $masa > $masa_mula) && ($masa == $masa_tamat || $masa < $masa_tamat))
+                                    @if (($masa_tamat >= $masa) && ($masa>= $masa_mula))
                                         <div class="row justify-content-center">
                                             <div class="col-auto mb-0">
-                                                <a href="/kemasukan_penilaian/{{$id_penilaian}}/1" class="btn bg-gradient-info mt-4 mb-0 text-center">Mula Penilaian</a>
+                                                <form action="/penilaian/{{$id_penilaian}}" method="POST">
+                                                    @csrf
+                                                    @foreach ($soalan_penilaian as $key=>$soalan)
+                                                        <input type="hidden" name="soalan_{{$key+1}}" value="{{$soalan->id}}">
+                                                    @endforeach
+                                                    <button class="btn bg-gradient-info mt-4 mb-0 text-center" type="submit">Mula Penilaian</button>
+                                                </form>
                                             </div>
                                         </div>
                                     @else

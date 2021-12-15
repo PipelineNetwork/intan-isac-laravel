@@ -131,7 +131,7 @@
     // masa keseluruhan
     $masa_keseluruhan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
     $masa_keseluruhan = $masa_keseluruhan * 60;
-
+    
     // masa penilaian pengetahuan
     $masa_nama = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
     $masa_pengetahuan = $masa_nama * 60 * 1000;
@@ -233,7 +233,7 @@
                                     @csrf
                                     <a class="dropdown-item border-radius-md" href="#"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        this.closest('form').submit();">
                                         <div class="d-flex py-1">
 
                                             {{ __('Log Keluar') }}
@@ -387,7 +387,7 @@
                 // window.location.replace("/masa_tamat");
                 // window.sessionStorage.getItem(COUNTER_KEY) || 3600
             });
-            
+
             var masa_pengetahuan = <?php echo $masa_pengetahuan; ?>;
             var masa_nama = <?php echo $masa_nama; ?>;
             var peringatan_tamat = <?php echo $peringatan_tamat; ?>;
@@ -401,6 +401,50 @@
             }, peringatan_tamat);
 
         };
+    </script>
+
+    <script>
+        (function(global) {
+
+            if (typeof(global) === "undefined") {
+                throw new Error("window is undefined");
+            }
+
+            var _hash = "!";
+            var noBackPlease = function() {
+                global.location.href += "#";
+
+                // making sure we have the fruit available for juice....
+                // 50 milliseconds for just once do not cost much (^__^)
+                global.setTimeout(function() {
+                    global.location.href += "!";
+                }, 50);
+            };
+
+            // Earlier we had setInerval here....
+            global.onhashchange = function() {
+                if (global.location.hash !== _hash) {
+                    global.location.hash = _hash;
+                }
+            };
+
+            global.onload = function() {
+
+                noBackPlease();
+
+                // disables backspace on page except on input fields and textarea..
+                document.body.onkeydown = function(e) {
+                    var elm = e.target.nodeName.toLowerCase();
+                    if (e.which === 8 && (elm !== 'input' && elm !== 'textarea')) {
+                        e.preventDefault();
+                    }
+                    // stopping event bubbling up the DOM tree..
+                    e.stopPropagation();
+                };
+
+            };
+
+        })(window);
     </script>
 
 </body>

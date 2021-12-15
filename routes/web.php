@@ -180,6 +180,7 @@ Route::post('/mohonpenilaian/calon/kemaskini_maklumat_calon', [MohonPenilaianCon
 Route::post('/mohonpenilaian/calon/pilih_jadual', [MohonPenilaianController::class, 'pilih_jadual_calon']);
 Route::post('/kemasukan_id/check_id', [KemasukanPenilaianController::class, 'kemasukan_id']);
 Route::get('/kemasukan_penilaian/{id_penilaian}/{soalan}', [KemasukanPenilaianController::class, 'kemasukan_penilaian']);
+Route::post('/penilaian/{id_penilaian}', [KemasukanPenilaianController::class, 'penilaian']);
 Route::post('/kemasukan_penilaian/{id_penilaian}/jawapan_calon', [BankjawapanpengetahuanController::class, 'jawapan_calon']);
 
 Route::get('/pengurusan_penilaian/pemilihan_soalan_pengetahuan', [BanksoalanpengetahuanController::class, 'pemilihan']);
