@@ -329,22 +329,6 @@
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
 
-    <script>
-        var video = document.querySelector("#videoElement");
-
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({
-                    video: true
-                })
-                .then(function(stream) {
-                    video.srcObject = stream;
-                })
-                .catch(function(err0r) {
-                    console.log("Something went wrong!");
-                });
-        }
-    </script>
-
     <script type="text/javascript">
         // properties
         var count = 0;
@@ -384,7 +368,7 @@
                 $("#penilaian input[name=timer]").val(countDownTime);
                 document.forms["penilaian"].submit();
 
-                // window.location.replace("/masa_tamat");
+                window.location.replace("/masa_tamat");
                 // window.sessionStorage.getItem(COUNTER_KEY) || 3600
             });
 
@@ -400,10 +384,20 @@
                 alert("Masa untuk menjawab hanya tinggal " + masa_nama + " minit sahaja lagi.");
             }, peringatan_tamat);
 
-        };
-    </script>
+            noBackPlease();
 
-    <script>
+                // disables backspace on page except on input fields and textarea..
+                document.body.onkeydown = function(e) {
+                    var elm = e.target.nodeName.toLowerCase();
+                    if (e.which === 8 && (elm !== 'input' && elm !== 'textarea')) {
+                        e.preventDefault();
+                    }
+                    // stopping event bubbling up the DOM tree..
+                    e.stopPropagation();
+                };
+
+        };
+
         (function(global) {
 
             if (typeof(global) === "undefined") {
@@ -428,23 +422,23 @@
                 }
             };
 
-            global.onload = function() {
-
-                noBackPlease();
-
-                // disables backspace on page except on input fields and textarea..
-                document.body.onkeydown = function(e) {
-                    var elm = e.target.nodeName.toLowerCase();
-                    if (e.which === 8 && (elm !== 'input' && elm !== 'textarea')) {
-                        e.preventDefault();
-                    }
-                    // stopping event bubbling up the DOM tree..
-                    e.stopPropagation();
-                };
-
-            };
-
         })(window);
+    </script>
+
+    <script>
+        var video = document.querySelector("#videoElement");
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({
+                    video: true
+                })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function(err0r) {
+                    console.log("Something went wrong!");
+                });
+        }
     </script>
 
 </body>
