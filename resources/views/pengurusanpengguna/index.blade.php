@@ -136,7 +136,11 @@ use Spatie\Permission\Models\Role;
                                                 <?php
                                                     $role = Role::where('id', $user['user_group_id'])->get()->first();
                                                 ?>
+                                                @if ($role['name'] != null)
                                                 {{$role['name']}}
+                                                @else 
+                                                <span class="text-warning">Sila Kemaskini</span>
+                                                @endif
                                             </td>
                                             <td><a class="btn btn-info text-white"
                                                     href="/pengurusanpengguna/{{ $user->id }}/edit" style="color:black;">

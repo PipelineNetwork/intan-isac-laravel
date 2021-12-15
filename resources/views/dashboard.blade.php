@@ -18,9 +18,9 @@
 <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
 
 @section('content')
-<?php
-use App\Models\Refgeneral;
-?>
+    <?php
+    use App\Models\Refgeneral;
+    ?>
     <div class="container-fluid py-4">
         <div class="row mb-0">
             <div class="col-lg-6">
@@ -75,117 +75,101 @@ use App\Models\Refgeneral;
                 <h5 class="font-weight-bolder">Dashboard</h5>
             </div>
         </div>
-@unlessrole('calon')
-        <div class="row justify-content-center my-3">
-            <div class="col-lg-6">
-                <div class="card  mb-4">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Money</p>
-                                    <h5 class="font-weight-bolder mb-0">
-                                        $53,000
-                                        <span class="text-success text-sm font-weight-bolder">+55%</span>
-                                    </h5>
+        @unlessrole('calon')
+            <div class="row justify-content-center my-3">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">JUMLAH PERMOHONAN</p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            53,000
+                                            <span class="text-success text-sm font-weight-bolder">+55%</span>
+                                        </h5>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-warning shadow text-center border-radius-md">
-                                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card ">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Users</p>
-                                    <h5 class="font-weight-bolder mb-0">
-                                        2,300
-                                        <span class="text-success text-sm font-weight-bolder">+3%</span>
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-warning shadow text-center border-radius-md">
-                                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                                <div class="col-4 text-end">
+                                    <div class="icon icon-shape bg-gradient-warning shadow text-center border-radius-md">
+                                        <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 mt-sm-0 mt-4">
-                <div class="card  mb-4">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">New Clients</p>
-                                    <h5 class="font-weight-bolder mb-0">
-                                        +3,462
-                                        <span class="text-danger text-sm font-weight-bolder">-2%</span>
-                                    </h5>
+            <div class="row justify-content-center my-3">
+                <div class="col-lg-6 mt-sm-0 mt-4">
+                    <div class="card  mb-4">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">JUMLAH CALON LULUS</p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            3,462
+                                            <span class="text-danger text-sm font-weight-bolder">-2%</span>
+                                        </h5>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-warning shadow text-center border-radius-md">
-                                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                                <div class="col-4 text-end">
+                                    <div class="icon icon-shape bg-gradient-warning shadow text-center border-radius-md">
+                                        <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card ">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Sales</p>
-                                    <h5 class="font-weight-bolder mb-0">
-                                        $103,430
-                                        <span class="text-success text-sm font-weight-bolder">+5%</span>
-                                    </h5>
+                <div class="col-lg-6 mt-sm-0 mt-4">
+                    <div class="card ">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">JUMLAH CALON GAGAL</p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            103,430
+                                            <span class="text-danger text-sm font-weight-bolder">+5%</span>
+                                        </h5>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-warning shadow text-center border-radius-md">
-                                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                                <div class="col-4 text-end">
+                                    <div class="icon icon-shape bg-gradient-warning shadow text-center border-radius-md">
+                                        <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card mt-3">
-                    <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Statistik Kelulusan ISAC</b>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mt-3">
+                        <div class="card-header" style="background-color:#FFA500;">
+                            <b class="text-white">Statistik Kelulusan ISAC</b>
+                        </div>
+                        <div class="card-body">
+                            <div id="chartdiv"></div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div id="chartdiv"></div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mt-3">
+                        <div class="card-header" style="background-color:#FFA500;">
+                            <b class="text-white">Statistik Pencapaian Penilaian ISAC</b>
+                        </div>
+                        <div class="card-body">
+                            <div id="chart1"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="card mt-3">
-                    <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Statistik Pencapaian Penilaian ISAC</b>
-                    </div>
-                    <div class="card-body">
-                        <div id="chart1"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-@endunlessrole
+        @endunlessrole
 
         <div class="row mt-3">
             <div class="col">
@@ -196,7 +180,7 @@ use App\Models\Refgeneral;
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-    
+
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -213,17 +197,17 @@ use App\Models\Refgeneral;
                                     </tr>
                                 </thead>
                                 <tbody>
-    
+
                                     @foreach ($jaduals as $key => $jadual)
                                         <tr>
-                                            <td class="text-center">{{ $key+1 }}.</td>
+                                            <td class="text-center">{{ $key + 1 }}.</td>
                                             <td class="text-center">
-                                                @if($jadual['KOD_SESI_PENILAIAN'] == "01")
-                                                Pertama
+                                                @if ($jadual['KOD_SESI_PENILAIAN'] == '01')
+                                                    Pertama
                                                 @elseif($jadual['KOD_SESI_PENILAIAN'] == "02")
-                                                Kedua
+                                                    Kedua
                                                 @elseif($jadual['KOD_SESI_PENILAIAN'] == "03")
-                                                Ketiga
+                                                    Ketiga
                                                 @endif
                                             </td>
                                             <td class="text-center">
@@ -255,11 +239,13 @@ use App\Models\Refgeneral;
                                                     -
                                                 @else
 
-                                                <?php 
-                                                $kementerian = Refgeneral::where('MASTERCODE', '10028')->where('REFERENCECODE', $jadual->KOD_KEMENTERIAN)->first();
-                                                // $kementerian = $kementerian->DESCRIPTION1;
-                                                ?>
-                                                {{$kementerian['DESCRIPTION1']}}
+                                                    <?php
+                                                    $kementerian = Refgeneral::where('MASTERCODE', '10028')
+                                                        ->where('REFERENCECODE', $jadual->KOD_KEMENTERIAN)
+                                                        ->first();
+                                                    // $kementerian = $kementerian->DESCRIPTION1;
+                                                    ?>
+                                                    {{ $kementerian['DESCRIPTION1'] }}
                                                     {{-- {{ $jadual['KOD_KEMENTERIAN'] }} --}}
                                                 @endif
                                             </td>
