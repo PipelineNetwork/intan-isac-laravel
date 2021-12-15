@@ -9,34 +9,6 @@
     <title>
         ISAC
     </title>
-    {{-- <!-- Extra details for Live View on GitHub Pages -->
-    <!-- Canonical SEO -->
-    <link rel="canonical" href="https://www.creative-tim.com/product/soft-ui-dashboard-pro" />
-    <!--  Social tags      -->
-    <meta name="keywords"
-        content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap 5 dashboard, bootstrap 5, css3 dashboard, bootstrap 5 admin, soft ui dashboard bootstrap 5 dashboard, frontend, responsive bootstrap 5 dashboard, soft design, soft dashboard bootstrap 5 dashboard">
-    <meta name="description"
-        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="product">
-    <meta name="twitter:site" content="@creativetim">
-    <meta name="twitter:title" content="Soft UI Dashboard PRO by Creative Tim">
-    <meta name="twitter:description"
-        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
-    <meta name="twitter:creator" content="@creativetim">
-    <meta name="twitter:image"
-        content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg">
-    <!-- Open Graph data -->
-    <meta property="fb:app_id" content="655968634437471">
-    <meta property="og:title" content="Soft UI Dashboard PRO by Creative Tim" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url"
-        content="https://demos.creative-tim.com/soft-ui-dashboard-pro/pages/dashboards/default.html" />
-    <meta property="og:image"
-        content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg" />
-    <meta property="og:description"
-        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
-    <meta property="og:site_name" content="Creative Tim" /> --}}
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -51,53 +23,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
-    <!-- Anti-flicker snippet (recommended)  -->
-    <style>
-        .async-hide {
-            opacity: 0 !important
-        }
 
-    </style>
-    <script>
-        (function(a, s, y, n, c, h, i, d, e) {
-            s.className += ' ' + y;
-            h.start = 1 * new Date;
-            h.end = i = function() {
-                s.className = s.className.replace(RegExp(' ?' + y), '')
-            };
-            (a[n] = a[n] || []).hide = h;
-            setTimeout(function() {
-                i();
-                h.end = null
-            }, c);
-            h.timeout = c;
-        })(window, document.documentElement, 'async-hide', 'dataLayer', 4000, {
-            'GTM-K9BGS8K': true
-        });
-    </script>
-    <!-- Analytics-Optimize Snippet -->
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-46172202-22', 'auto', {
-            allowLinker: true
-        });
-        ga('set', 'anonymizeIp', true);
-        ga('require', 'GTM-K9BGS8K');
-        ga('require', 'displayfeatures');
-        ga('require', 'linker');
-        ga('linker:autoLink', ["2checkout.com", "avangate.com"]);
-    </script>
-    <!-- end Analytics-Optimize Snippet -->
     <!-- Google Tag Manager -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -202,35 +128,36 @@
                     </li>
                 @endcan
 
-                @if (auth()->user()->can('kebenaran pengguna')||auth()->user()->can('pengurusan pengguna'))
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pentadbiranpenggunadrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fas fa-house-user me-sm-1 text-dark"></i>
+                @if (auth()->user()->can('kebenaran pengguna') ||
+    auth()->user()->can('pengurusan pengguna'))
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#pentadbiranpenggunadrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fas fa-house-user me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengurusan <br> Pengguna</span>
+                        </a>
+                        <div class="collapse " id="pentadbiranpenggunadrop">
+                            <ul class="nav ms-4 ps-3">
+                                @can('kebenaran pengguna')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/kebenaran_pengguna">
+                                            <span class="sidenav-normal"> Kebenaran Kumpulan <br> Pengguna </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('senarai pengguna berdaftar')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/pengurusanpengguna">
+                                            <span class="sidenav-normal"> Senarai Pengguna Berdaftar </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">Pengurusan <br> Pengguna</span>
-                    </a>
-                    <div class="collapse " id="pentadbiranpenggunadrop">
-                        <ul class="nav ms-4 ps-3">
-                            @can('kebenaran pengguna')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/kebenaran_pengguna">
-                                        <span class="sidenav-normal"> Kebenaran Kumpulan <br> Pengguna </span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('senarai pengguna berdaftar')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/pengurusanpengguna">
-                                        <span class="sidenav-normal"> Senarai Pengguna Berdaftar </span>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
+                    </li>
                 @endif
 
                 @can('pengurusan jadual')
@@ -244,36 +171,37 @@
                         </a>
                     </li>
                 @endcan
-                @if (auth()->user()->can('senarai permohonan')||auth()->user()->can('senarai rayuan blacklist'))
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#permohonanadrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fas fa-edit me-sm-1 text-dark"></i>
+                @if (auth()->user()->can('senarai permohonan') ||
+    auth()->user()->can('senarai rayuan blacklist'))
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#permohonanadrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fas fa-edit me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Permohonan <br> Penilaian</span>
+                        </a>
+                        <div class="collapse " id="permohonanadrop">
+                            <ul class="nav ms-4 ps-3">
+                                @can('senarai permohonan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/mohonpenilaian">
+                                            <span class="sidenav-normal"> Senarai Permohonan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+
+                                @can('senarai rayuan blacklist')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="rayuan_calon_blacklist">
+                                            <span class="sidenav-normal"> Senarai Rayuan Calon <br> Blacklist </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">Permohonan <br> Penilaian</span>
-                    </a>
-                    <div class="collapse " id="permohonanadrop">
-                        <ul class="nav ms-4 ps-3">
-                            @can('senarai permohonan')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/mohonpenilaian">
-                                        <span class="sidenav-normal"> Senarai Permohonan </span>
-                                    </a>
-                                </li>
-                            @endcan
-                            
-                            @can('senarai rayuan blacklist')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="rayuan_calon_blacklist">
-                                        <span class="sidenav-normal"> Senarai Rayuan Calon <br> Blacklist </span>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
+                    </li>
                 @endif
 
                 {{-- <?php
@@ -291,103 +219,107 @@
                 <?php
                 }
                 ?> --}}
-                
-                @if (auth()->user()->can('pemilihan soalan')||auth()->user()->can('slip')||auth()->user()->can('sijil')||auth()->user()->can('semakan jawapan'))
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pengurusanpenilaiandrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fas fa-user-clock me-sm-1 text-dark"></i>
+
+                @if (auth()->user()->can('pemilihan soalan') ||
+    auth()->user()->can('slip') ||
+    auth()->user()->can('sijil') ||
+    auth()->user()->can('semakan jawapan'))
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#pengurusanpenilaiandrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fas fa-user-clock me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengurusan <br> Penilaian</span>
+                        </a>
+                        <div class="collapse " id="pengurusanpenilaiandrop">
+                            <ul class="nav ms-4 ps-3">
+                                @can('pemilihan soalan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan">
+                                            <span class="sidenav-normal"> Pemilihan Soalan <br> Pengetahuan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+
+                                @can('slip')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/keputusan_penilaian">
+                                            <span class="sidenav-normal"> Senarai Slip Keputusan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+
+                                @can('sijil')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/senarai_sijil">
+                                            <span class="sidenav-normal"> Senarai Sijil Kelulusan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+
+                                @can('semakan jawapan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/semak_jawapan">
+                                            <span class="sidenav-normal"> Semakan Jawapan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">Pengurusan <br> Penilaian</span>
-                    </a>
-                    <div class="collapse " id="pengurusanpenilaiandrop">
-                        <ul class="nav ms-4 ps-3">
-                            @can('pemilihan soalan')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan">
-                                        <span class="sidenav-normal"> Pemilihan Soalan <br> Pengetahuan </span>
-                                    </a>
-                                </li>   
-                            @endcan
-                            
-                            @can('slip')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/keputusan_penilaian">
-                                        <span class="sidenav-normal"> Senarai Slip Keputusan </span>
-                                    </a>
-                                </li>    
-                            @endcan
-                            
-                            @can('sijil')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/senarai_sijil">
-                                        <span class="sidenav-normal"> Senarai Sijil Kelulusan </span>
-                                    </a>
-                                </li>    
-                            @endcan
-                            
-                            @can('semakan jawapan')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/semak_jawapan">
-                                        <span class="sidenav-normal"> Semakan Jawapan </span>
-                                    </a>
-                                </li>    
-                            @endcan
-                            
-                        </ul>
-                    </div>
-                </li>
+                    </li>
                 @endif
 
-                @if (auth()->user()->can('jawab penilaian') || auth()->user()->can('pemantauan penilaian'))
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#penilaiandrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fab fa-wpforms me-sm-1 text-dark"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Penilaian</span>
-                    </a>
-                    <div class="collapse " id="penilaiandrop">
-                        <ul class="nav ms-4 ps-3">
-                            @can('jawab penilaian')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/kemasukan-id">
-                                        <span class="sidenav-normal"> Jawab Penilaian </span>
-                                    </a>
-                                </li>    
-                            @endcan
-                            
-                            @can('pemantauan penilaian')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/kemasukan-id">
-                                        <span class="sidenav-normal"> Pemantauan Penilaian </span>
-                                    </a>
-                                </li>    
-                            @endcan
-                            
-                            @can('semakan keputusan')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/semakan_keputusan_calon">
-                                        <span class="sidenav-normal"> Semakan Keputusan </span>
-                                    </a>
-                                </li>    
-                            @endcan
-                            
-                            {{-- <li class="nav-item ">
+                @if (auth()->user()->can('jawab penilaian') ||
+    auth()->user()->can('pemantauan penilaian'))
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#penilaiandrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fab fa-wpforms me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Penilaian</span>
+                        </a>
+                        <div class="collapse " id="penilaiandrop">
+                            <ul class="nav ms-4 ps-3">
+                                @can('jawab penilaian')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/kemasukan-id">
+                                            <span class="sidenav-normal"> Jawab Penilaian </span>
+                                        </a>
+                                    </li>
+                                @endcan
+
+                                @can('pemantauan penilaian')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/kemasukan-id">
+                                            <span class="sidenav-normal"> Pemantauan Penilaian </span>
+                                        </a>
+                                    </li>
+                                @endcan
+
+                                @can('semakan keputusan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/semakan_keputusan_calon">
+                                            <span class="sidenav-normal"> Semakan Keputusan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+
+                                {{-- <li class="nav-item ">
                                 <a class="nav-link " href="/soalan-pengetahuan">
                                     <span class="sidenav-normal"> Soalan Pengetahuan </span>
                                 </a>
                             </li> --}}
-                            {{-- <li class="nav-item ">
+                                {{-- <li class="nav-item ">
                                 <a class="nav-link " href="/soalan-kemahiran">
                                     <span class="sidenav-normal"> Soalan Kemahiran </span>
                                 </a>
                             </li> --}}
-                            {{-- <li class="nav-item ">
+                                {{-- <li class="nav-item ">
                                 <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false"
                                     href="#soalankemahiran">
                                     <span class="sidenav-normal"> Soalan Kemahiran <b class="caret"></b></span>
@@ -415,10 +347,10 @@
                                     </ul>
                                 </div>
                             </li> --}}
-                            
-                        </ul>
-                    </div>
-                </li>
+
+                            </ul>
+                        </div>
+                    </li>
                 @endif
 
                 @can('bank soalan')
@@ -447,52 +379,55 @@
                         </div>
                     </li>
                 @endcan
-                
-                @if (auth()->user()->can('hantar aduan')||auth()->user()->can('balas aduan')||auth()->user()->can('hantar rayuan')||auth()->user()->can('balas rayuan'))
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#aduanrayuandrop" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <i class="fas fa-heartbeat me-sm-1 text-dark"></i>
+
+                @if (auth()->user()->can('hantar aduan') ||
+    auth()->user()->can('balas aduan') ||
+    auth()->user()->can('hantar rayuan') ||
+    auth()->user()->can('balas rayuan'))
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#aduanrayuandrop" class="nav-link "
+                            aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <i class="fas fa-heartbeat me-sm-1 text-dark"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Aduan dan Rayuan</span>
+                        </a>
+                        <div class="collapse " id="aduanrayuandrop">
+                            <ul class="nav ms-4 ps-3">
+                                @can('balas aduan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/balasaduans">
+                                            <span class="sidenav-normal"> Balas Aduan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('balas rayuan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/balasrayuans">
+                                            <span class="sidenav-normal"> Balas Rayuan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+
+                                @can('hantar aduan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/tambahaduans">
+                                            <span class="sidenav-normal"> Hantar Aduan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+
+                                @can('hantar rayuan')
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/tambahrayuans">
+                                            <span class="sidenav-normal"> Hantar Rayuan </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
                         </div>
-                        <span class="nav-link-text ms-1">Aduan dan Rayuan</span>
-                    </a>
-                    <div class="collapse " id="aduanrayuandrop">
-                        <ul class="nav ms-4 ps-3">
-                            @can('balas aduan')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/balasaduans">
-                                        <span class="sidenav-normal"> Balas Aduan </span>
-                                    </a>
-                                </li>    
-                            @endcan
-                            @can('balas rayuan')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/balasrayuans">
-                                        <span class="sidenav-normal"> Balas Rayuan </span>
-                                    </a>
-                                </li>    
-                            @endcan
-                            
-                            @can('hantar aduan')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/tambahaduans">
-                                        <span class="sidenav-normal"> Hantar Aduan </span>
-                                    </a>
-                                </li>    
-                            @endcan
-                            
-                            @can('hantar rayuan')
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="/tambahrayuans">
-                                        <span class="sidenav-normal"> Hantar Rayuan </span>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
+                    </li>
                 @endif
 
                 @can('laporan')
@@ -700,38 +635,6 @@
         <!-- End Navbar -->
         @yield('content')
 
-        <!-- <footer class="footer pt-3  ">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                <script>
-                    document.write(new Date().getFullYear())
-                </script>,
-                made with <i class="fa fa-heart"></i> by
-                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-                for a better web.
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer> -->
         </div>
     </main>
 
