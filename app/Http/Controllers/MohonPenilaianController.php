@@ -76,14 +76,14 @@ class MohonPenilaianController extends Controller
         $status_baru = MohonPenilaian::where('no_ic', $status_ic)->where('status_penilaian','Baru')->first();
         
         // dd($status_pen);
-        // if($status_lulus != null){
-        //     alert('Anda telah lulus penilaian ID '.$status_lulus->id_sesi.'. Anda tidak dibenarkan untuk daftar penilaian lain.');
-        //     return redirect('/mohonpenilaian');
-        // }
-        // if($status_baru != null){
-        //     alert('Anda telah mendaftar untuk penilaian ID '.$status_baru->id_sesi);
-        //     return redirect('/mohonpenilaian');
-        // }
+        if($status_lulus != null){
+            alert('Anda telah lulus penilaian ID '.$status_lulus->id_sesi.'. Anda tidak dibenarkan untuk daftar penilaian lain.');
+            return redirect('/mohonpenilaian');
+        }
+        if($status_baru != null){
+            alert('Anda telah mendaftar untuk penilaian ID '.$status_baru->id_sesi);
+            return redirect('/mohonpenilaian');
+        }
         $id_group_user = Auth::user()->user_group_id;
         $role = Role::where('id', $id_group_user)->first();
         $role = $role->name;
