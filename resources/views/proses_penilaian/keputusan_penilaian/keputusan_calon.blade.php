@@ -49,7 +49,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3">
-                        <h6 class="mb-0 text-dark">No. ID</h6>
+                        <h6 class="mb-0 text-dark">No ID Pengenalan</h6>
                     </div>
                     <div class="col-lg-9">
                         <p class="mb-0">: {{ $keputusan->ic_peserta }}</p>
