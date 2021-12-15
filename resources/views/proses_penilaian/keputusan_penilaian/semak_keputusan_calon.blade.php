@@ -39,32 +39,54 @@
                     <div class="card-header pb-3" style="background-color:#FFA500;">
                         <h5 class="text-white">Semakan Keputusan Penilaian</h5>
                     </div>
-    
+
                     <div class="card-body">
                         <div class="row">
-                            <div class="col">
-                                <h3 class="h5">Sila masukkan nombor kad pengenalan anda dan ID Penilaian yang anda daftar.</h3>
+                            <div class="col-lg-3">
+                                <h6 class="mb-0 text-dark">Nama</h6>
+                            </div>
+                            <div class="col-lg-9">
+                                <p class="mb-0">: {{ $calon->name }}</p>
                             </div>
                         </div>
-    
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0 text-dark">No. ID Pengenalan</h6>
+                            </div>
+                            <div class="col-lg-9">
+                                <p class="mb-0">: {{ $calon->nric }}</p>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col">
-                                <form action="/semak_keputusan" method="POST">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label class="form-control-label">Nombor Kad Pengenalan</label>
-                                        <input class="form-control" type="text" name="ic" value="{{Auth::user()->nric}}" readonly="readonly">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-control-label">ID Penilaian</label>
-                                        <input class="form-control" type="text" name="id_penilaian" maxlength="6">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-end">
-                                            <button class="btn bg-gradient-info">Semak</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <div class="table-responsive">
+                                    <table class="table table-flush" id="datatable-peserta">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>ID Penilaian</th>
+                                                <th>Tarikh Penilaian</th>
+                                                <th>Keputusan</th>
+                                                <th>Tindakan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($penilaian as $key => $penilaian)
+                                                @if ($penilaian->status_penilaian != 'Baru' && $penilaian->status_penilaian != null)
+                                                    <tr>
+                                                        <td>{{ $key + 1 }}</td>
+                                                        <td>{{ $penilaian->id_sesi }}</td>
+                                                        <td>{{ date('d-m-Y', strtotime($penilaian->tarikh_sesi)) }}</td>
+                                                        <td>{{ $penilaian->status_penilaian }}</td>
+                                                        <td><a href="/semak_keputusan/{{ $penilaian->no_ic }}/{{ $penilaian->id_sesi }}"
+                                                                class="btn bg-gradient-info">Semak</a></td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

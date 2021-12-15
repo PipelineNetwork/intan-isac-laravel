@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KeputusanPenilaian;
+use App\Models\MohonPenilaian;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 use App\Models\Bankjawapanpengetahuan;
@@ -33,9 +34,7 @@ class KeputusanPenilaianController extends Controller
 
     }
     
-    public function semak_keputusan(Request $request){
-        $ic = $request->ic;
-        $id_penilaian = $request->id_penilaian;
+    public function semak_keputusan($ic, $id_penilaian){
 
         $keputusans = KeputusanPenilaian::where('id_penilaian', $id_penilaian)
         ->where('ic_peserta', $ic)->first();
@@ -83,5 +82,15 @@ No. Sijil: ".sprintf("%'.05d\n", $no_sijil);
         ]);
          return $pdf->download('Sijil_ISAC_'.$ic.'.pdf');
 
+    }
+
+    public function senarai_penilaian_calon(){
+        $calon = Auth::user();
+        $penilaian = MohonPenilaian::where('no_ic', $calon->nric)->get();
+// dd($penilaian);
+        return view('proses_penilaian.keputusan_penilaian.semak_keputusan_calon',[
+            'calon'=>$calon,
+            'penilaian'=>$penilaian
+        ]);
     }
 }

@@ -190,15 +190,12 @@ Route::post('/kemaskini_pemilihan_soalan/{id}', [BanksoalanpengetahuanController
 Route::get('/cetak_surat/{id}', [MohonPenilaianController::class, 'cetak_surat']);
 Route::get('/slip_keputusan/{id}', [KeputusanPenilaianController::class, 'slip_keputusan']);
 Route::get('/sijil_penilaian/{id}', [KeputusanPenilaianController::class, 'sijil_isac']);
-Route::post('/semak_keputusan', [KeputusanPenilaianController::class, 'semak_keputusan']);
+Route::get('/semak_keputusan/{ic}/{id_penilaian}', [KeputusanPenilaianController::class, 'semak_keputusan']);
 Route::get('/senarai_penilaian/{ic}', [BankjawapanpengetahuanController::class, 'senarai_penilaian']);
 Route::get('/semak_jawapan/{ic}/{id}', [BankjawapanpengetahuanController::class, 'check_jawapan']);
 
 Route::get('/senarai_sijil', [KeputusanPenilaianController::class, 'senarai_sijil']);
-
-Route::get('/semakan_keputusan_calon', function () {
-    return view('proses_penilaian.keputusan_penilaian.semak_keputusan_calon');
-});
+Route::get('/semakan_keputusan_calon', [KeputusanPenilaianController::class, 'senarai_penilaian_calon']);
 
 //laporan
 Route::get('/laporan/penilaian-isac-mengikut-kementerian', [LaporanController::class, 'laporan_penilaian_isac_mengikut_kementerian']);
