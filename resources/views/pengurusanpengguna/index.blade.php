@@ -135,9 +135,8 @@ use Spatie\Permission\Models\Role;
                                             <td>
                                                 <?php
                                                     $role = Role::where('id', $user['user_group_id'])->get()->first();
-                                                    dd($role);
                                                 ?>
-                                                @if ($role['name'] != null)
+                                                @if ($role != null)
                                                 {{$role['name']}}
                                                 @else 
                                                 <span class="text-warning">Sila Kemaskini</span>
