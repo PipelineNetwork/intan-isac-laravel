@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\TambahAduan;
 use App\Models\TambahRayuan;
+use App\Models\Bankjawapancalon;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -58,5 +59,9 @@ class User extends Authenticatable
 
     public function tambah_rayuans(){
         return $this->hasMany(TambahRayuan::class);
+    }
+
+    public function jawapan_calons(){
+        return $this->hasMany(Bankjawapancalon::class);
     }
 }

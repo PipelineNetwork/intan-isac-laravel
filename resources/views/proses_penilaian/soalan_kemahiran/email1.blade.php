@@ -92,6 +92,8 @@
                             <div class="col-xl-12 mt-2">
                                 <textarea class="form-control" name="input_mesej" rows="15"></textarea>
                             </div>
+                            <input type="hidden" name="markah_internet" value="{{ $markah_internets->total }}">
+                            <input type="hidden" name="markah_word" value="{{ $markah_words->jumlah_markah_word }}">
                         </div>
                     </form>
                 </div>

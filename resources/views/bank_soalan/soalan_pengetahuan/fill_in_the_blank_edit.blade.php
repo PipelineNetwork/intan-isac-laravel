@@ -66,46 +66,91 @@
                                     <div class="form-group">
                                         <input type="hidden" name="id" value="{{ $banksoalanpengetahuan->id }}">
                                         <label class="form-control-label">Tahap Soalan</label>
-                                        <select class="form-control" name="id_tahap_soalan">
+                                        <select class="form-control" name="id_tahap_soalan" required>
                                             @if ($banksoalanpengetahuan->id_tahap_soalan == '1')
                                                 <option hidden selected
                                                     value="{{ $banksoalanpengetahuan->id_tahap_soalan }}">
-                                                    Rendah</option>
-                                            @elseif ($banksoalanpengetahuan->id_tahap_soalan == '2')
-                                                <option hidden selected
-                                                    value="{{ $banksoalanpengetahuan->id_tahap_soalan }}">
-                                                    Sederhana</option>
+                                                    Asas</option>
                                             @else
                                                 <option hidden selected
                                                     value="{{ $banksoalanpengetahuan->id_tahap_soalan }}">
-                                                    Tinggi</option>
+                                                    Lanjutan</option>
                                             @endif
-                                            <option value="1">Rendah</option>
-                                            <option value="2">Sederhana</option>
-                                            <option value="3">Tinggi</option>
+                                            <option value="1">Asas</option>
+                                            <option value="2">Lanjutan</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-xl-12">
                                     <div class="form-group">
                                         <label class="form-control-label">Kategori Pengetahuan</label>
-                                        <select class="form-control" name="id_kategori_pengetahuan">
+                                        <select class="form-control" name="id_kategori_pengetahuan" required>
                                             @if ($banksoalanpengetahuan->id_kategori_pengetahuan == '1')
                                                 <option hidden selected
                                                     value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
-                                                    Rendah</option>
+                                                    EG</option>
                                             @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '2')
                                                 <option hidden selected
                                                     value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
-                                                    Sederhana</option>
+                                                    Electronic Mail</option>
+                                            @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '3')
+                                                <option hidden selected
+                                                    value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
+                                                    General</option>
+                                            @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '4')
+                                                <option hidden selected
+                                                    value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
+                                                    Government Mobility</option>
+                                            @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '5')
+                                                <option hidden selected
+                                                    value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
+                                                    Hardware</option>
+                                            @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '6')
+                                                <option hidden selected
+                                                    value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
+                                                    ICT Security</option>
+                                            @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '7')
+                                                <option hidden selected
+                                                    value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
+                                                    Inisiatif ICT Sektor Awam</option>
+                                            @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '8')
+                                                <option hidden selected
+                                                    value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
+                                                    Internet</option>
+                                            @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '9')
+                                                <option hidden selected
+                                                    value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
+                                                    Media Sosial</option>
+                                            @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '10')
+                                                <option hidden selected
+                                                    value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
+                                                    MSC</option>
+                                            @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '11')
+                                                <option hidden selected
+                                                    value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
+                                                    Office Productivity</option>
+                                            @elseif ($banksoalanpengetahuan->id_kategori_pengetahuan == '12')
+                                                <option hidden selected
+                                                    value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
+                                                    Rangkaian dan Wifi</option>
                                             @else
                                                 <option hidden selected
                                                     value="{{ $banksoalanpengetahuan->id_kategori_pengetahuan }}">
-                                                    Tinggi</option>
+                                                    Software</option>
                                             @endif
-                                            <option value="1">Rendah</option>
-                                            <option value="2">Sederhana</option>
-                                            <option value="3">Tinggi</option>
+                                            <option value="1">EG</option>
+                                            <option value="2">Electronic Mail</option>
+                                            <option value="3">General</option>
+                                            <option value="4">Government Mobility</option>
+                                            <option value="5">Hardware</option>
+                                            <option value="6">ICT Security</option>
+                                            <option value="7">Inisiatif ICT Sektor Awam</option>
+                                            <option value="8">Internet</option>
+                                            <option value="9">Media Sosial</option>
+                                            <option value="10">MSC</option>
+                                            <option value="11">Office Productivity</option>
+                                            <option value="12">Rangkaian dan Wifi</option>
+                                            <option value="13">Software</option>
                                         </select>
                                     </div>
                                 </div>
@@ -205,35 +250,40 @@
                                 <div class="col-xl-12">
                                     <div class="form-group">
                                         <label class="form-control-label">Jawapan 1</label>
-                                        <textarea class="form-control mb-2" name="jawapan" rows="3">{{ $banksoalanpengetahuan->jawapan }}</textarea>
+                                        <textarea class="form-control mb-2" name="jawapan"
+                                            rows="3">{{ $banksoalanpengetahuan->jawapan }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-xl-12">
                                     <div class="form-group">
                                         <label class="form-control-label">Jawapan 2</label>
-                                        <textarea class="form-control mb-2" name="jawapan1" rows="3">{{ $banksoalanpengetahuan->jawapan1 }}</textarea>
+                                        <textarea class="form-control mb-2" name="jawapan1"
+                                            rows="3">{{ $banksoalanpengetahuan->jawapan1 }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-xl-12">
                                     <div class="form-group">
                                         <label class="form-control-label">Jawapan 3</label>
-                                        <textarea class="form-control mb-2" name="jawapan2" rows="3">{{ $banksoalanpengetahuan->jawapan2 }}</textarea>
+                                        <textarea class="form-control mb-2" name="jawapan2"
+                                            rows="3">{{ $banksoalanpengetahuan->jawapan2 }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-xl-12">
                                     <div class="form-group">
                                         <label class="form-control-label">Jawapan 4</label>
-                                        <textarea class="form-control mb-2" name="jawapan3" rows="3">{{ $banksoalanpengetahuan->jawapan3 }}</textarea>
+                                        <textarea class="form-control mb-2" name="jawapan3"
+                                            rows="3">{{ $banksoalanpengetahuan->jawapan3 }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-xl-12">
                                     <div class="form-group">
                                         <label class="form-control-label">Jawapan 5</label>
-                                        <textarea class="form-control mb-2" name="jawapan4" rows="3">{{ $banksoalanpengetahuan->jawapan4 }}</textarea>
+                                        <textarea class="form-control mb-2" name="jawapan4"
+                                            rows="3">{{ $banksoalanpengetahuan->jawapan4 }}</textarea>
                                     </div>
                                 </div>
 

@@ -183,6 +183,13 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn bg-gradient-secondary"
                                             data-bs-dismiss="modal">Batal</button>
+                                        {{-- <form action="/tamat-penilaian" method="POST" enctype="multipart/form-data">
+                                            @method('POST')
+                                            @csrf
+                                            <button class="btn btn-success" type="submit">
+                                                Ok
+                                            </button>
+                                        </form> --}}
                                         <a href="/tamat-penilaian" class="btn btn-success">Ok</a>
                                     </div>
                                 </div>
