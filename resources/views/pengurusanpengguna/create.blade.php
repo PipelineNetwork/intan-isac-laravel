@@ -47,7 +47,7 @@
                             <div class="col-6">
                                 <label for="">Nama :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="text" name="name" :value="old('name')" required>
+                                    <input class="form-control mb-3" type="text" name="name" :value="old('name')" style="text-transform: uppercase" required>
                                 </div>
                             </div>
                             <div class="col-6">
