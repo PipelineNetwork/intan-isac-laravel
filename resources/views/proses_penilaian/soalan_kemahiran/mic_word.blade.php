@@ -56,7 +56,8 @@
                                 <p>{!! $soalankemahiranword->soalan_1 !!}</p>
                                 <ul class="mt-2">
                                     <button class="btn btn-success" value="{{ $soalankemahiranword->id }}" type="submit"
-                                        onclick="tsw_open_demo_window();" target="popup">Pemprosesan Perkataan</button>
+                                        onclick="window.open('/soalan-kemahiran-word/{{ $soalankemahiranword->id }}', 'popup', 'width=600','height=400');"
+                                        target="popup">Pemprosesan Perkataan</button>
                                 </ul>
                             @endif
 
@@ -216,9 +217,4 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 
-    <script>
-        function tsw_open_demo_window() {
-            window.open("/soalan-kemahiran-word/{{ $soalankemahiranword->id }}", "popup", "width=600", "height=400");
-        }
-    </script>
 @stop

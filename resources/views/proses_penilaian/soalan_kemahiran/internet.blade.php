@@ -56,7 +56,7 @@
                                 <p>{!! $soalankemahiraninternet->soalan_1 !!}</p>
                                 <ul class="mt-2">
                                     <button class="btn btn-success" value="{{ $soalankemahiraninternet->id }}"
-                                        type="submit" target="popup" onclick="tsw_open_demo_window();">Internet</button>
+                                        type="submit" target="popup" onclick="window.open('/soalan-kemahiran-internet/{{ $soalankemahiraninternet->id }}', 'popup', 'width=600','height=400');">Internet</button>
                                 </ul>
                             @endif
 
@@ -193,10 +193,4 @@
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
-
-    <script>
-        function tsw_open_demo_window() {
-            window.open("/soalan-kemahiran-internet/{{ $soalankemahiraninternet->id }}", "popup", "width=600","height=400");
-        }
-    </script>
 @stop

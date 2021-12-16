@@ -41,7 +41,7 @@
                 <div class="card-body">
                     <div class="col-xl-12">
                         @foreach ($soalankemahiranemails as $soalankemahiranemail)
-                        <h3 class="h5">Set {{ $soalankemahiranemail->id_soalankemahiran }}</h3>
+                            <h3 class="h5">Set {{ $soalankemahiranemail->id_soalankemahiran }}</h3>
                             @if ($soalankemahiranemail->arahan_umum != null)
                                 <h5>{!! $soalankemahiranemail->arahan_umum !!}</h5>
                             @endif
@@ -56,7 +56,7 @@
                                 <p>{!! $soalankemahiranemail->soalan_1 !!}</p>
                                 <ul class="mt-2">
                                     <button class="btn btn-success" value="{{ $soalankemahiranemail->id }}" type="submit"
-                                        onclick="tsw_open_demo_window();">E-mel</button>
+                                        onclick="window.open('/soalan-kemahiran-email/{{ $soalankemahiranemail->id }}', 'popup', 'width=600','height=400');">E-mel</button>
                                 </ul>
                             @endif
 
@@ -205,9 +205,4 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 
-    <script>
-        function tsw_open_demo_window() {
-            window.open("/soalan-kemahiran-email/{{ $soalankemahiranemail->id }}", "popup", "width=600", "height=400");
-        }
-    </script>
 @stop
