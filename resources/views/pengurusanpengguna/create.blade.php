@@ -35,16 +35,6 @@
 
     <div class="col-12 ">
         <div class="col-12">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    {{-- <strong>Whoops!</strong> Sila isi maklumat di ruang yang di sediakan.<br><br> --}}
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <form method="POST" action="/pengurusanpengguna">
                 @csrf
                 <div class="card mt-4" id="basic-info">

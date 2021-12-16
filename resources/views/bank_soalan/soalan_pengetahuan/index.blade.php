@@ -97,11 +97,9 @@
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 @if ($banksoalanpengetahuan->id_tahap_soalan == '1')
-                                                    Rendah
-                                                @elseif ($banksoalanpengetahuan->id_tahap_soalan == '2')
-                                                    Sederhana
+                                                    Asas
                                                 @else
-                                                    Tinggi
+                                                    Lanjutan
                                                 @endif
                                                 {{-- {{ $banksoalanpengetahuan->id_tahap_soalan }}</td> --}}
                                             <td class="text-sm text-center font-weight-normal">
