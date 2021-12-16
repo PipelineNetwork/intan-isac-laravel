@@ -113,7 +113,7 @@
                                     Ruj Kami : INTAN 52/4/25 (4)<br>
                                     Tuan/Puan,
                                     <br><br>
-                                    <span class="text-custom">SURAT TAWARAN PENILAIAN ICT SKILLS ASSESSEMENT AND
+                                    <span class="text-custom">SURAT TAWARAN PENILAIAN ICT SKILLS ASSESSMENT AND
                                         CERTIFACTION (ISAC)</span><br>
                                     <span class="form-inline">Dengan segala hormatnya merujuk kepada merujuk perkara
                                         di atas.

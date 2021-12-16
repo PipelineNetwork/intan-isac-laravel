@@ -45,7 +45,7 @@
             <div class="col-lg-6">
                 <div class="column-12">
                     <a href="/videodannota/create" class="btn bg-gradient-warning mb-0" type="submit"
-                        style="float: right;">CIPTA</a>
+                        style="float: right;">MUAT NAIK</a>
                 </div>
             </div>
         </div>

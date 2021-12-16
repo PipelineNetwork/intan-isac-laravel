@@ -129,7 +129,7 @@ class BankjawapanpengetahuanController extends Controller
 
         $ic = Auth::user()->nric;
         $peserta = MohonPenilaian::where('no_ic', $ic)->first();
-        $jadual = Jadual::where('ID_PENILAIAN', $request->id_penilaian)->first();
+        $jadual = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
 
         $keputusan = Bankjawapanpengetahuan::where('id_calon', $ic)
         ->where('id_penilaian', $id_penilaian)

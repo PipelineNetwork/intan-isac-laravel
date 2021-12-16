@@ -126,13 +126,14 @@ use App\Models\Refgeneral;
                                                 @if ($jadual['KOD_KEMENTERIAN'] == null)
                                                     -
                                                 @else
-
-                                                <?php 
-                                                $kementerian = Refgeneral::where('MASTERCODE', '10028')->where('REFERENCECODE', $jadual->KOD_KEMENTERIAN)->first();
-                                                // $kementerian = $kementerian->DESCRIPTION1;
-                                                ?>
-                                                {{$kementerian['DESCRIPTION1']}}
-                                                    {{-- {{ $jadual['KOD_KEMENTERIAN'] }} --}}
+                                                    <?php 
+                                                    $kementerian = Refgeneral::where('MASTERCODE', '10028')->where('REFERENCECODE', $jadual->KOD_KEMENTERIAN)->first();
+                                                    // $kementerian = $kementerian->DESCRIPTION1;
+                                                    ?>
+                                                    @if($kementerian!=null)
+                                                    {{$kementerian['DESCRIPTION1']}}
+                                                        {{-- {{ $jadual['KOD_KEMENTERIAN'] }} --}}
+                                                    @endif
                                                 @endif
                                             </td>
                                             <td>{{ $jadual['platform'] }}</td>
