@@ -42,18 +42,7 @@
     $check = Role::where('id', $current_user)->first();
     $role = $check->name;
     
-    if ($role == 'calon') {
-        $user_profils = DB::table('users')
-            ->where('id', '=', $checkid2)
-            ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
-            ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
-            ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
-            ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
-            ->get()
-            ->first();
-    } else {
-        $user_profils = Auth::user();
-    }
+    $user_profils = Auth::user();
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->

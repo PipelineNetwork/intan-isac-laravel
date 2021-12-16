@@ -245,7 +245,9 @@
                                                         ->first();
                                                     // $kementerian = $kementerian->DESCRIPTION1;
                                                     ?>
+                                                    @if ($kementerian != null)
                                                     {{ $kementerian['DESCRIPTION1'] }}
+                                                    @endif
                                                     {{-- {{ $jadual['KOD_KEMENTERIAN'] }} --}}
                                                 @endif
                                             </td>
