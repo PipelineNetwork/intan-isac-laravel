@@ -34,4 +34,8 @@ class Bankjawapancalon extends Model
     public function soalankemahiranemails() {
         return $this->belongsTo(Soalankemahiranemail::class);
     }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

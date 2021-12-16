@@ -74,7 +74,7 @@ use Spatie\Permission\Models\Role;
         
                                     @foreach ($user_pengawas as $user_pengawas)
                                         <tr>
-                                            <td>{{ $user_pengawas['name'] }}</td>
+                                            <td style="text-transform: uppercase">{{ $user_pengawas['name'] }}</td>
                                             <td>{{ $user_pengawas['email'] }}</td>
                                             <td>
                                                 Pengawas
@@ -130,7 +130,7 @@ use Spatie\Permission\Models\Role;
         
                                     @foreach ($users as $user)
                                         <tr>
-                                            <td>{{ $user['name'] }}</td>
+                                            <td style="text-transform: uppercase">{{ $user['name'] }}</td>
                                             <td>{{ $user['email'] }}</td>
                                             <td>
                                                 <?php

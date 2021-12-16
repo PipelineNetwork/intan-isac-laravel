@@ -53,22 +53,22 @@
                                             <label class="form-control-label text-white" for="editor">Jawapan</label>
                                             <textarea id="editor" class="form-control" name="jawapan_word">
                                                         <p>
-                                                            Overview of Microsoft Office Word 2007
+                                                            Overview of Microsoft Office Word 2020
                                                         </p>
                                                         <p>
-                                                            Welcome to Microsoft® Office Word 2007, included in the 2007 release of the Microsoft Office system. Word 2007 is a powerful authoring program that gives you the ability to create and share professional-looking documents by combining a comprehensive set of writing tools with an easy to-use interface.
+                                                            Welcome to Microsoft® Office Word 2020, included in the 2020 release of the Microsoft Office system. Word 2020 is a powerful authoring program that gives you the ability to create and share professional-looking documents by combining a comprehensive set of writing tools with an easy to-use interface.
                                                         </p>
                                                         <p>
-                                                            Office Word 2007 helps information workers create professional-looking content more quickly than ever before. With a host of new tools, you can quickly construct documents from predefined parts and styles, as well as as compose and publish blogs directly from within Word. Advanced integration with Microsoft Office SharePoint® Server 2007 and a new XML-based file format make Office Word 2007 the ideal choice for building integrated document management solutions.
+                                                            Office Word 2020 helps information workers create professional-looking content more quickly than ever before. With a host of new tools, you can quickly construct documents from predefined parts and styles, as well as as compose and publish blogs directly from within Word. Advanced integration with Microsoft Office SharePoint® Server 2020 and a new XML-based file format make Office Word 2020 the ideal choice for building integrated document management solutions.
                                                         </p>
                                                         <p>
-                                                            This document provides an overview of Office Word 2007, with an emphasis on new and improved features. It also covers Office Word 2007 in action to demonstrate its exciting new capabilities.
+                                                            This document provides an overview of Office Word 2020, with an emphasis on new and improved features. It also covers Office Word 2020 in action to demonstrate its exciting new capabilities.
                                                         </p>
                                                         <p>
                                                             Create Professional-Looking Content
                                                         </p>
                                                         <p>
-                                                            Together with the Microsoft Office Fluent™ interface, Office Word 2007 gives you the tools you need to create professional-looking content.
+                                                            Together with the Microsoft Office Fluent™ interface, Office Word 2020 gives you the tools you need to create professional-looking content.
                                                         </p>
                                                                         {{-- <p>
                                                     A		The Office Fluent user interface presents the right tools to you when you need them
@@ -83,7 +83,7 @@
                                                     D		Document Themes apply the same tubers, fonts, and effects to your documents for a consistent look.
                                                 </p>
                                                 <p>
-                                                    E		SmartArt™ diagrams and a new charting engine help you add a professional look to documents. Shared diagramming and charting with Microsoft Office Excel® 2007 spreadsheet software and the Microsoft Office PowerPoint® 2007 presentation graphics program help ensure a consistent look across your documents, spreadsheets, and presentations.
+                                                    E		SmartArt™ diagrams and a new charting engine help you add a professional look to documents. Shared diagramming and charting with Microsoft Office Excel® 2020 spreadsheet software and the Microsoft Office PowerPoint® 2020 presentation graphics program help ensure a consistent look across your documents, spreadsheets, and presentations.
                                                 </p>
                                                 <p>
                                                     F		The Equation Builder helps you construct editable, in-line mathematical equations using real mathematical symbols, prebuilt equations, and automatic formatting
