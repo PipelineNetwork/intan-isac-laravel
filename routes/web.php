@@ -178,6 +178,7 @@ Route::post('/mohonpenilaian/penyelaras/pilih_jadual', [MohonPenilaianController
 Route::post('/mohonpenilaian/penyelaras/pilih_calon', [MohonPenilaianController::class, 'pilih_calon']);
 Route::post('/mohonpenilaian/calon/kemaskini_maklumat_calon', [MohonPenilaianController::class, 'kemaskini_maklumat_calon']);
 Route::post('/mohonpenilaian/calon/pilih_jadual', [MohonPenilaianController::class, 'pilih_jadual_calon']);
+Route::post('/mohonpenilaian/penjadualan_semula', [MohonPenilaianController::class, 'penjadualan_semula']);
 Route::post('/kemasukan_id/check_id', [KemasukanPenilaianController::class, 'kemasukan_id']);
 Route::get('/kemasukan_penilaian/{id_penilaian}/{soalan}', [KemasukanPenilaianController::class, 'kemasukan_penilaian']);
 Route::post('/penilaian/{id_penilaian}', [KemasukanPenilaianController::class, 'penilaian']);

@@ -244,9 +244,18 @@ class MohonPenilaianController extends Controller
      * @param  \App\Models\MohonPenilaian  $mohonPenilaian
      * @return \Illuminate\Http\Response
      */
-    public function edit(MohonPenilaian $mohonPenilaian)
+    public function edit($id)
     {
-        //
+        $penjadualan = MohonPenilaian::where('id', $id)->first();
+        $penilaian = Jadual::where('ID_PENILAIAN',$penjadualan->id_sesi)->first();
+        $jadual = Jadual::where('user_id', null)
+        ->orderBy('TARIKH_SESI', 'desc')
+        ->get();
+        return view('mohonPenilaian.calon.edit', [
+            'penjadualan'=>$penjadualan,
+            'jadual'=>$jadual,
+            'penilaian'=>$penilaian
+        ]);
     }
 
     /**
@@ -256,9 +265,9 @@ class MohonPenilaianController extends Controller
      * @param  \App\Models\MohonPenilaian  $mohonPenilaian
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MohonPenilaian $mohonPenilaian)
+    public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
@@ -548,5 +557,23 @@ class MohonPenilaianController extends Controller
             'id_sesi' => $id_penilaian
         ]);
         return $pdf->download('Surat_tawaran_' . $id_permohonan->no_ic . '.pdf');
+    }
+
+    public function penjadualan_semula(Request $request){
+        $permohonan_semasa = MohonPenilaian::where('id_sesi', $request->sesi_semasa)->first();
+        $permohonan_semasa->id_sesi = $request->sesi_baru;
+        $permohonan_semasa->tarikh_sesi = $request->tarikh_baru;
+
+        $jadual_semasa = Jadual::where('ID_PENILAIAN', $request->sesi_semasa)->first();
+        $jadual_semasa->KEKOSONGAN = $jadual_semasa->KEKOSONGAN+1;
+
+        $jadual_baru = Jadual::where('ID_PENILAIAN', $request->sesi_baru)->first();
+        $jadual_baru->KEKOSONGAN = $jadual_baru->KEKOSONGAN-1;
+
+        $permohonan_semasa->save();
+        $jadual_semasa->save();
+        $jadual_baru->save();
+
+        return redirect('/mohonpenilaian')->with('success', 'Penjadualan Semula telah berjaya');
     }
 }
