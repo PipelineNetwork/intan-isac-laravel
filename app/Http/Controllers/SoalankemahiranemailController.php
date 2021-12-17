@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Bankjawapancalon;
 use App\Models\Soalankemahiranemail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class SoalankemahiranemailController extends Controller
 {
@@ -14,15 +15,17 @@ class SoalankemahiranemailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id_penilaian)
     {
         $jawapancalon = Bankjawapancalon::all();
 
         $soalankemahiranemail = Soalankemahiranemail::where('status_soalan', 1)->inRandomOrder()->limit(1)->get();
 
+        $id_penilaian = $id_penilaian;
         return view('proses_penilaian.soalan_kemahiran.email', [
             'jawapancalons' => $jawapancalon,
-            'soalankemahiranemails' => $soalankemahiranemail
+            'soalankemahiranemails' => $soalankemahiranemail,
+            'id_penilaian' => $id_penilaian
         ]);
     }
 
@@ -53,7 +56,7 @@ class SoalankemahiranemailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id_emel)
+    public function show(Request $request, $id_penilaian, $id_emel)
     {
         $soalankemahiranemail = Soalankemahiranemail::where('id', $id_emel)->get()->first();
 
@@ -61,10 +64,12 @@ class SoalankemahiranemailController extends Controller
         $markah_internet = Bankjawapancalon::where('user_id', $current_user->id)->where('id_soalankemahiraninternet', '!=', null)->select(DB::raw('markah_urlteks + markah_carianteks as total'))->latest('created_at')->get()->first();
         $markah_word = Bankjawapancalon::where('user_id', $current_user->id)->where('id_soalankemahiranword', '!=', null)->select('jumlah_markah_word')->latest('created_at')->get()->first();
         // dd($markah_internet);
+        $id_penilaian = $id_penilaian;
         return view('proses_penilaian.soalan_kemahiran.email1', [
             'soalankemahiranemails' => $soalankemahiranemail,
             'markah_internets' => $markah_internet,
-            'markah_words' => $markah_word
+            'markah_words' => $markah_word,
+            'id_penilaian' => $id_penilaian
         ]);
     }
 
@@ -102,7 +107,7 @@ class SoalankemahiranemailController extends Controller
         //
     }
 
-    public function savepage1(Request $request)
+    public function savepage1(Request $request, $id_penilaian, $id_emel)
     {
 
         $current_user = $request->user();
@@ -140,35 +145,19 @@ class SoalankemahiranemailController extends Controller
         }
 
         $jawapancalon->jumlah_markah_internet = (int)$request->markah_internet;
-        
+
         $jawapancalon->jumlah_markah_word = (int)$request->markah_word;
 
         $jawapancalon->jumlah_markah_email = $jawapancalon->markah_inputto + $jawapancalon->markah_inputsubject + $jawapancalon->markah_inputmesej + $jawapancalon->markah_failupload;
 
         $jawapancalon->markah_kemahiran = $jawapancalon->jumlah_markah_internet + $jawapancalon->jumlah_markah_word + $jawapancalon->jumlah_markah_email;
 
+        $jawapancalon->id_penilaian = $id_penilaian;
+        $jawapancalon->ic_calon = Auth::user()->nric;
         // dd($jawapancalon);
 
         $jawapancalon->save();
 
-        return view('proses_penilaian.soalan_kemahiran.email2', [
-            'jawapancalons' => $jawapancalon
-        ]);
+        return redirect('/soalan-kemahiran-email');
     }
-
-    // public function kira_jumlah_markah_kemahiran(Request $request)
-    // {
-    //     $current_user = $request->user();
-
-    //     $markah_internet = Bankjawapancalon::where('user_id', $current_user->id)->where('id_soalankemahiraninternet', '!=', null)->select(DB::raw('markah_urlteks + markah_carianteks'))->latest('created_at')->get()->first();
-
-    //     $markah_word = Bankjawapancalon::where('user_id', $current_user->id)->where('id_soalankemahiranword', '!=', null)->select(DB::raw('jumlah_markah_word'))->latest('created_at')->get()->first();
-
-    //     $markah_email = Bankjawapancalon::where('user_id', $current_user->id)->where('id_soalankemahiranemail', '!=', null)->select(DB::raw('markah_inputto + markah_inputsubject + markah_inputmesej + markah_failupload' ))->latest('created_at')->get()->first();
-
-    //     $jawapancalon = Bankjawapancalon::find($request->id);
-    //     $jawapancalon->markah_kemahiran = $markah_internet + $markah_word + $markah_email;
-
-    //     dd($$jawapancalon->markah_kemahiran);
-    // }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Bankjawapancalon;
 use App\Models\Soalankemahiraninternet;
+use Illuminate\Support\Facades\Auth;
 
 class SoalankemahiraninternetController extends Controller
 {
@@ -13,29 +14,33 @@ class SoalankemahiraninternetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id_penilaian)
     {
         $jawapancalon = Bankjawapancalon::all();
         $soalankemahiraninternet = Soalankemahiraninternet::where('status_soalan', 1)->inRandomOrder()->limit(1)->get();
-
+        $id_penilaian = $id_penilaian;
+        // dd($id_penilaian);
         // dd($soalankemahiraninternet);
         return view('proses_penilaian.soalan_kemahiran.internet', [
             'jawapancalons' => $jawapancalon,
             'soalankemahiraninternets' => $soalankemahiraninternet,
+            'id_penilaian'=>$id_penilaian
         ]);
     }
 
-    public function page1($id_internet)
+    public function page1($id_penilaian, $id_internet)
     {
         $soalankemahiraninternet = Soalankemahiraninternet::where('id', $id_internet)->get()->first();
-
+        $id_penilaian = $id_penilaian;
+        
         // dd($soalankemahiraninternet);
         return view('proses_penilaian.soalan_kemahiran.internet1', [
             'soalankemahiraninternets' => $soalankemahiraninternet,
+            'id_penilaian'=>$id_penilaian
         ]);
     }
 
-    public function savepage1(Request $request, $id_internet)
+    public function savepage1(Request $request, $id_penilaian)
     {
         $current_user = $request->user();
 
@@ -51,8 +56,11 @@ class SoalankemahiraninternetController extends Controller
         $jawapancalon->jawapansebenar_carianteks = strtolower($request->jawapansebenar_carianteks);
         $jawapancalon->user_id = $current_user->id;
         $jawapancalon->id_soalankemahiraninternet = $request->id_soalankemahiraninternet;
+        $jawapancalon->id_penilaian = $id_penilaian;
+        $jawapancalon->ic_calon = Auth::user()->nric;
         $jawapancalon->save();
 
+        $id_penilaian = $id_penilaian;
         return view('proses_penilaian.soalan_kemahiran.internet2', [
             'jawapancalons' => $jawapancalon,
         ]);
@@ -154,6 +162,19 @@ class SoalankemahiraninternetController extends Controller
 
         return view('proses_penilaian.soalan_kemahiran.internet6', [
             'jawapancalons' => $jawapancalon,
+        ]);
+    }
+
+    public function testt($id_penilaian)
+    {
+        $jawapancalon = Bankjawapancalon::all();
+        $soalankemahiraninternet = Soalankemahiraninternet::where('status_soalan', 1)->inRandomOrder()->limit(1)->get();
+        $id_penilaian = $id_penilaian;
+        // dd($soalankemahiraninternet);
+        return view('proses_penilaian.soalan_kemahiran.internet', [
+            'jawapancalons' => $jawapancalon,
+            'soalankemahiraninternets' => $soalankemahiraninternet,
+            'id_penilaian'=>$id_penilaian
         ]);
     }
 }

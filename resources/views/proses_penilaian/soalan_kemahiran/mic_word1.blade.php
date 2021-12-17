@@ -44,7 +44,7 @@
                 <div class="row justify-content-center">
                     <div class="col-auto">
                         <div class="card-body bg-secondary" style="border-radius: 15px; max-width:800px">
-                            <form action="/soalan-kemahiran-word" method="POST" enctype="multipart/form-data">
+                            <form action="/soalan-kemahiran-word/{{$id_penilaian}}/{{ $soalankemahiranwords->id }}/save" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-12">
