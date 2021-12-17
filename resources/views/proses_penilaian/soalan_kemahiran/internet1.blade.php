@@ -74,7 +74,7 @@
 
             <div class="card vh-100 mt-5">
                 <div class="card-body">
-                    <form action="/soalan-kemahiran-internet/{{ $soalankemahiraninternets->id}}/page1" method="POST" id="penilaian">
+                    <form action="/soalan-kemahiran-internet/{{$id_penilaian}}/page1" method="POST" id="penilaian">
                         @csrf
                         <input type="hidden" name="timer" value="" id="timer">
                         <div class="row">

@@ -14,16 +14,18 @@ class SoalankemahiranwordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id_penilaian)
     {
         $jawapancalon = Bankjawapancalon::where('user_id', Auth::user());
 
         $soalankemahiranword = Soalankemahiranword::where('status_soalan', 1)->inRandomOrder()->limit(1)->get();
 
+        $id_penilaian=$id_penilaian;
         // dd($soalankemahiranword);
         return view('proses_penilaian.soalan_kemahiran.mic_word', [
             'jawapancalons' => $jawapancalon,
-            'soalankemahiranwords' => $soalankemahiranword
+            'soalankemahiranwords' => $soalankemahiranword,
+            'id_penilaian'=>$id_penilaian
         ]);
     }
 
@@ -43,7 +45,7 @@ class SoalankemahiranwordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id_penilaian)
     {
         $current_user = $request->user();
 
@@ -136,12 +138,12 @@ class SoalankemahiranwordController extends Controller
         $jawapancalon->user_id = $current_user->id;
         $jawapancalon->id_soalankemahiranword = $request->id_soalankemahiranword;
 
+        $jawapancalon->id_penilaian = $id_penilaian;
+        $jawapancalon->ic_calon = Auth::user()->nric;
         // dd($jawapancalon);
         $jawapancalon->save();
 
-        return view('proses_penilaian.soalan_kemahiran.mic_word2', [
-            'jawapancalons' => $jawapancalon,
-        ]);
+        return redirect('/soalan-kemahiran-word');
     }
 
     /**
@@ -150,15 +152,16 @@ class SoalankemahiranwordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id_word)
+    public function show($id_penilaian, $id_word)
     {
         // $jawapancalon = Bankjawapancalon::where('user_id', Auth::user());
 
         $soalankemahiranword = Soalankemahiranword::where('id', $id_word)->get()->first();
-
+        $id_penilaian=$id_penilaian;
         // dd($soalankemahiranword);
         return view('proses_penilaian.soalan_kemahiran.mic_word1', [
             'soalankemahiranwords' => $soalankemahiranword,
+            'id_penilaian'=>$id_penilaian
             // 'jawapancalons' => $jawapancalon
         ]);
     }

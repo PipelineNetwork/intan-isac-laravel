@@ -56,7 +56,7 @@
                                 <p>{!! $soalankemahiranemail->soalan_1 !!}</p>
                                 <ul class="mt-2">
                                     <button class="btn btn-success" value="{{ $soalankemahiranemail->id }}" type="submit"
-                                        onclick="window.open('/soalan-kemahiran-email/{{ $soalankemahiranemail->id }}', 'popup', 'width=600','height=400');">E-mel</button>
+                                        onclick="window.open('/soalan-kemahiran-email/{{$id_penilaian}}/{{ $soalankemahiranemail->id }}', 'popup', 'width=600','height=400');">E-mel</button>
                                 </ul>
                             @endif
 

@@ -188,7 +188,6 @@ class BankjawapanpengetahuanController extends Controller
             $no_sijil = 00000+1;
             $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
         }else{
-            // dd('sini tak null');
             $no_sijil = $no_sijil_latest+00001;
             $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
         }
@@ -196,7 +195,7 @@ class BankjawapanpengetahuanController extends Controller
         $keputusan->save();
         
         if($request->timer == null){
-            return redirect('/soalan-kemahiran-internet')->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
+            return redirect('/soalan-kemahiran-internet/'.$id_penilaian)->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
         }else{
             return view('kemasukan_id.masa_tamat');
         }

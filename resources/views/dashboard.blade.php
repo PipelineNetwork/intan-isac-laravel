@@ -86,7 +86,6 @@
                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">JUMLAH PERMOHONAN</p>
                                         <h5 class="font-weight-bolder mb-0">
                                             53,000
-                                            <span class="text-success text-sm font-weight-bolder">+55%</span>
                                         </h5>
                                     </div>
                                 </div>
@@ -110,7 +109,6 @@
                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">JUMLAH CALON LULUS</p>
                                         <h5 class="font-weight-bolder mb-0">
                                             3,462
-                                            <span class="text-danger text-sm font-weight-bolder">-2%</span>
                                         </h5>
                                     </div>
                                 </div>
@@ -132,7 +130,6 @@
                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">JUMLAH CALON GAGAL</p>
                                         <h5 class="font-weight-bolder mb-0">
                                             103,430
-                                            <span class="text-danger text-sm font-weight-bolder">+5%</span>
                                         </h5>
                                     </div>
                                 </div>
