@@ -246,7 +246,7 @@
                                                     // $kementerian = $kementerian->DESCRIPTION1;
                                                     ?>
                                                     @if ($kementerian != null)
-                                                    {{ $kementerian['DESCRIPTION1'] }}
+                                                        {{ $kementerian['DESCRIPTION1'] }}
                                                     @endif
                                                     {{-- {{ $jadual['KOD_KEMENTERIAN'] }} --}}
                                                 @endif
@@ -344,6 +344,9 @@
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @include('sweet::alert')
 
     <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
         type="text/javascript"></script>
