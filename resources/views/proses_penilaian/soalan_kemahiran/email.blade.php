@@ -190,7 +190,7 @@
                                                 Ok
                                             </button>
                                         </form> --}}
-                                        <a href="/tamat-penilaian" class="btn btn-success">Ok</a>
+                                        <a href="/tamat-penilaian/{{$id_penilaian}}" class="btn btn-success">Ok</a>
                                     </div>
                                 </div>
                             </div>

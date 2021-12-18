@@ -164,6 +164,7 @@ Route::post('/kebenaran_pengguna/kemaskini/{id_kumpulan}/{menu_id}', [KumpulanPe
 Route::get('/tamat-penilaian', function () {
     return view('proses_penilaian.tamat_penilaian');
 });
+Route::get('/tamat-penilaian/{id_penilaian}', [KeputusanPenilaianController::class, 'markah_semua']);
 // Route::post('/tamat-penilaian', [SoalankemahiranemailController::class, 'kira_jumlah_markah_kemahiran']);
 
 Route::get('/papar-keputusan', function () {
