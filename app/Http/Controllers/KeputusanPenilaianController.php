@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\KeputusanPenilaian;
 use App\Models\MohonPenilaian;
+use App\Models\Jadual;
+use App\Models\PemilihanSoalan;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Bankjawapancalon;
 use PDF;
 use App\Models\Bankjawapanpengetahuan;
 
@@ -92,5 +95,83 @@ No. Sijil: ".sprintf("%'.05d\n", $no_sijil);
             'calon'=>$calon,
             'penilaian'=>$penilaian
         ]);
+    }
+
+    public function markah_semua($id_penilaian){
+        $ic = Auth::user()->nric;
+        $peserta = MohonPenilaian::where('no_ic', $ic)->first();
+        $jadual = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
+
+        $keputusan = Bankjawapanpengetahuan::where('id_calon', $ic)
+        ->where('id_penilaian', $id_penilaian)
+        ->get();
+
+        $markah = 0;
+        foreach($keputusan as $keputusan){
+            $markah = $markah + $keputusan->markah;
+        }
+
+        $m_kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $ic)->get();
+        foreach($m_kemahiran as $m_kemahiran){
+            if ($m_kemahiran->markah_kemahiran != null) {
+                $markah_kem = $m_kemahiran->markah_kemahiran;
+            }
+        }
+
+        $keputusan = new KeputusanPenilaian;
+        $keputusan->id_peserta = $peserta->id_calon;
+        $keputusan->id_penilaian = $id_penilaian;
+        $keputusan->nama_peserta = $peserta->nama;
+        $keputusan->ic_peserta = $ic;
+        $keputusan->tarikh_penilaian = $jadual->TARIKH_SESI;
+        if($jadual->LOKASI != null){
+            $keputusan->lokasi = $jadual->LOKASI;
+        }else{
+            $keputusan->lokasi = "Atas Talian";
+        }
+        $keputusan->markah_pengetahuan = $markah;
+        $keputusan->markah_kemahiran = $markah_kem;
+        $keputusan->markah_keseluruhan = $keputusan->markah_pengetahuan+$keputusan->markah_kemahiran;
+
+        $gred_lulus = PemilihanSoalan::where('ID_PEMILIHAN_SOALAN', '70')->first();
+        $lulus = $gred_lulus->NILAI_MARKAH_LULUS;
+
+        if($keputusan->markah_keseluruhan >= $lulus){
+            $keputusan->keputusan = "Lulus";
+        }else{
+            $keputusan->keputusan = "Gagal";
+        }
+        $m_penilaian = MohonPenilaian::where('no_ic', $ic)->where('id_sesi', $id_penilaian)->first();
+        $m_penilaian->status_penilaian = $keputusan->keputusan;
+        $m_penilaian->save();
+        $keputusan->save();
+
+        $rekodtarikh = KeputusanPenilaian::where('id_penilaian', $id_penilaian)
+        ->get();
+        $bilangan_rekod = count($rekodtarikh);
+        $bilangan = $bilangan_rekod-1;
+        // dd($rekodtarikh[0]);
+
+        if($bilangan == -1 || $bilangan == 0){
+            $bilangan= 0;
+            $no_sijil_latest = $rekodtarikh[$bilangan]->no_sijil;
+        }else{
+            $no_sijil_latest = $rekodtarikh[$bilangan-1]->no_sijil;
+        }
+        // dd($bilangan);
+        // $no_sijil_latest = $rekodtarikh[$bilangan]->no_sijil;
+        // dd($rekodtarikh);
+        if($no_sijil_latest == null){
+            // dd('sini null');
+            $no_sijil = 00000+1;
+            $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
+        }else{
+            $no_sijil = $no_sijil_latest+00001;
+            $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
+        }
+        
+        $keputusan->save();
+
+        return redirect('/tamat-penilaian');
     }
 }
