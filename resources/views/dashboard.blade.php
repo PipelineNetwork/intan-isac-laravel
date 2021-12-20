@@ -12,11 +12,6 @@
 
 </style>
 
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-
 @section('content')
     <?php
     use App\Models\Refgeneral;
@@ -85,7 +80,7 @@
                                     <div class="numbers">
                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">JUMLAH PERMOHONAN</p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            53,000
+                                            {{ $bil_mohon_jumlahs }}
                                         </h5>
                                     </div>
                                 </div>
@@ -108,7 +103,7 @@
                                     <div class="numbers">
                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">JUMLAH CALON LULUS</p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            3,462
+                                            {{ $bil_lulus_jumlahs }}
                                         </h5>
                                     </div>
                                 </div>
@@ -129,7 +124,7 @@
                                     <div class="numbers">
                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">JUMLAH CALON GAGAL</p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            103,430
+                                            {{ $bil_gagal_jumlahs }}
                                         </h5>
                                     </div>
                                 </div>
@@ -159,6 +154,8 @@
                     <div class="card mt-3">
                         <div class="card-header" style="background-color:#FFA500;">
                             <b class="text-white">Statistik Pencapaian Penilaian ISAC</b>
+                            <br>
+                            <span class="text-white">Bagi tahun semasa</span>
                         </div>
                         <div class="card-body">
                             <div id="chart1"></div>
@@ -354,487 +351,139 @@
         });
     </script>
 
-    <script>
-        var ctx = document.getElementById("chart-bars").getContext("2d");
-
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Sales",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    borderRadius: 4,
-                    borderSkipped: false,
-                    backgroundColor: "#fff",
-                    data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
-                    maxBarThickness: 6
-                }, ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                        },
-                        ticks: {
-                            suggestedMin: 0,
-                            suggestedMax: 500,
-                            beginAtZero: true,
-                            padding: 15,
-                            font: {
-                                size: 14,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                            color: "#fff"
-                        },
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false
-                        },
-                        ticks: {
-                            display: false
-                        },
-                    },
-                },
-            },
-        });
-
-
-        var ctx2 = document.getElementById("chart-line").getContext("2d");
-
-        var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-        gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
-        gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-        gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
-
-        var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-        gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
-        gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-        gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
-
-        new Chart(ctx2, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                        label: "Mobile apps",
-                        tension: 0.4,
-                        borderWidth: 0,
-                        pointRadius: 0,
-                        borderColor: "#cb0c9f",
-                        borderWidth: 3,
-                        backgroundColor: gradientStroke1,
-                        fill: true,
-                        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                        maxBarThickness: 6
-
-                    },
-                    {
-                        label: "Websites",
-                        tension: 0.4,
-                        borderWidth: 0,
-                        pointRadius: 0,
-                        borderColor: "#3A416F",
-                        borderWidth: 3,
-                        backgroundColor: gradientStroke2,
-                        fill: true,
-                        data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-                        maxBarThickness: 6
-                    },
-                ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#b2b9bf',
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#b2b9bf',
-                            padding: 20,
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-
-
-        (function() {
-            const container = document.getElementById("globe");
-            const canvas = container.getElementsByTagName("canvas")[0];
-
-            const globeRadius = 100;
-            const globeWidth = 4098 / 2;
-            const globeHeight = 1968 / 2;
-
-            function convertFlatCoordsToSphereCoords(x, y) {
-                let latitude = ((x - globeWidth) / globeWidth) * -180;
-                let longitude = ((y - globeHeight) / globeHeight) * -90;
-                latitude = (latitude * Math.PI) / 180;
-                longitude = (longitude * Math.PI) / 180;
-                const radius = Math.cos(longitude) * globeRadius;
-
-                return {
-                    x: Math.cos(latitude) * radius,
-                    y: Math.sin(longitude) * globeRadius,
-                    z: Math.sin(latitude) * radius
-                };
-            }
-
-            function makeMagic(points) {
-                const {
-                    width,
-                    height
-                } = container.getBoundingClientRect();
-
-                // 1. Setup scene
-                const scene = new THREE.Scene();
-                // 2. Setup camera
-                const camera = new THREE.PerspectiveCamera(45, width / height);
-                // 3. Setup renderer
-                const renderer = new THREE.WebGLRenderer({
-                    canvas,
-                    antialias: true
-                });
-                renderer.setSize(width, height);
-                // 4. Add points to canvas
-                // - Single geometry to contain all points.
-                const mergedGeometry = new THREE.Geometry();
-                // - Material that the dots will be made of.
-                const pointGeometry = new THREE.SphereGeometry(0.5, 1, 1);
-                const pointMaterial = new THREE.MeshBasicMaterial({
-                    color: "#989db5",
-                });
-
-                for (let point of points) {
-                    const {
-                        x,
-                        y,
-                        z
-                    } = convertFlatCoordsToSphereCoords(
-                        point.x,
-                        point.y,
-                        width,
-                        height
-                    );
-
-                    if (x && y && z) {
-                        pointGeometry.translate(x, y, z);
-                        mergedGeometry.merge(pointGeometry);
-                        pointGeometry.translate(-x, -y, -z);
-                    }
-                }
-
-                const globeShape = new THREE.Mesh(mergedGeometry, pointMaterial);
-                scene.add(globeShape);
-
-                container.classList.add("peekaboo");
-
-                // Setup orbital controls
-                camera.orbitControls = new THREE.OrbitControls(camera, canvas);
-                camera.orbitControls.enableKeys = false;
-                camera.orbitControls.enablePan = false;
-                camera.orbitControls.enableZoom = false;
-                camera.orbitControls.enableDamping = false;
-                camera.orbitControls.enableRotate = true;
-                camera.orbitControls.autoRotate = true;
-                camera.position.z = -265;
-
-                function animate() {
-                    // orbitControls.autoRotate is enabled so orbitControls.update
-                    // must be called inside animation loop.
-                    camera.orbitControls.update();
-                    requestAnimationFrame(animate);
-                    renderer.render(scene, camera);
-                }
-                animate();
-            }
-
-            function hasWebGL() {
-                const gl =
-                    canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-                if (gl && gl instanceof WebGLRenderingContext) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-
-            function init() {
-                if (hasWebGL()) {
-                    window
-                    window.fetch(
-                            "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-dashboard-pro/assets/js/points.json"
-                        )
-                        .then(response => response.json())
-                        .then(data => {
-                            makeMagic(data.points);
-                        });
-                }
-            }
-            init();
-        })();
-    </script>
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 
     <script>
-        am5.ready(function() {
+        am4core.ready(function() {
 
-            // Create root element
-            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root = am5.Root.new("chart1");
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            am4core.addLicense('ch-custom-attribution');
+            // Themes end
 
+            // Create chart instance
+            var chart = am4core.create("chartdiv", am4charts.PieChart);
 
-            // Set themes
-            // https://www.amcharts.com/docs/v5/concepts/themes/
-            root.setThemes([
-                am5themes_Animated.new(root)
-            ]);
+            // Add and configure Series
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "jumlah";
+            pieSeries.dataFields.category = "keputusan";
 
+            // Let's cut a hole in our Pie chart the size of 30% the radius
+            chart.innerRadius = am4core.percent(30);
 
-            // Create chart
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/
-            var chart = root.container.children.push(am5xy.XYChart.new(root, {
-                panX: true,
-                panY: true,
-                wheelX: "panX",
-                wheelY: "zoomX"
-            }));
+            // Put a thick white border around each Slice
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeWidth = 2;
+            pieSeries.slices.template.strokeOpacity = 1;
+            pieSeries.slices.template
+                // change the cursor on hover to make it apparent the object can be interacted with
+                .cursorOverStyle = [{
+                    "property": "cursor",
+                    "value": "pointer"
+                }];
 
-            // Add cursor
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-            var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
-            cursor.lineY.set("visible", false);
+            pieSeries.alignLabels = false;
+            pieSeries.labels.template.bent = true;
+            pieSeries.labels.template.radius = 3;
+            pieSeries.labels.template.padding(0, 0, 0, 0);
 
+            pieSeries.ticks.template.disabled = true;
+
+            // Create a base filter effect (as if it's not there) for the hover to return to
+            var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+            shadow.opacity = 0;
+
+            // Create hover state
+            var hoverState = pieSeries.slices.template.states.getKey(
+            "hover"); // normally we have to create the hover state, in this case it already exists
+
+            // Slightly shift the shadow and make it more prominent on hover
+            var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+            hoverShadow.opacity = 0.7;
+            hoverShadow.blur = 5;
+
+            // Add a legend
+            chart.legend = new am4charts.Legend();
+
+            var data = {!! json_encode($graf_lulus_gagals) !!};
+            chart.data = data;
+
+            // chart.data = [{
+            //     "country": "Lithuania",
+            //     "litres": 501.9
+            // }, {
+            //     "country": "Germany",
+            //     "litres": 165.8
+            // },];
+
+        }); // end am4core.ready()
+
+        am4core.ready(function() {
+
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+
+            // Create chart instance
+            var chart = am4core.create("chart1", am4charts.XYChart);
+            chart.scrollbarX = new am4core.Scrollbar();
+
+            var data = {!! json_encode($graf_permohonan_bulanans) !!};
+            chart.data = data;
+
+            // Add data
+            // chart.data = [{
+            //     "country": "USA",
+            //     "visits": 3025
+            // }, {
+            //     "country": "China",
+            //     "visits": 1882
+            // },];
 
             // Create axes
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-            var xRenderer = am5xy.AxisRendererX.new(root, {
-                minGridDistance: 30
-            });
-            xRenderer.labels.template.setAll({
-                rotation: -90,
-                centerY: am5.p50,
-                centerX: am5.p100,
-                paddingRight: 15
-            });
+            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.dataFields.category = "monthname";
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.renderer.minGridDistance = 30;
+            categoryAxis.renderer.labels.template.horizontalCenter = "right";
+            categoryAxis.renderer.labels.template.verticalCenter = "middle";
+            categoryAxis.renderer.labels.template.rotation = 270;
+            categoryAxis.tooltip.disabled = true;
+            categoryAxis.renderer.minHeight = 110;
 
-            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
-                maxDeviation: 0.3,
-                categoryField: "country",
-                renderer: xRenderer,
-                tooltip: am5.Tooltip.new(root, {})
-            }));
-
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-                maxDeviation: 0.3,
-                renderer: am5xy.AxisRendererY.new(root, {})
-            }));
-
+            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            valueAxis.renderer.minWidth = 50;
 
             // Create series
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-            var series = chart.series.push(am5xy.ColumnSeries.new(root, {
-                name: "Series 1",
-                xAxis: xAxis,
-                yAxis: yAxis,
-                valueYField: "value",
-                sequencedInterpolation: true,
-                categoryXField: "country",
-                tooltip: am5.Tooltip.new(root, {
-                    labelText: "{valueY}"
-                })
-            }));
+            var series = chart.series.push(new am4charts.ColumnSeries());
+            series.sequencedInterpolation = true;
+            series.dataFields.valueY = "jumlah";
+            series.dataFields.categoryX = "monthname";
+            series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
+            series.columns.template.strokeWidth = 0;
 
-            series.columns.template.setAll({
-                cornerRadiusTL: 5,
-                cornerRadiusTR: 5
-            });
-            series.columns.template.adapters.add("fill", (fill, target) => {
-                return chart.get("colors").getIndex(series.columns.indexOf(target));
-            });
+            series.tooltip.pointerOrientation = "vertical";
 
-            series.columns.template.adapters.add("stroke", (stroke, target) => {
-                return chart.get("colors").getIndex(series.columns.indexOf(target));
+            series.columns.template.column.cornerRadiusTopLeft = 10;
+            series.columns.template.column.cornerRadiusTopRight = 10;
+            series.columns.template.column.fillOpacity = 0.8;
+
+            // on hover, make corner radiuses bigger
+            var hoverState = series.columns.template.column.states.create("hover");
+            hoverState.properties.cornerRadiusTopLeft = 0;
+            hoverState.properties.cornerRadiusTopRight = 0;
+            hoverState.properties.fillOpacity = 1;
+
+            series.columns.template.adapter.add("fill", function(fill, target) {
+                return chart.colors.getIndex(target.dataItem.index);
             });
 
+            // Cursor
+            chart.cursor = new am4charts.XYCursor();
 
-            // Set data
-            var data = [{
-                country: "USA",
-                value: 2025
-            }, {
-                country: "China",
-                value: 1882
-            }, {
-                country: "Japan",
-                value: 1809
-            }, {
-                country: "Germany",
-                value: 1322
-            }, {
-                country: "UK",
-                value: 1122
-            }, {
-                country: "France",
-                value: 1114
-            }, {
-                country: "India",
-                value: 984
-            }, {
-                country: "Spain",
-                value: 711
-            }, {
-                country: "Netherlands",
-                value: 665
-            }, {
-                country: "Russia",
-                value: 580
-            }, {
-                country: "South Korea",
-                value: 443
-            }, {
-                country: "Canada",
-                value: 441
-            }];
-
-            xAxis.data.setAll(data);
-            series.data.setAll(data);
-
-
-            // Make stuff animate on load
-            // https://www.amcharts.com/docs/v5/concepts/animations/
-            series.appear(1000);
-            chart.appear(1000, 100);
-
-        }); // end am5.ready()
-
-        am5.ready(function() {
-
-            // Create root element
-            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root = am5.Root.new("chartdiv");
-
-            // Set themes
-            // https://www.amcharts.com/docs/v5/concepts/themes/
-            root.setThemes([
-                am5themes_Animated.new(root)
-            ]);
-
-            // Create chart
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-            var chart = root.container.children.push(
-                am5percent.PieChart.new(root, {
-                    endAngle: 270
-                })
-            );
-
-            // Create series
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-            var series = chart.series.push(
-                am5percent.PieSeries.new(root, {
-                    valueField: "value",
-                    categoryField: "category",
-                    endAngle: 270
-                })
-            );
-
-            series.states.create("hidden", {
-                endAngle: -90
-            });
-
-            // Set data
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-            series.data.setAll([{
-                category: "Lithuania",
-                value: 501.9
-            }, {
-                category: "Czechia",
-                value: 301.9
-            }, {
-                category: "Ireland",
-                value: 201.1
-            }, {
-                category: "Germany",
-                value: 165.8
-            }, {
-                category: "Australia",
-                value: 139.9
-            }, {
-                category: "Austria",
-                value: 128.3
-            }, {
-                category: "UK",
-                value: 99
-            }]);
-
-            series.appear(1000, 100);
-
-        }); // end am5.ready()
+        }); // end am4core.ready()
     </script>
 @stop
