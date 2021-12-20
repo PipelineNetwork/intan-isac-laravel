@@ -491,16 +491,18 @@
             </div>
 
             @foreach ($lamanutama as $lamanutama)
-                <div class="card m-5">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <h5>{{ $lamanutama->TAJUK }}</h5>
-                                {!! $lamanutama->KETERANGAN !!}
+                @if ($lamanutama->STATUS == '02')
+                    <div class="card m-5">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5>{{ $lamanutama->TAJUK }}</h5>
+                                    {!! $lamanutama->KETERANGAN !!}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
             @endforeach
 
             <div class="row pt-5" id="jadual">
