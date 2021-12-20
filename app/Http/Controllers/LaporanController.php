@@ -35,8 +35,8 @@ class LaporanController extends Controller
         $check_kementerian = $request->input_kementerian;
 
         //request jabatan
-        // $jabatan = Refgeneral::where('MASTERCODE', 10029)->get();
-        // $check_jabatan = $request->input_jabatan;
+        $jabatan = Refgeneral::where('MASTERCODE', 10029)->get();
+        $check_jabatan = $request->input_jabatan;
 
         //count bil memohon
         //januari
@@ -51,7 +51,7 @@ class LaporanController extends Controller
                     ->count();
             } else {
                 $bil_mohon_jan = MohonPenilaian::whereMonth('mohon_penilaians.created_at', 1)
-                    ->whereYear('created_at', $tahun)
+                    ->whereYear('mohon_penilaians.created_at', $tahun)
                     ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
                     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
                     ->select('mohon_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
@@ -438,14 +438,14 @@ class LaporanController extends Controller
         //jumlah memohon
         if ($tahun != null) {
             if ($check_kementerian != null) {
-                $bil_mohon_jumlah = MohonPenilaian::whereYear('created_at', $tahun)
+                $bil_mohon_jumlah = MohonPenilaian::whereYear('mohon_penilaians.created_at', $tahun)
                     ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
                     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
                     ->select('*')
                     ->where('KOD_KEMENTERIAN', $check_kementerian)
                     ->count();
             } else {
-                $bil_mohon_jumlah = MohonPenilaian::whereYear('created_at', $tahun)
+                $bil_mohon_jumlah = MohonPenilaian::whereYear('mohon_penilaians.created_at', $tahun)
                     ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
                     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
                     ->select('*')
@@ -477,7 +477,7 @@ class LaporanController extends Controller
                     ->count();
             } else {
                 $bil_duduk_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
-                    ->whereYear('created_at', $tahun)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
                     ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
                     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
                     ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
@@ -871,7 +871,7 @@ class LaporanController extends Controller
                     ->where('KOD_KEMENTERIAN', $check_kementerian)
                     ->count();
             } else {
-                $bil_duduk_jumlah = KeputusanPenilaian::whereYear('created_at', $tahun)
+                $bil_duduk_jumlah = KeputusanPenilaian::whereYear('keputusan_penilaians.created_at', $tahun)
                     ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
                     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
                     ->select('*')
@@ -904,7 +904,7 @@ class LaporanController extends Controller
                     ->count();
             } else {
                 $bil_lulus_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
-                    ->whereYear('created_at', $tahun)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
                     ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
                     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
                     ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
@@ -1338,7 +1338,7 @@ class LaporanController extends Controller
         //jumlah lulus
         if ($tahun != null) {
             if ($check_kementerian != null) {
-                $bil_lulus_jumlah = KeputusanPenilaian::whereYear('created_at', $tahun)
+                $bil_lulus_jumlah = KeputusanPenilaian::whereYear('keputusan_penilaians.created_at', $tahun)
                     ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
                     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
                     ->select('*')
@@ -1346,7 +1346,7 @@ class LaporanController extends Controller
                     ->where('keputusan', 'Lulus')
                     ->count();
             } else {
-                $bil_lulus_jumlah = KeputusanPenilaian::whereYear('created_at', $tahun)
+                $bil_lulus_jumlah = KeputusanPenilaian::whereYear('keputusan_penilaians.created_at', $tahun)
                     ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
                     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
                     ->select('*')
@@ -1382,7 +1382,7 @@ class LaporanController extends Controller
                     ->count();
             } else {
                 $bil_gagal_jan = KeputusanPenilaian::whereMonth('keputusan_penilaians.created_at', 1)
-                    ->whereYear('created_at', $tahun)
+                    ->whereYear('keputusan_penilaians.created_at', $tahun)
                     ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
                     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
                     ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
@@ -1824,7 +1824,7 @@ class LaporanController extends Controller
                     ->where('keputusan', 'Gagal')
                     ->count();
             } else {
-                $bil_gagal_jumlah = KeputusanPenilaian::whereYear('created_at', $tahun)
+                $bil_gagal_jumlah = KeputusanPenilaian::whereYear('keputusan_penilaians.created_at', $tahun)
                     ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
                     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
                     ->select('*')
@@ -1850,6 +1850,7 @@ class LaporanController extends Controller
             'tahuns' => $tahun,
             'tahun_semasas' => $tahun_semasa,
             'kementerians' => $kementerian,
+            'jabatans' => $jabatan,
             'bil_mohon_jans' => $bil_mohon_jan,
             'bil_mohon_febs' => $bil_mohon_feb,
             'bil_mohon_macs' => $bil_mohon_mac,
