@@ -33,7 +33,7 @@ class LamanUtamaController extends Controller
      */
     public function create()
     {
-        //
+        return view('kawalan_sistem.laman_utama.create');
     }
 
     /**
@@ -44,7 +44,13 @@ class LamanUtamaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $laman_utama = new LamanUtama;
+        $laman_utama->TAJUK = $request->TAJUK;
+        $laman_utama->KETERANGAN = $request->KETERANGAN;
+        $laman_utama->STATUS = $request->STATUS;
+
+        $laman_utama->save();
+        return redirect('/laman_utama');
     }
 
     /**

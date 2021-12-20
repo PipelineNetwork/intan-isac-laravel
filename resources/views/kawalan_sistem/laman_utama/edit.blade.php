@@ -85,7 +85,7 @@
                                     </label><label class="float-right">:</label>
                                 </div>
                                 <div class="col-lg-11">
-                                    <select class="form-control" id="exampleFormControlSelect1">
+                                    <select class="form-control" id="exampleFormControlSelect1" name="STATUS">
                                         <option value="{{ $laman_utama->STATUS }}" selected hidden>
                                             @if ($laman_utama->STATUS == '01')
                                                 Tidak Aktif

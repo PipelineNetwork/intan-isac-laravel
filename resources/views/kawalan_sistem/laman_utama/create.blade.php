@@ -40,13 +40,7 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <h5 class="font-weight-bolder">Paparan Laman Utama</h5>
-            </div>
-            <div class="col-lg-6">
-                <div class="column-12">
-                    <a href="/laman_utama/create" class="btn bg-gradient-warning mb-0" type="submit"
-                        style="float: right;">TAMBAH</a>
-                </div>
+                <h5 class="font-weight-bolder">Cipta Laman Utama</h5>
             </div>
         </div>
 
@@ -54,46 +48,80 @@
             <div class="col">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Maklumat</b>
+                        <b class="text-white">Cipta</b>
                     </div>
                     <div class="card-body">
-                        <ul class="list-group">
-                            @foreach ($laman_utama as $key => $laman_utama)
-                                <li class="list-group-item">
-                                    <div class="row mt-4">
-                                        <div class="col-1">
-                                            {{ $key + 1 }}.
-                                        </div>
-                                        <div class="col-9">
-                                            <h5>{{ $laman_utama->TAJUK }}</h5>
-                                            <p>{!! $laman_utama->KETERANGAN !!}</p>
-                                        </div>
-                                        <div class="col-2 text-end">
-                                            <p class="mb-0">Status: 
-                                                @if($laman_utama->STATUS == '01')
-                                                Tidak Aktif
-                                                @else
-                                                Aktif
-                                                @endif
-                                            </p>
-                                            <a href="laman_utama/{{$laman_utama->ID}}/edit" class="btn bg-gradient-info mt-0">Kemaskini</a>
-                                        </div>
+
+                        <form action="/laman_utama" method="POST">
+                            @csrf
+                            <div class="row mb-2">
+                                <div class="col-lg-1">
+                                    <label class="form-control-label mr-4">
+                                        Tajuk
+                                    </label><label class="float-right">:</label>
+                                </div>
+                                <div class="col-lg-11">
+                                    <input type="text" class="form-control" name="TAJUK">
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="form-control-label mr-4">
+                                            Keterangan
+                                        </label><label class="float-right">:</label>
+                                        <textarea id="editor-soalan" class="form-control" name="KETERANGAN"
+                                            rows="10"></textarea>
+
                                     </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-lg-1">
+                                    <label class="form-control-label mr-4">
+                                        Status
+                                    </label><label class="float-right">:</label>
+                                </div>
+                                <div class="col-lg-11">
+                                    <select class="form-control" id="exampleFormControlSelect1" name="STATUS">
+                                        <option value="" selected hidden>
+                                            Sila Pilih
+                                        </option>
+                                        <option value="01">Tidak Aktif</option>
+                                        <option value="02">Aktif</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col text-end">
+                                    <button class="btn btn-info" type="submit">Cipta</button>
+                                    <a href="/laman_utama" class="btn btn-danger">Kembali</a>
+                                </div>
+                            </div>
+
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="../../assets/js/plugins/datatables.js"></script>
-    <script type="text/javascript">
-        const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
-            searchable: true,
-            fixedHeight: true
-        });
+    <script src="/assets/ckeditor5/build/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor-soalan'))
+            .catch(error => {
+                console.error(error);
+            });
     </script>
+
+    {{-- <script type="text/javascript">
+        CKEDITOR.replace('editor', {
+            language: 'en',
+            uiColor: '#0067b8',
+        });
+    </script> --}}
 
 @stop
