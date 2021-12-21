@@ -117,8 +117,7 @@
                     </li>
                 @endcan
 
-                @if (auth()->user()->can('kebenaran pengguna') ||
-    auth()->user()->can('pengurusan pengguna'))
+                @if (auth()->user()->can('kebenaran pengguna') || auth()->user()->can('senarai pengguna berdaftar'))
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#pentadbiranpenggunadrop" class="nav-link "
                             aria-controls="applicationsExamples" role="button" aria-expanded="false">

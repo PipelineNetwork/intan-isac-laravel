@@ -63,12 +63,18 @@
                             <div class="col-6">
                                 <label for="user_group_id">Peranan :</label>
                                 <div class="form-group">
+                                    @role('penyelaras')
+                                    <select class="form-control mb-3" name="user_group_id" id="pilih1" required readonly>
+                                        <option value="pengawas" selected>Pengawas</option>
+                                    </select>
+                                    @else
                                     <select class="form-control mb-3" name="user_group_id" id="pilih1" required>
                                         <option value="" selected hidden>Sila pilih</option>
                                         @foreach ($role as $role)
                                         <option value="{{$role->id}}">{{ ucfirst(trans($role->name)) }}</option>
                                         @endforeach
                                     </select>
+                                    @endrole
                                 </div>
                             </div>
                             <div id="pilih2" style="display:none" class="col-6">
