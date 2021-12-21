@@ -28,7 +28,8 @@
                 </li>
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Laporan</a>
                 </li>
-                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Laporan Statistik Keseluruhan Pencapaian
+                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Laporan Statistik Keseluruhan
+                    Pencapaian
                     Penilaian
                     ISAC Mengikut Bulan</li>
             </ol>
@@ -70,7 +71,7 @@
 
                 <div class="row  mb-0">
                     <div class="col text-center">
-                        <h5 class="text-white"> STATISTIK KESELURUHAN PENCAPAIAN PENILAIAN ISAC </h5>
+                        <h5 class="text-white"> STATISTIK KESELURUHAN PENCAPAIAN PENILAIAN ISAC MENGIKUT BULAN</h5>
                         @if ($tahuns != null)
                             <h6 class="text-white">BAGI TAHUN {{ $tahuns }}</h6>
                         @else
@@ -113,35 +114,53 @@
                                     Januari
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_jans == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_jans }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_jans == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_jans }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_jans == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_jans }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_jans == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_jans }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_jans == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_jans }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_jans == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_jans }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_jans == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_jans }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -151,35 +170,53 @@
                                     Februari
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_febs == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_febs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_febs == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_febs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_febs == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_febs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_febs == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_febs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_febs == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_febs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_febs == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_febs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_febs == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_febs }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -189,35 +226,53 @@
                                     Mac
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_macs == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_macs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_macs == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_macs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_macs == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_macs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_macs == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_macs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_macs == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_macs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_macs == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_macs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_macs == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_macs }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -227,35 +282,53 @@
                                     April
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_aprs == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_aprs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_aprs == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_aprs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_aprs == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_aprs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_aprs == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_aprs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_aprs == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_aprs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_aprs == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_aprs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_aprs == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_aprs }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -265,35 +338,53 @@
                                     Mei
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_meis == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_meis }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_meis == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_meis }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_meis == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_meis }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_meis == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_meis }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_meis == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_meis }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_meis == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_meis }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_meis == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_meis }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -303,35 +394,53 @@
                                     Jun
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_juns == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_juns }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_juns == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_juns }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_juns == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_juns }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_juns == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_juns }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_juns == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_juns }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_juns == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_juns }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_juns == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_juns }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -341,35 +450,53 @@
                                     Julai
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_julais == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_julais }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_julais == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_julais }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_julais == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_julais }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_julais == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_julais }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_julais == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_julais }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_julais == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_julais }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_julais == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_julais }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -379,35 +506,53 @@
                                     Ogos
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_ogoss == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_ogoss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_ogoss == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_ogoss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_ogoss == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_ogoss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_ogoss == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_ogoss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_ogoss == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_ogoss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_ogoss == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_ogoss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_ogoss == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_ogoss }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -417,35 +562,53 @@
                                     September
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_seps == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_seps }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_seps == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_seps }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_seps == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_seps }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_seps == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_seps }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_seps == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_seps }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_seps == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_seps }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_seps == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_seps }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -455,35 +618,53 @@
                                     Oktober
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_okts == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_okts }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_okts == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_okts }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_okts == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_okts }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_okts == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_okts }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_okts == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_okts }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_okts == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_okts }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_okts == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_okts }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -493,35 +674,53 @@
                                     November
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_novs == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_novs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_novs == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_novs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_novs == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_novs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_novs == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_novs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_novs == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_novs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_novs == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_novs }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_novs == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_novs }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -531,35 +730,53 @@
                                     Disember
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_sesi_diss == null)
+                                        0
+                                    @else
+                                        {{ $bil_sesi_diss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                            0
-                                        @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    0
+                                    @if ($bil_mohon_diss == null)
+                                        0
+                                    @else
+                                        {{ $bil_mohon_diss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_duduk_diss == null)
+                                        0
+                                    @else
+                                        {{ $bil_duduk_diss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_lulus_diss == null)
+                                        0
+                                    @else
+                                        {{ $bil_lulus_diss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_lulus_diss == null)
+                                        0
+                                    @else
+                                        {{ $percent_lulus_diss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($bil_gagal_diss == null)
+                                        0
+                                    @else
+                                        {{ $bil_gagal_diss }}
+                                    @endif
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    @if ($percent_gagal_diss == null)
+                                        0
+                                    @else
+                                        {{ $percent_gagal_diss }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -569,35 +786,67 @@
                                 <td class="text-sm text-center font-weight-normal">
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
+                                    <b>
+                                        @if ($bil_sesi_jumlahs == null)
                                             0
                                         @else
-                                            {{ $bil_mohon_jan }}
-                                        @endif --}}
-                                    <b>0</b>
+                                            {{ $bil_sesi_jumlahs }}
+                                        @endif
+                                    </b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
+                                    <b>
+                                        @if ($bil_mohon_jumlahs == null)
                                             0
                                         @else
-                                            {{ $bil_duduk_jan }}
-                                        @endif --}}
-                                    <b>0</b>
+                                            {{ $bil_mohon_jumlahs }}
+                                        @endif
+                                    </b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    <b>0</b>
+                                    <b>
+                                        @if ($bil_duduk_jumlahs == null)
+                                            0
+                                        @else
+                                            {{ $bil_duduk_jumlahs }}
+                                        @endif
+                                    </b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    <b>0</b>
+                                    <b>
+                                        @if ($bil_lulus_jumlahs == null)
+                                            0
+                                        @else
+                                            {{ $bil_lulus_jumlahs }}
+                                        @endif
+                                    </b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    <b>0</b>
+                                    <b>
+                                        @if ($percent_lulus_jumlahs == null)
+                                            0
+                                        @else
+                                            {{ $percent_lulus_jumlahs }}
+                                        @endif
+                                    </b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    <b>0</b>
+                                    <b>
+                                        @if ($bil_gagal_jumlahs == null)
+                                            0
+                                        @else
+                                            {{ $bil_gagal_jumlahs }}
+                                        @endif
+                                    </b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    <b>0</b>
+                                    <b>
+                                        @if ($percent_gagal_jumlahs == null)
+                                            0
+                                        @else
+                                            {{ $percent_gagal_jumlahs }}
+                                        @endif
+                                    </b>
                                 </td>
                             </tr>
                         </tbody>

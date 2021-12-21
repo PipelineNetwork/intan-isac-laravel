@@ -75,6 +75,12 @@
                 <div class="row  mb-0">
                     <div class="col text-center">
                         <h5 class="text-white"> STATISTIK KESELURUHAN PENCAPAIAN PENILAIAN ISAC </h5>
+                        @if ($ministrys != null)
+                            <h6 class="text-white" style="text-transform: uppercase">KEMENTERIAN :
+                                {{ $ministrys }}</h6>
+                        @else
+                            <h6 class="text-white">SEMUA KEMENTERIAN</h6>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -105,35 +111,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- <tr>
+                            {{-- @foreach ($senarai_keputusans as $senarai_keputusan)
+                            <tr>
                                 <td class="text-sm text-center font-weight-normal">
-                                    1</td>
+                                    {{ $loop->index + 1 }}</td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    Januari
-                                </td>
+                                    {{ $senarai_keputusan->ic_peserta }}</td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif
-                                    0
-                                </td>
+                                    {{ $senarai_keputusan->nama_peserta }}</td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif
-                                    0
-                                </td>
+                                    {{ $senarai_keputusan->KOD_KEMENTERIAN }}</td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
+                                    {{ $senarai_keputusan->KOD_JABATAN }}</td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr> --}}
+                                    {{ $senarai_keputusan->tarikh_penilaian }}</td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    {{ $senarai_keputusan->keputusan }}</td>
+                                <td class="text-sm text-center font-weight-normal">
+                                    {{ $senarai_keputusan->no_sijil }}</td>
+                            </tr>
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>

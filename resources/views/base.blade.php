@@ -437,7 +437,7 @@
                                         </span>
                                     </a> --}}
                                     <a class="nav-link " href="/laporan/penilaian-isac-mengikut-kementerian">
-                                        <span class="sidenav-normal"> Laporan Penilaian ISAC <br> Mengikut Kementerian
+                                        <span class="sidenav-normal"> Laporan Penilaian ISAC <br> Mengikut Kementerian <br> & Jabatan
                                         </span>
                                     </a>
                                 </li>
