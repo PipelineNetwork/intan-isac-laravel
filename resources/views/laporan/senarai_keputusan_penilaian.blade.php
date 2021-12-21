@@ -1,6 +1,6 @@
 @extends('base')
 @section('content')
-    
+
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col">
@@ -12,7 +12,8 @@
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <title>shop </title>
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g transform="translate(-1716.000000, -439.000000)" fill="#252f40" fill-rule="nonzero">
+                                        <g transform="translate(-1716.000000, -439.000000)" fill="#252f40"
+                                            fill-rule="nonzero">
                                             <g transform="translate(1716.000000, 291.000000)">
                                                 <g transform="translate(0.000000, 148.000000)">
                                                     <path
@@ -30,7 +31,8 @@
                         </li>
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Laporan</a>
                         </li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Laporan Senarai Keputusan Penilaian</li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Laporan Senarai Keputusan
+                            Penilaian</li>
                     </ol>
                     <h5 class="font-weight-bolder">Laporan Senarai Keputusan Penilaian</h5>
                 </nav>
@@ -121,6 +123,12 @@
                         @else
                             <h6 class="text-white">KEPUTUSAN : LULUS & GAGAL</h6>
                         @endif
+                        @if ($check_kementerians != null)
+                            <h6 class="text-white" style="text-transform: uppercase">{{ $check_kementerians }}</h6>
+                        @endif
+                        @if ($check_jabatans != null)
+                            <h6 class="text-white" style="text-transform: uppercase">{{ $check_jabatans }}</h6>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -137,6 +145,8 @@
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Nama</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
+                                    Kementerian</th>
+                                <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Jabatan</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Tarikh Penilaian</th>
@@ -147,35 +157,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    1</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    Januari
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    0
-                                </td>
-                            </tr> --}}
+                            @foreach ($senarai_keputusans as $senarai_keputusan)
+                                <tr>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $loop->index + 1 }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $senarai_keputusan->ic_peserta }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $senarai_keputusan->nama_peserta }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $senarai_keputusan->KOD_KEMENTERIAN }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $senarai_keputusan->KOD_JABATAN }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $senarai_keputusan->tarikh_penilaian }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $senarai_keputusan->keputusan }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $senarai_keputusan->no_sijil }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -231,7 +232,7 @@
                     },
                     "sInfo": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ data",
                     "sInfoEmpty": "Menunjukkan 0 ke 0 daripada 0 data",
-                    "sLengthMenu":    "Menunjukkan _MENU_ data",
+                    "sLengthMenu": "Menunjukkan _MENU_ data",
                 }
             });
         });

@@ -105,6 +105,12 @@
                         @else
                             <h6 class="text-white">SEHINGGA TAHUN {{ $tahun_semasas }}</h6>
                         @endif
+                        @if ($check_kementerians != null)
+                            <h6 class="text-white" style="text-transform: uppercase">{{ $check_kementerians }}</h6>
+                        @endif
+                        @if ($check_jabatans != null)
+                            <h6 class="text-white" style="text-transform: uppercase">{{ $check_jabatans }}</h6>
+                        @endif
                     </div>
                 </div>
             </div>
