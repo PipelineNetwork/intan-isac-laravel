@@ -77,6 +77,7 @@
                                     <input class="form-control mb-3" type="file" name="file_aduan_send">
                                 </div>
                             </div>
+                            <small><span style="color: red">Had maksimum fail adalah 5 mb.</span></small>
                         </div>
                         <div style="text-align: right">
                             <button class="btn bg-gradient-warning" type="submit">Hantar</button>

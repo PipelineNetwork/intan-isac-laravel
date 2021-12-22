@@ -91,9 +91,15 @@ class TambahRayuanController extends Controller
 
         $tambahrayuan->save();
 
+        $tambahrayuan = TambahRayuan::join('users', 'tambah_rayuans.user_id', 'users.id')
+            ->join('pro_peserta', 'users.nric', 'pro_peserta.NO_KAD_PENGENALAN')
+            ->select('tambah_rayuans.*', 'users.id', 'users.nric', 'pro_peserta.NAMA_PESERTA', 'pro_peserta.NO_KAD_PENGENALAN')
+            ->where('users.id', $current_user->id)
+            ->get()->first();
+
         $users = User::where('user_group_id', '=', '1')->get();
         foreach ($users as $user) {
-            Mail::to($user->email)->send(new RayuanDibalas($tambahrayuan));
+            Mail::to($user->email)->send(new RayuanDicipta($tambahrayuan));
         }
 
         return redirect('/tambahrayuans');
@@ -151,11 +157,13 @@ class TambahRayuanController extends Controller
         $tambahrayuan->status = "dibalas";
         $tambahrayuan->save();
 
-        $user = User::where('id', '=', $tambahrayuan->user_id)
-            ->select('email')
-            ->get();
+        $user = User::join('pro_peserta', 'users.nric', 'pro_peserta.NO_KAD_PENGENALAN')
+            ->where('users.id', '=', $tambahrayuan->user_id)
+            ->select('pro_peserta.EMEL_PESERTA', 'pro_peserta.created_at')
+            ->orderBy('pro_peserta.created_at', 'desc')
+            ->get()->first();
 
-        Mail::to($user)->send(new RayuanDibalas($tambahrayuan));
+        Mail::to($user->EMEL_PESERTA)->send(new RayuanDibalas($tambahrayuan));
         return redirect('/tambahrayuans');
     }
 
