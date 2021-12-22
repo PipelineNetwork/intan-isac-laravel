@@ -188,6 +188,7 @@ class RegisteredUserController extends Controller
 
         // dd($user);
         // return redirect('/profil')->with('success', 'Berjaya didaftarkan!');
-        return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::HOME);
+        return redirect('/');
     }
 }

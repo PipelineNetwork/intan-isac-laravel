@@ -31,18 +31,17 @@ class TambahAduanController extends Controller
         $role = Role::where('id', $user_role)->first();
         $role = $role->name;
 
-        if ($role == 'calon'){
+        if ($role == 'calon') {
             $tambahaduans = TambahAduan::where('user_id', $current_user)
-            ->join('users', 'tambah_aduans.user_id', 'users.id')
-            ->select('tambah_aduans.*', 'users.name', 'users.email')
-            ->orderBy('created_at', 'desc')
-            ->get();
-        }
-        else {
+                ->join('users', 'tambah_aduans.user_id', 'users.id')
+                ->select('tambah_aduans.*', 'users.name', 'users.email')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } else {
             $tambahaduans = TambahAduan::join('users', 'tambah_aduans.user_id', 'users.id')
-            ->select('tambah_aduans.*', 'users.name', 'users.email')
-            ->orderBy('created_at', 'desc')
-            ->get();
+                ->select('tambah_aduans.*', 'users.name', 'users.email')
+                ->orderBy('created_at', 'desc')
+                ->get();
         }
         // dd($tambahaduans);
         if (Auth::check()) {
@@ -95,6 +94,13 @@ class TambahAduanController extends Controller
         $tambahaduan->user_id = $current_user->id;
         $tambahaduan->save();
 
+        $tambahaduan = TambahAduan::join('users', 'tambah_aduans.user_id', 'users.id')
+            ->join('pro_peserta', 'users.nric', 'pro_peserta.NO_KAD_PENGENALAN')
+            ->select('tambah_aduans.*', 'users.id', 'users.nric', 'pro_peserta.NAMA_PESERTA', 'pro_peserta.NO_KAD_PENGENALAN')
+            ->where('users.id', $current_user->id)
+            ->get()->first();
+
+        // dd($tambahaduan);
         $users = User::where('user_group_id', '=', '1')->get();
         foreach ($users as $user) {
             Mail::to($user->email)->send(new AduanDicipta($tambahaduan));
@@ -153,11 +159,14 @@ class TambahAduanController extends Controller
         $tambahaduan->user_id = $request->user_id;
         $tambahaduan->save();
 
-        $user = User::where('id', '=', $tambahaduan->user_id)
-            ->select('email')
-            ->get();
+        $user = User::join('pro_peserta', 'users.nric', 'pro_peserta.NO_KAD_PENGENALAN')
+            ->where('users.id', '=', $tambahaduan->user_id)
+            ->select('pro_peserta.EMEL_PESERTA', 'pro_peserta.created_at')
+            ->orderBy('pro_peserta.created_at', 'desc')
+            ->get()->first();
 
-        Mail::to($user)->send(new AduanDibalas($tambahaduan));
+            // dd($user);
+        Mail::to($user->EMEL_PESERTA)->send(new AduanDibalas($tambahaduan));
 
         return redirect('/tambahaduans');
     }

@@ -22,6 +22,7 @@ class RayuanDibalas extends Mailable
     public function __construct(TambahRayuan $rayuan)
     {
         $this->rayuan = $rayuan;
+        $this->tajuk = 'ISAC - Rayuan: ' . $this->rayuan->tajuk;
     }
 
     /**
@@ -31,8 +32,12 @@ class RayuanDibalas extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.rayuan_dibalas')->with([
-            'rayuan'=> $this->rayuan
+        return $this->view('emails.rayuan_dibalas')->subject($this->tajuk)->with([
+            'tajuk_rayuan'=> $this->rayuan->tajuk,
+            'keterangan_rayuan' => $this->rayuan->keterangan_rayuan_send,
+            'file_rayuan' => $this->rayuan->file_rayuan_send,
+            'keterangan_rayuan_balas' => $this->rayuan->keterangan_rayuan_reply,
+            'file_rayuan_balas' => $this->rayuan->file_rayuan_reply,
         ]);
     }
 }

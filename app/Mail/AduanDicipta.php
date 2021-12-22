@@ -22,6 +22,7 @@ class AduanDicipta extends Mailable
     public function __construct(TambahAduan $aduan)
     {
         $this->aduan = $aduan;
+        $this->tajuk = 'ISAC - Aduan: ' . $this->aduan->tajuk;
     }
 
     /**
@@ -31,8 +32,8 @@ class AduanDicipta extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.aduan_dicipta')->with([
-            'aduan'=> $this->aduan
+        return $this->view('emails.aduan_dicipta')->subject($this->tajuk)->with([
+            'nama_aduan' => $this->aduan->NAMA_PESERTA
         ]);
     }
 }

@@ -21,6 +21,7 @@ class RayuanDicipta extends Mailable
     public function __construct(TambahRayuan $rayuan)
     {
         $this->rayuan = $rayuan;
+        $this->tajuk = 'ISAC - Rayuan: ' . $this->rayuan->tajuk;
     }
 
     /**
@@ -30,8 +31,8 @@ class RayuanDicipta extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.rayuan_dicipta')->with([
-            'rayuan'=> $this->rayuan
+        return $this->view('emails.rayuan_dicipta')->subject($this->tajuk)->with([
+            'nama_rayuan' => $this->rayuan->NAMA_PESERTA
         ]);
     }
 }

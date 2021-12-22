@@ -31,7 +31,7 @@ class PenggunaDidaftar extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.register_user')->with([
+        return $this->view('emails.register_user')->subject('ISAC - Pendaftaran Berjaya')->with([
             'user'=> $this->user
         ]);
     }
