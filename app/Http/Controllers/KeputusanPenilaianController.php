@@ -19,106 +19,124 @@ class KeputusanPenilaianController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
+    public function index()
+    {
 
         $keputusans = KeputusanPenilaian::all();
-        return view('proses_penilaian.senarai_slip',[
-            'keputusans'=>$keputusans
+        return view('proses_penilaian.senarai_slip', [
+            'keputusans' => $keputusans
         ]);
-
     }
 
-    public function senarai_sijil(){
+    public function senarai_sijil()
+    {
 
         $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->get();
-        return view('proses_penilaian.senarai_sijil',[
-            'keputusans'=>$keputusans
+        return view('proses_penilaian.senarai_sijil', [
+            'keputusans' => $keputusans
         ]);
-
     }
-    
-    public function semak_keputusan($ic, $id_penilaian){
+
+    public function semak_keputusan($ic, $id_penilaian)
+    {
 
         $keputusans = KeputusanPenilaian::where('id_penilaian', $id_penilaian)
-        ->where('ic_peserta', $ic)->first();
+            ->where('ic_peserta', $ic)->first();
+
+        $tahap = Jadual::where('id_penilaian', $id_penilaian)->first();
 
         if ($keputusans == null) {
             alert('Tiada dalam rekod penilaian');
             return redirect('/semakan_keputusan_calon');
         }
-        return view('proses_penilaian.keputusan_penilaian.keputusan_calon',[
-            'keputusan'=>$keputusans
+        return view('proses_penilaian.keputusan_penilaian.keputusan_calon', [
+            'keputusan' => $keputusans,
+            'tahap' => $tahap
         ]);
     }
 
-    public function slip_keputusan($id){
-        $rekod_sijil = KeputusanPenilaian::find($id);
+    public function slip_keputusan($ic, $id_penilaian)
+    {
+        $rekod_sijil = KeputusanPenilaian::where('ic_peserta', $ic)->where('id_penilaian', $id_penilaian)->first();
         $nama = $rekod_sijil->nama_peserta;
         $ic = $rekod_sijil->ic_peserta;
         $tarikh = $rekod_sijil->tarikh_penilaian;
 
-        $pdf = PDF::loadView('pdf.slip_keputusan',[
-            'nama'=>$nama,
-            'ic'=>$ic,
-            'tarikh'=>$tarikh,
-        ]);
-         return $pdf->download('Slip_keputusan_'.$ic.'.pdf');
+        $tahap = Jadual::where('id_penilaian', $id_penilaian)->first();
 
+        $pdf = PDF::loadView('pdf.slip_keputusan', [
+            'nama' => $nama,
+            'ic' => $ic,
+            'tarikh' => $tarikh,
+            'rekod' => $rekod_sijil,
+            'tahap' => $tahap
+        ]);
+        return $pdf->download('Slip_keputusan_' . $ic . '.pdf');
     }
-    public function sijil_isac($id){
-        $rekod_sijil = KeputusanPenilaian::find($id);
+    public function sijil_isac($ic, $id_penilaian)
+    {
+        $rekod_sijil = KeputusanPenilaian::where('ic_peserta', $ic)->where('id_penilaian', $id_penilaian)->first();
         $nama = $rekod_sijil->nama_peserta;
         $ic = $rekod_sijil->ic_peserta;
         $tarikh = $rekod_sijil->tarikh_penilaian;
         $no_sijil = $rekod_sijil->no_sijil;
 
-        $text_qr = "No. Kad Pengenalan: ".$ic."
-No. Sijil: ".sprintf("%'.05d\n", $no_sijil);
+        $text_qr = "No. Kad Pengenalan: " . $ic . "
+No. Sijil: " . sprintf("%'.05d\n", $no_sijil);
         $qr_encode = urlencode($text_qr);
 
-        $pdf = PDF::loadView('pdf.sijil_isac',[
-            'nama'=>$nama,
-            'ic'=>$ic,
-            'tarikh'=>$tarikh,
-            'no_sijil'=>$no_sijil,
-            'qr'=>$qr_encode
+        $pdf = PDF::loadView('pdf.sijil_isac', [
+            'nama' => $nama,
+            'ic' => $ic,
+            'tarikh' => $tarikh,
+            'no_sijil' => $no_sijil,
+            'qr' => $qr_encode
         ]);
-         return $pdf->download('Sijil_ISAC_'.$ic.'.pdf');
-
+        return $pdf->download('Sijil_ISAC_' . $ic . '.pdf');
     }
 
-    public function senarai_penilaian_calon(){
+    public function senarai_penilaian_calon()
+    {
         $calon = Auth::user();
         $penilaian = MohonPenilaian::where('no_ic', $calon->nric)->get();
-// dd($penilaian);
-        return view('proses_penilaian.keputusan_penilaian.semak_keputusan_calon',[
-            'calon'=>$calon,
-            'penilaian'=>$penilaian
+        // dd($penilaian);
+        return view('proses_penilaian.keputusan_penilaian.semak_keputusan_calon', [
+            'calon' => $calon,
+            'penilaian' => $penilaian
         ]);
     }
 
-    public function markah_semua($id_penilaian){
+    public function markah_semua($id_penilaian)
+    {
         $ic = Auth::user()->nric;
         $peserta = MohonPenilaian::where('no_ic', $ic)->first();
         $jadual = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
 
         $keputusan = Bankjawapanpengetahuan::where('id_calon', $ic)
-        ->where('id_penilaian', $id_penilaian)
-        ->get();
+            ->where('id_penilaian', $id_penilaian)
+            ->get();
 
         $markah = 0;
-        foreach($keputusan as $keputusan){
+        foreach ($keputusan as $keputusan) {
             $markah = $markah + $keputusan->markah;
         }
 
         $m_kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $ic)->get();
-        foreach($m_kemahiran as $m_kemahiran){
-            if ($m_kemahiran->markah_kemahiran != null) {
-                $markah_kem = $m_kemahiran->markah_kemahiran;
-            }else{
-                $markah_kem = 0;
+        foreach ($m_kemahiran as $m_kemahiran) {
+            if ($m_kemahiran->jumlah_markah_internet != null) {
+                $markah_internet = $m_kemahiran->jumlah_markah_internet;
+            }
+
+            if ($m_kemahiran->jumlah_markah_word != null) {
+                $markah_word = $m_kemahiran->jumlah_markah_word;
+            }
+
+            if ($m_kemahiran->jumlah_markah_email != null) {
+                $markah_email = $m_kemahiran->jumlah_markah_email;
             }
         }
+
+        $markah_kem = $markah_internet + $markah_word + $markah_email;
 
         $keputusan = new KeputusanPenilaian;
         $keputusan->id_peserta = $peserta->id_calon;
@@ -126,52 +144,82 @@ No. Sijil: ".sprintf("%'.05d\n", $no_sijil);
         $keputusan->nama_peserta = $peserta->nama;
         $keputusan->ic_peserta = $ic;
         $keputusan->tarikh_penilaian = $jadual->TARIKH_SESI;
-        if($jadual->LOKASI != null){
+        if ($jadual->LOKASI != null) {
             $keputusan->lokasi = $jadual->LOKASI;
-        }else{
+        } else {
             $keputusan->lokasi = "Atas Talian";
         }
-        $keputusan->markah_pengetahuan = $markah;
-        $keputusan->markah_kemahiran = $markah_kem;
-        $keputusan->markah_keseluruhan = $keputusan->markah_pengetahuan+$keputusan->markah_kemahiran;
 
         $gred_lulus = PemilihanSoalan::where('ID_PEMILIHAN_SOALAN', '70')->first();
-        $lulus = $gred_lulus->NILAI_MARKAH_LULUS;
+        $lulus_pengetahuan = $gred_lulus->NILAI_MARKAH_LULUS;
 
-        if($keputusan->markah_keseluruhan >= $lulus){
+        $keputusan->markah_pengetahuan = $markah;
+        if ($keputusan->markah_pengetahuan >= $lulus_pengetahuan) {
+            $keputusan->keputusan_pengetahuan = "Melepasi";
+        } else {
+            $keputusan->keputusan_pengetahuan = "Tidak Melepasi";
+        }
+
+        $keputusan->markah_internet = $markah_internet;
+        if ($keputusan->markah_internet == 2) {
+            $keputusan->keputusan_internet = "Melepasi";
+        } else {
+            $keputusan->keputusan_internet = "Tidak Melepasi";
+        }
+
+        $keputusan->markah_word = $markah_word;
+        if ($keputusan->markah_word == 9) {
+            $keputusan->keputusan_word = "Melepasi";
+        } else {
+            $keputusan->keputusan_word = "Tidak Melepasi";
+        }
+
+        $keputusan->markah_email = $markah_email;
+        if ($keputusan->markah_email == 4) {
+            $keputusan->keputusan_email = "Melepasi";
+        } else {
+            $keputusan->keputusan_email = "Tidak Melepasi";
+        }
+
+        $keputusan->markah_kemahiran = $markah_kem;
+
+        $keputusan->markah_keseluruhan = $keputusan->markah_pengetahuan + $keputusan->markah_kemahiran;
+
+        if ($keputusan->keputusan_pengetahuan && $keputusan->keputusan_internet && $keputusan->keputusan_word && $keputusan->keputusan_email == "Melepasi") {
             $keputusan->keputusan = "Lulus";
-        }else{
+        } else {
             $keputusan->keputusan = "Gagal";
         }
+
         $m_penilaian = MohonPenilaian::where('no_ic', $ic)->where('id_sesi', $id_penilaian)->first();
         $m_penilaian->status_penilaian = $keputusan->keputusan;
         $m_penilaian->save();
         $keputusan->save();
 
         $rekodtarikh = KeputusanPenilaian::where('id_penilaian', $id_penilaian)
-        ->get();
+            ->get();
         $bilangan_rekod = count($rekodtarikh);
-        $bilangan = $bilangan_rekod-1;
+        $bilangan = $bilangan_rekod - 1;
         // dd($rekodtarikh[0]);
 
-        if($bilangan == -1 || $bilangan == 0){
-            $bilangan= 0;
+        if ($bilangan == -1 || $bilangan == 0) {
+            $bilangan = 0;
             $no_sijil_latest = $rekodtarikh[$bilangan]->no_sijil;
-        }else{
-            $no_sijil_latest = $rekodtarikh[$bilangan-1]->no_sijil;
+        } else {
+            $no_sijil_latest = $rekodtarikh[$bilangan - 1]->no_sijil;
         }
         // dd($bilangan);
         // $no_sijil_latest = $rekodtarikh[$bilangan]->no_sijil;
         // dd($rekodtarikh);
-        if($no_sijil_latest == null){
+        if ($no_sijil_latest == null) {
             // dd('sini null');
-            $no_sijil = 00000+1;
+            $no_sijil = 00000 + 1;
             $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
-        }else{
-            $no_sijil = $no_sijil_latest+00001;
+        } else {
+            $no_sijil = $no_sijil_latest + 00001;
             $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
         }
-        
+
         $keputusan->save();
 
         return redirect('/tamat-penilaian');

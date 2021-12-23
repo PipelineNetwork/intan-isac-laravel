@@ -68,10 +68,14 @@
                         <h6 class="mb-0 text-dark">Tahap Penilaian</h6>
                     </div>
                     <div class="col-lg-9">
-                        <p class="mb-0">: Asas</p>
+                        @if ($tahap->KOD_TAHAP == 01)
+                            <p class="mb-0">: Asas</p>
+                        @else
+                            <p class="mb-0">: Lanjutan</p>
+                        @endif
                     </div>
                 </div>
-                
+
                 <div class="row mt-4">
                     <div class="col">
                         <table class="w-100 text-center">
@@ -79,27 +83,29 @@
                                 <td class="text-danger" style="border: 1px solid black;">PENGETAHUAN</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid black;">Melepasi</td>
+                                <td style="border: 1px solid black;">{{ $keputusan->keputusan_pengetahuan }}</td>
                             </tr>
                             <tr>
                                 <td class="text-danger" style="border: 1px solid black;">KEMAHIRAN</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid black;"><strong>Internet: </strong>Melepasi
+                                <td style="border: 1px solid black;"><strong>Internet:
+                                    </strong>{{ $keputusan->keputusan_internet }}
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid black;"><strong>Aplikasi Pejabat:
-                                    </strong>Melepasi</td>
+                                <td style="border: 1px solid black;"><strong>Pemprosesan Perkataan:
+                                    </strong>{{ $keputusan->keputusan_word }}</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid black;"><strong>Emel: </strong>Melepasi</td>
+                                <td style="border: 1px solid black;"><strong>Aplikasi E-mel:
+                                    </strong>{{ $keputusan->keputusan_email }}</td>
                             </tr>
                             <tr>
                                 <td class="text-danger" style="border: 1px solid black;">KEPUTUSAN KESELURUHAN</td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid black;">{{$keputusan->keputusan}}</td>
+                                <td style="border: 1px solid black;">{{ $keputusan->keputusan }}</td>
                             </tr>
                         </table>
                     </div>
@@ -107,9 +113,9 @@
 
                 <div class="row mt-3">
                     <div class="col text-center">
-                        <a href="#" class="btn btn-info">Slip Keputusan</a>
-                        @if ($keputusan->keputusan == "Lulus")
-                            <a href="#" class="btn btn-info">Sijil Penilaian</a>
+                        <a href="/slip_keputusan/{{$keputusan->ic_peserta}}/{{$keputusan->id_penilaian}}" class="btn btn-info">Slip Keputusan</a>
+                        @if ($keputusan->keputusan == 'Lulus')
+                            <a href="/sijil_penilaian/{{$keputusan->ic_peserta}}/{{$keputusan->id_penilaian}}" class="btn btn-info">Sijil Penilaian</a>
                         @endif
                     </div>
                 </div>
