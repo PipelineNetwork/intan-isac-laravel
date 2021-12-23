@@ -27,31 +27,18 @@ class DashboardController extends Controller
             ->orWhere('jantina', 'Perempuan')
             ->count();
 
-        $bil_lulus_jumlah = KeputusanPenilaian::join('mohon_penilaians', 'keputusan_penilaians.ic_peserta', 'mohon_penilaians.no_ic')
-            ->select('*')
-            ->where([['keputusan', 'Lulus'], ['jantina', 'Lelaki']])
-            ->orWhere([['keputusan', 'Lulus'], ['jantina', 'Perempuan']])
-            ->count();
+        $bil_lulus_jumlah = KeputusanPenilaian::where('keputusan', 'Lulus')->count();
 
-        $bil_gagal_jumlah = KeputusanPenilaian::join('mohon_penilaians', 'keputusan_penilaians.ic_peserta', 'mohon_penilaians.no_ic')
-            ->select('*')
-            ->where([['keputusan', 'Gagal'], ['jantina', 'Lelaki']])
-            ->orWhere([['keputusan', 'Gagal'], ['jantina', 'Perempuan']])
-            ->count();
+        $bil_gagal_jumlah = KeputusanPenilaian::where('keputusan', 'Gagal')->count();
 
         //graf kelulusan
-        $graf_lulus_gagal = KeputusanPenilaian::join('mohon_penilaians', 'keputusan_penilaians.ic_peserta', 'mohon_penilaians.no_ic')
-            ->where('jantina', 'Lelaki')
-            ->orWhere('jantina', 'Perempuan')
-            ->select('keputusan_penilaians.keputusan as keputusan', DB::raw('count(*) as jumlah'))
+        $graf_lulus_gagal = KeputusanPenilaian::select('keputusan', DB::raw('count(*) as jumlah'))
             ->groupBy('keputusan')
             ->get()->toArray();
         // ->toSql();
 
         //graf permohonan bulanan
-        $graf_permohonan_bulanan = MohonPenilaian::where('jantina', 'Lelaki')
-            ->orWhere('jantina', 'Perempuan')
-            ->select(DB::raw("CONCAT_WS('/',MONTH(created_at),YEAR(created_at)) as monthname"), DB::raw('count(*) as jumlah'))
+        $graf_permohonan_bulanan = MohonPenilaian::select(DB::raw("CONCAT_WS('/',MONTH(created_at),YEAR(created_at)) as monthname"), DB::raw('count(*) as jumlah'))
             ->whereYear('created_at', date('Y'))
             ->groupBy('monthname')
             ->get()->toArray();

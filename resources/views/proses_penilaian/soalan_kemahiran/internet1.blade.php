@@ -74,7 +74,7 @@
 
             <div class="card vh-100 mt-5">
                 <div class="card-body">
-                    <form action="/soalan-kemahiran-internet/{{$id_penilaian}}/page1" method="POST" id="penilaian">
+                    <form action="/soalan-kemahiran-internet-page1/{{$id_penilaian}}/{{ $id_internet }}" method="POST" id="penilaian">
                         @csrf
                         <input type="hidden" name="timer" value="" id="timer">
                         <div class="row">
@@ -97,14 +97,6 @@
             </div>
         </div>
 
-        <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
-                type="text/javascript"></script>
-        <script type="text/javascript">
-            const dataTableSoalanKemahiranInternet = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_internet", {
-                searchable: true,
-                fixedHeight: true
-            });
-        </script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         @include('sweet::alert')
     @stop

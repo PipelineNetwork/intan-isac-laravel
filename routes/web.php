@@ -129,12 +129,12 @@ Route::post('/{soalan}/emel/{emel}/delete', [BanksoalankemahiranemailController:
 
 Route::get('/soalan-kemahiran-internet/{id_penilaian}', [SoalankemahiraninternetController::class, 'index']);
 Route::get('/soalan-kemahiran-internet/{id_penilaian}/{soalan}', [SoalankemahiraninternetController::class, 'page1']);
-Route::post('/soalan-kemahiran-internet/{id_penilaian}/page1', [SoalankemahiraninternetController::class, 'savepage1']);
+Route::post('/soalan-kemahiran-internet-page1/{id_penilaian}/{soalan}', [SoalankemahiraninternetController::class, 'savepage1']);
 // Route::post('/soalan-kemahiran-internet/{soalan}/page2', [SoalankemahiraninternetController::class, 'page2']);
-Route::post('/soalan-kemahiran-internet/{id}/page3', [SoalankemahiraninternetController::class, 'savepage2']);
-Route::post('/soalan-kemahiran-internet/{id}/page4', [SoalankemahiraninternetController::class, 'page3']);
-Route::post('/soalan-kemahiran-internet/{id}/page5', [SoalankemahiraninternetController::class, 'page4']);
-Route::post('/soalan-kemahiran-internet/{id}/page6', [SoalankemahiraninternetController::class, 'page5']);
+Route::post('/soalan-kemahiran-internet-page3/{id_penilaian}/{soalan}', [SoalankemahiraninternetController::class, 'savepage2']);
+Route::post('/soalan-kemahiran-internet-page4/{id_penilaian}/{soalan}', [SoalankemahiraninternetController::class, 'page3']);
+Route::post('/soalan-kemahiran-internet-page5/{id_penilaian}/{soalan}', [SoalankemahiraninternetController::class, 'page4']);
+Route::post('/soalan-kemahiran-internet-page6/{id_penilaian}/{soalan}', [SoalankemahiraninternetController::class, 'page5']);
 
 Route::get('/soalan-kemahiran-word', function () {
     return view('proses_penilaian.soalan_kemahiran.mic_word2');

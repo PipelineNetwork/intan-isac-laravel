@@ -39,13 +39,13 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-xl-2 mb-3 mt-2" style="text-align: center">
-                            <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page5" method="POST" id="penilaian">
+                            <form action="/soalan-kemahiran-internet-page5/{{$id_penilaian}}/{{ $id_internet }}" method="POST" id="penilaian">
                                 @csrf
                                 <h3>
                                     <div class="row">
                                         <div class="col">
                                             <div class="btn-group" role="group">
-                                                <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
+                                                {{-- <input type="hidden" name="user_id" value="{{ $id_internet }}"> --}}
                                                 <button class="btn btn-danger"
                                                     style="border-radius: 5px; cursor: pointer;" type="submit"><i
                                                         class="fas fa-arrow-left fa-lg" data-bs-toggle="tooltip"
