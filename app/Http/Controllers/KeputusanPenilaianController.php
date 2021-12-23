@@ -22,7 +22,7 @@ class KeputusanPenilaianController extends Controller
     public function index()
     {
 
-        $keputusans = KeputusanPenilaian::all();
+        $keputusans = KeputusanPenilaian::orderBy('created_at', 'desc')->get();
         return view('proses_penilaian.senarai_slip', [
             'keputusans' => $keputusans
         ]);
@@ -97,12 +97,15 @@ No. Sijil: " . sprintf("%'.05d\n", $no_sijil);
 
     public function senarai_penilaian_calon()
     {
-        $calon = Auth::user();
-        $penilaian = MohonPenilaian::where('no_ic', $calon->nric)->get();
+        $ic = Auth::user()->nric;
+        $prof = KeputusanPenilaian::where('ic_peserta', $ic)->first();
+        $nama = $prof->nama_peserta;
+        $penilaian = MohonPenilaian::where('no_ic', $ic)->orderBy('created_at', 'desc')->get();
         // dd($penilaian);
         return view('proses_penilaian.keputusan_penilaian.semak_keputusan_calon', [
-            'calon' => $calon,
-            'penilaian' => $penilaian
+            'calon' => $ic,
+            'penilaian' => $penilaian,
+            'nama' => $nama
         ]);
     }
 
@@ -121,23 +124,13 @@ No. Sijil: " . sprintf("%'.05d\n", $no_sijil);
             $markah = $markah + $keputusan->markah;
         }
 
-        $m_kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $ic)->get();
-        foreach ($m_kemahiran as $m_kemahiran) {
-            if ($m_kemahiran->jumlah_markah_internet != null) {
-                $markah_internet = $m_kemahiran->jumlah_markah_internet;
-            }
+        $m_kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $ic)->orderBy('created_at', 'desc')->get()->first();
+        // dd($m_kemahiran);
+        $markah_internet = $m_kemahiran->jumlah_markah_internet;
+        $markah_word = $m_kemahiran->jumlah_markah_word;
+        $markah_email = $m_kemahiran->jumlah_markah_email;
 
-            if ($m_kemahiran->jumlah_markah_word != null) {
-                $markah_word = $m_kemahiran->jumlah_markah_word;
-            }
-
-            if ($m_kemahiran->jumlah_markah_email != null) {
-                $markah_email = $m_kemahiran->jumlah_markah_email;
-            }
-        }
-
-        $markah_kem = $markah_internet + $markah_word + $markah_email;
-
+        $markah_kem = $markah_internet +  $markah_word + $markah_email + $markah_email;
         $keputusan = new KeputusanPenilaian;
         $keputusan->id_peserta = $peserta->id_calon;
         $keputusan->id_penilaian = $id_penilaian;
@@ -185,7 +178,7 @@ No. Sijil: " . sprintf("%'.05d\n", $no_sijil);
 
         $keputusan->markah_keseluruhan = $keputusan->markah_pengetahuan + $keputusan->markah_kemahiran;
 
-        if ($keputusan->keputusan_pengetahuan && $keputusan->keputusan_internet && $keputusan->keputusan_word && $keputusan->keputusan_email == "Melepasi") {
+        if (($keputusan->keputusan_pengetahuan == "Melepasi") && ($keputusan->keputusan_internet == "Melepasi") && ($keputusan->keputusan_word == "Melepasi") && ($keputusan->keputusan_email == "Melepasi")) {
             $keputusan->keputusan = "Lulus";
         } else {
             $keputusan->keputusan = "Gagal";

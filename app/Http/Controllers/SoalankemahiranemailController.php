@@ -158,6 +158,13 @@ class SoalankemahiranemailController extends Controller
 
         $jawapancalon->save();
 
-        return redirect('/soalan-kemahiran-email');
+        return redirect('/soalan-kemahiran-email-page2/'.$id_penilaian);
+    }
+
+    public function test($id_penilaian){
+        
+        return view('proses_penilaian.soalan_kemahiran.email2',[
+            'id_penilaian'=>$id_penilaian
+        ]);
     }
 }

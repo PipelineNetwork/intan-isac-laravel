@@ -46,7 +46,7 @@
                                 <h6 class="mb-0 text-dark">Nama</h6>
                             </div>
                             <div class="col-lg-9">
-                                <p class="mb-0">: {{ $calon->name }}</p>
+                                <p class="mb-0">: {{ $nama }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -54,7 +54,7 @@
                                 <h6 class="mb-0 text-dark">No. ID Pengenalan</h6>
                             </div>
                             <div class="col-lg-9">
-                                <p class="mb-0">: {{ $calon->nric }}</p>
+                                <p class="mb-0">: {{ $calon }}</p>
                             </div>
                         </div>
 

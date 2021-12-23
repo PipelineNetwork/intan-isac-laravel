@@ -44,7 +44,7 @@
                         <h6 class="mb-0 text-dark">Nama</h6>
                     </div>
                     <div class="col-lg-9">
-                        <p class="mb-0">: {{ $keputusan->nama_peserta }}</p>
+                        <p class="mb-0" >: {{ $keputusan->nama_peserta }}</p>
                     </div>
                 </div>
                 <div class="row">

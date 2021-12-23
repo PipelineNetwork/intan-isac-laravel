@@ -26,15 +26,15 @@
                                 <table>
                                     <tr>
                                         <td class="h5" style="width: 150px;">NAMA</td>
-                                        <td>: {{ $nama }}</td>
+                                        <td>: {{ $rekod->nama_peserta }}</td>
                                     </tr>
                                     <tr>
                                         <td class="h5" style="width: 150px;">No. ID</td>
-                                        <td>: {{ $ic }}</td>
+                                        <td>: {{ $rekod->ic_peserta }}</td>
                                     </tr>
                                     <tr>
                                         <td class="h5" style="width: 150px;">TARIKH</td>
-                                        <td>: {{ date('d-m-Y', strtotime($tarikh)) }}</td>
+                                        <td>: {{ date('d-m-Y', strtotime($rekod->tarikh_penilaian)) }}</td>
                                     </tr>
                                     <tr>
                                         <td class="h5" style="width: 150px;">TAHAP PENILAIAN</td>
@@ -79,7 +79,7 @@
                                             KESELURUHAN</td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center; border: 1px solid black;">Lulus</td>
+                                        <td style="text-align: center; border: 1px solid black;">{{ $rekod->keputusan }}</td>
                                     </tr>
                                 </table>
                                 </p>

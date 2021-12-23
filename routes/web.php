@@ -142,13 +142,15 @@ Route::get('/soalan-kemahiran-word', function () {
 Route::get('/soalan-kemahiran-word/{id_penilaian}', [SoalankemahiranwordController::class, 'index']);
 Route::get('/soalan-kemahiran-word/{id_penilaian}/{id_soalan_word}', [SoalankemahiranwordController::class, 'show']);
 Route::post('/soalan-kemahiran-word/{id_penilaian}/{id_soalan_word}/save', [SoalankemahiranwordController::class, 'store']);
+Route::get('/soalan-kemahiran-word-page2/{id_penilaian}', [SoalankemahiranwordController::class, 'test']);
 
 Route::get('/soalan-kemahiran-email/{id_penilaian}', [SoalankemahiranemailController::class, 'index']);
 Route::get('/soalan-kemahiran-email/{id_penilaian}/{id_soalan_email}', [SoalankemahiranemailController::class, 'show']);
 Route::post('/soalan-kemahiran-email/{id_penilaian}/{soalan}/save', [SoalankemahiranemailController::class, 'savepage1']);
-Route::get('/soalan-kemahiran-email', function () {
-    return view('proses_penilaian.soalan_kemahiran.email2');
-});
+Route::get('/soalan-kemahiran-email-page2/{id_penilaian}', [SoalankemahiranemailController::class, 'test']);
+// Route::get('/soalan-kemahiran-email', function () {
+//     return view('proses_penilaian.soalan_kemahiran.email2');
+// });
 
 Route::resource('/keputusan_penilaian', KeputusanPenilaianController::class);
 Route::resource('/semak_jawapan', BankjawapanpengetahuanController::class);
