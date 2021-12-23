@@ -9,7 +9,7 @@
     <title>
         ISAC
     </title>
-    
+
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -45,7 +45,7 @@
         }
 
     </style>
-    
+
     <!-- Google Tag Manager -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -59,6 +59,38 @@
 
 <body class="g-sidenav-show  bg-gray-100" oncopy="return false" oncut="return false" onpaste="return false"
     oncontextmenu="return false">
+    <?php
+    use App\Models\Jadual;
+    use App\Models\SelenggaraKawalanSistem;
+    date_default_timezone_set('Asia/Kuala_Lumpur');
+    $jam_mula = date('H');
+    $jam_mula = $jam_mula * 60 * 60;
+    $minit_mula = date('i');
+    $minit_mula = $minit_mula * 60;
+    $saat_mula = date('s');
+    $masa_mula = $jam_mula + $minit_mula + $saat_mula;
+    
+    $jadual = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
+    $masa_end = $jadual->KOD_MASA_TAMAT;
+    $jam_end = date('H', strtotime($masa_end));
+    $jam_end = $jam_end * 60 * 60;
+    $minit_end = date('i', strtotime($masa_end));
+    $minit_end = $minit_end * 60;
+    $saat_end = date('s', strtotime($masa_end));
+    $masa_end = $jam_end + $minit_end + $saat_end;
+    
+    $masa_keseluruhan = $masa_end - $masa_mula;
+    
+    $masa_penilaian = SelenggaraKawalanSistem::where('ID_KAWALAN_SISTEM', '1')->first();
+    
+    $masa_pengetahuan = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
+    $masa_pengetahuan = $masa_pengetahuan * 60000;
+    
+    // masa tamat
+    $peringatan_tamat = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
+    $peringatan_tamat = $masa_keseluruhan - $peringatan_tamat;
+    $peringatan_tamat = $peringatan_tamat * 60 * 1000;
+    ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
@@ -151,7 +183,7 @@
                                     @csrf
                                     <a class="dropdown-item border-radius-md" href="#"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                this.closest('form').submit();">
                                         <div class="d-flex py-1">
 
                                             {{ __('Log Keluar') }}
@@ -271,15 +303,15 @@
 
             noBackPlease();
 
-                // disables backspace on page except on input fields and textarea..
-                document.body.onkeydown = function(e) {
-                    var elm = e.target.nodeName.toLowerCase();
-                    if (e.which === 8 && (elm !== 'input' && elm !== 'textarea')) {
-                        e.preventDefault();
-                    }
-                    // stopping event bubbling up the DOM tree..
-                    e.stopPropagation();
-                };
+            // disables backspace on page except on input fields and textarea..
+            document.body.onkeydown = function(e) {
+                var elm = e.target.nodeName.toLowerCase();
+                if (e.which === 8 && (elm !== 'input' && elm !== 'textarea')) {
+                    e.preventDefault();
+                }
+                // stopping event bubbling up the DOM tree..
+                e.stopPropagation();
+            };
 
         };
 
