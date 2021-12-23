@@ -139,22 +139,42 @@ class KemasukanPenilaianController extends Controller
         }
         $soalan_penilaian = collect($set);
 
-        $masa_mula = time();
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $jam_mula = date('H');
+        $jam_mula = $jam_mula*60*60;
+        $minit_mula = date('i');
+        $minit_mula = $minit_mula*60;
+        $saat_mula = date('s');
+        $masa_mula = $jam_mula + $minit_mula + $saat_mula;
+        
+        $jadual = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
+        $masa_end = $jadual->KOD_MASA_TAMAT;
+        $jam_end = date('H', strtotime($masa_end));
+        $jam_end = $jam_end*60*60;
+        $minit_end = date('i', strtotime($masa_end));
+        $minit_end = $minit_end*60;
+        $saat_end = date('s', strtotime($masa_end));
+        $masa_end = $jam_end + $minit_end + $saat_end;
+
+        $masa_keseluruhan = $masa_end - $masa_mula;
 
         $masa_penilaian = SelenggaraKawalanSistem::where('ID_KAWALAN_SISTEM', '1')->first();
-        $masa_keseluruhan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
-        $masa_keseluruhan = $masa_keseluruhan*60;
 
         $masa_pengetahuan = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
         $masa_pengetahuan = $masa_pengetahuan*60000;
 
+        // masa tamat
+        $peringatan_tamat = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
+        $peringatan_tamat = $masa_keseluruhan - $peringatan_tamat;
+        $peringatan_tamat = $peringatan_tamat * 60 * 1000;
         // dd($soalan_penilaian);
         return view('kemasukan_id.kemasukan_penilaian',[
             'soalan_penilaian'=>$soalan_penilaian,
             'id_penilaian'=>$id_penilaian,
             'masa_mula'=>$masa_mula,
             'masa_keseluruhan'=>$masa_keseluruhan,
-            'masa_pengetahuan'=>$masa_pengetahuan
+            'masa_pengetahuan'=>$masa_pengetahuan,
+            'peringatan_tamat'=>$peringatan_tamat
         ]);
     }
 

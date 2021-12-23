@@ -115,6 +115,8 @@ No. Sijil: ".sprintf("%'.05d\n", $no_sijil);
         foreach($m_kemahiran as $m_kemahiran){
             if ($m_kemahiran->markah_kemahiran != null) {
                 $markah_kem = $m_kemahiran->markah_kemahiran;
+            }else{
+                $markah_kem = 0;
             }
         }
 
