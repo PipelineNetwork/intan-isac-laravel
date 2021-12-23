@@ -20,12 +20,12 @@ class SoalankemahiranwordController extends Controller
 
         $soalankemahiranword = Soalankemahiranword::where('status_soalan', 1)->inRandomOrder()->limit(1)->get();
 
-        $id_penilaian=$id_penilaian;
+        $id_penilaian = $id_penilaian;
         // dd($soalankemahiranword);
         return view('proses_penilaian.soalan_kemahiran.mic_word', [
             'jawapancalons' => $jawapancalon,
             'soalankemahiranwords' => $soalankemahiranword,
-            'id_penilaian'=>$id_penilaian
+            'id_penilaian' => $id_penilaian
         ]);
     }
 
@@ -50,7 +50,7 @@ class SoalankemahiranwordController extends Controller
         $current_user = $request->user();
 
         $jawapancalon = new Bankjawapancalon();
-        
+
         $jawapancalon->jawapan_word =  $request->jawapan_word;
 
         $jawapan = Soalankemahiranword::all();
@@ -143,7 +143,7 @@ class SoalankemahiranwordController extends Controller
         // dd($jawapancalon);
         $jawapancalon->save();
 
-        return redirect('/soalan-kemahiran-word');
+        return redirect('/soalan-kemahiran-word-page2/'.$id_penilaian);
     }
 
     /**
@@ -157,11 +157,11 @@ class SoalankemahiranwordController extends Controller
         // $jawapancalon = Bankjawapancalon::where('user_id', Auth::user());
 
         $soalankemahiranword = Soalankemahiranword::where('id', $id_word)->get()->first();
-        $id_penilaian=$id_penilaian;
+        $id_penilaian = $id_penilaian;
         // dd($soalankemahiranword);
         return view('proses_penilaian.soalan_kemahiran.mic_word1', [
             'soalankemahiranwords' => $soalankemahiranword,
-            'id_penilaian'=>$id_penilaian
+            'id_penilaian' => $id_penilaian
             // 'jawapancalons' => $jawapancalon
         ]);
     }
@@ -198,5 +198,12 @@ class SoalankemahiranwordController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function test($id_penilaian){
+        
+        return view('proses_penilaian.soalan_kemahiran.mic_word2',[
+            'id_penilaian'=>$id_penilaian
+        ]);
     }
 }
