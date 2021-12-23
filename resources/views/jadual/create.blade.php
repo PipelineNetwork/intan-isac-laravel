@@ -104,7 +104,7 @@
                                 <label for="KOD_MASA_MULA">Masa Mula :</label>
                                 <div class="input-group">
                                     <input class="form-control mb-0 hide" type="time" name="KOD_MASA_MULA"
-                                        value="{{ old('KOD_MASA_MULA') }}">
+                                        value="{{ old('KOD_MASA_MULA') }}" id="masa_mula" onchange="auto_time()">
                                 </div>
                                 @error('KOD_MASA_MULA')
                                     <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
@@ -113,9 +113,9 @@
                             <div class="col-6">
                                 <label for="KOD_MASA_TAMAT">Masa Tamat :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-0" type="time" name="KOD_MASA_TAMAT"
-                                        value="{{ old('KOD_MASA_TAMAT') }}">
+                                    <input class="form-control mb-0" type="text" id="masa_tamat" readonly>
                                 </div>
+                                <input type="hidden" name="KOD_MASA_TAMAT" id="masa_tamat2" value="">
                                 @error('KOD_MASA_TAMAT')
                                     <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
                                 @enderror
@@ -230,9 +230,52 @@
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
+
+    <script type="text/javascript">
+        function auto_time() {
+            var masa = document.getElementById('masa_mula').value;
+            let masa_pengetahuan = <?php echo($masa_pengetahuan)?>;
+            masa_pengetahuan = parseInt(masa_pengetahuan);
+            
+            if(masa_pengetahuan > 60){
+                minit_tambah = masa_pengetahuan-60;
+                jam_tambah = 1;
+            }else{
+                minit_tambah = masa_pengetahuan;
+                jam_tambah = 0;
+            }
+            jam = masa.slice(0, 2);
+            minit = masa.slice(3, 6);
+            
+            jam = parseInt(jam);
+            jam = jam + jam_tambah;
+            
+            minit = parseInt(minit);
+            minit = minit+minit_tambah;
+            if(minit>60){
+                minit = minit - 60;
+                jam = jam+1;
+            }
+            
+            masav = jam + ':' + minit;
+            
+            if (jam > 12) {
+                jam = jam - 12;
+                masaf = jam + ':' + minit + ' PM';
+                console.log(masaf);
+            } else {
+                masaf = jam + ':' + minit + ' AM';
+                console.log(masaf);
+            }
+            document.getElementById('masa_tamat2').value = masav;
+
+            // document.getElementById('masa_tamat').innerHTML = masaf;
+            // var m = $("#masa_tamat").val(); 
+            $("#masa_tamat").val(masaf);
+        }
+    </script>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">

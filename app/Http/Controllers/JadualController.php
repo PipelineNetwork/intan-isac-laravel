@@ -12,6 +12,7 @@ use App\Models\Permohanan;
 use App\Models\MohonPenilaian;
 use App\Models\Refgeneral;
 use Spatie\Permission\Models\Role;
+use App\Models\SelenggaraKawalanSistem;
 
 class JadualController extends Controller
 {
@@ -48,9 +49,13 @@ class JadualController extends Controller
         $role = Role::where('name', 'penyelaras')->first();
         $role_id = $role->id;
         $penyelaras = User::where('user_group_id', $role_id)->get();
+
+        $masa_penilaian = SelenggaraKawalanSistem::where('ID_KAWALAN_SISTEM', '1')->first();
+        $masa_pengetahuan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
         return view('jadual.create',[
             'kementerians'=>$kementerians,
-            'penyelaras'=>$penyelaras
+            'penyelaras'=>$penyelaras,
+            'masa_pengetahuan'=>$masa_pengetahuan
         ]);
     }
 

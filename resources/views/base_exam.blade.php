@@ -59,22 +59,6 @@
 
 <body class="g-sidenav-show  bg-gray-100" oncopy="return false" oncut="return false" onpaste="return false"
     oncontextmenu="return false">
-    <?php
-    use App\Models\SelenggaraKawalanSistem;
-    $masa_penilaian = SelenggaraKawalanSistem::where('ID_KAWALAN_SISTEM', '1')->first();
-    // masa keseluruhan
-    $masa_keseluruhan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
-    $masa_keseluruhan = $masa_keseluruhan * 60;
-    
-    // masa penilaian pengetahuan
-    $masa_nama = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
-    $masa_pengetahuan = $masa_nama * 60 * 1000;
-    
-    // masa tamat
-    $peringatan_tamat = $masa_penilaian->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN;
-    $peringatan_tamat = $masa_keseluruhan - $peringatan_tamat;
-    $peringatan_tamat = $peringatan_tamat * 60 * 1000;
-    ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
@@ -274,7 +258,7 @@
             });
 
             var masa_pengetahuan = <?php echo $masa_pengetahuan; ?>;
-            var masa_nama = <?php echo $masa_nama; ?>;
+            var masa_nama = <?php echo $masa_pengetahuan; ?>;
             var peringatan_tamat = <?php echo $peringatan_tamat; ?>;
             // console.log("masa:", masa_penilaian);
             setTimeout(function() {
