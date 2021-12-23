@@ -148,6 +148,7 @@
                                                             <button type="button" class="btn bg-gradient-secondary"
                                                                 data-bs-dismiss="modal">Batal</button>
                                                             <form action="/mohonpenilaian/penjadualan_semula" method="POST">
+                                                                {{-- @method('PUT') --}}
                                                                 @csrf
                                                                 <input type="hidden" name="no_ic"
                                                                     value="{{ $no_ic }}">

@@ -70,7 +70,7 @@
                                     <h6>
                                         https://en.wikipedia.org › wiki › Project_management
                                     </h6>
-                                    <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page4"
+                                    <form action="/soalan-kemahiran-internet-page4/{{$id_penilaian}}/{{ $id_internet }}"
                                         method="POST" id="penilaian">
                                         @csrf
                                         <h4>

@@ -143,7 +143,7 @@
                 <div class="col-lg-6">
                     <div class="card mt-3">
                         <div class="card-header" style="background-color:#FFA500;">
-                            <b class="text-white">Statistik Kelulusan ISAC</b>
+                            <b class="text-white">Statistik Pencapaian ISAC</b>
                         </div>
                         <div class="card-body">
                             <div id="chartdiv"></div>
@@ -153,7 +153,7 @@
                 <div class="col-lg-6">
                     <div class="card mt-3">
                         <div class="card-header" style="background-color:#FFA500;">
-                            <b class="text-white">Statistik Pencapaian Penilaian ISAC</b>
+                            <b class="text-white">Statistik Permohonan Penilaian ISAC</b>
                             <br>
                             <span class="text-white">Bagi tahun semasa</span>
                         </div>

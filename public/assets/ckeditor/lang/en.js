@@ -209,7 +209,7 @@ CKEDITOR.lang["en"] = {
             AFEEEE: "Pale Turquoise",
             ADD8E6: "Light Blue",
             DDA0DD: "Plum",
-            D3D3D3: "Light Grey",
+            D3D3D3: "Grey",
             FFF0F5: "Lavender Blush",
             FAEBD7: "Antique White",
             FFFFE0: "Light Yellow",
@@ -563,7 +563,7 @@ CKEDITOR.lang["en"] = {
     save: { toolbar: "Save" },
     selectall: { toolbar: "Select All" },
     showblocks: { toolbar: "Show Blocks" },
-    sourcearea: { toolbar: "Source" },
+    sourcearea: { toolbar: "File" },
     specialchar: {
         options: "Special Character Options",
         title: "Select Special Character",

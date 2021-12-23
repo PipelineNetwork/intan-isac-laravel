@@ -24,7 +24,7 @@ class SoalankemahiraninternetController extends Controller
         return view('proses_penilaian.soalan_kemahiran.internet', [
             'jawapancalons' => $jawapancalon,
             'soalankemahiraninternets' => $soalankemahiraninternet,
-            'id_penilaian'=>$id_penilaian
+            'id_penilaian' => $id_penilaian
         ]);
     }
 
@@ -32,15 +32,16 @@ class SoalankemahiraninternetController extends Controller
     {
         $soalankemahiraninternet = Soalankemahiraninternet::where('id', $id_internet)->get()->first();
         $id_penilaian = $id_penilaian;
-        
+
         // dd($soalankemahiraninternet);
         return view('proses_penilaian.soalan_kemahiran.internet1', [
             'soalankemahiraninternets' => $soalankemahiraninternet,
-            'id_penilaian'=>$id_penilaian
+            'id_penilaian' => $id_penilaian,
+            'id_internet' => $id_internet
         ]);
     }
 
-    public function savepage1(Request $request, $id_penilaian)
+    public function savepage1(Request $request, $id_penilaian, $id_internet)
     {
         $current_user = $request->user();
 
@@ -55,7 +56,7 @@ class SoalankemahiraninternetController extends Controller
         }
         $jawapancalon->jawapansebenar_carianteks = strtolower($request->jawapansebenar_carianteks);
         $jawapancalon->user_id = $current_user->id;
-        $jawapancalon->id_soalankemahiraninternet = $request->id_soalankemahiraninternet;
+        $jawapancalon->id_soalankemahiraninternet = $id_internet;
         $jawapancalon->id_penilaian = $id_penilaian;
         $jawapancalon->ic_calon = Auth::user()->nric;
         $jawapancalon->save();
@@ -63,6 +64,8 @@ class SoalankemahiraninternetController extends Controller
         $id_penilaian = $id_penilaian;
         return view('proses_penilaian.soalan_kemahiran.internet2', [
             'jawapancalons' => $jawapancalon,
+            'id_penilaian' => $id_penilaian,
+            'id_internet' => $id_internet
         ]);
     }
 
@@ -99,21 +102,24 @@ class SoalankemahiraninternetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function savepage2(Request $request, $id)
+    public function savepage2(Request $request, $id_penilaian, $id_internet)
     {
-        $jawapancalon = Bankjawapancalon::find($id);
 
+        $jawapancalon = Bankjawapancalon::where('id_soalankemahiraninternet', $id_internet)->get()->first();
+        // dd($jawapancalon);
         $jawapancalon->carian_teks = strtolower($request->carian_teks);
         if ($jawapancalon->carian_teks == $jawapancalon->jawapansebenar_carianteks) {
             $jawapancalon->markah_carianteks = 1;
         } else {
             $jawapancalon->markah_carianteks = 0;
         }
-
+        // dd($request);
         $jawapancalon->save();
 
         return view('proses_penilaian.soalan_kemahiran.internet3', [
             'jawapancalons' => $jawapancalon,
+            'id_penilaian' => $id_penilaian,
+            'id_internet' => $id_internet
         ]);
     }
 
@@ -128,40 +134,45 @@ class SoalankemahiraninternetController extends Controller
         //
     }
 
-    public function page3($id)
+    public function page3($id_penilaian, $id_internet)
     {
         $jawapancalon = Bankjawapancalon::join('soalankemahiraninternets', 'bankjawapancalons.id_soalankemahiraninternet', 'soalankemahiraninternets.id')
-            ->where('bankjawapancalons.id', $id)
-            ->select('bankjawapancalons.*', 'soalankemahiraninternets.*')
+            ->where('id_soalankemahiraninternet', $id_internet)
             ->get()->first();
 
-        // $soalankemahiraninternet = Soalankemahiraninternet::find($id);
-
-        // dd($soalankemahiraninternet);
         return view('proses_penilaian.soalan_kemahiran.internet4', [
             'jawapancalons' => $jawapancalon,
-            // 'soalankemahiraninternets' => $soalankemahiraninternet,
+            'id_penilaian' => $id_penilaian,
+            'id_internet' => $id_internet
         ]);
     }
 
-    public function page4($id)
+    public function page4($id_penilaian, $id_internet)
     {
+        // $jawapancalon = Bankjawapancalon::join('soalankemahiraninternets', 'bankjawapancalons.id_soalankemahiraninternet', 'soalankemahiraninternets.id')
+        //     ->where('bankjawapancalons.id_soalankemahiraninternet', $id_internet)
+        //     ->select('bankjawapancalons.*', 'soalankemahiraninternets.*')
+        //     ->get()->first();
+
         $jawapancalon = Bankjawapancalon::join('soalankemahiraninternets', 'bankjawapancalons.id_soalankemahiraninternet', 'soalankemahiraninternets.id')
-            ->where('bankjawapancalons.id_soalankemahiraninternet', $id)
-            ->select('bankjawapancalons.*', 'soalankemahiraninternets.*')
+            ->where('id_soalankemahiraninternet', $id_internet)
             ->get()->first();
 
         return view('proses_penilaian.soalan_kemahiran.internet5', [
             'jawapancalons' => $jawapancalon,
+            'id_penilaian' => $id_penilaian,
+            'id_internet' => $id_internet
         ]);
     }
 
-    public function page5($id)
+    public function page5($id_penilaian, $id_internet)
     {
-        $jawapancalon = Bankjawapancalon::find($id);
+        $jawapancalon = Bankjawapancalon::where('id_soalankemahiraninternet', $id_internet)->get()->first();
 
         return view('proses_penilaian.soalan_kemahiran.internet6', [
             'jawapancalons' => $jawapancalon,
+            'id_penilaian' => $id_penilaian,
+            'id_internet' => $id_internet
         ]);
     }
 
@@ -174,7 +185,7 @@ class SoalankemahiraninternetController extends Controller
         return view('proses_penilaian.soalan_kemahiran.internet', [
             'jawapancalons' => $jawapancalon,
             'soalankemahiraninternets' => $soalankemahiraninternet,
-            'id_penilaian'=>$id_penilaian
+            'id_penilaian' => $id_penilaian
         ]);
     }
 }
