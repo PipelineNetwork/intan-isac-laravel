@@ -107,7 +107,8 @@ class SoalankemahiraninternetController extends Controller
 
         $jawapancalon = Bankjawapancalon::where('id_soalankemahiraninternet', $id_internet)->get()->first();
         // dd($jawapancalon);
-        $jawapancalon->carian_teks = strtolower($request->carian_teks);
+        $tukar_lowercase = $request->carian_teks;
+        $jawapancalon->carian_teks = strtolower($tukar_lowercase);
         if ($jawapancalon->carian_teks == $jawapancalon->jawapansebenar_carianteks) {
             $jawapancalon->markah_carianteks = 1;
         } else {
@@ -173,19 +174,6 @@ class SoalankemahiraninternetController extends Controller
             'jawapancalons' => $jawapancalon,
             'id_penilaian' => $id_penilaian,
             'id_internet' => $id_internet
-        ]);
-    }
-
-    public function testt($id_penilaian)
-    {
-        $jawapancalon = Bankjawapancalon::all();
-        $soalankemahiraninternet = Soalankemahiraninternet::where('status_soalan', 1)->inRandomOrder()->limit(1)->get();
-        $id_penilaian = $id_penilaian;
-        // dd($soalankemahiraninternet);
-        return view('proses_penilaian.soalan_kemahiran.internet', [
-            'jawapancalons' => $jawapancalon,
-            'soalankemahiraninternets' => $soalankemahiraninternet,
-            'id_penilaian' => $id_penilaian
         ]);
     }
 }
