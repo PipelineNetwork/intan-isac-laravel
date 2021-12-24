@@ -110,8 +110,21 @@ class BanksoalankemahiranController extends Controller
      */
     public function destroy($banksoalankemahiran)
     {
-        $banksoalankemahiran = Banksoalankemahiran::find($banksoalankemahiran);
+        $banksoalankemahiran = Banksoalankemahiran::where('id', $banksoalankemahiran)->get()->first();
+        $soalankemahiraninternet =  Soalankemahiraninternet::where('id_soalankemahiran', $banksoalankemahiran->id)->get()->first();
+        $soalankemahiranword =  Soalankemahiranword::where('id_soalankemahiran', $banksoalankemahiran->id)->get()->first();
+        $soalankemahiranemail =  Soalankemahiranemail::where('id_soalankemahiran', $banksoalankemahiran->id)->get()->first();
+        // dd($soalankemahiraninternet);
         $banksoalankemahiran->delete();
+        if ($soalankemahiraninternet != null) {
+            $soalankemahiraninternet->delete();
+        }
+        if ($soalankemahiranword != null) {
+            $soalankemahiranword->delete();
+        }
+        if ($soalankemahiranemail != null) {
+            $soalankemahiranemail->delete();
+        }
         return redirect('/bank-soalan-kemahiran');
     }
 }
