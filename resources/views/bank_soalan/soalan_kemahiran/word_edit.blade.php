@@ -242,8 +242,8 @@
                                             <td><textarea class="form-control" name="jawapan_9" rows="3"
                                                     style="width: 100%; height: 100%;">{{ $soalankemahiranwords->jawapan_9 }}</textarea>
                                             </td>
-                                            <td><input class="form-control" type="text" name="markah_1"
-                                                    value="{{ $soalankemahiranwords->markah_1 }}"></td>
+                                            <td><input class="form-control" type="text" name="markah_9"
+                                                    value="{{ $soalankemahiranwords->markah_9 }}"></td>
                                         </tr>
                                         {{-- @endif --}}
                                         {{-- @if ($soalankemahiranwords->soalan_10 != null) --}}
@@ -252,11 +252,11 @@
                                             <td><textarea id="editor-soalan-10" class="form-control" name="soalan_10"
                                                     rows="3">{{ $soalankemahiranwords->soalan_10 }}</textarea>
                                             </td>
-                                            <td><textarea class="form-control" name="jawapan_11" rows="3"
-                                                    style="width: 100%; height: 100%;">{{ $soalankemahiranwords->jawapan_11 }}</textarea>
+                                            <td><textarea class="form-control" name="jawapan_10" rows="3"
+                                                    style="width: 100%; height: 100%;">{{ $soalankemahiranwords->jawapan_10 }}</textarea>
                                             </td>
-                                            <td><input class="form-control" type="text" name="markah_11"
-                                                    value="{{ $soalankemahiranwords->markah_11 }}"></td>
+                                            <td><input class="form-control" type="text" name="markah_10"
+                                                    value="{{ $soalankemahiranwords->markah_10 }}"></td>
                                         </tr>
                                         {{-- @endif --}}
                                         {{-- @if ($soalankemahiranwords->soalan_11 != null) --}}
@@ -294,7 +294,7 @@
                                             <td><textarea class="form-control" name="jawapan_13" rows="3"
                                                     style="width: 100%; height: 100%;">{{ $soalankemahiranwords->jawapan_13 }}</textarea>
                                             </td>
-                                            <td><input class="form-control" type="text" name="markah_1"
+                                            <td><input class="form-control" type="text" name="markah_13"
                                                     value="{{ $soalankemahiranwords->markah_13 }}"></td>
                                         </tr>
                                         {{-- @endif --}}
