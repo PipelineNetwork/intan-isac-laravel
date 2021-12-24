@@ -236,36 +236,52 @@
     <script type="text/javascript">
         function auto_time() {
             var masa = document.getElementById('masa_mula').value;
-            let masa_pengetahuan = <?php echo($masa_pengetahuan)?>;
+            let masa_pengetahuan = <?php echo $masa_pengetahuan; ?>;
             masa_pengetahuan = parseInt(masa_pengetahuan);
-            
-            if(masa_pengetahuan > 60){
-                minit_tambah = masa_pengetahuan-60;
+
+            if (masa_pengetahuan > 60) {
+                minit_tambah = masa_pengetahuan - 60;
                 jam_tambah = 1;
-            }else{
+            } else {
                 minit_tambah = masa_pengetahuan;
                 jam_tambah = 0;
             }
             jam = masa.slice(0, 2);
             minit = masa.slice(3, 6);
-            
+
             jam = parseInt(jam);
             jam = jam + jam_tambah;
-            
+
             minit = parseInt(minit);
-            minit = minit+minit_tambah;
-            if(minit>60){
+            minit = minit + minit_tambah;
+            if (minit > 60) {
                 minit = minit - 60;
-                jam = jam+1;
+                jam = jam + 1;
             }
-            
+
             masav = jam + ':' + minit;
-            
+
             if (jam > 12) {
                 jam = jam - 12;
+                jam = jam.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+                minit = minit.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
                 masaf = jam + ':' + minit + ' PM';
                 console.log(masaf);
             } else {
+                jam = jam.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+                minit = minit.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
                 masaf = jam + ':' + minit + ' AM';
                 console.log(masaf);
             }
