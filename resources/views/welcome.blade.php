@@ -39,6 +39,7 @@
         ->get();
     
     $lamanutama = LamanUtama::all();
+    $lamanutama2 = LamanUtama::all();
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -278,59 +279,10 @@
     <!-- -------- START Features w/ 4 cols w/ colored icon & title & text -------- -->
 
     <section class="py-md-7 bg-gradient-warning" id="infoisac">
-
-
         <div class="container">
-            <div class="row justify-content-start">
-                <div class="col-md-6">
-                    <div class="primary text-start border-radius-lg">
-                        <div class="icon">
-                            <svg class="text-primary " width="25px" height="25px" viewBox="0 0 43 36" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>credit-card</title>
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
-                                        fill-rule="nonzero">
-                                        <g transform="translate(1716.000000, 291.000000)">
-                                            <g id="credit-card" transform="translate(453.000000, 454.000000)">
-                                                <path class="color-background"
-                                                    d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"
-                                                    opacity="0.593633743"></path>
-                                                <path class="color-foreground"
-                                                    d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
-                                                </path>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <h5 class="mt-3">KURIKULUM</h5>
-                        <p class="text-dark">Bahagian 1 - Penilaian pengetahuan yang merangkumi : <br>
-                        <ul class="text-dark">
-                            <li>Software </li>
-                            <li>ICT Security </li>
-                            <li>Inisiatif ICT Sektor Awam</li>
-                            <li>Rangkaian dan Wifi </li>
-                            <li>Government Mobility</li>
-                            <li>Media Sosial</li>
-
-                        </ul>
-                        </p>
-                        <br>
-                        <p class="text-dark"> Bahagian 2 - Menilai kemahiran dalam : <br>
-                        <ul class="text-dark">
-                            <li>Mencari dan memperolehi maklumat menggunakan internet.</li>
-                            <li>Menyediakan dokumen pemprosesan atau dokumen persembahan berkaitan dengan pengendalian
-                                tugas-tugas asas.</li>
-                            <li>Berkomunikasi secara elektronik melalui emel.</li>
-                        </ul>
-
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="primary text-start border-radius-lg">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="primary text-start border-radius-lg p-3">
                         <div class="icon">
                             <svg class="text-primary" width="25px" height="25px" viewBox="0 0 40 40" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -355,14 +307,18 @@
                                 </g>
                             </svg>
                         </div>
-                        <h5 class="mt-3 text-dark">PAKAIAN :</h5>
-
-                        <p class="text-dark">Pastikan pakaian semasa menghadiri Penilaian ISAC adalah pakaian
-                            pejabat.
-
-                        </p>
+                        @foreach ($lamanutama as $lamanutama)
+                            @if ($lamanutama->STATUS == '02')
+                                @if ($lamanutama->TAJUK == 'Objektif')
+                                    <h5 class="mt-3" style="color: black">{{ $lamanutama->TAJUK }}</h5>
+                                    <p>
+                                        {!! $lamanutama->KETERANGAN !!}
+                                    </p>
+                                @endif
+                            @endif
+                        @endforeach
                     </div>
-                    <div class="primary text-start border-radius-lg mt-6">
+                    <div class="primary text-start border-radius-lg mt-4 p-3">
                         <div class="icon">
                             <svg class="text-primary" width="25px" height="25px" viewBox="0 0 42 44" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -387,9 +343,9 @@
                                 </g>
                             </svg>
                         </div>
-                        <h5 class="mt-3 ">FORMAT PENILAIAN</h5>
+                        <h5 class="mt-3" style="color: black">FORMAT PENILAIAN</h5>
                         <p>
-                        <ul class="text-dark">
+                        <ul style="color: black">
                             <li>Bahagian 1 - Ujian pengetahuan yang mengandungi 40 soalan objektif yang perlu dijawab
                                 dalam masa 20 minit</li>
                             <li>Bahagian 2 - Ujian kemahiran yang mengandungi 3 soalan dan calon-calon dikehendaki
@@ -397,6 +353,56 @@
                         </ul>
                         </p>
                     </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="primary text-start border-radius-lg p-3">
+                        <div class="icon">
+                            <svg class="text-primary " width="25px" height="25px" viewBox="0 0 43 36" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>credit-card</title>
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
+                                        fill-rule="nonzero">
+                                        <g transform="translate(1716.000000, 291.000000)">
+                                            <g id="credit-card" transform="translate(453.000000, 454.000000)">
+                                                <path class="color-background"
+                                                    d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"
+                                                    opacity="0.593633743"></path>
+                                                <path class="color-foreground"
+                                                    d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
+                                                </path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                        <h5 class="mt-3" style="color: black">KURIKULUM</h5>
+                        <p style="color: black">Bahagian 1 - Penilaian pengetahuan yang merangkumi : <br>
+                        <ul style="color: black">
+                            <li>Software </li>
+                            <li>ICT Security </li>
+                            <li>Inisiatif ICT Sektor Awam</li>
+                            <li>Rangkaian dan Wifi </li>
+                            <li>Government Mobility</li>
+                            <li>Media Sosial</li>
+
+                        </ul>
+                        </p>
+                        <br>
+                        <p style="color: black"> Bahagian 2 - Menilai kemahiran dalam : <br>
+                        <ul style="color: black">
+                            <li>Mencari dan memperolehi maklumat menggunakan internet.</li>
+                            <li>Menyediakan dokumen pemprosesan atau dokumen persembahan berkaitan dengan pengendalian
+                                tugas-tugas asas.</li>
+                            <li>Berkomunikasi secara elektronik melalui emel.</li>
+                        </ul>
+
+                        </p>
+                    </div>
+
+
                     {{-- <div class="primary text-start border-radius-lg mt-6">
                         <div class="icon">
                             <svg class="text-primary" width="25px" height="25px" viewBox="0 0 52 35" version="1.1"
@@ -456,11 +462,10 @@
                         perisian-perisian ICT yang sering di guna pakai (commonly used).
 
                     </p>
-
-                    <a href="https://www.intanbk.intan.my/iportal/en/about-intan"
+                    {{-- <a href="https://www.intanbk.intan.my/iportal/en/about-intan"
                         class="text-warning icon-move-right">Mengenai Intan
                         <i class="fas fa-arrow-right text-sm ms-1"></i>
-                    </a>
+                    </a> --}}
                 </div>
                 <div class="col-lg-6 ">
                     <div class="p-3 info-horizontal">
@@ -482,26 +487,26 @@
                                 Melalui Pembelajaran Berkualiti</p>
                         </div>
                     </div>
-                    <div class="p-3 info-horizontal">
+                    {{-- <div class="p-3 info-horizontal">
                         <img src="https://www.intanbk.intan.my/iportal/images/adminsep.jpg" width="620" height="300">
                         <b style="text-align:center;">&emsp;&emsp;The National Institute of Public Administration
                             (INTAN) Port Dickson</b>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
-            @foreach ($lamanutama as $lamanutama)
-                @if ($lamanutama->STATUS == '02')
-                    <div class="card m-5">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5>{{ $lamanutama->TAJUK }}</h5>
-                                    {!! $lamanutama->KETERANGAN !!}
-                                </div>
+
+            @foreach ($lamanutama2 as $lamanutama2)
+                @if ($lamanutama2->STATUS == '02')
+                    @if ($lamanutama2->TAJUK != 'Objektif')
+                        <div class="row mt-4">
+                            <div class="col">
+                                <h3 class="text-gradient text-warning mb-0 mt-2">{{ $lamanutama2->TAJUK }}</h3>
+                                <h3></h3>
+                                <p>{!! $lamanutama2->KETERANGAN !!}</p>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 @endif
             @endforeach
 
@@ -547,7 +552,7 @@
         </div>
     </section>
     <!-- -------- END Features w/ icons and text on left & gradient title and text on right -------- -->
-    <section class="features-3 mt-n10 py-7">
+    {{-- <section class="features-3 mt-n10 py-7">
         <div class="container">
             <div class="row text-center justify-content-center pt-10">
                 <div class="col-lg-6">
@@ -600,39 +605,46 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <footer class="footer pt-4 mt-3" id="contact">
         <hr class="horizontal dark mb-5">
         <div class="container">
             <div class=" row">
-                <div class="col-md-3 mb-4 ms-auto">
+                <div class="col-md-6 mb-4">
                     <div class="d-flex justify-content-center flex-wrap">
-                        <h6 class="text-gradient text-warning font-weight-bolder">Institut Tadbiran Awam Negara</h6>
-                        &nbsp;&nbsp;&nbsp;
-                        <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg" width="150"
-                            height="150">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h6 class="text-gradient text-warning font-weight-bolder">Institut Tadbiran Awam Negara
+                                </h6>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg"
+                                    width="150" height="150">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-6 mb-4">
+                <div class="col-md-6 mb-4 text-center">
                     <div>
                         <h6 class="text-gradient text-warning text-sm">
                             Alamat Surat Menyurat :</h6>
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
                                 <a class="nav-link">
-                                    Pengarah
-                                    Institut Tadbiran Awam Negara (INTAN),
-                                    Kluster Inovasi Teknologi Pengurusan (i-IMATEC),
-                                    Seksyen Aplikasi
-                                    Jalan Bukit Kiara,
-                                    50480 Kuala Lumpur
-                                    (u.p. :Puan Nor Hasimah binti Che Mat)
+                                    Unit Aplikasi Penilaian dan Portal <br>
+                                    Sub-Kluster Aplikasi, Portal dan Multimedia <br>
+                                    Kluster Inovasi Teknologi Pengurusan (i-MATEC) <br>
+                                    Institut Tadbiran Awam Negara (INTAN) Bukit Kiara <br>
+                                    Jalan Bukit Kiara <br>
+                                    50480 Kuala Lumpur, Malaysia <br>
+                                    Tel: 2084 7713/7726/7703/7798 <br>
+                                    E-mel: dlisachelp@intanbk.intan.my <br>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-6 mb-4">
+                {{-- <div class="col-md-3 col-sm-6 col-6 mb-4">
                     <div>
                         <h6 class="text-gradient text-warning text-sm">En. Mohd Yuzwan bin Yunan</h6>
                         <ul class="flex-column ms-n3 nav">
@@ -676,7 +688,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-12">
                     <div class="text-center">
                         <!-- <p class="my-4 text-sm">
