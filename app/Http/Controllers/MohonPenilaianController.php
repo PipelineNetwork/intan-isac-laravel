@@ -715,6 +715,7 @@ class MohonPenilaianController extends Controller
 
         $emel_pendaftar = Auth::user()->email;
         $recipient = [$emel_pendaftar,$request->EMEL_PENYELIA, "najhan.mnajib@gmail.com"];
+        $recipient_penyelia = [$request->EMEL_PENYELIA, "najhan.mnajib@gmail.com"];
         // Mail::to($recipient)->send(new DaftarPeserta());
 
         // $pdf = App::make('dompdf.wrapper');
@@ -740,10 +741,20 @@ class MohonPenilaianController extends Controller
             'id_sesi' => $request->id_sesi
         ]);
 
-        $ic_numb = ['ic'=>$permohonan->no_ic];
-        Mail::send('emails.daftar_peserta', $ic_numb, function($message)use($recipient, $pdf) {
+        $data_email = [
+            'ic_calon'=>$permohonan->no_ic,
+            'nama_calon'=>$request->NAMA_PESERTA,
+            'tarikh' => $permohonan->tarikh_sesi,
+        ];
+        Mail::send('emails.daftar_peserta', $data_email, function($message)use($recipient, $pdf) {
             $message->to($recipient)
-                    ->subject("Permohonan Penilaian ISAC INTAN")
+                    ->subject("ISAC - Permohonan Berjaya")
+                    ->attachData($pdf->output(), 'Surat_tawaran.pdf');
+        });
+
+        Mail::send('emails.daftar_peserta', $data_email, function($message)use($recipient_penyelia, $pdf) {
+            $message->to($recipient_penyelia)
+                    ->subject("ISAC - Permohonan Penilaian ISAC")
                     ->attachData($pdf->output(), 'Surat_tawaran.pdf');
         });
 

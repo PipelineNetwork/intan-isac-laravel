@@ -87,6 +87,7 @@
                                         </div>
                                     </div>
                                 @endif
+                                <label class="text-danger"><em>Perhatian: Sila muat semula (refresh) halaman web ini sekiranya waktu penilaian bermula.</em></label>
                             </div>
                         </div>
                     </div>

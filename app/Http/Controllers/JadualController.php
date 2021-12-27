@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\JadualKemaskini;
+use App\Mail\JadualKemaskiniPenangguhan;
+use App\Mail\JadualKemaskiniPembatalan;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Permohanan;
 use App\Models\MohonPenilaian;
@@ -312,7 +314,7 @@ class JadualController extends Controller
         $jadual->save();
 
         $recipient = $emel_peserta;
-        Mail::to($recipient)->send(new JadualKemaskini());
+        Mail::to($recipient)->send(new JadualKemaskini($jadual));
         return redirect('/jaduals');
     }
 
@@ -354,7 +356,12 @@ class JadualController extends Controller
         }
 
         $recipient = $emel_peserta;
-        Mail::to($recipient)->send(new JadualKemaskini());
+
+        if ($request->status == 'Penangguhan') {
+            Mail::to($recipient)->send(new JadualKemaskiniPenangguhan($jadual));
+        }else if($request->status == 'Pembatalan'){
+            Mail::to($recipient)->send(new JadualKemaskiniPembatalan($jadual));
+        }
 
         return redirect('/jaduals');
     }
