@@ -40,6 +40,8 @@ class DashboardController extends Controller
         //graf permohonan bulanan
         $graf_permohonan_bulanan = MohonPenilaian::select(DB::raw("CONCAT_WS('/',MONTH(created_at),YEAR(created_at)) as monthname"), DB::raw('count(*) as jumlah'))
             ->whereYear('created_at', date('Y'))
+            ->where('jantina', 'Lelaki')
+            ->orWhere('jantina', 'Perempuan')
             ->groupBy('monthname')
             ->get()->toArray();
 

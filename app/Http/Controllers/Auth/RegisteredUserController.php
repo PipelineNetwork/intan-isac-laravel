@@ -111,10 +111,10 @@ class RegisteredUserController extends Controller
             // join pro_perkhidmatan on pro_peserta.ID_PESERTA = pro_perkhidmatan.ID_PESERTA;
 
             $peserta = Permohanan::create([
-                'KOD_GELARAN' => count($gelaran) == 1 ? $gelaran[0]['REFERENCECODE'] : NULL,
+                'KOD_GELARAN' => count($gelaran) == 1 ? $gelaran[0]['DESCRIPTION1'] : NULL,
                 'NAMA_PESERTA' => $hrmisData->Nama,
                 'TARIKH_LAHIR' => substr($hrmisData->TarikhLahir, 0, 10),
-                'KOD_JANTINA' => count($jantina) == 1 ? $jantina[0]['REFERENCECODE'] : NULL,
+                'KOD_JANTINA' => count($jantina) == 1 ? $jantina[0]['DESCRIPTION1'] : NULL,
                 'EMEL_PESERTA' => $hrmisData->Emel,
                 'KOD_KATEGORI_PESERTA' => '01', // 01 - Individu, 02 - Kumpulan
                 'NO_KAD_PENGENALAN' => $hrmisData->NoKP,
@@ -134,8 +134,8 @@ class RegisteredUserController extends Controller
                 'ALAMAT_3' => NULL,
                 'POSKOD' => $hrmisData->Poskod,
                 'BANDAR' => $hrmisData->Bandar,
-                'KOD_NEGERI' => count($negeri) == 1 ? $negeri[0]['REFERENCECODE'] : NULL,
-                'KOD_NEGARA' => 'MYS',
+                'KOD_NEGERI' => count($negeri) == 1 ? $negeri[0]['DESCRIPTION1'] : NULL,
+                'KOD_NEGARA' => $hrmisData->Negara,
                 'NAMA_PENYELIA' => $hrmisData->NamaPPP,
                 'EMEL_PENYELIA' => $hrmisData->Email_PPP,
                 'NO_TELEFON_PENYELIA' => NULL, // must ask user about hrmis retrieve data
@@ -145,9 +145,9 @@ class RegisteredUserController extends Controller
             $perkhidmatan = Perkhidmatan::create([
                 'KOD_GELARAN_JAWATAN' => $hrmisData->Jawatan,
                 'KOD_PERINGKAT' => NULL, // must ask SA about this
-                'KOD_KLASIFIKASI_PERKHIDMATAN' => count($klasifikasiPerkhidmatan) == 1 ? $klasifikasiPerkhidmatan[0]['REFERENCECODE'] : NULL,
-                'KOD_GRED_JAWATAN' => count($gredJawatan) == 1 ? $gredJawatan[0]['REFERENCECODE'] : NULL, // must ask client about GredGaji format
-                'KOD_TARAF_PERJAWATAN' => count($tarafJawatan) == 1 ? $tarafJawatan[0]['REFERENCECODE'] : NULL, // must ask client about StatusPerkhidmatan format
+                'KOD_KLASIFIKASI_PERKHIDMATAN' => count($klasifikasiPerkhidmatan) == 1 ? $klasifikasiPerkhidmatan[0]['DESCRIPTION1'] : NULL,
+                'KOD_GRED_JAWATAN' => count($gredJawatan) == 1 ? $gredJawatan[0]['DESCRIPTION1'] : NULL, // must ask client about GredGaji format
+                'KOD_TARAF_PERJAWATAN' => count($tarafJawatan) == 1 ? $tarafJawatan[0]['DESCRIPTION1'] : NULL, // must ask client about StatusPerkhidmatan format
                 'KOD_JENIS_PERKHIDMATAN' => NULL, // must ask user about hrmis retrieve data
                 'TARIKH_LANTIKAN' => NULL, // must ask user about hrmis retrieve data
                 'ID_PESERTA' => $peserta->ID_PESERTA,
