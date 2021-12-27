@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../../img/intan.png">
+    <link rel="icon" type="image/png" href="../../img/logo-intan.png">
     <title>
         ISAC
     </title>
@@ -54,10 +54,11 @@
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
-            <a class="navbar-brand m-0" target="_blank">
-                <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg"
-                    class="navbar-brand-img h-100" alt="main_logo">
-                <span class="ms-1 font-weight-bold">ISAC</span>
+            <a class="navbar-brand m-0 text-center" target="_blank">
+                {{-- <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg"
+                    class="navbar-brand-img h-100" alt="main_logo"> --}}
+                <img src="../../img/logo-intan.png"
+                    class="navbar-brand-img h-100" alt="main_logo" style="width: 50%; height: auto">
             </a>
         </div>
 
@@ -117,7 +118,8 @@
                     </li>
                 @endcan
 
-                @if (auth()->user()->can('kebenaran pengguna') || auth()->user()->can('senarai pengguna berdaftar'))
+                @if (auth()->user()->can('kebenaran pengguna') ||
+    auth()->user()->can('senarai pengguna berdaftar'))
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#pentadbiranpenggunadrop" class="nav-link "
                             aria-controls="applicationsExamples" role="button" aria-expanded="false">
@@ -436,7 +438,8 @@
                                         </span>
                                     </a> --}}
                                     <a class="nav-link " href="/laporan/penilaian-isac-mengikut-kementerian">
-                                        <span class="sidenav-normal"> Laporan Penilaian ISAC <br> Mengikut Kementerian <br> & Jabatan
+                                        <span class="sidenav-normal"> Laporan Penilaian ISAC <br> Mengikut Kementerian <br>
+                                            & Jabatan
                                         </span>
                                     </a>
                                 </li>
