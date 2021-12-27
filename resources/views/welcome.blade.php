@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
     {{-- <link rel="icon" type="image/png" href="../../img/intan.png"> --}}
-    <link rel="icon" type="image/png" href="../../img/logo-intan.png">
+    <link rel="icon" type="image/png" href="../../img/intan.png">
     <title>
         ISAC
     </title>
@@ -55,7 +55,8 @@
                     class="navbar navbar-expand-lg  blur blur-rounded top-0  z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
                         <a class="navbar-brand font-weight-bolder ms-sm-3" href="/">
-                            INTAN ISAC
+                            {{-- INTAN ISAC --}}
+                            <img src="../../img/logo-intan.png" style="width: 60px">
                         </a>
                         <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
@@ -68,127 +69,6 @@
                         </button>
                         <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
                             <ul class="navbar-nav navbar-nav-hover mx-auto">
-                                {{-- <li class="nav-item dropdown dropdown-hover mx-2">
-                                    <a role="button"
-                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                                        id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Hubungi kami
-                                        <img src="../assets/img/down-arrow-dark.svg" alt="down-arrow"
-                                            class="arrow ms-1">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3"
-                                        aria-labelledby="dropdownMenuBlocks">
-                                        <div class="d-none d-lg-block">
-                                            <ul class="list-group">
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                    <a class="dropdown-item py-2 ps-3 border-radius-md">
-                                                        <div class="d-flex">
-                                                            <div class="icon h-10 me-3 d-flex mt-1">
-                                                                <i
-                                                                    class="ni ni-single-copy-04 text-gradient text-primary"></i>
-                                                            </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
-                                                                <div>
-                                                                    <h6
-                                                                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
-                                                                        En. Mohd Yuzwan bin Yunan
-                                                                    </h6>
-                                                                    <span class="text-sm">Penolong Pegawai
-                                                                        Teknologi
-                                                                        Maklumat Gred FA29</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                    <a class="dropdown-item py-2 ps-3 border-radius-md">
-                                                        <div class="d-flex">
-                                                            <div class="icon h-10 me-3 d-flex mt-1">
-                                                            </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
-                                                                <div>
-                                                                    <span class="text-sm">03-20847798</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-
-                                                </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                    <a class="dropdown-item py-2 ps-3 border-radius-md">
-                                                        <div class="d-flex">
-                                                            <div class="icon h-10 me-3 d-flex mt-1">
-                                                                <i class="ni ni-badge text-gradient text-primary"></i>
-                                                            </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
-                                                                <div>
-                                                                    <h6
-                                                                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
-                                                                        En. Mohd Faisal Bin Mustafah</h6>
-                                                                    <span class="text-sm">Penolong Pegawai
-                                                                        Teknologi
-                                                                        Maklumat Gred FA29</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                    <a class="dropdown-item py-2 ps-3 border-radius-md">
-                                                        <div class="d-flex">
-                                                            <div class="icon h-10 me-3 d-flex mt-1">
-                                                            </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
-                                                                <div>
-                                                                    <span class="text-sm">03-20847703</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                    <a class="dropdown-item py-2 ps-3 border-radius-md">
-                                                        <div class="d-flex">
-                                                            <div class="icon h-10 me-3 d-flex mt-1">
-                                                            </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="row d-lg-none">
-                                            <div class="col-md-12">
-                                                <div class="d-flex mb-2">
-                                                    <div>
-                                                        <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
-                                                    </div>
-                                                    <div
-                                                        class="w-100 d-flex align-items-center justify-content-between">
-                                                        <div>
-                                                            <h6
-                                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
-                                                                Page Sections</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li> --}}
-
                                 <li class="nav-item mx-2">
                                     <a role="button" href="#infoisac"
                                         class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
@@ -239,8 +119,8 @@
                         class="col-lg-6 col-md-7 d-flex justify-content-center text-md-start text-center flex-column mt-7">
                         <h1 class="text-gradient text-warning">ICT SKILLS ASSESSMENT</h1>
                         <h1 class="mb-4">& CERTIFICATION (ISAC)</h1>
-                        <p class="lead pe-md-5 me-md-5">Sistem bagi penilaian ICT dan penjanaan sijil kemahiran bagi
-                            penjawat awam.</p>
+                        <p class="lead pe-md-5 me-md-5">Sistem Penilaian Kemahiran ICT dan Pensijilan
+                            bagi Penjawat Awam.</p>
                         <div class="mt-3">
                             <div class="card-body">
                                 <form method="POST" action="/login">
@@ -499,15 +379,19 @@
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
                                             </td>
                                             <td class="text-center">{{ $jadual['platform'] }}</td>
-                                            @if($jadual['status'] == null)
-                                            @if ($jadual['KEKOSONGAN'] == '0')
-                                            <td class="text-center">Penuh</td>
+                                            @if ($jadual['status'] == null)
+                                                @if ($jadual['KEKOSONGAN'] == '0')
+                                                    <td class="text-center"><span
+                                                            class="badge badge-lg badge-danger">Penuh</span></td>
+                                                @else
+                                                    <td class="text-center"><span
+                                                            class="badge badge-lg badge-success">Dibuka</span></td>
+                                                @endif
+
                                             @else
-                                            <td class="text-center">Dibuka</td>
-                                            @endif
-                                            
-                                            @else
-                                            <td class="text-center">{{ $jadual['status'] }} - {{ $jadual['keterangan'] }}</td>
+                                                <td class="text-center"><span
+                                                        class="badge badge-lg badge-info">{{ $jadual['status'] }} -
+                                                        {{ $jadual['keterangan'] }}</span></td>
                                             @endif
                                         </tr>
                                     @endforeach
@@ -524,21 +408,7 @@
         <div class="container">
             <div class=" row">
                 <div class="col-md-6 mb-4">
-                    <div class="d-flex justify-content-center flex-wrap">
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <h6 class="text-gradient text-warning font-weight-bolder">Institut Tadbiran Awam Negara
-                                </h6>
-                            </div>
-                            <div class="col-12 text-center">
-                                <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg"
-                                    width="150" height="150">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4 text-center">
-                    <div>
+                    <div style="padding-left: 13rem">
                         <h6 class="text-gradient text-warning text-sm">
                             Alamat Surat Menyurat :</h6>
                         <ul class="flex-column ms-n3 nav">
@@ -557,6 +427,21 @@
                         </ul>
                     </div>
                 </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex justify-content-center flex-wrap">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h6 class="text-gradient text-warning font-weight-bolder">Institut Tadbiran Awam Negara
+                                </h6>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg"
+                                    width="150" height="150">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {{-- <div class="col-md-3 col-sm-6 col-6 mb-4">
                     <div>
                         <h6 class="text-gradient text-warning text-sm">En. Mohd Yuzwan bin Yunan</h6>
