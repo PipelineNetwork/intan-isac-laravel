@@ -20,7 +20,7 @@
     <div class="container-fluid py-4">
         <div class="row mb-0">
             <div class="col-lg-6">
-                <h3 class="font-weight-bolder">Selamat Datang ke INTAN ISAC</h3>
+                <h3 class="font-weight-bolder">Selamat Datang ke Penilaian ISAC</h3>
             </div>
         </div>
 
@@ -178,7 +178,7 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Tahap</th>
+                                            <th>Sesi</th>
                                             <th>Masa</th>
                                             <th>Tarikh</th>
                                             <th>Kekosongan</th>
@@ -193,7 +193,16 @@
                                                 <tr>
 
                                                     <td>{{ $key + 1 }}.</td>
-                                                    <td>{{ $jadual->KOD_TAHAP }}</td>
+                                                    <td class="text-center">
+                                                        @if($jadual->KOD_SESI_PENILAIAN == "01")
+                                                        Pertama
+                                                        @elseif($jadual->KOD_SESI_PENILAIAN == "02")
+                                                        Kedua
+                                                        @elseif($jadual->KOD_SESI_PENILAIAN == "03")
+                                                        Ketiga
+                                                        @endif
+                                                        {{-- {{ $jadual['KOD_SESI_PENILAIAN'] }} --}}
+                                                    </td>
                                                     <td>{{ $jadual->KOD_MASA_MULA }} - {{ $jadual->KOD_MASA_TAMAT }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
                                                     <td>
