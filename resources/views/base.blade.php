@@ -57,7 +57,7 @@
             <a class="navbar-brand m-0 text-center" target="_blank">
                 {{-- <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg"
                     class="navbar-brand-img h-100" alt="main_logo"> --}}
-                <img src="../../img/logo-intan.png"
+                <img src="../../img/logo-intan2.png"
                     class="navbar-brand-img h-100" alt="main_logo" style="width: 50%; height: auto">
             </a>
         </div>
