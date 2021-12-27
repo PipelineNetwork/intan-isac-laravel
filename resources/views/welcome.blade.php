@@ -33,7 +33,7 @@
     use App\Models\Jadual;
     use App\Models\LamanUtama;
     
-    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
+    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan')
         ->orderBy('TARIKH_SESI', 'desc')
         ->whereYear('TARIKH_SESI', '>=', 2021)
         ->get();
@@ -524,7 +524,7 @@
                                         <th class="text-center">No.</th>
                                         <th class="text-center">Tarikh Penilaian</th>
                                         <th class="text-center">Saluran Penilaian</th>
-                                        <th class="text-center">Status Permohonan</th>
+                                        <th class="text-center">Status Jadual</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -540,7 +540,16 @@
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
                                             </td>
                                             <td class="text-center">{{ $jadual['platform'] }}</td>
-                                            <td class="text-center">{{ $jadual['status'] }}</td>
+                                            @if($jadual['status'] == null)
+                                            @if ($jadual['KEKOSONGAN'] == '0')
+                                            <td class="text-center">Penuh</td>
+                                            @else
+                                            <td class="text-center">Dibuka</td>
+                                            @endif
+                                            
+                                            @else
+                                            <td class="text-center">{{ $jadual['status'] }} - {{ $jadual['keterangan'] }}</td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

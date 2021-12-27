@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\MohonPenilaian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -294,6 +295,12 @@ class PenggunaController extends Controller
     public function destroy($user)
     {
         $user = User::find($user);
+        $ic = $user->nric;
+        $permohonan = MohonPenilaian::where('no_ic', $ic)->get();
+        foreach($permohonan as $permohonan){
+            $permohonan->delete();
+        }
+
         $user->delete();
         return redirect('/pengurusanpengguna')->with('success', 'Berjaya dihapus!');
     }
