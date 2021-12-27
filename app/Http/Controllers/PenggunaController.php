@@ -296,6 +296,12 @@ class PenggunaController extends Controller
     {
         $user = User::find($user);
         $ic = $user->nric;
+        $pro_peserta = Permohanan::where('NO_KAD_PENGENALAN', $ic)->get();
+        $pro_peserta->delete();
+        $pro_tempat_tugas = Tugas::where('ID_PESERTA', $pro_peserta->ID_PESERTA)->get();
+        $pro_tempat_tugas->delete();
+        $pro_perkhidmatan = Perkhidmatan::where('ID_PESERTA', $pro_peserta->ID_PESERTA)->get();
+        $pro_perkhidmatan->delete();
         $permohonan = MohonPenilaian::where('no_ic', $ic)->get();
         foreach($permohonan as $permohonan){
             $permohonan->delete();

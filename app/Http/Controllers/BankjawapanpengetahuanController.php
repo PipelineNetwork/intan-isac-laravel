@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bankjawapancalon;
 use App\Models\Bankjawapanpengetahuan;
 use App\Models\Banksoalanpengetahuan;
 use App\Models\KeputusanPenilaian;
@@ -149,6 +150,11 @@ class BankjawapanpengetahuanController extends Controller
         $jawapan = Bankjawapanpengetahuan::where('id_calon', $ic)
         ->where('id_penilaian', $id)
         ->get();
+
+        // $jawapan_kemahiran_internet = Bankjawapancalon::where('id_calon', $ic)
+        // ->where('id_penilaian', $id)
+        // ->where('id_soalankemahiraninternet', '!=', null)
+        // ->get();
 
         $ic = $ic;
         return view('proses_penilaian.keputusan_penilaian.senarai_jawapan',[

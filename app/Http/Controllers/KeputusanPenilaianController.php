@@ -154,7 +154,8 @@ No. Sijil: " . sprintf("%'.05d\n", $no_sijil);
         }
 
         $keputusan->markah_internet = $markah_internet;
-        if ($keputusan->markah_internet == 2) {
+        // if ($keputusan->markah_internet == 2) {
+        if ($keputusan->markah_internet == 1) {
             $keputusan->keputusan_internet = "Melepasi";
         } else {
             $keputusan->keputusan_internet = "Tidak Melepasi";

@@ -48,7 +48,7 @@
             <div class="col">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Jawapan Calon</b>
+                        <b class="text-white">Jawapan Calon (Pengetahuan)</b>
                     </div>
                     <div class="card-body pt-0">
 
@@ -77,12 +77,55 @@
 
                         <div class="row px-3">
                             <div class="col text-end">
-                                <a href="/senarai_penilaian/{{$ic}}" class="btn bg-gradient-primary">Kembali</a>
+                                <a href="/senarai_penilaian/{{ $ic }}" class="btn bg-gradient-primary">Kembali</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {{-- <div class="col">
+                <div class="card mt-3">
+                    <div class="card-header" style="background-color:#FFA500;">
+                        <b class="text-white">Jawapan Calon (Kemahiran Internet)</b>
+                    </div>
+                    <div class="card-body pt-0">
+
+                        <div class="table-responsive">
+                            <table class="table table-flush" id="datatable-peserta">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Jawapan Calon</th>
+                                        <th>Jawapan Sebenar</th>
+                                        <th>Markah Diberi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1.</td>
+                                        <td>{{ $jawapan->pilihan_jawapan }}</td>
+                                        <td>{{ $jawapan->jawapan }}</td>
+                                        <td>{{ $jawapan->markah }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.</td>
+                                        <td>{{ $jawapan->pilihan_jawapan }}</td>
+                                        <td>{{ $jawapan->jawapan }}</td>
+                                        <td>{{ $jawapan->markah }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row px-3">
+                            <div class="col text-end">
+                                <a href="/senarai_penilaian/{{ $ic }}" class="btn bg-gradient-primary">Kembali</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
         </div>
     </div>
     <script src="../../assets/js/plugins/datatables.js"></script>
