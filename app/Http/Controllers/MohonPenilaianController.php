@@ -709,8 +709,8 @@ class MohonPenilaianController extends Controller
         $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
 
         $emel_pendaftar = Auth::user()->email;
-        $recipient = [$emel_pendaftar, "najhan.mnajib@gmail.com"];
-        Mail::to($recipient)->send(new DaftarPeserta());
+        $recipient = [$emel_pendaftar,$request->EMEL_PENYELIA, "najhan.mnajib@gmail.com"];
+        // Mail::to($recipient)->send(new DaftarPeserta());
 
         // $pdf = App::make('dompdf.wrapper');
         // $pdf->loadHTML('<h1>Contoh surat</h1>');
@@ -734,6 +734,14 @@ class MohonPenilaianController extends Controller
             'masa_tamat' => $masa_tamat,
             'id_sesi' => $request->id_sesi
         ]);
+
+        $ic_numb = ['ic'=>$permohonan->no_ic];
+        Mail::send('emails.daftar_peserta', $ic_numb, function($message)use($recipient, $pdf) {
+            $message->to($recipient)
+                    ->subject("Permohonan Penilaian ISAC INTAN")
+                    ->attachData($pdf->output(), 'Surat_tawaran.pdf');
+        });
+
         return $pdf->download('Surat_tawaran_' . $permohonan->no_ic . '.pdf');
     }
 }

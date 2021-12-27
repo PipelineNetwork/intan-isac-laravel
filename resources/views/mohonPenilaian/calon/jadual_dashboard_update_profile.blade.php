@@ -35,7 +35,7 @@
                                     <input type="hidden" name="ID_PESERTA" value="{{ $user_profils->ID_PESERTA }}">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4">
-                                            No MyKad/Polis/Tentera/Pasport
+                                            No MyKad/Polis/Tentera/Pasport<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -54,7 +54,7 @@
                                     <div class="col-8">
                                         <input class="form-control form-control-sm ml-3"
                                             id="{{ $user_profils->EMEL_PESERTA }}" type="email" name="EMEL_PESERTA"
-                                            value="{{ $user_profils->EMEL_PESERTA }}" required>
+                                            value="{{ $user_profils->EMEL_PESERTA }}">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -140,13 +140,13 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_kod_gelaran_jawatan">
-                                            Gelaran Jawatan<span style="color: red">*</span>
+                                            Gelaran Jawatan
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
                                         <input class="form-control form-control-sm ml-3" name="KOD_GELARAN_JAWATAN"
                                             id="input_kod_gelaran_jawatan" type="text"
-                                            value="{{ $user_profils->KOD_GELARAN_JAWATAN }}" required>
+                                            value="{{ $user_profils->KOD_GELARAN_JAWATAN }}">
                                         <span><small><i>Contoh: Pegawai Teknologi Maklumat, Gred
                                                     F41/F44</i></small></span>
                                     </div>
@@ -293,8 +293,7 @@
                                         <input class="form-control form-control-sm ml-3" name="NO_TELEFON_BIMBIT"
                                             id="input_no_tel_bimbit" type="text"
                                             value="{{ $user_profils->NO_TELEFON_BIMBIT }}" maxlength="11"
-                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                                            required>
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -307,7 +306,7 @@
                                         <input class="form-control form-control-sm ml-3" name="GELARAN_KETUA_JABATAN"
                                             id="input_gelaran_ketua_jabatan" type="text"
                                             value="{{ $user_profils->GELARAN_KETUA_JABATAN }}"
-                                            style="text-transform:uppercase" required>
+                                            style="text-transform:uppercase">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -334,13 +333,13 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="{{ $user_profils->BAHAGIAN }}">
-                                            Bahagian<span style="color: red">*</span>
+                                            Bahagian
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
                                         <input class="form-control form-control-sm ml-3" name="BAHAGIAN"
                                             id="{{ $user_profils->BAHAGIAN }}" type="text"
-                                            value="{{ $user_profils->BAHAGIAN }}" required>
+                                            value="{{ $user_profils->BAHAGIAN }}">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -434,7 +433,7 @@
                                     <div class="col-8">
                                         <input class="form-control form-control-sm ml-3" name="EMEL_PENYELIA"
                                             id="{{ $user_profils->EMEL_PENYELIA }}" type="email"
-                                            value="{{ $user_profils->EMEL_PENYELIA }}">
+                                            value="{{ $user_profils->EMEL_PENYELIA }}" required>
                                     </div>
                                 </div>
                                 <div class="row mb-2">

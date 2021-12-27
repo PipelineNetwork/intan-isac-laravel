@@ -44,14 +44,14 @@ $role = Auth::user()->user_group_id;
             <div class="col-lg-6">
                 <h5 class="font-weight-bolder">Permohonan Penilaian</h5>
             </div>
-            @can('daftar permohonan')
+            {{-- @can('daftar permohonan')
                 <div class="col-lg-6">
                     <div class="column-12">
                         <a href="/mohonpenilaian/create" class="btn bg-gradient-warning" type="submit"
                             style="float: right;">PILIH JADUAL</a>
                     </div>
                 </div>
-            @endcan
+            @endcan --}}
         </div>
 
         <div class="row">
