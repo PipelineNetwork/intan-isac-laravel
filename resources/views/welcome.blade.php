@@ -442,51 +442,6 @@
                     </div>
                 </div>
 
-                {{-- <div class="col-md-3 col-sm-6 col-6 mb-4">
-                    <div>
-                        <h6 class="text-gradient text-warning text-sm">En. Mohd Yuzwan bin Yunan</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    Penolong Pegawai Teknologi Maklumat,
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    Gred FA29,
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    03-20847798.
-
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-6 mb-4">
-                    <div>
-                        <h6 class="text-gradient text-warning text-sm">En. Mohd Faisal Bin Mustafah</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    Penolong Pegawai Teknologi Maklumat,
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    Gred FA29,
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    03-20847703.
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div> --}}
                 <div class="col-12">
                     <div class="text-center">
                         <!-- <p class="my-4 text-sm">
