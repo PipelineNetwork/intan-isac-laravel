@@ -254,7 +254,7 @@
 
             minit = parseInt(minit);
             minit = minit + minit_tambah;
-            if (minit > 60) {
+            if (minit >= 60) {
                 minit = minit - 60;
                 jam = jam + 1;
             }
