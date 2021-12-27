@@ -259,7 +259,15 @@
                 jam = jam + 1;
             }
 
-            masav = jam + ':' + minit;
+            jam_d = jam.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+            minit_d = minit.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+            masav = jam_d + ':' + minit_d;
 
             if (jam > 12) {
                 jam = jam - 12;

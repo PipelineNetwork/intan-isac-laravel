@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class JadualKemaskini extends Mailable
+class JadualKemaskiniPembatalan extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -21,7 +21,7 @@ class JadualKemaskini extends Mailable
     public function __construct(Jadual $jadual)
     {
         $this->jadual = $jadual;
-        $this->tajuk = 'ISAC - Kemaskini Jadual: Perubahan';
+        $this->tajuk = 'ISAC - Kemaskini Jadual: Pembatalan';
     }
 
     /**
@@ -31,7 +31,7 @@ class JadualKemaskini extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.jadual_kemaskini')->subject($this->tajuk)->with([
+        return $this->view('emails.jadual_kemaskini_pembatalan')->subject($this->tajuk)->with([
             'sesi' => $this->jadual->KOD_SESI_PENILAIAN,
             'tahap' => $this->jadual->KOD_TAHAP,
             'tarikh' => $this->jadual->TARIKH_SESI,

@@ -193,13 +193,13 @@
                                                 <tr>
 
                                                     <td>{{ $key + 1 }}.</td>
-                                                    <td class="text-center">
-                                                        @if($jadual->KOD_SESI_PENILAIAN == "01")
-                                                        Pertama
+                                                    <td>
+                                                        @if ($jadual->KOD_SESI_PENILAIAN == '01')
+                                                            Pertama
                                                         @elseif($jadual->KOD_SESI_PENILAIAN == "02")
-                                                        Kedua
+                                                            Kedua
                                                         @elseif($jadual->KOD_SESI_PENILAIAN == "03")
-                                                        Ketiga
+                                                            Ketiga
                                                         @endif
                                                         {{-- {{ $jadual['KOD_SESI_PENILAIAN'] }} --}}
                                                     </td>
@@ -227,23 +227,30 @@
                                                             ->where('id_sesi', $jadual->ID_PENILAIAN)
                                                             ->first();
                                                         ?>
-                                                        @if ($done_daftar == null)
-                                                            @if ($jadual->KEKOSONGAN != 0)
-                                                                <form action="/mohonpenilaian/permohonan_penilaian" method="POST">
-                                                                    @csrf
-                                                                    <input type="hidden" name="sesi"
-                                                                        value="{{ $jadual->ID_PENILAIAN }}">
-                                                                    <button class="btn btn-sm bg-gradient-info"
-                                                                        type="submit">Daftar</button>
-                                                                </form>
-                                                            @else
-                                                                <button class="btn btn-sm bg-gradient-danger"
-                                                                    disabled>Penuh</button>
-                                                            @endif
-                                                        @else
-                                                            <button class="btn btn-sm bg-gradient-success" disabled>Telah
-                                                                daftar</button>
-                                                        @endif
+                                                        <div class="row align-items-center">
+                                                            <div class="col">
+                                                                @if ($done_daftar == null)
+                                                                    @if ($jadual->KEKOSONGAN != 0)
+                                                                        <form action="/mohonpenilaian/permohonan_penilaian"
+                                                                            method="POST" class="m-0">
+                                                                            @csrf
+                                                                            <input type="hidden" name="sesi"
+                                                                                value="{{ $jadual->ID_PENILAIAN }}">
+                                                                            <button class="btn btn-sm bg-gradient-info m-0"
+                                                                                type="submit">Daftar</button>
+                                                                        </form>
+                                                                    @else
+                                                                        <button class="btn btn-sm bg-gradient-danger m-0"
+                                                                            disabled>Penuh</button>
+                                                                    @endif
+                                                                @else
+                                                                    <button class="btn btn-sm bg-gradient-success m-0"
+                                                                        disabled>Telah
+                                                                        daftar</button>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+
                                                     </td>
                                                 </tr>
                                             @endif
