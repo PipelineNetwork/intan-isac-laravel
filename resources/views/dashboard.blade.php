@@ -15,6 +15,7 @@
 @section('content')
     <?php
     use App\Models\Refgeneral;
+    use App\Models\MohonPenilaian;
     ?>
     <div class="container-fluid py-4">
         <div class="row mb-0">
@@ -163,106 +164,90 @@
                     </div>
                 </div>
             </div>
-        @endunlessrole
 
-        <div class="row mt-3">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Jadual Penilaian</b>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Sesi</th>
-                                        <th>Tahap</th>
-                                        <th>Masa Mula</th>
-                                        <th>Tarikh Penilaian</th>
-                                        <th>Kategori Peserta</th>
-                                        <th>Jumlah Peserta</th>
-                                        <th>Kekosongan</th>
-                                        <th>Kementerian/Agensi</th>
-                                        <th>Platform</th>
-                                        <th>Lokasi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach ($jaduals as $key => $jadual)
+        @else
+            <div class="row">
+                <div class="col">
+                    <div class="card m-3">
+                        <div class="card-header" style="background-color:#FFA500;">
+                            <h5 class="text-white mb-0">Borang permohonan penilaian</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $key + 1 }}.</td>
-                                            <td class="text-center">
-                                                @if ($jadual['KOD_SESI_PENILAIAN'] == '01')
-                                                    Pertama
-                                                @elseif($jadual['KOD_SESI_PENILAIAN'] == "02")
-                                                    Kedua
-                                                @elseif($jadual['KOD_SESI_PENILAIAN'] == "03")
-                                                    Ketiga
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                @if ($jadual->KOD_TAHAP == '01')
-                                                    Asas
-                                                @else
-                                                    Lanjutan
-                                                @endif
-                                            </td>
-                                            <td class="text-center">{{ $jadual['KOD_MASA_MULA'] }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}</td>
-                                            <td class="text-center">
-                                                @if ($jadual->KOD_KATEGORI_PESERTA == '01')
-                                                    Individu
-                                                @else
-                                                    Kumpulan
-                                                @endif
-                                            </td>
-                                            <td class="text-center">{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
-                                            <td class="text-center">
-                                                @if ($jadual['KEKOSONGAN'] == null)
-                                                    0
-                                                @else
-                                                    {{ $jadual['KEKOSONGAN'] }}
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                @if ($jadual['KOD_KEMENTERIAN'] == null)
-                                                    -
-                                                @else
-
-                                                    <?php
-                                                    $kementerian = Refgeneral::where('MASTERCODE', '10028')
-                                                        ->where('REFERENCECODE', $jadual->KOD_KEMENTERIAN)
-                                                        ->first();
-                                                    // $kementerian = $kementerian->DESCRIPTION1;
-                                                    ?>
-                                                    @if ($kementerian != null)
-                                                        {{ $kementerian['DESCRIPTION1'] }}
-                                                    @endif
-                                                    {{-- {{ $jadual['KOD_KEMENTERIAN'] }} --}}
-                                                @endif
-                                            </td>
-                                            <td>{{ $jadual['platform'] }}</td>
-                                            <td class="text-center">
-                                                @if ($jadual['LOKASI'] == null)
-                                                    -
-                                                @else
-                                                    {{ $jadual['LOKASI'] }}
-                                                @endif
-                                            </td>
+                                            <th>No.</th>
+                                            <th>Tahap</th>
+                                            <th>Masa</th>
+                                            <th>Tarikh</th>
+                                            <th>Kekosongan</th>
+                                            <th>Platform</th>
+                                            <th>Lokasi</th>
+                                            <th>Pendaftaran</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($jaduals as $key => $jadual)
+                                            @if ($jadual->KOD_KATEGORI_PESERTA == '01')
+                                                <tr>
+
+                                                    <td>{{ $key + 1 }}.</td>
+                                                    <td>{{ $jadual->KOD_TAHAP }}</td>
+                                                    <td>{{ $jadual->KOD_MASA_MULA }} - {{ $jadual->KOD_MASA_TAMAT }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
+                                                    <td>
+                                                        @if ($jadual->KEKOSONGAN == null)
+                                                            0
+                                                        @else
+                                                            {{ $jadual->KEKOSONGAN }}
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $jadual->platform }}</td>
+                                                    <td>
+                                                        @if ($jadual['KOD_KEMENTERIAN'] == null)
+                                                            -
+                                                        @else
+                                                            {{ $jadual['LOKASI'] }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <?php
+                                                        $no_ic = Auth::user()->nric;
+                                                        $done_daftar = MohonPenilaian::where('no_ic', $no_ic)
+                                                            ->where('id_sesi', $jadual->ID_PENILAIAN)
+                                                            ->first();
+                                                        ?>
+                                                        @if ($done_daftar == null)
+                                                            @if ($jadual->KEKOSONGAN != 0)
+                                                                <form action="/mohonpenilaian/permohonan_penilaian" method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" name="sesi"
+                                                                        value="{{ $jadual->ID_PENILAIAN }}">
+                                                                    <button class="btn btn-sm bg-gradient-info"
+                                                                        type="submit">Daftar</button>
+                                                                </form>
+                                                            @else
+                                                                <button class="btn btn-sm bg-gradient-danger"
+                                                                    disabled>Penuh</button>
+                                                            @endif
+                                                        @else
+                                                            <button class="btn btn-sm bg-gradient-success" disabled>Telah
+                                                                daftar</button>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
+        @endunlessrole
+        {{-- <div class="row">
             <div class="col">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
@@ -298,9 +283,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col">
                 <div class="card m-3">
                     <div class="card-header" style="background-color:#FFA500;">
@@ -310,13 +295,18 @@
                         <ul class="list-group">
                             @foreach ($videodannotas as $nota)
                                 @if ($nota->jenis == 'Nota')
-                                    <li class="list-group-item">
-                                        {{-- <div class="row">
+                                    <li class="list-group-item"> --}}
+
+
+
+
+        {{-- jgn delete --}}
+        {{-- <div class="row">
                                 <div class="col text-center">
                                     <embed src="/storage/{{$nota->video}}" width="500px" height="500px" />
                                 </div>
                             </div> --}}
-                                        <div class="row">
+        {{-- <div class="row">
                                             <div class="col">
                                                 <h3>{{ $nota->tajuk }}</h3>
                                             </div>
@@ -328,7 +318,7 @@
                                         </div>
                                         <a href="/storage/{{ $nota->video }}" class="btn bg-gradient-info"><i
                                                 class="fas fa-file"></i> Klik disini untuk nota</a>
-                                        {{-- letak mcm kpdn punya thumbnail --}}
+                                       
                                     </li>
                                 @endif
                             @endforeach
@@ -336,7 +326,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -398,7 +388,7 @@
 
             // Create hover state
             var hoverState = pieSeries.slices.template.states.getKey(
-            "hover"); // normally we have to create the hover state, in this case it already exists
+                "hover"); // normally we have to create the hover state, in this case it already exists
 
             // Slightly shift the shadow and make it more prominent on hover
             var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
