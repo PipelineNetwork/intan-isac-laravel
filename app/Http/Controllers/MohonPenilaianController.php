@@ -278,6 +278,11 @@ class MohonPenilaianController extends Controller
     public function destroy($mohonPenilaian)
     {
         $mohonPenilaian = MohonPenilaian::find($mohonPenilaian);
+        $id_penilaian = $mohonPenilaian->id_sesi;
+        $kekosongan = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
+
+        $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN + 1;
+        $kekosongan->save();
         $mohonPenilaian->delete();
         return redirect('/mohonpenilaian')->with('success', 'Berjaya dihapus!');
     }
