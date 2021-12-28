@@ -153,7 +153,7 @@ use App\Models\Refgeneral;
                                                     <button class="btn mb-0 btn-danger" type="submit">Hapus&emsp;<i class="fas fa-trash-alt"></i></button>
                                                 </form>
                                                 <div class="dropdown">
-                                                    <button class="btn btn-info dropdown-toggle" type="button"
+                                                    <button class="btn btn-info dropdown-toggle mt-2" type="button"
                                                         id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                                         Kemaskini
                                                     </button>

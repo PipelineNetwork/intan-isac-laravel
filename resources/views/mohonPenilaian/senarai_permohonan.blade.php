@@ -100,7 +100,7 @@ $role = Auth::user()->user_group_id;
                                                 <tr>
                                                     <td class="text-sm font-weight-normal">{{ $key + 1 }}</td>
                                                     <td class="text-sm font-weight-normal">{{ $calon_3['id_sesi'] }}</td>
-                                                    <td class="text-sm font-weight-normal">{{ $calon_3['nama'] }}</td>
+                                                    <td class="text-sm font-weight-normal" style="text-transform: uppercase;">{{ $calon_3['nama'] }}</td>
                                                     <td class="text-sm font-weight-normal">
                                                         {{ date('d-m-Y', strtotime($calon_3['tarikh_sesi'])) }}</td>
                                                     {{-- tambah masa dgn lokasi --}}
@@ -155,7 +155,7 @@ $role = Auth::user()->user_group_id;
                                                 <tr>
                                                     <td class="text-sm font-weight-normal">{{ $key + 1 }}</td>
                                                     <td class="text-sm font-weight-normal">{{ $peserta['id_sesi'] }}</td>
-                                                    <td class="text-sm font-weight-normal">{{ $peserta['nama'] }}</td>
+                                                    <td class="text-sm font-weight-normal" style="text-transform: uppercase;">{{ $peserta['nama'] }}</td>
                                                     <td class="text-sm font-weight-normal">
                                                         {{ date('d-m-Y', strtotime($peserta['tarikh_sesi'])) }}</td>
                                                     {{-- masa --}}
