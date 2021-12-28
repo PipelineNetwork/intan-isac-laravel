@@ -154,7 +154,7 @@
                         </ol> --}}
                     </div>
                     <div class="col-xl-12" style="text-align: right">
-                        <a class="btn btn-success" data-bs-toggle="modal" style="cursor: pointer"
+                        <a class="btn btn-info" data-bs-toggle="modal" style="cursor: pointer"
                             data-bs-target="#modal-email-seterusnya">
                             Seterusnya
                         </a>
