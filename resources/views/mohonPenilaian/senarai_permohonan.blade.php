@@ -86,10 +86,11 @@ $role = Auth::user()->user_group_id;
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Penjadualan</th>
+                                        @endrole
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Tindakan</th>
-                                        @endrole
+                                        
                                     </tr>
                                 </thead>
 
@@ -161,6 +162,36 @@ $role = Auth::user()->user_group_id;
                                                     {{ date('d-m-Y', strtotime($peserta['tarikh_sesi'])) }}</td>
                                                 {{-- masa --}}
                                                 {{-- <td class="text-sm font-weight-normal">{{ $peserta['taraf_jawatan'] }}</td> --}}
+                                                <td class="text-sm font-weight-normal text-center">
+                                                    <a data-bs-toggle="modal" style="cursor: pointer"
+                                                        data-bs-target="#modaldelete-{{ $peserta['id'] }}">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </a>
+                                                </td>
+                                                <div class="modal fade" id="modaldelete-{{ $peserta['id'] }}"
+                                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body text-center">
+                                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                                <br>
+                                                                Anda pasti untuk menghapus permohonan?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn bg-gradient-secondary"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <form method="POST"
+                                                                    action="/mohonpenilaian/{{ $peserta['id'] }}">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <button class="btn btn-danger"
+                                                                        type="submit">Hapus</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </tr>
                                         @endforeach
                                     @endrole
