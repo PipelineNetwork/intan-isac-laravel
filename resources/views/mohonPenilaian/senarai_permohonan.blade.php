@@ -120,13 +120,35 @@ $role = Auth::user()->user_group_id;
                                                     @endif
                                                 </td>
                                                 <td class="text-sm font-weight-normal text-center">
-                                                    <form method="POST" action="/mohonpenilaian/{{ $calon_3->id }}">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button class="btn mb-0 btn-danger" type="submit"><i
-                                                                class="fas fa-trash-alt"></i></button>
-                                                    </form>
+                                                    <a data-bs-toggle="modal" style="cursor: pointer"
+                                                        data-bs-target="#modaldelete-{{ $calon_3->id }}">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </a>
                                                 </td>
+                                                <div class="modal fade" id="modaldelete-{{ $calon_3->id }}"
+                                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body text-center">
+                                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                                <br>
+                                                                Anda pasti untuk menghapus permohonan?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn bg-gradient-secondary"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <form method="POST"
+                                                                    action="/mohonpenilaian/{{ $calon_3->id }}">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <button class="btn btn-danger"
+                                                                        type="submit">Hapus</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </tr>
                                         @endforeach
                                     @else
