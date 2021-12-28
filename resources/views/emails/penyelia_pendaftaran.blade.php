@@ -1,8 +1,8 @@
+<p>Salam sejahtera,</p>
 
-Salam sejahtera,
+<p class="mt-4">Untuk makluman, akan menduduki penilaian ISAC yang akan diadakan pada
+    {{ $data_email->tarikh }}.</p>
 
-Untuk makluman,  akan menduduki penilaian ISAC yang akan diadakan pada {{$data_email->tarikh}}.
+<p class="mt-4">Disertakan sekali surat tawaran bagi calon tersebut untuk perhatian pihak tuan/puan.</p>
 
-Disertakan sekali surat tawaran bagi calon tersebut untuk perhatian pihak tuan/puan.
-
-Sekian, terima kasih.
+<p class="mt-4">Sekian, terima kasih.</p>

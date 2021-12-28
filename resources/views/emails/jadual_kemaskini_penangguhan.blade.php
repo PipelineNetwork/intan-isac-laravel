@@ -1,28 +1,37 @@
-Salam sejahtera,
+<p>Salam sejahtera,</p>
 
-Untuk makluman, terdapat perubahan pada jadual penilaian ISAC yang telah dimohon seperti berikut:
+<p class="mt-4">Untuk makluman, terdapat perubahan pada jadual penilaian ISAC yang telah dimohon seperti
+    berikut:</p>
 
-@if ($sesi == '01')
-Sesi: Pertama
-@elseif ($sesi == '02')
-Sesi: Kedua
-@elseif ($sesi == '03')
-Sesi: Ketiga
-@endif
-@if ($tahap == '01')
-Tahap: Asas
-@else
-Tahap: Lanjutan
-@endif
-Tarikh: {{$tarikh}}
-Masa Mula: {{$masa_mula}}
-Masa Tamat: {{$masa_tamat}}
-Platform: {{$platform}}
-@if ($lokasi != null)
-Lokasi: {{$lokasi}}
-@endif
-Sebab perubahan jadual: {{$keterangan}}
+<p class="mt-4">
+    @if ($sesi == '01')
+        Sesi: Pertama
 
-Sebarang pertanyaan sila hubungi pihak INTAN di talian 03-20847777.
+    @elseif ($sesi == '02')
+        Sesi: Kedua
 
-Sekian, terima kasih.
+    @elseif ($sesi == '03')
+        Sesi: Ketiga
+    @endif
+</p>
+<p class="mt-2">
+    @if ($tahap == '01')
+        Tahap: Asas
+    @else
+        Tahap: Lanjutan
+    @endif
+</p>
+<p class="mt-2">Tarikh: {{ $tarikh }}</p>
+<p class="mt-2">Masa Mula: {{ $masa_mula }}</p>
+<p class="mt-2">Masa Tamat: {{ $masa_tamat }}</p>
+<p class="mt-2">Platform: {{ $platform }}</p>
+<p class="mt-4">
+    @if ($lokasi != null)
+        Lokasi: {{ $lokasi }}
+    @endif
+</p>
+<p class="mt-2">Sebab perubahan jadual: {{ $keterangan }}</p>
+
+<p class="mt-4">Sebarang pertanyaan sila hubungi pihak INTAN di talian 03-20847777.</p>
+
+<p class="mt-4">Sekian, terima kasih.</p>

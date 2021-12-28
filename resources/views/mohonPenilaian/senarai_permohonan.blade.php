@@ -83,9 +83,9 @@ $role = Auth::user()->user_group_id;
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Surat Tawaran</th>
-                                            <th
+                                            {{-- <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
-                                                Penjadualan</th>
+                                                Penjadualan</th> --}}
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Tindakan</th>
@@ -110,7 +110,7 @@ $role = Auth::user()->user_group_id;
                                                         class="btn mb-0">Cetak&emsp;<i
                                                             class="far fa-file-pdf fa-lg text-danger"></i></a>
                                                 </td>
-                                                <td class="text-sm font-weight-normal text-center">
+                                                {{-- <td class="text-sm font-weight-normal text-center">
                                                     @if ($calon_3['status_penilaian'] == 'Baru')
                                                         <a href="/mohonpenilaian/{{ $calon_3['id'] }}/edit"
                                                             class="btn bg-gradient-info">Penjadualan Semula</a>
@@ -118,7 +118,7 @@ $role = Auth::user()->user_group_id;
                                                         <button class="btn bg-gradient-white" disabled>Penjadualan
                                                             Semula</button>
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-sm font-weight-normal text-center">
                                                     <form method="POST" action="/mohonpenilaian/{{ $calon_3->id }}">
                                                         @method('DELETE')
