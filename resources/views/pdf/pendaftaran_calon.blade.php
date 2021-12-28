@@ -85,7 +85,7 @@
                                             INSTITUT TADBIRAN AWAM NEGARA (INTAN) <br></span>
                                         Jabatan Perkhidmatan Awam Malaysia <br>
                                         Bukit Kiara, Jalan Bukit Kiara, 50480 Kuala Lumpur <br>
-                                        Tel:03-20847777 (20 talian),https://www.intanbk.intan.my
+                                        Tel:03-20847777 (20 talian),https://www.intanbk.intan.my/
                                     </div>
                                     <div class="column-side">
                                         <img src="{{ public_path('img/intan.png') }}" alt="PGN" height="80" style="">
@@ -157,7 +157,7 @@
                                         3. Sekiranya tuan/puan tidak dapat hadir pada tarikh penilaian, sila beri
                                         penjelasan melalui emel berikut : isachelp@intanbk.intan.my sebelum tarikh
                                         penilaian. Kegagalan untuk berbuat demikian akan mengakibatkan nama tuan/puan
-                                        <span style="font-weight: bold">disenaraihitamkan</span> daripada menduduki ujian penilaian di masa akan datang.
+                                        <span style="font-weight: bold">disenaraihitamkan</span> daripada menduduki ujian penilaian pada masa akan datang.
                                         Sebarang kemusykilan/masalah, sila hubungi kami melalui emel:
                                         isachelp@intanbk.intan.my. 
                                         <br><br>
