@@ -201,4 +201,11 @@ class SoalankemahiranwordController extends Controller
     {
         //
     }
+
+    public function test($id_penilaian){
+        
+        return view('proses_penilaian.soalan_kemahiran.mic_word2',[
+            'id_penilaian'=>$id_penilaian
+        ]);
+    }
 }
