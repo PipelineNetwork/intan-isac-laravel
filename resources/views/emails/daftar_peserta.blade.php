@@ -1,6 +1,6 @@
 Salam sejahtera,
 
-Permohonan anda bagi penilaian ISAC bertarikh {{$data_email->tarikh}} telah berjaya.
+Permohonan anda bagi penilaian ISAC bertarikh {{$tarikh}} telah berjaya.
 
 Sila muat turun surat tawaran di bawah untuk perincian penilaian.
 
