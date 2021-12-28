@@ -179,20 +179,6 @@
                                     </video>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <form method="POST" action="/logout">
-                                    @csrf
-                                    <a class="dropdown-item border-radius-md" href="#"
-                                        onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                this.closest('form').submit();">
-                                        <div class="d-flex py-1">
-
-                                            {{ __('Log Keluar') }}
-
-                                        </div>
-                                    </a>
-                                </form>
-                            </li>
                         </ul>
                     @endauth
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">

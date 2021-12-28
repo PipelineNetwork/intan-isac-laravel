@@ -716,11 +716,24 @@ class MohonPenilaianController extends Controller
         $emel_pendaftar = Auth::user()->email;
         $recipient = [$emel_pendaftar,$request->EMEL_PENYELIA];
         $recipient_penyelia = [$request->EMEL_PENYELIA];
-        // Mail::to($recipient)->send(new DaftarPeserta());
+        
+        if($masa_mula >"12:00"){
+            $mula = (float)$masa_mula;
+            $masa_mula = $mula - 12;
+            $masa_mula =number_format((float)$masa_mula, 2, '.', '');
+            $mula = $masa_mula.' PM';
+        }else{
+            $mula = $masa_mula.' AM';
+        }
 
-        // $pdf = App::make('dompdf.wrapper');
-        // $pdf->loadHTML('<h1>Contoh surat</h1>');
-        // return $pdf->download('surat.pdf');
+        if($masa_tamat >"12:00"){
+            $tamat = (float)$masa_tamat;
+            $masa_tamat = $tamat - 12;
+            $masa_tamat =number_format((float)$masa_tamat, 2, '.', '');
+            $tamat = $masa_tamat.' PM';
+        }else{
+            $tamat = $masa_tamat.' AM';
+        }
 
         $pdf = PDF::loadView('pdf.pendaftaran_calon', [
             'jkj' => $permohonan->jawatan_ketua_jabatan,
@@ -736,8 +749,8 @@ class MohonPenilaianController extends Controller
             'ic' => $permohonan->no_ic,
             'tarikh' => $permohonan->tarikh_sesi,
             'tahap' => $tahap,
-            'masa_mula' => $masa_mula,
-            'masa_tamat' => $masa_tamat,
+            'masa_mula' => $mula,
+            'masa_tamat' => $tamat,
             'id_sesi' => $request->id_sesi
         ]);
 

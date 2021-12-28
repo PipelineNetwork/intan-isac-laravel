@@ -241,7 +241,7 @@
                                         <div class="col-lg-auto">
                                             <button type="button" class="btn bg-gradient-info" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">
-                                                Hantar
+                                                Seterusnya
                                             </button>
                                         </div>
                                     </div>
