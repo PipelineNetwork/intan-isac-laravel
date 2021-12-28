@@ -9,3 +9,5 @@
 <p class="mt-4"><a href="https://intan-isac.com.my/" target="_blank">https://intan-isac.com.my/</a></p>
 
 <p class="mt-4">Sekian, terima kasih.</p>
+
+<p class="mt-4">PENTADBIR ISAC</p>
