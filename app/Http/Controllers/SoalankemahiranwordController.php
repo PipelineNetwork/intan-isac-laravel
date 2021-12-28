@@ -49,11 +49,13 @@ class SoalankemahiranwordController extends Controller
     {
         $current_user = $request->user();
 
-        $jawapancalon = new Bankjawapancalon();
+        // $jawapancalon = new Bankjawapancalon();
+
+        $jawapancalon = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $current_user->nric)->first();
 
         $jawapancalon->jawapan_word =  $request->jawapan_word;
 
-        $jawapan = Soalankemahiranword::all();
+        $jawapan = Soalankemahiranword::where('id', $id_word)->first();
 
         foreach ($jawapan as $j) {
             if (str_contains($request->jawapan_word, $j->jawapan_1) && isset($j->jawapan_1)) {
@@ -156,7 +158,7 @@ class SoalankemahiranwordController extends Controller
     {
         // $jawapancalon = Bankjawapancalon::where('user_id', Auth::user());
 
-        $soalankemahiranword = Soalankemahiranword::where('id', $id_word)->get()->first();
+        $soalankemahiranword = Soalankemahiranword::where('id', $id_word)->first();
         $id_penilaian = $id_penilaian;
         // dd($soalankemahiranword);
         return view('proses_penilaian.soalan_kemahiran.mic_word1', [
@@ -198,12 +200,5 @@ class SoalankemahiranwordController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function test($id_penilaian){
-        
-        return view('proses_penilaian.soalan_kemahiran.mic_word2',[
-            'id_penilaian'=>$id_penilaian
-        ]);
     }
 }

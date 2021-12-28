@@ -166,7 +166,7 @@
                             <div class="search mt-3">
                                 <div class="col-xl-8 m-auto">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="carian_teks" autocomplete="off">
+                                        <input type="text" class="form-control" name="carianteks" autocomplete="off">
                                         <span class="input-group-text"><i
                                                 class="fas fa-microphone me-sm-1 text-dark"></i></span>
                                     </div>

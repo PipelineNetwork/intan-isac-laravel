@@ -112,7 +112,7 @@ class SoalankemahiranemailController extends Controller
 
         $current_user = $request->user();
 
-        $jawapancalon = new Bankjawapancalon();
+        $jawapancalon = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $current_user->nric)->first();
 
         $jawapancalon->input_to = $request->input_to;
         if ($request->input_to != null) {
