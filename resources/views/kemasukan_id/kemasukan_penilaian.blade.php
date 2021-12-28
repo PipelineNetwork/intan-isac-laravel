@@ -216,7 +216,7 @@
                                     <div class="row mt-5 mb-2">
                                         <div class="col-lg-2 text-center">
                                             <a class="btn btn-sm btn-outline-secondary" style="display: none;" id="kembali"
-                                                onclick="kembali()" di>kembali</a>
+                                                onclick="kembali()" di>sebelum</a>
                                         </div>
                                         <div class="col-lg-8 text-center">
                                             @foreach ($soalan_penilaian as $index => $soalan)
@@ -226,7 +226,7 @@
                                         </div>
                                         <div class="col-lg-2 text-center">
                                             <a class="btn btn-sm btn-outline-secondary" id="seterusnya"
-                                                onclick="seterusnya()">seterusnya</a>
+                                                onclick="seterusnya()">selepas</a>
                                         </div>
                                     </div>
                                     <input type="hidden" name="id_sesi" value="{{ $id_penilaian }}">
@@ -239,9 +239,9 @@
                                                 data-bs-target="#exampleModal">Semak status soalan</a>
                                         </div> --}}
                                         <div class="col-lg-auto">
-                                            <button type="button" class="btn bg-gradient-success" data-bs-toggle="modal"
+                                            <button type="button" class="btn bg-gradient-info" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">
-                                                Seterusnya
+                                                Hantar
                                             </button>
                                         </div>
                                     </div>
