@@ -1,9 +1,9 @@
-Salam sejahtera,
+<p>Salam sejahtera,</p>
 
-Dukacita dimaklumkan bahawa jadual penilaian ISAC yang akan diadakan pada tarikh @tarikh telah DIBATALKAN atas sebab yang berikut:
+<p class="mt-4">Dukacita dimaklumkan bahawa jadual penilaian ISAC yang akan diadakan pada tarikh @tarikh telah DIBATALKAN atas sebab yang berikut:</p>
 
-{{$keterangan}}
+<p class="mt-4">{{$keterangan}}</p>
 
-Pihak kami memohon maaf atas sebarang kesulitan. Sekiranya ada pertanyaan sila hubungi pihak INTAN di talian 03-20847777.
+<p class="mt-4">Pihak kami memohon maaf atas sebarang kesulitan. Sekiranya ada pertanyaan sila hubungi pihak INTAN di talian 03-20847777.</p>
 
-Sekian, terima kasih.
+<p>Sekian, terima kasih.</p>

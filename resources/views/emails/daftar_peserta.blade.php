@@ -1,7 +1,7 @@
-Salam sejahtera,
+<p>Salam sejahtera,</p>
 
-Permohonan anda bagi penilaian ISAC bertarikh {{date('d-m-Y', strtotime($tarikh))}} telah berjaya.
+<p class="mt-4">Permohonan anda bagi penilaian ISAC bertarikh {{ $data_email->tarikh }} telah berjaya.</p>
 
-Sila muat turun surat tawaran di bawah untuk perincian penilaian.
+<p class="mt-4">Sila muat turun surat tawaran di bawah untuk perincian penilaian.</p>
 
-Sekian, terima kasih.
+<p>Sekian, terima kasih.</p>
