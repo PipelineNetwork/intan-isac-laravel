@@ -193,7 +193,7 @@ class MohonPenilaianController extends Controller
         $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
 
         $emel_pendaftar = Auth::user()->email;
-        $recipient = [$emel_pendaftar, "najhan.mnajib@gmail.com"];
+        $recipient = [$emel_pendaftar];
         Mail::to($recipient)->send(new DaftarPeserta());
 
         // $pdf = App::make('dompdf.wrapper');
@@ -714,8 +714,8 @@ class MohonPenilaianController extends Controller
         $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
 
         $emel_pendaftar = Auth::user()->email;
-        $recipient = [$emel_pendaftar,$request->EMEL_PENYELIA, "najhan.mnajib@gmail.com"];
-        $recipient_penyelia = [$request->EMEL_PENYELIA, "najhan.mnajib@gmail.com"];
+        $recipient = [$emel_pendaftar,$request->EMEL_PENYELIA];
+        $recipient_penyelia = [$request->EMEL_PENYELIA];
         // Mail::to($recipient)->send(new DaftarPeserta());
 
         // $pdf = App::make('dompdf.wrapper');
@@ -746,13 +746,14 @@ class MohonPenilaianController extends Controller
             'nama_calon'=>$request->NAMA_PESERTA,
             'tarikh' => $permohonan->tarikh_sesi,
         ];
+        
         Mail::send('emails.daftar_peserta', $data_email, function($message)use($recipient, $pdf) {
             $message->to($recipient)
                     ->subject("ISAC - Permohonan Berjaya")
                     ->attachData($pdf->output(), 'Surat_tawaran.pdf');
         });
 
-        Mail::send('emails.daftar_peserta', $data_email, function($message)use($recipient_penyelia, $pdf) {
+        Mail::send('emails.penyelia_pendaftaran', $data_email, function($message)use($recipient_penyelia, $pdf) {
             $message->to($recipient_penyelia)
                     ->subject("ISAC - Permohonan Penilaian ISAC")
                     ->attachData($pdf->output(), 'Surat_tawaran.pdf');
