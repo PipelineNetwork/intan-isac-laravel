@@ -86,31 +86,32 @@ $role = Auth::user()->user_group_id;
                                             {{-- <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Penjadualan</th> --}}
+                                        @endrole
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Tindakan</th>
-                                        
-                                    </tr>
-                                </thead>
 
-                                <tbody>
-                                    @role('calon')
-                                        @foreach ($calon_3 as $key => $calon_3)
-                                            <tr>
-                                                <td class="text-sm font-weight-normal">{{ $key + 1 }}</td>
-                                                <td class="text-sm font-weight-normal">{{ $calon_3['id_sesi'] }}</td>
-                                                <td class="text-sm font-weight-normal">{{ $calon_3['nama'] }}</td>
-                                                <td class="text-sm font-weight-normal">
-                                                    {{ date('d-m-Y', strtotime($calon_3['tarikh_sesi'])) }}</td>
-                                                {{-- tambah masa dgn lokasi --}}
-                                                {{-- <td class="text-sm font-weight-normal">{{ $calon_3['taraf_jawatan'] }}</td> --}}
-                                                <td class="text-sm font-weight-normal">{{ $calon_3['status_penilaian'] }}</td>
-                                                <td class="text-sm font-weight-normal text-center">
-                                                    <a href="/cetak_surat/{{ $calon_3['id'] }}"
-                                                        class="btn mb-0">Cetak&emsp;<i
-                                                            class="far fa-file-pdf fa-lg text-danger"></i></a>
-                                                </td>
-                                                {{-- <td class="text-sm font-weight-normal text-center">
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @role('calon')
+                                            @foreach ($calon_3 as $key => $calon_3)
+                                                <tr>
+                                                    <td class="text-sm font-weight-normal">{{ $key + 1 }}</td>
+                                                    <td class="text-sm font-weight-normal">{{ $calon_3['id_sesi'] }}</td>
+                                                    <td class="text-sm font-weight-normal">{{ $calon_3['nama'] }}</td>
+                                                    <td class="text-sm font-weight-normal">
+                                                        {{ date('d-m-Y', strtotime($calon_3['tarikh_sesi'])) }}</td>
+                                                    {{-- tambah masa dgn lokasi --}}
+                                                    {{-- <td class="text-sm font-weight-normal">{{ $calon_3['taraf_jawatan'] }}</td> --}}
+                                                    <td class="text-sm font-weight-normal">{{ $calon_3['status_penilaian'] }}</td>
+                                                    <td class="text-sm font-weight-normal text-center">
+                                                        <a href="/cetak_surat/{{ $calon_3['id'] }}"
+                                                            class="btn mb-0">Cetak&emsp;<i
+                                                                class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                                    </td>
+                                                    {{-- <td class="text-sm font-weight-normal text-center">
                                                     @if ($calon_3['status_penilaian'] == 'Baru')
                                                         <a href="/mohonpenilaian/{{ $calon_3['id'] }}/edit"
                                                             class="btn bg-gradient-info">Penjadualan Semula</a>
@@ -119,97 +120,94 @@ $role = Auth::user()->user_group_id;
                                                             Semula</button>
                                                     @endif
                                                 </td> --}}
-                                                <td class="text-sm font-weight-normal text-center">
-                                                    <a data-bs-toggle="modal" style="cursor: pointer"
-                                                        data-bs-target="#modaldelete-{{ $calon_3->id }}">
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                                <div class="modal fade" id="modaldelete-{{ $calon_3->id }}"
-                                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-body text-center">
-                                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
-                                                                <br>
-                                                                Anda pasti untuk menghapus permohonan?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn bg-gradient-secondary"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <form method="POST"
-                                                                    action="/mohonpenilaian/{{ $calon_3->id }}">
-                                                                    @method('DELETE')
-                                                                    @csrf
-                                                                    <button class="btn btn-danger"
-                                                                        type="submit">Hapus</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        @foreach ($peserta as $key => $peserta)
-                                            <tr>
-                                                <td class="text-sm font-weight-normal">{{ $key + 1 }}</td>
-                                                <td class="text-sm font-weight-normal">{{ $peserta['id_sesi'] }}</td>
-                                                <td class="text-sm font-weight-normal">{{ $peserta['nama'] }}</td>
-                                                <td class="text-sm font-weight-normal">
-                                                    {{ date('d-m-Y', strtotime($peserta['tarikh_sesi'])) }}</td>
-                                                {{-- masa --}}
-                                                {{-- <td class="text-sm font-weight-normal">{{ $peserta['taraf_jawatan'] }}</td> --}}
-                                                <td class="text-sm font-weight-normal text-center">
-                                                    <a data-bs-toggle="modal" style="cursor: pointer"
-                                                        data-bs-target="#modaldelete-{{ $peserta['id'] }}">
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                                <div class="modal fade" id="modaldelete-{{ $peserta['id'] }}"
-                                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-body text-center">
-                                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
-                                                                <br>
-                                                                Anda pasti untuk menghapus permohonan?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn bg-gradient-secondary"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <form method="POST"
-                                                                    action="/mohonpenilaian/{{ $peserta['id'] }}">
-                                                                    @method('DELETE')
-                                                                    @csrf
-                                                                    <button class="btn btn-danger"
-                                                                        type="submit">Hapus</button>
-                                                                </form>
+                                                    <td class="text-sm font-weight-normal text-center">
+                                                        <a data-bs-toggle="modal" style="cursor: pointer"
+                                                            data-bs-target="#modaldelete-{{ $calon_3->id }}">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </a>
+                                                    </td>
+                                                    <div class="modal fade" id="modaldelete-{{ $calon_3->id }}" tabindex="-1"
+                                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body text-center">
+                                                                    <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                                    <br>
+                                                                    Anda pasti untuk menghapus permohonan?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn bg-gradient-secondary"
+                                                                        data-bs-dismiss="modal">Batal</button>
+                                                                    <form method="POST"
+                                                                        action="/mohonpenilaian/{{ $calon_3->id }}">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button class="btn btn-danger" type="submit">Hapus</button>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </tr>
-                                        @endforeach
-                                    @endrole
-                                </tbody>
-                            </table>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            @foreach ($peserta as $key => $peserta)
+                                                <tr>
+                                                    <td class="text-sm font-weight-normal">{{ $key + 1 }}</td>
+                                                    <td class="text-sm font-weight-normal">{{ $peserta['id_sesi'] }}</td>
+                                                    <td class="text-sm font-weight-normal">{{ $peserta['nama'] }}</td>
+                                                    <td class="text-sm font-weight-normal">
+                                                        {{ date('d-m-Y', strtotime($peserta['tarikh_sesi'])) }}</td>
+                                                    {{-- masa --}}
+                                                    {{-- <td class="text-sm font-weight-normal">{{ $peserta['taraf_jawatan'] }}</td> --}}
+                                                    <td class="text-sm font-weight-normal text-center">
+                                                        <a data-bs-toggle="modal" style="cursor: pointer"
+                                                            data-bs-target="#modaldelete-{{ $peserta['id'] }}">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </a>
+                                                    </td>
+                                                    <div class="modal fade" id="modaldelete-{{ $peserta['id'] }}"
+                                                        tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body text-center">
+                                                                    <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                                    <br>
+                                                                    Anda pasti untuk menghapus permohonan?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn bg-gradient-secondary"
+                                                                        data-bs-dismiss="modal">Batal</button>
+                                                                    <form method="POST"
+                                                                        action="/mohonpenilaian/{{ $peserta['id'] }}">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button class="btn btn-danger" type="submit">Hapus</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </tr>
+                                            @endforeach
+                                        @endrole
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="../../assets/js/plugins/datatables.js"></script>
-    <script type="text/javascript">
-        const dataTableBasickategori = new simpleDatatables.DataTable("#datatable-peserta", {
-            searchable: true,
-            fixedHeight: true
-        });
-    </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
-@stop
+        <script src="../../assets/js/plugins/datatables.js"></script>
+        <script type="text/javascript">
+            const dataTableBasickategori = new simpleDatatables.DataTable("#datatable-peserta", {
+                searchable: true,
+                fixedHeight: true
+            });
+        </script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        @include('sweet::alert')
+    @stop
