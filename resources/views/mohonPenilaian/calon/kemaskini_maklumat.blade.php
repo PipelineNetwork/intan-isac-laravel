@@ -54,12 +54,12 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        @if ($user_profils->KOD_GELARAN != null)
+                                        @if (!empty($user_profils->KOD_GELARAN))
                                             <select class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                id="input_kod_gelaran">
+                                                id="input_kod_gelaran" required>
                                                 {{-- <option hidden selected>{{ $gelaran_user->DESCRIPTION1 }}</option> --}}
-                                                <option hidden selected value="{{ $gelaran_user->KOD_GELARAN }}">
-                                                    {{ $gelaran_user->DESCRIPTION1 }}</option>
+                                                <option hidden selected value="{{ $user_profils->KOD_GELARAN }}">
+                                                    {{ $user_profils->KOD_GELARAN }}</option>
                                                 @foreach ($kod_gelarans as $kod_gelaran)
                                                     <option value="{{ $kod_gelaran->REFERENCECODE }}">
                                                         {{ $kod_gelaran->DESCRIPTION1 }}</option>
@@ -67,7 +67,7 @@
                                             </select>
                                         @else
                                             <select class="form-control form-control-sm ml-3" name="KOD_GELARAN"
-                                                id="input_kod_gelaran">
+                                                id="input_kod_gelaran" required>
                                                 <option hidden selected value="">Sila Pilih</option>
                                                 @foreach ($kod_gelarans as $kod_gelaran)
                                                     <option value="{{ $kod_gelaran->REFERENCECODE }}">
