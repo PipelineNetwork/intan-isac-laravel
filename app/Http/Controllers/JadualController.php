@@ -182,6 +182,7 @@ class JadualController extends Controller
      */
     public function edit($ID_SESI)
     {
+
         $jadual = Jadual::where('ID_SESI', $ID_SESI)->first();
         $penyelaras_id = $jadual->user_id;
         if($penyelaras_id != null){
@@ -192,11 +193,14 @@ class JadualController extends Controller
         // dd($penyelaras_id);
         $penyelaras = User::where('user_group_id', '3')->get();
 
+        $masa_penilaian = SelenggaraKawalanSistem::where('ID_KAWALAN_SISTEM', '1')->first();
+        $masa_pengetahuan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
         return view('jadual.edit', [
             'jadual' => $jadual, 
             'ID_SESI' => $ID_SESI,
             'penyelaras_sesi' => $penyelaras_sesi,
-            'penyelaras' => $penyelaras
+            'penyelaras' => $penyelaras,
+            'masa_pengetahuan' => $masa_pengetahuan
         ]);
     }
 

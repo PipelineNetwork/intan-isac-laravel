@@ -517,24 +517,84 @@ class MohonPenilaianController extends Controller
             $tahap = "Lanjutan";
         }
 
+        $permohonan = MohonPenilaian::where('id', $id)->first();
+        $ic_num = $permohonan->no_ic;
+        $user_profils1 = User::where('nric', $ic_num)->first();
+        $user_profils2 = Permohanan::where('user_id', $user_profils1->id)->first();
+        $user_profils3 = Tugas::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();
+        $user_profils4 = Perkhidmatan::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();
+
+        $kekosongan = Jadual::where('ID_PENILAIAN', $permohonan->id_sesi)->first();
+        $maklumat_calon = Tugas::where('ID_PESERTA', $permohonan->id_calon)->first();
+
+        $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN - 1;
+        $kekosongan->save();
+
+        $tahap = $kekosongan->KOD_TAHAP;
+        if ($tahap == "01") {
+            $tahap = "Asas";
+        } else {
+            $tahap = "Lanjutan";
+        }
+
+        $masa_mula = $kekosongan->KOD_MASA_MULA;
+        $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
+        
+        if($masa_mula >"12:00"){
+            $mula = (float)$masa_mula;
+            $masa_mula = $mula - 12;
+            $masa_mula =number_format((float)$masa_mula, 2, '.', '');
+            $mula = $masa_mula.' PM';
+        }else{
+            $mula = $masa_mula.' AM';
+        }
+
+        if($masa_tamat >"12:00"){
+            $tamat = (float)$masa_tamat;
+            $masa_tamat = $tamat - 12;
+            $masa_tamat =number_format((float)$masa_tamat, 2, '.', '');
+            $tamat = $masa_tamat.' PM';
+        }else{
+            $tamat = $masa_tamat.' AM';
+        }
+
         $pdf = PDF::loadView('pdf.pendaftaran_calon', [
-            'jkj' => $id_permohonan->jawatan_ketua_jabatan,
-            'kementerian' => $maklumat_calon->KOD_KEMENTERIAN,
-            'al1' => $id_permohonan->alamat1_pejabat,
-            'al2' => $id_permohonan->alamat2_pejabat,
-            'poskod' => $id_permohonan->poskod_pejabat,
-            'bandar' => $maklumat_calon->BANDAR,
-            'negeri' => $maklumat_calon->KOD_NEGERI,
-            'nama_penyelaras' => $id_permohonan->nama_penyelia,
+            'jkj' => $permohonan->jawatan_ketua_jabatan,
+            'kementerian' => $user_profils3->KOD_KEMENTERIAN,
+            'al1' => $permohonan->alamat1_pejabat,
+            'al2' => $permohonan->alamat2_pejabat,
+            'poskod' => $permohonan->poskod_pejabat,
+            'bandar' => ucfirst(strtolower($user_profils3->BANDAR)),
+            'negeri' => $user_profils3->KOD_NEGERI,
+            'nama_penyelaras' => $permohonan->nama_penyelia,
             'hari' => date('d - m - Y'),
-            'nama' => $id_permohonan->nama,
-            'ic' => $id_permohonan->no_ic,
-            'tarikh' => $id_permohonan->tarikh_sesi,
+            'nama' => $permohonan->nama,
+            'ic' => $permohonan->no_ic,
+            'tarikh' => $permohonan->tarikh_sesi,
             'tahap' => $tahap,
-            'masa_mula' => $jadual->KOD_MASA_MULA,
-            'masa_tamat' => $jadual->KOD_MASA_TAMAT,
-            'id_sesi' => $id_penilaian
+            'masa_mula' => $mula,
+            'masa_tamat' => $tamat,
+            'id_sesi' => $permohonan->id_sesi
         ]);
+
+        // $pdf = PDF::loadView('pdf.pendaftaran_calon', [
+        //     'jkj' => $id_permohonan->jawatan_ketua_jabatan,
+        //     'kementerian' => $maklumat_calon->KOD_KEMENTERIAN,
+        //     'al1' => $id_permohonan->alamat1_pejabat,
+        //     'al2' => $id_permohonan->alamat2_pejabat,
+        //     'poskod' => $id_permohonan->poskod_pejabat,
+        //     'bandar' => $maklumat_calon->BANDAR,
+        //     'negeri' => $maklumat_calon->KOD_NEGERI,
+        //     'nama_penyelaras' => $id_permohonan->nama_penyelia,
+        //     'hari' => date('d - m - Y'),
+        //     'nama' => $id_permohonan->nama,
+        //     'ic' => $id_permohonan->no_ic,
+        //     'tarikh' => $id_permohonan->tarikh_sesi,
+        //     'tahap' => $tahap,
+        //     'masa_mula' => $jadual->KOD_MASA_MULA,
+        //     'masa_tamat' => $jadual->KOD_MASA_TAMAT,
+        //     'id_sesi' => $id_penilaian
+        // ]);
         return $pdf->download('Surat_tawaran_' . $id_permohonan->no_ic . '.pdf');
     }
 
@@ -737,7 +797,7 @@ class MohonPenilaianController extends Controller
 
         $pdf = PDF::loadView('pdf.pendaftaran_calon', [
             'jkj' => $permohonan->jawatan_ketua_jabatan,
-            'kementerian' => $maklumat_calon->KOD_KEMENTERIAN,
+            'kementerian' => $user_profils3->KOD_KEMENTERIAN,
             'al1' => $permohonan->alamat1_pejabat,
             'al2' => $permohonan->alamat2_pejabat,
             'poskod' => $permohonan->poskod_pejabat,
