@@ -85,7 +85,7 @@
                                             INSTITUT TADBIRAN AWAM NEGARA (INTAN) <br></span>
                                         Jabatan Perkhidmatan Awam Malaysia <br>
                                         Bukit Kiara, Jalan Bukit Kiara, 50480 Kuala Lumpur <br>
-                                        Tel:03-20847777 (20 talian),http://www.intanbk.intan.my
+                                        Tel:03-20847777 (20 talian),https://www.intanbk.intan.my
                                     </div>
                                     <div class="column-side">
                                         <img src="{{ public_path('img/intan.png') }}" alt="PGN" height="80" style="">
@@ -108,19 +108,19 @@
                                     @endif
                                     {{ $poskod }}, {{ $bandar }}<br>
                                     {{ $negeri }}<br>
-                                    (up : {{ $nama_penyelaras }})<br><br>
+                                    (up : <span style="font-size: 10;"></span>{{ $nama_penyelaras }})<br><br>
                                     Tarikh : {{ $hari }}<br>
-                                    Ruj Kami : INTAN 52/4/25 (4)<br>
+                                    Ruj Kami : INTAN.500-5/1/1<br>
                                     Tuan/Puan,
                                     <br><br>
                                     <span class="text-custom">SURAT TAWARAN PENILAIAN ICT SKILLS ASSESSMENT AND
-                                        CERTIFACTION (ISAC)</span><br>
-                                    <span class="form-inline">Dengan segala hormatnya merujuk kepada merujuk perkara
+                                        CERTIFICATION (ISAC)</span><br>
+                                    <span class="form-inline">Dengan segala hormatnya merujuk kepada perkara
                                         di atas.
                                         <br><br>
 
 
-                                        2. Adalah dimaklumkan bahawa tuan/puan telah berjaya untuk menduduki ujian
+                                        2. Adalah dimaklumkan bahawa pegawai berikut terpilih untuk menduduki ujian
                                         Penilaian ICT
                                         Skills Assessment and Certification (ISAC). Maklumat lengkap ujian adalah
                                         seperti berikut :-
@@ -140,7 +140,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="width: 150px;">Tarikh Penilaian</td>
-                                                <td>: {{ $tarikh }}</td>
+                                                <td>: {{date('d-m-Y', strtotime($tarikh))}}</td>
                                             </tr>
                                             <tr>
                                                 <td style="width: 150px;">Masa Penilaian</td>
@@ -157,15 +157,15 @@
                                         3. Sekiranya tuan/puan tidak dapat hadir pada tarikh penilaian, sila beri
                                         penjelasan melalui emel berikut : isachelp@intanbk.intan.my sebelum tarikh
                                         penilaian. Kegagalan untuk berbuat demikian akan mengakibatkan nama tuan/puan
-                                        *DISENARAIHITAMKAN* daripada menduduki ujian penilaian di masa akan datang.
+                                        <span style="font-weight: bold">disenaraihitamkan</span> daripada menduduki ujian penilaian di masa akan datang.
                                         Sebarang kemusykilan/masalah, sila hubungi kami melalui emel:
-                                        isachelp@intanbk.intan.my. Sekian, terima kasih. <br><br>
+                                        isachelp@intanbk.intan.my. 
+                                        <br><br>
+                                        Sekian, terima kasih. <br><br>
 
                                         <div class="row">
                                             <div class="column-center">
-                                                <span style="font-weight: bold">"JPA Peneraju Perubahan Perkhidmatan
-                                                    Awam"</span><br>
-                                                <span style="font-weight: bold">"1 Sentiasa di Hadapan"</span><br><br><br>
+                                                <span style="font-weight: bold">"BERKHIDMAT UNTUK NEGARA"</span><br><br><br>
                                                 <span style="font-weight: bold">Fatimah binti Ghazali</span><br>
                                                 Ketua Kluster <br>
                                                 Kluster Inovasi Teknologi Pengurusan (i-IMATEC) <br>
