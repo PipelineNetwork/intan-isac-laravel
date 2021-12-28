@@ -193,7 +193,7 @@ class MohonPenilaianController extends Controller
         $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
 
         $emel_pendaftar = Auth::user()->email;
-        $recipient = [$emel_pendaftar, "najhan.mnajib@gmail.com"];
+        $recipient = [$emel_pendaftar];
         Mail::to($recipient)->send(new DaftarPeserta());
 
         // $pdf = App::make('dompdf.wrapper');
@@ -714,8 +714,8 @@ class MohonPenilaianController extends Controller
         $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
 
         $emel_pendaftar = Auth::user()->email;
-        $recipient = [$emel_pendaftar,$request->EMEL_PENYELIA, "najhan.mnajib@gmail.com"];
-        $recipient_penyelia = [$request->EMEL_PENYELIA, "najhan.mnajib@gmail.com"];
+        $recipient = [$emel_pendaftar,$request->EMEL_PENYELIA];
+        $recipient_penyelia = [$request->EMEL_PENYELIA];
         // Mail::to($recipient)->send(new DaftarPeserta());
 
         // $pdf = App::make('dompdf.wrapper');
