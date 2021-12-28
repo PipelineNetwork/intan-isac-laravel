@@ -47,13 +47,14 @@
                                 <div class="col-md-8 d-flex align-items-center">
                                     <b class="mb-0 text-white">Profil</b>
                                 </div>
-                                <div class="col-md-4 text-end ">
+                                <div class="col-md-4 text-end">
                                     <a href="javascript:;">
-                                        <a href="/profil/{{ $user_profils->id }}" class="btn bg-gradient-info text-white mb-0"
-                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini">Kemaskini
-                                            Maklumat</a>
+                                        <a href="/profil/{{ $user_profils->id }}"
+                                            class="fas fa-user-edit text-secondary text-sm button  text-white "
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini"></a>
                                     </a>
                                 </div>
+                                
                             </div>
                         </div>
                         <div class="card-body">
