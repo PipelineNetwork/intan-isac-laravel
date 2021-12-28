@@ -170,7 +170,7 @@ No. Sijil: " . sprintf("%'.05d\n", $no_sijil);
         }
 
         $keputusan->markah_email = $markah_email;
-        if ($keputusan->markah_email == 4) {
+        if ($keputusan->markah_email == 1) {
             $keputusan->keputusan_email = "Melepasi";
         } else {
             $keputusan->keputusan_email = "Tidak Melepasi";
