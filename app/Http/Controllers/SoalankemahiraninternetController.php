@@ -104,17 +104,18 @@ class SoalankemahiraninternetController extends Controller
      */
     public function savepage2(Request $request, $id_penilaian, $id_internet)
     {
-
-        $jawapancalon = Bankjawapancalon::where('id_soalankemahiraninternet', $id_internet)->get()->first();
+        $current_user = $request->user();
+        // $jawapancalon = Bankjawapancalon::where('id_soalankemahiraninternet', $id_internet)->first();
+        $jawapancalon = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $current_user->nric)->first();
         // dd($jawapancalon);
-        $tukar_lowercase = $request->carian_teks;
+        $tukar_lowercase = $request->carianteks;
         $jawapancalon->carian_teks = strtolower($tukar_lowercase);
         if ($jawapancalon->carian_teks == $jawapancalon->jawapansebenar_carianteks) {
             $jawapancalon->markah_carianteks = 1;
         } else {
             $jawapancalon->markah_carianteks = 0;
         }
-        // dd($request);
+        // dd($jawapancalon);
         $jawapancalon->save();
 
         return view('proses_penilaian.soalan_kemahiran.internet3', [
