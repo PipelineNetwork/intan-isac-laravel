@@ -96,14 +96,14 @@
                             <div class="col-6">
                                 <label for="KOD_MASA_MULA">Masa Mula :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3 hide" type="time" name="KOD_MASA_MULA"
+                                    <input class="form-control mb-3 hide" id="masa_mula" type="time" name="KOD_MASA_MULA"
                                         value="{{ $jadual['KOD_MASA_MULA'] }}">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <label for="KOD_MASA_TAMAT">Masa Tamat :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="time" name="KOD_MASA_TAMAT"
+                                    <input class="form-control mb-3" id="masa_tamat" type="time" name="KOD_MASA_TAMAT"
                                         value="{{ $jadual['KOD_MASA_TAMAT'] }}">
                                 </div>
                             </div>
@@ -732,6 +732,75 @@
     </div>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        function auto_time() {
+            var masa = document.getElementById('masa_mula').value;
+            let masa_pengetahuan = <?php echo $masa_pengetahuan; ?>;
+            masa_pengetahuan = parseInt(masa_pengetahuan);
+
+            if (masa_pengetahuan > 60) {
+                minit_tambah = masa_pengetahuan - 60;
+                jam_tambah = 1;
+            } else {
+                minit_tambah = masa_pengetahuan;
+                jam_tambah = 0;
+            }
+            jam = masa.slice(0, 2);
+            minit = masa.slice(3, 6);
+
+            jam = parseInt(jam);
+            jam = jam + jam_tambah;
+
+            minit = parseInt(minit);
+            minit = minit + minit_tambah;
+            if (minit >= 60) {
+                minit = minit - 60;
+                jam = jam + 1;
+            }
+
+            jam_d = jam.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+            minit_d = minit.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+            masav = jam_d + ':' + minit_d;
+
+            if (jam > 12) {
+                jam = jam - 12;
+                jam = jam.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+                minit = minit.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+                masaf = jam + ':' + minit + ' PM';
+                console.log(masaf);
+            } else {
+                jam = jam.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+                minit = minit.toLocaleString('en-US', {
+                    minimumIntegerDigits: 2,
+                    useGrouping: false
+                })
+                masaf = jam + ':' + minit + ' AM';
+                console.log(masaf);
+            }
+            document.getElementById('masa_tamat2').value = masav;
+
+            // document.getElementById('masa_tamat').innerHTML = masaf;
+            // var m = $("#masa_tamat").val(); 
+            $("#masa_tamat").val(masaf);
+        }
+    </script>
+
     <script type="text/javascript">
         $(function() {
             $("#pilih1").change(function() {
