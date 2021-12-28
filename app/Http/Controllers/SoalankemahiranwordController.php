@@ -55,7 +55,7 @@ class SoalankemahiranwordController extends Controller
 
         $jawapancalon->jawapan_word =  $request->jawapan_word;
 
-        $jawapan = Soalankemahiranword::where('id', $id_word)->first();
+        $jawapan = Soalankemahiranword::all();
 
         foreach ($jawapan as $j) {
             if (str_contains($request->jawapan_word, $j->jawapan_1) && isset($j->jawapan_1)) {
