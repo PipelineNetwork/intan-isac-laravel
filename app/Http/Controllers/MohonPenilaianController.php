@@ -671,6 +671,8 @@ class MohonPenilaianController extends Controller
 
         $negeri = Refgeneral::where('MASTERCODE', 10021)->get();
 
+        $jabatan = Refgeneral::where('MASTERCODE', 10029)->orderBy('DESCRIPTION1')->get();
+
         $user_profils = User::where('id', $checkid2)
             ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
             ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
@@ -690,7 +692,8 @@ class MohonPenilaianController extends Controller
             'jenis_perkhidmatans' => $jenis_perkhidmatan,
             'kementerians' => $kementerian,
             'negeris' => $negeri,
-            'id_penilaian'=>$id_penilaian
+            'id_penilaian'=>$id_penilaian,
+            'jabatans'=>$jabatan
         ]);
     }
 
