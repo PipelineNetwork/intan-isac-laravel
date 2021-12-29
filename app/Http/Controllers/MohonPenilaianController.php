@@ -281,9 +281,9 @@ class MohonPenilaianController extends Controller
         $id_penilaian = $mohonPenilaian->id_sesi;
         $kekosongan = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
 
-        $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN + 1;
-        $kekosongan->BILANGAN_CALON = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->KEKOSONGAN;
-        $kekosongan->save();
+        // $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN + 1;
+        // $kekosongan->BILANGAN_CALON = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->KEKOSONGAN;
+        // $kekosongan->save();
         $mohonPenilaian->delete();
         return redirect('/mohonpenilaian')->with('success', 'Berjaya dihapus!');
     }

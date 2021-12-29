@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <style>
-    body{
+    body {
         font-size: 11;
     }
+
     .text-custom {
         /* text-align:center !important; */
         font-size: 11;
@@ -68,6 +69,11 @@
         padding-top: 0;
     }
 
+    .alamat{
+        width: 200px; 
+        overflow: visible;
+    }
+
 </style>
 
 <body>
@@ -93,17 +99,17 @@
     </div>
     <br>
     <p align="justify" class="mx-6">
-        {{ $jkj }}<br>
-        {{ $kementerian }}<br>
-        <span style="width: 10px;">{{ $al1 }}</span><br>
-        @if ($al2 != null)
-            {{ $al2 }}<br>
-        @endif
+
+        <div class="alamat">
+            {{ $jkj }}<br>
+            {{ $kementerian }}<br>
+            {{ $al1 }}
+        </div>
         {{ $poskod }}, {{ $bandar }}<br>
         {{ $negeri }}<br>
         (up : <span style="font-size: 10;"></span>{{ $nama_penyelaras }})<br><br>
         Tarikh : {{ $hari }}<br>
-        Ruj Kami : INTAN.500-5/1/1<br>
+        Ruj Kami : INTAN.500-5/1/1<br><br>
         Tuan/Puan,
         <br><br>
         <span class="text-custom">SURAT TAWARAN PENILAIAN ICT SKILLS ASSESSMENT AND
