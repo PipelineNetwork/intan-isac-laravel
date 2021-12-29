@@ -56,7 +56,7 @@
                     <div class="container-fluid px-0">
                         <a class="navbar-brand font-weight-bolder ms-sm-3" href="/">
                             {{-- INTAN ISAC --}}
-                            <img src="../../img/logo-intan2.png" style="width: 60px">
+                            <img src="../../img/logo-isac.png" style="width: 60px; heigth: auto">
                         </a>
                         <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"

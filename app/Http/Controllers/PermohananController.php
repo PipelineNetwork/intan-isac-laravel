@@ -95,7 +95,7 @@ class PermohananController extends Controller
 
         $user = new User;
         // $user ->user_group_id = "3";
-        $user ->name= $request->name;
+        $user ->name= strtoupper($request->name);
         $user ->email= $request->email;
         $user ->password= $request->password;
         $user ->nric= $request->nric;
@@ -169,7 +169,7 @@ class PermohananController extends Controller
      * @param  \App\Models\User  $permohanan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $user, $pro_peserta)
+    public function update(Request $request, $user, $pro_peserta, $pro_tempat_tugas, $pro_perkhidmatan)
     {
         $user ->user_group_id = "3";
         $user -> nric= $request->nric;

@@ -67,10 +67,10 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-xl-2 mb-3 mt-2" style="text-align: center">
+                        <div class="col-2 mb-3 mt-2" style="text-align: center">
                             <img src="/assets/img/google.png" width="50%" alt="Google">
                         </div>
-                        <div class="col-xl-8 mb-3">
+                        <div class="col-8 mb-3">
                             <div class="input-group">
                                 <input class="form-control" type="text" style="text-transform: capitalize"
                                     value="{{ $jawapancalons->carian_teks }}">

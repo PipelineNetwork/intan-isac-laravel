@@ -176,7 +176,7 @@ CKEDITOR.lang["en"] = {
     },
     colorbutton: {
         auto: "Automatic",
-        bgColorTitle: "Background Color",
+        bgColorTitle: "Highlight",
         colors: {
             "000": "Black",
             800000: "Maroon",

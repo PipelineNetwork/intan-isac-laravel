@@ -164,7 +164,7 @@
                         <form action="/soalan-kemahiran-internet-page3/{{$id_penilaian}}/{{ $id_internet }}" method="POST" id="penilaian">
                             @csrf
                             <div class="search mt-3">
-                                <div class="col-xl-8 m-auto">
+                                <div class="col-8 m-auto">
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="carianteks" autocomplete="off">
                                         <span class="input-group-text"><i

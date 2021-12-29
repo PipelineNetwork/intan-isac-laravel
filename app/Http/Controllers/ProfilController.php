@@ -106,28 +106,12 @@ class ProfilController extends Controller
 
     public function kemaskiniprofil(Request $request)
     {
-        $current_user = Auth::user();;
-        // $user_profils = DB::table('users')
-        //     ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
-        //     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
-        //     ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
-        //     ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
-        //     ->get()->first();
+        $current_user = Auth::user();
 
         if ($current_user->user_group_id == 5) {
             $user_profils1 = User::find($request->user()->id);
-            // $user_profils1->name = $request->name;
-            // $user_profils1->email = $request->email;
-            // $user_profils1->ministry_code = $request->ministry_code;
-            // $user_profils1->office_number = $request->office_number;
-            // $user_profils1->fax_number = $request->fax_number;
-            // $user_profils1->telephone_number = $request->telephone_number;
-            // $user_profils1->nric = $request->nric;
-            // $user_profils1->save();
-
-            // dd($user_profils1->id);
             $user_profils2 = Permohanan::where('user_id', $user_profils1->id)->first();
-            // $upper = strtoupper($request->NAMA_PESERTA);
+            
             $user_profils2->NAMA_PESERTA = strtoupper($request->NAMA_PESERTA);
             $user_profils2->NO_KAD_PENGENALAN = $request->NO_KAD_PENGENALAN;
             $user_profils2->EMEL_PESERTA = $request->EMEL_PESERTA;
@@ -171,7 +155,7 @@ class ProfilController extends Controller
             // $user_profils->save();
         } else {
             $user_profils = User::find($request->user()->id);
-            $user_profils->name = $request->name;
+            $user_profils->name = strtoupper($request->name);
             $user_profils->email = $request->email;
             $user_profils->nric = $request->nric;
             $user_profils->ministry_code = $request->ministry_code;
