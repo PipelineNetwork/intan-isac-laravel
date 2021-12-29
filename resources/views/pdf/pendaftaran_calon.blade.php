@@ -104,12 +104,6 @@
             @if ($jkj != null)
             {{ Str::upper($jkj) }}<br>
             @endif
-            @if ($kementerian != null)
-            {{ Str::upper($kementerian) }}<br>
-            @endif
-            @if ($jabatan != null)
-            {{ Str::upper($jabatan) }}<br>
-            @endif
             @if ($bahagian != null)
             {{ Str::upper($bahagian) }}<br>
             @endif
