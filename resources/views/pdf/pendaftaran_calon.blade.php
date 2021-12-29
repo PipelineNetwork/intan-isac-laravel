@@ -7,9 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <style>
+    body{
+        font-size: 11;
+    }
     .text-custom {
         /* text-align:center !important; */
-        font-size: 10;
+        font-size: 11;
         font-weight: bold;
     }
 

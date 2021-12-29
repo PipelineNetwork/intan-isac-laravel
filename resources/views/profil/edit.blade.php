@@ -311,14 +311,14 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_gelaran_ketua_jabatan">
-                                                Jawatan Ketua Jabatan
+                                                Jawatan Ketua Jabatan<span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="GELARAN_KETUA_JABATAN"
                                                 id="input_gelaran_ketua_jabatan" type="text"
                                                 value="{{ $user_profils->GELARAN_KETUA_JABATAN }}"
-                                                style="text-transform:uppercase">
+                                                style="text-transform:uppercase" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -366,7 +366,7 @@
                                                 style="text-transform:uppercase" required>
                                         </div>
                                     </div>
-                                    <div class="row mb-2">
+                                    {{-- <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_alamat_2">
                                                 Alamat Pejabat 2
@@ -377,7 +377,7 @@
                                                 id="input_alamat_2" type="text" value="{{ $user_profils->ALAMAT_2 }}"
                                                 style="text-transform:uppercase">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_poskod">

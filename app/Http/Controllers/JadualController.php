@@ -330,8 +330,11 @@ class JadualController extends Controller
      */
     public function destroy($jadual)
     {
-
         $jadual = Jadual::find($jadual);
+        $permohonan = MohonPenilaian::where('id_sesi', $jadual->ID_PENILAIAN)->get();
+        foreach($permohonan as $permohonan){
+            $permohonan->delete();
+        }
         $jadual->delete();
         return redirect('/jaduals');
     }
