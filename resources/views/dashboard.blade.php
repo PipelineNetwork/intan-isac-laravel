@@ -181,6 +181,9 @@
                                             <th>Sesi</th>
                                             <th>Masa</th>
                                             <th>Tarikh</th>
+                                            {{-- bawah --}}
+                                            <th>Bilangan Tempat</th>
+                                            <th>Bilangan Calon</th>
                                             <th>Kekosongan</th>
                                             <th>Platform</th>
                                             <th>Lokasi</th>
@@ -205,6 +208,21 @@
                                                     </td>
                                                     <td>{{ $jadual->KOD_MASA_MULA }} - {{ $jadual->KOD_MASA_TAMAT }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
+                                                    {{-- bwh --}}
+                                                    <td>
+                                                        @if ($jadual->JUMLAH_KESELURUHAN == null)
+                                                            0
+                                                        @else
+                                                            {{ $jadual->JUMLAH_KESELURUHAN }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($jadual->BILANGAN_CALON == null)
+                                                            0
+                                                        @else
+                                                            {{ $jadual->BILANGAN_CALON }}
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         @if ($jadual->KEKOSONGAN == null)
                                                             0

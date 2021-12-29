@@ -36,7 +36,7 @@ class MohonPenilaianController extends Controller
     public function index(Request $request)
     {
         $ic = Auth::user()->nric;
-        $calon_3 = MohonPenilaian::where('no_ic', $ic)->orderBy('created_at', 'desc')->get();
+        $calon_3 = MohonPenilaian::where('no_ic', $ic)->where('status_penilaian', 'Baru')->orderBy('created_at', 'desc')->get();
 
         $peserta = MohonPenilaian::orderBy('created_at', 'desc')->get();
         return view('mohonPenilaian.senarai_permohonan', [
@@ -282,6 +282,7 @@ class MohonPenilaianController extends Controller
         $kekosongan = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
 
         $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN + 1;
+        $kekosongan->BILANGAN_CALON = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->KEKOSONGAN;
         $kekosongan->save();
         $mohonPenilaian->delete();
         return redirect('/mohonpenilaian')->with('success', 'Berjaya dihapus!');
@@ -761,6 +762,7 @@ class MohonPenilaianController extends Controller
         $maklumat_calon = Tugas::where('ID_PESERTA', $permohonan->id_calon)->first();
 
         $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN - 1;
+        $kekosongan->BILANGAN_CALON = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->KEKOSONGAN;
         $kekosongan->save();
 
         $tahap = $kekosongan->KOD_TAHAP;
