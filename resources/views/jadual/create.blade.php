@@ -281,7 +281,9 @@
                 })
                 masaf = jam + ':' + minit + ' PM';
                 console.log(masaf);
-            } else {
+            } else if(jam == 12){
+                masaf = jam + ':' + minit + ' PM';
+            }else {
                 jam = jam.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
@@ -290,7 +292,7 @@
                     minimumIntegerDigits: 2,
                     useGrouping: false
                 })
-                masaf = jam + ':' + minit + ' PM';
+                masaf = jam + ':' + minit + ' AM';
                 console.log(masaf);
             }
             console.log(masav, masaf);

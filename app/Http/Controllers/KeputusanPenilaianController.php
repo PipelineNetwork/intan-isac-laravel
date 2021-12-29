@@ -203,16 +203,12 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . sprintf("%'.05d\n", 
         } else {
             $no_sijil_latest = $rekodtarikh[$bilangan - 1]->no_sijil;
         }
-        // dd($bilangan);
-        // $no_sijil_latest = $rekodtarikh[$bilangan]->no_sijil;
-        // dd($rekodtarikh);
         if ($no_sijil_latest == null) {
-            // dd('sini null');
             $no_sijil = 00000 + 1;
-            $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
+            $keputusan->no_sijil = sprintf("%'.03d", $no_sijil);
         } else {
             $no_sijil = $no_sijil_latest + 00001;
-            $keputusan->no_sijil = sprintf("%'.05d", $no_sijil);
+            $keputusan->no_sijil = sprintf("%'.03d", $no_sijil);
         }
 
         $keputusan->save();

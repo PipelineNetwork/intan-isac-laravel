@@ -542,7 +542,7 @@ class MohonPenilaianController extends Controller
         $masa_mula = $kekosongan->KOD_MASA_MULA;
         $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
         
-        if($masa_mula >"12:00"){
+        if($masa_mula >="12:00"){
             list($jam_m, $min_m) = explode(":", $masa_mula);
             $jam_m = (int)$jam_m;
             if($jam_m > 12){
@@ -554,7 +554,7 @@ class MohonPenilaianController extends Controller
             $mula = $masa_mula.' AM';
         }
 
-        if($masa_tamat >"12:00"){
+        if($masa_tamat >="12:00"){
             list($jam, $min) = explode(":", $masa_tamat);
             $jam = (int)$jam;
             if($jam > 12){
@@ -563,7 +563,7 @@ class MohonPenilaianController extends Controller
             }
             $tamat = $masa_tamat.' PM';
         }else{
-            $tamat = $masa_tamat.' PM';
+            $tamat = $masa_tamat.' AM';
         }
 
         // dd($maklumat_calon);
@@ -793,7 +793,7 @@ class MohonPenilaianController extends Controller
         $recipient = [$emel_pendaftar,$request->EMEL_PENYELIA];
         $recipient_penyelia = [$request->EMEL_PENYELIA];
         
-        if($masa_mula >"12:00"){
+        if($masa_mula >="12:00"){
             list($jam_m, $min_m) = explode(":", $masa_mula);
             $jam_m = (int)$jam_m;
             if($jam_m > 12){
@@ -805,7 +805,7 @@ class MohonPenilaianController extends Controller
             $mula = $masa_mula.' AM';
         }
 
-        if($masa_tamat >"12:00"){
+        if($masa_tamat >="12:00"){
             list($jam, $min) = explode(":", $masa_tamat);
             $jam = (int)$jam;
             if($jam > 12){
@@ -814,7 +814,7 @@ class MohonPenilaianController extends Controller
             }
             $tamat = $masa_tamat.' PM';
         }else{
-            $tamat = $masa_tamat.' PM';
+            $tamat = $masa_tamat.' AM';
         }
 
         // dd($mula, $tamat);
