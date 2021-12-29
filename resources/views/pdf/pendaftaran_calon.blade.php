@@ -70,7 +70,7 @@
     }
 
     .alamat{
-        width: 200px; 
+        width: 400px; 
         overflow: visible;
     }
 
@@ -105,7 +105,7 @@
             {{ Str::upper($kementerian) }}<br>
             {{ Str::upper($jabatan) }}<br>
             {{ Str::upper($bahagian) }}<br>
-            {{ $al1 }}
+            {{ Str::upper($al1) }}
         </div>
         {{ $poskod }}, {{ $bandar }}<br>
         {{ $negeri }}<br>
