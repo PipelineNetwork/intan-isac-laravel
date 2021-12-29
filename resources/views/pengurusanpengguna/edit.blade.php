@@ -73,7 +73,7 @@
                     <div id="pilih2" style="display:none" class="col-6">
                         <label for="">Kod Kementerian :</label>
                         <div class="input-group">
-                            <select class="form-control ml-3" name="ministry_code" id="input_kementerian" required>
+                            <select class="form-control ml-3" name="ministry_code" id="pilih2" required>
                                 <option hidden selected value="{{ $user->ministry_code }}">
                                     {{ $user->ministry_code }}
                                 </option>

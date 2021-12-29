@@ -324,7 +324,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_kementerian">
-                                                Kementerian/Agensi<span style="color: red">*</span>
+                                                Kementerian<span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -337,27 +337,42 @@
                                                         {{ $kementerian->DESCRIPTION1 }}</option>
                                                 @endforeach
                                             </select>
-                                            {{-- <input class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN"
-                                            id="input_kementerian" type="text"
-                                            value="{{ $user_profils->KOD_KEMENTERIAN }}" required> --}}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3">
+                                            <label class="form-control-label mr-4">
+                                                Agensi<span style="color: red">*</span>
+                                            </label><label class="float-right">:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select class="form-control form-control-sm ml-3" name="KOD_JABATAN"
+                                                id="input_kementerian" required>
+                                                <option hidden selected value="{{ $user_profils->KOD_JABATAN }}">{{ $user_profils->KOD_JABATAN }}
+                                                </option>
+                                                @foreach ($jabatans as $jabatan)
+                                                    <option value="{{ $jabatan->DESCRIPTION1 }}">
+                                                        {{ $jabatan->DESCRIPTION1 }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="{{ $user_profils->BAHAGIAN }}">
-                                                Bahagian
+                                                Bahagian<span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="BAHAGIAN"
                                                 id="{{ $user_profils->BAHAGIAN }}" type="text"
-                                                value="{{ $user_profils->BAHAGIAN }}">
+                                                value="{{ $user_profils->BAHAGIAN }}" required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_alamat_1">
-                                                Alamat Pejabat 1<span style="color: red">*</span>
+                                                Alamat Pejabat <span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -366,18 +381,6 @@
                                                 style="text-transform:uppercase" required>
                                         </div>
                                     </div>
-                                    {{-- <div class="row mb-2">
-                                        <div class="col-3">
-                                            <label class="form-control-label mr-4" for="input_alamat_2">
-                                                Alamat Pejabat 2
-                                            </label><label class="float-right">:</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input class="form-control form-control-sm ml-3" name="ALAMAT_2"
-                                                id="input_alamat_2" type="text" value="{{ $user_profils->ALAMAT_2 }}"
-                                                style="text-transform:uppercase">
-                                        </div>
-                                    </div> --}}
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="input_poskod">
@@ -419,9 +422,6 @@
                                                         {{ $negeri->DESCRIPTION1 }}</option>
                                                 @endforeach
                                             </select>
-                                            {{-- <input class="form-control form-control-sm ml-3" name="KOD_NEGERI"
-                                            id="input_negeri" type="text"
-                                            value="{{ $user_profils->KOD_NEGERI }}" required> --}}
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -519,11 +519,24 @@
                                                     {{ $kementerian->DESCRIPTION1 }}</option>
                                             @endforeach
                                         </select>
-                                        {{-- <label for="">Kementerian :</label>
-                                        <div class="input-group">
-                                            <input class="form-control mb-3" type="text" name="ministry_code"
-                                                value="{{ $user_profils->ministry_code }}" required>
-                                        </div> --}}
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3">
+                                            <label class="form-control-label mr-4">
+                                                Agensi
+                                            </label><label class="float-right">:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select class="form-control form-control-sm ml-3" name="KOD_JABATAN"
+                                                id="input_kementerian" required>
+                                                <option hidden selected value="{{ $user_profils->KOD_JABATAN }}">{{ $user_profils->KOD_JABATAN }}
+                                                </option>
+                                                @foreach ($jabatans as $jabatan)
+                                                    <option value="{{ $jabatan->DESCRIPTION1 }}">
+                                                        {{ $jabatan->DESCRIPTION1 }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="col-6">
                                         <label for="">No Kad. Pengenalan :</label>

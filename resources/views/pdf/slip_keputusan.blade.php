@@ -29,7 +29,7 @@
                                         <td>: {{ $rekod->nama_peserta }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="h5" style="width: 150px;">No. ID</td>
+                                        <td class="h5" style="width: 150px;">NO. ID</td>
                                         <td>: {{ $rekod->ic_peserta }}</td>
                                     </tr>
                                     <tr>

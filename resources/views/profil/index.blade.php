@@ -691,7 +691,7 @@
                                         <div class="col-3">
                                             <label class="form-control-label mr-4"
                                                 for="{{ $user_profils->KOD_KEMENTERIAN }}">
-                                                Kementerian/Agensi
+                                                Kementerian
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -703,7 +703,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="{{ $user_profils->KOD_JABATAN }}">
-                                                Jabatan
+                                                Agensi
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -727,7 +727,7 @@
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="{{ $user_profils->ALAMAT_1 }}">
-                                                Alamat Pejabat 1
+                                                Alamat Pejabat
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
@@ -736,7 +736,7 @@
                                                 value="{{ $user_profils->ALAMAT_1 }}" disabled="" required>
                                         </div>
                                     </div>
-                                    <div class="row mb-2">
+                                    {{-- <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="{{ $user_profils->ALAMAT_2 }}">
                                                 Alamat Pejabat 2
@@ -747,7 +747,7 @@
                                                 id="{{ $user_profils->ALAMAT_2 }}" type="text"
                                                 value="{{ $user_profils->ALAMAT_2 }}" disabled="">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4" for="{{ $user_profils->POSKOD }}">
