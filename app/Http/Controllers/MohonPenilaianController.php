@@ -570,13 +570,13 @@ class MohonPenilaianController extends Controller
 
         $pdf = PDF::loadView('pdf.pendaftaran_calon', [
             'jkj' => $permohonan->jawatan_ketua_jabatan,
-            'kementerian' => $maklumat_calon->KOD_KEMENTERIAN,
-            'jabatan' => $maklumat_calon->KOD_JABATAN,
-            'bahagian' => $maklumat_calon->BAHAGIAN,
+            'kementerian' => $user_profils3->KOD_KEMENTERIAN,
+            'jabatan' => $user_profils3->KOD_JABATAN,
+            'bahagian' => $user_profils3->BAHAGIAN,
             'al1' => $permohonan->alamat1_pejabat,
             'poskod' => $permohonan->poskod_pejabat,
-            'bandar' => $maklumat_calon->BANDAR,
-            'negeri' => $maklumat_calon->KOD_NEGERI,
+            'bandar' => $user_profils3->BANDAR,
+            'negeri' => $user_profils3->KOD_NEGERI,
             'nama_penyelaras' => $permohonan->nama_penyelia,
             'hari' => date('d - m - Y'),
             'nama' => $permohonan->nama,
