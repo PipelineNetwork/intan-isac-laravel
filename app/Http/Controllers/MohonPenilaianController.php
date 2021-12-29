@@ -566,7 +566,7 @@ class MohonPenilaianController extends Controller
             $tamat = $masa_tamat.' PM';
         }
 
-        dd($maklumat_calon);
+        // dd($maklumat_calon);
 
         $pdf = PDF::loadView('pdf.pendaftaran_calon', [
             'jkj' => $permohonan->jawatan_ketua_jabatan,
