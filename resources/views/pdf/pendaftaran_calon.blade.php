@@ -103,6 +103,8 @@
         <div class="alamat">
             {{ $jkj }}<br>
             {{ $kementerian }}<br>
+            {{ $jabatan }}<br>
+            {{ $bahagian }}<br>
             {{ $al1 }}
         </div>
         {{ $poskod }}, {{ $bandar }}<br>

@@ -203,8 +203,9 @@ class MohonPenilaianController extends Controller
         $pdf = PDF::loadView('pdf.pendaftaran_calon', [
             'jkj' => $permohonan->jawatan_ketua_jabatan,
             'kementerian' => $maklumat_calon->KOD_KEMENTERIAN,
+            'jabatan' => $maklumat_calon->KOD_JABATAN,
+            'bahagian' => $maklumat_calon->BAHAGIAN,
             'al1' => $permohonan->alamat1_pejabat,
-            'al2' => $permohonan->alamat2_pejabat,
             'poskod' => $permohonan->poskod_pejabat,
             'bandar' => $maklumat_calon->BANDAR,
             'negeri' => $maklumat_calon->KOD_NEGERI,
@@ -542,31 +543,40 @@ class MohonPenilaianController extends Controller
         $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
         
         if($masa_mula >"12:00"){
-            $mula = (float)$masa_mula;
-            $masa_mula = $mula - 12;
-            $masa_mula =number_format((float)$masa_mula, 2, '.', '');
-            $mula = $masa_mula.' PM';
+            list($jam_m, $min_m) = explode(":", $masa_mula);
+            $jam_m = (int)$jam_m;
+            if($jam_m > 12){
+                $jam_m = $jam_m - 12;
+                $mula = $jam_m.':'.$min_m.' PM';
+            }
+            $mula = $masa_tamat.' PM';
         }else{
             $mula = $masa_mula.' AM';
         }
 
         if($masa_tamat >"12:00"){
-            $tamat = (float)$masa_tamat;
-            $masa_tamat = $tamat - 12;
-            $masa_tamat =number_format((float)$masa_tamat, 2, '.', '');
+            list($jam, $min) = explode(":", $masa_tamat);
+            $jam = (int)$jam;
+            if($jam > 12){
+                $jam = $jam - 12;
+                $tamat = $jam.':'.$min.' PM';
+            }
             $tamat = $masa_tamat.' PM';
         }else{
-            $tamat = $masa_tamat.' AM';
+            $tamat = $masa_tamat.' PM';
         }
+
+        dd($maklumat_calon);
 
         $pdf = PDF::loadView('pdf.pendaftaran_calon', [
             'jkj' => $permohonan->jawatan_ketua_jabatan,
-            'kementerian' => $user_profils3->KOD_KEMENTERIAN,
+            'kementerian' => $maklumat_calon->KOD_KEMENTERIAN,
+            'jabatan' => $maklumat_calon->KOD_JABATAN,
+            'bahagian' => $maklumat_calon->BAHAGIAN,
             'al1' => $permohonan->alamat1_pejabat,
-            'al2' => $permohonan->alamat2_pejabat,
             'poskod' => $permohonan->poskod_pejabat,
-            'bandar' => ucfirst(strtolower($user_profils3->BANDAR)),
-            'negeri' => $user_profils3->KOD_NEGERI,
+            'bandar' => $maklumat_calon->BANDAR,
+            'negeri' => $maklumat_calon->KOD_NEGERI,
             'nama_penyelaras' => $permohonan->nama_penyelia,
             'hari' => date('d - m - Y'),
             'nama' => $permohonan->nama,
@@ -780,31 +790,40 @@ class MohonPenilaianController extends Controller
         $recipient_penyelia = [$request->EMEL_PENYELIA];
         
         if($masa_mula >"12:00"){
-            $mula = (float)$masa_mula;
-            $masa_mula = $mula - 12;
-            $masa_mula =number_format((float)$masa_mula, 2, '.', '');
-            $mula = $masa_mula.' PM';
+            list($jam_m, $min_m) = explode(":", $masa_mula);
+            $jam_m = (int)$jam_m;
+            if($jam_m > 12){
+                $jam_m = $jam_m - 12;
+                $mula = $jam_m.':'.$min_m.' PM';
+            }
+            $mula = $masa_tamat.' PM';
         }else{
             $mula = $masa_mula.' AM';
         }
 
         if($masa_tamat >"12:00"){
-            $tamat = (float)$masa_tamat;
-            $masa_tamat = $tamat - 12;
-            $masa_tamat =number_format((float)$masa_tamat, 2, '.', '');
+            list($jam, $min) = explode(":", $masa_tamat);
+            $jam = (int)$jam;
+            if($jam > 12){
+                $jam = $jam - 12;
+                $tamat = $jam.':'.$min.' PM';
+            }
             $tamat = $masa_tamat.' PM';
         }else{
-            $tamat = $masa_tamat.' AM';
+            $tamat = $masa_tamat.' PM';
         }
+
+        // dd($mula, $tamat);
 
         $pdf = PDF::loadView('pdf.pendaftaran_calon', [
             'jkj' => $permohonan->jawatan_ketua_jabatan,
-            'kementerian' => $user_profils3->KOD_KEMENTERIAN,
+            'kementerian' => $maklumat_calon->KOD_KEMENTERIAN,
+            'jabatan' => $maklumat_calon->KOD_JABATAN,
+            'bahagian' => $maklumat_calon->BAHAGIAN,
             'al1' => $permohonan->alamat1_pejabat,
-            'al2' => $permohonan->alamat2_pejabat,
             'poskod' => $permohonan->poskod_pejabat,
-            'bandar' => ucfirst(strtolower($user_profils3->BANDAR)),
-            'negeri' => $user_profils3->KOD_NEGERI,
+            'bandar' => $maklumat_calon->BANDAR,
+            'negeri' => $maklumat_calon->KOD_NEGERI,
             'nama_penyelaras' => $permohonan->nama_penyelia,
             'hari' => date('d - m - Y'),
             'nama' => $permohonan->nama,

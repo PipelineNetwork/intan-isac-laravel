@@ -290,11 +290,13 @@
                     minimumIntegerDigits: 2,
                     useGrouping: false
                 })
-                masaf = jam + ':' + minit + ' AM';
+                masaf = jam + ':' + minit + ' PM';
                 console.log(masaf);
             }
-            document.getElementById('masa_tamat2').value = masav;
+            console.log(masav, masaf);
 
+            document.getElementById('masa_tamat2').value = masav;
+            
             // document.getElementById('masa_tamat').innerHTML = masaf;
             // var m = $("#masa_tamat").val(); 
             $("#masa_tamat").val(masaf);

@@ -21,7 +21,7 @@
         Tahap: Lanjutan
     @endif
 </p>
-<p class="mt-2">Tarikh: {{ $tarikh }}</p>
+<p class="mt-2">Tarikh: {{ date('d-m-Y', strtotime($tarikh)) }}</p>
 <p class="mt-2">Masa Mula: {{ $masa_mula }}</p>
 <p class="mt-2">Masa Tamat: {{ $masa_tamat }}</p>
 <p class="mt-2">Platform: {{ $platform }}</p>

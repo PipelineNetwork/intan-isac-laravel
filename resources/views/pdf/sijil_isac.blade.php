@@ -79,13 +79,13 @@
                 </div>
                 <div class="row">
                     <div class="col" style="text-align: center">
-                        <h3>Information Technology Skills Assessment and Certification (ISAC):<br>
+                        <h3>ICT Skills Assessment and Certification (ISAC)<br>
                             Tahap Asas Pengetahuan dan Kemahiran IT</h3>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col" style="text-align: center">
-                        <h2 style="margin-bottom:0%; padding-bottom:0%">{{ $nama }}</h2>
+                        <h2 style="margin-bottom:0%; padding-bottom:0%">{{ Str::upper($nama) }}</h2>
                         <h3 style="margin-top:0% padding-top:0%">{{ $ic }}</h3>
                     </div>
                 </div>
