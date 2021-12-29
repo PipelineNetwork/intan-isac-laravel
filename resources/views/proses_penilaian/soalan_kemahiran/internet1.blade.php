@@ -78,17 +78,17 @@
                         @csrf
                         <input type="hidden" name="timer" value="" id="timer">
                         <div class="row">
-                            <div class="col-xl-2 text-center">
+                            <div class="col-2 text-center">
                                 {{-- <img src="/assets/img/google.png" style="width: 60%" alt="Google"> --}}
                                 <h4>URL :</h4>
                             </div>
-                            <div class="col-xl-8">
+                            <div class="col-8">
                                 <input class="form-control" type="text" name="url_teks" autocomplete="off">
                                 <input type="hidden" name="id_soalankemahiraninternet" value="{{ $soalankemahiraninternets->id}}">
                                 <input type="hidden" name="jawapansebenar_urlteks" value="{{ $soalankemahiraninternets->jawapan_2}}">
                                 <input type="hidden" name="jawapansebenar_carianteks" value="{{ $soalankemahiraninternets->jawapan_3}}">
                             </div>
-                            <div class="col-xl-2 text-center">
+                            <div class="col-2 text-center">
                                 <button class="form-control" type="submit">Search</button>
                             </div>
                         </div>

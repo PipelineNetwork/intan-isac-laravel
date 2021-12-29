@@ -75,15 +75,6 @@ class RegisteredUserController extends Controller
 
         $user->save();
 
-        $current_user = $request->user();
-        // Mail::to($user->email)->send(new PenggunaDidaftar($user));
-        // $user_reg = User::where('id', '=', $current_user)->get();
-        // foreach ($user_reg as $users) {
-        //     Mail::to($users->email)->send(new PenggunaDidaftar($user));
-        // }
-
-        // dd($user_reg);
-
         $GetDataXMLbyIC = new GetDataXMLbyIC();
         $hrmisData = $GetDataXMLbyIC->getDataHrmis($request->nric);
         if (gettype($hrmisData) == "object") {
@@ -155,7 +146,7 @@ class RegisteredUserController extends Controller
         } else {
             $peserta = Permohanan::create([
                 'KOD_GELARAN' => NULL,
-                'NAMA_PESERTA' => $request->name,
+                'NAMA_PESERTA' => strtoupper($request->name),
                 'TARIKH_LAHIR' => NULL,
                 'KOD_JANTINA' => NULL,
                 'EMEL_PESERTA' => $request->email,
@@ -176,7 +167,6 @@ class RegisteredUserController extends Controller
         }
 
         $user->name = strtoupper($peserta->NAMA_PESERTA);
-        // dd($user->name);
         
         $user->save();
 

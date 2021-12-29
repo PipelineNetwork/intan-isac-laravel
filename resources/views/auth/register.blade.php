@@ -98,7 +98,7 @@ Coded by www.creative-tim.com
             <div class="container">
                 <div class="row">
                     <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
-                        <div class="card card-plain mt-sm-8 mt-5">
+                        <div class="card card-plain">
                             <div class="card-header pb-0 text-left">
                                 <h3 class="font-weight-bolder text-gradient bg-gradient-warning">Daftar Akaun ISAC</h3>
                                 <p class="mb-0">Sila isi maklumat di bawah</p>

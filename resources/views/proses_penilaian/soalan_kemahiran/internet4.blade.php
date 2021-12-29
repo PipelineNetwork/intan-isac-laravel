@@ -38,7 +38,7 @@
             <div class="card mt-5">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-xl-2 mb-3 mt-2" style="text-align: center">
+                        <div class="col-2 mb-3 mt-2" style="text-align: center">
                             <form action="/soalan-kemahiran-internet-page5/{{$id_penilaian}}/{{ $id_internet }}" method="POST" id="penilaian">
                                 @csrf
                                 <h3>
@@ -59,14 +59,14 @@
                                 </h3>
                             </form>
                         </div>
-                        <div class="col-xl-8 mb-3">
+                        <div class="col-10 mb-3">
                             <div class="input-group">
                                 <input class="form-control" type="text" style="text-transform: capitalize" value="{{ $jawapancalons->carian_teks }}">
                                 <span class="input-group-text"><i class="fas fa-microphone me-sm-1 text-dark"></i></span>
                                 <span class="input-group-text"><i class="fas fa-search me-sm-1 text-dark"></i></span>
                             </div>
                         </div>
-                        <div class="col-xl-12 vh-100">
+                        <div class="col-12 vh-100">
                             {{-- <img src="/assets/img/wikipedia.png" style="max-width: 100%" alt=""> --}}
                             <iframe src="{{ $jawapancalons->url_wikipedia }}" width="100%" height="100%" frameborder="0"></iframe>
                         </div>
