@@ -107,9 +107,9 @@
             {{ Str::upper($bahagian) }}<br>
             {{ Str::upper($al1) }}
         </div>
-        {{ $poskod }}, {{ $bandar }}<br>
-        {{ $negeri }}<br>
-        (up : <span style="font-size: 10;"></span>{{ $nama_penyelaras }})<br><br>
+        {{ Str::upper($poskod) }}, {{ Str::upper($bandar) }}<br>
+        {{ Str::upper($negeri) }}<br>
+        (up : <span style="font-size: 10;"></span>{{ Str::upper($nama_penyelaras) }})<br><br>
         Tarikh : {{ $hari }}<br>
         Ruj Kami : INTAN.500-5/1/1<br><br>
         Tuan/Puan,
