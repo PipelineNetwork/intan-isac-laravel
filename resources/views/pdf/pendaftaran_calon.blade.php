@@ -101,10 +101,10 @@
     <p align="justify" class="mx-6">
 
         <div class="alamat">
-            {{ $jkj }}<br>
-            {{ $kementerian }}<br>
-            {{ $jabatan }}<br>
-            {{ $bahagian }}<br>
+            {{ Str::upper($jkj) }}<br>
+            {{ Str::upper($kementerian) }}<br>
+            {{ Str::upper($jabatan) }}<br>
+            {{ Str::upper($bahagian) }}<br>
             {{ $al1 }}
         </div>
         {{ $poskod }}, {{ $bandar }}<br>
