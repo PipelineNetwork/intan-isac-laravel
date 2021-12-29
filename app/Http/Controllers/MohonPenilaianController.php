@@ -281,8 +281,8 @@ class MohonPenilaianController extends Controller
         $id_penilaian = $mohonPenilaian->id_sesi;
         $kekosongan = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
 
-        $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN + 1;
-        $kekosongan->BILANGAN_CALON = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->KEKOSONGAN;
+        $kekosongan->BILANGAN_CALON = $kekosongan->BILANGAN_CALON - 1;
+        $kekosongan->KEKOSONGAN = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->BILANGAN_CALON;
         $kekosongan->save();
         $mohonPenilaian->delete();
         return redirect('/mohonpenilaian')->with('success', 'Berjaya dihapus!');
@@ -761,8 +761,8 @@ class MohonPenilaianController extends Controller
         $kekosongan = Jadual::where('ID_PENILAIAN', $permohonan->id_sesi)->first();
         $maklumat_calon = Tugas::where('ID_PESERTA', $permohonan->id_calon)->first();
 
-        $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN - 1;
-        $kekosongan->BILANGAN_CALON = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->KEKOSONGAN;
+        $kekosongan->BILANGAN_CALON = $kekosongan->BILANGAN_CALON + 1;
+        $kekosongan->KEKOSONGAN = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->BILANGAN_CALON;
         $kekosongan->save();
 
         $tahap = $kekosongan->KOD_TAHAP;

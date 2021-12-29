@@ -117,8 +117,8 @@ class RegisteredUserController extends Controller
             $tempat_tugas = Tugas::create([
                 'ID_PESERTA' => $peserta->ID_PESERTA,
                 'GELARAN_KETUA_JABATAN' => NULL,
-                'KOD_KEMENTERIAN' => NULL, // problem
-                'KOD_JABATAN' => NULL, // problem
+                'KOD_KEMENTERIAN' => $hrmisData->Kementerian, // problem
+                'KOD_JABATAN' => $hrmisData->Agensi, // problem
                 'BAHAGIAN' => $hrmisData->Bahagian,
                 'ALAMAT_1' => NULL, // must ask user about hrmis retrieve data
                 'ALAMAT_2' => NULL,
