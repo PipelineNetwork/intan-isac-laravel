@@ -101,11 +101,21 @@
     <p align="justify" class="mx-6">
 
         <div class="alamat">
+            @if ($jkj != null)
             {{ Str::upper($jkj) }}<br>
+            @endif
+            @if ($kementerian != null)
             {{ Str::upper($kementerian) }}<br>
+            @endif
+            @if ($jabatan != null)
             {{ Str::upper($jabatan) }}<br>
+            @endif
+            @if ($bahagian != null)
             {{ Str::upper($bahagian) }}<br>
+            @endif
+            @if ($al1 != null)
             {{ Str::upper($al1) }}
+            @endif
         </div>
         {{ Str::upper($poskod) }}, {{ Str::upper($bandar) }}<br>
         {{ Str::upper($negeri) }}<br>
