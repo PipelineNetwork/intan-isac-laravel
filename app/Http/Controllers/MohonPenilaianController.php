@@ -549,7 +549,7 @@ class MohonPenilaianController extends Controller
                 $jam_m = $jam_m - 12;
                 $mula = $jam_m.':'.$min_m.' PM';
             }
-            $mula = $masa_tamat.' PM';
+            $mula = $masa_mula.' PM';
         }else{
             $mula = $masa_mula.' AM';
         }
@@ -800,7 +800,7 @@ class MohonPenilaianController extends Controller
                 $jam_m = $jam_m - 12;
                 $mula = $jam_m.':'.$min_m.' PM';
             }
-            $mula = $masa_tamat.' PM';
+            $mula = $masa_mula.' PM';
         }else{
             $mula = $masa_mula.' AM';
         }
