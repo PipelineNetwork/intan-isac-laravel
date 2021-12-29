@@ -312,7 +312,7 @@
                                 <div class="row mb-2">
                                     <div class="col-3">
                                         <label class="form-control-label mr-4" for="input_kementerian">
-                                            Kementerian/Agensi<span style="color: red">*</span>
+                                            Kementerian<span style="color: red">*</span>
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
@@ -328,6 +328,24 @@
                                         {{-- <input class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN"
                                         id="input_kementerian" type="text"
                                         value="{{ $user_profils->KOD_KEMENTERIAN }}" required> --}}
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <label class="form-control-label mr-4">
+                                            Agensi<span style="color: red">*</span>
+                                        </label><label class="float-right">:</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <select class="form-control form-control-sm ml-3" name="KOD_JABATAN"
+                                            id="input_kementerian" required>
+                                            <option hidden selected value="{{ $user_profils->KOD_JABATAN }}">{{ $user_profils->KOD_JABATAN }}
+                                            </option>
+                                            @foreach ($jabatans as $jabatan)
+                                                <option value="{{ $jabatan->DESCRIPTION1 }}">
+                                                    {{ $jabatan->DESCRIPTION1 }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
