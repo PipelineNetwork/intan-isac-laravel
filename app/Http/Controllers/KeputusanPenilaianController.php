@@ -82,7 +82,7 @@ class KeputusanPenilaianController extends Controller
         $no_sijil = $rekod_sijil->no_sijil;
 
         $text_qr = "No. Kad Pengenalan: " . $ic . "
-No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . sprintf("%'.05d\n", $no_sijil);
+No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" .$id_penilaian . "/" . sprintf("%'.03d\n", $no_sijil);
         $qr_encode = urlencode($text_qr);
 
         $pdf = PDF::loadView('pdf.sijil_isac', [
@@ -90,7 +90,8 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . sprintf("%'.05d\n", 
             'ic' => $ic,
             'tarikh' => $tarikh,
             'no_sijil' => $no_sijil,
-            'qr' => $qr_encode
+            'qr' => $qr_encode,
+            'id_penilaian'=>$id_penilaian
         ]);
         return $pdf->download('Sijil_ISAC_' . $ic . '.pdf');
     }

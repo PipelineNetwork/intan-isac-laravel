@@ -60,7 +60,7 @@
                 <div class="row">
                     <div class="col">
                         <p style="text-align: right; margin-bottom:80px;">No. Sijil:
-                            <strong>ISAC/{{ date('m/Y', strtotime($tarikh)) }}/<?php echo sprintf("%'.05d\n", $no_sijil); ?></strong>
+                            <strong>ISAC/{{ date('m/Y', strtotime($tarikh)) }}/{{$id_penilaian}}/<?php echo sprintf("%'.03d\n", $no_sijil); ?></strong>
                         </p>
                     </div>
                 </div>
