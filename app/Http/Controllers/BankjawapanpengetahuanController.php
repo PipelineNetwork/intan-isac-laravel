@@ -151,10 +151,9 @@ class BankjawapanpengetahuanController extends Controller
         ->where('id_penilaian', $id)
         ->get();
 
-        // $jawapan_kemahiran_internet = Bankjawapancalon::where('id_calon', $ic)
-        // ->where('id_penilaian', $id)
-        // ->where('id_soalankemahiraninternet', '!=', null)
-        // ->get();
+        $jawapan_kemahiran_internet = Bankjawapancalon::where('id_calon', $ic)
+        ->where('id_penilaian', $id)
+        ->get();
 
         $ic = $ic;
         return view('proses_penilaian.keputusan_penilaian.senarai_jawapan',[
