@@ -96,6 +96,32 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" .$id_penilaian . "/" .
         return $pdf->download('Sijil_ISAC_' . $ic . '.pdf');
     }
 
+    public function view_sijil_penilaian($id_keputusan){
+        {
+
+            $rekod_sijil = KeputusanPenilaian::where('id', $id_keputusan)->first();
+            $nama = $rekod_sijil->nama_peserta;
+            $ic = $rekod_sijil->ic_peserta;
+            $tarikh = $rekod_sijil->tarikh_penilaian;
+            $no_sijil = $rekod_sijil->no_sijil;
+            $id_penilaian = $rekod_sijil->id_penilaian;
+    
+            $text_qr = "No. Kad Pengenalan: " . $ic . "
+    No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" .$id_penilaian . "/" . sprintf("%'.03d\n", $no_sijil);
+            $qr_encode = urlencode($text_qr);
+    
+            $pdf = PDF::loadView('pdf.sijil_isac', [
+                'nama' => $nama,
+                'ic' => $ic,
+                'tarikh' => $tarikh,
+                'no_sijil' => $no_sijil,
+                'qr' => $qr_encode,
+                'id_penilaian'=>$id_penilaian
+            ]);
+            return $pdf->download('Sijil_ISAC_' . $ic . '.pdf');
+        }
+    }
+
     public function senarai_penilaian_calon()
     {
         $ic = Auth::user()->nric;
