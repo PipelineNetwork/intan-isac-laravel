@@ -1,6 +1,7 @@
 @extends('base')
 @section('content')
 <form action="/keputusan_penilaian" method="POST">
+    @csrf
     <label class="form-label">Nombor IC</label>
     <input type="text" name="ic" class="form-control">
     <label class="form-label">ID penilaian</label>
