@@ -287,7 +287,10 @@ class MohonPenilaianController extends Controller
         $kekosongan->BILANGAN_CALON = $kekosongan->BILANGAN_CALON - 1;
         $kekosongan->KEKOSONGAN = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->BILANGAN_CALON;
 
-        // $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $)
+        $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get();
+        foreach ($pengetahuan as $pengetahuan) {
+            $pengetahuan->delete();
+        }
 
         $kekosongan->save();
         $mohonPenilaian->delete();
