@@ -75,7 +75,7 @@ use App\Models\Refgeneral;
                                         <th>Kategori Peserta</th>
                                         <th>Jumlah Peserta</th>
                                         <th>Kekosongan</th>
-                                        <th>Kementerian/Agensi</th>
+                                        <th>Kementerian</th>
                                         <th>Platform</th>
                                         <th>Lokasi</th>
                                         <th>Status</th>
