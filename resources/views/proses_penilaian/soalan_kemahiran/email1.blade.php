@@ -40,12 +40,12 @@
                         @csrf
                         <input type="hidden" name="timer" value="" id="timer">
                         <div class="row">
-                            <div class="col-xl-12 mb-3">
+                            <div class="col-12 mb-3">
                                 <div class="row">
-                                    <div class="col-lg-10 m-0 p-0">
+                                    <div class="col-10 m-0 p-0">
                                         <img src="/assets/img/outlook2.png" alt="outlook" style="width: 100%">
                                     </div>
-                                    <div class="col-lg-2 m-0 p-0 d-flex">
+                                    <div class="col-2 m-0 p-0 d-flex">
                                         <label class="btn form-control text-dark p-0 m-0" style="background-color: #BFBFBF">
                                             <i class="fas fa-paperclip fa-3x mt-4 mb-2"></i><br> Attach File<input
                                                 type="file" style="display: none; border-radius: none !important;"
@@ -70,16 +70,16 @@
                                         coords="8,360" shape="rect">
                                 </map> --}}
                             </div>
-                            <div class="col-xl-1">
+                            <div class="col-1">
                                 <button class="btn text-dark" style="background-color: #BFBFBF" type="submit"><i
                                         class="fa fa-send fa-3x mb-2"></i>Send</button>
                             </div>
-                            <div class="col-xl-1">
+                            <div class="col-1">
                                 <label for="input-to" class="form-control-label">To..</label><br>
                                 <label for="input-cc" class="form-control-label">Cc..</label><br>
                                 <label for="input-subject" class="form-control-label">Subject</label>
                             </div>
-                            <div class="col-xl-10">
+                            <div class="col-10">
                                 <input class="form-control form-control-sm" id="input-to" type="text" name="input_to"
                                     autocomplete="off">
                                 <input class="form-control form-control-sm" id="input-cc" type="text" autocomplete="off">
@@ -89,7 +89,7 @@
                                     value="{{ $soalankemahiranemails->id }}">
                                 <b><span id="banner-chosen1" class="mt-3 text-white"></span></b>
                             </div>
-                            <div class="col-xl-12 mt-2">
+                            <div class="col-12 mt-2">
                                 <textarea class="form-control" name="input_mesej" rows="15"></textarea>
                             </div>
                             <input type="hidden" name="markah_internet" value="{{ $markah_internets->total }}">
