@@ -790,7 +790,7 @@ class MohonPenilaianController extends Controller
         $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
 
         $emel_pendaftar = Auth::user()->email;
-        $recipient = [$emel_pendaftar,$request->EMEL_PENYELIA];
+        $recipient = [$emel_pendaftar];
         $recipient_penyelia = [$request->EMEL_PENYELIA];
         
         if($masa_mula >="12:00"){
@@ -829,7 +829,7 @@ class MohonPenilaianController extends Controller
             'bandar' => $maklumat_calon->BANDAR,
             'negeri' => $maklumat_calon->KOD_NEGERI,
             'nama_penyelaras' => $permohonan->nama_penyelia,
-            'hari' => date('d - m - Y'),
+            'hari' => date('d - m - Y'),   
             'nama' => $permohonan->nama,
             'ic' => $permohonan->no_ic,
             'tarikh' => $permohonan->tarikh_sesi,
@@ -845,17 +845,18 @@ class MohonPenilaianController extends Controller
             'tarikh' => $permohonan->tarikh_sesi,
         ];
         
-        Mail::send('emails.daftar_peserta', $data_email, function($message)use($recipient, $pdf) {
+        Mail::send('emails.daftar_peserta', $data_email, function($message)use($recipient, $recipient_penyelia, $pdf) {
             $message->to($recipient)
+                    ->cc($recipient_penyelia)
                     ->subject("ISAC - Permohonan Berjaya")
                     ->attachData($pdf->output(), 'Surat_tawaran.pdf');
         });
 
-        Mail::send('emails.penyelia_pendaftaran', $data_email, function($message)use($recipient_penyelia, $pdf) {
-            $message->to($recipient_penyelia)
-                    ->subject("ISAC - Permohonan Penilaian ISAC")
-                    ->attachData($pdf->output(), 'Surat_tawaran.pdf');
-        });
+        // Mail::send('emails.penyelia_pendaftaran', $data_email, function($message)use($recipient_penyelia, $pdf) {
+        //     $message->to($recipient_penyelia)
+        //             ->subject("ISAC - Permohonan Penilaian ISAC")
+        //             ->attachData($pdf->output(), 'Surat_tawaran.pdf');
+        // });
 
         return $pdf->download('Surat_tawaran_' . $permohonan->no_ic . '.pdf');
     }

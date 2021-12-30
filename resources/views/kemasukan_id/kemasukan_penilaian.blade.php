@@ -60,7 +60,7 @@
                                         <div class="row ">
                                             <div class="col text-center">
                                                 <img src="/storage/{{ $soalan->muat_naik_fail }}"
-                                                    alt="soalan{{ $index }}" style="max-width: 40%">
+                                                    alt="soalan{{ $index }}" style="max-width: 300px;">
                                             </div>
                                         </div>
                                     @endif

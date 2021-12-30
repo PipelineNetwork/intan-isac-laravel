@@ -341,6 +341,7 @@
                                             id="input_kementerian" required>
                                             <option hidden selected value="{{ $user_profils->KOD_JABATAN }}">{{ $user_profils->KOD_JABATAN }}
                                             </option>
+                                            <option>TIDAK BERKAITAN</option>
                                             @foreach ($jabatans as $jabatan)
                                                 <option value="{{ $jabatan->DESCRIPTION1 }}">
                                                     {{ $jabatan->DESCRIPTION1 }}</option>
@@ -358,6 +359,7 @@
                                         <input class="form-control form-control-sm ml-3" name="BAHAGIAN"
                                             id="{{ $user_profils->BAHAGIAN }}" type="text"
                                             value="{{ $user_profils->BAHAGIAN }}">
+                                            <span><small><i>Sila masukkan maklumat lengkap tempat bertugas anda</i></small></span>
                                     </div>
                                 </div>
                                 <div class="row mb-2">

@@ -1,6 +1,7 @@
 @extends('base')
 <?php
 $role = Auth::user()->user_group_id;
+use App\Models\Jadual;
 ?>
 @section('content')
     <div class="container-fluid py-4">
@@ -73,6 +74,8 @@ $role = Auth::user()->user_group_id;
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Sesi Penilaian</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Tarikh Penilaian</th>
                                         {{-- masa dgn lokasi --}}
                                         {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jawatan</th> --}}
@@ -101,6 +104,13 @@ $role = Auth::user()->user_group_id;
                                                     <td class="text-sm font-weight-normal">{{ $key + 1 }}</td>
                                                     <td class="text-sm font-weight-normal">{{ $calon_3['id_sesi'] }}</td>
                                                     <td class="text-sm font-weight-normal" style="text-transform: uppercase;">{{ $calon_3['nama'] }}</td>
+                                                    <td class="text-sm font-weight-normal">
+                                                        <?php
+                                                            $sesi = Jadual::where('ID_PENILAIAN', $calon_3['id_sesi'])->first();
+                                                            $sesi = $sesi->KOD_SESI_PENILAIAN;
+                                                        ?>
+                                                        Sesi {{$sesi}}
+                                                    </td>
                                                     <td class="text-sm font-weight-normal">
                                                         {{ date('d-m-Y', strtotime($calon_3['tarikh_sesi'])) }}</td>
                                                     {{-- tambah masa dgn lokasi --}}

@@ -180,7 +180,7 @@
                                             <th>No.</th>
                                             <th>Sesi</th>
                                             <th>Masa</th>
-                                            <th>Tarikh</th>
+                                            <th>Tarikh Penilaian</th>
                                             {{-- bawah --}}
                                             <th>Bilangan Tempat</th>
                                             <th>Bilangan Calon</th>
@@ -198,11 +198,11 @@
                                                     <td>{{ $key + 1 }}.</td>
                                                     <td>
                                                         @if ($jadual->KOD_SESI_PENILAIAN == '01')
-                                                            Pertama
+                                                            Sesi 01
                                                         @elseif($jadual->KOD_SESI_PENILAIAN == "02")
-                                                            Kedua
+                                                            Sesi 02
                                                         @elseif($jadual->KOD_SESI_PENILAIAN == "03")
-                                                            Ketiga
+                                                            Sesi 03
                                                         @endif
                                                         {{-- {{ $jadual['KOD_SESI_PENILAIAN'] }} --}}
                                                     </td>
