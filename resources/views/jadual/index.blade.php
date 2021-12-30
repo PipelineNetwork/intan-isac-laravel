@@ -89,11 +89,11 @@ use App\Models\Refgeneral;
                                             <td class="text-center">{{ $key+1 }}.</td>
                                             <td class="text-center">
                                                 @if($jadual['KOD_SESI_PENILAIAN'] == "01")
-                                                Pertama
+                                                Sesi 01
                                                 @elseif($jadual['KOD_SESI_PENILAIAN'] == "02")
-                                                Kedua
+                                                Sesi 02
                                                 @elseif($jadual['KOD_SESI_PENILAIAN'] == "03")
-                                                Ketiga
+                                                Sesi 03
                                                 @endif
                                                 {{-- {{ $jadual['KOD_SESI_PENILAIAN'] }} --}}
                                             </td>
