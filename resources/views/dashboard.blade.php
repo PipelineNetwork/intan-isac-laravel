@@ -258,14 +258,19 @@
                                                                                 type="submit">Daftar</button>
                                                                         </form>
                                                                     @else
-                                                                    <form action="/mohonpenilaian/permohonan_penilaian"
-                                                                    method="POST" class="m-0">
-                                                                    @csrf
-                                                                    <input type="hidden" name="sesi"
-                                                                        value="{{ $jadual->ID_PENILAIAN }}">
-                                                                    <button class="btn btn-sm bg-gradient-info m-0"
-                                                                        type="submit">Daftar</button>
-                                                                </form>
+                                                                        @if(Auth::user()->nric == '000000000006')
+                                                                        <form action="/mohonpenilaian/permohonan_penilaian"
+                                                                            method="POST" class="m-0">
+                                                                            @csrf
+                                                                            <input type="hidden" name="sesi"
+                                                                                value="{{ $jadual->ID_PENILAIAN }}">
+                                                                            <button class="btn btn-sm bg-gradient-info m-0"
+                                                                                type="submit">Daftar</button>
+                                                                        </form>
+                                                                        @else
+                                                                        <button class="btn btn-sm bg-gradient-danger m-0"
+                                                                            disabled>Penuh</button>
+                                                                        @endif
                                                                     @endif
                                                                 @else
                                                                     <button class="btn btn-sm bg-gradient-success m-0"
