@@ -21,6 +21,7 @@
         <div class="row mb-0">
             <div class="col-lg-6">
                 <h3 class="font-weight-bolder">Selamat Datang ke Penilaian ISAC</h3>
+                <input type="hidden" value="{{$bil_mohon_jumlahs}}" name="check">
             </div>
         </div>
 

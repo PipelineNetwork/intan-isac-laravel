@@ -291,6 +291,7 @@ class MohonPenilaianController extends Controller
         foreach ($pengetahuan as $pengetahuan) {
             $pengetahuan->delete();
         }
+        // tambah delete jawapan calon kemahiran dari bankjawapancalon
 
         $kekosongan->save();
         $mohonPenilaian->delete();

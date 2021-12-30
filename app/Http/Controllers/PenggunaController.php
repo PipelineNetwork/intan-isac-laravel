@@ -309,9 +309,11 @@ class PenggunaController extends Controller
             $permohonan->delete();
         }
 
-        $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get();
-         foreach ($pengetahuan as $pengetahuan) {
-             $pengetahuan->delete();
+        $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $ic)->get();
+         if($pengetahuan != null){
+            foreach ($pengetahuan as $pengetahuan) {
+                $pengetahuan->delete();
+            }
          }
 
         $user->delete();
