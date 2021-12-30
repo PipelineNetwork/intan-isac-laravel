@@ -20,6 +20,7 @@ use App\Models\Tugas;
 use App\Models\Perkhidmatan;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
+use App\Models\Bankjawapanpengetahuan;
 
 class MohonPenilaianController extends Controller
 {
@@ -280,10 +281,14 @@ class MohonPenilaianController extends Controller
     {
         $mohonPenilaian = MohonPenilaian::find($mohonPenilaian);
         $id_penilaian = $mohonPenilaian->id_sesi;
+        $ic_calon = $mohonPenilaian->no_ic;
         $kekosongan = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
 
         $kekosongan->BILANGAN_CALON = $kekosongan->BILANGAN_CALON - 1;
         $kekosongan->KEKOSONGAN = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->BILANGAN_CALON;
+
+        // $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $)
+
         $kekosongan->save();
         $mohonPenilaian->delete();
         return redirect('/mohonpenilaian')->with('success', 'Berjaya dihapus!');
