@@ -73,7 +73,7 @@
                     <div id="pilih2" style="display:none" class="col-6">
                         <label for="">Kod Kementerian :</label>
                         <div class="input-group">
-                            <select class="form-control ml-3" name="ministry_code" id="pilih2" required>
+                            <select class="form-control ml-3" name="ministry_code" id="pilih2">
                                 <option hidden selected value="{{ $user->ministry_code }}">
                                     {{ $user->ministry_code }}
                                 </option>
@@ -115,9 +115,9 @@
         $(function() {
             $("#pilih1").change(function() {
                 if ($(this).val() == "3") {
-                    $("#pilih2").show();
+                    $("#pilih2").show().find(':input').attr('required', true);;
                 } else {
-                    $("#pilih2").hide();
+                    $("#pilih2").hide().find(':input').attr('required', false);
                 }
             });
         });
