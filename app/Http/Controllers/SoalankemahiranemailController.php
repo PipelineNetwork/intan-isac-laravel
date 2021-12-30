@@ -61,8 +61,8 @@ class SoalankemahiranemailController extends Controller
         $soalankemahiranemail = Soalankemahiranemail::where('id', $id_emel)->get()->first();
 
         $current_user = $request->user();
-        $markah_internet = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $current_user->nric)->where('id_soalankemahiraninternet', '!=', null)->select(DB::raw('markah_urlteks + markah_carianteks as total'))->latest('created_at')->get()->first();
-        $markah_word = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $current_user->nric)->where('id_soalankemahiranword', '!=', null)->select('jumlah_markah_word')->latest('created_at')->get()->first();
+        $markah_internet = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $current_user->nric)->select(DB::raw('markah_urlteks + markah_carianteks as total'))->get()->first();
+        $markah_word = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $current_user->nric)->select('jumlah_markah_word')->get()->first();
         // dd($markah_internet);
         $id_penilaian = $id_penilaian;
         return view('proses_penilaian.soalan_kemahiran.email1', [

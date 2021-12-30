@@ -82,7 +82,7 @@ class KeputusanPenilaianController extends Controller
         $no_sijil = $rekod_sijil->no_sijil;
 
         $text_qr = "No. Kad Pengenalan: " . $ic . "
-No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" .$id_penilaian . "/" . sprintf("%'.03d\n", $no_sijil);
+No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" . sprintf("%'.03d\n", $no_sijil);
         $qr_encode = urlencode($text_qr);
 
         $pdf = PDF::loadView('pdf.sijil_isac', [
@@ -91,13 +91,13 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" .$id_penilaian . "/" .
             'tarikh' => $tarikh,
             'no_sijil' => $no_sijil,
             'qr' => $qr_encode,
-            'id_penilaian'=>$id_penilaian
+            'id_penilaian' => $id_penilaian
         ]);
         return $pdf->download('Sijil_ISAC_' . $ic . '.pdf');
     }
 
-    public function view_sijil_penilaian($id_keputusan){
-        {
+    public function view_sijil_penilaian($id_keputusan)
+    { {
 
             $rekod_sijil = KeputusanPenilaian::where('id', $id_keputusan)->first();
             $nama = $rekod_sijil->nama_peserta;
@@ -105,18 +105,18 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" .$id_penilaian . "/" .
             $tarikh = $rekod_sijil->tarikh_penilaian;
             $no_sijil = $rekod_sijil->no_sijil;
             $id_penilaian = $rekod_sijil->id_penilaian;
-    
+
             $text_qr = "No. Kad Pengenalan: " . $ic . "
-    No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" .$id_penilaian . "/" . sprintf("%'.03d\n", $no_sijil);
+    No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" . sprintf("%'.03d\n", $no_sijil);
             $qr_encode = urlencode($text_qr);
-    
+
             $pdf = PDF::loadView('pdf.sijil_isac', [
                 'nama' => $nama,
                 'ic' => $ic,
                 'tarikh' => $tarikh,
                 'no_sijil' => $no_sijil,
                 'qr' => $qr_encode,
-                'id_penilaian'=>$id_penilaian
+                'id_penilaian' => $id_penilaian
             ]);
             return $pdf->download('Sijil_ISAC_' . $ic . '.pdf');
         }
@@ -151,7 +151,13 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" .$id_penilaian . "/" .
             $markah = $markah + $keputusan->markah;
         }
 
-        $m_kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $ic)->orderBy('created_at', 'desc')->get()->first();
+        $m_kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)
+            ->where('ic_calon', $ic)
+            ->where('jumlah_markah_internet', '!=', null)
+            ->where('jumlah_markah_word', '!=', null)
+            ->where('jumlah_markah_email', '!=', null)
+            ->get()->first();
+
         // dd($m_kemahiran);
         $markah_internet = $m_kemahiran->jumlah_markah_internet;
         $markah_word = $m_kemahiran->jumlah_markah_word;
