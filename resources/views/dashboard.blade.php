@@ -258,8 +258,14 @@
                                                                                 type="submit">Daftar</button>
                                                                         </form>
                                                                     @else
-                                                                        <button class="btn btn-sm bg-gradient-danger m-0"
-                                                                            disabled>Penuh</button>
+                                                                    <form action="/mohonpenilaian/permohonan_penilaian"
+                                                                    method="POST" class="m-0">
+                                                                    @csrf
+                                                                    <input type="hidden" name="sesi"
+                                                                        value="{{ $jadual->ID_PENILAIAN }}">
+                                                                    <button class="btn btn-sm bg-gradient-info m-0"
+                                                                        type="submit">Daftar</button>
+                                                                </form>
                                                                     @endif
                                                                 @else
                                                                     <button class="btn btn-sm bg-gradient-success m-0"
