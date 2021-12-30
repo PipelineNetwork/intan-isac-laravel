@@ -73,8 +73,10 @@ use App\Models\Jadual;
                                             Penilaian</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         </th>
+                                        @role('calon')
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Sesi Penilaian</th>
+                                        @endrole
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Tarikh Penilaian</th>
                                         {{-- masa dgn lokasi --}}
