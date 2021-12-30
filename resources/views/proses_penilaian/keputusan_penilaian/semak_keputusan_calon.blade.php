@@ -67,7 +67,6 @@
                                                 <th>No.</th>
                                                 <th>ID Penilaian</th>
                                                 <th>Tarikh Penilaian</th>
-                                                <th>Keputusan</th>
                                                 <th>Tindakan</th>
                                             </tr>
                                         </thead>
@@ -78,7 +77,6 @@
                                                         <td>{{ $key + 1 }}</td>
                                                         <td>{{ $penilaian->id_sesi }}</td>
                                                         <td>{{ date('d-m-Y', strtotime($penilaian->tarikh_sesi)) }}</td>
-                                                        <td>{{ $penilaian->status_penilaian }}</td>
                                                         <td><a href="/semak_keputusan/{{ $penilaian->no_ic }}/{{ $penilaian->id_sesi }}"
                                                                 class="btn bg-gradient-info">Semak</a></td>
                                                     </tr>
