@@ -785,7 +785,7 @@ class MohonPenilaianController extends Controller
 
         $permohonan_d = MohonPenilaian::where('id_sesi', $permohonan->id_sesi)->get();
         $bilangan_permohonan = count($permohonan_d);
-
+        dd($bilangan_permohonan);
         $kekosongan->BILANGAN_CALON = $bilangan_permohonan;
         $kekosongan->KEKOSONGAN = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->BILANGAN_CALON;
         $kekosongan->save();
