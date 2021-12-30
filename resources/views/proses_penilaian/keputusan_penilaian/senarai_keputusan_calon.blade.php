@@ -59,7 +59,7 @@
                                 @foreach($keputusans as $key => $keputusan)
                                 <tr>
                                     <td>{{$key+1}}</td>
-                                    <td>{{$keputusan->nama_peserta}}</td>
+                                    <td>{{strtoupper($keputusan->nama_peserta)}}</td>
                                     <td>{{$keputusan->ic_peserta}}</td>
                                     <td>{{$keputusan->id_penilaian}}</td>
                                     <td>{{ date('d-m-Y', strtotime($keputusan->tarikh_penilaian)) }}</td>
