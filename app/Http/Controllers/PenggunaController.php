@@ -12,6 +12,7 @@ use App\Models\Refgeneral;
 use App\Models\Permohanan;
 use App\Models\Tugas;
 use App\Models\Perkhidmatan;
+use App\Models\Bankjawapanpengetahuan;
 use App\Helpers\Hrmis\GetDataXMLbyIC;
 use App\Mail\PenggunaDidaftar;
 use Illuminate\Support\Facades\Mail;
@@ -302,10 +303,16 @@ class PenggunaController extends Controller
         $pro_tempat_tugas->delete();
         $pro_perkhidmatan = Perkhidmatan::where('ID_PESERTA', $pro_peserta->ID_PESERTA)->first();
         $pro_perkhidmatan->delete();
+
         $permohonan = MohonPenilaian::where('no_ic', $ic)->get();
         foreach($permohonan as $permohonan){
             $permohonan->delete();
         }
+
+        $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get();
+         foreach ($pengetahuan as $pengetahuan) {
+             $pengetahuan->delete();
+         }
 
         $user->delete();
         return redirect('/pengurusanpengguna')->with('success', 'Berjaya dihapus!');

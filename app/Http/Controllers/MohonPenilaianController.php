@@ -783,7 +783,10 @@ class MohonPenilaianController extends Controller
         $kekosongan = Jadual::where('ID_PENILAIAN', $permohonan->id_sesi)->first();
         $maklumat_calon = Tugas::where('ID_PESERTA', $permohonan->id_calon)->first();
 
-        $kekosongan->BILANGAN_CALON = $kekosongan->BILANGAN_CALON + 1;
+        $permohonan_d = MohonPenilaian::where('id_sesi', $permohonan->id_sesi)->get();
+        $bilangan_permohonan = count($permohonan_d);
+
+        $kekosongan->BILANGAN_CALON = $bilangan_permohonan;
         $kekosongan->KEKOSONGAN = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->BILANGAN_CALON;
         $kekosongan->save();
 
