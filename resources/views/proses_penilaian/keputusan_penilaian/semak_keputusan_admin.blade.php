@@ -55,17 +55,19 @@
                             <table class="table table-flush" id="datatable-peserta">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Nama</th>
-                                        <th>No. Kad Pengenalan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No. Kad
+                                            Pengenalan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($jawapan_calon as $key => $calon)
                                         <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>{{ $calon->nama }}</td>
-                                            <td><a href="/senarai_penilaian/{{ $calon->no_ic }}"
+                                            <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $calon->nama }}</td>
+                                            <td class="text-sm text-center font-weight-normal"><a
+                                                    href="/senarai_penilaian/{{ $calon->no_ic }}"
                                                     class="text-info">{{ $calon->no_ic }}</a></td>
                                         </tr>
                                     @endforeach

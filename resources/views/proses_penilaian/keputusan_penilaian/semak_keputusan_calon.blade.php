@@ -64,20 +64,27 @@
                                     <table class="table table-flush" id="datatable-peserta">
                                         <thead>
                                             <tr>
-                                                <th>No.</th>
-                                                <th>ID Penilaian</th>
-                                                <th>Tarikh Penilaian</th>
-                                                <th>Tindakan</th>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">ID
+                                                    Penilaian</th>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh
+                                                    Penilaian</th>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($penilaian as $key => $penilaian)
                                                 @if ($penilaian->status_penilaian != 'Baru' && $penilaian->status_penilaian != null)
                                                     <tr>
-                                                        <td>{{ $key + 1 }}</td>
-                                                        <td>{{ $penilaian->id_sesi }}</td>
-                                                        <td>{{ date('d-m-Y', strtotime($penilaian->tarikh_sesi)) }}</td>
-                                                        <td><a href="/semak_keputusan/{{ $penilaian->no_ic }}/{{ $penilaian->id_sesi }}"
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            {{ $key + 1 }}</td>
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            {{ $penilaian->id_sesi }}</td>
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            {{ date('d-m-Y', strtotime($penilaian->tarikh_sesi)) }}</td>
+                                                        <td class="text-sm text-center font-weight-normal"><a
+                                                                href="/semak_keputusan/{{ $penilaian->no_ic }}/{{ $penilaian->id_sesi }}"
                                                                 class="btn bg-gradient-info">Semak</a></td>
                                                     </tr>
                                                 @endif

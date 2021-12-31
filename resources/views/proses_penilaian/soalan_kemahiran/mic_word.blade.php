@@ -56,7 +56,7 @@
                                 <p>{!! $soalankemahiranword->soalan_1 !!}</p>
                                 <ul class="mt-2">
                                     <button class="btn btn-success" value="{{ $soalankemahiranword->id }}" type="submit"
-                                        onclick="window.open('/soalan-kemahiran-word/{{$id_penilaian}}/{{ $soalankemahiranword->id }}', 'popup', 'width=600','height=400');"
+                                        onclick="window.open('/soalan-kemahiran-word/{{ $id_penilaian }}/{{ $soalankemahiranword->id }}', 'popup', 'width=600','height=400');"
                                         target="popup">Pemprosesan Perkataan</button>
                                 </ul>
                             @endif
@@ -195,7 +195,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn bg-gradient-secondary"
                                             data-bs-dismiss="modal">Batal</button>
-                                        <a href="/soalan-kemahiran-email/{{$id_penilaian}}" class="btn btn-success">Ok</a>
+                                        <a href="/soalan-kemahiran-email/{{ $id_penilaian }}" class="btn btn-success">Ok</a>
                                     </div>
                                 </div>
                             </div>

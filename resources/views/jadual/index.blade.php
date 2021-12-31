@@ -1,8 +1,8 @@
 @extends('base')
 @section('content')
-<?php
-use App\Models\Refgeneral;
-?>
+    <?php
+    use App\Models\Refgeneral;
+    ?>
 
     <div class="container-fluid py-4">
         <div class="row">
@@ -46,8 +46,7 @@ use App\Models\Refgeneral;
             </div>
             <div class="col-lg-6">
                 <div class="column-12">
-                    <a href="/jaduals/create" class="btn bg-gradient-warning" type="submit"
-                        style="float: right;">Tambah
+                    <a href="/jaduals/create" class="btn bg-gradient-warning" type="submit" style="float: right;">Tambah
                         Jadual</a>
                 </div>
             </div>
@@ -63,98 +62,109 @@ use App\Models\Refgeneral;
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-    
+
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Sesi</th>
-                                        <th>Tahap</th>
-                                        <th>Masa Mula</th>
-                                        {{-- <th>Masa Tamat</th> --}}
-                                        <th>Tarikh Penilaian</th>
-                                        <th>Kategori Peserta</th>
-                                        <th>Jumlah Peserta</th>
-                                        <th>Kekosongan</th>
-                                        <th>Kementerian</th>
-                                        <th>Platform</th>
-                                        <th>Lokasi</th>
-                                        <th>Status</th>
-                                        <th>Keterangan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Sesi</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa Mula</th>
+                                        {{-- <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa Tamat</th> --}}
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Penilaian
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Kategori Peserta
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jumlah Peserta
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Kekosongan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Kementerian</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Platform</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Lokasi</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-    
+
                                     @foreach ($jaduals as $key => $jadual)
                                         <tr>
-                                            <td class="text-center">{{ $key+1 }}.</td>
-                                            <td class="text-center">
-                                                @if($jadual['KOD_SESI_PENILAIAN'] == "01")
-                                                Sesi 01
+                                            <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}.</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                @if ($jadual['KOD_SESI_PENILAIAN'] == '01')
+                                                    Sesi 01
                                                 @elseif($jadual['KOD_SESI_PENILAIAN'] == "02")
-                                                Sesi 02
+                                                    Sesi 02
                                                 @elseif($jadual['KOD_SESI_PENILAIAN'] == "03")
-                                                Sesi 03
+                                                    Sesi 03
                                                 @endif
                                                 {{-- {{ $jadual['KOD_SESI_PENILAIAN'] }} --}}
                                             </td>
-                                            <td class="text-center">
+                                            <td class="text-sm text-center font-weight-normal">
                                                 @if ($jadual->KOD_TAHAP == '01')
                                                     Asas
                                                 @else
                                                     Lanjutan
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ $jadual['KOD_MASA_MULA'] }}</td>
-                                            {{-- <td class="text-center">{{ $jadual['KOD_MASA_TAMAT'] }}</td> --}}
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $jadual['KOD_MASA_MULA'] }}</td>
+                                            {{-- <td class="text-sm text-center font-weight-normal">{{ $jadual['KOD_MASA_TAMAT'] }}</td> --}}
                                             <td>{{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}</td>
-                                            <td class="text-center">
+                                            <td class="text-sm text-center font-weight-normal">
                                                 @if ($jadual->KOD_KATEGORI_PESERTA == '01')
                                                     Individu
                                                 @else
                                                     Kumpulan
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
-                                            <td class="text-center">
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $jadual['JUMLAH_KESELURUHAN'] }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
                                                 @if ($jadual['KEKOSONGAN'] == null)
                                                     0
                                                 @else
                                                     {{ $jadual['KEKOSONGAN'] }}
                                                 @endif
                                             </td>
-                                            <td class="text-center">
+                                            <td class="text-sm text-center font-weight-normal">
                                                 @if ($jadual['KOD_KEMENTERIAN'] == null)
                                                     -
                                                 @else
-                                                    <?php 
-                                                    $kementerian = Refgeneral::where('MASTERCODE', '10028')->where('REFERENCECODE', $jadual->KOD_KEMENTERIAN)->first();
+                                                    <?php
+                                                    $kementerian = Refgeneral::where('MASTERCODE', '10028')
+                                                        ->where('REFERENCECODE', $jadual->KOD_KEMENTERIAN)
+                                                        ->first();
                                                     // $kementerian = $kementerian->DESCRIPTION1;
                                                     ?>
-                                                    @if($kementerian!=null)
-                                                    {{$kementerian['DESCRIPTION1']}}
+                                                    @if ($kementerian != null)
+                                                        {{ $kementerian['DESCRIPTION1'] }}
                                                         {{-- {{ $jadual['KOD_KEMENTERIAN'] }} --}}
                                                     @endif
                                                 @endif
                                             </td>
                                             <td>{{ $jadual['platform'] }}</td>
-                                            <td class="text-center">
+                                            <td class="text-sm text-center font-weight-normal">
                                                 @if ($jadual['LOKASI'] == null)
                                                     -
                                                 @else
                                                     {{ $jadual['LOKASI'] }}
                                                 @endif
                                             </td>
-                                            <td>{{ $jadual['status'] }}</td>
-                                            <td>{{ $jadual['keterangan'] }}</td>
-                                            <td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $jadual['status'] }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $jadual['keterangan'] }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
                                                 <form method="POST" action="jaduals/{{ $jadual->ID_SESI }}">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button class="btn mb-0 btn-danger" type="submit">Hapus&emsp;<i class="fas fa-trash-alt"></i></button>
+                                                    <button class="btn mb-0 btn-danger" type="submit">Hapus&emsp;<i
+                                                            class="fas fa-trash-alt"></i></button>
                                                 </form>
                                                 <div class="dropdown">
                                                     <button class="btn btn-info dropdown-toggle mt-2" type="button"
-                                                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
                                                         Kemaskini
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -166,19 +176,21 @@ use App\Models\Refgeneral;
                                                                 data-bs-target="#penangguhan{{ $jadual['ID_SESI'] }}">Penangguhan</a>
                                                         </li>
                                                         <li><a class="dropdown-item" data-bs-toggle="modal"
-                                                                data-bs-target="#pembatalan{{ $jadual['ID_SESI'] }}">Pembatalan</a></li>
+                                                                data-bs-target="#pembatalan{{ $jadual['ID_SESI'] }}">Pembatalan</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>
-                                            <div class="modal fade" id="penangguhan{{ $jadual['ID_SESI'] }}" tabindex="-1" role="dialog"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="penangguhan{{ $jadual['ID_SESI'] }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="exampleModalLabel">Penangguhan
                                                             </h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close">
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
@@ -189,7 +201,8 @@ use App\Models\Refgeneral;
                                                                 <div class="form-group">
                                                                     <label for="keterangan"
                                                                         class="form-control-label">Keterangan</label>
-                                                                    <input class="form-control" type="text" name="keterangan">
+                                                                    <input class="form-control" type="text"
+                                                                        name="keterangan">
                                                                     <input type="hidden" name="status" value="Penangguhan">
                                                                 </div>
                                                             </div>
@@ -203,15 +216,16 @@ use App\Models\Refgeneral;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal fade" id="pembatalan{{ $jadual['ID_SESI'] }}" tabindex="-1" role="dialog"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="pembatalan{{ $jadual['ID_SESI'] }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="exampleModalLabel">Pembatalan
                                                             </h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close">
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
@@ -222,7 +236,8 @@ use App\Models\Refgeneral;
                                                                 <div class="form-group">
                                                                     <label for="keterangan"
                                                                         class="form-control-label">Keterangan</label>
-                                                                    <input class="form-control" type="text" name="keterangan">
+                                                                    <input class="form-control" type="text"
+                                                                        name="keterangan">
                                                                     <input type="hidden" name="status" value="Pembatalan">
                                                                 </div>
                                                             </div>

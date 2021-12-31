@@ -189,7 +189,8 @@
                             <div class="col-xl-12">
                                 <div class="form-group">
                                     <label class="form-control-label">Soalan</label>
-                                    <textarea id="editor-soalan" class="form-control" name="soalan" rows="3">{{ $banksoalanpengetahuan->soalan }}</textarea>
+                                    <textarea id="editor-soalan" class="form-control" name="soalan"
+                                        rows="3">{{ $banksoalanpengetahuan->soalan }}</textarea>
                                 </div>
                             </div>
 

@@ -31,7 +31,8 @@
                         </li>
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kawalan
                                 Sistem</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Selenggara Kawalan Sistem</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Selenggara
+                                Kawalan Sistem</a></li>
                     </ol>
                 </nav>
             </div>
@@ -43,8 +44,8 @@
             </div>
             <div class="col-lg-6">
                 <div class="column-12">
-                    <a href="/selenggara_kawalan_sistem/{{$kawalan->ID_KAWALAN_SISTEM}}/edit" class="btn bg-gradient-primary mb-0" type="submit"
-                        style="float: right;">Kemaskini</a>
+                    <a href="/selenggara_kawalan_sistem/{{ $kawalan->ID_KAWALAN_SISTEM }}/edit"
+                        class="btn bg-gradient-primary mb-0" type="submit" style="float: right;">Kemaskini</a>
                 </div>
             </div>
         </div>
@@ -63,10 +64,10 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                @if($kawalan->OPTION_PAPAR_KEPUTUSAN == "01")
-                                Papar
+                                @if ($kawalan->OPTION_PAPAR_KEPUTUSAN == '01')
+                                    Papar
                                 @else
-                                Tidak Papar
+                                    Tidak Papar
                                 @endif
                             </div>
                         </div>
@@ -89,7 +90,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                {{$kawalan->TEMPOH_MASA_KESELURUHAN_PENILAIAN}}&emsp;minit
+                                {{ $kawalan->TEMPOH_MASA_KESELURUHAN_PENILAIAN }}&emsp;minit
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -99,7 +100,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                {{$kawalan->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN}}&emsp;minit
+                                {{ $kawalan->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN }}&emsp;minit
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -109,7 +110,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                {{$kawalan->TEMPOH_MASA_PERINGATAN_SEBELUM_TAMAT_PENILAIAN}}&emsp;minit
+                                {{ $kawalan->TEMPOH_MASA_PERINGATAN_SEBELUM_TAMAT_PENILAIAN }}&emsp;minit
                             </div>
                         </div>
                     </div>
@@ -131,7 +132,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                {{$kawalan->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_GAGAL}}&emsp;Hari selepas tarikh penilaian
+                                {{ $kawalan->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_GAGAL }}&emsp;Hari selepas tarikh penilaian
                             </div>
                         </div>
 
@@ -142,8 +143,10 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                {{$kawalan->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_BLACKLIST}}&emsp;Hari selepas tarikh penilaian<br>
-                                <span><em><strong>Peserta tersebut tidak dibenarkan membuat permohonan dalam tempoh ini.</strong></em></span>
+                                {{ $kawalan->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_BLACKLIST }}&emsp;Hari selepas tarikh
+                                penilaian<br>
+                                <span><em><strong>Peserta tersebut tidak dibenarkan membuat permohonan dalam tempoh
+                                            ini.</strong></em></span>
                             </div>
                         </div>
 
@@ -166,7 +169,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-7">
-                                {{$kawalan->TEMPOH_TUTUP_TARIKH_PENILAIAN_INDIVIDU}}&emsp;Hari sebelum tarikh penilaian
+                                {{ $kawalan->TEMPOH_TUTUP_TARIKH_PENILAIAN_INDIVIDU }}&emsp;Hari sebelum tarikh penilaian
                             </div>
                         </div>
 
@@ -177,7 +180,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-7">
-                                {{$kawalan->TEMPOH_TUTUP_TARIKH_PENILAIAN_KUMPULAN}}&emsp;Hari sebelum tarikh penilaian
+                                {{ $kawalan->TEMPOH_TUTUP_TARIKH_PENILAIAN_KUMPULAN }}&emsp;Hari sebelum tarikh penilaian
                             </div>
                         </div>
                     </div>

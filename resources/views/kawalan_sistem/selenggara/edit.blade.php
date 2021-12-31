@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <form action="/selenggara_kawalan_sistem/{{$kawalan->ID_KAWALAN_SISTEM}}" method="POST">
+        <form action="/selenggara_kawalan_sistem/{{ $kawalan->ID_KAWALAN_SISTEM }}" method="POST">
             @method('PUT')
             @csrf
             <div class="row">
@@ -46,7 +46,7 @@
                     <h5 class="font-weight-bolder">Kemaskini Kawalan Sistem</h5>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col">
                     <div class="card mt-3">
@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col">
                     <div class="card mt-3">
@@ -95,7 +95,8 @@
                                     </label><label class="float-right">:</label>
                                 </div>
                                 <div class="col-1">
-                                    <input type="text" class="form-control" name="TEMPOH_MASA_KESELURUHAN_PENILAIAN" value="{{$kawalan->TEMPOH_MASA_KESELURUHAN_PENILAIAN}}">
+                                    <input type="text" class="form-control" name="TEMPOH_MASA_KESELURUHAN_PENILAIAN"
+                                        value="{{ $kawalan->TEMPOH_MASA_KESELURUHAN_PENILAIAN }}">
                                 </div>
                                 <div class="col">&emsp;minit</div>
                             </div>
@@ -106,7 +107,9 @@
                                     </label><label class="float-right">:</label>
                                 </div>
                                 <div class="col-1">
-                                    <input type="text" class="form-control" name="TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN" value="{{$kawalan->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN}}">
+                                    <input type="text" class="form-control"
+                                        name="TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN"
+                                        value="{{ $kawalan->TEMPOH_MASA_PERINGATAN_TAMAT_SOALAN_PENGETAHUAN }}">
                                 </div>
                                 <div class="col">&emsp;minit</div>
                             </div>
@@ -117,7 +120,9 @@
                                     </label><label class="float-right">:</label>
                                 </div>
                                 <div class="col-1">
-                                    <input type="text" class="form-control" name="TEMPOH_MASA_PERINGATAN_SEBELUM_TAMAT_PENILAIAN" value="{{$kawalan->TEMPOH_MASA_PERINGATAN_SEBELUM_TAMAT_PENILAIAN}}">
+                                    <input type="text" class="form-control"
+                                        name="TEMPOH_MASA_PERINGATAN_SEBELUM_TAMAT_PENILAIAN"
+                                        value="{{ $kawalan->TEMPOH_MASA_PERINGATAN_SEBELUM_TAMAT_PENILAIAN }}">
                                 </div>
                                 <div class="col">&emsp;minit</div>
                             </div>
@@ -125,7 +130,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col">
                     <div class="card mt-3">
@@ -140,11 +145,13 @@
                                     </label><label class="float-right">:</label>
                                 </div>
                                 <div class="col-1">
-                                    <input type="text" class="form-control" name="TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_GAGAL" value="{{$kawalan->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_GAGAL}}">
+                                    <input type="text" class="form-control"
+                                        name="TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_GAGAL"
+                                        value="{{ $kawalan->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_GAGAL }}">
                                 </div>
                                 <div class="col">&emsp;Hari selepas tarikh penilaian</div>
                             </div>
-    
+
                             <div class="row mb-2">
                                 <div class="col-4">
                                     <label class="form-control-label mr-4">
@@ -152,7 +159,9 @@
                                     </label><label class="float-right">:</label>
                                 </div>
                                 <div class="col-1">
-                                    <input type="text" class="form-control" name="TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_BLACKLIST" value="{{$kawalan->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_BLACKLIST}}">
+                                    <input type="text" class="form-control"
+                                        name="TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_BLACKLIST"
+                                        value="{{ $kawalan->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_BLACKLIST }}">
                                 </div>
                                 <div class="col">
                                     &emsp;Hari selepas tarikh penilaian
@@ -162,7 +171,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col">
                     <div class="card mt-3">
@@ -177,13 +186,14 @@
                                     </label><label class="float-right">:</label>
                                 </div>
                                 <div class="col-1">
-                                    <input type="text" class="form-control" name="TEMPOH_TUTUP_TARIKH_PENILAIAN_INDIVIDU" value="{{$kawalan->TEMPOH_TUTUP_TARIKH_PENILAIAN_INDIVIDU}}">
+                                    <input type="text" class="form-control" name="TEMPOH_TUTUP_TARIKH_PENILAIAN_INDIVIDU"
+                                        value="{{ $kawalan->TEMPOH_TUTUP_TARIKH_PENILAIAN_INDIVIDU }}">
                                 </div>
                                 <div class="col">
                                     &emsp;Hari sebelum tarikh penilaian
                                 </div>
                             </div>
-    
+
                             <div class="row mb-2">
                                 <div class="col-5">
                                     <label class="form-control-label mr-4">
@@ -191,7 +201,8 @@
                                     </label><label class="float-right">:</label>
                                 </div>
                                 <div class="col-1">
-                                    <input type="text" class="form-control" name="TEMPOH_TUTUP_TARIKH_PENILAIAN_KUMPULAN" value="{{$kawalan->TEMPOH_TUTUP_TARIKH_PENILAIAN_KUMPULAN}}">
+                                    <input type="text" class="form-control" name="TEMPOH_TUTUP_TARIKH_PENILAIAN_KUMPULAN"
+                                        value="{{ $kawalan->TEMPOH_TUTUP_TARIKH_PENILAIAN_KUMPULAN }}">
                                 </div>
                                 <div class="col">
                                     &emsp;Hari sebelum tarikh penilaian
@@ -201,7 +212,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col text-end">
                     <button class="btn btn-success" type="submit">Simpan</button>

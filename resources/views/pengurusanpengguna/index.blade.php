@@ -1,8 +1,8 @@
 @extends('base')
 @section('content')
-<?php
-use Spatie\Permission\Models\Role;
-?>
+    <?php
+    use Spatie\Permission\Models\Role;
+    ?>
 
     <div class="container-fluid py-4">
         <div class="row">
@@ -32,8 +32,10 @@ use Spatie\Permission\Models\Role;
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pengurusan Pengguna</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pengguna Berdaftar</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pengurusan
+                                Pengguna</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pengguna
+                                Berdaftar</a></li>
                     </ol>
                 </nav>
             </div>
@@ -59,33 +61,37 @@ use Spatie\Permission\Models\Role;
                     </div>
                     <div class="table-responsive">
                         <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-        
+
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
-                                    <th>E-mel</th>
-                                    <th>Peranan</th>
-                                    <th>Kemaskini</th>
-                                    <th>Hapus</th>
+                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama</th>
+                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">E-mel</th>
+                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">Peranan</th>
+                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemaskini</th>
+                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">Hapus</th>
                                 </tr>
                             </thead>
                             @if ($current_user == 3)
                                 <tbody>
-        
+
                                     @foreach ($user_pengawas as $user_pengawas)
                                         <tr>
-                                            <td style="text-transform: uppercase">{{ $user_pengawas['name'] }}</td>
-                                            <td>{{ $user_pengawas['email'] }}</td>
-                                            <td>
+                                            <td class="text-sm text-center font-weight-normal"
+                                                style="text-transform: uppercase">{{ $user_pengawas['name'] }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $user_pengawas['email'] }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
                                                 Pengawas
                                                 {{-- {{ $user['user_group_id'] }} --}}
                                             </td>
-                                            <td><a class="btn btn-info text-white"
-                                                    href="/pengurusanpengguna/{{ $user_pengawas->id }}/edit" style="color:black;">
+                                            <td class="text-sm text-center font-weight-normal"><a
+                                                    class="btn btn-info text-white"
+                                                    href="/pengurusanpengguna/{{ $user_pengawas->id }}/edit"
+                                                    style="color:black;">
                                                     Kemaskini
                                                 </a>
                                             </td>
-                                            <td>
+                                            <td class="text-sm text-center font-weight-normal">
                                                 <a data-bs-toggle="modal" style="cursor: pointer"
                                                     data-bs-target="#modaldelete-{{ $user_pengawas->id }}">
                                                     <i class="far fa-trash-alt"></i>
@@ -97,9 +103,10 @@ use Spatie\Permission\Models\Role;
                                                 <button type="submit"> Hapus</button>
                                             </form> --}}
                                             </td>
-        
-                                            <div class="modal fade" id="modaldelete-{{ $user_pengawas->id }}" tabindex="-1"
-                                                role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                            <div class="modal fade" id="modaldelete-{{ $user_pengawas->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-body text-center">
@@ -111,12 +118,12 @@ use Spatie\Permission\Models\Role;
                                                             <button type="button" class="btn bg-gradient-secondary"
                                                                 data-bs-dismiss="modal">Batal</button>
                                                             <form method="POST"
-                                                                action="/pengurusanpengguna/{{$user_pengawas->id}}">
+                                                                action="/pengurusanpengguna/{{ $user_pengawas->id }}">
                                                                 @method('DELETE')
                                                                 @csrf
-        
-                                                                <button class="btn bg-gradient-danger" style="cursor: pointer"
-                                                                    type="submit"> Hapus</button>
+
+                                                                <button class="btn bg-gradient-danger"
+                                                                    style="cursor: pointer" type="submit"> Hapus</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -127,27 +134,32 @@ use Spatie\Permission\Models\Role;
                                 </tbody>
                             @else
                                 <tbody>
-        
+
                                     @foreach ($users as $user)
                                         <tr>
-                                            <td style="text-transform: uppercase">{{ $user['name'] }}</td>
-                                            <td>{{ $user['email'] }}</td>
-                                            <td>
+                                            <td class="text-sm text-center font-weight-normal"
+                                                style="text-transform: uppercase">{{ $user['name'] }}</td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $user['email'] }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
                                                 <?php
-                                                    $role = Role::where('id', $user['user_group_id'])->get()->first();
+                                                $role = Role::where('id', $user['user_group_id'])
+                                                    ->get()
+                                                    ->first();
                                                 ?>
                                                 @if ($role != null)
-                                                {{$role['name']}}
-                                                @else 
-                                                <span class="text-warning">Sila Kemaskini</span>
+                                                    {{ $role['name'] }}
+                                                @else
+                                                    <span class="text-warning">Sila Kemaskini</span>
                                                 @endif
                                             </td>
-                                            <td><a class="btn btn-info text-white"
-                                                    href="/pengurusanpengguna/{{ $user->id }}/edit" style="color:black;">
+                                            <td class="text-sm text-center font-weight-normal"><a
+                                                    class="btn btn-info text-white"
+                                                    href="/pengurusanpengguna/{{ $user->id }}/edit"
+                                                    style="color:black;">
                                                     Kemaskini
                                                 </a>
                                             </td>
-                                            <td>
+                                            <td class="text-sm text-center font-weight-normal">
                                                 <a data-bs-toggle="modal" style="cursor: pointer"
                                                     data-bs-target="#modaldelete-{{ $user->id }}">
                                                     <i class="far fa-trash-alt"></i>
@@ -159,7 +171,7 @@ use Spatie\Permission\Models\Role;
                                                 <button type="submit"> Hapus</button>
                                             </form> --}}
                                             </td>
-        
+
                                             <div class="modal fade" id="modaldelete-{{ $user->id }}" tabindex="-1"
                                                 role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -173,12 +185,12 @@ use Spatie\Permission\Models\Role;
                                                             <button type="button" class="btn bg-gradient-secondary"
                                                                 data-bs-dismiss="modal">Batal</button>
                                                             <form method="POST"
-                                                                action="/pengurusanpengguna/{{$user->id}}">
+                                                                action="/pengurusanpengguna/{{ $user->id }}">
                                                                 @method('DELETE')
                                                                 @csrf
-        
-                                                                <button class="btn bg-gradient-danger" style="cursor: pointer"
-                                                                    type="submit"> Hapus</button>
+
+                                                                <button class="btn bg-gradient-danger"
+                                                                    style="cursor: pointer" type="submit"> Hapus</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -193,7 +205,7 @@ use Spatie\Permission\Models\Role;
                 </div>
             </div>
         </div>
-        
+
     </div>
 
     <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"

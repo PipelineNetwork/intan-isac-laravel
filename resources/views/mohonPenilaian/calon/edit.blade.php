@@ -75,14 +75,14 @@
                             <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Tahap</th>
-                                        <th>Masa</th>
-                                        <th>Tarikh</th>
-                                        <th>Kekosongan</th>
-                                        <th>Platform</th>
-                                        <th>Lokasi</th>
-                                        <th>Pendaftaran</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Kekosongan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Platform</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Lokasi</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pendaftaran</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -90,27 +90,31 @@
                                         @if ($jadual->KOD_KATEGORI_PESERTA == '01')
                                             <tr>
 
-                                                <td>{{ $key + 1 }}.</td>
-                                                <td>{{ $jadual->KOD_TAHAP }}</td>
-                                                <td>{{ $jadual->KOD_MASA_MULA }} - {{ $jadual->KOD_MASA_TAMAT }}
+                                                <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}.</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jadual->KOD_TAHAP }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jadual->KOD_MASA_MULA }} - {{ $jadual->KOD_MASA_TAMAT }}
                                                 </td>
-                                                <td>{{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
-                                                <td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
                                                     @if ($jadual->KEKOSONGAN == null)
                                                         0
                                                     @else
                                                         {{ $jadual->KEKOSONGAN }}
                                                     @endif
                                                 </td>
-                                                <td>{{ $jadual->platform }}</td>
-                                                <td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jadual->platform }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
                                                     @if ($jadual['KOD_KEMENTERIAN'] == null)
                                                         -
                                                     @else
                                                         {{ $jadual['LOKASI'] }}
                                                     @endif
                                                 </td>
-                                                <td class="text-center">
+                                                <td class="text-sm text-center font-weight-normal" class="text-center">
                                                     <?php
                                                     $no_ic = Auth::user()->nric;
                                                     $done_daftar = MohonPenilaian::where('no_ic', $no_ic)

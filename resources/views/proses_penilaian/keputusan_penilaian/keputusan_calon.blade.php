@@ -44,7 +44,7 @@
                         <h6 class="mb-0 text-dark">Nama</h6>
                     </div>
                     <div class="col-lg-9">
-                        <p class="mb-0" >: {{ $keputusan->nama_peserta }}</p>
+                        <p class="mb-0">: {{ $keputusan->nama_peserta }}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -113,9 +113,11 @@
 
                 <div class="row mt-3">
                     <div class="col text-center">
-                        <a href="/slip_keputusan/{{$keputusan->ic_peserta}}/{{$keputusan->id_penilaian}}" class="btn btn-info">Slip Keputusan</a>
+                        <a href="/slip_keputusan/{{ $keputusan->ic_peserta }}/{{ $keputusan->id_penilaian }}"
+                            class="btn btn-info">Slip Keputusan</a>
                         @if ($keputusan->keputusan == 'Lulus')
-                            <a href="/sijil_penilaian/{{$keputusan->ic_peserta}}/{{$keputusan->id_penilaian}}" class="btn btn-info">Sijil Penilaian</a>
+                            <a href="/sijil_penilaian/{{ $keputusan->ic_peserta }}/{{ $keputusan->id_penilaian }}"
+                                class="btn btn-info">Sijil Penilaian</a>
                         @endif
                     </div>
                 </div>

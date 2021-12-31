@@ -241,8 +241,7 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col text-center">
-                                        <button type="submit"
-                                            class="btn bg-gradient-success">Hantar</button>
+                                        <button type="submit" class="btn bg-gradient-success">Hantar</button>
                                     </div>
                                 </div>
                             </form>

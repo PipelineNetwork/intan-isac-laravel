@@ -1,8 +1,8 @@
 @extends('base')
 @section('content')
-<?php
-use App\Models\Refgeneral;
-?>
+    <?php
+    use App\Models\Refgeneral;
+    ?>
 
     <div class="container-fluid py-4">
         <div class="row">
@@ -32,8 +32,10 @@ use App\Models\Refgeneral;
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Permohonan Penilaian</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Rayuan Calon Blacklist</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Permohonan
+                                Penilaian</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Rayuan Calon
+                                Blacklist</a></li>
                     </ol>
                 </nav>
             </div>
@@ -44,13 +46,13 @@ use App\Models\Refgeneral;
                 <h5 class="font-weight-bolder">Rayuan Calon Blacklist</h5>
             </div>
             @role('calon')
-            <div class="col-lg-6">
-                <div class="column-12">
-                    <a href="/rayuan_calon_blacklist/create" class="btn bg-gradient-warning" type="submit"
-                        style="float: right;">Tambah
-                        Rayuan</a>
+                <div class="col-lg-6">
+                    <div class="column-12">
+                        <a href="/rayuan_calon_blacklist/create" class="btn bg-gradient-warning" type="submit"
+                            style="float: right;">Tambah
+                            Rayuan</a>
+                    </div>
                 </div>
-            </div>
             @endrole
         </div>
 
@@ -64,31 +66,36 @@ use App\Models\Refgeneral;
                     <div class="card-body pt-0">
                         <div class="table-responsive">
                             <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
-    
+
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Nama</th>
-                                        <th>No.My Kad/Polis/Tentera/Pasport</th>
-                                        <th>Tahap</th>
-                                        <th>Tarikh Permohonan</th>
-                                        <th>Status</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.My
+                                            Kad/Polis/Tentera/Pasport</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh
+                                            Permohonan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
                                         @hasanyrole('pentadbir sistem|pentadbir penilaian')
-                                        <th>Tindakan</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
                                         @endhasanyrole
                                     </tr>
                                 </thead>
                                 <tbody>
-    
+
                                     @foreach ($rayuan as $key => $rayuan)
                                         <tr>
-                                            <td class="text-center">{{ $key+1 }}.</td>
-                                            <td>{{$rayuan->nama}}</td>
-                                            <td>{{$rayuan->ic_calon}}</td>
-                                            <td>{{$rayuan->tahap}}</td>
-                                            <td>{{date('d-m-Y', strtotime($rayuan->created_at))}}</td>
-                                            <td>
-                                                @if ($rayuan->status == "Baru")
+                                            <td class="text-sm text-center font-weight-normal" class="text-center">
+                                                {{ $key + 1 }}.</td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $rayuan->nama }}</td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $rayuan->ic_calon }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $rayuan->tahap }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ date('d-m-Y', strtotime($rayuan->created_at)) }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                @if ($rayuan->status == 'Baru')
                                                     <span class="badge badge-info">Baru</span>
                                                 @elseif($rayuan->status == "Diterima")
                                                     <span class="badge badge-success">Diterima</span>
@@ -97,19 +104,21 @@ use App\Models\Refgeneral;
                                                 @endif
                                             </td>
                                             @hasanyrole('pentadbir sistem|pentadbir penilaian')
-                                            <td>
-                                                <a class="btn bg-gradient-info" data-bs-toggle="modal" data-bs-target="#status{{ $rayuan->id }}">Kemaskini</a>
-                                            </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    <a class="btn bg-gradient-info" data-bs-toggle="modal"
+                                                        data-bs-target="#status{{ $rayuan->id }}">Kemaskini</a>
+                                                </td>
                                             @endhasanyrole
-                                            <div class="modal fade" id="status{{ $rayuan->id }}" tabindex="-1" role="dialog"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="status{{ $rayuan->id }}" tabindex="-1"
+                                                role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Kemaskini Status
+                                                            <h5 class="modal-title" id="exampleModalLabel">Kemaskini
+                                                                Status
                                                             </h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close">
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
@@ -124,7 +133,7 @@ use App\Models\Refgeneral;
                                                                         <option value="" hidden>Sila Pilih</option>
                                                                         <option value="Diterima">Diterima</option>
                                                                         <option value="Ditolak">Ditolak</option>
-                                                                      </select>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">

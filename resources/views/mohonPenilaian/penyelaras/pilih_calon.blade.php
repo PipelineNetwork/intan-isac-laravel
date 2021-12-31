@@ -40,9 +40,9 @@
                             @csrf
                             <div class="form-group">
                                 <label class="form-control-label">Nombor kad pengenalan calon:</label>
-                                    <x-input id="nric" class="form-control" type="nric" name="ic_calon"
-                                            :value="old('ic_calon')" autofocus maxlength="12" size="12"
-                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                                <x-input id="nric" class="form-control" type="nric" name="ic_calon"
+                                    :value="old('ic_calon')" autofocus maxlength="12" size="12"
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                 {{-- <input class="form-control" type="text" name="ic_calon"> --}}
                                 <input type="hidden" name="sesi" value="{{ $sesi }}">
                             </div>

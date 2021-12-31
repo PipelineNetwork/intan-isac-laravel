@@ -29,8 +29,10 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pengurusan Pengguna</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kebenaran Kumpulan Pengguna</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pengurusan
+                                Pengguna</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kebenaran
+                                Kumpulan Pengguna</a></li>
                     </ol>
                 </nav>
             </div>
@@ -59,22 +61,25 @@
                             <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Pengguna</th>
-                                        <th>Tindakan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pengguna</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($roles as $key => $role)
                                         <tr>
-                                            <td>{{ $key + 1 }}.</td>
-                                            <td>{{ ucwords($role->name) }}</td>
-                                            <td>
-                                                <a href="/kebenaran_pengguna/{{$role->id}}/edit" class="btn bg-gradient-info">Kemaskini Kebenaran</a>
+                                            <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}.</td>
+                                            <td class="text-sm text-center font-weight-normal">{{ ucwords($role->name) }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                <a href="/kebenaran_pengguna/{{ $role->id }}/edit"
+                                                    class="btn bg-gradient-info">Kemaskini Kebenaran</a>
                                                 <form method="POST" action="kebenaran_pengguna/{{ $role->id }}">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button class="btn mb-0 bg-gradient-danger" type="submit">Hapus Peranan</button>
+                                                    <button class="btn mb-0 bg-gradient-danger" type="submit">Hapus
+                                                        Peranan</button>
                                                 </form>
                                             </td>
                                         </tr>

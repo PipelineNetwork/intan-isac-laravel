@@ -56,19 +56,24 @@
                             <table class="table table-flush" id="datatable-peserta">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Jawapan Calon</th>
-                                        <th>Jawapan Sebenar</th>
-                                        <th>Markah Diberi</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Calon
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Sebenar
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah Diberi
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($jawapan as $key => $jawapan)
                                         <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>{{ $jawapan->pilihan_jawapan }}</td>
-                                            <td>{{ $jawapan->jawapan }}</td>
-                                            <td>{{ $jawapan->markah }}</td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $jawapan->pilihan_jawapan }}</td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $jawapan->jawapan }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $jawapan->markah }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

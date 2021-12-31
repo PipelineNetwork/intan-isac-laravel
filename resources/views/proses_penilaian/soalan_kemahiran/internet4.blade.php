@@ -39,20 +39,21 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2 mb-3 mt-2" style="text-align: center">
-                            <form action="/soalan-kemahiran-internet-page5/{{$id_penilaian}}/{{ $id_internet }}" method="POST" id="penilaian">
+                            <form action="/soalan-kemahiran-internet-page5/{{ $id_penilaian }}/{{ $id_internet }}"
+                                method="POST" id="penilaian">
                                 @csrf
                                 <h3>
                                     <div class="row">
                                         <div class="col">
                                             <div class="btn-group" role="group">
                                                 {{-- <input type="hidden" name="user_id" value="{{ $id_internet }}"> --}}
-                                                <button class="btn btn-danger"
-                                                    style="border-radius: 5px; cursor: pointer;" type="submit"><i
-                                                        class="fas fa-arrow-left fa-lg" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title="Back"></i></button>
+                                                <button class="btn btn-danger" style="border-radius: 5px; cursor: pointer;"
+                                                    type="submit"><i class="fas fa-arrow-left fa-lg"
+                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                        title="Back"></i></button>
                                                 <button class="btn"
-                                                    style="border-radius: 5px; background: none; cursor: pointer" disabled><i
-                                                        class="fas fa-arrow-right fa-lg"></i></button>
+                                                    style="border-radius: 5px; background: none; cursor: pointer"
+                                                    disabled><i class="fas fa-arrow-right fa-lg"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -61,14 +62,16 @@
                         </div>
                         <div class="col-10 mb-3">
                             <div class="input-group">
-                                <input class="form-control" type="text" style="text-transform: capitalize" value="{{ $jawapancalons->carian_teks }}">
+                                <input class="form-control" type="text" style="text-transform: capitalize"
+                                    value="{{ $jawapancalons->carian_teks }}">
                                 <span class="input-group-text"><i class="fas fa-microphone me-sm-1 text-dark"></i></span>
                                 <span class="input-group-text"><i class="fas fa-search me-sm-1 text-dark"></i></span>
                             </div>
                         </div>
                         <div class="col-12 vh-100">
                             {{-- <img src="/assets/img/wikipedia.png" style="max-width: 100%" alt=""> --}}
-                            <iframe src="{{ $jawapancalons->url_wikipedia }}" width="100%" height="100%" frameborder="0"></iframe>
+                            <iframe src="{{ $jawapancalons->url_wikipedia }}" width="100%" height="100%"
+                                frameborder="0"></iframe>
                         </div>
                     </div>
                 </div>

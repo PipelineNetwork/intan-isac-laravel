@@ -26,7 +26,8 @@
                         </svg>
                     </a>
                 </li>
-                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Aduan dan Rayuan</a></li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Aduan dan Rayuan</a>
+                </li>
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Rayuan</a></li>
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Tambah Rayuan</a></li>
             </ol>

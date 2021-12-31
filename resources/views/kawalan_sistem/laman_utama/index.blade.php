@@ -69,14 +69,15 @@
                                             <p>{!! $laman_utama->KETERANGAN !!}</p>
                                         </div>
                                         <div class="col-2 text-end">
-                                            <p class="mb-0">Status: 
-                                                @if($laman_utama->STATUS == '01')
-                                                Tidak Aktif
+                                            <p class="mb-0">Status:
+                                                @if ($laman_utama->STATUS == '01')
+                                                    Tidak Aktif
                                                 @else
-                                                Aktif
+                                                    Aktif
                                                 @endif
                                             </p>
-                                            <a href="laman_utama/{{$laman_utama->ID}}/edit" class="btn bg-gradient-info mt-0">Kemaskini</a>
+                                            <a href="laman_utama/{{ $laman_utama->ID }}/edit"
+                                                class="btn bg-gradient-info mt-0">Kemaskini</a>
                                         </div>
                                     </div>
                                 </li>

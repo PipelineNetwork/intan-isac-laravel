@@ -28,7 +28,8 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control form-control-sm ml-3" name="id_sesi" value="{{ $id_penilaian }}" readonly>
+                                        <input class="form-control form-control-sm ml-3" name="id_sesi"
+                                            value="{{ $id_penilaian }}" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -160,7 +161,8 @@
                                     <div class="col-8">
                                         <select class="form-control form-control-sm ml-3" name="KOD_PERINGKAT"
                                             id="input_peringkat" required>
-                                            <option hidden selected value="{{ $user_profils->KOD_PERINGKAT }}">{{ $user_profils->KOD_PERINGKAT }}</option>
+                                            <option hidden selected value="{{ $user_profils->KOD_PERINGKAT }}">
+                                                {{ $user_profils->KOD_PERINGKAT }}</option>
                                             @foreach ($peringkats as $peringkat)
                                                 <option value="{{ $peringkat->DESCRIPTION1 }}">
                                                     {{ $peringkat->DESCRIPTION1 }}</option>
@@ -181,7 +183,9 @@
                                         <select class="form-control form-control-sm ml-3"
                                             name="KOD_KLASIFIKASI_PERKHIDMATAN" id="input_klasifikasi_perkhidmatan"
                                             required>
-                                            <option hidden selected value="{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}">{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}
+                                            <option hidden selected
+                                                value="{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}">
+                                                {{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}
                                             </option>
                                             @foreach ($klasifikasi_perkhidmatans as $klasifikasi_perkhidmatan)
                                                 <option value="{{ $klasifikasi_perkhidmatan->DESCRIPTION1 }}">
@@ -203,7 +207,8 @@
                                     <div class="col-8">
                                         <select class="form-control form-control-sm ml-3" name="KOD_GRED_JAWATAN"
                                             id="input_gred_jawatan" required>
-                                            <option hidden selected value="{{ $user_profils->KOD_GRED_JAWATAN }}">{{ $user_profils->KOD_GRED_JAWATAN }}</option>
+                                            <option hidden selected value="{{ $user_profils->KOD_GRED_JAWATAN }}">
+                                                {{ $user_profils->KOD_GRED_JAWATAN }}</option>
                                             @foreach ($gred_jawatans as $gred_jawatan)
                                                 <option value="{{ $gred_jawatan->DESCRIPTION1 }}">
                                                     {{ $gred_jawatan->DESCRIPTION1 }}</option>
@@ -223,7 +228,8 @@
                                     <div class="col-8">
                                         <select class="form-control form-control-sm ml-3" name="KOD_TARAF_PERJAWATAN"
                                             id="input_taraf_perjawatan" required>
-                                            <option hidden selected value="{{ $user_profils->KOD_TARAF_PERJAWATAN }}">{{ $user_profils->KOD_TARAF_PERJAWATAN }}
+                                            <option hidden selected value="{{ $user_profils->KOD_TARAF_PERJAWATAN }}">
+                                                {{ $user_profils->KOD_TARAF_PERJAWATAN }}
                                             </option>
                                             @foreach ($taraf_perjawatans as $taraf_perjawatan)
                                                 <option value="{{ $taraf_perjawatan->DESCRIPTION1 }}">
@@ -244,7 +250,8 @@
                                     <div class="col-8">
                                         <select class="form-control form-control-sm ml-3" name="KOD_JENIS_PERKHIDMATAN"
                                             id="input_jenis_perkhidmatan" required>
-                                            <option hidden selected value="{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}">{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}
+                                            <option hidden selected value="{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}">
+                                                {{ $user_profils->KOD_JENIS_PERKHIDMATAN }}
                                             </option>
                                             @foreach ($jenis_perkhidmatans as $jenis_perkhidmatan)
                                                 <option value="{{ $jenis_perkhidmatan->DESCRIPTION1 }}">
@@ -318,7 +325,8 @@
                                     <div class="col-8">
                                         <select class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN"
                                             id="input_kementerian" required>
-                                            <option hidden selected value="{{ $user_profils->KOD_KEMENTERIAN }}">{{ $user_profils->KOD_KEMENTERIAN }}
+                                            <option hidden selected value="{{ $user_profils->KOD_KEMENTERIAN }}">
+                                                {{ $user_profils->KOD_KEMENTERIAN }}
                                             </option>
                                             @foreach ($kementerians as $kementerian)
                                                 <option value="{{ $kementerian->DESCRIPTION1 }}">
@@ -339,7 +347,8 @@
                                     <div class="col-8">
                                         <select class="form-control form-control-sm ml-3" name="KOD_JABATAN"
                                             id="input_kementerian" required>
-                                            <option hidden selected value="{{ $user_profils->KOD_JABATAN }}">{{ $user_profils->KOD_JABATAN }}
+                                            <option hidden selected value="{{ $user_profils->KOD_JABATAN }}">
+                                                {{ $user_profils->KOD_JABATAN }}
                                             </option>
                                             <option>TIDAK BERKAITAN</option>
                                             @foreach ($jabatans as $jabatan)
@@ -359,7 +368,8 @@
                                         <input class="form-control form-control-sm ml-3" name="BAHAGIAN"
                                             id="{{ $user_profils->BAHAGIAN }}" type="text"
                                             value="{{ $user_profils->BAHAGIAN }}">
-                                            <span><small><i>Sila masukkan maklumat lengkap tempat bertugas anda</i></small></span>
+                                        <span><small><i>Sila masukkan maklumat lengkap tempat bertugas
+                                                    anda</i></small></span>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -420,7 +430,8 @@
                                     <div class="col-8">
                                         <select class="form-control form-control-sm ml-3" name="KOD_NEGERI"
                                             id="input_negeri" required>
-                                            <option hidden selected value="{{ $user_profils->KOD_NEGERI }}">{{ $user_profils->KOD_NEGERI }}
+                                            <option hidden selected value="{{ $user_profils->KOD_NEGERI }}">
+                                                {{ $user_profils->KOD_NEGERI }}
                                             </option>
                                             @foreach ($negeris as $negeri)
                                                 <option value="{{ $negeri->DESCRIPTION1 }}">
@@ -477,7 +488,7 @@
                                     <button class="btn bg-gradient-success text-center" type="submit">Hantar</button>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </form>

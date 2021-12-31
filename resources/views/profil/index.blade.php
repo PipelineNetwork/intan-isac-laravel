@@ -54,7 +54,7 @@
                                             data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini"></a>
                                     </a>
                                 </div> --}}
-                                
+
                             </div>
                         </div>
                         <div class="card-body">
@@ -914,12 +914,13 @@
                                     </svg>
                                 </a>
                             </li>
-                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Profil</a></li>
+                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Profil</a>
+                            </li>
                         </ol>
                     </nav>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col-lg-6">
                     <h5 class="font-weight-bolder">Profil</h5>
@@ -936,8 +937,9 @@
                                 </div>
                                 <div class="col-md-4 text-end">
                                     <a href="javascript:;">
-                                        <a href="/profil/{{ $user_profils->id }}" class="btn bg-gradient-info text-white mb-0"
-                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini">Kemaskini
+                                        <a href="/profil/{{ $user_profils->id }}"
+                                            class="btn bg-gradient-info text-white mb-0" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" title="Kemaskini">Kemaskini
                                             Maklumat</a>
                                     </a>
                                 </div>
@@ -971,8 +973,8 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" id="{{ $user_profils->nric }}"
-                                                type="text" value="{{ $user_profils->nric }}" disabled="" required maxlength="12"
-                                                size="12">
+                                                type="text" value="{{ $user_profils->nric }}" disabled="" required
+                                                maxlength="12" size="12">
                                         </div>
                                     </div>
                                     <div class="row mb-2 divSektor">
@@ -999,12 +1001,12 @@
                                                 value="{{ $user_profils->ministry_code }}" disabled="" required>
                                         </div>
                                     </div> --}}
-        
+
                                 </div>
                             </div>
-        
+
                             <hr class="horizontal gray-light my-4">
-        
+
                         </div>
                     </div>
                 </div>

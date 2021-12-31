@@ -51,7 +51,8 @@
                                     <div class="col-3">
                                         <input class="form-control" type="text" name="id_penilaian">
                                     </div>
-                                    <label class="text-danger text-center"><em>Sila rujuk surat tawaran untuk mendapatkan ID penilaian.</em></label>
+                                    <label class="text-danger text-center"><em>Sila rujuk surat tawaran untuk mendapatkan ID
+                                            penilaian.</em></label>
                                     <div class="col-auto">
                                         <button class="btn bg-gradient-success btn-sm">MULA MENJAWAB</button>
                                     </div>
@@ -63,6 +64,6 @@
             </div>
         </div>
     </div>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 @stop

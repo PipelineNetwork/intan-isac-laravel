@@ -44,8 +44,7 @@
             </div>
         </div>
 
-        <form action="/kemaskini_pemilihan_soalan/{{ $kemaskini->ID_PEMILIHAN_SOALAN }}" method="POST"
-            id="jumlahsemua">
+        <form action="/kemaskini_pemilihan_soalan/{{ $kemaskini->ID_PEMILIHAN_SOALAN }}" method="POST" id="jumlahsemua">
             @csrf
             <div class="row">
                 <div class="col">
@@ -65,8 +64,8 @@
                                     </label><label class="float-right">:</label>
                                 </div>
                                 <div class="col-8">
-                                    <input class="form-control  " type="text" value="{{ $kemaskini->NAMA_PEMILIHAN_SOALAN }}"
-                                        name="NAMA_PEMILIHAN_SOALAN">
+                                    <input class="form-control  " type="text"
+                                        value="{{ $kemaskini->NAMA_PEMILIHAN_SOALAN }}" name="NAMA_PEMILIHAN_SOALAN">
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -119,12 +118,12 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col">
-    
+
                     <div class="card mt-3">
-    
+
                         <div class="card-header position-relative z-index-1" style="background-color:#FFA500;">
                             <div class="row d-flex flex-nowrap">
                                 <div class="col align-items-center">
@@ -169,7 +168,8 @@
                                                 <td class="text-sm text-center font-weight-normal">
                                                     <select class="form-control"
                                                         name="id_kategori_pengetahuan{{ $loop->index + 1 }}" required>
-                                                        <option hidden value="{{ $pilihan->KOD_KATEGORI_SOALAN }}" selected>
+                                                        <option hidden value="{{ $pilihan->KOD_KATEGORI_SOALAN }}"
+                                                            selected>
                                                             @if ($pilihan->KOD_KATEGORI_SOALAN == '01')
                                                                 EG
                                                             @elseif($pilihan->KOD_KATEGORI_SOALAN == "02")
@@ -224,7 +224,7 @@
                                     </tbody>
                                 </table>
                             </div>
-    
+
                             <div class="row">
                                 <div class="col text-end">
                                     <button class="btn bg-gradient-success" type="submit">Kemaskini</button>
@@ -237,7 +237,7 @@
                 </div>
             </div>
         </form>
-        
+
     </div>
 
     <script src="../../assets/js/plugins/datatables.js"></script>

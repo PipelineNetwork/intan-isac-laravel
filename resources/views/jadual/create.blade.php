@@ -260,13 +260,13 @@
             }
 
             jam_d = jam.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                })
+                minimumIntegerDigits: 2,
+                useGrouping: false
+            })
             minit_d = minit.toLocaleString('en-US', {
-                    minimumIntegerDigits: 2,
-                    useGrouping: false
-                })
+                minimumIntegerDigits: 2,
+                useGrouping: false
+            })
             masav = jam_d + ':' + minit_d;
 
             if (jam > 12) {
@@ -281,9 +281,9 @@
                 })
                 masaf = jam + ':' + minit + ' PM';
                 console.log(masaf);
-            } else if(jam == 12){
+            } else if (jam == 12) {
                 masaf = jam + ':' + minit + ' PM';
-            }else {
+            } else {
                 jam = jam.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false
@@ -298,7 +298,7 @@
             console.log(masav, masaf);
 
             document.getElementById('masa_tamat2').value = masav;
-            
+
             // document.getElementById('masa_tamat').innerHTML = masaf;
             // var m = $("#masa_tamat").val(); 
             $("#masa_tamat").val(masaf);

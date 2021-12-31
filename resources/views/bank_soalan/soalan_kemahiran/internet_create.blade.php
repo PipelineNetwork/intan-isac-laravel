@@ -44,8 +44,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="/{{ $banksoalankemahirans->id }}/internet/save"
-                    enctype="multipart/form-data">
+                <form method="POST" action="/{{ $banksoalankemahirans->id }}/internet/save" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <input type="hidden" name="id_soalankemahiran" value="{{ $banksoalankemahirans->id }}">
@@ -161,8 +160,8 @@
                 maxHeigth: '150px'
             })
             .then(editor => {
-                        // window.editor = editor;
-                    })
+                // window.editor = editor;
+            })
             .catch(error => {
                 console.error(error);
             });

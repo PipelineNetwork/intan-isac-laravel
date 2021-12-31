@@ -56,7 +56,8 @@
                                 <p>{!! $soalankemahiraninternet->soalan_1 !!}</p>
                                 <ul class="mt-2">
                                     <button class="btn btn-success" value="{{ $soalankemahiraninternet->id }}"
-                                        type="submit" target="popup" onclick="window.open('/soalan-kemahiran-internet/{{$id_penilaian}}/{{ $soalankemahiraninternet->id }}', 'popup', 'width=600','height=400');">Internet</button>
+                                        type="submit" target="popup"
+                                        onclick="window.open('/soalan-kemahiran-internet/{{ $id_penilaian }}/{{ $soalankemahiraninternet->id }}', 'popup', 'width=600','height=400');">Internet</button>
                                 </ul>
                             @endif
 
@@ -172,7 +173,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn bg-gradient-secondary"
                                             data-bs-dismiss="modal">Batal</button>
-                                        <a href="/soalan-kemahiran-word/{{$id_penilaian}}" class="btn btn-success">Ok</a>
+                                        <a href="/soalan-kemahiran-word/{{ $id_penilaian }}" class="btn btn-success">Ok</a>
                                     </div>
                                 </div>
                             </div>

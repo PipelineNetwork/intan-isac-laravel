@@ -360,10 +360,13 @@
 
                                 <thead>
                                     <tr>
-                                        <th class="text-center">No.</th>
-                                        <th class="text-center">Tarikh Penilaian</th>
-                                        <th class="text-center">Saluran Penilaian</th>
-                                        <th class="text-center">Status Jadual</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh
+                                            Penilaian</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Saluran
+                                            Penilaian</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Status
+                                            Jadual</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -374,22 +377,24 @@
                                             <td class="text-center">
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
                                             </td> --}}
-                                            <td class="text-center">{{ $loop->index + 1 }}</td>
-                                            <td class="text-center">
+                                            <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
                                             </td>
-                                            <td class="text-center">{{ $jadual['platform'] }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $jadual['platform'] }}</td>
                                             @if ($jadual['status'] == null)
                                                 @if ($jadual['KEKOSONGAN'] == '0')
-                                                    <td class="text-center"><span
+                                                    <td class="text-sm text-center font-weight-normal"><span
                                                             class="badge badge-lg badge-danger">Penuh</span></td>
                                                 @else
-                                                    <td class="text-center"><span
+                                                    <td class="text-sm text-center font-weight-normal"><span
                                                             class="badge badge-lg badge-success">Dibuka</span></td>
                                                 @endif
 
                                             @else
-                                                <td class="text-center"><span
+                                                <td class="text-sm text-center font-weight-normal"><span
                                                         class="badge badge-lg badge-info">{{ $jadual['status'] }} -
                                                         {{ $jadual['keterangan'] }}</span></td>
                                             @endif

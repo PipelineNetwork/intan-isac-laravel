@@ -1,8 +1,8 @@
 @extends('base')
 @section('content')
-<?php 
-use App\Models\PerananDanKebenaran;
-?>
+    <?php
+    use App\Models\PerananDanKebenaran;
+    ?>
 
     <div class="container-fluid py-4">
         <div class="row">
@@ -65,7 +65,7 @@ use App\Models\PerananDanKebenaran;
                                 <h5>{{ ucfirst(trans($peranan->name)) }}</h5>
                             </div>
                         </div>
-                        <form action="/kebenaran_pengguna/{{$peranan->id}}" method="POST">
+                        <form action="/kebenaran_pengguna/{{ $peranan->id }}" method="POST">
                             @method('PUT')
                             @csrf
                             <div class="row">
@@ -86,13 +86,19 @@ use App\Models\PerananDanKebenaran;
                                                         <td>{{ ucfirst(trans($kebenaran->name)) }}</td>
                                                         <td>
                                                             <div class="form-check form-switch">
-                                                                <input id='switch{{$kebenaran->id}}' class="form-check-input" type='checkbox'
-                                                                    value='1' name='{{$kebenaran->name}}' onclick="active({{$kebenaran->id}})"
-                                                                    <?php 
-                                                                    $try = PerananDanKebenaran::where('role_id',$peranan->id)->where('permission_id', $kebenaran->id)->first();
-                                                                    echo $try == true ? ' checked' : ''; 
+                                                                <input id='switch{{ $kebenaran->id }}'
+                                                                    class="form-check-input" type='checkbox' value='1'
+                                                                    name='{{ $kebenaran->name }}'
+                                                                    onclick="active({{ $kebenaran->id }})"
+                                                                    <?php
+                                                                    $try = PerananDanKebenaran::where('role_id', $peranan->id)
+                                                                        ->where('permission_id', $kebenaran->id)
+                                                                        ->first();
+                                                                    echo $try == true ? ' checked' : '';
                                                                     ?>>
-                                                                <label class="form-check-label" for="switch{{$kebenaran->id}}" id="label{{$kebenaran->id}}">
+                                                                <label class="form-check-label"
+                                                                    for="switch{{ $kebenaran->id }}"
+                                                                    id="label{{ $kebenaran->id }}">
                                                                     @if ($try == true)
                                                                         Dibenarkan
                                                                     @else
@@ -124,14 +130,14 @@ use App\Models\PerananDanKebenaran;
     </div>
 
     <script src="../../assets/js/plugins/datatables.js"></script>
-    <script >
+    <script>
         function active(key) {
             var a = document.getElementById('switch' + key);
             var b = document.getElementById('label' + key);
 
-            if(a.checked){
+            if (a.checked) {
                 b.innerHTML = "Dibenarkan";
-            }else{
+            } else {
                 b.innerHTML = "Tidak dibenarkan";
             }
         }

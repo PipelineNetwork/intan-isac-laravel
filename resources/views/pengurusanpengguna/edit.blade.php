@@ -46,7 +46,8 @@
                     <div class="col-6">
                         <label for="">Nama :</label>
                         <div class="input-group">
-                            <input class="form-control mb-3" type="text" name="name" value="{{ $user->name }}" style="text-transform: uppercase" required>
+                            <input class="form-control mb-3" type="text" name="name" value="{{ $user->name }}"
+                                style="text-transform: uppercase" required>
                         </div>
                     </div>
                     <div class="col-6">
@@ -62,9 +63,10 @@
                         <label for="user_group_id">Peranan :</label>
                         <div class="form-group">
                             <select class="form-control mb-3" type="text" name="user_group_id" id="pilih1" required>
-                                <option value="{{$user->user_group_id}}" hidden selected>{{$role_name->name}}</option>
+                                <option value="{{ $user->user_group_id }}" hidden selected>{{ $role_name->name }}
+                                </option>
                                 @foreach ($role as $role)
-                                    <option value="{{$role->id}}">{{ ucfirst(trans($role->name)) }}</option>
+                                    <option value="{{ $role->id }}">{{ ucfirst(trans($role->name)) }}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -73,7 +73,8 @@
                                             <td class="text-center">{{ $jadual->KOD_TAHAP }}</td>
                                             <td class="text-center">{{ $jadual->KOD_MASA_MULA }} -
                                                 {{ $jadual->KOD_MASA_TAMAT }}</td>
-                                            <td class="text-center">{{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}
+                                            <td class="text-center">
+                                                {{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}
                                             </td>
                                             <td class="text-center">{{ $jadual->KEKOSONGAN }}</td>
                                             <td class="text-center">{{ $jadual->platform }}</td>

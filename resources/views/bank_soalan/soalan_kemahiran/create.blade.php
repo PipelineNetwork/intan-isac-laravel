@@ -29,9 +29,12 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Soalan Kemahiran</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Tambah</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a>
+                        </li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Soalan
+                                Kemahiran</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Tambah</a>
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -67,7 +70,7 @@
                                         </select>
                                     </div>
                                 </div>
-        
+
                                 <div style="text-align: right">
                                     <button class="btn bg-gradient-success" type="submit">Simpan</button>
                                 </div>
@@ -86,7 +89,7 @@
         function quantity(amount) {
             var select = document.getElementById('quantiti');
             for (var i = 1; i <= amount; i++) {
-                select.options[select.options.length] = new Option(i , i);
+                select.options[select.options.length] = new Option(i, i);
             }
         }
 

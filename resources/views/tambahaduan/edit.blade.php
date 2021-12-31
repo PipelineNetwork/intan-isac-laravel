@@ -26,7 +26,8 @@
                         </svg>
                     </a>
                 </li>
-                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Aduan dan Rayuan</a></li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Aduan dan Rayuan</a>
+                </li>
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Aduan</a></li>
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Balas Aduan</a></li>
             </ol>
@@ -65,8 +66,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="aduan_reply">Keterangan Aduan :</label>
-                                    <textarea class="form-control" name="keterangan_aduan_send" rows="3"
-                                        id="aduan_reply" disabled>{{ $tambahaduan->keterangan_aduan_send }}</textarea>
+                                    <textarea class="form-control" name="keterangan_aduan_send" rows="3" id="aduan_reply"
+                                        disabled>{{ $tambahaduan->keterangan_aduan_send }}</textarea>
                                 </div>
                                 @if ($tambahaduan['file_aduan_send'] != null)
                                     <div class="form-group">
@@ -83,8 +84,8 @@
                                 @endif
                                 <div class="form-group">
                                     <label for="aduan_reply">Keterangan Balas :</label>
-                                    <textarea class="form-control" name="keterangan_aduan_reply" id="aduan_reply"
-                                        rows="3" required></textarea>
+                                    <textarea class="form-control" name="keterangan_aduan_reply" id="aduan_reply" rows="3"
+                                        required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="file_aduan_reply">File Balas :</label>

@@ -29,8 +29,10 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kawalan Sistem</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Notifikasi Email</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Kawalan
+                                Sistem</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Notifikasi
+                                Email</a></li>
                     </ol>
                 </nav>
             </div>
@@ -42,7 +44,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="column-12">
-                    <a href="/notifikasi_email/{{$noti->id}}/edit" class="btn bg-gradient-warning mb-0" type="submit"
+                    <a href="/notifikasi_email/{{ $noti->id }}/edit" class="btn bg-gradient-warning mb-0" type="submit"
                         style="float: right;">Kemaskini</a>
                 </div>
             </div>
@@ -62,7 +64,8 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                <strong>{{$noti->tawaran_penilaian_individu}}</strong>&emsp;Hari (kepada Peserta, Penyelia dan Penyelia ISAC)
+                                <strong>{{ $noti->tawaran_penilaian_individu }}</strong>&emsp;Hari (kepada Peserta, Penyelia
+                                dan Penyelia ISAC)
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -72,7 +75,8 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                <strong>{{$noti->tawaran_penilaian_kumpulan}}</strong>&emsp;Hari (kepada Penyelaras dan Penyelia ISAC)
+                                <strong>{{ $noti->tawaran_penilaian_kumpulan }}</strong>&emsp;Hari (kepada Penyelaras dan
+                                Penyelia ISAC)
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -82,7 +86,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                <strong>{{$noti->peringatan_penilaian}}</strong>&emsp;Hari sebelum tarikh penilaian
+                                <strong>{{ $noti->peringatan_penilaian }}</strong>&emsp;Hari sebelum tarikh penilaian
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -92,7 +96,8 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                <strong>{{$noti->peringatan_tidak_hadir}}</strong>&emsp;Hari selepas tarikh penilaian (Individu: Peserta dan Penyelia, Kumpulan: Penyelaras)
+                                <strong>{{ $noti->peringatan_tidak_hadir }}</strong>&emsp;Hari selepas tarikh penilaian
+                                (Individu: Peserta dan Penyelia, Kumpulan: Penyelaras)
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -102,7 +107,7 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                <strong>{{$noti->jadual_penilaian}}</strong>&emsp;Hari sebelum tarikh penilaian
+                                <strong>{{ $noti->jadual_penilaian }}</strong>&emsp;Hari sebelum tarikh penilaian
                             </div>
                         </div>
                     </div>

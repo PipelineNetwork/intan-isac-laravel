@@ -60,21 +60,25 @@
                         <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Tajuk</th>
-                                    <th>Keterangan</th>
-                                    <th>Jenis Dokumen</th>
-                                    <th>Kemaskini/Hapus</th>
+                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">Tajuk</th>
+                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">Keterangan</th>
+                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">Jenis Dokumen</th>
+                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemaskini/Hapus</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($videodannotas as $key => $videodannota)
                                     <tr>
-                                        <td>{{ $key + 1 }}.</td>
-                                        <td><a href="/storage/{{ $videodannota['video'] }}">{{ $videodannota['tajuk'] }}</a></td>
-                                        <td>{{ $videodannota['nota'] }}</td>
-                                        <td>{{ $videodannota['jenis'] }}</td>
-                                        <td class="text-center">
+                                        <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}.</td>
+                                        <td class="text-sm text-center font-weight-normal"><a
+                                                href="/storage/{{ $videodannota['video'] }}">{{ $videodannota['tajuk'] }}</a>
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">{{ $videodannota['nota'] }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">{{ $videodannota['jenis'] }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal" class="text-center">
                                             <div class="row">
                                                 <div class="col-auto p-0 m-1">
                                                     {{-- update --}}
@@ -83,8 +87,7 @@
                                                 </div>
                                                 <div class="col-auto p-0 m-1">
                                                     {{-- delete --}}
-                                                    <form method="POST"
-                                                        action="videodannota/{{ $videodannota->id }}">
+                                                    <form method="POST" action="videodannota/{{ $videodannota->id }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn mb-0 btn-danger px-3" type="submit"><i

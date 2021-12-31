@@ -36,7 +36,8 @@
         <div class="container-fluid pb-3">
             <div class="card mt-5">
                 <div class="card-body bg-secondary" style="border-radius: 15px">
-                    <form action="/soalan-kemahiran-email/{{$id_penilaian}}/{{ $soalankemahiranemails->id }}/save" method="POST" enctype="multipart/form-data" id="penilaian">
+                    <form action="/soalan-kemahiran-email/{{ $id_penilaian }}/{{ $soalankemahiranemails->id }}/save"
+                        method="POST" enctype="multipart/form-data" id="penilaian">
                         @csrf
                         <input type="hidden" name="timer" value="" id="timer">
                         <div class="row">
