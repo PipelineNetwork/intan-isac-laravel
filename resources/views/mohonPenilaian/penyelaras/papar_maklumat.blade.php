@@ -48,7 +48,8 @@
                                     </div>
                                     <div class="col-8">
                                         {{ $sesi_id['ID_PENILAIAN'] }}
-                                        <input class="form-control" type="hidden" value="{{ $sesi_id['ID_PENILAIAN'] }}" name="id_sesi">
+                                        <input class="form-control" type="hidden" value="{{ $sesi_id['ID_PENILAIAN'] }}"
+                                            name="id_sesi">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -138,8 +139,8 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input class="form-control  " type="text" value="{{ $details->SkimPerkhidmatan }}"
-                                            name="taraf_jawatan">
+                                        <input class="form-control  " type="text"
+                                            value="{{ $details->SkimPerkhidmatan }}" name="taraf_jawatan">
                                     </div>
                                 </div>
                                 <div class="row mb-2">

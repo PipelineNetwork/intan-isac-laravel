@@ -37,7 +37,8 @@
 
             <div class="card vh-100 mt-5">
                 <div class="card-body mt-10" style="text-align: center">
-                    <h3 class="mb-5">Masa telah tamat untuk menjawab semua bahagian soalan. <br>Sila klik butang <span class="text-info">Semakan Keputusan</span> untuk menutup halaman.
+                    <h3 class="mb-5">Masa telah tamat untuk menjawab semua bahagian soalan. <br>Sila klik butang
+                        <span class="text-info">Semakan Keputusan</span> untuk menutup halaman.
                     </h3>
                     {{-- <button class="btn btn-info" onclick="windowClose();">Tutup</button> --}}
                     {{-- <a class="btn btn-info" href="/semakan_keputusan_calon">Semak Keputusan</a> --}}

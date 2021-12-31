@@ -57,12 +57,13 @@
                             @csrf
                             <div class="form-group">
                                 <label for="tajuk" class="form-control-label">Tajuk</label>
-                                <input class="form-control" type="text" id="tajuk" name="tajuk" value="{{ $videodannota->tajuk }}">
+                                <input class="form-control" type="text" id="tajuk" name="tajuk"
+                                    value="{{ $videodannota->tajuk }}">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">Nota</label>
                                 <div class="input-group">
-                                  <textarea class="form-control" name="nota">{{ $videodannota->nota }}</textarea>
+                                    <textarea class="form-control" name="nota">{{ $videodannota->nota }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -77,7 +78,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -106,8 +107,8 @@
         });
     </script>
 
-<script type="text/javascript">
-    var today = new Date().toISOString().split('T')[0];
-    document.getElementsByName("TARIKH_SESI")[0].setAttribute('min', today);
-</script>
+    <script type="text/javascript">
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementsByName("TARIKH_SESI")[0].setAttribute('min', today);
+    </script>
 @stop

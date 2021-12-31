@@ -148,7 +148,8 @@
                     x++;
                     $(wrapper).append(
                         '<div class="form-check mb-3"><input class="form-check-input" type="checkbox" name="jawapan' +
-                        x + '"><input class="form-control d-flex mb-2" type="text" name="pilihan_jawapan' +
+                        x +
+                        '"><input class="form-control d-flex mb-2" type="text" name="pilihan_jawapan' +
                         x + '"><a href="#" class="delete btn bg-gradient-danger">Hapus</a></div>'
                     ); //add input box
                 } else {

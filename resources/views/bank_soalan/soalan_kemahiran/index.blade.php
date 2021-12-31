@@ -29,8 +29,10 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Soalan Kemahiran</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a>
+                        </li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Soalan
+                                Kemahiran</a></li>
                     </ol>
                 </nav>
             </div>
@@ -65,7 +67,8 @@
                                     <tr>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Set Soalan</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Disediakan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh
+                                            Disediakan</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemaskini</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Hapus</th>
                                     </tr>
@@ -74,7 +77,8 @@
                                     @foreach ($banksoalankemahirans as $banksoalankemahiran)
                                         <tr>
                                             <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
-                                            <td class="text-sm text-center font-weight-normal">Set {{ $banksoalankemahiran->no_set_soalan }}
+                                            <td class="text-sm text-center font-weight-normal">Set
+                                                {{ $banksoalankemahiran->no_set_soalan }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ date('d/m/Y', strtotime($banksoalankemahiran->created_at)) }}</td>
@@ -82,13 +86,15 @@
                                                     href="/bank-soalan-kemahiran/{{ $banksoalankemahiran->id }}">
                                                     <i class="fas fa-pencil-alt"></i> Kemaskini
                                                 </a></td>
-                                            <td class="text-sm text-center font-weight-normal" style="cursor: pointer"><a data-bs-toggle="modal"
+                                            <td class="text-sm text-center font-weight-normal" style="cursor: pointer"><a
+                                                    data-bs-toggle="modal"
                                                     data-bs-target="#modaldeleteSoalanKemahiran-{{ $banksoalankemahiran->id }}">
                                                     <i class="far fa-trash-alt"></i> Hapus
                                                 </a></td>
                                         </tr>
-        
-                                        <div class="modal fade" id="modaldeleteSoalanKemahiran-{{ $banksoalankemahiran->id }}" tabindex="-1"
+
+                                        <div class="modal fade"
+                                            id="modaldeleteSoalanKemahiran-{{ $banksoalankemahiran->id }}" tabindex="-1"
                                             role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
@@ -100,7 +106,8 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn bg-gradient-secondary"
                                                             data-bs-dismiss="modal">Tutup</button>
-                                                        <form method="POST" action="/bank-soalan-kemahiran/{{ $banksoalankemahiran->id }}">
+                                                        <form method="POST"
+                                                            action="/bank-soalan-kemahiran/{{ $banksoalankemahiran->id }}">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn btn-danger" type="submit">Hapus</button>

@@ -51,13 +51,14 @@
                         <b class="text-white">Kemaskini Kebenaran</b>
                     </div>
                     <div class="card-body">
-                        <form action="/kebenaran_pengguna/kemaskini/{{$peranan}}/{{$kebenaran->id}}" method="POST">
+                        <form action="/kebenaran_pengguna/kemaskini/{{ $peranan }}/{{ $kebenaran->id }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="form-control-label">Nama Kebenaran</label>
-                                        <input class="form-control" type="text" value="{{$kebenaran->name}}" name="name">
+                                        <input class="form-control" type="text" value="{{ $kebenaran->name }}"
+                                            name="name">
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +66,8 @@
                                 <div class="col text-end">
                                     <button class="btn btn-success" type="submit">Simpan</button>
                                     {{-- <a href="/kebenaran_pengguna/{{$id_kumpulan}}/edit" class="btn btn-success">Simpan</a> --}}
-                                    <a href="/kebenaran_pengguna/{{$peranan}}/edit" class="btn btn-danger">Kembali</a>
+                                    <a href="/kebenaran_pengguna/{{ $peranan }}/edit"
+                                        class="btn btn-danger">Kembali</a>
                                 </div>
                             </div>
                         </form>
@@ -76,14 +78,14 @@
     </div>
 
     <script src="../../assets/js/plugins/datatables.js"></script>
-    <script >
+    <script>
         function active(key) {
             var a = document.getElementById('checkbox' + key);
             var b = document.getElementById('label' + key);
 
-            if(a.checked){
+            if (a.checked) {
                 b.innerHTML = "Dibenarkan";
-            }else{
+            } else {
                 b.innerHTML = "Tidak dibenarkan";
             }
         }

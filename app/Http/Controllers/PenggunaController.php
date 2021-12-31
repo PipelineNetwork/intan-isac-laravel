@@ -15,6 +15,7 @@ use App\Models\Perkhidmatan;
 use App\Models\Bankjawapanpengetahuan;
 use App\Helpers\Hrmis\GetDataXMLbyIC;
 use App\Mail\PenggunaDidaftar;
+use App\Models\Bankjawapancalon;
 use Illuminate\Support\Facades\Mail;
 
 class PenggunaController extends Controller
@@ -23,7 +24,7 @@ class PenggunaController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -55,7 +56,7 @@ class PenggunaController extends Controller
         $role = Role::all();
         return view('pengurusanpengguna.create', [
             'kementerians' => $kementerian,
-            'role'=>$role
+            'role' => $role
         ]);
     }
 
@@ -84,111 +85,111 @@ class PenggunaController extends Controller
         $user->office_number = $request->office_number;
         $user->fax_number = $request->fax_number;
         $user->telephone_number = $request->telephone_number;
-        $user->user_group_id = $request->user_group_id; 
+        $user->user_group_id = $request->user_group_id;
         $roles = Role::find($request->user_group_id);
         $user->assignRole($roles->name);
         $user->password = Hash::make($request->password);
         $user->save();
 
-        if($roles->name == 'calon'){
+        if ($roles->name == 'calon') {
             $GetDataXMLbyIC = new GetDataXMLbyIC();
-        $hrmisData = $GetDataXMLbyIC->getDataHrmis($request->nric);
-        if (gettype($hrmisData) == "object") {
-            // To get reference of JANTINA from table refgeneral
-            $jantina = Refgeneral::where('MASTERCODE', 10004)->where('DESCRIPTION1', $hrmisData->Jantina)->get()->toArray();
+            $hrmisData = $GetDataXMLbyIC->getDataHrmis($request->nric);
+            if (gettype($hrmisData) == "object") {
+                // To get reference of JANTINA from table refgeneral
+                $jantina = Refgeneral::where('MASTERCODE', 10004)->where('DESCRIPTION1', $hrmisData->Jantina)->get()->toArray();
 
-            // To get reference of GELARAN from table refgeneral
-            $gelaran = Refgeneral::where('MASTERCODE', 10009)->where('DESCRIPTION1', $hrmisData->Gelaran)->get()->toArray();
+                // To get reference of GELARAN from table refgeneral
+                $gelaran = Refgeneral::where('MASTERCODE', 10009)->where('DESCRIPTION1', $hrmisData->Gelaran)->get()->toArray();
 
-            // To get reference of NEGERI from table refgeneral
-            $negeri = Refgeneral::where('MASTERCODE', 10021)->where('DESCRIPTION1', $hrmisData->Negeri)->get()->toArray();
+                // To get reference of NEGERI from table refgeneral
+                $negeri = Refgeneral::where('MASTERCODE', 10021)->where('DESCRIPTION1', $hrmisData->Negeri)->get()->toArray();
 
-            // To get reference of KLASIFIKASI_PERKHIDMATAN from table refgeneral
-            $klasifikasiPerkhidmatan = Refgeneral::where('MASTERCODE', 10024)->where('DESCRIPTION1', 'like', '(' . str_replace(' ', '', $hrmisData->KlasifikasiPerkhidmatan) . ')%')->get()->toArray();
+                // To get reference of KLASIFIKASI_PERKHIDMATAN from table refgeneral
+                $klasifikasiPerkhidmatan = Refgeneral::where('MASTERCODE', 10024)->where('DESCRIPTION1', 'like', '(' . str_replace(' ', '', $hrmisData->KlasifikasiPerkhidmatan) . ')%')->get()->toArray();
 
-            // To get reference of GRED_JAWATAN from table refgeneral
-            $gredJawatan = Refgeneral::where('MASTERCODE', 10025)->where('DESCRIPTION1', 'like', '%' . substr($hrmisData->GredGaji, 1, 2) . '%')->get()->toArray();
+                // To get reference of GRED_JAWATAN from table refgeneral
+                $gredJawatan = Refgeneral::where('MASTERCODE', 10025)->where('DESCRIPTION1', 'like', '%' . substr($hrmisData->GredGaji, 1, 2) . '%')->get()->toArray();
 
-            // To get reference of TARAF_JAWATAN from table refgeneral
-            $tarafJawatan = Refgeneral::where('MASTERCODE', 10026)->where('DESCRIPTION1', 'like', $hrmisData->StatusPerkhidmatan)->get()->toArray();
+                // To get reference of TARAF_JAWATAN from table refgeneral
+                $tarafJawatan = Refgeneral::where('MASTERCODE', 10026)->where('DESCRIPTION1', 'like', $hrmisData->StatusPerkhidmatan)->get()->toArray();
 
-            // select * from users
-            // join pro_peserta on users.id = pro_peserta.user_id
-            // join pro_tempat_tugas on pro_peserta.ID_PESERTA = pro_tempat_tugas.ID_PESERTA
-            // join pro_perkhidmatan on pro_peserta.ID_PESERTA = pro_perkhidmatan.ID_PESERTA;
+                // select * from users
+                // join pro_peserta on users.id = pro_peserta.user_id
+                // join pro_tempat_tugas on pro_peserta.ID_PESERTA = pro_tempat_tugas.ID_PESERTA
+                // join pro_perkhidmatan on pro_peserta.ID_PESERTA = pro_perkhidmatan.ID_PESERTA;
 
-            $peserta = Permohanan::create([
-                'KOD_GELARAN' => count($gelaran) == 1 ? $gelaran[0]['REFERENCECODE'] : NULL,
-                'NAMA_PESERTA' => $hrmisData->Nama,
-                'TARIKH_LAHIR' => substr($hrmisData->TarikhLahir, 0, 10),
-                'KOD_JANTINA' => count($jantina) == 1 ? $jantina[0]['REFERENCECODE'] : NULL,
-                'EMEL_PESERTA' => $hrmisData->Emel,
-                'KOD_KATEGORI_PESERTA' => '01', // 01 - Individu, 02 - Kumpulan
-                'NO_KAD_PENGENALAN' => $hrmisData->NoKP,
-                'NO_TELEFON_BIMBIT' => $hrmisData->TelBimbit,
-                'NO_TELEFON_PEJABAT' => $hrmisData->TelPejabat,
-                'user_id' => $user->id,
-            ]);
+                $peserta = Permohanan::create([
+                    'KOD_GELARAN' => count($gelaran) == 1 ? $gelaran[0]['REFERENCECODE'] : NULL,
+                    'NAMA_PESERTA' => $hrmisData->Nama,
+                    'TARIKH_LAHIR' => substr($hrmisData->TarikhLahir, 0, 10),
+                    'KOD_JANTINA' => count($jantina) == 1 ? $jantina[0]['REFERENCECODE'] : NULL,
+                    'EMEL_PESERTA' => $hrmisData->Emel,
+                    'KOD_KATEGORI_PESERTA' => '01', // 01 - Individu, 02 - Kumpulan
+                    'NO_KAD_PENGENALAN' => $hrmisData->NoKP,
+                    'NO_TELEFON_BIMBIT' => $hrmisData->TelBimbit,
+                    'NO_TELEFON_PEJABAT' => $hrmisData->TelPejabat,
+                    'user_id' => $user->id,
+                ]);
 
-            $tempat_tugas = Tugas::create([
-                'ID_PESERTA' => $peserta->ID_PESERTA,
-                'GELARAN_KETUA_JABATAN' => NULL,
-                'KOD_KEMENTERIAN' => NULL, // problem
-                'KOD_JABATAN' => NULL, // problem
-                'BAHAGIAN' => $hrmisData->Bahagian,
-                'ALAMAT_1' => NULL, // must ask user about hrmis retrieve data
-                'ALAMAT_2' => NULL,
-                'ALAMAT_3' => NULL,
-                'POSKOD' => $hrmisData->Poskod,
-                'BANDAR' => $hrmisData->Bandar,
-                'KOD_NEGERI' => count($negeri) == 1 ? $negeri[0]['REFERENCECODE'] : NULL,
-                'KOD_NEGARA' => 'MYS',
-                'NAMA_PENYELIA' => $hrmisData->NamaPPP,
-                'EMEL_PENYELIA' => $hrmisData->Email_PPP,
-                'NO_TELEFON_PENYELIA' => NULL, // must ask user about hrmis retrieve data
-                'NO_FAX_PENYELIA' => NULL, // must ask user about hrmis retrieve data
-            ]);
+                $tempat_tugas = Tugas::create([
+                    'ID_PESERTA' => $peserta->ID_PESERTA,
+                    'GELARAN_KETUA_JABATAN' => NULL,
+                    'KOD_KEMENTERIAN' => NULL, // problem
+                    'KOD_JABATAN' => NULL, // problem
+                    'BAHAGIAN' => $hrmisData->Bahagian,
+                    'ALAMAT_1' => NULL, // must ask user about hrmis retrieve data
+                    'ALAMAT_2' => NULL,
+                    'ALAMAT_3' => NULL,
+                    'POSKOD' => $hrmisData->Poskod,
+                    'BANDAR' => $hrmisData->Bandar,
+                    'KOD_NEGERI' => count($negeri) == 1 ? $negeri[0]['REFERENCECODE'] : NULL,
+                    'KOD_NEGARA' => 'MYS',
+                    'NAMA_PENYELIA' => $hrmisData->NamaPPP,
+                    'EMEL_PENYELIA' => $hrmisData->Email_PPP,
+                    'NO_TELEFON_PENYELIA' => NULL, // must ask user about hrmis retrieve data
+                    'NO_FAX_PENYELIA' => NULL, // must ask user about hrmis retrieve data
+                ]);
 
-            $perkhidmatan = Perkhidmatan::create([
-                'KOD_GELARAN_JAWATAN' => $hrmisData->Jawatan,
-                'KOD_PERINGKAT' => NULL, // must ask SA about this
-                'KOD_KLASIFIKASI_PERKHIDMATAN' => count($klasifikasiPerkhidmatan) == 1 ? $klasifikasiPerkhidmatan[0]['REFERENCECODE'] : NULL,
-                'KOD_GRED_JAWATAN' => count($gredJawatan) == 1 ? $gredJawatan[0]['REFERENCECODE'] : NULL, // must ask client about GredGaji format
-                'KOD_TARAF_PERJAWATAN' => count($tarafJawatan) == 1 ? $tarafJawatan[0]['REFERENCECODE'] : NULL, // must ask client about StatusPerkhidmatan format
-                'KOD_JENIS_PERKHIDMATAN' => NULL, // must ask user about hrmis retrieve data
-                'TARIKH_LANTIKAN' => NULL, // must ask user about hrmis retrieve data
-                'ID_PESERTA' => $peserta->ID_PESERTA,
-            ]);
-        } else {
-            $peserta = Permohanan::create([
-                'KOD_GELARAN' => NULL,
-                'NAMA_PESERTA' => $request->name,
-                'TARIKH_LAHIR' => NULL,
-                'KOD_JANTINA' => NULL,
-                'EMEL_PESERTA' => $request->email,
-                'KOD_KATEGORI_PESERTA' => NULL,
-                'NO_KAD_PENGENALAN' => $request->nric,
-                'NO_TELEFON_BIMBIT' => NULL,
-                'NO_TELEFON_PEJABAT' => NULL,
-                'user_id' => $user->id,
-            ]);
+                $perkhidmatan = Perkhidmatan::create([
+                    'KOD_GELARAN_JAWATAN' => $hrmisData->Jawatan,
+                    'KOD_PERINGKAT' => NULL, // must ask SA about this
+                    'KOD_KLASIFIKASI_PERKHIDMATAN' => count($klasifikasiPerkhidmatan) == 1 ? $klasifikasiPerkhidmatan[0]['REFERENCECODE'] : NULL,
+                    'KOD_GRED_JAWATAN' => count($gredJawatan) == 1 ? $gredJawatan[0]['REFERENCECODE'] : NULL, // must ask client about GredGaji format
+                    'KOD_TARAF_PERJAWATAN' => count($tarafJawatan) == 1 ? $tarafJawatan[0]['REFERENCECODE'] : NULL, // must ask client about StatusPerkhidmatan format
+                    'KOD_JENIS_PERKHIDMATAN' => NULL, // must ask user about hrmis retrieve data
+                    'TARIKH_LANTIKAN' => NULL, // must ask user about hrmis retrieve data
+                    'ID_PESERTA' => $peserta->ID_PESERTA,
+                ]);
+            } else {
+                $peserta = Permohanan::create([
+                    'KOD_GELARAN' => NULL,
+                    'NAMA_PESERTA' => $request->name,
+                    'TARIKH_LAHIR' => NULL,
+                    'KOD_JANTINA' => NULL,
+                    'EMEL_PESERTA' => $request->email,
+                    'KOD_KATEGORI_PESERTA' => NULL,
+                    'NO_KAD_PENGENALAN' => $request->nric,
+                    'NO_TELEFON_BIMBIT' => NULL,
+                    'NO_TELEFON_PEJABAT' => NULL,
+                    'user_id' => $user->id,
+                ]);
 
-            $tempat_tugas = Tugas::create([
-                'ID_PESERTA' => $peserta->ID_PESERTA,
-            ]);
+                $tempat_tugas = Tugas::create([
+                    'ID_PESERTA' => $peserta->ID_PESERTA,
+                ]);
 
-            $perkhidmatan = Perkhidmatan::create([
-                'ID_PESERTA' => $peserta->ID_PESERTA,
-            ]);
-        }
+                $perkhidmatan = Perkhidmatan::create([
+                    'ID_PESERTA' => $peserta->ID_PESERTA,
+                ]);
+            }
 
-        $user->name = strtoupper($peserta->NAMA_PESERTA);
-        // dd($user->name);
-        
-        $user->save();
+            $user->name = strtoupper($peserta->NAMA_PESERTA);
+            // dd($user->name);
 
-        $current_user = $request->user();
-        Mail::to($user->email)->send(new PenggunaDidaftar($user));
+            $user->save();
+
+            $current_user = $request->user();
+            Mail::to($user->email)->send(new PenggunaDidaftar($user));
         }
         return redirect('/pengurusanpengguna');
     }
@@ -221,8 +222,8 @@ class PenggunaController extends Controller
         return view('pengurusanpengguna.edit', [
             'user' => $user,
             'kementerians' => $kementerian,
-            'role'=>$role,
-            'role_name'=>$role_name
+            'role' => $role,
+            'role_name' => $role_name
         ]);
     }
 
@@ -305,16 +306,19 @@ class PenggunaController extends Controller
         $pro_perkhidmatan->delete();
 
         $permohonan = MohonPenilaian::where('no_ic', $ic)->get();
-        foreach($permohonan as $permohonan){
+        foreach ($permohonan as $permohonan) {
             $permohonan->delete();
         }
 
         $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $ic)->get();
-         if($pengetahuan != null){
+        if ($pengetahuan != null) {
             foreach ($pengetahuan as $pengetahuan) {
                 $pengetahuan->delete();
             }
-         }
+        }
+
+        $kemahiran = Bankjawapancalon::where('id_calon', $ic)->get();
+        $kemahiran->delete();
 
         $user->delete();
         return redirect('/pengurusanpengguna')->with('success', 'Berjaya dihapus!');

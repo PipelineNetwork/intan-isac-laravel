@@ -15,6 +15,7 @@ use App\Helpers\Hrmis\GetDataXMLbyIC;
 use PDF;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DaftarPeserta;
+use App\Models\Bankjawapancalon;
 use App\Models\Permohanan;
 use App\Models\Tugas;
 use App\Models\Perkhidmatan;
@@ -291,7 +292,9 @@ class MohonPenilaianController extends Controller
         foreach ($pengetahuan as $pengetahuan) {
             $pengetahuan->delete();
         }
-        // tambah delete jawapan calon kemahiran dari bankjawapancalon
+
+        $kemahiran = Bankjawapancalon::where('id_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get();
+        $kemahiran->delete();
 
         $kekosongan->save();
         $mohonPenilaian->delete();

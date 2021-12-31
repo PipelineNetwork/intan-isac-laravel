@@ -47,13 +47,15 @@
                             <div class="col-6">
                                 <label for="">Nama :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="text" name="name" :value="old('name')" style="text-transform: uppercase" required>
+                                    <input class="form-control mb-3" type="text" name="name" :value="old('name')"
+                                        style="text-transform: uppercase" required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <label for="">E-mel :</label>
                                 <div class="input-group">
-                                    <input class="form-control mb-3" type="email" name="email" :value="old('email')" required>
+                                    <input class="form-control mb-3" type="email" name="email" :value="old('email')"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -64,16 +66,16 @@
                                 <label for="user_group_id">Peranan :</label>
                                 <div class="form-group">
                                     @role('penyelaras')
-                                    <select class="form-control mb-3" name="user_group_id" id="pilih1" required readonly>
-                                        <option value="pengawas" selected>Pengawas</option>
-                                    </select>
+                                        <select class="form-control mb-3" name="user_group_id" id="pilih1" required readonly>
+                                            <option value="pengawas" selected>Pengawas</option>
+                                        </select>
                                     @else
-                                    <select class="form-control mb-3" name="user_group_id" id="pilih1" required>
-                                        <option value="" selected hidden>Sila pilih</option>
-                                        @foreach ($role as $role)
-                                        <option value="{{$role->id}}">{{ ucfirst(trans($role->name)) }}</option>
-                                        @endforeach
-                                    </select>
+                                        <select class="form-control mb-3" name="user_group_id" id="pilih1" required>
+                                            <option value="" selected hidden>Sila pilih</option>
+                                            @foreach ($role as $role)
+                                                <option value="{{ $role->id }}">{{ ucfirst(trans($role->name)) }}</option>
+                                            @endforeach
+                                        </select>
                                     @endrole
                                 </div>
                             </div>

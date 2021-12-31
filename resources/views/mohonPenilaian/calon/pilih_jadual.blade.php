@@ -1,9 +1,9 @@
 @extends('base')
 @section('content')
-<?php 
-use App\Models\MohonPenilaian;
-use Illuminate\Support\Facades\Auth;
-?>
+    <?php
+    use App\Models\MohonPenilaian;
+    use Illuminate\Support\Facades\Auth;
+    ?>
     <div class="container-fluid py-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -45,14 +45,14 @@ use Illuminate\Support\Facades\Auth;
                             <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Tahap</th>
-                                        <th>Masa</th>
-                                        <th>Tarikh</th>
-                                        <th>Kekosongan</th>
-                                        <th>Platform</th>
-                                        <th>Lokasi</th>
-                                        <th>Pendaftaran</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Kekosongan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Platform</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Lokasi</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Pendaftaran</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,36 +60,44 @@ use Illuminate\Support\Facades\Auth;
                                         @if ($jadual->KOD_KATEGORI_PESERTA == '01')
                                             <tr>
 
-                                                <td>{{ $key + 1 }}.</td>
-                                                <td>{{ $jadual->KOD_TAHAP }}</td>
-                                                <td>{{ $jadual->KOD_MASA_MULA }} - {{ $jadual->KOD_MASA_TAMAT }}</td>
-                                                <td>{{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
-                                                <td>
-                                                    @if($jadual->KEKOSONGAN == null)
-                                                    0
+                                                <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}.</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jadual->KOD_TAHAP }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jadual->KOD_MASA_MULA }} - {{ $jadual->KOD_MASA_TAMAT }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    @if ($jadual->KEKOSONGAN == null)
+                                                        0
                                                     @else
-                                                    {{ $jadual->KEKOSONGAN }}
+                                                        {{ $jadual->KEKOSONGAN }}
                                                     @endif
                                                 </td>
-                                                <td>{{ $jadual->platform }}</td>
-                                                <td>
+                                                <td class="text-sm text-center font-weight-normal">{{ $jadual->platform }}
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
                                                     @if ($jadual['KOD_KEMENTERIAN'] == null)
                                                         -
                                                     @else
                                                         {{ $jadual['LOKASI'] }}
                                                     @endif
                                                 </td>
-                                                <td class="text-center">
-                                                    <?php 
+                                                <td class="text-sm text-center font-weight-normal" class="text-center">
+                                                    <?php
                                                     $no_ic = Auth::user()->nric;
-                                                    $done_daftar = MohonPenilaian::where('no_ic', $no_ic)->where('id_sesi', $jadual->ID_PENILAIAN)->first();
+                                                    $done_daftar = MohonPenilaian::where('no_ic', $no_ic)
+                                                        ->where('id_sesi', $jadual->ID_PENILAIAN)
+                                                        ->first();
                                                     ?>
-                                                    @if($done_daftar == null)
+                                                    @if ($done_daftar == null)
                                                         @if ($jadual->KEKOSONGAN != 0)
                                                             <form action="/mohonpenilaian/calon/pilih_jadual" method="POST">
                                                                 @csrf
-                                                                <input type="hidden" name="no_ic" value="{{ $no_ic }}">
-                                                                <input type="hidden" name="nama" value="{{ $nama }}">
+                                                                <input type="hidden" name="no_ic"
+                                                                    value="{{ $no_ic }}">
+                                                                <input type="hidden" name="nama"
+                                                                    value="{{ $nama }}">
                                                                 <input type="hidden" name="id_peserta"
                                                                     value="{{ $id_peserta }}">
                                                                 <input type="hidden" name="tarikh_lahir"
@@ -129,8 +137,8 @@ use Illuminate\Support\Facades\Auth;
                                                                 disabled>Penuh</button>
                                                         @endif
                                                     @else
-                                                    <button class="btn btn-sm bg-gradient-success"
-                                                                disabled>Telah daftar</button>
+                                                        <button class="btn btn-sm bg-gradient-success" disabled>Telah
+                                                            daftar</button>
                                                     @endif
                                                 </td>
                                             </tr>

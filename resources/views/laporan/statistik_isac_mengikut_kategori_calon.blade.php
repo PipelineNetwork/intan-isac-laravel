@@ -28,8 +28,8 @@
                 </li>
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Laporan</a>
                 </li>
-                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Laporan Statistik ISAC Mengikut Kategori
-                    Calon</li>
+                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Laporan Statistik ISAC Mengikut
+                    Kategori Calon</li>
             </ol>
             <h5 class="font-weight-bolder">Laporan Statistik ISAC Mengikut Kategori Calon</h5>
         </nav>
@@ -176,37 +176,37 @@
         src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#tablepenilaianisacmengikutkategoricalon').DataTable({
-                dom: 'Blfrtip',
-                "ordering": true,
-                "searching": true,
-                "info": true,
-                "paging": true,
-                "oLanguage": {
-                    "sSearch": "Carian:",
-                    "sZeroRecords": "Tiada rekod ditemui",
-                    "oPaginate": {
-                        "sNext": ">",
-                        "sPrevious": "<",
-                    },
-                    "sInfo": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ data",
-                    "sInfoEmpty": "Menunjukkan 0 ke 0 daripada 0 data",
-                    "sLengthMenu":    "Menunjukkan _MENU_ data",
-                buttons: [{
-                        extend: 'excelHtml5',
-                        title: 'STATISTIK PENCAPAIAN PENILAIAN ISAC'
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        title: 'STATISTIK PENCAPAIAN PENILAIAN ISAC'
-                    },
-                    {
-                        extend: 'csvHtml5',
-                        title: 'STATISTIK PENCAPAIAN PENILAIAN ISAC'
-                    },
-                ],
-            });
-        });
+                    $('#tablepenilaianisacmengikutkategoricalon').DataTable({
+                            dom: 'Blfrtip',
+                            "ordering": true,
+                            "searching": true,
+                            "info": true,
+                            "paging": true,
+                            "oLanguage": {
+                                "sSearch": "Carian:",
+                                "sZeroRecords": "Tiada rekod ditemui",
+                                "oPaginate": {
+                                    "sNext": ">",
+                                    "sPrevious": "<",
+                                },
+                                "sInfo": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ data",
+                                "sInfoEmpty": "Menunjukkan 0 ke 0 daripada 0 data",
+                                "sLengthMenu": "Menunjukkan _MENU_ data",
+                                buttons: [{
+                                        extend: 'excelHtml5',
+                                        title: 'STATISTIK PENCAPAIAN PENILAIAN ISAC'
+                                    },
+                                    {
+                                        extend: 'pdfHtml5',
+                                        title: 'STATISTIK PENCAPAIAN PENILAIAN ISAC'
+                                    },
+                                    {
+                                        extend: 'csvHtml5',
+                                        title: 'STATISTIK PENCAPAIAN PENILAIAN ISAC'
+                                    },
+                                ],
+                            });
+                    });
     </script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">

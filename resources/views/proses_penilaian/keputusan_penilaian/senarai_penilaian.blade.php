@@ -48,26 +48,31 @@
             <div class="col">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Senarai Penilaian Calon {{$ic}}</b>
+                        <b class="text-white">Senarai Penilaian Calon {{ $ic }}</b>
                     </div>
                     <div class="card-body pt-0">
                         <div class="table-responsive">
                             <table class="table table-flush" id="datatable-peserta">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>ID Penilaian</th>
-                                        <th>Tarikh Penilaian</th>
-                                        <th>Tindakan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">ID Penilaian
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Penilaian
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($penilaian as $key => $penilaian)
                                         <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>{{ $penilaian->id_sesi }}</td>
-                                            <td>{{date('d-m-Y', strtotime($penilaian->tarikh_sesi))}}</td>
-                                            <td><a href="/semak_jawapan/{{ $penilaian->no_ic }}/{{$penilaian->id_sesi}}"
+                                            <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $penilaian->id_sesi }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ date('d-m-Y', strtotime($penilaian->tarikh_sesi)) }}</td>
+                                            <td class="text-sm text-center font-weight-normal"><a
+                                                    href="/semak_jawapan/{{ $penilaian->no_ic }}/{{ $penilaian->id_sesi }}"
                                                     class="btn bg-gradient-info">Perincian</a></td>
                                         </tr>
                                     @endforeach

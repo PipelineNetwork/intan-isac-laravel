@@ -43,7 +43,8 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <p><em>Nombor MyKad/Polis/Tentera/Pasport ini tiada dalam senarai HRMIS dan
-                                                pangkalan data sistem, sila arahkan calon tersebut untuk daftar ISAC menggunakan nombor
+                                                pangkalan data sistem, sila arahkan calon tersebut untuk daftar ISAC
+                                                menggunakan nombor
                                                 MyKad/Polis/Tentera/Pasport ini.</em></p>
                                     </div>
                                 </div>
@@ -138,7 +139,8 @@
                                         <select class="form-control form-control-sm ml-3" name="jantina"
                                             id="input_kod_jantina" required>
                                             @if ($details != null)
-                                                <option hidden selected value="{{ $details->KOD_JANTINA }}" selected hidden>
+                                                <option hidden selected value="{{ $details->KOD_JANTINA }}" selected
+                                                    hidden>
                                                     {{ $details->KOD_JANTINA }}</option>
                                             @else
                                                 <option hidden selected value="">
@@ -164,9 +166,9 @@
                                                 name="jawatan_ketua_jabatan">
                                         @endif
                                         <span><small><i>Contoh: Pegawai Teknologi Maklumat, Gred
-                                            F41/F44</i></small></span>
+                                                    F41/F44</i></small></span>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-xl-3">

@@ -74,7 +74,8 @@
 
             <div class="card vh-100 mt-5">
                 <div class="card-body">
-                    <form action="/soalan-kemahiran-internet-page1/{{$id_penilaian}}/{{ $id_internet }}" method="POST" id="penilaian">
+                    <form action="/soalan-kemahiran-internet-page1/{{ $id_penilaian }}/{{ $id_internet }}" method="POST"
+                        id="penilaian">
                         @csrf
                         <input type="hidden" name="timer" value="" id="timer">
                         <div class="row">
@@ -84,9 +85,12 @@
                             </div>
                             <div class="col-8">
                                 <input class="form-control" type="text" name="url_teks" autocomplete="off">
-                                <input type="hidden" name="id_soalankemahiraninternet" value="{{ $soalankemahiraninternets->id}}">
-                                <input type="hidden" name="jawapansebenar_urlteks" value="{{ $soalankemahiraninternets->jawapan_2}}">
-                                <input type="hidden" name="jawapansebenar_carianteks" value="{{ $soalankemahiraninternets->jawapan_3}}">
+                                <input type="hidden" name="id_soalankemahiraninternet"
+                                    value="{{ $soalankemahiraninternets->id }}">
+                                <input type="hidden" name="jawapansebenar_urlteks"
+                                    value="{{ $soalankemahiraninternets->jawapan_2 }}">
+                                <input type="hidden" name="jawapansebenar_carianteks"
+                                    value="{{ $soalankemahiraninternets->jawapan_3 }}">
                             </div>
                             <div class="col-2 text-center">
                                 <button class="form-control" type="submit">Search</button>

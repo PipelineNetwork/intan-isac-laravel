@@ -1,104 +1,104 @@
 @extends('base_exam')
 @section('content')
 
-<style>
-    * {
-        margin: 0;
-    }
+    <style>
+        * {
+            margin: 0;
+        }
 
-    body {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-    }
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
 
-    /* Header */
-    .header {
-        display: flex;
-        justify-content: space-between;
-        padding: 20px 30px;
-        align-items: center;
-    }
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+            align-items: center;
+        }
 
-    .header a {
-        margin-right: 20px;
-        text-decoration: inherit;
-        color: rgba(0, 0, 0, 0.87);
-        font-size: 15px;
-    }
+        .header a {
+            margin-right: 20px;
+            text-decoration: inherit;
+            color: rgba(0, 0, 0, 0.87);
+            font-size: 15px;
+        }
 
-    .header a:hover {
-        text-decoration: underline;
-    }
+        .header a:hover {
+            text-decoration: underline;
+        }
 
 
 
-    .header__right {
-        display: flex;
-        margin-left: auto;
-        min-width: 13vw;
-        justify-content: space-between;
-    }
+        .header__right {
+            display: flex;
+            margin-left: auto;
+            min-width: 13vw;
+            justify-content: space-between;
+        }
 
-    .header__right .header__apps {
-        margin-right: 10px;
-    }
+        .header__right .header__apps {
+            margin-right: 10px;
+        }
 
-    /* Main Body */
+        /* Main Body */
 
-    .mainBody {
-        flex: 1;
-        display: flex;
-        margin-top: 12%;
-        flex-direction: column;
-    }
+        .mainBody {
+            flex: 1;
+            display: flex;
+            margin-top: 12%;
+            flex-direction: column;
+        }
 
-    .mainBody img {
-        object-fit: contain;
-        height: 100px;
-    }
+        .mainBody img {
+            object-fit: contain;
+            height: 100px;
+        }
 
-    /* search */
-    .search__input {
-        display: flex;
-        align-items: center;
-        border: 1px solid lightgray;
-        height: 30px;
-        padding: 10px 20px;
-        border-radius: 999px;
-        width: 75vw;
-        margin: 0 auto;
-        margin-top: 40px;
-        max-width: 560px;
-    }
+        /* search */
+        .search__input {
+            display: flex;
+            align-items: center;
+            border: 1px solid lightgray;
+            height: 30px;
+            padding: 10px 20px;
+            border-radius: 999px;
+            width: 75vw;
+            margin: 0 auto;
+            margin-top: 40px;
+            max-width: 560px;
+        }
 
-    .search__input input {
-        flex: 1;
-        padding: 10px 20px;
-        border: none;
-        outline: none;
-    }
+        .search__input input {
+            flex: 1;
+            padding: 10px 20px;
+            border: none;
+            outline: none;
+        }
 
-    .search__input .material-icons {
-        color: gray;
-    }
+        .search__input .material-icons {
+            color: gray;
+        }
 
-    .search__buttons {
-        margin-top: 30px;
-        display: flex;
-        justify-content: center;
-    }
+        .search__buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
 
-    .search__buttons button {
-        margin: 5px;
-        padding: 10px 15px;
-        background-color: #f8f8f8;
-        outline: none;
-        border: none;
-        cursor: pointer;
-    }
+        .search__buttons button {
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: #f8f8f8;
+            outline: none;
+            border: none;
+            cursor: pointer;
+        }
 
-</style>
+    </style>
 
     <div class="px-5">
         <nav aria-label="breadcrumb">
@@ -161,7 +161,8 @@
                             alt="Google Logo" />
 
                         <!-- Search Starts -->
-                        <form action="/soalan-kemahiran-internet-page3/{{$id_penilaian}}/{{ $id_internet }}" method="POST" id="penilaian">
+                        <form action="/soalan-kemahiran-internet-page3/{{ $id_penilaian }}/{{ $id_internet }}"
+                            method="POST" id="penilaian">
                             @csrf
                             <div class="search mt-3">
                                 <div class="col-8 m-auto">

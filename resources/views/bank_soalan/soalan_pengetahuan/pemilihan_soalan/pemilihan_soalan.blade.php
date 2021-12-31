@@ -1,6 +1,6 @@
 @extends('base')
 @section('content')
-<?php use App\Models\User; ?>
+    <?php use App\Models\User; ?>
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col">
@@ -29,8 +29,10 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Soalan Pengetahuan</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a>
+                        </li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Soalan
+                                Pengetahuan</a></li>
                     </ol>
                 </nav>
             </div>
@@ -58,12 +60,18 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama Pemilihan</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jumlah Keseluruhan</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap Soalan</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Disediakan</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Kemaskini</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Disediakan Oleh</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama Pemilihan
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jumlah
+                                            Keseluruhan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap Soalan
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh
+                                            Disediakan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Kemaskini
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Disediakan Oleh
+                                        </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
                                     </tr>
                                 </thead>
@@ -71,8 +79,10 @@
                                     @foreach ($pemilihan as $pemilihan)
                                         <tr>
                                             <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
-                                            <td class="text-sm text-center font-weight-normal">{{$pemilihan->NAMA_PEMILIHAN_SOALAN}}</td>
-                                            <td class="text-sm text-center font-weight-normal">{{$pemilihan->JUMLAH_KESELURUHAN_SOALAN}}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $pemilihan->NAMA_PEMILIHAN_SOALAN }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $pemilihan->JUMLAH_KESELURUHAN_SOALAN }}</td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 @if ($pemilihan->KOD_TAHAP_SOALAN == 01)
                                                     Asas
@@ -80,13 +90,16 @@
                                                     Lanjutan
                                                 @endif
                                             </td>
-                                            <td class="text-sm text-center font-weight-normal">{{date('d-m-Y', strtotime($pemilihan->TARIKH_CIPTA))}}</td>
-                                            <td class="text-sm text-center font-weight-normal">{{date('d-m-Y', strtotime($pemilihan->TARIKH_KEMASKINI))}}</td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                {{$pemilihan->ID_PENGGUNA}}
+                                                {{ date('d-m-Y', strtotime($pemilihan->TARIKH_CIPTA)) }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ date('d-m-Y', strtotime($pemilihan->TARIKH_KEMASKINI)) }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $pemilihan->ID_PENGGUNA }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                <a href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan/{{$pemilihan->ID_PEMILIHAN_SOALAN}}" class="btn bg-gradient-info btn-sm mb-0">Kemaskini</a>
+                                                <a href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan/{{ $pemilihan->ID_PEMILIHAN_SOALAN }}"
+                                                    class="btn bg-gradient-info btn-sm mb-0">Kemaskini</a>
                                             </td>
                                         </tr>
                                     @endforeach

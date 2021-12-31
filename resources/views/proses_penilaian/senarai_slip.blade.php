@@ -57,27 +57,36 @@
                             <table class="table table-flush" id="datatable-peserta">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Nama Calon</th>
-                                        <th>No. Kad Pengenalan</th>
-                                        <th>ID Penilaian</th>
-                                        <th>Tarikh Penilaian</th>
-                                        <th>Lokasi</th>
-                                        <th>Keputusan</th>
-                                        <th>Dokumen</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama Calon</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No. Kad
+                                            Pengenalan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">ID Penilaian
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Penilaian
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Lokasi</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Keputusan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Dokumen</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($keputusans as $key => $keputusan)
                                         <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>{{ $keputusan->nama_peserta }}</td>
-                                            <td>{{ $keputusan->ic_peserta }}</td>
-                                            <td>{{ $keputusan->id_penilaian }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($keputusan->tarikh_penilaian)) }}</td>
-                                            <td>{{ $keputusan->lokasi }}</td>
-                                            <td>{{ $keputusan->keputusan }}</td>
-                                            <td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $keputusan->nama_peserta }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $keputusan->ic_peserta }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $keputusan->id_penilaian }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ date('d-m-Y', strtotime($keputusan->tarikh_penilaian)) }}</td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $keputusan->lokasi }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">{{ $keputusan->keputusan }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
                                                 <a href="/slip_keputusan/{{ $keputusan->ic_peserta }}/{{ $keputusan->id_penilaian }}"
                                                     class="btn mb-0">Slip&emsp;<i
                                                         class="far fa-file-pdf fa-lg text-danger"></i></a>

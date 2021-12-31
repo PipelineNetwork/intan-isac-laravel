@@ -56,7 +56,8 @@
 
             <div class="card mt-5">
                 <div class="card-header" style="text-align: right">
-                    <form action="/soalan-kemahiran-internet-page6/{{$id_penilaian}}/{{ $id_internet }}" method="POST" id="penilaian">
+                    <form action="/soalan-kemahiran-internet-page6/{{ $id_penilaian }}/{{ $id_internet }}" method="POST"
+                        id="penilaian">
                         @csrf
                         <h4>
                             {{-- <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}"> --}}

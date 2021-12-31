@@ -1,5 +1,6 @@
 @extends('base_exam')
 @section('content')
+
     <div class="container-fluid py-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -185,7 +186,7 @@
 
                                             {{-- ranking --}}
                                         @elseif($soalan->jenis_soalan == 'ranking')
-                                            
+
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -196,7 +197,7 @@
 
                                             {{-- subjective --}}
                                         @elseif($soalan->jenis_soalan == 'subjective')
-                                            
+
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -320,7 +321,7 @@
 
             createQNavigator(pages);
             createQNavigator2(pages);
-            
+
             $("#0").show();
 
 

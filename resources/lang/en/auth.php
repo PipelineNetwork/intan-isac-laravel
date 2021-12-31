@@ -17,5 +17,6 @@ return [
     'required' => 'Medan :attribute diperlukan.',
     'failed' => 'Akaun anda tiada dalam rekod kami.',
     'password' => 'Kata laluan yang diberikan tidak betul.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    // 'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'throttle' => 'Terlalu banyak percubaan log masuk. Sila cuba lagi dalam :seconds saat.'
 ];

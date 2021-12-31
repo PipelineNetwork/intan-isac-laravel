@@ -44,8 +44,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="/{{ $banksoalankemahirans->id }}/emel/save"
-                    enctype="multipart/form-data">
+                <form method="POST" action="/{{ $banksoalankemahirans->id }}/emel/save" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <input type="hidden" name="id_soalankemahiran" value="{{ $banksoalankemahirans->id }}">
@@ -74,8 +73,7 @@
                         <div class="col-xl-12">
                             <div class="form-group">
                                 <label class="form-control-label">Arahan Soalan</label>
-                                <textarea class="form-control" rows="3"
-                                    name="arahan_soalan"></textarea>
+                                <textarea class="form-control" rows="3" name="arahan_soalan"></textarea>
                             </div>
                         </div>
                         <div class="col-xl-4">

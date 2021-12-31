@@ -327,7 +327,8 @@
                                                                 Kemaskini
                                                             </a>
                                                             <a data-bs-toggle="modal"
-                                                                data-bs-target="#modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}" class="btn bg-gradient-danger">
+                                                                data-bs-target="#modaldeletesoalanpengetahuan-{{ $banksoalanpengetahuan->id }}"
+                                                                class="btn bg-gradient-danger">
                                                                 Hapus
                                                             </a>
                                                             <button type="button" class="btn bg-gradient-secondary"

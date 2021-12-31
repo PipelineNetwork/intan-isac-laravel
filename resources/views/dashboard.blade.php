@@ -21,7 +21,7 @@
         <div class="row mb-0">
             <div class="col-lg-6">
                 <h3 class="font-weight-bolder">Selamat Datang ke Penilaian ISAC</h3>
-                <input type="hidden" value="{{$bil_mohon_jumlahs}}" name="check">
+                <input type="hidden" value="{{ $bil_mohon_jumlahs }}" name="check">
             </div>
         </div>
 
@@ -178,26 +178,28 @@
                                 <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
                                     <thead>
                                         <tr>
-                                            <th>No.</th>
-                                            <th>Sesi</th>
-                                            <th>Masa</th>
-                                            <th>Tarikh Penilaian</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Sesi</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Penilaian
+                                            </th>
                                             {{-- bawah --}}
-                                            <th>Bilangan Tempat</th>
-                                            <th>Bilangan Calon</th>
-                                            <th>Kekosongan</th>
-                                            <th>Platform</th>
-                                            <th>Lokasi</th>
-                                            <th>Pendaftaran</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Bilangan Tempat
+                                            </th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Bilangan Calon
+                                            </th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Kekosongan</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Platform</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Lokasi</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Pendaftaran</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($jaduals as $key => $jadual)
                                             @if ($jadual->KOD_KATEGORI_PESERTA == '01')
                                                 <tr>
-
-                                                    <td>{{ $key + 1 }}.</td>
-                                                    <td>
+                                                    <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}.</td>
+                                                    <td class="text-sm text-center font-weight-normal">
                                                         @if ($jadual->KOD_SESI_PENILAIAN == '01')
                                                             Sesi 01
                                                         @elseif($jadual->KOD_SESI_PENILAIAN == "02")
@@ -207,39 +209,42 @@
                                                         @endif
                                                         {{-- {{ $jadual['KOD_SESI_PENILAIAN'] }} --}}
                                                     </td>
-                                                    <td>{{ $jadual->KOD_MASA_MULA }} - {{ $jadual->KOD_MASA_TAMAT }}</td>
-                                                    <td>{{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
+                                                    <td class="text-sm text-center font-weight-normal">
+                                                        {{ $jadual->KOD_MASA_MULA }} - {{ $jadual->KOD_MASA_TAMAT }}</td>
+                                                    <td class="text-sm text-center font-weight-normal">
+                                                        {{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
                                                     {{-- bwh --}}
-                                                    <td>
+                                                    <td class="text-sm text-center font-weight-normal">
                                                         @if ($jadual->JUMLAH_KESELURUHAN == null)
                                                             0
                                                         @else
                                                             {{ $jadual->JUMLAH_KESELURUHAN }}
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    <td class="text-sm text-center font-weight-normal">
                                                         @if ($jadual->BILANGAN_CALON == null)
                                                             0
                                                         @else
                                                             {{ $jadual->BILANGAN_CALON }}
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    <td class="text-sm text-center font-weight-normal">
                                                         @if ($jadual->KEKOSONGAN == null)
                                                             0
                                                         @else
                                                             {{ $jadual->KEKOSONGAN }}
                                                         @endif
                                                     </td>
-                                                    <td>{{ $jadual->platform }}</td>
-                                                    <td>
+                                                    <td class="text-sm text-center font-weight-normal">
+                                                        {{ $jadual->platform }}</td>
+                                                    <td class="text-sm text-center font-weight-normal">
                                                         @if ($jadual['KOD_KEMENTERIAN'] == null)
                                                             -
                                                         @else
                                                             {{ $jadual['LOKASI'] }}
                                                         @endif
                                                     </td>
-                                                    <td class="text-center">
+                                                    <td class="text-sm text-center font-weight-normal">
                                                         <?php
                                                         $no_ic = Auth::user()->nric;
                                                         $done_daftar = MohonPenilaian::where('no_ic', $no_ic)
@@ -259,18 +264,18 @@
                                                                                 type="submit">Daftar</button>
                                                                         </form>
                                                                     @else
-                                                                        @if(Auth::user()->nric == '000000000006')
-                                                                        <form action="/mohonpenilaian/permohonan_penilaian"
-                                                                            method="POST" class="m-0">
-                                                                            @csrf
-                                                                            <input type="hidden" name="sesi"
-                                                                                value="{{ $jadual->ID_PENILAIAN }}">
-                                                                            <button class="btn btn-sm bg-gradient-info m-0"
-                                                                                type="submit">Daftar</button>
-                                                                        </form>
+                                                                        @if (Auth::user()->nric == '000000000006')
+                                                                            <form action="/mohonpenilaian/permohonan_penilaian"
+                                                                                method="POST" class="m-0">
+                                                                                @csrf
+                                                                                <input type="hidden" name="sesi"
+                                                                                    value="{{ $jadual->ID_PENILAIAN }}">
+                                                                                <button class="btn btn-sm bg-gradient-info m-0"
+                                                                                    type="submit">Daftar</button>
+                                                                            </form>
                                                                         @else
-                                                                        <button class="btn btn-sm bg-gradient-danger m-0"
-                                                                            disabled>Penuh</button>
+                                                                            <button class="btn btn-sm bg-gradient-danger m-0"
+                                                                                disabled>Penuh</button>
                                                                         @endif
                                                                     @endif
                                                                 @else
@@ -280,7 +285,6 @@
                                                                 @endif
                                                             </div>
                                                         </div>
-
                                                     </td>
                                                 </tr>
                                             @endif
