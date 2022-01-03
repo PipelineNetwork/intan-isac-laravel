@@ -34,43 +34,6 @@
         </nav>
 
         <div class="container-fluid pb-3">
-            {{-- <div class="card mb-4">
-                <div class="card-header" style="background-color:#FFA500;">
-                    <h4>Sila jawab semua soalan</h4>
-                </div>
-                <div class="card-body">
-                    <ol>
-                        <li>
-                            Klik butang Google Chrome di bawah.
-                            <ul class="mt-2">
-                                <a class="btn btn-success" href="/soalan-kemahiran-internet/create">Google Chrome</a>
-                            </ul>
-                        </li>
-                        <li>
-                            Taipkan alamat URL <u>https://www.google.com</u> pada Address Bar di dalam Internet Explorer di bawah.
-                        </li>
-                        <li>
-                            Anda dikehendaki mencari maklumat mengenai Project Management. Gunakan Google Search Engine
-                            (GSE) untuk mencari artikel-artikel atau maklumat mengenai <b>Project Management</b>.
-                        </li>
-                        <li>
-                            Seterusnya klik kepada capaian (link) ini
-                            <ol>
-                                <li>
-                                    <b>Project management - Wikipedia, the free encyclopedia</b>
-                                </li>
-                            </ol>
-                        </li>
-                        <li>
-                            Anda dikehendaki ke halaman sebelum dengan menekan butang kembali (Back Button).
-                        </li>
-                        <li>
-                            Untuk menamatkan bahagian ini, klik butang <span style="color: red">CLOSE [ X ]</span> untuk keluar dari Internet Explorer dan
-                            klik butang TUTUP di bawah.
-                        </li>
-                    </ol>
-                </div>
-            </div> --}}
 
             <div class="card vh-100 mt-5">
                 <div class="card-body">
@@ -91,6 +54,8 @@
                                     value="{{ $soalankemahiraninternets->jawapan_2 }}">
                                 <input type="hidden" name="jawapansebenar_carianteks"
                                     value="{{ $soalankemahiraninternets->jawapan_3 }}">
+                                <input type="hidden" name="url_wikipedia"
+                                    value="{{ $soalankemahiraninternets->url_wikipedia }}">
                             </div>
                             <div class="col-2 text-center">
                                 <button class="form-control" type="submit">Search</button>

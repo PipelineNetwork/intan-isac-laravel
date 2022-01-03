@@ -60,7 +60,15 @@
                         id="penilaian">
                         @csrf
                         <h4>
-                            {{-- <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}"> --}}
+                            <input type="hidden" name="url_teks" value="{{ $url_teks }}">
+                            <input type="hidden" name="jawapansebenar_urlteks" value="{{ $jawapansebenar_urlteks }}">
+                            <input type="hidden" name="markah_urlteks" value="{{ $markah_urlteks }}">
+                            <input type="hidden" name="carian_teks" value="{{ $carian_teks }}">
+                            <input type="hidden" name="jawapansebenar_carianteks"
+                                value="{{ $jawapansebenar_carianteks }}">
+                            <input type="hidden" name="markah_carianteks" value="{{ $markah_carianteks }}">
+                            <input type="hidden" name="user_id" value="{{ $user_id }}">
+
                             <button class="btn btn-danger" type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 title="Close"><i class="fas fa-times"></i></button>
                         </h4>
@@ -74,7 +82,7 @@
                         <div class="col-8 mb-3">
                             <div class="input-group">
                                 <input class="form-control" type="text" style="text-transform: capitalize"
-                                    value="{{ $jawapancalons->carian_teks }}">
+                                    value="{{ $carian_teks }}">
                                 <span class="input-group-text"><i class="fas fa-microphone me-sm-1 text-dark"></i></span>
                                 <span class="input-group-text"><i class="fas fa-search me-sm-1 text-dark"></i></span>
                             </div>
@@ -83,26 +91,22 @@
                                     <h6>
                                         https://en.wikipedia.org › wiki › Project_management
                                     </h6>
-                                    <form action="/soalan-kemahiran-internet/{{ $jawapancalons->id }}/page6"
-                                        method="POST">
-                                        @csrf
-                                        <h4>
-                                            <input type="hidden" name="user_id" value="{{ $jawapancalons->id }}">
-                                            <button type="submit" style="text-transform: capitalize"
-                                                class="btn-link">{{ $jawapancalons->carian_teks }}
-                                                -
-                                                Wikipedia</button>
-                                        </h4>
-                                    </form>
+                                    <h4>
+                                        <input type="hidden" name="user_id" value="{{ $user_id }}">
+                                        <button type="submit" style="text-transform: capitalize"
+                                            class="btn-link">{{ $carian_teks }}
+                                            -
+                                            Wikipedia</button>
+                                    </h4>
 
                                     <p class="qcont">
-                                        {{ $jawapancalons->carian_teks }} is the process of leading the work of a team to
+                                        {{ $carian_teks }} is the process of leading the work of a team to
                                         achieve all
                                         project
                                         goals within the given constraints. This information is usually ...
                                     </p>
                                     <p style="text-transform: capitalize">
-                                        ‎History · ‎{{ $jawapancalons->carian_teks }} types · ‎Approaches of project...
+                                        ‎History · ‎{{ $carian_teks }} types · ‎Approaches of project...
                                     </p>
                                 </div>
 
@@ -112,13 +116,13 @@
                                     </h6>
                                     <h4>
                                         <button type="submit" class="btn-link">What is
-                                            {{ $jawapancalons->carian_teks }} |
+                                            {{ $carian_teks }} |
                                             PMI</button>
                                     </h4>
 
 
                                     <p>
-                                        {{ $jawapancalons->carian_teks }} is the use of specific knowledge, skills, tools
+                                        {{ $carian_teks }} is the use of specific knowledge, skills, tools
                                         and techniques to
                                         deliver something of value to people. The development of software for ...
                                     </p>
@@ -133,13 +137,13 @@
                                     </h6>
                                     <h4>
                                         <button type="submit" style="text-transform: capitalize"
-                                            class="btn-link">{{ $jawapancalons->carian_teks }}
+                                            class="btn-link">{{ $carian_teks }}
                                             Definition -
                                             Investopedia</button>
                                     </h4>
 
                                     <p>
-                                        {{ $jawapancalons->carian_teks }} involves the planning and organization of a
+                                        {{ $carian_teks }} involves the planning and organization of a
                                         company's resources
                                         to move a specific task, event, or duty towards completion.
                                     </p>
@@ -151,7 +155,7 @@
                                     </h6>
                                     <h4>
                                         <button type="submit" style="text-transform: capitalize"
-                                            class="btn-link">{{ $jawapancalons->carian_teks }}
+                                            class="btn-link">{{ $carian_teks }}
                                             Software | Microsoft
                                             Project</button>
                                     </h4>
@@ -169,14 +173,6 @@
         </div>
     </div>
 
-    <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
-    <script type="text/javascript">
-        const dataTableSoalanKemahiranInternet = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_internet", {
-            searchable: true,
-            fixedHeight: true
-        });
-    </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 @stop

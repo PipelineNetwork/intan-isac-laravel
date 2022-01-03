@@ -82,6 +82,7 @@
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Lokasi</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Keterangan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -155,17 +156,15 @@
                                             <td class="text-sm text-center font-weight-normal">{{ $jadual['keterangan'] }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                <form method="POST" action="jaduals/{{ $jadual->ID_SESI }}">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button class="btn mb-0 btn-danger" type="submit">Hapus&emsp;<i
-                                                            class="fas fa-trash-alt"></i></button>
-                                                </form>
+                                                <button class="btn btn-danger" data-bs-toggle="modal"
+                                                    style="cursor: pointer"
+                                                    data-bs-target="#modaldelete-{{ $jadual['ID_SESI'] }}">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
                                                 <div class="dropdown">
                                                     <button class="btn btn-info dropdown-toggle mt-2" type="button"
                                                         id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        Kemaskini
+                                                        aria-expanded="false"><i class="fas fa-edit"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                         <li><a class="dropdown-item"
@@ -181,6 +180,32 @@
                                                     </ul>
                                                 </div>
                                             </td>
+
+                                            <div class="modal fade" id="modaldelete-{{ $jadual['ID_SESI'] }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body text-center">
+                                                            <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                            <br>
+                                                            Anda pasti untuk menghapus jadual?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn bg-gradient-secondary"
+                                                                data-bs-dismiss="modal">Batal</button>
+                                                            <form method="POST" action="jaduals/{{ $jadual->ID_SESI }}">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button class="btn btn-danger"
+                                                                    type="submit">Hapus&emsp;<i
+                                                                        class="fas fa-trash-alt"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="modal fade" id="penangguhan{{ $jadual['ID_SESI'] }}"
                                                 tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                                 aria-hidden="true">
@@ -266,7 +291,8 @@
     <script type="text/javascript">
         const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
             searchable: true,
-            fixedHeight: true
+            fixedHeight: true,
+            sortable: false
         });
     </script>
 

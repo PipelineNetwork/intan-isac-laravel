@@ -172,7 +172,16 @@
                                                 class="fas fa-microphone me-sm-1 text-dark"></i></span>
                                     </div>
                                 </div>
-
+                                <input type="hidden" name="url_teks" value="{{ $url_teks }}">
+                                <input type="hidden" name="jawapansebenar_urlteks" value="{{ $jawapansebenar_urlteks }}">
+                                <input type="hidden" name="markah_urlteks" value="{{ $markah_urlteks }}">
+                                <input type="hidden" name="jawapansebenar_carianteks"
+                                    value="{{ $jawapansebenar_carianteks }}">
+                                <input type="hidden" name="user_id" value="{{ $user_id }}">
+                                <input type="hidden" name="url_wikipedia"
+                                    value="{{ $url_wikipedia }}">
+                                {{-- <input type="hidden" name="id_soalankemahiraninternet" value="{{ $id_soalankemahiraninternet }}">
+                                <input type="hidden" name="ic_calon" value="{{ $ic_calon }}"> --}}
                                 <div class="search__buttons">
                                     <button type="submit">Google Search</button>
                                     <button>I'm Feeling Lucky</button>

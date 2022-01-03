@@ -173,7 +173,8 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn bg-gradient-secondary"
                                             data-bs-dismiss="modal">Batal</button>
-                                        <a href="/soalan-kemahiran-word/{{ $id_penilaian }}" class="btn btn-success">Ok</a>
+                                        <a href="/soalan-kemahiran-word/{{ $id_penilaian }}"
+                                            class="btn btn-success">Ok</a>
                                     </div>
                                 </div>
                             </div>
@@ -184,14 +185,6 @@
         </div>
     </div>
 
-    <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
-    <script type="text/javascript">
-        const dataTableSoalanKemahiranInternet = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_internet", {
-            searchable: true,
-            fixedHeight: true
-        });
-    </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 @stop
