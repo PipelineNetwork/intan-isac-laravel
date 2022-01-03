@@ -787,7 +787,7 @@
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
-    <script src="https://demos.creative-tim.com/test/soft-ui-dashboard-pro/assets/js/plugins/datatables.js"
+    <script src="../../assets/js/plugins/datatables.js"
         type="text/javascript"></script>
     <script type="text/javascript">
         const dataTableBasicPenjadualan = new simpleDatatables.DataTable("#datatable-penjadualan", {
