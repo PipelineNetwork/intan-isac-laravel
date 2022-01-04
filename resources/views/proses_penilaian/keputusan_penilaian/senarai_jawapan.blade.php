@@ -48,7 +48,14 @@
             <div class="col">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Jawapan Calon (Pengetahuan)</b>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-6">
+                                <b class="text-white">Jawapan Calon (Pengetahuan)</b>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a href="/senarai_penilaian/{{ $ic }}" class="btn bg-gradient-primary">Kembali</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body pt-0">
 
@@ -80,16 +87,16 @@
                             </table>
                         </div>
 
-                        <div class="row px-3">
+                        {{-- <div class="row px-3">
                             <div class="col text-end">
                                 <a href="/senarai_penilaian/{{ $ic }}" class="btn bg-gradient-primary">Kembali</a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
 
-            {{-- <div class="col">
+            <div class="col">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Jawapan Calon (Kemahiran Internet)</b>
@@ -97,45 +104,188 @@
                     <div class="card-body pt-0">
 
                         <div class="table-responsive">
-                            <table class="table table-flush" id="datatable-peserta">
+                            <table class="table table-flush" id="datatable-jawapan-kemahiran-internet">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Jawapan Calon</th>
-                                        <th>Jawapan Sebenar</th>
-                                        <th>Markah Diberi</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Calon
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Sebenar
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah Diberi
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1.</td>
-                                        <td>{{ $jawapan->pilihan_jawapan }}</td>
-                                        <td>{{ $jawapan->jawapan }}</td>
-                                        <td>{{ $jawapan->markah }}</td>
+                                        <td class="text-sm text-center font-weight-normal">1.</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->url_teks }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->jawapansebenar_urlteks }}</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->markah_urlteks }}</td>
                                     </tr>
                                     <tr>
-                                        <td>2.</td>
-                                        <td>{{ $jawapan->pilihan_jawapan }}</td>
-                                        <td>{{ $jawapan->jawapan }}</td>
-                                        <td>{{ $jawapan->markah }}</td>
+                                        <td class="text-sm text-center font-weight-normal">2.</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->carian_teks }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->jawapansebenar_carianteks }}</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->markah_carianteks }}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="row px-3">
-                            <div class="col text-end">
-                                <a href="/senarai_penilaian/{{ $ic }}" class="btn bg-gradient-primary">Kembali</a>
-                            </div>
+            <div class="col">
+                <div class="card mt-3">
+                    <div class="card-header" style="background-color:#FFA500;">
+                        <b class="text-white">Jawapan Calon (Kemahiran Pemprosesan Perkataan)</b>
+                    </div>
+                    <div class="card-body pt-0">
+
+                        <div class="table-responsive">
+                            <table class="table table-flush" id="datatable-jawapan-kemahiran-word">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Calon
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Sebenar
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah Diberi
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-sm text-center font-weight-normal">1.</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->url_teks }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->jawapansebenar_urlteks }}</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->markah_urlteks }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-sm text-center font-weight-normal">2.</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->carian_teks }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->jawapansebenar_carianteks }}</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->markah_carianteks }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
+
+            <div class="col">
+                <div class="card mt-3">
+                    <div class="card-header" style="background-color:#FFA500;">
+                        <b class="text-white">Jawapan Calon (Kemahiran Pemprosesan Perkataan)</b>
+                    </div>
+                    <div class="card-body pt-0">
+
+                        <div class="table-responsive">
+                            <table class="table table-flush" id="datatable-jawapan-kemahiran-email">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Calon
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Sebenar
+                                        </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah Diberi
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-sm text-center font-weight-normal">1.</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->input_to }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            isac@intanbk.intan.my</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->markah_inputto }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-sm text-center font-weight-normal">2.</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->input_subject }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            Penilaian ISAC</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->markah_inputsubject }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-sm text-center font-weight-normal">3.</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->input_mesej }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            Tuan,
+
+                                            Disertkan dokumen seperti diarahkan.
+
+                                            Sekian, terima kasih.
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->markah_inputmesej }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-sm text-center font-weight-normal">4.</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            <img src="/storage/{{ $jawapan_kemahiran->fail_upload }}"
+                                                style="max-width: 30px;">
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            -</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $jawapan_kemahiran->markah_failupload }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="../../assets/js/plugins/datatables.js"></script>
     <script type="text/javascript">
         const dataTableBasickategori = new simpleDatatables.DataTable("#datatable-peserta", {
+            searchable: true,
+            fixedHeight: true
+        });
+
+        const dataTableBasicSoalanKemahiranInternet = new simpleDatatables.DataTable(
+            "#datatable-jawapan-kemahiran-internet", {
+                searchable: true,
+                fixedHeight: true
+            });
+
+        const dataTableBasicSoalanKemahiranWord = new simpleDatatables.DataTable("#datatable-jawapan-kemahiran-word", {
+            searchable: true,
+            fixedHeight: true
+        });
+
+        const dataTableBasicSoalanKemahiranEmail = new simpleDatatables.DataTable("#datatable-jawapan-kemahiran-email", {
             searchable: true,
             fixedHeight: true
         });

@@ -293,8 +293,10 @@ class MohonPenilaianController extends Controller
             $pengetahuan->delete();
         }
 
-        $kemahiran = Bankjawapancalon::where('id_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get();
-        $kemahiran->delete();
+        $kemahiran = Bankjawapancalon::where('ic_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get();
+        if ($kemahiran != null) {
+            $kemahiran->delete();
+        }
 
         $kekosongan->save();
         $mohonPenilaian->delete();
@@ -553,29 +555,29 @@ class MohonPenilaianController extends Controller
 
         $masa_mula = $kekosongan->KOD_MASA_MULA;
         $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
-        
-        if($masa_mula >="12:00"){
+
+        if ($masa_mula >= "12:00") {
             list($jam_m, $min_m) = explode(":", $masa_mula);
             $jam_m = (int)$jam_m;
-            if($jam_m > 12){
+            if ($jam_m > 12) {
                 $jam_m = $jam_m - 12;
-                $mula = $jam_m.':'.$min_m.' PM';
+                $mula = $jam_m . ':' . $min_m . ' PM';
             }
-            $mula = $masa_mula.' PM';
-        }else{
-            $mula = $masa_mula.' AM';
+            $mula = $masa_mula . ' PM';
+        } else {
+            $mula = $masa_mula . ' AM';
         }
 
-        if($masa_tamat >="12:00"){
+        if ($masa_tamat >= "12:00") {
             list($jam, $min) = explode(":", $masa_tamat);
             $jam = (int)$jam;
-            if($jam > 12){
+            if ($jam > 12) {
                 $jam = $jam - 12;
-                $tamat = $jam.':'.$min.' PM';
+                $tamat = $jam . ':' . $min . ' PM';
             }
-            $tamat = $masa_tamat.' PM';
-        }else{
-            $tamat = $masa_tamat.' AM';
+            $tamat = $masa_tamat . ' PM';
+        } else {
+            $tamat = $masa_tamat . ' AM';
         }
 
         // dd($maklumat_calon);
@@ -704,12 +706,13 @@ class MohonPenilaianController extends Controller
             'jenis_perkhidmatans' => $jenis_perkhidmatan,
             'kementerians' => $kementerian,
             'negeris' => $negeri,
-            'id_penilaian'=>$id_penilaian,
-            'jabatans'=>$jabatan
+            'id_penilaian' => $id_penilaian,
+            'jabatans' => $jabatan
         ]);
     }
 
-    public function daftar_permohonan_calon(Request $request){
+    public function daftar_permohonan_calon(Request $request)
+    {
         // kemaskini profil
         $user_profils1 = User::find($request->user()->id);
 
@@ -764,9 +767,9 @@ class MohonPenilaianController extends Controller
         $permohonan->no_ic = $request->NO_KAD_PENGENALAN;
         $permohonan->nama = $request->NAMA_PESERTA;
         $permohonan->tarikh_lahir = $request->TARIKH_LAHIR;
-        if($request->KOD_JANTINA == '01'){
+        if ($request->KOD_JANTINA == '01') {
             $jantina = 'Lelaki';
-        }else{
+        } else {
             $jantina = 'Perempuan';
         }
         $permohonan->jantina = $jantina;
@@ -807,29 +810,29 @@ class MohonPenilaianController extends Controller
         $emel_pendaftar = Auth::user()->email;
         $recipient = [$emel_pendaftar];
         $recipient_penyelia = [$request->EMEL_PENYELIA];
-        
-        if($masa_mula >="12:00"){
+
+        if ($masa_mula >= "12:00") {
             list($jam_m, $min_m) = explode(":", $masa_mula);
             $jam_m = (int)$jam_m;
-            if($jam_m > 12){
+            if ($jam_m > 12) {
                 $jam_m = $jam_m - 12;
-                $mula = $jam_m.':'.$min_m.' PM';
+                $mula = $jam_m . ':' . $min_m . ' PM';
             }
-            $mula = $masa_mula.' PM';
-        }else{
-            $mula = $masa_mula.' AM';
+            $mula = $masa_mula . ' PM';
+        } else {
+            $mula = $masa_mula . ' AM';
         }
 
-        if($masa_tamat >="12:00"){
+        if ($masa_tamat >= "12:00") {
             list($jam, $min) = explode(":", $masa_tamat);
             $jam = (int)$jam;
-            if($jam > 12){
+            if ($jam > 12) {
                 $jam = $jam - 12;
-                $tamat = $jam.':'.$min.' PM';
+                $tamat = $jam . ':' . $min . ' PM';
             }
-            $tamat = $masa_tamat.' PM';
-        }else{
-            $tamat = $masa_tamat.' AM';
+            $tamat = $masa_tamat . ' PM';
+        } else {
+            $tamat = $masa_tamat . ' AM';
         }
 
         // dd($mula, $tamat);
@@ -844,7 +847,7 @@ class MohonPenilaianController extends Controller
             'bandar' => $maklumat_calon->BANDAR,
             'negeri' => $maklumat_calon->KOD_NEGERI,
             'nama_penyelaras' => $permohonan->nama_penyelia,
-            'hari' => date('d - m - Y'),   
+            'hari' => date('d - m - Y'),
             'nama' => $permohonan->nama,
             'ic' => $permohonan->no_ic,
             'tarikh' => $permohonan->tarikh_sesi,
@@ -855,16 +858,16 @@ class MohonPenilaianController extends Controller
         ]);
 
         $data_email = [
-            'ic_calon'=>$permohonan->no_ic,
-            'nama_calon'=>$request->NAMA_PESERTA,
+            'ic_calon' => $permohonan->no_ic,
+            'nama_calon' => $request->NAMA_PESERTA,
             'tarikh' => $permohonan->tarikh_sesi,
         ];
-        
-        Mail::send('emails.daftar_peserta', $data_email, function($message)use($recipient, $recipient_penyelia, $pdf) {
+
+        Mail::send('emails.daftar_peserta', $data_email, function ($message) use ($recipient, $recipient_penyelia, $pdf) {
             $message->to($recipient)
-                    ->cc($recipient_penyelia)
-                    ->subject("ISAC - Permohonan Berjaya")
-                    ->attachData($pdf->output(), 'Surat_tawaran.pdf');
+                ->cc($recipient_penyelia)
+                ->subject("ISAC - Permohonan Berjaya")
+                ->attachData($pdf->output(), 'Surat_tawaran.pdf');
         });
 
         // Mail::send('emails.penyelia_pendaftaran', $data_email, function($message)use($recipient_penyelia, $pdf) {

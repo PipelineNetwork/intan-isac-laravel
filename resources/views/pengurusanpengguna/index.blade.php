@@ -64,7 +64,8 @@
 
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama</th>
+                                    <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                    <th class="text-uppercase font-weight-bolder opacity-7">Nama</th>
                                     <th class="text-uppercase text-center font-weight-bolder opacity-7">E-mel</th>
                                     <th class="text-uppercase text-center font-weight-bolder opacity-7">Peranan</th>
                                     <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemaskini</th>
@@ -76,8 +77,10 @@
 
                                     @foreach ($user_pengawas as $user_pengawas)
                                         <tr>
-                                            <td class="text-sm text-center font-weight-normal"
-                                                style="text-transform: uppercase">{{ $user_pengawas['name'] }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $loop->index + 1 }}</td>
+                                            <td class="text-sm font-weight-normal" style="text-transform: uppercase">
+                                                {{ $user_pengawas['name'] }}</td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ $user_pengawas['email'] }}</td>
                                             <td class="text-sm text-center font-weight-normal">
@@ -137,7 +140,9 @@
 
                                     @foreach ($users as $user)
                                         <tr>
-                                            <td class="text-sm text-center font-weight-normal"
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $loop->index + 1 }}</td>
+                                            <td class="text-sm font-weight-normal"
                                                 style="text-transform: uppercase">{{ $user['name'] }}</td>
                                             <td class="text-sm text-center font-weight-normal">{{ $user['email'] }}</td>
                                             <td class="text-sm text-center font-weight-normal">
@@ -208,12 +213,12 @@
 
     </div>
 
-    <script src="../../assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
+    <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
         const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
             searchable: true,
-            fixedHeight: true
+            fixedHeight: true,
+            sortable: false
         });
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
