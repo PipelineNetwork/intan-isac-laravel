@@ -201,7 +201,6 @@ class PermohananController extends Controller
         $pro_perkhidmatan ->KOD_TARAF_PERJAWATAN= $request->KOD_TARAF_PERJAWATAN;
         $pro_perkhidmatan->save(); 
         
-        $permohanan->save(); 
         return redirect('/permohanans');
     }
 
