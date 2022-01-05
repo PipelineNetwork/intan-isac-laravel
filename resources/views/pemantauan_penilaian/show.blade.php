@@ -61,51 +61,68 @@
                             <tr>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Id Penilaian</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Sesi</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa Mula</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa Tamat</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Disediakan</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Disediakan</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama Calon</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Mula</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Pengetahuan</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemahiran Internet</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemahiran Pemprosesan
+                                    Perkataan</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemahiran E-mel</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($tukar_objects as $tukar_object)
-                                <tr>
-                                    <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
-                                    <td class="text-sm text-center font-weight-normal">
-                                        <b>{{ $tukar_object['ic'] }}</b>
-                                    </td>
-                                    <td class="text-sm text-center font-weight-normal">
-                                        {{ $tukar_object['nama'] }}
-                                    </td>
-                                    <td class="text-sm text-center font-weight-normal">
-                                        {{ $tukar_object['status'] }}
-                                    </td>
-                                    <td class="text-sm text-center font-weight-normal">
-                                        {{ $tukar_object['pengetahuan'] }}
-                                    </td>
-                                    <td class="text-sm text-center font-weight-normal">
-                                        {{ $tukar_object['kemahiran_internet'] }}
-                                    </td>
-                                    <td class="text-sm text-center font-weight-normal">
-                                        {{ $tukar_object['kemahiran_word'] }}
-                                    </td>
-                                    <td class="text-sm text-center font-weight-normal">
-                                        {{ $tukar_object['kemahiran_email'] }}
-                                    </td>
-                                    {{-- <td class="text-sm text-center font-weight-normal">
-                                        Internet</td>
-                                    <td class="text-sm text-center font-weight-normal">
-                                        @if ($status_semak_jawapan->status_soalan == 1)
-                                            Aktif
-                                        @else
-                                            Tidak Aktif
-                                        @endif
-                                    </td>
-                                    {{-- <td class="text-sm text-center font-weight-normal">
-                                        {{ date('d/m/Y', strtotime($status_semak_jawapan->created_at)) }}</td> --}}
-                                </tr>
+                            @foreach ($senarai_semak_jawapans as $senarai_semak_jawapan)
+                                @if ($senarai_semak_jawapan['status'] != 'Gagal')
+                                    <tr>
+                                        <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            <b>{{ $senarai_semak_jawapan['ic'] }}</b>
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $senarai_semak_jawapan['nama'] }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $senarai_semak_jawapan['status'] }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $senarai_semak_jawapan['pengetahuan'] }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $senarai_semak_jawapan['kemahiran_internet'] }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $senarai_semak_jawapan['kemahiran_word'] }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $senarai_semak_jawapan['kemahiran_email'] }}
+                                        </td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            <b>{{ $senarai_semak_jawapan['ic'] }}</b>
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $senarai_semak_jawapan['nama'] }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            Selesai
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $senarai_semak_jawapan['pengetahuan'] }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $senarai_semak_jawapan['kemahiran_internet'] }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $senarai_semak_jawapan['kemahiran_word'] }}
+                                        </td>
+                                        <td class="text-sm text-center font-weight-normal">
+                                            {{ $senarai_semak_jawapan['kemahiran_email'] }}
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

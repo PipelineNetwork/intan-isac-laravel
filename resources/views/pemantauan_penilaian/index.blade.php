@@ -60,6 +60,7 @@
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Id Penilaian</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Sesi</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Sesi</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa Mula</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa Tamat</th>
                                 {{-- <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
@@ -76,6 +77,9 @@
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ $penilaian_list->TARIKH_SESI }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $penilaian_list->KOD_SESI_PENILAIAN }}
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ $penilaian_list->KOD_MASA_MULA }}
