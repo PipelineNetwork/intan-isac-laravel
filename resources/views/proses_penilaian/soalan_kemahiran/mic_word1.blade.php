@@ -46,12 +46,13 @@
                         <div class="card-body" style="border-radius: 15px; max-width:800px;">
                             <form
                                 action="/soalan-kemahiran-word/{{ $id_penilaian }}/{{ $soalankemahiranwords->id }}/save"
-                                method="POST" enctype="multipart/form-data">
+                                method="POST" enctype="multipart/form-data" id="penilaian">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <input type="hidden" name="id_soalankemahiranword"
-                                            value="{{ $soalankemahiranwords->id }}" id="penilaian">
+                                            value="{{ $soalankemahiranwords->id }}">
+                                            <input type="hidden" name="timer" value="" id="timer">
                                         <div class="form-group">
                                             <label class="form-control-label text-white" for="editor">Jawapan</label>
                                             <textarea id="editor" class="form-control" name="jawapan_word">

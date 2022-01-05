@@ -32,6 +32,13 @@ class KeputusanPenilaianController extends Controller
         return view('testing');
     }
 
+    public function destroy($id){
+        $keputusan = KeputusanPenilaian::find($id);
+        $keputusan->delete();
+        
+        return redirect('/keputusan_penilaian');
+    }
+
     public function store(Request $request){
         $ic = $request->ic;
         $id_penilaian = $request->id_penilaian;

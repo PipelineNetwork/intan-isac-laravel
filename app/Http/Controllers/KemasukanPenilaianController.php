@@ -93,7 +93,6 @@ class KemasukanPenilaianController extends Controller
         $tahap = $sesi->KOD_TAHAP;
         $soalan_penilaian = Banksoalanpengetahuan::where('id_tahap_soalan', $tahap)->get();
         $pemilihan_soalan = PemilihanSoalanKumpulan::all();
-
        
         $set_soalan = [];
         foreach($pemilihan_soalan as $ps){
