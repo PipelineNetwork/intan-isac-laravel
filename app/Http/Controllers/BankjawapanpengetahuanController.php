@@ -245,7 +245,7 @@ class BankjawapanpengetahuanController extends Controller
 
     public function senarai_penilaian($ic)
     {
-        $penilaian = MohonPenilaian::where('no_ic', $ic)->get();
+        $penilaian = MohonPenilaian::where('no_ic', $ic)->latest()->get();
         $ic = $ic;
         return view('proses_penilaian.keputusan_penilaian.senarai_penilaian', [
             'penilaian' => $penilaian,

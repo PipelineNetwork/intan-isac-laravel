@@ -352,8 +352,6 @@
                                             disabled="">{{ $display_betul_salah_1 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 2 --}}
@@ -373,8 +371,6 @@
                                             disabled="">{{ $display_betul_salah_2 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 3 --}}
@@ -394,8 +390,6 @@
                                             disabled="">{{ $display_betul_salah_3 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 4 --}}
@@ -436,8 +430,6 @@
                                             disabled="">{{ $display_betul_salah_5 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 6 --}}
@@ -457,8 +449,6 @@
                                             disabled="">{{ $display_betul_salah_6 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 7 --}}
@@ -478,8 +468,6 @@
                                             disabled="">{{ $display_betul_salah_7 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 8 --}}
@@ -499,8 +487,6 @@
                                             disabled="">{{ $display_betul_salah_8 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 9 --}}
@@ -520,8 +506,6 @@
                                             disabled="">{{ $display_betul_salah_9 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 10 --}}
@@ -541,8 +525,6 @@
                                             disabled="">{{ $display_betul_salah_10 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 11 --}}
@@ -562,8 +544,6 @@
                                             disabled="">{{ $display_betul_salah_11 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 12 --}}
@@ -583,8 +563,6 @@
                                             disabled="">{{ $display_betul_salah_12 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 13 --}}
@@ -604,8 +582,6 @@
                                             disabled="">{{ $display_betul_salah_13 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 14 --}}
@@ -625,8 +601,6 @@
                                             disabled="">{{ $display_betul_salah_14 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
 
                             {{-- check jawapan 15 --}}
@@ -646,8 +620,6 @@
                                             disabled="">{{ $display_betul_salah_15 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan</label> --}}
                             @endif
                         @else
                             <p class="mt-3">
@@ -661,7 +633,7 @@
             <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Jawapan Calon (Kemahiran Email)</b>
+                        <b class="text-white">Jawapan Calon (Kemahiran E-mel)</b>
                     </div>
                     <div class="card-body pt-0">
 
