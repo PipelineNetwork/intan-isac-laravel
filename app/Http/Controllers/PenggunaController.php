@@ -298,7 +298,7 @@ class PenggunaController extends Controller
     {
         $user = User::find($user);
         $ic = $user->nric;
-        $pro_peserta = MohonPenilaian::where('NO_KAD_PENGENALAN', $ic)->first();
+        $pro_peserta = MohonPenilaian::where('no_ic', $ic)->first();
         if ($pro_peserta != null) {
             $pro_peserta->delete();
         }
