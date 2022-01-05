@@ -39,7 +39,7 @@
                     <h4>Sila jawab semua soalan</h4>
                 </div>
                 <div class="card-body">
-                    <form action="/soalan-kemahiran-internet-page6/{{ $id_penilaian }}/{{ $id_internet }}" method="POST" id="penilaian">
+                    <form action="/soalan-kemahiran-internet-page6/{{ $id_penilaian }}/1" method="POST" id="penilaian">
                         @csrf
                         <input type="hidden" name="timer" value="" id="timer">
                     </form>
