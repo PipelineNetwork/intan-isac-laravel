@@ -250,7 +250,7 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
         $ic = Auth::user()->nric;
         $prof = KeputusanPenilaian::where('ic_peserta', $ic)->first();
         $nama = $prof->nama_peserta;
-        $penilaian = MohonPenilaian::where('no_ic', $ic)->orderBy('created_at', 'desc')->get();
+        $penilaian = KeputusanPenilaian::where('ic_peserta', $ic)->orderBy('created_at', 'desc')->get();
         // dd($penilaian);
         return view('proses_penilaian.keputusan_penilaian.semak_keputusan_calon', [
             'calon' => $ic,
