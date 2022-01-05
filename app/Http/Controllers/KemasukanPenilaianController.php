@@ -128,8 +128,13 @@ class KemasukanPenilaianController extends Controller
     }
 
     public function penilaian(Request $request, $id_penilaian){
+
+        $mohon_penilaian = MohonPenilaian::where('no_ic', $request->ic)->where('id_sesi', $id_penilaian)->first();
+        $mohon_penilaian->status_penilaian = $request->status_penilaian;
+        $mohon_penilaian->save();
         
         $bil = count($request->all());
+        $bil = $bil-2;
         $set = [];
         for ($i=1; $i < $bil; $i++) { 
             $no_soalan = 'soalan_'.$i;

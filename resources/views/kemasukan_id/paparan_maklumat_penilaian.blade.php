@@ -68,6 +68,8 @@
                                                         <input type="hidden" name="soalan_{{ $key + 1 }}"
                                                             value="{{ $soalan->id }}">
                                                     @endforeach
+                                                    <input type="hidden" name="ic" value="{{Auth::user()->nric}}">
+                                                    <input type="hidden" name="status_penilaian" value="Selesai">
                                                     <button class="btn bg-gradient-info mt-4 mb-0 text-center"
                                                         type="submit">Mula Penilaian</button>
                                                 </form>
