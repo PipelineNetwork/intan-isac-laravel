@@ -306,11 +306,11 @@ class PenggunaController extends Controller
 	$pro_peserta_2 = Permohanan::where('NO_KAD_PENGENALAN',$ic)->first();
 	if ($pro_peserta_2 != null){
         $pro_tempat_tugas = Tugas::where('ID_PESERTA', $pro_peserta_2->ID_PESERTA)->first();
-        if (count($pro_tempat_tugas) != 0) {
+        if ($pro_tempat_tugas != null) {
             $pro_tempat_tugas->delete();
         }
         $pro_perkhidmatan = Perkhidmatan::where('ID_PESERTA', $pro_peserta_2->ID_PESERTA)->first();
-        if (count($pro_perkhidmatan) != 0) {
+        if ($pro_perkhidmatan != null) {
             $pro_perkhidmatan->delete();
         }
 		$pro_peserta_2->delete();
@@ -322,14 +322,14 @@ class PenggunaController extends Controller
         }
 
         $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $ic)->get();
-        if (count($pengetahuan) != 0) {
+        if ($pengetahuan != null) {
             foreach ($pengetahuan as $pengetahuan) {
                 $pengetahuan->delete();
             }
         }
 
 	$kemahiran = Bankjawapancalon::where('ic_calon', $ic)->get();
-	if(count($kemahiran) != 0){
+	if($kemahiran != null){
 		foreach($kemahiran as $kemahiran){
 			$kemahiran->delete();
 		}
