@@ -31,7 +31,7 @@
                         </li>
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Soalan
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="/bank-soalan-kemahiran">Soalan
                                 Kemahiran</a></li>
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Senarai
                                 Soalan Kemahiran</a></li>
@@ -220,7 +220,7 @@
                                                 <button type="button" class="btn bg-gradient-secondary"
                                                     data-bs-dismiss="modal">Tutup</button>
                                                 <form method="POST"
-                                                    action="/{{ $soalankemahiranword->id_soalankemahiran }}/internet/{{ $soalankemahiranword->id }}/delete">
+                                                    action="/{{ $soalankemahiranword->id_soalankemahiran }}/pemprosesan-perkataan/{{ $soalankemahiranword->id }}/delete">
                                                     @method('POST')
                                                     @csrf
                                                     <button class="btn btn-danger" type="submit">Hapus</button>
@@ -315,7 +315,7 @@
                                                 <button type="button" class="btn bg-gradient-secondary"
                                                     data-bs-dismiss="modal">Tutup</button>
                                                 <form method="POST"
-                                                    action="/{{ $soalankemahiranemail->id_soalankemahiran }}/internet/{{ $soalankemahiranemail->id }}/delete">
+                                                    action="/{{ $soalankemahiranemail->id_soalankemahiran }}/emel/{{ $soalankemahiranemail->id }}/delete">
                                                     @method('POST')
                                                     @csrf
                                                     <button class="btn btn-danger" type="submit">Hapus</button>
@@ -340,18 +340,24 @@
             searchable: true,
             fixedHeight: true,
             sortable: false,
+            paging: false,
+            searchable: false,
         });
 
         const dataTableSoalanKemahiran_word = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_word", {
             searchable: true,
             fixedHeight: true,
             sortable: false,
+            paging: false,
+            searchable: false,
         });
 
         const dataTableSoalanKemahiran_email = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_email", {
             searchable: true,
             fixedHeight: true,
             sortable: false,
+            paging: false,
+            searchable: false,
         });
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

@@ -133,8 +133,6 @@ class BankjawapanpengetahuanController extends Controller
         }else{
             return view('kemasukan_id.masa_tamat');
         }
-
-        
     }
 
     public function senarai_penilaian($ic){

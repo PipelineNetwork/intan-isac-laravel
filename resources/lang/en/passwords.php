@@ -20,7 +20,7 @@ return [
     // 'user' => "We can't find a user with that email address.",
 
     'reset' => 'Kata laluan anda telah diset semula!',
-    'sent' => 'Kami telah menghantar e-mel pautan tetapan semula kata laluan anda!',
+    'sent' => 'Sila semak e-mel anda untuk membuat pengemaskinian kata laluan.',
     'throttled' => 'Sila tunggu sebelum mencuba semula.',
     'token' => 'Token tetapan semula kata laluan ini tidak sah.',
     'user' => "Kami tidak dapat mencari pengguna dengan alamat e-mel tersebut.",

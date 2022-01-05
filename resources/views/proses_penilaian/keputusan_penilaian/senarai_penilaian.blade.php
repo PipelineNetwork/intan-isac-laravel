@@ -73,7 +73,7 @@
                                                 {{ date('d-m-Y', strtotime($penilaian->tarikh_sesi)) }}</td>
                                             <td class="text-sm text-center font-weight-normal"><a
                                                     href="/semak_jawapan/{{ $penilaian->no_ic }}/{{ $penilaian->id_sesi }}"
-                                                    class="btn bg-gradient-info">Perincian</a></td>
+                                                    class="btn bg-gradient-info mt-2">Perincian</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

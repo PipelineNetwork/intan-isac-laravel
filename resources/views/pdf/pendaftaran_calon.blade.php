@@ -127,10 +127,8 @@
         <br><br>
 
 
-        2. Adalah dimaklumkan bahawa pegawai berikut terpilih untuk menduduki ujian
-        Penilaian ICT
-        Skills Assessment and Certification (ISAC). Maklumat lengkap ujian adalah
-        seperti berikut :-
+        2. Adalah dimaklumkan bahawa pegawai berikut terpilih untuk menduduki Penilaian ICT Skills Assessment and
+        Certification (ISAC). Maklumat lengkap penilaian adalah seperti berikut :-
         <br><br>
         <table>
             <tr>
@@ -161,10 +159,10 @@
             </tr>
         </table>
         <br>
-        3. Sekiranya tuan/puan tidak dapat hadir pada tarikh penilaian, sila beri
+        3. Sekiranya calon tidak dapat hadir pada tarikh penilaian, sila beri
         penjelasan melalui emel berikut : isachelp@intanbk.intan.my sebelum tarikh
-        penilaian. Kegagalan untuk berbuat demikian akan mengakibatkan nama tuan/puan
-        <span style="font-weight: bold">disenaraihitamkan</span> daripada menduduki ujian penilaian pada masa akan
+        penilaian. Kegagalan untuk berbuat demikian akan mengakibatkan nama calon
+        <span style="font-weight: bold">disenaraihitamkan</span> daripada menduduki penilaian pada masa akan
         datang.
         Sebarang kemusykilan/masalah, sila hubungi kami melalui emel:
         isachelp@intanbk.intan.my.
