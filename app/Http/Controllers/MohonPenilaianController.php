@@ -294,7 +294,7 @@ class MohonPenilaianController extends Controller
         }
 
         $kemahiran = Bankjawapancalon::where('ic_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get();
-        if ($kemahiran != null) {
+        if (count($kemahiran) != 0) {
             $kemahiran->delete();
         }
 

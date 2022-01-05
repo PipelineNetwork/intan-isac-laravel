@@ -228,6 +228,9 @@
                                                             {{ $jadual->BILANGAN_CALON }}
                                                         @endif
                                                     </td>
+                                                    <?php
+                                                    $jadual->KEKOSONGAN = $jadual->JUMLAH_KESELURUHAN - $jadual->BILANGAN_CALON;
+                                                    ?>
                                                     <td class="text-sm text-center font-weight-normal">
                                                         @if ($jadual->KEKOSONGAN == null)
                                                             0

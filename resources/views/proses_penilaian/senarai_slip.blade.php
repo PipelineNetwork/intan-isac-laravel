@@ -1,6 +1,8 @@
 @extends('base')
 @section('content')
-
+@php
+    use App\Models\Jadual;
+@endphp
 
     <div class="container-fluid py-4">
         <div class="row">
@@ -63,11 +65,14 @@
                                             Pengenalan</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">ID Penilaian
                                         </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Sesi Penilaian
+                                        </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Penilaian
                                         </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Lokasi</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Keputusan</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Dokumen</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,6 +85,19 @@
                                                 {{ $keputusan->ic_peserta }}</td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ $keputusan->id_penilaian }}</td>
+                                            <?php
+                                            $sesi = Jadual::where('ID_PENILAIAN', $keputusan->id_penilaian)->first();
+                                            $sesi = $sesi['KOD_SESI_PENILAIAN'];
+                                            ?>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                @if ($sesi == '01')
+                                                    Sesi 1
+                                                @elseif($sesi == '02')
+                                                    Sesi 2
+                                                @elseif($sesi == '03')
+                                                    Sesi 3
+                                                @endif
+                                            </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ date('d-m-Y', strtotime($keputusan->tarikh_penilaian)) }}</td>
                                             <td class="text-sm text-center font-weight-normal">{{ $keputusan->lokasi }}
@@ -91,6 +109,34 @@
                                                     class="btn mb-0">Slip&emsp;<i
                                                         class="far fa-file-pdf fa-lg text-danger"></i></a>
                                                 {{-- <a href="/sijil_isac" class="btn mb-0">Sijil&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a> --}}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                <a data-bs-toggle="modal" style="cursor: pointer"
+                                                    data-bs-target="#deleteslip-{{ $keputusan->id }}">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <div class="modal fade" id="deleteslip-{{ $keputusan->id }}" tabindex="-1"
+                                                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body text-center">
+                                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                                <br>
+                                                                Anda pasti untuk menghapus slip?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn bg-gradient-secondary"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <form method="POST"
+                                                                    action="/mohonpenilaian/{{ $keputusan->id }}">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <button class="btn btn-danger" type="submit">Hapus</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
