@@ -73,12 +73,12 @@
                                         </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">
                                             Jenis Soalan</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">
+                                        {{-- <th class="text-uppercase text-center font-weight-bolder opacity-7">
                                             Knowledge Area</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Topik Soalan
                                         </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Penyataan Soalan
-                                        </th>
+                                        </th> --}}
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Soalan
                                         </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Status Soalan
@@ -147,14 +147,14 @@
                                                 @endif
                                                 {{-- {{ $banksoalanpengetahuan->jenis_soalan }} --}}
                                             </td>
-                                            <td class="text-sm text-center font-weight-normal">
+                                            {{-- <td class="text-sm text-center font-weight-normal">
                                                 {{ $banksoalanpengetahuan->knowledge_area }}</td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ $banksoalanpengetahuan->topik_soalan }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ $banksoalanpengetahuan->penyataan_soalan }}
-                                            </td>
+                                            </td> --}}
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ $banksoalanpengetahuan->soalan }}
                                             </td>
@@ -171,7 +171,7 @@
                                                 @endif
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                <button type="button" class="btn btn-sm bg-gradient-primary"
+                                                <button type="button" class="btn btn-sm bg-gradient-primary mt-3"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#details_{{ $loop->index + 1 }}">
                                                     Perincian
