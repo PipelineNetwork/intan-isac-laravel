@@ -39,6 +39,10 @@
                     <h4>Sila jawab semua soalan</h4>
                 </div>
                 <div class="card-body">
+                    <form action="/soalan-kemahiran-internet-page6/{{ $id_penilaian }}/{{ $id_internet }}" method="POST" id="penilaian">
+                        @csrf
+                        <input type="hidden" name="timer" value="" id="timer">
+                    </form>
                     <div class="col-xl-12">
                         @foreach ($soalankemahiraninternets as $soalankemahiraninternet)
                             <h3 class="h5">Set {{ $soalankemahiraninternet->id_soalankemahiran }}</h3>

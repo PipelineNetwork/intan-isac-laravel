@@ -35,8 +35,7 @@ class KeputusanPenilaianController extends Controller
     public function destroy($id){
         $keputusan = KeputusanPenilaian::find($id);
         $keputusan->delete();
-        
-        return redirect('/keputusan_penilaian');
+        return redirect('/keputusan_penilaian')->with('success', 'Maklumat telah dihapus');
     }
 
     public function store(Request $request){
