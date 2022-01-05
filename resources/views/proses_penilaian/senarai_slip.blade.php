@@ -87,7 +87,11 @@
                                                 {{ $keputusan->id_penilaian }}</td>
                                             <?php
                                             $sesi = Jadual::where('ID_PENILAIAN', $keputusan->id_penilaian)->first();
-                                            $sesi = $sesi['KOD_SESI_PENILAIAN'];
+                                            if ($sesi != null) {
+                                                $sesi = $sesi['KOD_SESI_PENILAIAN'];
+                                            } else {
+                                                $sesi = '04';
+                                            }
                                             ?>
                                             <td class="text-sm text-center font-weight-normal">
                                                 @if ($sesi == '01')
@@ -96,6 +100,8 @@
                                                     Sesi 2
                                                 @elseif($sesi == '03')
                                                     Sesi 3
+                                                @else
+                                                    Null
                                                 @endif
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
