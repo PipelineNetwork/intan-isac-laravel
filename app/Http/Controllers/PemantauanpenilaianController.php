@@ -55,8 +55,10 @@ class PemantauanpenilaianController extends Controller
     {
         $senarai_calon = MohonPenilaian::where('id_sesi', $id_penilaian)->get();
         // $ic_calon = $senarai_calon->no_ic;
-        $status_semak_jawapan = [];
+        $senarai_semak_jawapan = [];
         foreach ($senarai_calon as $key => $calon) {
+            $status_semak_jawapan = [];
+            
             $pengetahuan = Bankjawapanpengetahuan::where('id_penilaian', $id_penilaian)->where('id_calon',  $calon->no_ic)->first();
             $kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon',  $calon->no_ic)->first();
             if ($pengetahuan != null) {
@@ -116,13 +118,13 @@ class PemantauanpenilaianController extends Controller
                     'kemahiran_email' => 'Belum selesai',
                 ];
             }
+
+            array_push($senarai_semak_jawapan, $status_semak_jawapan);
         }
-        // $tukar_object = (object)[];
-        $tukar_object[] = $status_semak_jawapan;
-        // dd($tukar_object);
+        // dd($senarai_semak_jawapan);
 
         return view('pemantauan_penilaian.show', [
-            'tukar_objects' => $tukar_object
+            'senarai_semak_jawapans' => $senarai_semak_jawapan
         ]);
     }
 
