@@ -34,6 +34,7 @@ use App\Http\Controllers\BanksoalankemahiranemailController;
 use App\Models\Banksoalankemahiran;
 use App\Http\Controllers\KumpulanPenggunaController;
 use App\Http\Controllers\RayuanCalonBlacklistController;
+use App\Http\Controllers\PemantauanpenilaianController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -215,6 +216,8 @@ Route::get('/semak_jawapan/{ic}/{id}', [BankjawapanpengetahuanController::class,
 
 Route::get('/senarai_sijil', [KeputusanPenilaianController::class, 'senarai_sijil']);
 Route::get('/semakan_keputusan_calon', [KeputusanPenilaianController::class, 'senarai_penilaian_calon']);
+
+Route::resource('/pemantauan-penilaian', PemantauanpenilaianController::class);
 
 //laporan
 Route::get('/laporan/penilaian-isac-mengikut-kementerian', [LaporanController::class, 'laporan_penilaian_isac_mengikut_kementerian']);

@@ -285,7 +285,7 @@
 
                                 @can('pemantauan penilaian')
                                     <li class="nav-item ">
-                                        <a class="nav-link " href="/kemasukan-id">
+                                        <a class="nav-link " href="/pemantauan-penilaian">
                                             <span class="sidenav-normal"> Pemantauan Penilaian </span>
                                         </a>
                                     </li>
