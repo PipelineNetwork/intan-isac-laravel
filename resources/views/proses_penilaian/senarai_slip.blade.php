@@ -134,7 +134,7 @@
                                                                 <button type="button" class="btn bg-gradient-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
                                                                 <form method="POST"
-                                                                    action="/mohonpenilaian/{{ $keputusan->id }}">
+                                                                    action="/keputusan_penilaian/{{ $keputusan->id }}">
                                                                     @method('DELETE')
                                                                     @csrf
                                                                     <button class="btn btn-danger" type="submit">Hapus</button>
