@@ -106,7 +106,7 @@
     </div>
     <!-- -------- START HEADER 1 w/ text and image on right ------- -->
     <header>
-        <div class="page-header min-vh-75">
+        <div class="page-header">
             <div class="oblique position-absolute top-0 h-100 d-md-block d-none">
                 <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
                     style="background-image:url('img/JPA4.jpeg')">
@@ -412,8 +412,8 @@
         <hr class="horizontal dark mb-5">
         <div class="container">
             <div class=" row">
-                <div class="col-md-6 mb-4">
-                    <div style="padding-left: 13rem">
+                <div class="col-md-4 mb-4">
+                    <div style="padding-left: 5rem">
                         <h6 class="text-gradient text-warning text-sm">
                             Alamat Surat Menyurat :</h6>
                         <ul class="flex-column ms-n3 nav">
@@ -432,7 +432,23 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-6 mb-4">
+                <div class="col-md-4 mb-4">
+                    <div style="padding-left: 5rem">
+                        <h6 class="text-gradient text-warning text-sm">
+                            Pautan :</h6>
+                        <ul class="flex-column ms-n3 nav">
+                            <li class="nav-item">
+                                <a class="nav-link">Jabatan Perkhidmatan Awam</a>
+                                <a class="nav-link" href="https://www.jpa.gov.my/" target="_blank">https://www.jpa.gov.my/<br>
+                                </a>
+                                <br>
+                                <a class="nav-link">INTAN Bukit Kiara</a>
+                                <a class="nav-link" href="https://www.intanbk.intan.my/" target="_blank">https://www.intanbk.intan.my/</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
                     <div class="d-flex justify-content-center flex-wrap">
                         <div class="row">
                             <div class="col-12 text-center">
@@ -463,8 +479,7 @@
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
-    <script src="../../assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
+    <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
         const dataTableBasicPenjadualan = new simpleDatatables.DataTable("#datatable-penjadualan", {
             searchable: false,
