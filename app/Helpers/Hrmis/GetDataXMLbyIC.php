@@ -63,7 +63,7 @@ class GetDataXMLbyIC
         $arrContextOptions = array("ssl" => array("verify_peer" => false, "verify_peer_name" => false));
 
         $options = array(
-            'soap_version' => SOAP_1_2,
+            'soap_version' => 'SOAP_1_2',
             'exceptions' => true,
             'trace' => 1,
             'cache_wsdl' => WSDL_CACHE_NONE,
