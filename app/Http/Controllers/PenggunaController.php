@@ -309,11 +309,11 @@ class PenggunaController extends Controller
 	}
 
         $pro_tempat_tugas = Tugas::where('ID_PESERTA', $pro_peserta_2->ID_PESERTA)->first();
-        if (count($pro_tempat_tugas) != null) {
+        if (count($pro_tempat_tugas) != 0) {
             $pro_tempat_tugas->delete();
         }
         $pro_perkhidmatan = Perkhidmatan::where('ID_PESERTA', $pro_peserta_2->ID_PESERTA)->first();
-        if (count($pro_perkhidmatan) != null) {
+        if (count($pro_perkhidmatan) != 0) {
             $pro_perkhidmatan->delete();
         }
 
@@ -323,14 +323,14 @@ class PenggunaController extends Controller
         }
 
         $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $ic)->get();
-        if (count($pengetahuan) != null) {
+        if (count($pengetahuan) != 0) {
             foreach ($pengetahuan as $pengetahuan) {
                 $pengetahuan->delete();
             }
         }
 
 	$kemahiran = Bankjawapancalon::where('ic_calon', $ic)->get();
-	if(count($kemahiran) != null){
+	if(count($kemahiran) != 0){
 		foreach($kemahiran as $kemahiran){
 			$kemahiran->delete();
 		}
