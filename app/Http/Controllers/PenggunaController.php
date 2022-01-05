@@ -305,9 +305,6 @@ class PenggunaController extends Controller
 
 	$pro_peserta_2 = Permohanan::where('NO_KAD_PENGENALAN',$ic)->first();
 	if ($pro_peserta_2 != null){
-		$pro_peserta_2->delete();
-	}
-
         $pro_tempat_tugas = Tugas::where('ID_PESERTA', $pro_peserta_2->ID_PESERTA)->first();
         if (count($pro_tempat_tugas) != 0) {
             $pro_tempat_tugas->delete();
@@ -316,6 +313,8 @@ class PenggunaController extends Controller
         if (count($pro_perkhidmatan) != 0) {
             $pro_perkhidmatan->delete();
         }
+		$pro_peserta_2->delete();
+	}
 
         $permohonan = MohonPenilaian::where('no_ic', $ic)->get();
         foreach ($permohonan as $permohonan) {
