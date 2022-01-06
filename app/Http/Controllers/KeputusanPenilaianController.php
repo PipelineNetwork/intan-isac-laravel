@@ -28,17 +28,20 @@ class KeputusanPenilaianController extends Controller
         ]);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('testing');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $keputusan = KeputusanPenilaian::find($id);
         $keputusan->delete();
         return redirect('/keputusan_penilaian')->with('success', 'Maklumat telah dihapus');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $ic = $request->ic;
         $id_penilaian = $request->id_penilaian;
         $peserta = MohonPenilaian::where('no_ic', $ic)->first();
@@ -310,21 +313,24 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
         }
 
         $keputusan->markah_internet = $markah_internet;
-        if ($keputusan->markah_internet == 2) {
+        // if ($keputusan->markah_internet == 2) {
+        if ($keputusan->markah_internet == 1) {
             $keputusan->keputusan_internet = "Melepasi";
         } else {
             $keputusan->keputusan_internet = "Tidak Melepasi";
         }
 
         $keputusan->markah_word = $markah_word;
-        if ($keputusan->markah_word == 9) {
+        // if ($keputusan->markah_word == 9) {
+        if ($keputusan->markah_word == 1) {
             $keputusan->keputusan_word = "Melepasi";
         } else {
             $keputusan->keputusan_word = "Tidak Melepasi";
         }
 
         $keputusan->markah_email = $markah_email;
-        if ($keputusan->markah_email >= 4) {
+        // if ($keputusan->markah_email >= 4) {
+        if ($keputusan->markah_email >= 1) {
             $keputusan->keputusan_email = "Melepasi";
         } else {
             $keputusan->keputusan_email = "Tidak Melepasi";
