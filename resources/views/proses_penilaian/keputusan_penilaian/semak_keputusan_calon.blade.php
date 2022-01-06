@@ -75,7 +75,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($penilaian as $key => $penilaian)
-                                                @if ($penilaian->status_penilaian != 'Baru' && $penilaian->status_penilaian != null)
+						{{--@if ($penilaian->status_penilaian != 'Baru' && $penilaian->status_penilaian != null)--}}
                                                     <tr>
                                                         <td class="text-sm text-center font-weight-normal">
                                                             {{ $key + 1 }}</td>
@@ -87,7 +87,7 @@
                                                                 href="/semak_keputusan/{{ $penilaian->ic_peserta }}/{{ $penilaian->id_penilaian }}"
                                                                 class="btn bg-gradient-info">Semak</a></td>
                                                     </tr>
-                                                @endif
+						{{--@endif--}}
                                             @endforeach
                                         </tbody>
                                     </table>

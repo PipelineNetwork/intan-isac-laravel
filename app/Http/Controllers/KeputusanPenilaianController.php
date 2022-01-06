@@ -169,7 +169,13 @@ class KeputusanPenilaianController extends Controller
         $keputusans = KeputusanPenilaian::where('id_penilaian', $id_penilaian)
             ->where('ic_peserta', $ic)->first();
 
-        $tahap = Jadual::where('id_penilaian', $id_penilaian)->first();
+	$tahap = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
+	if($tahap == null ){
+		alert('Jadual telah dihapuskan. Sila hubungi pihak yang bertugas');
+		return back();
+	}else{
+		$tahap->KOD_TAHAP;
+	}
 
         if ($keputusans == null) {
             alert('Tiada dalam rekod penilaian');
