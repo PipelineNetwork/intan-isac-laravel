@@ -69,13 +69,24 @@ class SoalankemahiranemailController extends Controller
 
         $current_user = $request->user();
         $markah_internet = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $current_user->nric)->select(DB::raw('markah_urlteks + markah_carianteks as total'))->get()->first();
+        if ($markah_internet == null) {
+            $total_markah_internet = 0;
+        } else {
+            $total_markah_internet = $markah_internet;
+        }
+        
         $markah_word = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $current_user->nric)->select('jumlah_markah_word')->get()->first();
+        if ($markah_word == null) {
+            $total_markah_word = 0;
+        } else {
+            $total_markah_word = $markah_word;
+        }
         // dd($markah_internet);
         $id_penilaian = $id_penilaian;
         return view('proses_penilaian.soalan_kemahiran.email1', [
             'soalankemahiranemails' => $soalankemahiranemail,
-            'markah_internets' => $markah_internet,
-            'markah_words' => $markah_word,
+            'markah_internets' => $total_markah_internet,
+            'markah_words' => $total_markah_word,
             'id_penilaian' => $id_penilaian
         ]);
     }
