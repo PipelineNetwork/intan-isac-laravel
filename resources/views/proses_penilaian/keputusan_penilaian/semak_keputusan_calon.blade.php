@@ -75,7 +75,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($penilaian as $key => $penilaian)
-                                                {{-- @if ($penilaian->status_penilaian != 'Baru' && $penilaian->status_penilaian != null) --}}
+                                                @if ($penilaian->status_penilaian != 'Baru' && $penilaian->status_penilaian != null)
                                                     <tr>
                                                         <td class="text-sm text-center font-weight-normal">
                                                             {{ $key + 1 }}</td>
@@ -84,11 +84,10 @@
                                                         <td class="text-sm text-center font-weight-normal">
                                                             {{ date('d-m-Y', strtotime($penilaian->tarikh_penilaian)) }}</td>
                                                         <td class="text-sm text-center font-weight-normal"><a
-                                                                href="/slip_keputusan/{{ $penilaian->ic_peserta }}/{{ $penilaian->id_penilaian }}"
-                                                                class="btn">Slip&emsp;<i
-                                                                class="far fa-file-pdf fa-lg text-danger"></i></a></td>
+                                                                href="/semak_keputusan/{{ $penilaian->ic_peserta }}/{{ $penilaian->id_penilaian }}"
+                                                                class="btn bg-gradient-info">Semak</a></td>
                                                     </tr>
-                                                {{-- @endif --}}
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>
