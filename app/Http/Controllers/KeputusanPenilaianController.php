@@ -188,7 +188,7 @@ class KeputusanPenilaianController extends Controller
         $ic = $rekod_sijil->ic_peserta;
         $tarikh = $rekod_sijil->tarikh_penilaian;
 
-        $tahap = Jadual::where('id_penilaian', $id_penilaian)->first();
+        $tahap = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
 
         $pdf = PDF::loadView('pdf.slip_keputusan', [
             'nama' => $nama,
