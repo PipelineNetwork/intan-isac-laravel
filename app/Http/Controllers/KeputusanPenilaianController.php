@@ -64,9 +64,23 @@ class KeputusanPenilaianController extends Controller
             ->get()->first();
 
         // dd($m_kemahiran);
-        $markah_internet = $m_kemahiran->jumlah_markah_internet;
-        $markah_word = $m_kemahiran->jumlah_markah_word;
-        $markah_email = $m_kemahiran->jumlah_markah_email;
+        if ($m_kemahiran->jumlah_markah_internet == null) {
+            $markah_internet = 0;
+        } else {
+            $markah_internet = $m_kemahiran->jumlah_markah_internet;
+        }
+
+        if ($m_kemahiran->jumlah_markah_word == null) {
+            $markah_word = 0;
+        } else {
+            $markah_word = $m_kemahiran->jumlah_markah_word;
+        }
+        
+        if ($m_kemahiran->jumlah_markah_email == null) {
+            $markah_email = 0;
+        } else {
+            $markah_email = $m_kemahiran->jumlah_markah_email;
+        }
 
         $markah_kem = $markah_internet +  $markah_word + $markah_email + $markah_email;
         $keputusan = new KeputusanPenilaian;
