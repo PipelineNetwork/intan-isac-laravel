@@ -75,7 +75,7 @@ class KeputusanPenilaianController extends Controller
         } else {
             $markah_word = $m_kemahiran->jumlah_markah_word;
         }
-        
+
         if ($m_kemahiran->jumlah_markah_email == null) {
             $markah_email = 0;
         } else {
@@ -183,13 +183,13 @@ class KeputusanPenilaianController extends Controller
         $keputusans = KeputusanPenilaian::where('id_penilaian', $id_penilaian)
             ->where('ic_peserta', $ic)->first();
 
-	$tahap = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
-	if($tahap == null ){
-		alert('Jadual telah dihapuskan. Sila hubungi pihak yang bertugas');
-		return back();
-	}else{
-		$tahap->KOD_TAHAP;
-	}
+        $tahap = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
+        if ($tahap == null) {
+            alert('Jadual telah dihapuskan. Sila hubungi pihak yang bertugas');
+            return back();
+        } else {
+            $tahap->KOD_TAHAP;
+        }
 
         if ($keputusans == null) {
             alert('Tiada dalam rekod penilaian');
@@ -305,9 +305,15 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
             ->get()->first();
 
         // dd($m_kemahiran);
-        $markah_internet = $m_kemahiran->jumlah_markah_internet;
-        $markah_word = $m_kemahiran->jumlah_markah_word;
-        $markah_email = $m_kemahiran->jumlah_markah_email;
+        if ($m_kemahiran == null) {
+            $markah_internet = 0;
+            $markah_word = 0;
+            $markah_email = 0;
+        } else {
+            $markah_internet = $m_kemahiran->jumlah_markah_internet;
+            $markah_word = $m_kemahiran->jumlah_markah_word;
+            $markah_email = $m_kemahiran->jumlah_markah_email;
+        }
 
         $markah_kem = $markah_internet +  $markah_word + $markah_email + $markah_email;
         $keputusan = new KeputusanPenilaian;
