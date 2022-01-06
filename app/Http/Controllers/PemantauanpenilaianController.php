@@ -58,22 +58,35 @@ class PemantauanpenilaianController extends Controller
         $senarai_semak_jawapan = [];
         foreach ($senarai_calon as $key => $calon) {
             $status_semak_jawapan = [];
-            
+
             $pengetahuan = Bankjawapanpengetahuan::where('id_penilaian', $id_penilaian)->where('id_calon',  $calon->no_ic)->first();
-            $kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon',  $calon->no_ic)->first();
+            // $kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon',  $calon->no_ic)->first();
             if ($pengetahuan != null) {
-                if ($kemahiran->id_soalankemahiraninternet != null) {
-                    if ($kemahiran->id_soalankemahiranword != null) {
-                        if ($kemahiran->id_soalankemahiranemail != null) {
-                            $status_semak_jawapan = [
-                                'ic' => $calon->no_ic,
-                                'nama' => $calon->nama,
-                                'status' => $calon->status_penilaian,
-                                'pengetahuan' => 'Selesai',
-                                'kemahiran_internet' => 'Selesai',
-                                'kemahiran_word' => 'Selesai',
-                                'kemahiran_email' => 'Selesai',
-                            ];
+                $kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon',  $calon->no_ic)->first();
+                if ($kemahiran != null) {
+                    if ($kemahiran->id_soalankemahiraninternet != null) {
+                        if ($kemahiran->id_soalankemahiranword != null) {
+                            if ($kemahiran->id_soalankemahiranemail != null) {
+                                $status_semak_jawapan = [
+                                    'ic' => $calon->no_ic,
+                                    'nama' => $calon->nama,
+                                    'status' => $calon->status_penilaian,
+                                    'pengetahuan' => 'Selesai',
+                                    'kemahiran_internet' => 'Selesai',
+                                    'kemahiran_word' => 'Selesai',
+                                    'kemahiran_email' => 'Selesai',
+                                ];
+                            } else {
+                                $status_semak_jawapan = [
+                                    'ic' => $calon->no_ic,
+                                    'nama' => $calon->nama,
+                                    'status' => $calon->status_penilaian,
+                                    'pengetahuan' => 'Selesai',
+                                    'kemahiran_internet' => 'Selesai',
+                                    'kemahiran_word' => 'Selesai',
+                                    'kemahiran_email' => 'Belum selesai',
+                                ];
+                            }
                         } else {
                             $status_semak_jawapan = [
                                 'ic' => $calon->no_ic,
@@ -81,7 +94,7 @@ class PemantauanpenilaianController extends Controller
                                 'status' => $calon->status_penilaian,
                                 'pengetahuan' => 'Selesai',
                                 'kemahiran_internet' => 'Selesai',
-                                'kemahiran_word' => 'Selesai',
+                                'kemahiran_word' => 'Belum selesai',
                                 'kemahiran_email' => 'Belum selesai',
                             ];
                         }
@@ -91,7 +104,7 @@ class PemantauanpenilaianController extends Controller
                             'nama' => $calon->nama,
                             'status' => $calon->status_penilaian,
                             'pengetahuan' => 'Selesai',
-                            'kemahiran_internet' => 'Selesai',
+                            'kemahiran_internet' => 'Belum selesai',
                             'kemahiran_word' => 'Belum selesai',
                             'kemahiran_email' => 'Belum selesai',
                         ];
