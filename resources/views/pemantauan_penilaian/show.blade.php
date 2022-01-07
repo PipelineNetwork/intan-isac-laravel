@@ -146,6 +146,6 @@
     <script language="javascript">
         setTimeout(function() {
             window.location.reload(1);
-        }, 10000);
+        }, 60000);
     </script>
 @stop

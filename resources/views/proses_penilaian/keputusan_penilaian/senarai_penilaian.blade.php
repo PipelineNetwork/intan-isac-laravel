@@ -39,8 +39,15 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-6">
-                <h5 class="font-weight-bolder">Keputusan Penilaian</h5>
+            <div class="col-12">
+                <div class="row ">
+                    <div class="col-6">
+                        <h5 class="font-weight-bolder">Keputusan Penilaian</h5>
+                    </div>
+                    <div class="col-6 text-end">
+                        <a href="/semak_jawapan" class="btn bg-gradient-primary">Kembali</a>
+                    </div>
+                </div>
             </div>
         </div>
 
