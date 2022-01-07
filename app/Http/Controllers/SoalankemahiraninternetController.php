@@ -263,18 +263,33 @@ class SoalankemahiraninternetController extends Controller
 
     public function page5(Request $request, $id_penilaian, $id_internet)
     {
-        $jawapancalon = new Bankjawapancalon();
+        $jawapancalon = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', Auth::user()->nric)->first();
 
-        $jawapancalon->url_teks = $request->url_teks;
-        $jawapancalon->jawapansebenar_urlteks = $request->jawapansebenar_urlteks;
-        $jawapancalon->markah_urlteks = $request->markah_urlteks;
-        $jawapancalon->carian_teks = $request->carian_teks;
-        $jawapancalon->jawapansebenar_carianteks = $request->jawapansebenar_carianteks;
-        $jawapancalon->markah_carianteks = $request->markah_carianteks;
-        $jawapancalon->user_id = $request->user_id;
-        $jawapancalon->id_soalankemahiraninternet = $id_internet;
-        $jawapancalon->id_penilaian = $id_penilaian;
-        $jawapancalon->ic_calon = Auth::user()->nric;
+        if ($jawapancalon == null) {
+            $jawapancalon = new Bankjawapancalon();
+
+            $jawapancalon->url_teks = $request->url_teks;
+            $jawapancalon->jawapansebenar_urlteks = $request->jawapansebenar_urlteks;
+            $jawapancalon->markah_urlteks = $request->markah_urlteks;
+            $jawapancalon->carian_teks = $request->carian_teks;
+            $jawapancalon->jawapansebenar_carianteks = $request->jawapansebenar_carianteks;
+            $jawapancalon->markah_carianteks = $request->markah_carianteks;
+            $jawapancalon->user_id = $request->user_id;
+            $jawapancalon->id_soalankemahiraninternet = $id_internet;
+            $jawapancalon->id_penilaian = $id_penilaian;
+            $jawapancalon->ic_calon = Auth::user()->nric;
+        } else {
+            $jawapancalon->url_teks = $request->url_teks;
+            $jawapancalon->jawapansebenar_urlteks = $request->jawapansebenar_urlteks;
+            $jawapancalon->markah_urlteks = $request->markah_urlteks;
+            $jawapancalon->carian_teks = $request->carian_teks;
+            $jawapancalon->jawapansebenar_carianteks = $request->jawapansebenar_carianteks;
+            $jawapancalon->markah_carianteks = $request->markah_carianteks;
+            $jawapancalon->user_id = $request->user_id;
+            $jawapancalon->id_soalankemahiraninternet = $id_internet;
+            $jawapancalon->id_penilaian = $id_penilaian;
+            $jawapancalon->ic_calon = Auth::user()->nric;
+        }
 
         // dd($url_teks, $jawapansebenar_urlteks, $markah_urlteks, $carian_teks, $jawapansebenar_carianteks, $markah_carianteks, $user_id, $id_internet, $ic_calon, $id_penilaian);
         $jawapancalon->save();
