@@ -55,7 +55,8 @@
             <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Jawapan Calon (Pengetahuan)</b>
+                        <b class="text-white">Jawapan Calon (Pengetahuan)</b><br>
+                        <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_pengetahuan }}</b>
                     </div>
                     <div class="card-body pt-0">
 
@@ -93,7 +94,8 @@
             <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Jawapan Calon (Kemahiran Internet)</b>
+                        <b class="text-white">Jawapan Calon (Kemahiran Internet)</b><br>
+                        <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_internet }}</b>
                     </div>
                     <div class="card-body pt-0">
 
@@ -148,7 +150,8 @@
             <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Jawapan Calon (Kemahiran Pemprosesan Perkataan)</b>
+                        <b class="text-white">Jawapan Calon (Kemahiran Pemprosesan Perkataan)</b><br>
+                        <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_word }}</b>
                     </div>
                     <div class="card-body pt-0">
                         @php
@@ -633,7 +636,8 @@
             <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Jawapan Calon (Kemahiran E-mel)</b>
+                        <b class="text-white">Jawapan Calon (Kemahiran E-mel)</b><br>
+                        <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_email }}</b>
                     </div>
                     <div class="card-body pt-0">
 
