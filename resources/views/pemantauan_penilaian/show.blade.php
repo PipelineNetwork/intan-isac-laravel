@@ -40,8 +40,11 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-6">
                 <h5 class="font-weight-bolder">Senarai Status Calon</h5>
+            </div>
+            <div class="col-6 text-end">
+                <button class="btn bg-gradient-primary" onClick="window.location.reload();">Refresh</button>
             </div>
         </div>
 
@@ -143,9 +146,9 @@
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
-    <script language="javascript">
+    {{-- <script language="javascript">
         setTimeout(function() {
             window.location.reload(1);
         }, 60000);
-    </script>
+    </script> --}}
 @stop
