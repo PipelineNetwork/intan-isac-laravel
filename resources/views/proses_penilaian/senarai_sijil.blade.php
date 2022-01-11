@@ -76,7 +76,7 @@
                                             <td class="text-sm text-center font-weight-normal">{{ $keputusan->keputusan }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                <a href="/sijil_penilaian/{{ $keputusan->id }}"><?php echo sprintf("%'.05d\n", $keputusan->no_sijil); ?>&emsp;<i
+                                                <a href="/sijil_penilaian/{{ $keputusan->ic_peserta }}/{{ $keputusan->id_penilaian }}"><?php echo sprintf("%'.05d\n", $keputusan->no_sijil); ?>&emsp;<i
                                                         class="far fa-file-pdf fa-lg text-danger"></i></a>
                                                 {{-- <a href="/sijil_isac" class="btn mb-0">Sijil&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a> --}}
                                             </td>

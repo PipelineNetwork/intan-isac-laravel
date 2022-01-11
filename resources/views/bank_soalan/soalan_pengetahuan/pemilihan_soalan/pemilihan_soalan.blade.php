@@ -70,8 +70,8 @@
                                             Disediakan</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Kemaskini
                                         </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Disediakan Oleh
-                                        </th>
+                                        {{-- <th class="text-uppercase text-center font-weight-bolder opacity-7">Disediakan Oleh
+                                        </th> --}}
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
                                     </tr>
                                 </thead>
@@ -94,9 +94,9 @@
                                                 {{ date('d-m-Y', strtotime($pemilihan->TARIKH_CIPTA)) }}</td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ date('d-m-Y', strtotime($pemilihan->TARIKH_KEMASKINI)) }}</td>
-                                            <td class="text-sm text-center font-weight-normal">
+                                            {{-- <td class="text-sm text-center font-weight-normal">
                                                 {{ $pemilihan->ID_PENGGUNA }}
-                                            </td>
+                                            </td> --}}
                                             <td class="text-sm text-center font-weight-normal">
                                                 <a href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan/{{ $pemilihan->ID_PEMILIHAN_SOALAN }}"
                                                     class="btn bg-gradient-info btn-sm mb-0">Kemaskini</a>
@@ -116,7 +116,8 @@
     <script type="text/javascript">
         const dataTableSoalanPengetahuan = new simpleDatatables.DataTable("#datatable_soalan_pengetahuan", {
             // searchable: true,
-            // fixedHeight: true
+            // fixedHeight: true,
+            sortable: false,
         });
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
