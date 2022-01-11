@@ -263,11 +263,16 @@ class BankjawapanpengetahuanController extends Controller
             ->where('id_penilaian', $id)
             ->get()->first();
 
+        $keputusan_calon = KeputusanPenilaian::where('ic_peserta', $ic)
+            ->where('id_penilaian', $id)
+            ->get()->first();
+            
         $ic = $ic;
         return view('proses_penilaian.keputusan_penilaian.senarai_jawapan', [
             'jawapan' => $jawapan,
             'ic' => $ic,
             'jawapan_kemahiran' => $jawapan_kemahiran,
+            'keputusan_calons' => $keputusan_calon,
         ]);
     }
 }
