@@ -32,10 +32,13 @@
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Laporan</a>
                         </li>
                         <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Laporan Penilaian ISAC
+                            Mengikut Kementerian</li>
+                        {{-- <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Laporan Penilaian ISAC
                             Mengikut
-                            Kementerian & Jabatan</li>
+                            Kementerian & Jabatan</li> --}}
                     </ol>
-                    <h5 class="font-weight-bolder">Laporan Penilaian ISAC Mengikut Kementerian & Jabatan</h5>
+                    {{-- <h5 class="font-weight-bolder">Laporan Penilaian ISAC Mengikut Kementerian & Jabatan</h5> --}}
+                    <h5 class="font-weight-bolder">Laporan Penilaian ISAC Mengikut Kementerian</h5>
                 </nav>
             </div>
         </div>
@@ -50,12 +53,12 @@
 
                         <div class="row">
 
-                            <div class="col-2">
+                            <div class="col-4">
                                 <label for="startdate">Tahun</label>
                                 <input class="form-control form-control-sm" type="text" name="tahun"
                                     placeholder="Sila Pilih" id="tahun" autocomplete="off" />
                             </div>
-                            <div class="col-5">
+                            <div class="col-8">
                                 <label for="input_kementerian">Kementerian/Agensi</label>
                                 <select class="form-control form-control-sm" name="input_kementerian"
                                     id="input_kementerian">
@@ -68,7 +71,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-5">
+                            {{-- <div class="col-5">
                                 <label for="input_jabatan">Jabatan</label>
                                 <select class="form-control form-control-sm" name="input_jabatan" id="input_jabatan">
                                     <option hidden selected value="">
@@ -79,7 +82,7 @@
                                             {{ $jabatan->DESCRIPTION1 }}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
                             <div class="col d-flex justify-content-end align-items-end mt-3">
 
                                 <button class="btn  bg-gradient-info text-uppercases mx-2" type="submit" name="search"><i
@@ -108,9 +111,9 @@
                         @if ($check_kementerians != null)
                             <h6 class="text-white" style="text-transform: uppercase">{{ $check_kementerians }}</h6>
                         @endif
-                        @if ($check_jabatans != null)
+                        {{-- @if ($check_jabatans != null)
                             <h6 class="text-white" style="text-transform: uppercase">{{ $check_jabatans }}</h6>
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </div>

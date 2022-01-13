@@ -112,7 +112,7 @@
             <div class=" container-fluid">
                 <div class="row">
                     <div class="col">
-                        <p style="text-align: right; margin-bottom:80px;">No. Sijil:
+                        <p style="text-align: right; margin-bottom:80px; margin-right:15px">No. Sijil:
                             <strong>ISAC/{{ date('m/Y', strtotime($tarikh)) }}/{{ $id_penilaian }}/<?php echo sprintf("%'.03d\n", $no_sijil); ?></strong>
                         </p>
                     </div>
@@ -161,7 +161,7 @@
                             alt="" title="" />
                     </div>
                     <div class="col-6" style="text-align: center">
-                        <img src="{{ public_path('img/cop_intan.jpeg') }}" alt="cop" height="130" style="border-radius: 50px">
+                        <img src="{{ public_path('img/cop_intan.png') }}" alt="cop" height="130" style="border-radius: 50px">
                     </div>
                 </div>
                 <div class="row">
