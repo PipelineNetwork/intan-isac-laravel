@@ -93,7 +93,7 @@
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
                                 <li class="nav-item">
-                                    <a href="/register" class="btn btn-sm  bg-gradient-warning  btn-round mb-0 me-1"
+                                    <a href="/authenticate-ic" class="btn btn-sm  bg-gradient-warning  btn-round mb-0 me-1"
                                         onclick="smoothToPricing('pricing-soft-ui')">DAFTAR SEKARANG</a>
                                 </li>
                             </ul>

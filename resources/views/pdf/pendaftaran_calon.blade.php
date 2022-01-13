@@ -121,13 +121,14 @@
     Tuan/Puan,
     <br><br>
     <span class="text-custom">SURAT TAWARAN PENILAIAN ICT SKILLS ASSESSMENT AND
-        CERTIFICATION (ISAC)</span><br>
+        CERTIFICATION (ISAC)</span><br><br>
+
     <span class="form-inline">Dengan segala hormatnya merujuk kepada perkara
         di atas.
         <br><br>
 
 
-        2. Adalah dimaklumkan bahawa pegawai berikut terpilih untuk menduduki Penilaian ICT Skills Assessment and
+        2. Sukacita dimaklumkan bahawa pegawai berikut terpilih untuk menduduki Penilaian ICT Skills Assessment and
         Certification (ISAC). Maklumat lengkap penilaian adalah seperti berikut :-
         <br><br>
         <table>
@@ -164,7 +165,7 @@
         penilaian. Kegagalan untuk berbuat demikian akan mengakibatkan nama calon
         <span style="font-weight: bold">disenaraihitamkan</span> daripada menduduki penilaian pada masa akan
         datang.
-        Sebarang kemusykilan/masalah, sila hubungi kami melalui emel:
+        Sebarang kemusykilan/masalah, sila hubungi urusetia melalui emel:
         isachelp@intanbk.intan.my.
         <br><br>
         Sekian, terima kasih. <br><br>
@@ -179,7 +180,7 @@
                 Bukit Kiara 50480 Kuala Lumpur <br><br>
             </div>
             <div class="column-side2">
-                <img src="{{ public_path('img/cop_intan.jpeg') }}" alt="cop intan" height="130">
+                <img src="{{ public_path('img/cop_intan.png') }}" alt="cop intan" height="130">
             </div>
         </div>
         <i> *Ini adalah surat cetakan komputer, tidak perlu tandatangan*</i>

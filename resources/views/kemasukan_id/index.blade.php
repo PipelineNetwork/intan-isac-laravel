@@ -1,5 +1,17 @@
 @extends('base')
 @section('content')
+
+    <style>
+        #videoElement {
+            width: 100px;
+            height: 70px;
+            background-color: #666;
+            display: block;
+            position: relative;
+        }
+
+    </style>
+
     <div class="container-fluid py-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -28,6 +40,11 @@
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Penilaian</a></li>
             </ol>
             <h5 class="font-weight-bolder">Penilaian ISAC</h5>
+            <div id="container">
+                <video autoplay="true" id="videoElement">
+
+                </video>
+            </div>
         </nav>
 
         <div class="row">
@@ -59,6 +76,9 @@
                                 </div>
                             </form>
                         </div>
+                        <div class="text-end">
+                            <label>Sila benarkan (allow) kamera di atas dahulu sebelum memasuki penilaian.</em></label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,4 +86,20 @@
     </div>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
+
+    <script>
+        var video = document.querySelector("#videoElement");
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({
+                    video: true
+                })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function(err0r) {
+                    console.log("Something went wrong!");
+                });
+        }
+    </script>
 @stop
