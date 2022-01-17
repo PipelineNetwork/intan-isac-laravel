@@ -74,7 +74,7 @@ class SoalankemahiranemailController extends Controller
         } else {
             $total_markah_internet = $markah_internet;
         }
-        
+
         $markah_word = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $current_user->nric)->select('jumlah_markah_word')->get()->first();
         if ($markah_word == null) {
             $total_markah_word = 0;
@@ -152,15 +152,28 @@ class SoalankemahiranemailController extends Controller
         }
         $jawapancalon->id_soalankemahiranemail = $request->id_soalankemahiranemail;
         $jawapancalon->user_id = $current_user->id;
-        if (!empty($request->file('fail_upload'))) {
-            $muat_naik_fail = $request->file('fail_upload')->store('jawapancalon');
-            $jawapancalon->fail_upload = $muat_naik_fail;
-        }
-        if (!empty($request->file('fail_upload'))) {
-            $jawapancalon->markah_failupload = 1;
+        if ($request->has('fail_upload')) {
+            $jawapancalon['fail_upload'] = '/img/intan.png';
         } else {
-            $jawapancalon->markah_failupload = 0;
+            $jawapancalon['fail_upload'] = 'Tiada Gambar';
         }
+        if ($jawapancalon->fail_upload == 'Tiada Gambar') {
+            $jawapancalon->markah_failupload = 0;
+        } elseif ($jawapancalon->fail_upload == null) {
+            $jawapancalon->markah_failupload = 0;
+        } else {
+            $jawapancalon->markah_failupload = 1;
+        }
+
+        // if (!empty($request->file('fail_upload'))) {
+        //     $muat_naik_fail = $request->file('fail_upload')->store('jawapancalon');
+        //     $jawapancalon->fail_upload = $muat_naik_fail;
+        // }
+        // if (!empty($request->file('fail_upload'))) {
+        //     $jawapancalon->markah_failupload = 1;
+        // } else {
+        //     $jawapancalon->markah_failupload = 0;
+        // }
 
         $jawapancalon->jumlah_markah_internet = (int)$request->markah_internet;
 
@@ -177,7 +190,7 @@ class SoalankemahiranemailController extends Controller
         $jawapancalon->save();
 
         if ($request->timer == null) {
-            return redirect('/soalan-kemahiran-email-page2/'.$id_penilaian);
+            return redirect('/soalan-kemahiran-email-page2/' . $id_penilaian);
         } else {
             $ic = Auth::user()->nric;
             $peserta = MohonPenilaian::where('no_ic', $ic)->first();
@@ -290,10 +303,11 @@ class SoalankemahiranemailController extends Controller
         }
     }
 
-    public function test($id_penilaian){
-        
-        return view('proses_penilaian.soalan_kemahiran.email2',[
-            'id_penilaian'=>$id_penilaian
+    public function test($id_penilaian)
+    {
+
+        return view('proses_penilaian.soalan_kemahiran.email2', [
+            'id_penilaian' => $id_penilaian
         ]);
     }
 }
