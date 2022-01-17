@@ -63,6 +63,7 @@
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Sijil Penilaian
                                         </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,9 +77,41 @@
                                             <td class="text-sm text-center font-weight-normal">{{ $keputusan->keputusan }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                <a href="/sijil_penilaian/{{ $keputusan->ic_peserta }}/{{ $keputusan->id_penilaian }}"><?php echo sprintf("%'.05d\n", $keputusan->no_sijil); ?>&emsp;<i
+                                                <a
+                                                    href="/sijil_penilaian/{{ $keputusan->ic_peserta }}/{{ $keputusan->id_penilaian }}"><?php echo sprintf($keputusan->id_penilaian . '/' . "%'.03d\n", $keputusan->no_sijil); ?>&emsp;<i
                                                         class="far fa-file-pdf fa-lg text-danger"></i></a>
                                                 {{-- <a href="/sijil_isac" class="btn mb-0">Sijil&emsp;<i class="far fa-file-pdf fa-lg text-danger"></i></a> --}}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                <a data-bs-toggle="modal" style="cursor: pointer"
+                                                    data-bs-target="#deleteslip-{{ $keputusan->id }}">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <div class="modal fade" id="deleteslip-{{ $keputusan->id }}"
+                                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body text-center">
+                                                                <i class="far fa-times-circle fa-7x"
+                                                                    style="color: #ea0606"></i>
+                                                                <br>
+                                                                Anda pasti untuk menghapus slip?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn bg-gradient-secondary"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <form method="POST"
+                                                                    action="/keputusan_penilaian/{{ $keputusan->id }}">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <button class="btn btn-danger"
+                                                                        type="submit">Hapus</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -96,7 +129,8 @@
     <script type="text/javascript">
         const dataTableBasickategori = new simpleDatatables.DataTable("#datatable-peserta", {
             searchable: true,
-            fixedHeight: true
+            fixedHeight: true,
+            sortable: false
         });
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

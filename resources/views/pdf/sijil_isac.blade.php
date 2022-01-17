@@ -161,7 +161,7 @@
                             alt="" title="" />
                     </div>
                     <div class="col-6" style="text-align: center">
-                        <img src="{{ public_path('img/cop_intan.png') }}" alt="cop" height="130" style="border-radius: 50px">
+                        <img src="{{ public_path('img/cop_mohor_INTAN_sijil.png') }}" alt="cop" height="130" style="border-radius: 50px">
                     </div>
                 </div>
                 <div class="row">

@@ -160,7 +160,8 @@
     <script type="text/javascript">
         const dataTableBasickategori = new simpleDatatables.DataTable("#datatable-peserta", {
             searchable: true,
-            fixedHeight: true
+            fixedHeight: true,
+            sortable: false
         });
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
