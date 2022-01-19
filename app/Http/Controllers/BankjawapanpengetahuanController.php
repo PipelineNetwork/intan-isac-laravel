@@ -266,13 +266,18 @@ class BankjawapanpengetahuanController extends Controller
         $keputusan_calon = KeputusanPenilaian::where('ic_peserta', $ic)
             ->where('id_penilaian', $id)
             ->get()->first();
-            
+
+        // $markah_keseluruhan_pengetahuan = PemilihanSoalanKumpulan::sum('NILAI_JUMLAH_SOALAN');
+
+        $markah_keseluruhan_pengetahuan = PemilihanSoalan::get()->first();
+        // dd($markah_keseluruhan_pengetahuan);
         $ic = $ic;
         return view('proses_penilaian.keputusan_penilaian.senarai_jawapan', [
             'jawapan' => $jawapan,
             'ic' => $ic,
             'jawapan_kemahiran' => $jawapan_kemahiran,
             'keputusan_calons' => $keputusan_calon,
+            'markah_keseluruhan_pengetahuans' => $markah_keseluruhan_pengetahuan
         ]);
     }
 }

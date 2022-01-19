@@ -58,8 +58,9 @@
                         <b class="text-white">Jawapan Calon (Pengetahuan)</b><br>
                         <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_pengetahuan }}</b>
                     </div>
-                    <div class="card-body pt-0">
-
+                    <div class="card-body">
+                        <b class="text-black mt-3">Markah Penuh: {{ $markah_keseluruhan_pengetahuans->NILAI_JUMLAH_MARKAH }}</b><br>
+                        <b class="text-black">Markah Melepasi: {{ $markah_keseluruhan_pengetahuans->NILAI_MARKAH_LULUS }}</b><br>
                         <div class="table-responsive">
                             <table class="table table-flush" id="datatable-peserta">
                                 <thead>
@@ -97,8 +98,9 @@
                         <b class="text-white">Jawapan Calon (Kemahiran Internet)</b><br>
                         <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_internet }}</b>
                     </div>
-                    <div class="card-body pt-0">
-
+                    <div class="card-body">
+                        <b class="text-black mt-3">Markah Penuh: 2</b><br>
+                        <b class="text-black">Markah Melepasi: 2</b><br>
                         <div class="table-responsive">
                             <table class="table table-flush" id="datatable-jawapan-kemahiran-internet">
                                 <thead>
@@ -153,7 +155,9 @@
                         <b class="text-white">Jawapan Calon (Kemahiran Pemprosesan Perkataan)</b><br>
                         <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_word }}</b>
                     </div>
-                    <div class="card-body pt-0">
+                    <div class="card-body">
+                        <b class="text-black mt-3">Markah Penuh: 9</b><br>
+                        <b class="text-black">Markah Melepasi: 9</b><br>
                         @php
                             use App\Models\Soalankemahiranword;
                         @endphp
@@ -639,8 +643,9 @@
                         <b class="text-white">Jawapan Calon (Kemahiran E-mel)</b><br>
                         <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_email }}</b>
                     </div>
-                    <div class="card-body pt-0">
-
+                    <div class="card-body">
+                        <b class="text-black mt-3">Markah Penuh: 4</b><br>
+                        <b class="text-black">Markah Melepasi: 4</b><br>
                         <div class="table-responsive">
                             <table class="table table-flush" id="datatable-jawapan-kemahiran-email">
                                 <thead>
