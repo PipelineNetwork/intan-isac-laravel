@@ -166,6 +166,141 @@
                 </div>
             </div>
 
+            <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+            <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+            <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+            <script>
+                am4core.ready(function() {
+
+                    // Themes begin
+                    am4core.useTheme(am4themes_animated);
+                    am4core.addLicense('ch-custom-attribution');
+                    // Themes end
+
+                    // Create chart instance
+                    var chart = am4core.create("chartdiv", am4charts.PieChart);
+
+                    // Add and configure Series
+                    var pieSeries = chart.series.push(new am4charts.PieSeries());
+                    pieSeries.dataFields.value = "jumlah";
+                    pieSeries.dataFields.category = "keputusan";
+
+                    // Let's cut a hole in our Pie chart the size of 30% the radius
+                    chart.innerRadius = am4core.percent(30);
+
+                    // Put a thick white border around each Slice
+                    pieSeries.slices.template.stroke = am4core.color("#fff");
+                    pieSeries.slices.template.strokeWidth = 2;
+                    pieSeries.slices.template.strokeOpacity = 1;
+                    pieSeries.slices.template
+                        // change the cursor on hover to make it apparent the object can be interacted with
+                        .cursorOverStyle = [{
+                            "property": "cursor",
+                            "value": "pointer"
+                        }];
+
+                    pieSeries.alignLabels = false;
+                    pieSeries.labels.template.bent = true;
+                    pieSeries.labels.template.radius = 3;
+                    pieSeries.labels.template.padding(0, 0, 0, 0);
+
+                    pieSeries.ticks.template.disabled = true;
+
+                    // Create a base filter effect (as if it's not there) for the hover to return to
+                    var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+                    shadow.opacity = 0;
+
+                    // Create hover state
+                    var hoverState = pieSeries.slices.template.states.getKey(
+                        "hover"); // normally we have to create the hover state, in this case it already exists
+
+                    // Slightly shift the shadow and make it more prominent on hover
+                    var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+                    hoverShadow.opacity = 0.7;
+                    hoverShadow.blur = 5;
+
+                    // Add a legend
+                    chart.legend = new am4charts.Legend();
+
+                    var data = {!! json_encode($graf_lulus_gagals) !!};
+                    chart.data = data;
+
+                    // chart.data = [{
+                    //     "country": "Lithuania",
+                    //     "litres": 501.9
+                    // }, {
+                    //     "country": "Germany",
+                    //     "litres": 165.8
+                    // },];
+
+                }); // end am4core.ready()
+
+                am4core.ready(function() {
+
+                    // Themes begin
+                    am4core.useTheme(am4themes_animated);
+                    // Themes end
+
+                    // Create chart instance
+                    var chart = am4core.create("chart1", am4charts.XYChart);
+                    chart.scrollbarX = new am4core.Scrollbar();
+
+                    var data = {!! json_encode($graf_permohonan_bulanans) !!};
+                    chart.data = data;
+
+                    // Add data
+                    // chart.data = [{
+                    //     "country": "USA",
+                    //     "visits": 3025
+                    // }, {
+                    //     "country": "China",
+                    //     "visits": 1882
+                    // },];
+
+                    // Create axes
+                    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+                    categoryAxis.dataFields.category = "monthname";
+                    categoryAxis.renderer.grid.template.location = 0;
+                    categoryAxis.renderer.minGridDistance = 30;
+                    categoryAxis.renderer.labels.template.horizontalCenter = "right";
+                    categoryAxis.renderer.labels.template.verticalCenter = "middle";
+                    categoryAxis.renderer.labels.template.rotation = 270;
+                    categoryAxis.tooltip.disabled = true;
+                    categoryAxis.renderer.minHeight = 110;
+
+                    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                    valueAxis.renderer.minWidth = 50;
+
+                    // Create series
+                    var series = chart.series.push(new am4charts.ColumnSeries());
+                    series.sequencedInterpolation = true;
+                    series.dataFields.valueY = "jumlah";
+                    series.dataFields.categoryX = "monthname";
+                    series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
+                    series.columns.template.strokeWidth = 0;
+
+                    series.tooltip.pointerOrientation = "vertical";
+
+                    series.columns.template.column.cornerRadiusTopLeft = 10;
+                    series.columns.template.column.cornerRadiusTopRight = 10;
+                    series.columns.template.column.fillOpacity = 0.8;
+
+                    // on hover, make corner radiuses bigger
+                    var hoverState = series.columns.template.column.states.create("hover");
+                    hoverState.properties.cornerRadiusTopLeft = 0;
+                    hoverState.properties.cornerRadiusTopRight = 0;
+                    hoverState.properties.fillOpacity = 1;
+
+                    series.columns.template.adapter.add("fill", function(fill, target) {
+                        return chart.colors.getIndex(target.dataItem.index);
+                    });
+
+                    // Cursor
+                    chart.cursor = new am4charts.XYCursor();
+
+                }); // end am4core.ready()
+            </script>
         @else
             <div class="row">
                 <div class="col">
@@ -298,158 +433,25 @@
                         </div>
                     </div>
                 </div>
-                <iframe id="customer-chatbox"></iframe>
             </div>
+
+            <script src="https://isacsupport.intan.my/chat_widget.js"></script>
+            <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
+                    searchable: true,
+                    fixedHeight: true,
+                    sortable: false
+                });
+            </script>
         @endunlessrole
     </div>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 
-    <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
-            searchable: true,
-            fixedHeight: true,
-            sortable: false
-        });
-    </script>
-
-    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-
-    <script>
-        am4core.ready(function() {
-
-            // Themes begin
-            am4core.useTheme(am4themes_animated);
-            am4core.addLicense('ch-custom-attribution');
-            // Themes end
-
-            // Create chart instance
-            var chart = am4core.create("chartdiv", am4charts.PieChart);
-
-            // Add and configure Series
-            var pieSeries = chart.series.push(new am4charts.PieSeries());
-            pieSeries.dataFields.value = "jumlah";
-            pieSeries.dataFields.category = "keputusan";
-
-            // Let's cut a hole in our Pie chart the size of 30% the radius
-            chart.innerRadius = am4core.percent(30);
-
-            // Put a thick white border around each Slice
-            pieSeries.slices.template.stroke = am4core.color("#fff");
-            pieSeries.slices.template.strokeWidth = 2;
-            pieSeries.slices.template.strokeOpacity = 1;
-            pieSeries.slices.template
-                // change the cursor on hover to make it apparent the object can be interacted with
-                .cursorOverStyle = [{
-                    "property": "cursor",
-                    "value": "pointer"
-                }];
-
-            pieSeries.alignLabels = false;
-            pieSeries.labels.template.bent = true;
-            pieSeries.labels.template.radius = 3;
-            pieSeries.labels.template.padding(0, 0, 0, 0);
-
-            pieSeries.ticks.template.disabled = true;
-
-            // Create a base filter effect (as if it's not there) for the hover to return to
-            var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-            shadow.opacity = 0;
-
-            // Create hover state
-            var hoverState = pieSeries.slices.template.states.getKey(
-                "hover"); // normally we have to create the hover state, in this case it already exists
-
-            // Slightly shift the shadow and make it more prominent on hover
-            var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-            hoverShadow.opacity = 0.7;
-            hoverShadow.blur = 5;
-
-            // Add a legend
-            chart.legend = new am4charts.Legend();
-
-            var data = {!! json_encode($graf_lulus_gagals) !!};
-            chart.data = data;
-
-            // chart.data = [{
-            //     "country": "Lithuania",
-            //     "litres": 501.9
-            // }, {
-            //     "country": "Germany",
-            //     "litres": 165.8
-            // },];
-
-        }); // end am4core.ready()
-
-        am4core.ready(function() {
-
-            // Themes begin
-            am4core.useTheme(am4themes_animated);
-            // Themes end
-
-            // Create chart instance
-            var chart = am4core.create("chart1", am4charts.XYChart);
-            chart.scrollbarX = new am4core.Scrollbar();
-
-            var data = {!! json_encode($graf_permohonan_bulanans) !!};
-            chart.data = data;
-
-            // Add data
-            // chart.data = [{
-            //     "country": "USA",
-            //     "visits": 3025
-            // }, {
-            //     "country": "China",
-            //     "visits": 1882
-            // },];
-
-            // Create axes
-            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-            categoryAxis.dataFields.category = "monthname";
-            categoryAxis.renderer.grid.template.location = 0;
-            categoryAxis.renderer.minGridDistance = 30;
-            categoryAxis.renderer.labels.template.horizontalCenter = "right";
-            categoryAxis.renderer.labels.template.verticalCenter = "middle";
-            categoryAxis.renderer.labels.template.rotation = 270;
-            categoryAxis.tooltip.disabled = true;
-            categoryAxis.renderer.minHeight = 110;
-
-            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-            valueAxis.renderer.minWidth = 50;
-
-            // Create series
-            var series = chart.series.push(new am4charts.ColumnSeries());
-            series.sequencedInterpolation = true;
-            series.dataFields.valueY = "jumlah";
-            series.dataFields.categoryX = "monthname";
-            series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
-            series.columns.template.strokeWidth = 0;
-
-            series.tooltip.pointerOrientation = "vertical";
-
-            series.columns.template.column.cornerRadiusTopLeft = 10;
-            series.columns.template.column.cornerRadiusTopRight = 10;
-            series.columns.template.column.fillOpacity = 0.8;
-
-            // on hover, make corner radiuses bigger
-            var hoverState = series.columns.template.column.states.create("hover");
-            hoverState.properties.cornerRadiusTopLeft = 0;
-            hoverState.properties.cornerRadiusTopRight = 0;
-            hoverState.properties.fillOpacity = 1;
-
-            series.columns.template.adapter.add("fill", function(fill, target) {
-                return chart.colors.getIndex(target.dataItem.index);
-            });
-
-            // Cursor
-            chart.cursor = new am4charts.XYCursor();
-
-        }); // end am4core.ready()
-    </script>
-
-    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
+    {{-- <script src="https://isacsupport.intan.my/chat_widget.js"></script> --}}
+    {{-- <footer>
+        <iframe id="customer-chatbox"></iframe>
+    </footer> --}}
 @stop
