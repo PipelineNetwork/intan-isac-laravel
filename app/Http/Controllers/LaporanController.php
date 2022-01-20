@@ -6718,20 +6718,20 @@ class LaporanController extends Controller
 
         // if ($ministry != null) {
         //     $senarai_keputusan = KeputusanPenilaian::join('mohon_penilaians', 'keputusan_penilaians.ic_peserta', 'mohon_penilaians.no_ic')
-        //     ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
-        //     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
-        //     ->select(DB::raw('count(*) as jumlah'),'keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
-        //     ->where('KOD_KEMENTERIAN', $ministry)
-        //     ->get();
+        //         ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+        //         ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+        //         ->select(DB::raw('count(*) as jumlah'), 'mohon_penilaians.*', 'keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+        //         ->where('KOD_KEMENTERIAN', $ministry)
+        //         ->get();
         // } else {
         //     $senarai_keputusan = KeputusanPenilaian::join('mohon_penilaians', 'keputusan_penilaians.ic_peserta', 'mohon_penilaians.no_ic')
-        //     ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
-        //     ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
-        //     ->select('keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
-        //     ->get();
+        //         ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+        //         ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+        //         ->select('mohon_penilaians.*','keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
+        //         ->get()->toArray();
         // }
 
-
+        // dd($senarai_keputusan);
         return view('laporan.statistik_keseluruhan', [
             'kementerians' => $kementerian,
             'ministrys' => $ministry,
@@ -8066,6 +8066,15 @@ class LaporanController extends Controller
         //tahun semasa
         $tahun_semasa = date('Y');
 
+        //Kampus Utama (INTAN Bukit Kiara)
+        //bil sesi
+        if ($request->tahun != null){
+            $bil_sesi_kampus_utama = Jadual::where('LOKASI', 'Kampus Utama (INTAN Bukit Kiara)')->whereYear('updated_at', $tahun)->count();
+        } else {
+            $bil_sesi_kampus_utama = Jadual::where('LOKASI', 'Kampus Utama (INTAN Bukit Kiara)')->count();
+        }
+
+        // dd($bil_sesi_kampus_utama);
         return view('laporan.keseluruhan_penilaian_isac_mengikut_iac', [
             'tahuns' => $tahun,
             'tahun_semasas' => $tahun_semasa
