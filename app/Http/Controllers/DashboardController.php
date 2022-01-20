@@ -19,9 +19,11 @@ class DashboardController extends Controller
     //
     public function index()
     {
+        $current_date = date('Y-m-d');
         $jaduals = Jadual::orderBy('TARIKH_SESI', 'desc')
-            ->whereYear('TARIKH_SESI', '>=', 2021)
+            ->where('TARIKH_SESI', '>=', $current_date)
             ->get();
+        
         $videodannotas = VideoDanNota::all();
 
         $bil_mohon_jumlah = MohonPenilaian::where('jantina', 'Lelaki')
@@ -72,7 +74,13 @@ class DashboardController extends Controller
             'bil_lulus_jumlahs' => $bil_lulus_jumlah,
             'bil_gagal_jumlahs' => $bil_gagal_jumlah,
             'graf_lulus_gagals' => $graf_lulus_gagal,
-            'graf_permohonan_bulanans' => $graf_permohonan_bulanan
+            'graf_permohonan_bulanans' => $graf_permohonan_bulanan,
+            'bil_pentadbir_sistems' => $bil_pentadbir_sistem,
+            'bil_pentadbir_penilaians' => $bil_pentadbir_penilaian,
+            'bil_penyelarass' => $bil_penyelaras,
+            'bil_pengawass' => $bil_pengawas,
+            'bil_calons' => $bil_calon,
+            'bil_pegawai_korporats' => $bil_pegawai_korporat,
         ]);
     }
 }
