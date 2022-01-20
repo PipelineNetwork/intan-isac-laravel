@@ -70,7 +70,7 @@ class RegisteredUserController extends Controller
         $peserta->NO_KAD_PENGENALAN = $request->nric;
         $peserta->NO_TELEFON_BIMBIT = $request->NO_TELEFON_BIMBIT;
         $peserta->NO_TELEFON_PEJABAT = $request->NO_TELEFON_PEJABAT;
-        $peserta->user_id = $request->user_id;
+        $peserta->user_id = $user->id;
 
         $peserta->save();
 

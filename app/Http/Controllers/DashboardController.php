@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jadual;
 use App\Models\KeputusanPenilaian;
 use App\Models\MohonPenilaian;
+use App\Models\User;
 use App\Models\VideoDanNota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +31,24 @@ class DashboardController extends Controller
         $bil_lulus_jumlah = KeputusanPenilaian::where('keputusan', 'Lulus')->count();
 
         $bil_gagal_jumlah = KeputusanPenilaian::where('keputusan', 'Gagal')->count();
+
+        //bil peranan pentadbir sistem
+        $bil_pentadbir_sistem = User::where('user_group_id', '1')->count();
+
+        //bil peranan pentadbir penilaian
+        $bil_pentadbir_penilaian = User::where('user_group_id', '2')->count();
+
+        //bil peranan penyelaras
+        $bil_penyelaras = User::where('user_group_id', '3')->count();
+
+        //bil peranan pengawas
+        $bil_pengawas = User::where('user_group_id', '4')->count();
+
+        //bil peranan calon
+        $bil_calon = User::where('user_group_id', '5')->count();
+
+        //bil peranan pegawai korporat
+        $bil_pegawai_korporat = User::where('user_group_id', '6')->count();
 
         //graf kelulusan
         $graf_lulus_gagal = KeputusanPenilaian::select('keputusan', DB::raw('count(*) as jumlah'))
