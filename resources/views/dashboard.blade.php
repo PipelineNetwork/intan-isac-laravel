@@ -75,7 +75,7 @@
         @unlessrole('calon')
             <div class="container-fluid py-4">
                 <div class="row">
-                    <div class="col-lg-8 position-relative z-index-2">
+                    <div class="col-lg-10 position-relative z-index-2">
                         <div class="card card-plain mb-4">
                             <div class="card-body p-3">
                                 <div class="row">
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-5 col-sm-6">
+                            <div class="col-lg-4 col-sm-6">
                                 <div class="card  mb-4">
                                     <div class="card-body p-3">
                                         <div class="row">
@@ -115,43 +115,23 @@
                                         <div class="row">
                                             <div class="col-8">
                                                 <div class="numbers">
-                                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Penyelaras</p>
+                                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Pengawas</p>
                                                     <h5 class="font-weight-bolder mb-0">
-                                                        {{ $bil_penyelarass }}
+                                                        {{ $bil_pengawass }}
                                                     </h5>
                                                 </div>
                                             </div>
                                             <div class="col-4 text-end">
                                                 <div
                                                     class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                    <i class="fas fa-user-cog text-lg opacity-10" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card ">
-                                    <div class="card-body p-3">
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <div class="numbers">
-                                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Calon</p>
-                                                    <h5 class="font-weight-bolder mb-0">
-                                                        {{ $bil_calons }}
-                                                    </h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 text-end">
-                                                <div
-                                                    class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                    <i class="fas fa-users text-lg opacity-10" aria-hidden="true"></i>
+                                                    <i class="fas fa-user-clock text-lg opacity-10" aria-hidden="true"></i>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5 col-sm-6 mt-sm-0 mt-4">
+                            <div class="col-lg-4 col-sm-6 mt-sm-0 mt-4">
                                 <div class="card  mb-4">
                                     <div class="card-body p-3">
                                         <div class="row">
@@ -178,16 +158,38 @@
                                         <div class="row">
                                             <div class="col-8">
                                                 <div class="numbers">
-                                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Pengawas</p>
+                                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Calon</p>
                                                     <h5 class="font-weight-bolder mb-0">
-                                                        {{ $bil_pengawass }}
+                                                        {{ $bil_calons }}
                                                     </h5>
                                                 </div>
                                             </div>
                                             <div class="col-4 text-end">
                                                 <div
                                                     class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                    <i class="fas fa-user-clock text-lg opacity-10" aria-hidden="true"></i>
+                                                    <i class="fas fa-users text-lg opacity-10" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 mt-sm-0 mt-4">
+                                <div class="card mb-4">
+                                    <div class="card-body p-3">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <div class="numbers">
+                                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Penyelaras</p>
+                                                    <h5 class="font-weight-bolder mb-0">
+                                                        {{ $bil_penyelarass }}
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                <div
+                                                    class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                                    <i class="fas fa-user-cog text-lg opacity-10" aria-hidden="true"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -216,105 +218,105 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-4">
-                            <div class="col-12 col-lg-10">
-                                <div class="card">
-                                    <div class="card-header" style="background-color:#FFA500;">
-                                        <h5 class="text-white mb-0">Jadual Penilaian</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table align-items-center mb-0 table-flush" id="datatable-basic-admin">
-                                                <thead>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header" style="background-color:#FFA500;">
+                                <h5 class="text-white mb-0">Jadual Penilaian</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table align-items-center mb-0 table-flush" id="datatable-basic-admin">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">No.
+                                                </th>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">
+                                                    Sesi</th>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">
+                                                    Masa</th>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">
+                                                    Tarikh
+                                                    Penilaian
+                                                </th>
+                                                {{-- bawah --}}
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">
+                                                    Bilangan Tempat
+                                                </th>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">
+                                                    Bilangan Calon
+                                                </th>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">
+                                                    Kekosongan</th>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">
+                                                    Platform</th>
+                                                <th class="text-uppercase text-center font-weight-bolder opacity-7">
+                                                    Lokasi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($jaduals as $key => $jadual)
+                                                @if ($jadual->KOD_KATEGORI_PESERTA == '01')
                                                     <tr>
-                                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.
-                                                        </th>
-                                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">
-                                                            Sesi</th>
-                                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">
-                                                            Masa</th>
-                                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">
-                                                            Tarikh
-                                                            Penilaian
-                                                        </th>
-                                                        {{-- bawah --}}
-                                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">
-                                                            Bilangan Tempat
-                                                        </th>
-                                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">
-                                                            Bilangan Calon
-                                                        </th>
-                                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">
-                                                            Kekosongan</th>
-                                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">
-                                                            Platform</th>
-                                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">
-                                                            Lokasi</th>
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            {{ $key + 1 }}.
+                                                        </td>
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            @if ($jadual->KOD_SESI_PENILAIAN == '01')
+                                                                Sesi 01
+                                                            @elseif($jadual->KOD_SESI_PENILAIAN == "02")
+                                                                Sesi 02
+                                                            @elseif($jadual->KOD_SESI_PENILAIAN == "03")
+                                                                Sesi 03
+                                                            @endif
+                                                            {{-- {{ $jadual['KOD_SESI_PENILAIAN'] }} --}}
+                                                        </td>
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            {{ $jadual->KOD_MASA_MULA }} -
+                                                            {{ $jadual->KOD_MASA_TAMAT }}</td>
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            {{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
+                                                        {{-- bwh --}}
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            @if ($jadual->JUMLAH_KESELURUHAN == null)
+                                                                0
+                                                            @else
+                                                                {{ $jadual->JUMLAH_KESELURUHAN }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            @if ($jadual->BILANGAN_CALON == null)
+                                                                0
+                                                            @else
+                                                                {{ $jadual->BILANGAN_CALON }}
+                                                            @endif
+                                                        </td>
+                                                        <?php
+                                                        $jadual->KEKOSONGAN = $jadual->JUMLAH_KESELURUHAN - $jadual->BILANGAN_CALON;
+                                                        ?>
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            @if ($jadual->KEKOSONGAN == null)
+                                                                0
+                                                            @else
+                                                                {{ $jadual->KEKOSONGAN }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            {{ $jadual->platform }}</td>
+                                                        <td class="text-sm text-center font-weight-normal">
+                                                            @if ($jadual['KOD_KEMENTERIAN'] == null)
+                                                                -
+                                                            @else
+                                                                {{ $jadual['LOKASI'] }}
+                                                            @endif
+                                                        </td>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($jaduals as $key => $jadual)
-                                                        @if ($jadual->KOD_KATEGORI_PESERTA == '01')
-                                                            <tr>
-                                                                <td class="text-sm text-center font-weight-normal">
-                                                                    {{ $key + 1 }}.
-                                                                </td>
-                                                                <td class="text-sm text-center font-weight-normal">
-                                                                    @if ($jadual->KOD_SESI_PENILAIAN == '01')
-                                                                        Sesi 01
-                                                                    @elseif($jadual->KOD_SESI_PENILAIAN == "02")
-                                                                        Sesi 02
-                                                                    @elseif($jadual->KOD_SESI_PENILAIAN == "03")
-                                                                        Sesi 03
-                                                                    @endif
-                                                                    {{-- {{ $jadual['KOD_SESI_PENILAIAN'] }} --}}
-                                                                </td>
-                                                                <td class="text-sm text-center font-weight-normal">
-                                                                    {{ $jadual->KOD_MASA_MULA }} -
-                                                                    {{ $jadual->KOD_MASA_TAMAT }}</td>
-                                                                <td class="text-sm text-center font-weight-normal">
-                                                                    {{ date('d-m-Y', strtotime($jadual->TARIKH_SESI)) }}</td>
-                                                                {{-- bwh --}}
-                                                                <td class="text-sm text-center font-weight-normal">
-                                                                    @if ($jadual->JUMLAH_KESELURUHAN == null)
-                                                                        0
-                                                                    @else
-                                                                        {{ $jadual->JUMLAH_KESELURUHAN }}
-                                                                    @endif
-                                                                </td>
-                                                                <td class="text-sm text-center font-weight-normal">
-                                                                    @if ($jadual->BILANGAN_CALON == null)
-                                                                        0
-                                                                    @else
-                                                                        {{ $jadual->BILANGAN_CALON }}
-                                                                    @endif
-                                                                </td>
-                                                                <?php
-                                                                $jadual->KEKOSONGAN = $jadual->JUMLAH_KESELURUHAN - $jadual->BILANGAN_CALON;
-                                                                ?>
-                                                                <td class="text-sm text-center font-weight-normal">
-                                                                    @if ($jadual->KEKOSONGAN == null)
-                                                                        0
-                                                                    @else
-                                                                        {{ $jadual->KEKOSONGAN }}
-                                                                    @endif
-                                                                </td>
-                                                                <td class="text-sm text-center font-weight-normal">
-                                                                    {{ $jadual->platform }}</td>
-                                                                <td class="text-sm text-center font-weight-normal">
-                                                                    @if ($jadual['KOD_KEMENTERIAN'] == null)
-                                                                        -
-                                                                    @else
-                                                                        {{ $jadual['LOKASI'] }}
-                                                                    @endif
-                                                                </td>
-                                                            </tr>
-                                                        @endif
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
