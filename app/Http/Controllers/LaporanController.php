@@ -12,6 +12,7 @@ use App\Models\TambahAduan;
 use App\Models\TambahRayuan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LaporanController extends Controller
@@ -6716,26 +6717,1787 @@ class LaporanController extends Controller
         $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
         $ministry = $request->input_kementerian;
 
-        // if ($ministry != null) {
-        //     $senarai_keputusan = KeputusanPenilaian::join('mohon_penilaians', 'keputusan_penilaians.ic_peserta', 'mohon_penilaians.no_ic')
-        //         ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
-        //         ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
-        //         ->select(DB::raw('count(*) as jumlah'), 'mohon_penilaians.*', 'keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
-        //         ->where('KOD_KEMENTERIAN', $ministry)
-        //         ->get();
-        // } else {
-        //     $senarai_keputusan = KeputusanPenilaian::join('mohon_penilaians', 'keputusan_penilaians.ic_peserta', 'mohon_penilaians.no_ic')
-        //         ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
-        //         ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
-        //         ->select('mohon_penilaians.*','keputusan_penilaians.*', 'pro_peserta.*', 'pro_tempat_tugas.*')
-        //         ->get()->toArray();
-        // }
+        //2021
+        //bil_sesi
+        $bil_sesi_2021 = Jadual::whereYear('TARIKH_SESI', 2021)->count();
 
-        // dd($senarai_keputusan);
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2021 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2021)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2021 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2021)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2021 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2021)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2021 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2021)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2021 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2021)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2021 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2021)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2021 != 0) {
+            $percent_lulus_2021 = number_format((float)($bil_lulus_2021 / $bil_menduduki_2021) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2021 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2021 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2021)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2021 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2021)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2021 != 0) {
+            $percent_gagal_2021 = number_format((float)($bil_gagal_2021 / $bil_menduduki_2021) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2021 = 0;
+        }
+
+        //2022
+        //bil_sesi
+        $bil_sesi_2022 = Jadual::whereYear('TARIKH_SESI', 2022)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2022 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2022)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2022 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2022)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2022 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2022)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2022 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2022)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2022 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2022)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2022 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2022)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2022 != 0) {
+            $percent_lulus_2022 = number_format((float)($bil_lulus_2022 / $bil_menduduki_2022) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2022 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2022 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2022)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2022 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2022)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2022 != 0) {
+            $percent_gagal_2022 = number_format((float)($bil_gagal_2022 / $bil_menduduki_2022) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2022 = 0;
+        }
+
+        //2023
+        //bil_sesi
+        $bil_sesi_2023 = Jadual::whereYear('TARIKH_SESI', 2023)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2023 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2023)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2023 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2023)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2023 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2023)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2023 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2023)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2023 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2023)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2023 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2023)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2023 != 0) {
+            $percent_lulus_2023 = number_format((float)($bil_lulus_2023 / $bil_menduduki_2023) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2023 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2023 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2023)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2023 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2023)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2023 != 0) {
+            $percent_gagal_2023 = number_format((float)($bil_gagal_2023 / $bil_menduduki_2023) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2023 = 0;
+        }
+
+        //2024
+        //bil_sesi
+        $bil_sesi_2024 = Jadual::whereYear('TARIKH_SESI', 2024)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2024 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2024)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2024 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2024)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2024 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2024)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2024 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2024)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2024 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2024)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2024 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2024)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2024 != 0) {
+            $percent_lulus_2024 = number_format((float)($bil_lulus_2024 / $bil_menduduki_2024) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2024 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2024 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2024)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2024 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2024)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2024 != 0) {
+            $percent_gagal_2024 = number_format((float)($bil_gagal_2024 / $bil_menduduki_2024) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2024 = 0;
+        }
+
+        //2025
+        //bil_sesi
+        $bil_sesi_2025 = Jadual::whereYear('TARIKH_SESI', 2025)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2025 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2025)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2025 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2025)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2025 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2025)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2025 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2025)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2025 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2025)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2025 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2025)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2025 != 0) {
+            $percent_lulus_2025 = number_format((float)($bil_lulus_2025 / $bil_menduduki_2025) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2025 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2025 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2025)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2025 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2025)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2025 != 0) {
+            $percent_gagal_2025 = number_format((float)($bil_gagal_2025 / $bil_menduduki_2025) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2025 = 0;
+        }
+
+        //2026
+        //bil_sesi
+        $bil_sesi_2026 = Jadual::whereYear('TARIKH_SESI', 2026)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2026 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2026)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2026 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2026)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2026 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2026)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2026 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2026)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2026 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2026)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2026 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2026)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2026 != 0) {
+            $percent_lulus_2026 = number_format((float)($bil_lulus_2026 / $bil_menduduki_2026) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2026 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2026 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2026)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2026 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2026)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2026 != 0) {
+            $percent_gagal_2026 = number_format((float)($bil_gagal_2026 / $bil_menduduki_2026) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2026 = 0;
+        }
+
+        //2027
+        //bil_sesi
+        $bil_sesi_2027 = Jadual::whereYear('TARIKH_SESI', 2027)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2027 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2027)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2027 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2027)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2027 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2027)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2027 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2027)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2027 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2027)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2027 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2027)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2027 != 0) {
+            $percent_lulus_2027 = number_format((float)($bil_lulus_2027 / $bil_menduduki_2027) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2027 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2027 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2027)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2027 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2027)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2027 != 0) {
+            $percent_gagal_2027 = number_format((float)($bil_gagal_2027 / $bil_menduduki_2027) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2027 = 0;
+        }
+
+        //2028
+        //bil_sesi
+        $bil_sesi_2028 = Jadual::whereYear('TARIKH_SESI', 2028)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2028 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2028)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2028 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2028)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2028 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2028)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2028 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2028)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2028 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2028)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2028 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2028)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2028 != 0) {
+            $percent_lulus_2028 = number_format((float)($bil_lulus_2028 / $bil_menduduki_2028) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2028 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2028 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2028)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2028 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2028)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2028 != 0) {
+            $percent_gagal_2028 = number_format((float)($bil_gagal_2028 / $bil_menduduki_2028) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2028 = 0;
+        }
+
+        //2029
+        //bil_sesi
+        $bil_sesi_2029 = Jadual::whereYear('TARIKH_SESI', 2029)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2029 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2029)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2029 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2029)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2029 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2029)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2029 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2029)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2029 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2029)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2029 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2029)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2029 != 0) {
+            $percent_lulus_2029 = number_format((float)($bil_lulus_2029 / $bil_menduduki_2029) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2029 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2029 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2029)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2029 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2029)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2029 != 0) {
+            $percent_gagal_2029 = number_format((float)($bil_gagal_2029 / $bil_menduduki_2029) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2029 = 0;
+        }
+
+        //2030
+        //bil_sesi
+        $bil_sesi_2030 = Jadual::whereYear('TARIKH_SESI', 2030)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2030 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2030)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2030 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2030)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2030 != 0) {
+            $percent_lulus_2030 = number_format((float)($bil_lulus_2030 / $bil_menduduki_2030) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2030 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2030 != 0) {
+            $percent_gagal_2030 = number_format((float)($bil_gagal_2030 / $bil_menduduki_2030) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2030 = 0;
+        }
+
+        //2030
+        //bil_sesi
+        $bil_sesi_2030 = Jadual::whereYear('TARIKH_SESI', 2030)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2030 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2030)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2030 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2030)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2030 != 0) {
+            $percent_lulus_2030 = number_format((float)($bil_lulus_2030 / $bil_menduduki_2030) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2030 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2030 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2030)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2030 != 0) {
+            $percent_gagal_2030 = number_format((float)($bil_gagal_2030 / $bil_menduduki_2030) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2030 = 0;
+        }
+
+        //2031
+        //bil_sesi
+        $bil_sesi_2031 = Jadual::whereYear('TARIKH_SESI', 2031)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2031 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2031)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2031 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2031)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2031 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2031)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2031 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2031)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2031 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2031)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2031 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2031)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2031 != 0) {
+            $percent_lulus_2031 = number_format((float)($bil_lulus_2031 / $bil_menduduki_2031) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2031 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2031 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2031)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2031 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2031)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2031 != 0) {
+            $percent_gagal_2031 = number_format((float)($bil_gagal_2031 / $bil_menduduki_2031) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2031 = 0;
+        }
+
+        //2032
+        //bil_sesi
+        $bil_sesi_2032 = Jadual::whereYear('TARIKH_SESI', 2032)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2032 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2032)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2032 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2032)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2032 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2032)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2032 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2032)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2032 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2032)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2032 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2032)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2032 != 0) {
+            $percent_lulus_2032 = number_format((float)($bil_lulus_2032 / $bil_menduduki_2032) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2032 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2032 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2032)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2032 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2032)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2032 != 0) {
+            $percent_gagal_2032 = number_format((float)($bil_gagal_2032 / $bil_menduduki_2032) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2032 = 0;
+        }
+
+        //2033
+        //bil_sesi
+        $bil_sesi_2033 = Jadual::whereYear('TARIKH_SESI', 2033)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2033 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2033)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2033 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2033)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2033 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2033)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2033 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2033)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2033 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2033)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2033 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2033)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2033 != 0) {
+            $percent_lulus_2033 = number_format((float)($bil_lulus_2033 / $bil_menduduki_2033) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2033 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2033 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2033)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2033 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2033)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2033 != 0) {
+            $percent_gagal_2033 = number_format((float)($bil_gagal_2033 / $bil_menduduki_2033) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2033 = 0;
+        }
+
+        //2034
+        //bil_sesi
+        $bil_sesi_2034 = Jadual::whereYear('TARIKH_SESI', 2034)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2034 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2034)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2034 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2034)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2034 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2034)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2034 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2034)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2034 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2034)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2034 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2034)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2034 != 0) {
+            $percent_lulus_2034 = number_format((float)($bil_lulus_2034 / $bil_menduduki_2034) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2034 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2034 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2034)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2034 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2034)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2034 != 0) {
+            $percent_gagal_2034 = number_format((float)($bil_gagal_2034 / $bil_menduduki_2034) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2034 = 0;
+        }
+
+        //2035
+        //bil_sesi
+        $bil_sesi_2035 = Jadual::whereYear('TARIKH_SESI', 2035)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2035 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2035)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2035 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2035)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2035 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2035)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2035 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2035)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2035 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2035)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2035 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2035)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2035 != 0) {
+            $percent_lulus_2035 = number_format((float)($bil_lulus_2035 / $bil_menduduki_2035) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2035 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2035 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2035)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2035 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2035)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2035 != 0) {
+            $percent_gagal_2035 = number_format((float)($bil_gagal_2035 / $bil_menduduki_2035) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2035 = 0;
+        }
+
+        //2036
+        //bil_sesi
+        $bil_sesi_2036 = Jadual::whereYear('TARIKH_SESI', 2036)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2036 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2036)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2036 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2036)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2036 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2036)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2036 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2036)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2036 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2036)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2036 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2036)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2036 != 0) {
+            $percent_lulus_2036 = number_format((float)($bil_lulus_2036 / $bil_menduduki_2036) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2036 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2036 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2036)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2036 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2036)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2036 != 0) {
+            $percent_gagal_2036 = number_format((float)($bil_gagal_2036 / $bil_menduduki_2036) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2036 = 0;
+        }
+
+        //2037
+        //bil_sesi
+        $bil_sesi_2037 = Jadual::whereYear('TARIKH_SESI', 2037)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2037 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2037)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2037 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2037)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2037 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2037)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2037 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2037)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2037 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2037)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2037 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2037)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2037 != 0) {
+            $percent_lulus_2037 = number_format((float)($bil_lulus_2037 / $bil_menduduki_2037) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2037 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2037 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2037)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2037 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2037)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2037 != 0) {
+            $percent_gagal_2037 = number_format((float)($bil_gagal_2037 / $bil_menduduki_2037) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2037 = 0;
+        }
+
+        //2038
+        //bil_sesi
+        $bil_sesi_2038 = Jadual::whereYear('TARIKH_SESI', 2038)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2038 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2038)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2038 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2038)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2038 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2038)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2038 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2038)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2038 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2038)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2038 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2038)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2038 != 0) {
+            $percent_lulus_2038 = number_format((float)($bil_lulus_2038 / $bil_menduduki_2038) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2038 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2038 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2038)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2038 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2038)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2038 != 0) {
+            $percent_gagal_2038 = number_format((float)($bil_gagal_2038 / $bil_menduduki_2038) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2038 = 0;
+        }
+
+        //2039
+        //bil_sesi
+        $bil_sesi_2039 = Jadual::whereYear('TARIKH_SESI', 2039)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2039 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2039)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2039 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2039)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2039 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2039)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2039 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2039)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2039 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2039)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2039 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2039)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2039 != 0) {
+            $percent_lulus_2039 = number_format((float)($bil_lulus_2039 / $bil_menduduki_2039) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2039 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2039 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2039)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2039 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2039)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2039 != 0) {
+            $percent_gagal_2039 = number_format((float)($bil_gagal_2039 / $bil_menduduki_2039) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2039 = 0;
+        }
+
+        //2040
+        //bil_sesi
+        $bil_sesi_2040 = Jadual::whereYear('TARIKH_SESI', 2040)->count();
+
+        //bil_memohon
+        if ($ministry != null) {
+            $bil_memohon_2040 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2040)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_memohon_2040 = MohonPenilaian::join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('mohon_penilaians.updated_at', 2040)
+                ->count();
+        }
+
+        //bil menduduki
+        if ($ministry != null) {
+            $bil_menduduki_2040 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2040)
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_menduduki_2040 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2040)
+                ->count();
+        }
+
+        //bil lulus
+        if ($ministry != null) {
+            $bil_lulus_2040 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2040)
+                ->where('keputusan', 'Lulus')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_lulus_2040 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('keputusan_penilaians.updated_at', 2040)
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_2040 != 0) {
+            $percent_lulus_2040 = number_format((float)($bil_lulus_2040 / $bil_menduduki_2040) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_2040 = 0;
+        }
+
+        //bil gagal
+        if ($ministry != null) {
+            $bil_gagal_2040 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('keputusan_penilaians.updated_at', 2040)
+                ->where('keputusan', 'Gagal')
+                ->where('KOD_KEMENTERIAN', $ministry)
+                ->count();
+        } else {
+            $bil_gagal_2040 = KeputusanPenilaian::join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('keputusan_penilaians.updated_at', 2040)
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_2040 != 0) {
+            $percent_gagal_2040 = number_format((float)($bil_gagal_2040 / $bil_menduduki_2040) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_2040 = 0;
+        }
+
         return view('laporan.statistik_keseluruhan', [
             'kementerians' => $kementerian,
             'ministrys' => $ministry,
-            // 'senarai_keputusans' => $senarai_keputusan,
+            'bil_sesi_2021s' => $bil_sesi_2021,
+            'bil_memohon_2021s' => $bil_memohon_2021,
+            'bil_menduduki_2021s' => $bil_menduduki_2021,
+            'bil_lulus_2021s' => $bil_lulus_2021,
+            'percent_lulus_2021s' => $percent_lulus_2021,
+            'bil_gagal_2021s' => $bil_gagal_2021,
+            'percent_gagal_2021s' => $percent_gagal_2021,
+            'bil_sesi_2022s' => $bil_sesi_2022,
+            'bil_memohon_2022s' => $bil_memohon_2022,
+            'bil_menduduki_2022s' => $bil_menduduki_2022,
+            'bil_lulus_2022s' => $bil_lulus_2022,
+            'percent_lulus_2022s' => $percent_lulus_2022,
+            'bil_gagal_2022s' => $bil_gagal_2022,
+            'percent_gagal_2022s' => $percent_gagal_2022,
+            'bil_sesi_2023s' => $bil_sesi_2023,
+            'bil_memohon_2023s' => $bil_memohon_2023,
+            'bil_menduduki_2023s' => $bil_menduduki_2023,
+            'bil_lulus_2023s' => $bil_lulus_2023,
+            'percent_lulus_2023s' => $percent_lulus_2023,
+            'bil_gagal_2023s' => $bil_gagal_2023,
+            'percent_gagal_2023s' => $percent_gagal_2023,
+            'bil_sesi_2024s' => $bil_sesi_2024,
+            'bil_memohon_2024s' => $bil_memohon_2024,
+            'bil_menduduki_2024s' => $bil_menduduki_2024,
+            'bil_lulus_2024s' => $bil_lulus_2024,
+            'percent_lulus_2024s' => $percent_lulus_2024,
+            'bil_gagal_2024s' => $bil_gagal_2024,
+            'percent_gagal_2024s' => $percent_gagal_2024,
+            'bil_sesi_2025s' => $bil_sesi_2025,
+            'bil_memohon_2025s' => $bil_memohon_2025,
+            'bil_menduduki_2025s' => $bil_menduduki_2025,
+            'bil_lulus_2025s' => $bil_lulus_2025,
+            'percent_lulus_2025s' => $percent_lulus_2025,
+            'bil_gagal_2025s' => $bil_gagal_2025,
+            'percent_gagal_2025s' => $percent_gagal_2025,
+            'bil_sesi_2026s' => $bil_sesi_2026,
+            'bil_memohon_2026s' => $bil_memohon_2026,
+            'bil_menduduki_2026s' => $bil_menduduki_2026,
+            'bil_lulus_2026s' => $bil_lulus_2026,
+            'percent_lulus_2026s' => $percent_lulus_2026,
+            'bil_gagal_2026s' => $bil_gagal_2026,
+            'percent_gagal_2026s' => $percent_gagal_2026,
+            'bil_sesi_2027s' => $bil_sesi_2027,
+            'bil_memohon_2027s' => $bil_memohon_2027,
+            'bil_menduduki_2027s' => $bil_menduduki_2027,
+            'bil_lulus_2027s' => $bil_lulus_2027,
+            'percent_lulus_2027s' => $percent_lulus_2027,
+            'bil_gagal_2027s' => $bil_gagal_2027,
+            'percent_gagal_2027s' => $percent_gagal_2027,
+            'bil_sesi_2028s' => $bil_sesi_2028,
+            'bil_memohon_2028s' => $bil_memohon_2028,
+            'bil_menduduki_2028s' => $bil_menduduki_2028,
+            'bil_lulus_2028s' => $bil_lulus_2028,
+            'percent_lulus_2028s' => $percent_lulus_2028,
+            'bil_gagal_2028s' => $bil_gagal_2028,
+            'percent_gagal_2028s' => $percent_gagal_2028,
+            'bil_sesi_2029s' => $bil_sesi_2029,
+            'bil_memohon_2029s' => $bil_memohon_2029,
+            'bil_menduduki_2029s' => $bil_menduduki_2029,
+            'bil_lulus_2029s' => $bil_lulus_2029,
+            'percent_lulus_2029s' => $percent_lulus_2029,
+            'bil_gagal_2029s' => $bil_gagal_2029,
+            'percent_gagal_2029s' => $percent_gagal_2029,
+            'bil_sesi_2030s' => $bil_sesi_2030,
+            'bil_memohon_2030s' => $bil_memohon_2030,
+            'bil_menduduki_2030s' => $bil_menduduki_2030,
+            'bil_lulus_2030s' => $bil_lulus_2030,
+            'percent_lulus_2030s' => $percent_lulus_2030,
+            'bil_gagal_2030s' => $bil_gagal_2030,
+            'percent_gagal_2030s' => $percent_gagal_2030,
+            'bil_sesi_2031s' => $bil_sesi_2031,
+            'bil_memohon_2031s' => $bil_memohon_2031,
+            'bil_menduduki_2031s' => $bil_menduduki_2031,
+            'bil_lulus_2031s' => $bil_lulus_2031,
+            'percent_lulus_2031s' => $percent_lulus_2031,
+            'bil_gagal_2031s' => $bil_gagal_2031,
+            'percent_gagal_2031s' => $percent_gagal_2031,
+            'bil_sesi_2032s' => $bil_sesi_2032,
+            'bil_memohon_2032s' => $bil_memohon_2032,
+            'bil_menduduki_2032s' => $bil_menduduki_2032,
+            'bil_lulus_2032s' => $bil_lulus_2032,
+            'percent_lulus_2032s' => $percent_lulus_2032,
+            'bil_gagal_2032s' => $bil_gagal_2032,
+            'percent_gagal_2032s' => $percent_gagal_2032,
+            'bil_sesi_2033s' => $bil_sesi_2033,
+            'bil_memohon_2033s' => $bil_memohon_2033,
+            'bil_menduduki_2033s' => $bil_menduduki_2033,
+            'bil_lulus_2033s' => $bil_lulus_2033,
+            'percent_lulus_2033s' => $percent_lulus_2033,
+            'bil_gagal_2033s' => $bil_gagal_2033,
+            'percent_gagal_2033s' => $percent_gagal_2033,
+            'bil_sesi_2034s' => $bil_sesi_2034,
+            'bil_memohon_2034s' => $bil_memohon_2034,
+            'bil_menduduki_2034s' => $bil_menduduki_2034,
+            'bil_lulus_2034s' => $bil_lulus_2034,
+            'percent_lulus_2034s' => $percent_lulus_2034,
+            'bil_gagal_2034s' => $bil_gagal_2034,
+            'percent_gagal_2034s' => $percent_gagal_2034,
+            'bil_sesi_2035s' => $bil_sesi_2035,
+            'bil_memohon_2035s' => $bil_memohon_2035,
+            'bil_menduduki_2035s' => $bil_menduduki_2035,
+            'bil_lulus_2035s' => $bil_lulus_2035,
+            'percent_lulus_2035s' => $percent_lulus_2035,
+            'bil_gagal_2035s' => $bil_gagal_2035,
+            'percent_gagal_2035s' => $percent_gagal_2035,
+            'bil_sesi_2036s' => $bil_sesi_2036,
+            'bil_memohon_2036s' => $bil_memohon_2036,
+            'bil_menduduki_2036s' => $bil_menduduki_2036,
+            'bil_lulus_2036s' => $bil_lulus_2036,
+            'percent_lulus_2036s' => $percent_lulus_2036,
+            'bil_gagal_2036s' => $bil_gagal_2036,
+            'percent_gagal_2036s' => $percent_gagal_2036,
+            'bil_sesi_2037s' => $bil_sesi_2037,
+            'bil_memohon_2037s' => $bil_memohon_2037,
+            'bil_menduduki_2037s' => $bil_menduduki_2037,
+            'bil_lulus_2037s' => $bil_lulus_2037,
+            'percent_lulus_2037s' => $percent_lulus_2037,
+            'bil_gagal_2037s' => $bil_gagal_2037,
+            'percent_gagal_2037s' => $percent_gagal_2037,
+            'bil_sesi_2038s' => $bil_sesi_2038,
+            'bil_memohon_2038s' => $bil_memohon_2038,
+            'bil_menduduki_2038s' => $bil_menduduki_2038,
+            'bil_lulus_2038s' => $bil_lulus_2038,
+            'percent_lulus_2038s' => $percent_lulus_2038,
+            'bil_gagal_2038s' => $bil_gagal_2038,
+            'percent_gagal_2038s' => $percent_gagal_2038,
+            'bil_sesi_2039s' => $bil_sesi_2039,
+            'bil_memohon_2039s' => $bil_memohon_2039,
+            'bil_menduduki_2039s' => $bil_menduduki_2039,
+            'bil_lulus_2039s' => $bil_lulus_2039,
+            'percent_lulus_2039s' => $percent_lulus_2039,
+            'bil_gagal_2039s' => $bil_gagal_2039,
+            'percent_gagal_2039s' => $percent_gagal_2039,
+            'bil_sesi_2040s' => $bil_sesi_2040,
+            'bil_memohon_2040s' => $bil_memohon_2040,
+            'bil_menduduki_2040s' => $bil_menduduki_2040,
+            'bil_lulus_2040s' => $bil_lulus_2040,
+            'percent_lulus_2040s' => $percent_lulus_2040,
+            'bil_gagal_2040s' => $bil_gagal_2040,
+            'percent_gagal_2040s' => $percent_gagal_2040,
         ]);
     }
 
@@ -8051,10 +9813,10692 @@ class LaporanController extends Controller
 
         $kategori = $request->input_kategori_peserta;
 
+        //Jabatan Perdana Menteri
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_jabatan_perdana_menteri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_jabatan_perdana_menteri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_jabatan_perdana_menteri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_jabatan_perdana_menteri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_jabatan_perdana_menteri != 0) {
+            $percent_lulus_jabatan_perdana_menteri = number_format((float)($bil_lulus_jabatan_perdana_menteri / $bil_menduduki_jabatan_perdana_menteri) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_jabatan_perdana_menteri = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_jabatan_perdana_menteri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Perdana Menteri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_jabatan_perdana_menteri != 0) {
+            $percent_gagal_jabatan_perdana_menteri = number_format((float)($bil_gagal_jabatan_perdana_menteri / $bil_menduduki_jabatan_perdana_menteri) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_jabatan_perdana_menteri = 0;
+        }
+
+        //Kementerian Kewangan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_kewangan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_kewangan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_kewangan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_kewangan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_kewangan != 0) {
+            $percent_lulus_kementerian_kewangan = number_format((float)($bil_lulus_kementerian_kewangan / $bil_menduduki_kementerian_kewangan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_kewangan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_kewangan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_kewangan != 0) {
+            $percent_gagal_kementerian_kewangan = number_format((float)($bil_gagal_kementerian_kewangan / $bil_menduduki_kementerian_kewangan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_kewangan = 0;
+        }
+
+        //Kementerian Pengangkutan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pengangkutan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pengangkutan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pengangkutan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pengangkutan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pengangkutan != 0) {
+            $percent_lulus_kementerian_pengangkutan = number_format((float)($bil_lulus_kementerian_pengangkutan / $bil_menduduki_kementerian_pengangkutan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pengangkutan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pengangkutan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengangkutan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pengangkutan != 0) {
+            $percent_gagal_kementerian_pengangkutan = number_format((float)($bil_gagal_kementerian_pengangkutan / $bil_menduduki_kementerian_pengangkutan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pengangkutan = 0;
+        }
+
+        //Kementerian Kerja Raya
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_kerja_raya = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_kerja_raya = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_kerja_raya = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_kerja_raya = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_kerja_raya != 0) {
+            $percent_lulus_kementerian_kerja_raya = number_format((float)($bil_lulus_kementerian_kerja_raya / $bil_menduduki_kementerian_kerja_raya) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_kerja_raya = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_kerja_raya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerja Raya')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_kerja_raya != 0) {
+            $percent_gagal_kementerian_kerja_raya = number_format((float)($bil_gagal_kementerian_kerja_raya / $bil_menduduki_kementerian_kerja_raya) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_kerja_raya = 0;
+        }
+
+        //Kementerian Perdagangan Antarabangsa Dan Industri
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_perd_antarabangsa_industri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_perd_antarabangsa_industri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_perd_antarabangsa_industri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_perd_antarabangsa_industri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_perd_antarabangsa_industri != 0) {
+            $percent_lulus_kementerian_perd_antarabangsa_industri = number_format((float)($bil_lulus_kementerian_perd_antarabangsa_industri / $bil_menduduki_kementerian_perd_antarabangsa_industri) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_perd_antarabangsa_industri = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_perd_antarabangsa_industri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Antarabangsa Dan Industri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_perd_antarabangsa_industri != 0) {
+            $percent_gagal_kementerian_perd_antarabangsa_industri = number_format((float)($bil_gagal_kementerian_perd_antarabangsa_industri / $bil_menduduki_kementerian_perd_antarabangsa_industri) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_perd_antarabangsa_industri = 0;
+        }
+
+        //Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_perd_dalam_negeri_hal_ehwal != 0) {
+            $percent_lulus_kementerian_perd_dalam_negeri_hal_ehwal = number_format((float)($bil_lulus_kementerian_perd_dalam_negeri_hal_ehwal / $bil_menduduki_kementerian_perd_dalam_negeri_hal_ehwal) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_perd_dalam_negeri_hal_ehwal = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_perd_dalam_negeri_hal_ehwal = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perdagangan Dalam Negeri Dan Hal Ehwal Pengguna')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_perd_dalam_negeri_hal_ehwal != 0) {
+            $percent_gagal_kementerian_perd_dalam_negeri_hal_ehwal = number_format((float)($bil_gagal_kementerian_perd_dalam_negeri_hal_ehwal / $bil_menduduki_kementerian_perd_dalam_negeri_hal_ehwal) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_perd_dalam_negeri_hal_ehwal = 0;
+        }
+
+        //Kementerian Komunikasi dan Multimedia Malaysia
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_komunikasi_multimedia = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_komunikasi_multimedia = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_komunikasi_multimedia = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_komunikasi_multimedia = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_komunikasi_multimedia != 0) {
+            $percent_lulus_kementerian_komunikasi_multimedia = number_format((float)($bil_lulus_kementerian_komunikasi_multimedia / $bil_menduduki_kementerian_komunikasi_multimedia) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_komunikasi_multimedia = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_komunikasi_multimedia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Komunikasi dan Multimedia Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_komunikasi_multimedia != 0) {
+            $percent_gagal_kementerian_komunikasi_multimedia = number_format((float)($bil_gagal_kementerian_komunikasi_multimedia / $bil_menduduki_kementerian_komunikasi_multimedia) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_komunikasi_multimedia = 0;
+        }
+
+        //Kementerian Sumber Manusia
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_sumber_manusia = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_sumber_manusia = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_sumber_manusia = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_sumber_manusia = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_sumber_manusia != 0) {
+            $percent_lulus_kementerian_sumber_manusia = number_format((float)($bil_lulus_kementerian_sumber_manusia / $bil_menduduki_kementerian_sumber_manusia) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_sumber_manusia = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_sumber_manusia = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Sumber Manusia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_sumber_manusia != 0) {
+            $percent_gagal_kementerian_sumber_manusia = number_format((float)($bil_gagal_kementerian_sumber_manusia / $bil_menduduki_kementerian_sumber_manusia) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_sumber_manusia = 0;
+        }
+
+        //Kementerian Perumahan Dan Kerajaan Tempatan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_perumahan_kerajaan_tempatan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_perumahan_kerajaan_tempatan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_perumahan_kerajaan_tempatan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_perumahan_kerajaan_tempatan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_perumahan_kerajaan_tempatan != 0) {
+            $percent_lulus_kementerian_perumahan_kerajaan_tempatan = number_format((float)($bil_lulus_kementerian_perumahan_kerajaan_tempatan / $bil_menduduki_kementerian_perumahan_kerajaan_tempatan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_perumahan_kerajaan_tempatan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_perumahan_kerajaan_tempatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Dan Kerajaan Tempatan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_perumahan_kerajaan_tempatan != 0) {
+            $percent_gagal_kementerian_perumahan_kerajaan_tempatan = number_format((float)($bil_gagal_kementerian_perumahan_kerajaan_tempatan / $bil_menduduki_kementerian_perumahan_kerajaan_tempatan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_perumahan_kerajaan_tempatan = 0;
+        }
+
+        //Kementerian Pertahanan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pertahanan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pertahanan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pertahanan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pertahanan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pertahanan != 0) {
+            $percent_lulus_kementerian_pertahanan = number_format((float)($bil_lulus_kementerian_pertahanan / $bil_menduduki_kementerian_pertahanan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pertahanan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pertahanan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertahanan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pertahanan != 0) {
+            $percent_gagal_kementerian_pertahanan = number_format((float)($bil_gagal_kementerian_pertahanan / $bil_menduduki_kementerian_pertahanan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pertahanan = 0;
+        }
+
+        //Kementerian Luar Negeri
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_luar_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_luar_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_luar_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_luar_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_luar_negeri != 0) {
+            $percent_lulus_kementerian_luar_negeri = number_format((float)($bil_lulus_kementerian_luar_negeri / $bil_menduduki_kementerian_luar_negeri) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_luar_negeri = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_luar_negeri != 0) {
+            $percent_gagal_kementerian_luar_negeri = number_format((float)($bil_gagal_kementerian_luar_negeri / $bil_menduduki_kementerian_luar_negeri) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_luar_negeri = 0;
+        }
+
+        //Kementerian Belia Dan Sukan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_belia_sukan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_belia_sukan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_belia_sukan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_belia_sukan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_belia_sukan != 0) {
+            $percent_lulus_kementerian_belia_sukan = number_format((float)($bil_lulus_kementerian_belia_sukan / $bil_menduduki_kementerian_belia_sukan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_belia_sukan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_belia_sukan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Belia Dan Sukan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_belia_sukan != 0) {
+            $percent_gagal_kementerian_belia_sukan = number_format((float)($bil_gagal_kementerian_belia_sukan / $bil_menduduki_kementerian_belia_sukan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_belia_sukan = 0;
+        }
+
+        //Kementerian Kesihatan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_luar_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_luar_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_luar_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_luar_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_luar_negeri != 0) {
+            $percent_lulus_kementerian_luar_negeri = number_format((float)($bil_lulus_kementerian_luar_negeri / $bil_menduduki_kementerian_luar_negeri) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_luar_negeri = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_luar_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Luar Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_luar_negeri != 0) {
+            $percent_gagal_kementerian_luar_negeri = number_format((float)($bil_gagal_kementerian_luar_negeri / $bil_menduduki_kementerian_luar_negeri) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_luar_negeri = 0;
+        }
+
+        //Kementerian Belia Dan Sukan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_kesihatan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_kesihatan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_kesihatan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_kesihatan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_kesihatan != 0) {
+            $percent_lulus_kementerian_kesihatan = number_format((float)($bil_lulus_kementerian_kesihatan / $bil_menduduki_kementerian_kesihatan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_kesihatan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_kesihatan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesihatan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_kesihatan != 0) {
+            $percent_gagal_kementerian_kesihatan = number_format((float)($bil_gagal_kementerian_kesihatan / $bil_menduduki_kementerian_kesihatan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_kesihatan = 0;
+        }
+
+        //Kementerian Perusahaan Awam
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_perusahaan_awam = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_perusahaan_awam = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_perusahaan_awam = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_perusahaan_awam = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_perusahaan_awam != 0) {
+            $percent_lulus_kementerian_perusahaan_awam = number_format((float)($bil_lulus_kementerian_perusahaan_awam / $bil_menduduki_kementerian_perusahaan_awam) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_perusahaan_awam = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_perusahaan_awam = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan Awam')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_perusahaan_awam != 0) {
+            $percent_gagal_kementerian_perusahaan_awam = number_format((float)($bil_gagal_kementerian_perusahaan_awam / $bil_menduduki_kementerian_perusahaan_awam) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_perusahaan_awam = 0;
+        }
+
+        //Kementerian Wilayah Persekutuan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_wilayah_perseketuan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_wilayah_perseketuan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_wilayah_perseketuan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_wilayah_perseketuan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_wilayah_perseketuan != 0) {
+            $percent_lulus_kementerian_wilayah_perseketuan = number_format((float)($bil_lulus_kementerian_wilayah_perseketuan / $bil_menduduki_kementerian_wilayah_perseketuan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_wilayah_perseketuan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_wilayah_perseketuan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Wilayah Persekutuan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_wilayah_perseketuan != 0) {
+            $percent_gagal_kementerian_wilayah_perseketuan = number_format((float)($bil_gagal_kementerian_wilayah_perseketuan / $bil_menduduki_kementerian_wilayah_perseketuan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_wilayah_perseketuan = 0;
+        }
+
+        //Kementerian Undang-Undang/Kehakiman
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_undang_kehakiman = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_undang_kehakiman = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_undang_kehakiman = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_undang_kehakiman = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_undang_kehakiman != 0) {
+            $percent_lulus_kementerian_undang_kehakiman = number_format((float)($bil_lulus_kementerian_undang_kehakiman / $bil_menduduki_kementerian_undang_kehakiman) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_undang_kehakiman = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_undang_kehakiman = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Undang-Undang/Kehakiman')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_undang_kehakiman != 0) {
+            $percent_gagal_kementerian_undang_kehakiman = number_format((float)($bil_gagal_kementerian_undang_kehakiman / $bil_menduduki_kementerian_undang_kehakiman) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_undang_kehakiman = 0;
+        }
+
+        //Jabatan Yang Tiada Berkementerian
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_jabatan_tiada_kementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_jabatan_tiada_kementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_jabatan_tiada_kementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_jabatan_tiada_kementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_jabatan_tiada_kementerian != 0) {
+            $percent_lulus_jabatan_tiada_kementerian = number_format((float)($bil_lulus_jabatan_tiada_kementerian / $bil_menduduki_jabatan_tiada_kementerian) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_jabatan_tiada_kementerian = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_jabatan_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_jabatan_tiada_kementerian != 0) {
+            $percent_gagal_jabatan_tiada_kementerian = number_format((float)($bil_gagal_jabatan_tiada_kementerian / $bil_menduduki_jabatan_tiada_kementerian) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_jabatan_tiada_kementerian = 0;
+        }
+
+        //Kementerian Hal Ehwal Dalam Negeri
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_hal_ehwal_dalam_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_hal_ehwal_dalam_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_hal_ehwal_dalam_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_hal_ehwal_dalam_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_hal_ehwal_dalam_negeri != 0) {
+            $percent_lulus_kementerian_hal_ehwal_dalam_negeri = number_format((float)($bil_lulus_kementerian_hal_ehwal_dalam_negeri / $bil_menduduki_kementerian_hal_ehwal_dalam_negeri) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_hal_ehwal_dalam_negeri = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_hal_ehwal_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Hal Ehwal Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_hal_ehwal_dalam_negeri != 0) {
+            $percent_gagal_kementerian_hal_ehwal_dalam_negeri = number_format((float)($bil_gagal_kementerian_hal_ehwal_dalam_negeri / $bil_menduduki_kementerian_hal_ehwal_dalam_negeri) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_hal_ehwal_dalam_negeri = 0;
+        }
+
+        //Kementerian Dalam Negeri
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_dalam_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_dalam_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_dalam_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_dalam_negeri = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_dalam_negeri != 0) {
+            $percent_lulus_kementerian_dalam_negeri = number_format((float)($bil_lulus_kementerian_dalam_negeri / $bil_menduduki_kementerian_dalam_negeri) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_dalam_negeri = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_dalam_negeri = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Dalam Negeri')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_dalam_negeri != 0) {
+            $percent_gagal_kementerian_dalam_negeri = number_format((float)($bil_gagal_kementerian_dalam_negeri / $bil_menduduki_kementerian_dalam_negeri) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_dalam_negeri = 0;
+        }
+
+        //Kementerian Perusahaan, Perladangan dan Komuditi
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_perusahaan_perladangan_komuditi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_perusahaan_perladangan_komuditi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_perusahaan_perladangan_komuditi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_perusahaan_perladangan_komuditi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_perusahaan_perladangan_komuditi != 0) {
+            $percent_lulus_kementerian_perusahaan_perladangan_komuditi = number_format((float)($bil_lulus_kementerian_perusahaan_perladangan_komuditi / $bil_menduduki_kementerian_perusahaan_perladangan_komuditi) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_perusahaan_perladangan_komuditi = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_perusahaan_perladangan_komuditi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perusahaan, Perladangan dan Komuditi')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_perusahaan_perladangan_komuditi != 0) {
+            $percent_gagal_kementerian_perusahaan_perladangan_komuditi = number_format((float)($bil_gagal_kementerian_perusahaan_perladangan_komuditi / $bil_menduduki_kementerian_perusahaan_perladangan_komuditi) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_perusahaan_perladangan_komuditi = 0;
+        }
+
+        //Kementerian Pembangunan Usahawan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_usahawan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_usahawan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_usahawan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_usahawan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_usahawan != 0) {
+            $percent_lulus_kementerian_pembangunan_usahawan = number_format((float)($bil_lulus_kementerian_pembangunan_usahawan / $bil_menduduki_kementerian_pembangunan_usahawan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_usahawan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_usahawan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Usahawan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_usahawan != 0) {
+            $percent_gagal_kementerian_pembangunan_usahawan = number_format((float)($bil_gagal_kementerian_pembangunan_usahawan / $bil_menduduki_kementerian_pembangunan_usahawan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_usahawan = 0;
+        }
+
+        //Kementerian Pertanian dan Industri Asas Tani
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pertanian_asas_tani = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pertanian_asas_tani = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pertanian_asas_tani = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pertanian_asas_tani = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pertanian_asas_tani != 0) {
+            $percent_lulus_kementerian_pertanian_asas_tani = number_format((float)($bil_lulus_kementerian_pertanian_asas_tani / $bil_menduduki_kementerian_pertanian_asas_tani) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pertanian_asas_tani = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pertanian_asas_tani = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian dan Industri Asas Tani')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pertanian_asas_tani != 0) {
+            $percent_gagal_kementerian_pertanian_asas_tani = number_format((float)($bil_gagal_kementerian_pertanian_asas_tani / $bil_menduduki_kementerian_pertanian_asas_tani) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pertanian_asas_tani = 0;
+        }
+
+        //Kementerian Pelajaran
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pelajaran = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pelajaran = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pelajaran = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pelajaran = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pelajaran != 0) {
+            $percent_lulus_kementerian_pelajaran = number_format((float)($bil_lulus_kementerian_pelajaran / $bil_menduduki_kementerian_pelajaran) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pelajaran = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pelajaran = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelajaran')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pelajaran != 0) {
+            $percent_gagal_kementerian_pelajaran = number_format((float)($bil_gagal_kementerian_pelajaran / $bil_menduduki_kementerian_pelajaran) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pelajaran = 0;
+        }
+
+        //Kementerian Pendidikan Malaysia
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pendidikan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pendidikan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pendidikan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pendidikan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pendidikan != 0) {
+            $percent_lulus_kementerian_pendidikan = number_format((float)($bil_lulus_kementerian_pendidikan / $bil_menduduki_kementerian_pendidikan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pendidikan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pendidikan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pendidikan Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pendidikan != 0) {
+            $percent_gagal_kementerian_pendidikan = number_format((float)($bil_gagal_kementerian_pendidikan / $bil_menduduki_kementerian_pendidikan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pendidikan = 0;
+        }
+
+        //Kementerian Kesenian, Kebudayaan Dan Warisan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_kesenian_kebudayaan_warisan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_kesenian_kebudayaan_warisan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_kesenian_kebudayaan_warisan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_kesenian_kebudayaan_warisan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_kesenian_kebudayaan_warisan != 0) {
+            $percent_lulus_kementerian_kesenian_kebudayaan_warisan = number_format((float)($bil_lulus_kementerian_kesenian_kebudayaan_warisan / $bil_menduduki_kementerian_kesenian_kebudayaan_warisan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_kesenian_kebudayaan_warisan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_kesenian_kebudayaan_warisan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kesenian, Kebudayaan Dan Warisan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_kesenian_kebudayaan_warisan != 0) {
+            $percent_gagal_kementerian_kesenian_kebudayaan_warisan = number_format((float)($bil_gagal_kementerian_kesenian_kebudayaan_warisan / $bil_menduduki_kementerian_kesenian_kebudayaan_warisan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_kesenian_kebudayaan_warisan = 0;
+        }
+
+        //Kementerian Pelancongan, Seni Dan Budaya Malaysia
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pelancongan_seni_budaya = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pelancongan_seni_budaya = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pelancongan_seni_budaya = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pelancongan_seni_budaya = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pelancongan_seni_budaya != 0) {
+            $percent_lulus_kementerian_pelancongan_seni_budaya = number_format((float)($bil_lulus_kementerian_pelancongan_seni_budaya / $bil_menduduki_kementerian_pelancongan_seni_budaya) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pelancongan_seni_budaya = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pelancongan_seni_budaya = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Seni Dan Budaya Malaysia')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pelancongan_seni_budaya != 0) {
+            $percent_gagal_kementerian_pelancongan_seni_budaya = number_format((float)($bil_gagal_kementerian_pelancongan_seni_budaya / $bil_menduduki_kementerian_pelancongan_seni_budaya) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pelancongan_seni_budaya = 0;
+        }
+
+        //Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_tenaga_sains_teknologi_alam_sekitar != 0) {
+            $percent_lulus_kementerian_tenaga_sains_teknologi_alam_sekitar = number_format((float)($bil_lulus_kementerian_tenaga_sains_teknologi_alam_sekitar / $bil_menduduki_kementerian_tenaga_sains_teknologi_alam_sekitar) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_tenaga_sains_teknologi_alam_sekitar = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_tenaga_sains_teknologi_alam_sekitar = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Tenaga, Sains, Teknologi, Alam Sekitar & Perubahan Iklim (MESTECC)')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_tenaga_sains_teknologi_alam_sekitar != 0) {
+            $percent_gagal_kementerian_tenaga_sains_teknologi_alam_sekitar = number_format((float)($bil_gagal_kementerian_tenaga_sains_teknologi_alam_sekitar / $bil_menduduki_kementerian_tenaga_sains_teknologi_alam_sekitar) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_tenaga_sains_teknologi_alam_sekitar = 0;
+        }
+
+        //Kementerian Kemajuan Luar Bandar dan Wilayah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_luar_bandar_wilayah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_luar_bandar_wilayah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_luar_bandar_wilayah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_luar_bandar_wilayah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_luar_bandar_wilayah != 0) {
+            $percent_lulus_kementerian_luar_bandar_wilayah = number_format((float)($bil_lulus_kementerian_luar_bandar_wilayah / $bil_menduduki_kementerian_luar_bandar_wilayah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_luar_bandar_wilayah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_luar_bandar_wilayah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kemajuan Luar Bandar dan Wilayah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_luar_bandar_wilayah != 0) {
+            $percent_gagal_kementerian_luar_bandar_wilayah = number_format((float)($bil_gagal_kementerian_luar_bandar_wilayah / $bil_menduduki_kementerian_luar_bandar_wilayah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_luar_bandar_wilayah = 0;
+        }
+
+        //Kementerian Air Tanah dan Sumber Asli
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_air_tanah_sumber_asli = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_air_tanah_sumber_asli = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_air_tanah_sumber_asli = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_air_tanah_sumber_asli = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_air_tanah_sumber_asli != 0) {
+            $percent_lulus_kementerian_air_tanah_sumber_asli = number_format((float)($bil_lulus_kementerian_air_tanah_sumber_asli / $bil_menduduki_kementerian_air_tanah_sumber_asli) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_air_tanah_sumber_asli = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_air_tanah_sumber_asli = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Air Tanah dan Sumber Asli')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_air_tanah_sumber_asli != 0) {
+            $percent_gagal_kementerian_air_tanah_sumber_asli = number_format((float)($bil_gagal_kementerian_air_tanah_sumber_asli / $bil_menduduki_kementerian_air_tanah_sumber_asli) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_air_tanah_sumber_asli = 0;
+        }
+
+        //Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_dalam_negeri_koperasi != 0) {
+            $percent_lulus_kementerian_pembangunan_dalam_negeri_koperasi = number_format((float)($bil_lulus_kementerian_pembangunan_dalam_negeri_koperasi / $bil_menduduki_kementerian_pembangunan_dalam_negeri_koperasi) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_dalam_negeri_koperasi = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_dalam_negeri_koperasi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan dalam Negeri, Koperasi dan Kepenggunaan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_dalam_negeri_koperasi != 0) {
+            $percent_gagal_kementerian_pembangunan_dalam_negeri_koperasi = number_format((float)($bil_gagal_kementerian_pembangunan_dalam_negeri_koperasi / $bil_menduduki_kementerian_pembangunan_dalam_negeri_koperasi) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_dalam_negeri_koperasi = 0;
+        }
+
+        //Kementerian Pembangunan Wanita, Keluarga dan Masyarakat
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_wanita_keluarga_masyarakat != 0) {
+            $percent_lulus_kementerian_pembangunan_wanita_keluarga_masyarakat = number_format((float)($bil_lulus_kementerian_pembangunan_wanita_keluarga_masyarakat / $bil_menduduki_kementerian_pembangunan_wanita_keluarga_masyarakat) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_wanita_keluarga_masyarakat = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_wanita_keluarga_masyarakat = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Wanita, Keluarga dan Masyarakat')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_wanita_keluarga_masyarakat != 0) {
+            $percent_gagal_kementerian_pembangunan_wanita_keluarga_masyarakat = number_format((float)($bil_gagal_kementerian_pembangunan_wanita_keluarga_masyarakat / $bil_menduduki_kementerian_pembangunan_wanita_keluarga_masyarakat) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_wanita_keluarga_masyarakat = 0;
+        }
+
+        //Pentadbiran Kerajaan Negeri Johor
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_johor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_johor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_johor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_johor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_johor != 0) {
+            $percent_lulus_pejabat_johor = number_format((float)($bil_lulus_pejabat_johor / $bil_menduduki_pejabat_johor) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_johor = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_johor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Johor')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_johor != 0) {
+            $percent_gagal_pejabat_johor = number_format((float)($bil_gagal_pejabat_johor / $bil_menduduki_pejabat_johor) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_johor = 0;
+        }
+
+        //Pentadbiran Kerajaan Negeri Kedah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_kedah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_kedah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_kedah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_kedah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_kedah != 0) {
+            $percent_lulus_pejabat_kedah = number_format((float)($bil_lulus_pejabat_kedah / $bil_menduduki_pejabat_kedah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_kedah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_kedah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kedah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_kedah != 0) {
+            $percent_gagal_pejabat_kedah = number_format((float)($bil_gagal_pejabat_kedah / $bil_menduduki_pejabat_kedah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_kedah = 0;
+        }
+
+        //Pentadbiran Kerajaan Negeri Kelantan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_kelantan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_kelantan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_kelantan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_kelantan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_kelantan != 0) {
+            $percent_lulus_pejabat_kelantan = number_format((float)($bil_lulus_pejabat_kelantan / $bil_menduduki_pejabat_kelantan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_kelantan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_kelantan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Kelantan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_kelantan != 0) {
+            $percent_gagal_pejabat_kelantan = number_format((float)($bil_gagal_pejabat_kelantan / $bil_menduduki_pejabat_kelantan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_kelantan = 0;
+        }
+
+        //Pentadbiran Kerajaan Negeri Melaka
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_melaka = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_melaka = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_melaka = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_melaka = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_melaka != 0) {
+            $percent_lulus_pejabat_melaka = number_format((float)($bil_lulus_pejabat_melaka / $bil_menduduki_pejabat_melaka) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_melaka = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_melaka = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Melaka')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_melaka != 0) {
+            $percent_gagal_pejabat_melaka = number_format((float)($bil_gagal_pejabat_melaka / $bil_menduduki_pejabat_melaka) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_melaka = 0;
+        }
+
+        //Pentadbiran Kerajaan Negeri Sembilan
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_sembilan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_sembilan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_sembilan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_sembilan = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Sembilan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_sembilan != 0) {
+            $percent_lulus_pejabat_sembilan = number_format((float)($bil_lulus_pejabat_sembilan / $bil_menduduki_pejabat_sembilan) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_sembilan = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri sembilan')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri sembilan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri sembilan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_sembilan = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri sembilan')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_sembilan != 0) {
+            $percent_gagal_pejabat_sembilan = number_format((float)($bil_gagal_pejabat_sembilan / $bil_menduduki_pejabat_sembilan) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_sembilan = 0;
+        }
+
+        //Pentadbiran Kerajaan Negeri Pahang
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_pahang = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_pahang = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_pahang = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_pahang = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_pahang != 0) {
+            $percent_lulus_pejabat_pahang = number_format((float)($bil_lulus_pejabat_pahang / $bil_menduduki_pejabat_pahang) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_pahang = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_pahang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Pahang')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_pahang != 0) {
+            $percent_gagal_pejabat_pahang = number_format((float)($bil_gagal_pejabat_pahang / $bil_menduduki_pejabat_pahang) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_pahang = 0;
+        }
+
+        //Pentadbiran Kerajaan Pulau Pinang
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_pulau_pinang = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_pulau_pinang = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_pulau_pinang = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_pulau_pinang = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_pulau_pinang != 0) {
+            $percent_lulus_pejabat_pulau_pinang = number_format((float)($bil_lulus_pejabat_pulau_pinang / $bil_menduduki_pejabat_pulau_pinang) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_pulau_pinang = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_pulau_pinang = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Pulau Pinang')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_pulau_pinang != 0) {
+            $percent_gagal_pejabat_pulau_pinang = number_format((float)($bil_gagal_pejabat_pulau_pinang / $bil_menduduki_pejabat_pulau_pinang) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_pulau_pinang = 0;
+        }
+
+        //Pentadbiran Kerajaan Negeri Perak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_perak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_perak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_perak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_perak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_perak != 0) {
+            $percent_lulus_pejabat_perak = number_format((float)($bil_lulus_pejabat_perak / $bil_menduduki_pejabat_perak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_perak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_perak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_perak != 0) {
+            $percent_gagal_pejabat_perak = number_format((float)($bil_gagal_pejabat_perak / $bil_menduduki_pejabat_perak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_perak = 0;
+        }
+
+        //Pentadbiran Kerajaan Negeri Perlis
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_perlis = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_perlis = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_perlis = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_perlis = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_perlis != 0) {
+            $percent_lulus_pejabat_perlis = number_format((float)($bil_lulus_pejabat_perlis / $bil_menduduki_pejabat_perlis) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_perlis = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_perlis = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Perlis')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_perlis != 0) {
+            $percent_gagal_pejabat_perlis = number_format((float)($bil_gagal_pejabat_perlis / $bil_menduduki_pejabat_perlis) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_perlis = 0;
+        }
+
+        //Pentadbiran Kerajaan Negeri Selangor
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_selangor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_selangor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_selangor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_selangor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_selangor != 0) {
+            $percent_lulus_pejabat_selangor = number_format((float)($bil_lulus_pejabat_selangor / $bil_menduduki_pejabat_selangor) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_selangor = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_selangor != 0) {
+            $percent_gagal_pejabat_selangor = number_format((float)($bil_gagal_pejabat_selangor / $bil_menduduki_pejabat_selangor) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_selangor = 0;
+        }
+
+        //Pentadbiran Kerajaan Negeri Selangor
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_selangor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_selangor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_selangor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_selangor = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_selangor != 0) {
+            $percent_lulus_pejabat_selangor = number_format((float)($bil_lulus_pejabat_selangor / $bil_menduduki_pejabat_selangor) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_selangor = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_selangor = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan Negeri Selangor')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_selangor != 0) {
+            $percent_gagal_pejabat_selangor = number_format((float)($bil_gagal_pejabat_selangor / $bil_menduduki_pejabat_selangor) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_selangor = 0;
+        }
+
+        //Pentadbiran Kerajaan Negeri Terengganu
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_pejabat_terengganu = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_pejabat_terengganu = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_pejabat_terengganu = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_pejabat_terengganu = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_pejabat_terengganu != 0) {
+            $percent_lulus_pejabat_terengganu = number_format((float)($bil_lulus_pejabat_terengganu / $bil_menduduki_pejabat_terengganu) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_pejabat_terengganu = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_pejabat_terengganu = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Pentadbiran Kerajaan  Negeri Terengganu')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_pejabat_terengganu != 0) {
+            $percent_gagal_pejabat_terengganu = number_format((float)($bil_gagal_pejabat_terengganu / $bil_menduduki_pejabat_terengganu) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_pejabat_terengganu = 0;
+        }
+
+        //Jabatan Ketua Menteri Sabah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_jabatan_ketua_menteri_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_jabatan_ketua_menteri_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_jabatan_ketua_menteri_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_jabatan_ketua_menteri_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_jabatan_ketua_menteri_sabah != 0) {
+            $percent_lulus_jabatan_ketua_menteri_sabah = number_format((float)($bil_lulus_jabatan_ketua_menteri_sabah / $bil_menduduki_jabatan_ketua_menteri_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_jabatan_ketua_menteri_sabah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_jabatan_ketua_menteri_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_jabatan_ketua_menteri_sabah != 0) {
+            $percent_gagal_jabatan_ketua_menteri_sabah = number_format((float)($bil_gagal_jabatan_ketua_menteri_sabah / $bil_menduduki_jabatan_ketua_menteri_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_jabatan_ketua_menteri_sabah = 0;
+        }
+
+        //Kementerian Kewangan Sabah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_menteri_kewangan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_menteri_kewangan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_menteri_kewangan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_menteri_kewangan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_menteri_kewangan_sabah != 0) {
+            $percent_lulus_menteri_kewangan_sabah = number_format((float)($bil_lulus_menteri_kewangan_sabah / $bil_menduduki_menteri_kewangan_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_menteri_kewangan_sabah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_menteri_kewangan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_menteri_kewangan_sabah != 0) {
+            $percent_gagal_menteri_kewangan_sabah = number_format((float)($bil_gagal_menteri_kewangan_sabah / $bil_menduduki_menteri_kewangan_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_menteri_kewangan_sabah = 0;
+        }
+
+        //Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_pertanian_industri_pemakanan_sabah != 0) {
+            $percent_lulus_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = number_format((float)($bil_lulus_kementerian_pembangunan_pertanian_industri_pemakanan_sabah / $bil_menduduki_kementerian_pembangunan_pertanian_industri_pemakanan_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Pertanian dan Industri Pemakanan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_pertanian_industri_pemakanan_sabah != 0) {
+            $percent_gagal_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = number_format((float)($bil_gagal_kementerian_pembangunan_pertanian_industri_pemakanan_sabah / $bil_menduduki_kementerian_pembangunan_pertanian_industri_pemakanan_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_pertanian_industri_pemakanan_sabah = 0;
+        }
+
+        //Kementerian Pembangunan Insfrastruktur Sabah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_insfrastruktur_sabah != 0) {
+            $percent_lulus_kementerian_pembangunan_insfrastruktur_sabah = number_format((float)($bil_lulus_kementerian_pembangunan_insfrastruktur_sabah / $bil_menduduki_kementerian_pembangunan_insfrastruktur_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_insfrastruktur_sabah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_insfrastruktur_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Insfrastruktur Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_insfrastruktur_sabah != 0) {
+            $percent_gagal_kementerian_pembangunan_insfrastruktur_sabah = number_format((float)($bil_gagal_kementerian_pembangunan_insfrastruktur_sabah / $bil_menduduki_kementerian_pembangunan_insfrastruktur_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_insfrastruktur_sabah = 0;
+        }
+
+        //Kementerian Kerajaan Tempatan dan Perumahan Sabah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_kerajaan_tempatan_perumahan_sabah != 0) {
+            $percent_lulus_kementerian_kerajaan_tempatan_perumahan_sabah = number_format((float)($bil_lulus_kementerian_kerajaan_tempatan_perumahan_sabah / $bil_menduduki_kementerian_kerajaan_tempatan_perumahan_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_kerajaan_tempatan_perumahan_sabah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_kerajaan_tempatan_perumahan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kerajaan Tempatan dan Perumahan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_kerajaan_tempatan_perumahan_sabah != 0) {
+            $percent_gagal_kementerian_kerajaan_tempatan_perumahan_sabah = number_format((float)($bil_gagal_kementerian_kerajaan_tempatan_perumahan_sabah / $bil_menduduki_kementerian_kerajaan_tempatan_perumahan_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_kerajaan_tempatan_perumahan_sabah = 0;
+        }
+
+        //Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah != 0) {
+            $percent_lulus_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = number_format((float)($bil_lulus_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah / $bil_menduduki_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Masyarakat & Hal-Ehwal Pengguna Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah != 0) {
+            $percent_gagal_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = number_format((float)($bil_gagal_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah / $bil_menduduki_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah = 0;
+        }
+
+        //Kementerian Pembangunan Perindustrian Sabah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_perindustrian_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_perindustrian_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_perindustrian_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_perindustrian_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_perindustrian_sabah != 0) {
+            $percent_lulus_kementerian_pembangunan_perindustrian_sabah = number_format((float)($bil_lulus_kementerian_pembangunan_perindustrian_sabah / $bil_menduduki_kementerian_pembangunan_perindustrian_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_perindustrian_sabah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_perindustrian_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_perindustrian_sabah != 0) {
+            $percent_gagal_kementerian_pembangunan_perindustrian_sabah = number_format((float)($bil_gagal_kementerian_pembangunan_perindustrian_sabah / $bil_menduduki_kementerian_pembangunan_perindustrian_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_perindustrian_sabah = 0;
+        }
+
+        //Kementerian Kebudayaan, Belia dan Sukan Sabah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_kebudayaan_belia_sukan_sabah != 0) {
+            $percent_lulus_kementerian_kebudayaan_belia_sukan_sabah = number_format((float)($bil_lulus_kementerian_kebudayaan_belia_sukan_sabah / $bil_menduduki_kementerian_kebudayaan_belia_sukan_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_kebudayaan_belia_sukan_sabah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_kebudayaan_belia_sukan_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kebudayaan, Belia dan Sukan Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_kebudayaan_belia_sukan_sabah != 0) {
+            $percent_gagal_kementerian_kebudayaan_belia_sukan_sabah = number_format((float)($bil_gagal_kementerian_kebudayaan_belia_sukan_sabah / $bil_menduduki_kementerian_kebudayaan_belia_sukan_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_kebudayaan_belia_sukan_sabah = 0;
+        }
+
+        //Jabatan Sabah Yang Tiada Berkementerian
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_jabatan_sabah_tiada_kementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_jabatan_sabah_tiada_kementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_jabatan_sabah_tiada_kementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_jabatan_sabah_tiada_kementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_jabatan_sabah_tiada_kementerian != 0) {
+            $percent_lulus_jabatan_sabah_tiada_kementerian = number_format((float)($bil_lulus_jabatan_sabah_tiada_kementerian / $bil_menduduki_jabatan_sabah_tiada_kementerian) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_jabatan_sabah_tiada_kementerian = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_jabatan_sabah_tiada_kementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_jabatan_sabah_tiada_kementerian != 0) {
+            $percent_gagal_jabatan_sabah_tiada_kementerian = number_format((float)($bil_gagal_jabatan_sabah_tiada_kementerian / $bil_menduduki_jabatan_sabah_tiada_kementerian) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_jabatan_sabah_tiada_kementerian = 0;
+        }
+
+        //Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan, Kebudayaan dan Alam Sekitar Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah != 0) {
+            $percent_lulus_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = number_format((float)($bil_lulus_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah / $bil_menduduki_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah != 0) {
+            $percent_gagal_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = number_format((float)($bil_gagal_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah / $bil_menduduki_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah = 0;
+        }
+
+        //Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sumber dan Kemajuan Teknologi Maklumat Sabah')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah != 0) {
+            $percent_lulus_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = number_format((float)($bil_lulus_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah / $bil_menduduki_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sabah Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah != 0) {
+            $percent_gagal_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = number_format((float)($bil_gagal_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah / $bil_menduduki_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah = 0;
+        }
+
+        //Jabatan Ketua Menteri Sarawak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_jabatan_ketua_menteri_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_jabatan_ketua_menteri_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_jabatan_ketua_menteri_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_jabatan_ketua_menteri_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_jabatan_ketua_menteri_sarawak != 0) {
+            $percent_lulus_jabatan_ketua_menteri_sarawak = number_format((float)($bil_lulus_jabatan_ketua_menteri_sarawak / $bil_menduduki_jabatan_ketua_menteri_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_jabatan_ketua_menteri_sarawak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_jabatan_ketua_menteri_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Ketua Menteri Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_jabatan_ketua_menteri_sarawak != 0) {
+            $percent_gagal_jabatan_ketua_menteri_sarawak = number_format((float)($bil_gagal_jabatan_ketua_menteri_sarawak / $bil_menduduki_jabatan_ketua_menteri_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_jabatan_ketua_menteri_sarawak = 0;
+        }
+
+        //Kementerian Kewangan dan Kemudahan Awam Sarawak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_kewangan_kemudahan_awam_sarawak != 0) {
+            $percent_lulus_kementerian_kewangan_kemudahan_awam_sarawak = number_format((float)($bil_lulus_kementerian_kewangan_kemudahan_awam_sarawak / $bil_menduduki_kementerian_kewangan_kemudahan_awam_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_kewangan_kemudahan_awam_sarawak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_kewangan_kemudahan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Kewangan dan Kemudahan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_kewangan_kemudahan_awam_sarawak != 0) {
+            $percent_gagal_kementerian_kewangan_kemudahan_awam_sarawak = number_format((float)($bil_gagal_kementerian_kewangan_kemudahan_awam_sarawak / $bil_menduduki_kementerian_kewangan_kemudahan_awam_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_kewangan_kemudahan_awam_sarawak = 0;
+        }
+
+        //Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak != 0) {
+            $percent_lulus_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = number_format((float)($bil_lulus_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak / $bil_menduduki_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Infrastruktur & Perhubungan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak != 0) {
+            $percent_gagal_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = number_format((float)($bil_gagal_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak / $bil_menduduki_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak = 0;
+        }
+
+        //Kementerian Perancangan dan Pengurusan Sumber Sarawak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_perancangan_pengurusan_sumber_sarawak != 0) {
+            $percent_lulus_kementerian_perancangan_pengurusan_sumber_sarawak = number_format((float)($bil_lulus_kementerian_perancangan_pengurusan_sumber_sarawak / $bil_menduduki_kementerian_perancangan_pengurusan_sumber_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_perancangan_pengurusan_sumber_sarawak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_perancangan_pengurusan_sumber_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perancangan dan Pengurusan Sumber Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_perancangan_pengurusan_sumber_sarawak != 0) {
+            $percent_gagal_kementerian_perancangan_pengurusan_sumber_sarawak = number_format((float)($bil_gagal_kementerian_perancangan_pengurusan_sumber_sarawak / $bil_menduduki_kementerian_perancangan_pengurusan_sumber_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_perancangan_pengurusan_sumber_sarawak = 0;
+        }
+
+        //Kementerian Pertanian & Industri Makanan Sarawak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pertanian_industri_makanan_sarawak != 0) {
+            $percent_lulus_kementerian_pertanian_industri_makanan_sarawak = number_format((float)($bil_lulus_kementerian_pertanian_industri_makanan_sarawak / $bil_menduduki_kementerian_pertanian_industri_makanan_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pertanian_industri_makanan_sarawak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pertanian_industri_makanan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pertanian & Industri Makanan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pertanian_industri_makanan_sarawak != 0) {
+            $percent_gagal_kementerian_pertanian_industri_makanan_sarawak = number_format((float)($bil_gagal_kementerian_pertanian_industri_makanan_sarawak / $bil_menduduki_kementerian_pertanian_industri_makanan_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pertanian_industri_makanan_sarawak = 0;
+        }
+
+        //Kementerian Alam Sekitar dan Kesihatan Awam Sarawak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_alam_sekitar_kesihatan_awam_sarawak != 0) {
+            $percent_lulus_kementerian_alam_sekitar_kesihatan_awam_sarawak = number_format((float)($bil_lulus_kementerian_alam_sekitar_kesihatan_awam_sarawak / $bil_menduduki_kementerian_alam_sekitar_kesihatan_awam_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_alam_sekitar_kesihatan_awam_sarawak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_alam_sekitar_kesihatan_awam_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Kesihatan Awam Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_alam_sekitar_kesihatan_awam_sarawak != 0) {
+            $percent_gagal_kementerian_alam_sekitar_kesihatan_awam_sarawak = number_format((float)($bil_gagal_kementerian_alam_sekitar_kesihatan_awam_sarawak / $bil_menduduki_kementerian_alam_sekitar_kesihatan_awam_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_alam_sekitar_kesihatan_awam_sarawak = 0;
+        }
+
+        //Kementerian Perumahan Sarawak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_perumahan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_perumahan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_perumahan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_perumahan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_perumahan_sarawak != 0) {
+            $percent_lulus_kementerian_perumahan_sarawak = number_format((float)($bil_lulus_kementerian_perumahan_sarawak / $bil_menduduki_kementerian_perumahan_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_perumahan_sarawak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_perumahan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Perumahan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_perumahan_sarawak != 0) {
+            $percent_gagal_kementerian_perumahan_sarawak = number_format((float)($bil_gagal_kementerian_perumahan_sarawak / $bil_menduduki_kementerian_perumahan_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_perumahan_sarawak = 0;
+        }
+
+        //Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak != 0) {
+            $percent_lulus_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = number_format((float)($bil_lulus_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak / $bil_menduduki_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Luar Bandar dan Kemajuan Tanah Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak != 0) {
+            $percent_gagal_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = number_format((float)($bil_gagal_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak / $bil_menduduki_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak = 0;
+        }
+
+        //Kementerian Pembangunan Perindustrian Sarawak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_perindustrian_sarawak != 0) {
+            $percent_lulus_kementerian_pembangunan_perindustrian_sarawak = number_format((float)($bil_lulus_kementerian_pembangunan_perindustrian_sarawak / $bil_menduduki_kementerian_pembangunan_perindustrian_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_perindustrian_sarawak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_perindustrian_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Perindustrian Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_perindustrian_sarawak != 0) {
+            $percent_gagal_kementerian_pembangunan_perindustrian_sarawak = number_format((float)($bil_gagal_kementerian_pembangunan_perindustrian_sarawak / $bil_menduduki_kementerian_pembangunan_perindustrian_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_perindustrian_sarawak = 0;
+        }
+
+        //Kementerian Pelancongan Sarawak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pelancongan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pelancongan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pelancongan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pelancongan_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pelancongan_sarawak != 0) {
+            $percent_lulus_kementerian_pelancongan_sarawak = number_format((float)($bil_lulus_kementerian_pelancongan_sarawak / $bil_menduduki_kementerian_pelancongan_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pelancongan_sarawak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pelancongan_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pelancongan Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pelancongan_sarawak != 0) {
+            $percent_gagal_kementerian_pelancongan_sarawak = number_format((float)($bil_gagal_kementerian_pelancongan_sarawak / $bil_menduduki_kementerian_pelancongan_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pelancongan_sarawak = 0;
+        }
+
+        //Jabatan Sarawak Yang Tiada Berkementerian
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_jabatan_sarawak_tidak_berkementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_jabatan_sarawak_tidak_berkementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_jabatan_sarawak_tidak_berkementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_jabatan_sarawak_tidak_berkementerian = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_jabatan_sarawak_tidak_berkementerian != 0) {
+            $percent_lulus_jabatan_sarawak_tidak_berkementerian = number_format((float)($bil_lulus_jabatan_sarawak_tidak_berkementerian / $bil_menduduki_jabatan_sarawak_tidak_berkementerian) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_jabatan_sarawak_tidak_berkementerian = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_jabatan_sarawak_tidak_berkementerian = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Jabatan Sarawak Yang Tiada Berkementerian')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_jabatan_sarawak_tidak_berkementerian != 0) {
+            $percent_gagal_jabatan_sarawak_tidak_berkementerian = number_format((float)($bil_gagal_jabatan_sarawak_tidak_berkementerian / $bil_menduduki_jabatan_sarawak_tidak_berkementerian) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_jabatan_sarawak_tidak_berkementerian = 0;
+        }
+
+        //Kementerian Pembangunan Sosial dan Urbanisasi Sarawak
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pembangunan_sosial_urbanisasi_sarawak != 0) {
+            $percent_lulus_kementerian_pembangunan_sosial_urbanisasi_sarawak = number_format((float)($bil_lulus_kementerian_pembangunan_sosial_urbanisasi_sarawak / $bil_menduduki_kementerian_pembangunan_sosial_urbanisasi_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pembangunan_sosial_urbanisasi_sarawak = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pembangunan_sosial_urbanisasi_sarawak = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pembangunan Sosial dan Urbanisasi Sarawak')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pembangunan_sosial_urbanisasi_sarawak != 0) {
+            $percent_gagal_kementerian_pembangunan_sosial_urbanisasi_sarawak = number_format((float)($bil_gagal_kementerian_pembangunan_sosial_urbanisasi_sarawak / $bil_menduduki_kementerian_pembangunan_sosial_urbanisasi_sarawak) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pembangunan_sosial_urbanisasi_sarawak = 0;
+        }
+
+        //Kementerian Pengajian Tinggi
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_pengajian_tinggi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_pengajian_tinggi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_pengajian_tinggi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_pengajian_tinggi = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_pengajian_tinggi != 0) {
+            $percent_lulus_kementerian_pengajian_tinggi = number_format((float)($bil_lulus_kementerian_pengajian_tinggi / $bil_menduduki_kementerian_pengajian_tinggi) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_pengajian_tinggi = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_pengajian_tinggi = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Pengajian Tinggi')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_pengajian_tinggi != 0) {
+            $percent_gagal_kementerian_pengajian_tinggi = number_format((float)($bil_gagal_kementerian_pengajian_tinggi / $bil_menduduki_kementerian_pengajian_tinggi) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_pengajian_tinggi = 0;
+        }
+
+        //Kementerian Alam Sekitar dan Air
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_kementerian_alam_sekitar_air = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_kementerian_alam_sekitar_air = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_kementerian_alam_sekitar_air = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_kementerian_alam_sekitar_air = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_kementerian_alam_sekitar_air != 0) {
+            $percent_lulus_kementerian_alam_sekitar_air = number_format((float)($bil_lulus_kementerian_alam_sekitar_air / $bil_menduduki_kementerian_alam_sekitar_air) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_kementerian_alam_sekitar_air = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kementerian_alam_sekitar_air = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_tempat_tugas.KOD_KEMENTERIAN', 'Kementerian Alam Sekitar dan Air')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_kementerian_alam_sekitar_air != 0) {
+            $percent_gagal_kementerian_alam_sekitar_air = number_format((float)($bil_gagal_kementerian_alam_sekitar_air / $bil_menduduki_kementerian_alam_sekitar_air) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_kementerian_alam_sekitar_air = 0;
+        }
+
+        //Jumlah
+        //bil memohon
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_memohon_jumlah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_memohon_jumlah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_memohon_jumlah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_memohon_jumlah = Jadual::join('mohon_penilaians', 'pro_sesi.ID_PENILAIAN', 'mohon_penilaians.id_sesi')
+                ->join('pro_peserta', 'mohon_penilaians.no_ic', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->count();
+        }
+
+        //bil menduduki
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_menduduki_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_menduduki_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_menduduki_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->count();
+        }
+
+        //bil lulus
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_lulus_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_lulus_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_lulus_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->count();
+        }
+
+        //percent lulus
+        if ($bil_menduduki_jumlah != 0) {
+            $percent_lulus_jumlah = number_format((float)($bil_lulus_jumlah / $bil_menduduki_jumlah) * 100, 2, '.', '');
+        } else {
+            $percent_lulus_jumlah = 0;
+        }
+
+        //bil gagal
+        if (($tahun != null) && ($kategori != null)) {
+            $bil_gagal_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan_penilaians.keputusan', 'Lulus')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } elseif ($tahun != null) {
+            $bil_gagal_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->where('pro_sesi.KOD_KATEGORI_PESERTA', $kategori)
+                ->count();
+        } elseif ($kategori != null) {
+            $bil_gagal_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->whereYear('pro_sesi.created_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_jumlah = Jadual::join('keputusan_penilaians', 'pro_sesi.ID_PENILAIAN', 'keputusan_penilaians.id_penilaian')
+                ->join('pro_peserta', 'keputusan_penilaians.ic_peserta', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->where('keputusan_penilaians.keputusan', 'Gagal')
+                ->count();
+        }
+
+        //percent gagal
+        if ($bil_menduduki_jumlah != 0) {
+            $percent_gagal_jumlah = number_format((float)($bil_gagal_jumlah / $bil_menduduki_jumlah) * 100, 2, '.', '');
+        } else {
+            $percent_gagal_jumlah = 0;
+        }
+
         return view('laporan.statistik_isac_mengikut_kategori_calon', [
             'tahuns' => $tahun,
             'tahun_semasas' => $tahun_semasa,
             'kategoris' => $kategori,
+            'bil_memohon_jabatan_perdana_menteris' => $bil_memohon_jabatan_perdana_menteri,
+            'bil_menduduki_jabatan_perdana_menteris' => $bil_menduduki_jabatan_perdana_menteri,
+            'bil_lulus_jabatan_perdana_menteris' => $bil_lulus_jabatan_perdana_menteri,
+            'percent_lulus_jabatan_perdana_menteris' => $percent_lulus_jabatan_perdana_menteri,
+            'bil_gagal_jabatan_perdana_menteris' => $bil_gagal_jabatan_perdana_menteri,
+            'percent_gagal_jabatan_perdana_menteris' => $percent_gagal_jabatan_perdana_menteri,
+            'bil_memohon_kementerian_kewangans' => $bil_memohon_kementerian_kewangan,
+            'bil_menduduki_kementerian_kewangans' => $bil_menduduki_kementerian_kewangan,
+            'bil_lulus_kementerian_kewangans' => $bil_lulus_kementerian_kewangan,
+            'percent_lulus_kementerian_kewangans' => $percent_lulus_kementerian_kewangan,
+            'bil_gagal_kementerian_kewangans' => $bil_gagal_kementerian_kewangan,
+            'percent_gagal_kementerian_kewangans' => $percent_gagal_kementerian_kewangan,
+            'bil_memohon_kementerian_pengangkutans' => $bil_memohon_kementerian_pengangkutan,
+            'bil_menduduki_kementerian_pengangkutans' => $bil_menduduki_kementerian_pengangkutan,
+            'bil_lulus_kementerian_pengangkutans' => $bil_lulus_kementerian_pengangkutan,
+            'percent_lulus_kementerian_pengangkutans' => $percent_lulus_kementerian_pengangkutan,
+            'bil_gagal_kementerian_pengangkutans' => $bil_gagal_kementerian_pengangkutan,
+            'percent_gagal_kementerian_pengangkutans' => $percent_gagal_kementerian_pengangkutan,
+            'bil_memohon_kementerian_kerja_rayas' => $bil_memohon_kementerian_kerja_raya,
+            'bil_menduduki_kementerian_kerja_rayas' => $bil_menduduki_kementerian_kerja_raya,
+            'bil_lulus_kementerian_kerja_rayas' => $bil_lulus_kementerian_kerja_raya,
+            'percent_lulus_kementerian_kerja_rayas' => $percent_lulus_kementerian_kerja_raya,
+            'bil_gagal_kementerian_kerja_rayas' => $bil_gagal_kementerian_kerja_raya,
+            'percent_gagal_kementerian_kerja_rayas' => $percent_gagal_kementerian_kerja_raya,
+            'bil_memohon_kementerian_perd_antarabangsa_industris' => $bil_memohon_kementerian_perd_antarabangsa_industri,
+            'bil_menduduki_kementerian_perd_antarabangsa_industris' => $bil_menduduki_kementerian_perd_antarabangsa_industri,
+            'bil_lulus_kementerian_perd_antarabangsa_industris' => $bil_lulus_kementerian_perd_antarabangsa_industri,
+            'percent_lulus_kementerian_perd_antarabangsa_industris' => $percent_lulus_kementerian_perd_antarabangsa_industri,
+            'bil_gagal_kementerian_perd_antarabangsa_industris' => $bil_gagal_kementerian_perd_antarabangsa_industri,
+            'percent_gagal_kementerian_perd_antarabangsa_industris' => $percent_gagal_kementerian_perd_antarabangsa_industri,
+            'bil_memohon_kementerian_perd_dalam_negeri_hal_ehwals' => $bil_memohon_kementerian_perd_dalam_negeri_hal_ehwal,
+            'bil_menduduki_kementerian_perd_dalam_negeri_hal_ehwals' => $bil_menduduki_kementerian_perd_dalam_negeri_hal_ehwal,
+            'bil_lulus_kementerian_perd_dalam_negeri_hal_ehwals' => $bil_lulus_kementerian_perd_dalam_negeri_hal_ehwal,
+            'percent_lulus_kementerian_perd_dalam_negeri_hal_ehwals' => $percent_lulus_kementerian_perd_dalam_negeri_hal_ehwal,
+            'bil_gagal_kementerian_perd_dalam_negeri_hal_ehwals' => $bil_gagal_kementerian_perd_dalam_negeri_hal_ehwal,
+            'percent_gagal_kementerian_perd_dalam_negeri_hal_ehwals' => $percent_gagal_kementerian_perd_dalam_negeri_hal_ehwal,
+            'bil_memohon_kementerian_komunikasi_multimedias' => $bil_memohon_kementerian_komunikasi_multimedia,
+            'bil_menduduki_kementerian_komunikasi_multimedias' => $bil_menduduki_kementerian_komunikasi_multimedia,
+            'bil_lulus_kementerian_komunikasi_multimedias' => $bil_lulus_kementerian_komunikasi_multimedia,
+            'percent_lulus_kementerian_komunikasi_multimedias' => $percent_lulus_kementerian_komunikasi_multimedia,
+            'bil_gagal_kementerian_komunikasi_multimedias' => $bil_gagal_kementerian_komunikasi_multimedia,
+            'percent_gagal_kementerian_komunikasi_multimedias' => $percent_gagal_kementerian_komunikasi_multimedia,
+            'bil_memohon_kementerian_sumber_manusias' => $bil_memohon_kementerian_sumber_manusia,
+            'bil_menduduki_kementerian_sumber_manusias' => $bil_menduduki_kementerian_sumber_manusia,
+            'bil_lulus_kementerian_sumber_manusias' => $bil_lulus_kementerian_sumber_manusia,
+            'percent_lulus_kementerian_sumber_manusias' => $percent_lulus_kementerian_sumber_manusia,
+            'bil_gagal_kementerian_sumber_manusias' => $bil_gagal_kementerian_sumber_manusia,
+            'percent_gagal_kementerian_sumber_manusias' => $percent_gagal_kementerian_sumber_manusia,
+            'bil_memohon_kementerian_perumahan_kerajaan_tempatans' => $bil_memohon_kementerian_perumahan_kerajaan_tempatan,
+            'bil_menduduki_kementerian_perumahan_kerajaan_tempatans' => $bil_menduduki_kementerian_perumahan_kerajaan_tempatan,
+            'bil_lulus_kementerian_perumahan_kerajaan_tempatans' => $bil_lulus_kementerian_perumahan_kerajaan_tempatan,
+            'percent_lulus_kementerian_perumahan_kerajaan_tempatans' => $percent_lulus_kementerian_perumahan_kerajaan_tempatan,
+            'bil_gagal_kementerian_perumahan_kerajaan_tempatans' => $bil_gagal_kementerian_perumahan_kerajaan_tempatan,
+            'percent_gagal_kementerian_perumahan_kerajaan_tempatans' => $percent_gagal_kementerian_perumahan_kerajaan_tempatan,
+            'bil_memohon_kementerian_pertahanans' => $bil_memohon_kementerian_pertahanan,
+            'bil_menduduki_kementerian_pertahanans' => $bil_menduduki_kementerian_pertahanan,
+            'bil_lulus_kementerian_pertahanans' => $bil_lulus_kementerian_pertahanan,
+            'percent_lulus_kementerian_pertahanans' => $percent_lulus_kementerian_pertahanan,
+            'bil_gagal_kementerian_pertahanans' => $bil_gagal_kementerian_pertahanan,
+            'percent_gagal_kementerian_pertahanans' => $percent_gagal_kementerian_pertahanan,
+            'bil_memohon_kementerian_luar_negeris' => $bil_memohon_kementerian_luar_negeri,
+            'bil_menduduki_kementerian_luar_negeris' => $bil_menduduki_kementerian_luar_negeri,
+            'bil_lulus_kementerian_luar_negeris' => $bil_lulus_kementerian_luar_negeri,
+            'percent_lulus_kementerian_luar_negeris' => $percent_lulus_kementerian_luar_negeri,
+            'bil_gagal_kementerian_luar_negeris' => $bil_gagal_kementerian_luar_negeri,
+            'percent_gagal_kementerian_luar_negeris' => $percent_gagal_kementerian_luar_negeri,
+            'bil_memohon_kementerian_belia_sukans' => $bil_memohon_kementerian_belia_sukan,
+            'bil_menduduki_kementerian_belia_sukans' => $bil_menduduki_kementerian_belia_sukan,
+            'bil_lulus_kementerian_belia_sukans' => $bil_lulus_kementerian_belia_sukan,
+            'percent_lulus_kementerian_belia_sukans' => $percent_lulus_kementerian_belia_sukan,
+            'bil_gagal_kementerian_belia_sukans' => $bil_gagal_kementerian_belia_sukan,
+            'percent_gagal_kementerian_belia_sukans' => $percent_gagal_kementerian_belia_sukan,
+            'bil_memohon_kementerian_kesihatans' => $bil_memohon_kementerian_kesihatan,
+            'bil_menduduki_kementerian_kesihatans' => $bil_menduduki_kementerian_kesihatan,
+            'bil_lulus_kementerian_kesihatans' => $bil_lulus_kementerian_kesihatan,
+            'percent_lulus_kementerian_kesihatans' => $percent_lulus_kementerian_kesihatan,
+            'bil_gagal_kementerian_kesihatans' => $bil_gagal_kementerian_kesihatan,
+            'percent_gagal_kementerian_kesihatans' => $percent_gagal_kementerian_kesihatan,
+            'bil_memohon_kementerian_perusahaan_awams' => $bil_memohon_kementerian_perusahaan_awam,
+            'bil_menduduki_kementerian_perusahaan_awams' => $bil_menduduki_kementerian_perusahaan_awam,
+            'bil_lulus_kementerian_perusahaan_awams' => $bil_lulus_kementerian_perusahaan_awam,
+            'percent_lulus_kementerian_perusahaan_awams' => $percent_lulus_kementerian_perusahaan_awam,
+            'bil_gagal_kementerian_perusahaan_awams' => $bil_gagal_kementerian_perusahaan_awam,
+            'percent_gagal_kementerian_perusahaan_awams' => $percent_gagal_kementerian_perusahaan_awam,
+            'bil_memohon_kementerian_wilayah_perseketuans' => $bil_memohon_kementerian_wilayah_perseketuan,
+            'bil_menduduki_kementerian_wilayah_perseketuans' => $bil_menduduki_kementerian_wilayah_perseketuan,
+            'bil_lulus_kementerian_wilayah_perseketuans' => $bil_lulus_kementerian_wilayah_perseketuan,
+            'percent_lulus_kementerian_wilayah_perseketuans' => $percent_lulus_kementerian_wilayah_perseketuan,
+            'bil_gagal_kementerian_wilayah_perseketuans' => $bil_gagal_kementerian_wilayah_perseketuan,
+            'percent_gagal_kementerian_wilayah_perseketuans' => $percent_gagal_kementerian_wilayah_perseketuan,
+            'bil_memohon_kementerian_undang_kehakimans' => $bil_memohon_kementerian_undang_kehakiman,
+            'bil_menduduki_kementerian_undang_kehakimans' => $bil_menduduki_kementerian_undang_kehakiman,
+            'bil_lulus_kementerian_undang_kehakimans' => $bil_lulus_kementerian_undang_kehakiman,
+            'percent_lulus_kementerian_undang_kehakimans' => $percent_lulus_kementerian_undang_kehakiman,
+            'bil_gagal_kementerian_undang_kehakimans' => $bil_gagal_kementerian_undang_kehakiman,
+            'percent_gagal_kementerian_undang_kehakimans' => $percent_gagal_kementerian_undang_kehakiman,
+            'bil_memohon_jabatan_tiada_kementerians' => $bil_memohon_jabatan_tiada_kementerian,
+            'bil_menduduki_jabatan_tiada_kementerians' => $bil_menduduki_jabatan_tiada_kementerian,
+            'bil_lulus_jabatan_tiada_kementerians' => $bil_lulus_jabatan_tiada_kementerian,
+            'percent_lulus_jabatan_tiada_kementerians' => $percent_lulus_jabatan_tiada_kementerian,
+            'bil_gagal_jabatan_tiada_kementerians' => $bil_gagal_jabatan_tiada_kementerian,
+            'percent_gagal_jabatan_tiada_kementerians' => $percent_gagal_jabatan_tiada_kementerian,
+            'bil_memohon_kementerian_hal_ehwal_dalam_negeris' => $bil_memohon_kementerian_hal_ehwal_dalam_negeri,
+            'bil_menduduki_kementerian_hal_ehwal_dalam_negeris' => $bil_menduduki_kementerian_hal_ehwal_dalam_negeri,
+            'bil_lulus_kementerian_hal_ehwal_dalam_negeris' => $bil_lulus_kementerian_hal_ehwal_dalam_negeri,
+            'percent_lulus_kementerian_hal_ehwal_dalam_negeris' => $percent_lulus_kementerian_hal_ehwal_dalam_negeri,
+            'bil_gagal_kementerian_hal_ehwal_dalam_negeris' => $bil_gagal_kementerian_hal_ehwal_dalam_negeri,
+            'percent_gagal_kementerian_hal_ehwal_dalam_negeris' => $percent_gagal_kementerian_hal_ehwal_dalam_negeri,
+            'bil_memohon_kementerian_dalam_negeris' => $bil_memohon_kementerian_dalam_negeri,
+            'bil_menduduki_kementerian_dalam_negeris' => $bil_menduduki_kementerian_dalam_negeri,
+            'bil_lulus_kementerian_dalam_negeris' => $bil_lulus_kementerian_dalam_negeri,
+            'percent_lulus_kementerian_dalam_negeris' => $percent_lulus_kementerian_dalam_negeri,
+            'bil_gagal_kementerian_dalam_negeris' => $bil_gagal_kementerian_dalam_negeri,
+            'percent_gagal_kementerian_dalam_negeris' => $percent_gagal_kementerian_dalam_negeri,
+            'bil_memohon_kementerian_perusahaan_perladangan_komuditis' => $bil_memohon_kementerian_perusahaan_perladangan_komuditi,
+            'bil_menduduki_kementerian_perusahaan_perladangan_komuditis' => $bil_menduduki_kementerian_perusahaan_perladangan_komuditi,
+            'bil_lulus_kementerian_perusahaan_perladangan_komuditis' => $bil_lulus_kementerian_perusahaan_perladangan_komuditi,
+            'percent_lulus_kementerian_perusahaan_perladangan_komuditis' => $percent_lulus_kementerian_perusahaan_perladangan_komuditi,
+            'bil_gagal_kementerian_perusahaan_perladangan_komuditis' => $bil_gagal_kementerian_perusahaan_perladangan_komuditi,
+            'percent_gagal_kementerian_perusahaan_perladangan_komuditis' => $percent_gagal_kementerian_perusahaan_perladangan_komuditi,
+            'bil_memohon_kementerian_pembangunan_usahawans' => $bil_memohon_kementerian_pembangunan_usahawan,
+            'bil_menduduki_kementerian_pembangunan_usahawans' => $bil_menduduki_kementerian_pembangunan_usahawan,
+            'bil_lulus_kementerian_pembangunan_usahawans' => $bil_lulus_kementerian_pembangunan_usahawan,
+            'percent_lulus_kementerian_pembangunan_usahawans' => $percent_lulus_kementerian_pembangunan_usahawan,
+            'bil_gagal_kementerian_pembangunan_usahawans' => $bil_gagal_kementerian_pembangunan_usahawan,
+            'percent_gagal_kementerian_pembangunan_usahawans' => $percent_gagal_kementerian_pembangunan_usahawan,
+            'bil_memohon_kementerian_pertanian_asas_tanis' => $bil_memohon_kementerian_pertanian_asas_tani,
+            'bil_menduduki_kementerian_pertanian_asas_tanis' => $bil_menduduki_kementerian_pertanian_asas_tani,
+            'bil_lulus_kementerian_pertanian_asas_tanis' => $bil_lulus_kementerian_pertanian_asas_tani,
+            'percent_lulus_kementerian_pertanian_asas_tanis' => $percent_lulus_kementerian_pertanian_asas_tani,
+            'bil_gagal_kementerian_pertanian_asas_tanis' => $bil_gagal_kementerian_pertanian_asas_tani,
+            'percent_gagal_kementerian_pertanian_asas_tanis' => $percent_gagal_kementerian_pertanian_asas_tani,
+            'bil_memohon_kementerian_pelajarans' => $bil_memohon_kementerian_pelajaran,
+            'bil_menduduki_kementerian_pelajarans' => $bil_menduduki_kementerian_pelajaran,
+            'bil_lulus_kementerian_pelajarans' => $bil_lulus_kementerian_pelajaran,
+            'percent_lulus_kementerian_pelajarans' => $percent_lulus_kementerian_pelajaran,
+            'bil_gagal_kementerian_pelajarans' => $bil_gagal_kementerian_pelajaran,
+            'percent_gagal_kementerian_pelajarans' => $percent_gagal_kementerian_pelajaran,
+            'bil_memohon_kementerian_pendidikans' => $bil_memohon_kementerian_pendidikan,
+            'bil_menduduki_kementerian_pendidikans' => $bil_menduduki_kementerian_pendidikan,
+            'bil_lulus_kementerian_pendidikans' => $bil_lulus_kementerian_pendidikan,
+            'percent_lulus_kementerian_pendidikans' => $percent_lulus_kementerian_pendidikan,
+            'bil_gagal_kementerian_pendidikans' => $bil_gagal_kementerian_pendidikan,
+            'percent_gagal_kementerian_pendidikans' => $percent_gagal_kementerian_pendidikan,
+            'bil_memohon_kementerian_kesenian_kebudayaan_warisans' => $bil_memohon_kementerian_kesenian_kebudayaan_warisan,
+            'bil_menduduki_kementerian_kesenian_kebudayaan_warisans' => $bil_menduduki_kementerian_kesenian_kebudayaan_warisan,
+            'bil_lulus_kementerian_kesenian_kebudayaan_warisans' => $bil_lulus_kementerian_kesenian_kebudayaan_warisan,
+            'percent_lulus_kementerian_kesenian_kebudayaan_warisans' => $percent_lulus_kementerian_kesenian_kebudayaan_warisan,
+            'bil_gagal_kementerian_kesenian_kebudayaan_warisans' => $bil_gagal_kementerian_kesenian_kebudayaan_warisan,
+            'percent_gagal_kementerian_kesenian_kebudayaan_warisans' => $percent_gagal_kementerian_kesenian_kebudayaan_warisan,
+            'bil_memohon_kementerian_pelancongan_seni_budayas' => $bil_memohon_kementerian_pelancongan_seni_budaya,
+            'bil_menduduki_kementerian_pelancongan_seni_budayas' => $bil_menduduki_kementerian_pelancongan_seni_budaya,
+            'bil_lulus_kementerian_pelancongan_seni_budayas' => $bil_lulus_kementerian_pelancongan_seni_budaya,
+            'percent_lulus_kementerian_pelancongan_seni_budayas' => $percent_lulus_kementerian_pelancongan_seni_budaya,
+            'bil_gagal_kementerian_pelancongan_seni_budayas' => $bil_gagal_kementerian_pelancongan_seni_budaya,
+            'percent_gagal_kementerian_pelancongan_seni_budayas' => $percent_gagal_kementerian_pelancongan_seni_budaya,
+            'bil_memohon_kementerian_tenaga_sains_teknologi_alam_sekitars' => $bil_memohon_kementerian_tenaga_sains_teknologi_alam_sekitar,
+            'bil_menduduki_kementerian_tenaga_sains_teknologi_alam_sekitars' => $bil_menduduki_kementerian_tenaga_sains_teknologi_alam_sekitar,
+            'bil_lulus_kementerian_tenaga_sains_teknologi_alam_sekitars' => $bil_lulus_kementerian_tenaga_sains_teknologi_alam_sekitar,
+            'percent_lulus_kementerian_tenaga_sains_teknologi_alam_sekitars' => $percent_lulus_kementerian_tenaga_sains_teknologi_alam_sekitar,
+            'bil_gagal_kementerian_tenaga_sains_teknologi_alam_sekitars' => $bil_gagal_kementerian_tenaga_sains_teknologi_alam_sekitar,
+            'percent_gagal_kementerian_tenaga_sains_teknologi_alam_sekitars' => $percent_gagal_kementerian_tenaga_sains_teknologi_alam_sekitar,
+            'bil_memohon_kementerian_luar_bandar_wilayahs' => $bil_memohon_kementerian_luar_bandar_wilayah,
+            'bil_menduduki_kementerian_luar_bandar_wilayahs' => $bil_menduduki_kementerian_luar_bandar_wilayah,
+            'bil_lulus_kementerian_luar_bandar_wilayahs' => $bil_lulus_kementerian_luar_bandar_wilayah,
+            'percent_lulus_kementerian_luar_bandar_wilayahs' => $percent_lulus_kementerian_luar_bandar_wilayah,
+            'bil_gagal_kementerian_luar_bandar_wilayahs' => $bil_gagal_kementerian_luar_bandar_wilayah,
+            'percent_gagal_kementerian_luar_bandar_wilayahs' => $percent_gagal_kementerian_luar_bandar_wilayah,
+            'bil_memohon_kementerian_air_tanah_sumber_aslis' => $bil_memohon_kementerian_air_tanah_sumber_asli,
+            'bil_menduduki_kementerian_air_tanah_sumber_aslis' => $bil_menduduki_kementerian_air_tanah_sumber_asli,
+            'bil_lulus_kementerian_air_tanah_sumber_aslis' => $bil_lulus_kementerian_air_tanah_sumber_asli,
+            'percent_lulus_kementerian_air_tanah_sumber_aslis' => $percent_lulus_kementerian_air_tanah_sumber_asli,
+            'bil_gagal_kementerian_air_tanah_sumber_aslis' => $bil_gagal_kementerian_air_tanah_sumber_asli,
+            'percent_gagal_kementerian_air_tanah_sumber_aslis' => $percent_gagal_kementerian_air_tanah_sumber_asli,
+            'bil_memohon_kementerian_pembangunan_dalam_negeri_koperasis' => $bil_memohon_kementerian_pembangunan_dalam_negeri_koperasi,
+            'bil_menduduki_kementerian_pembangunan_dalam_negeri_koperasis' => $bil_menduduki_kementerian_pembangunan_dalam_negeri_koperasi,
+            'bil_lulus_kementerian_pembangunan_dalam_negeri_koperasis' => $bil_lulus_kementerian_pembangunan_dalam_negeri_koperasi,
+            'percent_lulus_kementerian_pembangunan_dalam_negeri_koperasis' => $percent_lulus_kementerian_pembangunan_dalam_negeri_koperasi,
+            'bil_gagal_kementerian_pembangunan_dalam_negeri_koperasis' => $bil_gagal_kementerian_pembangunan_dalam_negeri_koperasi,
+            'percent_gagal_kementerian_pembangunan_dalam_negeri_koperasis' => $percent_gagal_kementerian_pembangunan_dalam_negeri_koperasi,
+            'bil_memohon_kementerian_pembangunan_wanita_keluarga_masyarakats' => $bil_memohon_kementerian_pembangunan_wanita_keluarga_masyarakat,
+            'bil_menduduki_kementerian_pembangunan_wanita_keluarga_masyarakats' => $bil_menduduki_kementerian_pembangunan_wanita_keluarga_masyarakat,
+            'bil_lulus_kementerian_pembangunan_wanita_keluarga_masyarakats' => $bil_lulus_kementerian_pembangunan_wanita_keluarga_masyarakat,
+            'percent_lulus_kementerian_pembangunan_wanita_keluarga_masyarakats' => $percent_lulus_kementerian_pembangunan_wanita_keluarga_masyarakat,
+            'bil_gagal_kementerian_pembangunan_wanita_keluarga_masyarakats' => $bil_gagal_kementerian_pembangunan_wanita_keluarga_masyarakat,
+            'percent_gagal_kementerian_pembangunan_wanita_keluarga_masyarakats' => $percent_gagal_kementerian_pembangunan_wanita_keluarga_masyarakat,
+            'bil_memohon_pejabat_johors' => $bil_memohon_pejabat_johor,
+            'bil_menduduki_pejabat_johors' => $bil_menduduki_pejabat_johor,
+            'bil_lulus_pejabat_johors' => $bil_lulus_pejabat_johor,
+            'percent_lulus_pejabat_johors' => $percent_lulus_pejabat_johor,
+            'bil_gagal_pejabat_johors' => $bil_gagal_pejabat_johor,
+            'percent_gagal_pejabat_johors' => $percent_gagal_pejabat_johor,
+            'bil_memohon_pejabat_kedahs' => $bil_memohon_pejabat_kedah,
+            'bil_menduduki_pejabat_kedahs' => $bil_menduduki_pejabat_kedah,
+            'bil_lulus_pejabat_kedahs' => $bil_lulus_pejabat_kedah,
+            'percent_lulus_pejabat_kedahs' => $percent_lulus_pejabat_kedah,
+            'bil_gagal_pejabat_kedahs' => $bil_gagal_pejabat_kedah,
+            'percent_gagal_pejabat_kedahs' => $percent_gagal_pejabat_kedah,
+            'bil_memohon_pejabat_kelantans' => $bil_memohon_pejabat_kelantan,
+            'bil_menduduki_pejabat_kelantans' => $bil_menduduki_pejabat_kelantan,
+            'bil_lulus_pejabat_kelantans' => $bil_lulus_pejabat_kelantan,
+            'percent_lulus_pejabat_kelantans' => $percent_lulus_pejabat_kelantan,
+            'bil_gagal_pejabat_kelantans' => $bil_gagal_pejabat_kelantan,
+            'percent_gagal_pejabat_kelantans' => $percent_gagal_pejabat_kelantan,
+            'bil_memohon_pejabat_melakas' => $bil_memohon_pejabat_melaka,
+            'bil_menduduki_pejabat_melakas' => $bil_menduduki_pejabat_melaka,
+            'bil_lulus_pejabat_melakas' => $bil_lulus_pejabat_melaka,
+            'percent_lulus_pejabat_melakas' => $percent_lulus_pejabat_melaka,
+            'bil_gagal_pejabat_melakas' => $bil_gagal_pejabat_melaka,
+            'percent_gagal_pejabat_melakas' => $percent_gagal_pejabat_melaka,
+            'bil_memohon_pejabat_sembilans' => $bil_memohon_pejabat_sembilan,
+            'bil_menduduki_pejabat_sembilans' => $bil_menduduki_pejabat_sembilan,
+            'bil_lulus_pejabat_sembilans' => $bil_lulus_pejabat_sembilan,
+            'percent_lulus_pejabat_sembilans' => $percent_lulus_pejabat_sembilan,
+            'bil_gagal_pejabat_sembilans' => $bil_gagal_pejabat_sembilan,
+            'percent_gagal_pejabat_sembilans' => $percent_gagal_pejabat_sembilan,
+            'bil_memohon_pejabat_pahangs' => $bil_memohon_pejabat_pahang,
+            'bil_menduduki_pejabat_pahangs' => $bil_menduduki_pejabat_pahang,
+            'bil_lulus_pejabat_pahangs' => $bil_lulus_pejabat_pahang,
+            'percent_lulus_pejabat_pahangs' => $percent_lulus_pejabat_pahang,
+            'bil_gagal_pejabat_pahangs' => $bil_gagal_pejabat_pahang,
+            'percent_gagal_pejabat_pahangs' => $percent_gagal_pejabat_pahang,
+            'bil_memohon_pejabat_pulau_pinangs' => $bil_memohon_pejabat_pulau_pinang,
+            'bil_menduduki_pejabat_pulau_pinangs' => $bil_menduduki_pejabat_pulau_pinang,
+            'bil_lulus_pejabat_pulau_pinangs' => $bil_lulus_pejabat_pulau_pinang,
+            'percent_lulus_pejabat_pulau_pinangs' => $percent_lulus_pejabat_pulau_pinang,
+            'bil_gagal_pejabat_pulau_pinangs' => $bil_gagal_pejabat_pulau_pinang,
+            'percent_gagal_pejabat_pulau_pinangs' => $percent_gagal_pejabat_pulau_pinang,
+            'bil_memohon_pejabat_peraks' => $bil_memohon_pejabat_perak,
+            'bil_menduduki_pejabat_peraks' => $bil_menduduki_pejabat_perak,
+            'bil_lulus_pejabat_peraks' => $bil_lulus_pejabat_perak,
+            'percent_lulus_pejabat_peraks' => $percent_lulus_pejabat_perak,
+            'bil_gagal_pejabat_peraks' => $bil_gagal_pejabat_perak,
+            'percent_gagal_pejabat_peraks' => $percent_gagal_pejabat_perak,
+            'bil_memohon_pejabat_perliss' => $bil_memohon_pejabat_perlis,
+            'bil_menduduki_pejabat_perliss' => $bil_menduduki_pejabat_perlis,
+            'bil_lulus_pejabat_perliss' => $bil_lulus_pejabat_perlis,
+            'percent_lulus_pejabat_perliss' => $percent_lulus_pejabat_perlis,
+            'bil_gagal_pejabat_perliss' => $bil_gagal_pejabat_perlis,
+            'percent_gagal_pejabat_perliss' => $percent_gagal_pejabat_perlis,
+            'bil_memohon_pejabat_selangors' => $bil_memohon_pejabat_selangor,
+            'bil_menduduki_pejabat_selangors' => $bil_menduduki_pejabat_selangor,
+            'bil_lulus_pejabat_selangors' => $bil_lulus_pejabat_selangor,
+            'percent_lulus_pejabat_selangors' => $percent_lulus_pejabat_selangor,
+            'bil_gagal_pejabat_selangors' => $bil_gagal_pejabat_selangor,
+            'percent_gagal_pejabat_selangors' => $percent_gagal_pejabat_selangor,
+            'bil_memohon_pejabat_terengganus' => $bil_memohon_pejabat_terengganu,
+            'bil_menduduki_pejabat_terengganus' => $bil_menduduki_pejabat_terengganu,
+            'bil_lulus_pejabat_terengganus' => $bil_lulus_pejabat_terengganu,
+            'percent_lulus_pejabat_terengganus' => $percent_lulus_pejabat_terengganu,
+            'bil_gagal_pejabat_terengganus' => $bil_gagal_pejabat_terengganu,
+            'percent_gagal_pejabat_terengganus' => $percent_gagal_pejabat_terengganu,
+            'bil_memohon_jabatan_ketua_menteri_sabahs' => $bil_memohon_jabatan_ketua_menteri_sabah,
+            'bil_menduduki_jabatan_ketua_menteri_sabahs' => $bil_menduduki_jabatan_ketua_menteri_sabah,
+            'bil_lulus_jabatan_ketua_menteri_sabahs' => $bil_lulus_jabatan_ketua_menteri_sabah,
+            'percent_lulus_jabatan_ketua_menteri_sabahs' => $percent_lulus_jabatan_ketua_menteri_sabah,
+            'bil_gagal_jabatan_ketua_menteri_sabahs' => $bil_gagal_jabatan_ketua_menteri_sabah,
+            'percent_gagal_jabatan_ketua_menteri_sabahs' => $percent_gagal_jabatan_ketua_menteri_sabah,
+            'bil_memohon_menteri_kewangan_sabahs' => $bil_memohon_menteri_kewangan_sabah,
+            'bil_menduduki_menteri_kewangan_sabahs' => $bil_menduduki_menteri_kewangan_sabah,
+            'bil_lulus_menteri_kewangan_sabahs' => $bil_lulus_menteri_kewangan_sabah,
+            'percent_lulus_menteri_kewangan_sabahs' => $percent_lulus_menteri_kewangan_sabah,
+            'bil_gagal_menteri_kewangan_sabahs' => $bil_gagal_menteri_kewangan_sabah,
+            'percent_gagal_menteri_kewangan_sabahs' => $percent_gagal_menteri_kewangan_sabah,
+            'bil_memohon_kementerian_pembangunan_pertanian_industri_pemakanan_sabahs' => $bil_memohon_kementerian_pembangunan_pertanian_industri_pemakanan_sabah,
+            'bil_menduduki_kementerian_pembangunan_pertanian_industri_pemakanan_sabahs' => $bil_menduduki_kementerian_pembangunan_pertanian_industri_pemakanan_sabah,
+            'bil_lulus_kementerian_pembangunan_pertanian_industri_pemakanan_sabahs' => $bil_lulus_kementerian_pembangunan_pertanian_industri_pemakanan_sabah,
+            'percent_lulus_kementerian_pembangunan_pertanian_industri_pemakanan_sabahs' => $percent_lulus_kementerian_pembangunan_pertanian_industri_pemakanan_sabah,
+            'bil_gagal_kementerian_pembangunan_pertanian_industri_pemakanan_sabahs' => $bil_gagal_kementerian_pembangunan_pertanian_industri_pemakanan_sabah,
+            'percent_gagal_kementerian_pembangunan_pertanian_industri_pemakanan_sabahs' => $percent_gagal_kementerian_pembangunan_pertanian_industri_pemakanan_sabah,
+            'bil_memohon_kementerian_pembangunan_insfrastruktur_sabahs' => $bil_memohon_kementerian_pembangunan_insfrastruktur_sabah,
+            'bil_menduduki_kementerian_pembangunan_insfrastruktur_sabahs' => $bil_menduduki_kementerian_pembangunan_insfrastruktur_sabah,
+            'bil_lulus_kementerian_pembangunan_insfrastruktur_sabahs' => $bil_lulus_kementerian_pembangunan_insfrastruktur_sabah,
+            'percent_lulus_kementerian_pembangunan_insfrastruktur_sabahs' => $percent_lulus_kementerian_pembangunan_insfrastruktur_sabah,
+            'bil_gagal_kementerian_pembangunan_insfrastruktur_sabahs' => $bil_gagal_kementerian_pembangunan_insfrastruktur_sabah,
+            'percent_gagal_kementerian_pembangunan_insfrastruktur_sabahs' => $percent_gagal_kementerian_pembangunan_insfrastruktur_sabah,
+            'bil_memohon_kementerian_kerajaan_tempatan_perumahan_sabahs' => $bil_memohon_kementerian_kerajaan_tempatan_perumahan_sabah,
+            'bil_menduduki_kementerian_kerajaan_tempatan_perumahan_sabahs' => $bil_menduduki_kementerian_kerajaan_tempatan_perumahan_sabah,
+            'bil_lulus_kementerian_kerajaan_tempatan_perumahan_sabahs' => $bil_lulus_kementerian_kerajaan_tempatan_perumahan_sabah,
+            'percent_lulus_kementerian_kerajaan_tempatan_perumahan_sabahs' => $percent_lulus_kementerian_kerajaan_tempatan_perumahan_sabah,
+            'bil_gagal_kementerian_kerajaan_tempatan_perumahan_sabahs' => $bil_gagal_kementerian_kerajaan_tempatan_perumahan_sabah,
+            'percent_gagal_kementerian_kerajaan_tempatan_perumahan_sabahs' => $percent_gagal_kementerian_kerajaan_tempatan_perumahan_sabah,
+            'bil_memohon_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabahs' => $bil_memohon_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah,
+            'bil_menduduki_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabahs' => $bil_menduduki_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah,
+            'bil_lulus_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabahs' => $bil_lulus_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah,
+            'percent_lulus_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabahs' => $percent_lulus_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah,
+            'bil_gagal_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabahs' => $bil_gagal_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah,
+            'percent_gagal_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabahs' => $percent_gagal_kementerian_pembangunan_masyarakat_hal_ehwal_pengguna_sabah,
+            'bil_memohon_kementerian_pembangunan_perindustrian_sabahs' => $bil_memohon_kementerian_pembangunan_perindustrian_sabah,
+            'bil_menduduki_kementerian_pembangunan_perindustrian_sabahs' => $bil_menduduki_kementerian_pembangunan_perindustrian_sabah,
+            'bil_lulus_kementerian_pembangunan_perindustrian_sabahs' => $bil_lulus_kementerian_pembangunan_perindustrian_sabah,
+            'percent_lulus_kementerian_pembangunan_perindustrian_sabahs' => $percent_lulus_kementerian_pembangunan_perindustrian_sabah,
+            'bil_gagal_kementerian_pembangunan_perindustrian_sabahs' => $bil_gagal_kementerian_pembangunan_perindustrian_sabah,
+            'percent_gagal_kementerian_pembangunan_perindustrian_sabahs' => $percent_gagal_kementerian_pembangunan_perindustrian_sabah,
+            'bil_memohon_kementerian_kebudayaan_belia_sukan_sabahs' => $bil_memohon_kementerian_kebudayaan_belia_sukan_sabah,
+            'bil_menduduki_kementerian_kebudayaan_belia_sukan_sabahs' => $bil_menduduki_kementerian_kebudayaan_belia_sukan_sabah,
+            'bil_lulus_kementerian_kebudayaan_belia_sukan_sabahs' => $bil_lulus_kementerian_kebudayaan_belia_sukan_sabah,
+            'percent_lulus_kementerian_kebudayaan_belia_sukan_sabahs' => $percent_lulus_kementerian_kebudayaan_belia_sukan_sabah,
+            'bil_gagal_kementerian_kebudayaan_belia_sukan_sabahs' => $bil_gagal_kementerian_kebudayaan_belia_sukan_sabah,
+            'percent_gagal_kementerian_kebudayaan_belia_sukan_sabahs' => $percent_gagal_kementerian_kebudayaan_belia_sukan_sabah,
+            'bil_memohon_jabatan_sabah_tiada_kementerians' => $bil_memohon_jabatan_sabah_tiada_kementerian,
+            'bil_menduduki_jabatan_sabah_tiada_kementerians' => $bil_menduduki_jabatan_sabah_tiada_kementerian,
+            'bil_lulus_jabatan_sabah_tiada_kementerians' => $bil_lulus_jabatan_sabah_tiada_kementerian,
+            'percent_lulus_jabatan_sabah_tiada_kementerians' => $percent_lulus_jabatan_sabah_tiada_kementerian,
+            'bil_gagal_jabatan_sabah_tiada_kementerians' => $bil_gagal_jabatan_sabah_tiada_kementerian,
+            'percent_gagal_jabatan_sabah_tiada_kementerians' => $percent_gagal_jabatan_sabah_tiada_kementerian,
+            'bil_memohon_kementerian_pelancongan_kebudayaan_alam_sekitar_sabahs' => $bil_memohon_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah,
+            'bil_menduduki_kementerian_pelancongan_kebudayaan_alam_sekitar_sabahs' => $bil_menduduki_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah,
+            'bil_lulus_kementerian_pelancongan_kebudayaan_alam_sekitar_sabahs' => $bil_lulus_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah,
+            'percent_lulus_kementerian_pelancongan_kebudayaan_alam_sekitar_sabahs' => $percent_lulus_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah,
+            'bil_gagal_kementerian_pelancongan_kebudayaan_alam_sekitar_sabahs' => $bil_gagal_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah,
+            'percent_gagal_kementerian_pelancongan_kebudayaan_alam_sekitar_sabahs' => $percent_gagal_kementerian_pelancongan_kebudayaan_alam_sekitar_sabah,
+            'bil_memohon_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabahs' => $bil_memohon_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah,
+            'bil_menduduki_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabahs' => $bil_menduduki_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah,
+            'bil_lulus_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabahs' => $bil_lulus_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah,
+            'percent_lulus_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabahs' => $percent_lulus_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah,
+            'bil_gagal_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabahs' => $bil_gagal_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah,
+            'percent_gagal_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabahs' => $percent_gagal_kementerian_pembangunan_sumber_kemajuan_teknologi_maklumat_sabah,
+            'bil_memohon_jabatan_ketua_menteri_sarawaks' => $bil_memohon_jabatan_ketua_menteri_sarawak,
+            'bil_menduduki_jabatan_ketua_menteri_sarawaks' => $bil_menduduki_jabatan_ketua_menteri_sarawak,
+            'bil_lulus_jabatan_ketua_menteri_sarawaks' => $bil_lulus_jabatan_ketua_menteri_sarawak,
+            'percent_lulus_jabatan_ketua_menteri_sarawaks' => $percent_lulus_jabatan_ketua_menteri_sarawak,
+            'bil_gagal_jabatan_ketua_menteri_sarawaks' => $bil_gagal_jabatan_ketua_menteri_sarawak,
+            'percent_gagal_jabatan_ketua_menteri_sarawaks' => $percent_gagal_jabatan_ketua_menteri_sarawak,
+            'bil_memohon_kementerian_kewangan_kemudahan_awam_sarawaks' => $bil_memohon_kementerian_kewangan_kemudahan_awam_sarawak,
+            'bil_menduduki_kementerian_kewangan_kemudahan_awam_sarawaks' => $bil_menduduki_kementerian_kewangan_kemudahan_awam_sarawak,
+            'bil_lulus_kementerian_kewangan_kemudahan_awam_sarawaks' => $bil_lulus_kementerian_kewangan_kemudahan_awam_sarawak,
+            'percent_lulus_kementerian_kewangan_kemudahan_awam_sarawaks' => $percent_lulus_kementerian_kewangan_kemudahan_awam_sarawak,
+            'bil_gagal_kementerian_kewangan_kemudahan_awam_sarawaks' => $bil_gagal_kementerian_kewangan_kemudahan_awam_sarawak,
+            'percent_gagal_kementerian_kewangan_kemudahan_awam_sarawaks' => $percent_gagal_kementerian_kewangan_kemudahan_awam_sarawak,
+            'bil_memohon_kementerian_pembangunan_insfrastruktur_perhubungan_sarawaks' => $bil_memohon_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak,
+            'bil_menduduki_kementerian_pembangunan_insfrastruktur_perhubungan_sarawaks' => $bil_menduduki_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak,
+            'bil_lulus_kementerian_pembangunan_insfrastruktur_perhubungan_sarawaks' => $bil_lulus_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak,
+            'percent_lulus_kementerian_pembangunan_insfrastruktur_perhubungan_sarawaks' => $percent_lulus_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak,
+            'bil_gagal_kementerian_pembangunan_insfrastruktur_perhubungan_sarawaks' => $bil_gagal_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak,
+            'percent_gagal_kementerian_pembangunan_insfrastruktur_perhubungan_sarawaks' => $percent_gagal_kementerian_pembangunan_insfrastruktur_perhubungan_sarawak,
+            'bil_memohon_kementerian_perancangan_pengurusan_sumber_sarawaks' => $bil_memohon_kementerian_perancangan_pengurusan_sumber_sarawak,
+            'bil_menduduki_kementerian_perancangan_pengurusan_sumber_sarawaks' => $bil_menduduki_kementerian_perancangan_pengurusan_sumber_sarawak,
+            'bil_lulus_kementerian_perancangan_pengurusan_sumber_sarawaks' => $bil_lulus_kementerian_perancangan_pengurusan_sumber_sarawak,
+            'percent_lulus_kementerian_perancangan_pengurusan_sumber_sarawaks' => $percent_lulus_kementerian_perancangan_pengurusan_sumber_sarawak,
+            'bil_gagal_kementerian_perancangan_pengurusan_sumber_sarawaks' => $bil_gagal_kementerian_perancangan_pengurusan_sumber_sarawak,
+            'percent_gagal_kementerian_perancangan_pengurusan_sumber_sarawaks' => $percent_gagal_kementerian_perancangan_pengurusan_sumber_sarawak,
+            'bil_memohon_kementerian_pertanian_industri_makanan_sarawaks' => $bil_memohon_kementerian_pertanian_industri_makanan_sarawak,
+            'bil_menduduki_kementerian_pertanian_industri_makanan_sarawaks' => $bil_menduduki_kementerian_pertanian_industri_makanan_sarawak,
+            'bil_lulus_kementerian_pertanian_industri_makanan_sarawaks' => $bil_lulus_kementerian_pertanian_industri_makanan_sarawak,
+            'percent_lulus_kementerian_pertanian_industri_makanan_sarawaks' => $percent_lulus_kementerian_pertanian_industri_makanan_sarawak,
+            'bil_gagal_kementerian_pertanian_industri_makanan_sarawaks' => $bil_gagal_kementerian_pertanian_industri_makanan_sarawak,
+            'percent_gagal_kementerian_pertanian_industri_makanan_sarawaks' => $percent_gagal_kementerian_pertanian_industri_makanan_sarawak,
+            'bil_memohon_kementerian_alam_sekitar_kesihatan_awam_sarawaks' => $bil_memohon_kementerian_alam_sekitar_kesihatan_awam_sarawak,
+            'bil_menduduki_kementerian_alam_sekitar_kesihatan_awam_sarawaks' => $bil_menduduki_kementerian_alam_sekitar_kesihatan_awam_sarawak,
+            'bil_lulus_kementerian_alam_sekitar_kesihatan_awam_sarawaks' => $bil_lulus_kementerian_alam_sekitar_kesihatan_awam_sarawak,
+            'percent_lulus_kementerian_alam_sekitar_kesihatan_awam_sarawaks' => $percent_lulus_kementerian_alam_sekitar_kesihatan_awam_sarawak,
+            'bil_gagal_kementerian_alam_sekitar_kesihatan_awam_sarawaks' => $bil_gagal_kementerian_alam_sekitar_kesihatan_awam_sarawak,
+            'percent_gagal_kementerian_alam_sekitar_kesihatan_awam_sarawaks' => $percent_gagal_kementerian_alam_sekitar_kesihatan_awam_sarawak,
+            'bil_memohon_kementerian_perumahan_sarawaks' => $bil_memohon_kementerian_perumahan_sarawak,
+            'bil_menduduki_kementerian_perumahan_sarawaks' => $bil_menduduki_kementerian_perumahan_sarawak,
+            'bil_lulus_kementerian_perumahan_sarawaks' => $bil_lulus_kementerian_perumahan_sarawak,
+            'percent_lulus_kementerian_perumahan_sarawaks' => $percent_lulus_kementerian_perumahan_sarawak,
+            'bil_gagal_kementerian_perumahan_sarawaks' => $bil_gagal_kementerian_perumahan_sarawak,
+            'percent_gagal_kementerian_perumahan_sarawaks' => $percent_gagal_kementerian_perumahan_sarawak,
+            'bil_memohon_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawaks' => $bil_memohon_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak,
+            'bil_menduduki_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawaks' => $bil_menduduki_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak,
+            'bil_lulus_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawaks' => $bil_lulus_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak,
+            'percent_lulus_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawaks' => $percent_lulus_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak,
+            'bil_gagal_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawaks' => $bil_gagal_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak,
+            'percent_gagal_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawaks' => $percent_gagal_kementerian_pembangunan_luar_bandar_kemajuan_tanah_sarawak,
+            'bil_memohon_kementerian_pembangunan_perindustrian_sarawaks' => $bil_memohon_kementerian_pembangunan_perindustrian_sarawak,
+            'bil_menduduki_kementerian_pembangunan_perindustrian_sarawaks' => $bil_menduduki_kementerian_pembangunan_perindustrian_sarawak,
+            'bil_lulus_kementerian_pembangunan_perindustrian_sarawaks' => $bil_lulus_kementerian_pembangunan_perindustrian_sarawak,
+            'percent_lulus_kementerian_pembangunan_perindustrian_sarawaks' => $percent_lulus_kementerian_pembangunan_perindustrian_sarawak,
+            'bil_gagal_kementerian_pembangunan_perindustrian_sarawaks' => $bil_gagal_kementerian_pembangunan_perindustrian_sarawak,
+            'percent_gagal_kementerian_pembangunan_perindustrian_sarawaks' => $percent_gagal_kementerian_pembangunan_perindustrian_sarawak,
+            'bil_memohon_kementerian_pelancongan_sarawaks' => $bil_memohon_kementerian_pelancongan_sarawak,
+            'bil_menduduki_kementerian_pelancongan_sarawaks' => $bil_menduduki_kementerian_pelancongan_sarawak,
+            'bil_lulus_kementerian_pelancongan_sarawaks' => $bil_lulus_kementerian_pelancongan_sarawak,
+            'percent_lulus_kementerian_pelancongan_sarawaks' => $percent_lulus_kementerian_pelancongan_sarawak,
+            'bil_gagal_kementerian_pelancongan_sarawaks' => $bil_gagal_kementerian_pelancongan_sarawak,
+            'percent_gagal_kementerian_pelancongan_sarawaks' => $percent_gagal_kementerian_pelancongan_sarawak,
+            'bil_memohon_jabatan_sarawak_tidak_berkementerians' => $bil_memohon_jabatan_sarawak_tidak_berkementerian,
+            'bil_menduduki_jabatan_sarawak_tidak_berkementerians' => $bil_menduduki_jabatan_sarawak_tidak_berkementerian,
+            'bil_lulus_jabatan_sarawak_tidak_berkementerians' => $bil_lulus_jabatan_sarawak_tidak_berkementerian,
+            'percent_lulus_jabatan_sarawak_tidak_berkementerians' => $percent_lulus_jabatan_sarawak_tidak_berkementerian,
+            'bil_gagal_jabatan_sarawak_tidak_berkementerians' => $bil_gagal_jabatan_sarawak_tidak_berkementerian,
+            'percent_gagal_jabatan_sarawak_tidak_berkementerians' => $percent_gagal_jabatan_sarawak_tidak_berkementerian,
+            'bil_memohon_kementerian_pembangunan_sosial_urbanisasi_sarawaks' => $bil_memohon_kementerian_pembangunan_sosial_urbanisasi_sarawak,
+            'bil_menduduki_kementerian_pembangunan_sosial_urbanisasi_sarawaks' => $bil_menduduki_kementerian_pembangunan_sosial_urbanisasi_sarawak,
+            'bil_lulus_kementerian_pembangunan_sosial_urbanisasi_sarawaks' => $bil_lulus_kementerian_pembangunan_sosial_urbanisasi_sarawak,
+            'percent_lulus_kementerian_pembangunan_sosial_urbanisasi_sarawaks' => $percent_lulus_kementerian_pembangunan_sosial_urbanisasi_sarawak,
+            'bil_gagal_kementerian_pembangunan_sosial_urbanisasi_sarawaks' => $bil_gagal_kementerian_pembangunan_sosial_urbanisasi_sarawak,
+            'percent_gagal_kementerian_pembangunan_sosial_urbanisasi_sarawaks' => $percent_gagal_kementerian_pembangunan_sosial_urbanisasi_sarawak,
+            'bil_memohon_kementerian_pengajian_tinggis' => $bil_memohon_kementerian_pengajian_tinggi,
+            'bil_menduduki_kementerian_pengajian_tinggis' => $bil_menduduki_kementerian_pengajian_tinggi,
+            'bil_lulus_kementerian_pengajian_tinggis' => $bil_lulus_kementerian_pengajian_tinggi,
+            'percent_lulus_kementerian_pengajian_tinggis' => $percent_lulus_kementerian_pengajian_tinggi,
+            'bil_gagal_kementerian_pengajian_tinggis' => $bil_gagal_kementerian_pengajian_tinggi,
+            'percent_gagal_kementerian_pengajian_tinggis' => $percent_gagal_kementerian_pengajian_tinggi,
+            'bil_memohon_kementerian_alam_sekitar_airs' => $bil_memohon_kementerian_alam_sekitar_air,
+            'bil_menduduki_kementerian_alam_sekitar_airs' => $bil_menduduki_kementerian_alam_sekitar_air,
+            'bil_lulus_kementerian_alam_sekitar_airs' => $bil_lulus_kementerian_alam_sekitar_air,
+            'percent_lulus_kementerian_alam_sekitar_airs' => $percent_lulus_kementerian_alam_sekitar_air,
+            'bil_gagal_kementerian_alam_sekitar_airs' => $bil_gagal_kementerian_alam_sekitar_air,
+            'percent_gagal_kementerian_alam_sekitar_airs' => $percent_gagal_kementerian_alam_sekitar_air,
+            'bil_memohon_jumlahs' => $bil_memohon_jumlah,
+            'bil_menduduki_jumlahs' => $bil_menduduki_jumlah,
+            'bil_lulus_jumlahs' => $bil_lulus_jumlah,
+            'percent_lulus_jumlahs' => $percent_lulus_jumlah,
+            'bil_gagal_jumlahs' => $bil_gagal_jumlah,
+            'percent_gagal_jumlahs' => $percent_gagal_jumlah,
         ]);
     }
 
@@ -8068,16 +20512,419 @@ class LaporanController extends Controller
 
         //Kampus Utama (INTAN Bukit Kiara)
         //bil sesi
-        if ($request->tahun != null){
-            $bil_sesi_kampus_utama = Jadual::where('LOKASI', 'Kampus Utama (INTAN Bukit Kiara)')->whereYear('updated_at', $tahun)->count();
+        if ($request->tahun != null) {
+            $bil_sesi_kampus_utama = Jadual::where('LOKASI', 'Kampus Utama (INTAN Bukit Kiara)')
+                ->whereYear('updated_at', $tahun)
+                ->count();
         } else {
             $bil_sesi_kampus_utama = Jadual::where('LOKASI', 'Kampus Utama (INTAN Bukit Kiara)')->count();
         }
 
-        // dd($bil_sesi_kampus_utama);
+        //bil memohon
+        if ($request->tahun != null) {
+            $bil_memohon_kampus_utama = Jadual::where('LOKASI', 'Kampus Utama (INTAN Bukit Kiara)')
+                ->whereYear('updated_at', $tahun)
+                ->sum('BILANGAN_CALON');
+        } else {
+            $bil_memohon_kampus_utama = Jadual::where('LOKASI', 'Kampus Utama (INTAN Bukit Kiara)')
+                ->sum('BILANGAN_CALON');
+        }
+
+        //bil menduduki
+        if ($request->tahun != null) {
+            $bil_menduduki_kampus_utama = KeputusanPenilaian::where('lokasi', 'Kampus Utama (INTAN Bukit Kiara)')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kampus_utama = KeputusanPenilaian::where('lokasi', 'Kampus Utama (INTAN Bukit Kiara)')
+                ->count();
+        }
+
+        //bil lulus
+        if ($request->tahun != null) {
+            $bil_lulus_kampus_utama = KeputusanPenilaian::where('lokasi', 'Kampus Utama (INTAN Bukit Kiara)')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kampus_utama = KeputusanPenilaian::where('lokasi', 'Kampus Utama (INTAN Bukit Kiara)')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //bil gagal
+        if ($request->tahun != null) {
+            $bil_gagal_kampus_utama = KeputusanPenilaian::where('lokasi', 'Kampus Utama (INTAN Bukit Kiara)')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kampus_utama = KeputusanPenilaian::where('lokasi', 'Kampus Utama (INTAN Bukit Kiara)')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //Kampus Wilayah Selatan (IKWAS)
+        //bil sesi
+        if ($request->tahun != null) {
+            $bil_sesi_kampus_selatan = Jadual::where('LOKASI', 'Kampus Wilayah Selatan (IKWAS)')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_sesi_kampus_selatan = Jadual::where('LOKASI', 'Kampus Wilayah Selatan (IKWAS)')->count();
+        }
+
+        //bil memohon
+        if ($request->tahun != null) {
+            $bil_memohon_kampus_selatan = Jadual::where('LOKASI', 'Kampus Wilayah Selatan (IKWAS)')
+                ->whereYear('updated_at', $tahun)
+                ->sum('BILANGAN_CALON');
+        } else {
+            $bil_memohon_kampus_selatan = Jadual::where('LOKASI', 'Kampus Wilayah Selatan (IKWAS)')
+                ->sum('BILANGAN_CALON');
+        }
+
+        //bil menduduki
+        if ($request->tahun != null) {
+            $bil_menduduki_kampus_selatan = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Selatan (IKWAS)')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kampus_selatan = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Selatan (IKWAS)')
+                ->count();
+        }
+
+        //bil lulus
+        if ($request->tahun != null) {
+            $bil_lulus_kampus_selatan = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Selatan (IKWAS)')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kampus_selatan = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Selatan (IKWAS)')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //bil gagal
+        if ($request->tahun != null) {
+            $bil_gagal_kampus_selatan = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Selatan (IKWAS)')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kampus_selatan = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Selatan (IKWAS)')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //Kampus Wilayah Utara(INTURA)
+        //bil sesi
+        if ($request->tahun != null) {
+            $bil_sesi_kampus_utara = Jadual::where('LOKASI', 'Kampus Wilayah Utara(INTURA)')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_sesi_kampus_utara = Jadual::where('LOKASI', 'Kampus Wilayah Utara(INTURA)')->count();
+        }
+
+        //bil memohon
+        if ($request->tahun != null) {
+            $bil_memohon_kampus_utara = Jadual::where('LOKASI', 'Kampus Wilayah Utara(INTURA)')
+                ->whereYear('updated_at', $tahun)
+                ->sum('BILANGAN_CALON');
+        } else {
+            $bil_memohon_kampus_utara = Jadual::where('LOKASI', 'Kampus Wilayah Utara(INTURA)')
+                ->sum('BILANGAN_CALON');
+        }
+
+        //bil menduduki
+        if ($request->tahun != null) {
+            $bil_menduduki_kampus_utara = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Utara(INTURA)')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kampus_utara = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Utara(INTURA)')
+                ->count();
+        }
+
+        //bil lulus
+        if ($request->tahun != null) {
+            $bil_lulus_kampus_utara = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Utara(INTURA)')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kampus_utara = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Utara(INTURA)')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //bil gagal
+        if ($request->tahun != null) {
+            $bil_gagal_kampus_utara = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Utara(INTURA)')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kampus_utara = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Utara(INTURA)')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //Kampus Wilayah Timur (INTIM)
+        //bil sesi
+        if ($request->tahun != null) {
+            $bil_sesi_kampus_timur = Jadual::where('LOKASI', 'Kampus Wilayah Timur (INTIM)')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_sesi_kampus_timur = Jadual::where('LOKASI', 'Kampus Wilayah Timur (INTIM)')->count();
+        }
+
+        //bil memohon
+        if ($request->tahun != null) {
+            $bil_memohon_kampus_timur = Jadual::where('LOKASI', 'Kampus Wilayah Timur (INTIM)')
+                ->whereYear('updated_at', $tahun)
+                ->sum('BILANGAN_CALON');
+        } else {
+            $bil_memohon_kampus_timur = Jadual::where('LOKASI', 'Kampus Wilayah Timur (INTIM)')
+                ->sum('BILANGAN_CALON');
+        }
+
+        //bil menduduki
+        if ($request->tahun != null) {
+            $bil_menduduki_kampus_timur = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Timur (INTIM)')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kampus_timur = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Timur (INTIM)')
+                ->count();
+        }
+
+        //bil lulus
+        if ($request->tahun != null) {
+            $bil_lulus_kampus_timur = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Timur (INTIM)')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kampus_timur = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Timur (INTIM)')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //bil gagal
+        if ($request->tahun != null) {
+            $bil_gagal_kampus_timur = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Timur (INTIM)')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kampus_timur = KeputusanPenilaian::where('lokasi', 'Kampus Wilayah Timur (INTIM)')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //Kampus INTAN Sabah
+        //bil sesi
+        if ($request->tahun != null) {
+            $bil_sesi_kampus_sabah = Jadual::where('LOKASI', 'Kampus INTAN Sabah')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_sesi_kampus_sabah = Jadual::where('LOKASI', 'Kampus INTAN Sabah')->count();
+        }
+
+        //bil memohon
+        if ($request->tahun != null) {
+            $bil_memohon_kampus_sabah = Jadual::where('LOKASI', 'Kampus INTAN Sabah')
+                ->whereYear('updated_at', $tahun)
+                ->sum('BILANGAN_CALON');
+        } else {
+            $bil_memohon_kampus_sabah = Jadual::where('LOKASI', 'Kampus INTAN Sabah')
+                ->sum('BILANGAN_CALON');
+        }
+
+        //bil menduduki
+        if ($request->tahun != null) {
+            $bil_menduduki_kampus_sabah = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sabah')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kampus_sabah = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sabah')
+                ->count();
+        }
+
+        //bil lulus
+        if ($request->tahun != null) {
+            $bil_lulus_kampus_sabah = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sabah')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kampus_sabah = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sabah')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //bil gagal
+        if ($request->tahun != null) {
+            $bil_gagal_kampus_sabah = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sabah')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kampus_sabah = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sabah')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //Kampus INTAN Sarawak
+        //bil sesi
+        if ($request->tahun != null) {
+            $bil_sesi_kampus_sarawak = Jadual::where('LOKASI', 'Kampus INTAN Sarawak')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_sesi_kampus_sarawak = Jadual::where('LOKASI', 'Kampus INTAN Sarawak')->count();
+        }
+
+        //bil memohon
+        if ($request->tahun != null) {
+            $bil_memohon_kampus_sarawak = Jadual::where('LOKASI', 'Kampus INTAN Sarawak')
+                ->whereYear('updated_at', $tahun)
+                ->sum('BILANGAN_CALON');
+        } else {
+            $bil_memohon_kampus_sarawak = Jadual::where('LOKASI', 'Kampus INTAN Sarawak')
+                ->sum('BILANGAN_CALON');
+        }
+
+        //bil menduduki
+        if ($request->tahun != null) {
+            $bil_menduduki_kampus_sarawak = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sarawak')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_menduduki_kampus_sarawak = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sarawak')
+                ->count();
+        }
+
+        //bil lulus
+        if ($request->tahun != null) {
+            $bil_lulus_kampus_sarawak = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sarawak')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_lulus_kampus_sarawak = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sarawak')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //bil gagal
+        if ($request->tahun != null) {
+            $bil_gagal_kampus_sarawak = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sarawak')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $bil_gagal_kampus_sarawak = KeputusanPenilaian::where('lokasi', 'Kampus INTAN Sarawak')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+        //jumlah
+        //jumlah bil sesi
+        if ($request->tahun != null) {
+            $jumlah_bil_sesi = Jadual::whereYear('updated_at', $tahun)
+                ->where('lokasi', '!=', 'Atas Talian')
+                ->count();
+        } else {
+            $jumlah_bil_sesi = Jadual::where('lokasi', '!=', 'Atas Talian')->count();
+        }
+
+        //bil memohon
+        if ($request->tahun != null) {
+            $jumlah_bil_memohon = Jadual::where('lokasi', '!=', 'Atas Talian')
+                ->whereYear('updated_at', $tahun)
+                ->sum('BILANGAN_CALON');
+        } else {
+            $jumlah_bil_memohon = Jadual::where('lokasi', '!=', 'Atas Talian')->sum('BILANGAN_CALON');
+        }
+
+        //bil menduduki
+        if ($request->tahun != null) {
+            $jumlah_bil_menduduki = KeputusanPenilaian::where('lokasi', '!=', 'Atas Talian')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $jumlah_bil_menduduki = KeputusanPenilaian::where('lokasi', '!=', 'Atas Talian')->count();
+        }
+
+        //bil lulus
+        if ($request->tahun != null) {
+            $jumlah_bil_lulus = KeputusanPenilaian::where('lokasi', '!=', 'Atas Talian')
+                ->where('keputusan', 'Lulus')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $jumlah_bil_lulus = KeputusanPenilaian::where('lokasi', '!=', 'Atas Talian')
+                ->where('keputusan', 'Lulus')
+                ->count();
+        }
+
+        //bil gagal
+        if ($request->tahun != null) {
+            $jumlah_bil_gagal = KeputusanPenilaian::where('lokasi', '!=', 'Atas Talian')
+                ->where('keputusan', 'Gagal')
+                ->whereYear('updated_at', $tahun)
+                ->count();
+        } else {
+            $jumlah_bil_gagal = KeputusanPenilaian::where('lokasi', '!=', 'Atas Talian')
+                ->where('keputusan', 'Gagal')
+                ->count();
+        }
+
+
         return view('laporan.keseluruhan_penilaian_isac_mengikut_iac', [
             'tahuns' => $tahun,
-            'tahun_semasas' => $tahun_semasa
+            'tahun_semasas' => $tahun_semasa,
+            'bil_sesi_kampus_utamas' => $bil_sesi_kampus_utama,
+            'bil_memohon_kampus_utamas' => $bil_memohon_kampus_utama,
+            'bil_menduduki_kampus_utamas' => $bil_menduduki_kampus_utama,
+            'bil_lulus_kampus_utamas' => $bil_lulus_kampus_utama,
+            'bil_gagal_kampus_utamas' => $bil_gagal_kampus_utama,
+            'bil_sesi_kampus_selatans' => $bil_sesi_kampus_selatan,
+            'bil_memohon_kampus_selatans' => $bil_memohon_kampus_selatan,
+            'bil_menduduki_kampus_selatans' => $bil_menduduki_kampus_selatan,
+            'bil_lulus_kampus_selatans' => $bil_lulus_kampus_selatan,
+            'bil_gagal_kampus_selatans' => $bil_gagal_kampus_selatan,
+            'bil_sesi_kampus_utaras' => $bil_sesi_kampus_utara,
+            'bil_memohon_kampus_utaras' => $bil_memohon_kampus_utara,
+            'bil_menduduki_kampus_utaras' => $bil_menduduki_kampus_utara,
+            'bil_lulus_kampus_utaras' => $bil_lulus_kampus_utara,
+            'bil_gagal_kampus_utaras' => $bil_gagal_kampus_utara,
+            'bil_sesi_kampus_timurs' => $bil_sesi_kampus_timur,
+            'bil_memohon_kampus_timurs' => $bil_memohon_kampus_timur,
+            'bil_menduduki_kampus_timurs' => $bil_menduduki_kampus_timur,
+            'bil_lulus_kampus_timurs' => $bil_lulus_kampus_timur,
+            'bil_gagal_kampus_timurs' => $bil_gagal_kampus_timur,
+            'bil_sesi_kampus_sabahs' => $bil_sesi_kampus_sabah,
+            'bil_memohon_kampus_sabahs' => $bil_memohon_kampus_sabah,
+            'bil_menduduki_kampus_sabahs' => $bil_menduduki_kampus_sabah,
+            'bil_lulus_kampus_sabahs' => $bil_lulus_kampus_sabah,
+            'bil_gagal_kampus_sabahs' => $bil_gagal_kampus_sabah,
+            'bil_sesi_kampus_sarawaks' => $bil_sesi_kampus_sarawak,
+            'bil_memohon_kampus_sarawaks' => $bil_memohon_kampus_sarawak,
+            'bil_menduduki_kampus_sarawaks' => $bil_menduduki_kampus_sarawak,
+            'bil_lulus_kampus_sarawaks' => $bil_lulus_kampus_sarawak,
+            'bil_gagal_kampus_sarawaks' => $bil_gagal_kampus_sarawak,
+            'jumlah_bil_sesis' => $jumlah_bil_sesi,
+            'jumlah_bil_memohons' => $jumlah_bil_memohon,
+            'jumlah_bil_mendudukis' => $jumlah_bil_menduduki,
+            'jumlah_bil_luluss' => $jumlah_bil_lulus,
+            'jumlah_bil_gagals' => $jumlah_bil_gagal,
         ]);
     }
 

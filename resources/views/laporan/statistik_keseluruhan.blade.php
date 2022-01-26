@@ -90,8 +90,8 @@
                     <table class="table align-items-center mb-0" id="tablestatistikkeseluruhan">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
-                                    Bil.</th>
+                                {{-- <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
+                                    Bil.</th> --}}
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Tahun</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
@@ -111,26 +111,606 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($senarai_keputusans as $senarai_keputusan)
-                            <tr>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{ $loop->index + 1 }}</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{ $senarai_keputusan->ic_peserta }}</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{ $senarai_keputusan->nama_peserta }}</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{ $senarai_keputusan->KOD_KEMENTERIAN }}</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{ $senarai_keputusan->KOD_JABATAN }}</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{ $senarai_keputusan->tarikh_penilaian }}</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{ $senarai_keputusan->keputusan }}</td>
-                                <td class="text-sm text-center font-weight-normal">
-                                    {{ $senarai_keputusan->no_sijil }}</td>
-                            </tr>
-                            @endforeach --}}
+                            @if ($bil_sesi_2021s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2021
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2021s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2021s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2021s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2021s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2021s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2021s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2021s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2022s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2022
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2022s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2022s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2022s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2022s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2022s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2022s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2022s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2023s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2023
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2023s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2023s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2023s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2023s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2023s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2023s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2023s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2024s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2024
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2024s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2024s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2024s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2024s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2024s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2024s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2024s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2025s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2025
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2025s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2025s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2025s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2025s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2025s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2025s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2025s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2026s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2026
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2026s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2026s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2026s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2026s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2026s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2026s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2026s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2027s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2027
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2027s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2027s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2027s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2027s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2027s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2027s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2027s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2028s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2028
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2028s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2028s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2028s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2028s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2028s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2028s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2028s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2029s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2029
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2029s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2029s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2029s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2029s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2029s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2029s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2029s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2030s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2030
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2030s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2030s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2030s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2030s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2030s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2030s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2030s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2031s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2031
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2031s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2031s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2031s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2031s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2031s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2031s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2031s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2032s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2032
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2032s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2032s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2032s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2032s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2032s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2032s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2032s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2033s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2033
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2033s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2033s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2033s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2033s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2033s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2033s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2033s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2034s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2034
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2034s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2034s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2034s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2034s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2034s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2034s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2034s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2035s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2035
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2035s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2035s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2035s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2035s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2035s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2035s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2035s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2036s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2036
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2036s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2036s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2036s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2036s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2036s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2036s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2036s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2037s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2037
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2037s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2037s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2037s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2037s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2037s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2037s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2037s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2038s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2038
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2038s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2038s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2038s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2038s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2038s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2038s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2038s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2039s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2039
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2039s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2039s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2039s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2039s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2039s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2039s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2039s }}
+                                    </td>
+                                </tr>
+                            @endif
+                            @if ($bil_sesi_2040s != null)
+                                <tr>
+                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                    1</td> --}}
+                                    <td class="text-sm text-center font-weight-normal">
+                                        2040
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_sesi_2040s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_memohon_2040s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_menduduki_2040s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_lulus_2040s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_lulus_2040s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $bil_gagal_2040s }}
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $percent_gagal_2040s }}
+                                    </td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>

@@ -107,29 +107,19 @@
                                     Kampus Utama (INTAN Bukit Kiara)
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_sesi_kampus_utamas }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_memohon_kampus_utamas }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_menduduki_kampus_utamas }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_lulus_kampus_utamas }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_gagal_kampus_utamas }}
                                 </td>
                             </tr>
                             <tr>
@@ -139,29 +129,19 @@
                                     Kampus Wilayah Selatan (IKWAS)
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_sesi_kampus_selatans }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_memohon_kampus_selatans }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_menduduki_kampus_selatans }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_lulus_kampus_selatans }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_gagal_kampus_selatans }}
                                 </td>
                             </tr>
                             <tr>
@@ -171,29 +151,19 @@
                                     Kampus Wilayah Utara(INTURA)
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_sesi_kampus_utaras }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_memohon_kampus_utaras }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_menduduki_kampus_utaras }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_lulus_kampus_utaras }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_gagal_kampus_utaras }}
                                 </td>
                             </tr>
                             <tr>
@@ -203,29 +173,19 @@
                                     Kampus Wilayah Timur (INTIM)
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_sesi_kampus_timurs }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_memohon_kampus_timurs }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_menduduki_kampus_timurs }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_lulus_kampus_timurs }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_gagal_kampus_timurs }}
                                 </td>
                             </tr>
                             <tr>
@@ -235,29 +195,19 @@
                                     Kampus INTAN Sabah
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_sesi_kampus_sabahs }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_memohon_kampus_sabahs }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_menduduki_kampus_sabahs }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_lulus_kampus_sabahs }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_gagal_kampus_sabahs }}
                                 </td>
                             </tr>
                             <tr>
@@ -267,29 +217,19 @@
                                     Kampus INTAN Sarawak
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_sesi_kampus_sarawaks }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    0
+                                    {{ $bil_memohon_kampus_sarawaks }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_menduduki_kampus_sarawaks }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_lulus_kampus_sarawaks }}
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    0
+                                    {{ $bil_gagal_kampus_sarawaks }}
                                 </td>
                             </tr>
                             <tr>
@@ -299,29 +239,19 @@
                                 <td class="text-sm text-center font-weight-normal">
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_mohon_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_mohon_jan }}
-                                    @endif --}}
-                                    <b>0</b>
+                                    <b>{{ $jumlah_bil_sesis }}</b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    {{-- @if ($bil_duduk_jan == null)
-                                        0
-                                    @else
-                                        {{ $bil_duduk_jan }}
-                                    @endif --}}
-                                    <b>0</b>
+                                    <b>{{ $jumlah_bil_memohons }}</b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    <b>0</b>
+                                    <b>{{ $jumlah_bil_mendudukis }}</b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    <b>0</b>
+                                    <b>{{ $jumlah_bil_luluss }}</b>
                                 </td>
                                 <td class="text-sm text-center font-weight-normal">
-                                    <b>0</b>
+                                    <b>{{ $jumlah_bil_gagals }}</b>
                                 </td>
                             </tr>
                         </tbody>
