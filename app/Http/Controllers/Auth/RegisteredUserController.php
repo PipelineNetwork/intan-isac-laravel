@@ -41,6 +41,13 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // check email
+        $checkemail = User::where('email', $request->email)->first();
+        if($checkemail != null){
+            alert()->error('Maaf, email yang dimasukkan telah digunakan. Sila masukkan nombor kad pengenalan semula','Pendaftaran Gagal');
+            return redirect('/authenticate-ic');
+        }
+
         $request->validate([
             'nric' => 'required|string|max:255|unique:users',
             'name' => 'required|string|max:255',
