@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\JadualKemaskini;
 use App\Mail\JadualKemaskiniPenangguhan;
 use App\Mail\JadualKemaskiniPembatalan;
+use App\Models\KeputusanPenilaian;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Permohanan;
 use App\Models\MohonPenilaian;
@@ -340,6 +341,10 @@ class JadualController extends Controller
         $permohonan = MohonPenilaian::where('id_sesi', $jadual->ID_PENILAIAN)->get();
         foreach ($permohonan as $permohonan) {
             $permohonan->delete();
+        }
+        $keputusan = KeputusanPenilaian::where('id_penilaian', $jadual->ID_PENILAIAN)->get();
+        foreach ($keputusan as $k) {
+            $k->delete();
         }
         $jadual->delete();
         return redirect('/jaduals');
