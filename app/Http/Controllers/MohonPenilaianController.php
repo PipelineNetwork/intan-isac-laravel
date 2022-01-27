@@ -182,6 +182,7 @@ class MohonPenilaianController extends Controller
         $maklumat_calon = Tugas::where('ID_PESERTA', $permohonan->id_calon)->first();
 
         $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN - 1;
+        $kekosongan->BILANGAN_CALON = $kekosongan->BILANGAN_CALON+1;
         $kekosongan->save();
 
         $tahap = $kekosongan->KOD_TAHAP;
