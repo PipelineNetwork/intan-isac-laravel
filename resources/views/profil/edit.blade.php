@@ -83,7 +83,7 @@
                                                     <option hidden selected value="{{ $user_profils->KOD_GELARAN }}">
                                                         {{ $user_profils->KOD_GELARAN }}</option>
                                                     @foreach ($kod_gelarans as $kod_gelaran)
-                                                        <option value="{{ $kod_gelaran->REFERENCECODE }}">
+                                                        <option value="{{ $kod_gelaran->DESCRIPTION1 }}">
                                                             {{ $kod_gelaran->DESCRIPTION1 }}</option>
                                                     @endforeach
                                                 </select>
@@ -92,7 +92,7 @@
                                                     id="input_kod_gelaran">
                                                     <option hidden selected value="">Sila Pilih</option>
                                                     @foreach ($kod_gelarans as $kod_gelaran)
-                                                        <option value="{{ $kod_gelaran->REFERENCECODE }}">
+                                                        <option value="{{ $kod_gelaran->DESCRIPTION1 }}">
                                                             {{ $kod_gelaran->DESCRIPTION1 }}</option>
                                                     @endforeach
                                                 </select>
@@ -531,7 +531,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="row mb-2">
+                                    {{-- <div class="row mb-2">
                                         <div class="col-3">
                                             <label class="form-control-label mr-4">
                                                 Agensi
@@ -549,7 +549,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-6">
                                         <label for="">No Kad. Pengenalan :</label>
                                         <div class="input-group">

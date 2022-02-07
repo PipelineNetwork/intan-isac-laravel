@@ -695,6 +695,7 @@ class MohonPenilaianController extends Controller
             ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
             ->get()->first();
 
+        // dd($user_profils);
         return view('mohonPenilaian.calon.jadual_dashboard_update_profile', [
             'user_profils' => $user_profils,
             'current_user' => $current_user,
