@@ -129,6 +129,16 @@ class BankjawapanpengetahuanController extends Controller
             $simpan_jawapan->save();
         }
 
+        $jawapan_kemahiran = new Bankjawapancalon();
+
+        $jawapan_kemahiran->status_jawab_internet = '0';
+        $jawapan_kemahiran->status_jawab_word = '0';
+        $jawapan_kemahiran->status_jawab_email = '0';
+        $jawapan_kemahiran->id_penilaian = $request->id_penilaian;
+        $jawapan_kemahiran->ic_calon = Auth::user()->nric;
+
+        $jawapan_kemahiran->save();
+
         if ($request->timer == null) {
             return redirect('/soalan-kemahiran-internet/' . $id_penilaian)->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
         } else {

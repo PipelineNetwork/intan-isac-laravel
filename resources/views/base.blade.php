@@ -574,9 +574,17 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 text-end">
-                                <form method="POST" action="/logout">
+                                {{-- <form method="POST" action="/logout">
                                     @csrf
                                     <button class="btn mb-0 bg-gradient-danger" type="submit">Log Keluar</button>
+                                </form> --}}
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <button class="btn mb-0 bg-gradient-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                                this.closest('form').submit();">
+                                        {{ __('Log Keluar') }}
+                                    </button>
                                 </form>
                             </div>
                         </div>

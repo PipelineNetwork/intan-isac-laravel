@@ -59,12 +59,11 @@ class SoalankemahiranwordController extends Controller
 
         $jawapancalon = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', $current_user->nric)->first();
 
-        if ($jawapancalon == null) {
-            $jawapancalon = new Bankjawapancalon();
+        if ($jawapancalon->status_jawab_internet == 0) {
 
             $jawapancalon->markah_urlteks = 0;
             $jawapancalon->markah_carianteks = 0;
-
+            $jawapancalon->status_jawab_internet = '1';
             $jawapancalon->jawapan_word =  $request->jawapan_word;
 
             $jawapan = Soalankemahiranword::all();
@@ -154,6 +153,8 @@ class SoalankemahiranwordController extends Controller
 
             $jawapancalon->id_penilaian = $id_penilaian;
             $jawapancalon->ic_calon = Auth::user()->nric;
+
+            $jawapancalon->status_jawab_word = '1';
         } else {
             $jawapancalon->jawapan_word =  $request->jawapan_word;
 
@@ -244,6 +245,8 @@ class SoalankemahiranwordController extends Controller
 
             $jawapancalon->id_penilaian = $id_penilaian;
             $jawapancalon->ic_calon = Auth::user()->nric;
+
+            $jawapancalon->status_jawab_word = '1';
         }
 
         // dd($jawapancalon);
