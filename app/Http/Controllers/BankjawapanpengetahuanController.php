@@ -131,6 +131,17 @@ class BankjawapanpengetahuanController extends Controller
 
         $jawapan_kemahiran = new Bankjawapancalon();
 
+        $jawapan_kemahiran->markah_urlteks = '0';
+        $jawapan_kemahiran->markah_carianteks = '0';
+        $jawapan_kemahiran->markah_inputto = '0';
+        $jawapan_kemahiran->markah_inputsubject = '0';
+        $jawapan_kemahiran->markah_inputmesej = '0';
+        $jawapan_kemahiran->markah_failupload = '0';
+        $jawapan_kemahiran->jumlah_markah_word = '0';
+        $jawapan_kemahiran->jumlah_markah_internet = '0';
+        $jawapan_kemahiran->jumlah_markah_email = '0';
+        $jawapan_kemahiran->status_jawab_internet = '0';
+
         $jawapan_kemahiran->status_jawab_internet = '0';
         $jawapan_kemahiran->status_jawab_word = '0';
         $jawapan_kemahiran->status_jawab_email = '0';
