@@ -64,7 +64,8 @@
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">
-                                <strong>{{ $noti->tawaran_penilaian_individu }}</strong>&emsp;Hari (kepada Peserta, Penyelia
+                                <strong>{{ $noti->tawaran_penilaian_individu }}</strong>&emsp;Hari (kepada Peserta,
+                                Penyelia
                                 dan Penyelia ISAC)
                             </div>
                         </div>
@@ -108,6 +109,22 @@
                             </div>
                             <div class="col-8">
                                 <strong>{{ $noti->jadual_penilaian }}</strong>&emsp;Hari sebelum tarikh penilaian
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4">
+                                <label class="form-control-label mr-4">
+                                    Peringatan Tukar Katalaluan
+                                </label><label class="float-right">:</label>
+                            </div>
+                            <div class="col-8">
+                                <strong>
+                                    @if ($noti->peringatan_tukar_katalaluan != null)
+                                    {{ $noti->peringatan_tukar_katalaluan}}
+                                    @else
+                                        0
+                                    @endif
+                                </strong>&emsp;bulan selepas tarikh pendaftaran akaun
                             </div>
                         </div>
                     </div>

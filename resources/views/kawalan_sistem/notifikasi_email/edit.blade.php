@@ -116,6 +116,18 @@
                                 </div>
                                 <div class="col">Hari sebelum tarikh penilaian</div>
                             </div>
+                            <div class="row mb-2">
+                                <div class="col-4">
+                                    <label class="form-control-label mr-4">
+                                        Peringatan Tukar Katalaluan
+                                    </label><label class="float-right">:</label>
+                                </div>
+                                <div class="col-1">
+                                    <input type="text" class="form-control" name="peringatan_tukar_katalaluan"
+                                        value="{{ $noti->peringatan_tukar_katalaluan }}">
+                                </div>
+                                <div class="col">Bulan selepas tarikh pendaftaran akaun</div>
+                            </div>
 
                             <div class="row">
                                 <div class="col text-end">
