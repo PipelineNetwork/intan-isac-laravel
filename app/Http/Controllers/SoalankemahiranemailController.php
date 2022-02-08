@@ -175,9 +175,9 @@ class SoalankemahiranemailController extends Controller
         //     $jawapancalon->markah_failupload = 0;
         // }
 
-        $jawapancalon->jumlah_markah_internet = (int)$request->markah_internet;
+        // $jawapancalon->jumlah_markah_internet = (int)$request->markah_internet;
 
-        $jawapancalon->jumlah_markah_word = (int)$request->markah_word;
+        // $jawapancalon->jumlah_markah_word = (int)$request->markah_word;
 
         $jawapancalon->jumlah_markah_email = $jawapancalon->markah_inputto + $jawapancalon->markah_inputsubject + $jawapancalon->markah_inputmesej + $jawapancalon->markah_failupload;
 

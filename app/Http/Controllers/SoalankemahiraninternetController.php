@@ -274,6 +274,7 @@ class SoalankemahiraninternetController extends Controller
             $jawapancalon->carian_teks = $request->carian_teks;
             $jawapancalon->jawapansebenar_carianteks = $request->jawapansebenar_carianteks;
             $jawapancalon->markah_carianteks = $request->markah_carianteks;
+            $jawapancalon->jumlah_markah_internet = (int)$jawapancalon->markah_urlteks + (int)$jawapancalon->markah_carianteks;
             $jawapancalon->user_id = $request->user_id;
             $jawapancalon->id_soalankemahiraninternet = $id_internet;
             $jawapancalon->id_penilaian = $id_penilaian;
@@ -286,6 +287,7 @@ class SoalankemahiraninternetController extends Controller
             $jawapancalon->carian_teks = $request->carian_teks;
             $jawapancalon->jawapansebenar_carianteks = $request->jawapansebenar_carianteks;
             $jawapancalon->markah_carianteks = $request->markah_carianteks;
+            $jawapancalon->jumlah_markah_internet = (int)$jawapancalon->markah_urlteks + (int)$jawapancalon->markah_carianteks;
             $jawapancalon->user_id = $request->user_id;
             $jawapancalon->id_soalankemahiraninternet = $id_internet;
             $jawapancalon->id_penilaian = $id_penilaian;
