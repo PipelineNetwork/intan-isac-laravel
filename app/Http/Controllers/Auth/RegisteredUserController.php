@@ -113,7 +113,7 @@ class RegisteredUserController extends Controller
         $perkhidmatan->TARIKH_LANTIKAN = $request->TARIKH_LANTIKAN;
 
         $perkhidmatan->save();
-        Mail::to($user->email)->send(new PenggunaDidaftar($user));
+        // Mail::to($user->email)->send(new PenggunaDidaftar($user));
         // Mail::to('whoone3@gmail.com')->send(new PenggunaDidaftar($user));
 
         event(new Registered($user));

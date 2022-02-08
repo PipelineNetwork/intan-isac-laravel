@@ -94,6 +94,7 @@ class NotifikasiEmailController extends Controller
         $noti->peringatan_penilaian = $request->peringatan_penilaian;
         $noti->peringatan_tidak_hadir = $request->peringatan_tidak_hadir;
         $noti->jadual_penilaian = $request->jadual_penilaian;
+        $noti->peringatan_tukar_katalaluan = $request->peringatan_tukar_katalaluan;
 
         $noti->save();
         return redirect('/notifikasi_email');

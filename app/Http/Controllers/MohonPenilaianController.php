@@ -197,7 +197,7 @@ class MohonPenilaianController extends Controller
 
         $emel_pendaftar = Auth::user()->email;
         $recipient = [$emel_pendaftar];
-        Mail::to($recipient)->send(new DaftarPeserta());
+        // Mail::to($recipient)->send(new DaftarPeserta());
 
         // $pdf = App::make('dompdf.wrapper');
         // $pdf->loadHTML('<h1>Contoh surat</h1>');

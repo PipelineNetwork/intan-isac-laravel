@@ -16,6 +16,7 @@ use App\Models\Bankjawapanpengetahuan;
 use App\Helpers\Hrmis\GetDataXMLbyIC;
 use App\Mail\PenggunaDidaftar;
 use App\Models\Bankjawapancalon;
+use App\Models\Jadual;
 use Illuminate\Support\Facades\Mail;
 
 class PenggunaController extends Controller
@@ -189,7 +190,7 @@ class PenggunaController extends Controller
             $user->save();
 
             $current_user = $request->user();
-            Mail::to($user->email)->send(new PenggunaDidaftar($user));
+            // Mail::to($user->email)->send(new PenggunaDidaftar($user));
         }
         return redirect('/pengurusanpengguna');
     }
@@ -301,24 +302,32 @@ class PenggunaController extends Controller
         $pro_peserta = MohonPenilaian::where('no_ic', $ic)->first();
         if ($pro_peserta != null) {
             $pro_peserta->delete();
-	}
+        }
 
-	$pro_peserta_2 = Permohanan::where('NO_KAD_PENGENALAN',$ic)->first();
-	if ($pro_peserta_2 != null){
-        $pro_tempat_tugas = Tugas::where('ID_PESERTA', $pro_peserta_2->ID_PESERTA)->first();
-        if ($pro_tempat_tugas != null) {
-            $pro_tempat_tugas->delete();
+        $pro_peserta_2 = Permohanan::where('NO_KAD_PENGENALAN', $ic)->first();
+        if ($pro_peserta_2 != null) {
+            $pro_tempat_tugas = Tugas::where('ID_PESERTA', $pro_peserta_2->ID_PESERTA)->first();
+            if ($pro_tempat_tugas != null) {
+                $pro_tempat_tugas->delete();
+            }
+            $pro_perkhidmatan = Perkhidmatan::where('ID_PESERTA', $pro_peserta_2->ID_PESERTA)->first();
+            if ($pro_perkhidmatan != null) {
+                $pro_perkhidmatan->delete();
+            }
+            $pro_peserta_2->delete();
         }
-        $pro_perkhidmatan = Perkhidmatan::where('ID_PESERTA', $pro_peserta_2->ID_PESERTA)->first();
-        if ($pro_perkhidmatan != null) {
-            $pro_perkhidmatan->delete();
-        }
-		$pro_peserta_2->delete();
-	}
 
         $permohonan = MohonPenilaian::where('no_ic', $ic)->get();
-        foreach ($permohonan as $permohonan) {
-            $permohonan->delete();
+        foreach ($permohonan as $pmh) {
+            $kekosongan = Jadual::where('ID_PENILAIAN', $pmh->id_sesi)->get();
+            foreach ($kekosongan as $kosong) {
+                $kosong->BILANGAN_CALON = $kosong->BILANGAN_CALON - 1;
+                $kosong->KEKOSONGAN = $kosong->JUMLAH_KESELURUHAN - $kosong->BILANGAN_CALON;
+
+                $kosong->save();
+            }
+
+            $pmh->delete();
         }
 
         $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $ic)->get();
@@ -328,12 +337,17 @@ class PenggunaController extends Controller
             }
         }
 
-	$kemahiran = Bankjawapancalon::where('ic_calon', $ic)->get();
-	if($kemahiran != null){
-		foreach($kemahiran as $kemahiran){
-			$kemahiran->delete();
-		}
-	}
+        $kemahiran = Bankjawapancalon::where('ic_calon', $ic)->get();
+        if ($kemahiran != null) {
+            foreach ($kemahiran as $kemahiran) {
+                $kemahiran->delete();
+            }
+        }
+
+        $kekosongan = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
+
+        $kekosongan->BILANGAN_CALON = $kekosongan->BILANGAN_CALON - 1;
+        $kekosongan->KEKOSONGAN = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->BILANGAN_CALON;
 
         $user->delete();
         return redirect('/pengurusanpengguna')->with('success', 'Berjaya dihapus!');

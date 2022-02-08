@@ -99,7 +99,7 @@ class TambahRayuanController extends Controller
 
         $users = User::where('user_group_id', '=', '1')->get();
         foreach ($users as $user) {
-            Mail::to($user->email)->send(new RayuanDicipta($tambahrayuan));
+            //Mail::to($user->email)->send(new RayuanDicipta($tambahrayuan));
         }
 
         return redirect('/tambahrayuans');
@@ -163,7 +163,7 @@ class TambahRayuanController extends Controller
             ->orderBy('pro_peserta.created_at', 'desc')
             ->get()->first();
 
-        Mail::to($user->EMEL_PESERTA)->send(new RayuanDibalas($tambahrayuan));
+        // Mail::to($user->EMEL_PESERTA)->send(new RayuanDibalas($tambahrayuan));
         return redirect('/tambahrayuans');
     }
 

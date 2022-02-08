@@ -2,14 +2,13 @@
 
 namespace App\Mail;
 
-use App\Models\MohonPenilaian;
-use App\Models\NotifikasiEmail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\MohonPenilaian;
 
-class PeringatanPenilaian extends Mailable
+class PeringatanTidakHadir extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,7 +30,7 @@ class PeringatanPenilaian extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.peringatan_penilaian')->subject('ISAC - Peringatan Penilaian ISAC')->with([
+        return $this->view('emails.peringatan_tidak_hadir')->subject('ISAC - Peringatan Tidak Hadir')->with([
             'nama_calon' => $this->calon->nama,
             'tarikh'=>$this->calon->tarikh_sesi,
         ]);
