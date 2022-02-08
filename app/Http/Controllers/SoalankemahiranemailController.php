@@ -185,6 +185,8 @@ class SoalankemahiranemailController extends Controller
 
         $jawapancalon->id_penilaian = $id_penilaian;
         $jawapancalon->ic_calon = Auth::user()->nric;
+
+        $jawapancalon->status_jawab_email = '1';
         // dd($jawapancalon);
 
         $jawapancalon->save();
