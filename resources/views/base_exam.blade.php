@@ -61,6 +61,7 @@
     <?php
     use App\Models\Jadual;
     use App\Models\SelenggaraKawalanSistem;
+    use Illuminate\Support\Facades\Auth;
     date_default_timezone_set('Asia/Kuala_Lumpur');
     $jam_mula = date('H');
     $jam_mula = $jam_mula * 60 * 60;
@@ -90,6 +91,8 @@
     $tamat_keseluruhan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
     $peringatan_tamat = $tamat_keseluruhan - $peringatan_tamat_n;
     $peringatan_tamat = $peringatan_tamat * 60 * 1000;
+
+    $ic = Auth::user()->nric;
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -268,10 +271,14 @@
             var countDownTime = window.sessionStorage.getItem(COUNTER_KEY) || masa_penilaian;
             countDown(countDownTime, function() {
                 // console.log(countDownTime);
+                var ic = <?php echo $ic; ?>;
+                var id_penilaian = <?php echo $id_penilaian; ?>;
+
+                console.log(ic, id_penilaian);
                 $("#penilaian input[name=timer]").val(countDownTime);
                 document.forms["penilaian"].submit();
 
-                window.location.replace("/masa_tamat");
+                window.location.replace("/penilaian_tamat/"+ic+"/"+id_penilaian);
                 // window.sessionStorage.getItem(COUNTER_KEY) || 3600
             });
 
