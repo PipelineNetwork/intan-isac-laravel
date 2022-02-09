@@ -148,53 +148,56 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($pilihan as $pilihan)
+                                        @foreach ($pilihan as $p)
                                             <tr>
-                                                <input type="text" name="field{{ $loop->index + 1 }}"
-                                                    value="{{ $pilihan->ID_PEMILIHAN_SOALAN_KUMPULAN }}"
+                                                <input type="text" name="field[]"
+                                                    value="{{ $p->ID_PEMILIHAN_SOALAN_KUMPULAN }}"
                                                     style="display:none;">
                                                 <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}
                                                 </td>
                                                 <td class="text-sm text-center font-weight-normal">
-                                                    <select class="form-control"
-                                                        name="id_tahap_soalan{{ $loop->index + 1 }}" required>
-                                                        <option hidden selected value="{{ $pilihan->KOD_TAHAP_SOALAN }}">
-                                                            Asas
+                                                    <select class="form-control" name="id_tahap_soalan[]" required>
+                                                        <option hidden selected value="{{ $p->KOD_TAHAP_SOALAN }}">
+                                                            @if ($p->KOD_TAHAP_SOALAN == '01')
+                                                                Asas
+                                                            @elseif($p->KOD_TAHAP_SOALAN == '02')
+                                                                Lanjutan
+                                                            @endif
                                                         </option>
                                                         <option value="01">Asas</option>
                                                         <option value="02">Lanjutan</option>
                                                     </select>
                                                 </td>
                                                 <td class="text-sm text-center font-weight-normal">
-                                                    <select class="form-control"
-                                                        name="id_kategori_pengetahuan{{ $loop->index + 1 }}" required>
-                                                        <option hidden value="{{ $pilihan->KOD_KATEGORI_SOALAN }}"
+                                                    <select class="form-control" name="id_kategori_pengetahuan[]"
+                                                        required>
+                                                        <option hidden value="{{ $p->KOD_KATEGORI_SOALAN }}"
                                                             selected>
-                                                            @if ($pilihan->KOD_KATEGORI_SOALAN == '01')
+                                                            @if ($p->KOD_KATEGORI_SOALAN == '01')
                                                                 EG
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "02")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '02')
                                                                 Electronic Mail
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "03")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '03')
                                                                 General
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "04")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '04')
                                                                 Government Mobility
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "05")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '05')
                                                                 Hardware
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "06")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '06')
                                                                 ICT Security
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "07")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '07')
                                                                 Inisiatif ICT Sektor Awam
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "08")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '08')
                                                                 Internet
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "09")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '09')
                                                                 Media Sosial
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "10")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '10')
                                                                 MSC
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "11")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '11')
                                                                 Office Productivity
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "12")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '12')
                                                                 Rangkaian dan Wifi
-                                                            @elseif($pilihan->KOD_KATEGORI_SOALAN == "13")
+                                                            @elseif($p->KOD_KATEGORI_SOALAN == '13')
                                                                 Software
                                                             @endif
                                                         </option>
@@ -214,10 +217,18 @@
                                                     </select>
                                                 </td>
                                                 <td class="text-sm text-center font-weight-normal">
-                                                    <input type="text" class="form-control text-center"
-                                                        value="{{ $pilihan->NILAI_JUMLAH_SOALAN }}"
-                                                        name="NILAI_JUMLAH_SOALAN{{ $loop->index + 1 }}" id="jumlah"
-                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                                                    @if ($p->NILAI_JUMLAH_SOALAN == null)
+                                                        <input type="text" class="form-control text-center" value="0"
+                                                            name="NILAI_JUMLAH_SOALAN[]" id="jumlah{{ $loop->index + 1 }}"
+                                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                                                    @else
+                                                        <input type="text" class="form-control text-center"
+                                                            value="{{ $p->NILAI_JUMLAH_SOALAN }}"
+                                                            name="NILAI_JUMLAH_SOALAN[]"
+                                                            id="jumlah{{ $loop->index + 1 }}"
+                                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                                                    @endif
+
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -227,6 +238,8 @@
 
                             <div class="row">
                                 <div class="col text-end">
+                                    <a class="btn bg-gradient-warning" data-bs-toggle="modal"
+                                        data-bs-target="#tambah_kat">Tambah Kategori</a>
                                     <button class="btn bg-gradient-success" type="submit">Kemaskini</button>
                                     <a href="/pengurusan_penilaian/pemilihan_soalan_pengetahuan"
                                         class="btn bg-gradient-danger">Kembali</a>
@@ -237,7 +250,62 @@
                 </div>
             </div>
         </form>
-
+        <div class="modal fade" id="tambah_kat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="/pengurusan_penilaian/pemilihan_soalan_pengetahuan/tambah_kategori_pemilihan"
+                        method="POST">
+                        <div class="modal-body">
+                            @csrf
+                            <input type="hidden" name="ID_PEMILIHAN_SOALAN" value="70">
+                            <div class="form-group">
+                                <label for="keterangan" class="form-control-label">Tahap Soalan</label>
+                                <select class="form-control" name="KOD_TAHAP_SOALAN" required>
+                                    <option hidden selected value="">
+                                        Sila Pilih
+                                    </option>
+                                    <option value="01">Asas</option>
+                                    <option value="02">Lanjutan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="keterangan" class="form-control-label">Kategori Soalan</label>
+                                <select class="form-control" name="KOD_KATEGORI_SOALAN" required>
+                                    <option hidden selected value="">
+                                        Sila Pilih
+                                    </option>
+                                    <option value="01">EG</option>
+                                    <option value="02">Electronic Mail</option>
+                                    <option value="03">General</option>
+                                    <option value="04">Government Mobility</option>
+                                    <option value="05">Hardware</option>
+                                    <option value="06">ICT Security</option>
+                                    <option value="07">Inisiatif ICT Sektor Awam</option>
+                                    <option value="08">Internet</option>
+                                    <option value="09">Media Sosial</option>
+                                    <option value="10">MSC</option>
+                                    <option value="11">Office Productivity</option>
+                                    <option value="12">Rangkaian dan Wifi</option>
+                                    <option value="13">Software</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn bg-gradient-primary">Tambah</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="../../assets/js/plugins/datatables.js"></script>
@@ -284,9 +352,10 @@
 
             //fix jumlah soalan
             let total = 0;
-            for (let i = 1; i <= 8; i++) {
+            var bilangan = @json($pilihan->toArray());
+            for (let i = 1; i <= bilangan.length; i++) {
                 let filter = "NILAI_JUMLAH_SOALAN" + i;
-                total = total + +($("#jumlahsemua input[name=" + filter + "]").val());
+                total = total + +($("#jumlah" + i).val());
             }
             console.log(total)
             $("#sum").val(total);
