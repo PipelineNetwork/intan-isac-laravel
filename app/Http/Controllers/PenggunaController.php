@@ -344,11 +344,6 @@ class PenggunaController extends Controller
             }
         }
 
-        $kekosongan = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
-
-        $kekosongan->BILANGAN_CALON = $kekosongan->BILANGAN_CALON - 1;
-        $kekosongan->KEKOSONGAN = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->BILANGAN_CALON;
-
         $user->delete();
         return redirect('/pengurusanpengguna')->with('success', 'Berjaya dihapus!');
     }

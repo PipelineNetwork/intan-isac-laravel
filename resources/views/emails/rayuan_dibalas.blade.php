@@ -7,8 +7,8 @@
 @if ($file_rayuan != null)
     {{-- <p class="mt-4"><a href="http://demoisac.intan.my/storage/{{ $file_rayuan }}"
             target="_blank">http://demoisac.intan.my/storage/{{ $file_rayuan }}</a></p> --}}
-    <p class="mt-4"><a href="https://intan-isac.com.my/storage/{{ $file_rayuan }}"
-            target="_blank">https://intan-isac.com.my/storage/{{ $file_rayuan }}</a></p>
+    <p class="mt-4"><a href="https://www.isac.intan.my/storage/{{ $file_rayuan }}"
+            target="_blank">https://www.isac.intan.my/storage/{{ $file_rayuan }}</a></p>
 @else
     <p class="mt-4"> Tiada Fail.</p>
 @endif
@@ -18,8 +18,8 @@
 @if ($file_rayuan_balas != null)
     {{-- <p class="mt-4"><a href="http://demoisac.intan.my/storage/{{ $file_rayuan_balas }}"
             target="_blank">http://demoisac.intan.my/storage/{{ $file_rayuan_balas }}</a></p> --}}
-    <p class="mt-4"><a href="https://intan-isac.com.my/storage/{{ $file_rayuan_balas }}"
-            target="_blank">https://intan-isac.com.my/storage/{{ $file_rayuan_balas }}</a></p>
+    <p class="mt-4"><a href="https://www.isac.intan.my/storage/{{ $file_rayuan_balas }}"
+            target="_blank">https://www.isac.intan.my/storage/{{ $file_rayuan_balas }}</a></p>
 @else
     <p class="mt-4"> Tiada Fail.</p>
 @endif
