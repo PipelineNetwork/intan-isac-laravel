@@ -206,6 +206,7 @@ Route::post('/kemasukan_penilaian/{id_penilaian}/jawapan_calon', [Bankjawapanpen
 Route::get('/pengurusan_penilaian/pemilihan_soalan_pengetahuan', [BanksoalanpengetahuanController::class, 'pemilihan']);
 Route::get('/pengurusan_penilaian/pemilihan_soalan_pengetahuan/{id}', [BanksoalanpengetahuanController::class, 'kemaskini']);
 Route::post('/kemaskini_pemilihan_soalan/{id}', [BanksoalanpengetahuanController::class, 'simpan']);
+Route::post('/pengurusan_penilaian/pemilihan_soalan_pengetahuan/tambah_kategori_pemilihan', [BanksoalanpengetahuanController::class, 'tambah_kategori_pemilihan']);
 
 Route::get('/cetak_surat/{id}', [MohonPenilaianController::class, 'cetak_surat']);
 Route::get('/slip_keputusan/{ic}/{id_penilaian}', [KeputusanPenilaianController::class, 'slip_keputusan']);
