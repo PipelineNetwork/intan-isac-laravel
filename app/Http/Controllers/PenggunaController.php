@@ -190,7 +190,7 @@ class PenggunaController extends Controller
             $user->save();
 
             $current_user = $request->user();
-            // Mail::to($user->email)->send(new PenggunaDidaftar($user));
+            Mail::to($user->email)->send(new PenggunaDidaftar($user));
         }
         return redirect('/pengurusanpengguna');
     }
