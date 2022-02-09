@@ -301,7 +301,7 @@ class SoalankemahiranemailController extends Controller
             }
 
             $keputusan->save();
-            return view('kemasukan_id.masa_tamat');
+            return redirect('/penilaian_tamat/' . $ic . '/' . $id_penilaian);
         }
     }
 

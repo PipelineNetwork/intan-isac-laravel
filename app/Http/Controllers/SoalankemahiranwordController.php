@@ -362,7 +362,11 @@ class SoalankemahiranwordController extends Controller
             }
 
             $keputusan->save();
-            return view('kemasukan_id.masa_tamat');
+            // return view('kemasukan_id.masa_tamat', [
+            //     'ic' => $ic,
+            //     'id_penilaian' => $id_penilaian
+            // ]);
+            return redirect('/penilaian_tamat/' . $ic . '/' . $id_penilaian);
         }
     }
 

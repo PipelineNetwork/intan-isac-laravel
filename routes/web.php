@@ -31,8 +31,8 @@ use App\Http\Controllers\LamanUtamaController;
 use App\Http\Controllers\BanksoalankemahiraninternetController;
 use App\Http\Controllers\BanksoalankemahiranwordController;
 use App\Http\Controllers\BanksoalankemahiranemailController;
-use App\Models\Banksoalankemahiran;
 use App\Http\Controllers\KumpulanPenggunaController;
+use App\Http\Controllers\MasatamatController;
 use App\Http\Controllers\RayuanCalonBlacklistController;
 use App\Http\Controllers\PemantauanpenilaianController;
 use Illuminate\Support\Facades\Route;
@@ -173,9 +173,11 @@ Route::get('/tamat-penilaian/{id_penilaian}', [KeputusanPenilaianController::cla
 Route::get('/papar-keputusan', function () {
     return view('proses_penilaian.keputusan_penilaian');
 });
-Route::get('/masa_tamat', function () {
-    return view('kemasukan_id.masa_tamat');
-});
+Route::get('/penilaian_tamat/{ic}/{id_penilaian}', [MasatamatController::class, 'display_tamat_penilaian']);
+Route::post('/masa_tamat/{ic}/{id_penilaian}', [MasatamatController::class, 'kira_markah']);
+// Route::get('/masa_tamat', function () {
+//     return view('kemasukan_id.masa_tamat');
+// });
 
 // Route::get('change-password', 'ChangePasswordController@index');
 
