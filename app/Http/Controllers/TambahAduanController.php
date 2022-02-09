@@ -166,7 +166,7 @@ class TambahAduanController extends Controller
             ->get()->first();
 
             // dd($user);
-        // Mail::to($user->EMEL_PESERTA)->send(new AduanDibalas($tambahaduan));
+        Mail::to($user->EMEL_PESERTA)->send(new AduanDibalas($tambahaduan));
 
         return redirect('/tambahaduans');
     }

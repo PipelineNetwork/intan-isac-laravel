@@ -325,7 +325,7 @@ class JadualController extends Controller
         $jadual->save();
 
         $recipient = $emel_peserta;
-        // Mail::to($recipient)->send(new JadualKemaskini($jadual));
+        Mail::to($recipient)->send(new JadualKemaskini($jadual));
         return redirect('/jaduals');
     }
 
@@ -376,9 +376,9 @@ class JadualController extends Controller
         $recipient = $emel_peserta;
 
         if ($request->status == 'Penangguhan') {
-            // Mail::to($recipient)->send(new JadualKemaskiniPenangguhan($jadual));
+            Mail::to($recipient)->send(new JadualKemaskiniPenangguhan($jadual));
         } else if ($request->status == 'Pembatalan') {
-            // Mail::to($recipient)->send(new JadualKemaskiniPembatalan($jadual));
+            Mail::to($recipient)->send(new JadualKemaskiniPembatalan($jadual));
         }
 
         return redirect('/jaduals');
