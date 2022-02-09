@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class BanksoalanpengetahuanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -719,7 +723,7 @@ class BanksoalanpengetahuanController extends Controller
     public function pemilihan(Request $request)
     {
         $pemilihan = PemilihanSoalan::all();
-        
+
 
         return view('bank_soalan.soalan_pengetahuan.pemilihan_soalan.pemilihan_soalan', [
             'pemilihan' => $pemilihan
@@ -740,7 +744,8 @@ class BanksoalanpengetahuanController extends Controller
         ]);
     }
 
-    public function simpan(Request $request, $id){
+    public function simpan(Request $request, $id)
+    {
         // dd($request);
         $main = PemilihanSoalan::where('ID_PEMILIHAN_SOALAN', $id)->first();
         $user = Auth::id();
@@ -751,25 +756,25 @@ class BanksoalanpengetahuanController extends Controller
         $main->NILAI_MARKAH_LULUS = $request->NILAI_MARKAH_LULUS;
         $main->save();
 
-        for($i=1; $i<15; $i++){
-            $check = 'field'.$i;
-            $check1 = $request->$check;
-            if($check1 == null){
-                $i=15;
-            }else{
-                $tahap = 'id_tahap_soalan'.$i;
-                $kategori = 'id_kategori_pengetahuan'.$i;
-                $jumlah = 'NILAI_JUMLAH_SOALAN'.$i;
-                $sub = PemilihanSoalanKumpulan::where('ID_PEMILIHAN_SOALAN_KUMPULAN', $request->$check)->first();
-                $sub->KOD_TAHAP_SOALAN = $request->$tahap;
-                $sub->KOD_KATEGORI_SOALAN = $request->$kategori;
-                $sub->NILAI_JUMLAH_SOALAN = $request->$jumlah;
+        $bil_data = count($request->field);
+        for ($i = 0; $i < $bil_data; $i++) {
 
-                $sub->save();
-            }
+            $sub = PemilihanSoalanKumpulan::where('ID_PEMILIHAN_SOALAN_KUMPULAN', $request->field[$i])->first();
+            $sub->KOD_TAHAP_SOALAN = $request->id_tahap_soalan[$i];
+            $sub->KOD_KATEGORI_SOALAN = $request->id_kategori_pengetahuan[$i];
+            $sub->NILAI_JUMLAH_SOALAN = $request->NILAI_JUMLAH_SOALAN[$i];
+
+            $sub->save();
         }
 
         return redirect('/pengurusan_penilaian/pemilihan_soalan_pengetahuan');
-        // $sub = PemilihanSoalanKumpulan::where()
+    }
+
+    public function tambah_kategori_pemilihan(Request $request)
+    {
+        $kategori_pemilihan = new PemilihanSoalanKumpulan($request->all());
+        $kategori_pemilihan->save();
+
+        return redirect('/pengurusan_penilaian/pemilihan_soalan_pengetahuan/70');
     }
 }
