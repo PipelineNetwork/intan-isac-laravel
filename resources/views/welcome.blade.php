@@ -21,7 +21,6 @@
     <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="../../assets/css/soft-ui-dashboard.min.css?v=1.0.3" rel="stylesheet" />
-
     <!-- Google Tag Manager -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -93,7 +92,8 @@
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
                                 <li class="nav-item">
-                                    <a href="/authenticate-ic" class="btn btn-sm  bg-gradient-warning  btn-round mb-0 me-1"
+                                    <a href="/authenticate-ic"
+                                        class="btn btn-sm  bg-gradient-warning  btn-round mb-0 me-1"
                                         onclick="smoothToPricing('pricing-soft-ui')">DAFTAR SEKARANG</a>
                                 </li>
                             </ul>
@@ -408,6 +408,61 @@
             </div>
         </div>
     </section>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">MAKLUMAN TERKINI</h5>
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Sistem Penilaian ISAC telah dinaiktaraf kepada platform sistem secara dalam talian sepenuhnya
+                        bermula pada tahun 2022.</p>
+
+                    <p>Sistem ISAC baharu mengetengahkan konsep End-To-End di mana calon akan membuat pendaftaran,
+                        pemilihan jadual dan menduduki penilaian secara dalam talian sepenuhnya tanpa perlu hadir secara
+                        fizikal di INTAN, JPA atau mana-mana kampus INTAN.</p>
+
+                    <p>Sebagai tambahan, calon hanya perlu menjawab peperiksaan dari lokasi mereka iaitu sama ada di
+                        rumah
+                        atau di pejabat.</p>
+                    <br>
+
+                    <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
+                        dapat
+                        dijalankan dengan sempurna:</p>
+
+                    <ol>
+                        <li>Capaian internet yang baik</li>
+                        <li>Kemudahan peralatan ICT iaitu ;
+                            <ul>
+                                <li>Komputer beserta kamera (webcam) atau</li>
+                                <li>Komputer riba berserta kamera (build in camera)</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <p>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan kelak. Sila rujuk portal ini
+                        untuk
+                        info terkini.</p>
+
+
+
+                    <p>Sekian Terima Kasih</p>
+
+                    <p>-URUSETIA ISAC-</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer pt-4 mt-3" id="contact">
         <hr class="horizontal dark mb-5">
         <div class="container">
@@ -439,11 +494,13 @@
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
                                 <a class="nav-link">Jabatan Perkhidmatan Awam</a>
-                                <a class="nav-link" href="https://www.jpa.gov.my/" target="_blank">https://www.jpa.gov.my/<br>
+                                <a class="nav-link" href="https://www.jpa.gov.my/"
+                                    target="_blank">https://www.jpa.gov.my/<br>
                                 </a>
                                 <br>
                                 <a class="nav-link">INTAN Bukit Kiara</a>
-                                <a class="nav-link" href="https://www.intanbk.intan.my/" target="_blank">https://www.intanbk.intan.my/</a>
+                                <a class="nav-link" href="https://www.intanbk.intan.my/"
+                                    target="_blank">https://www.intanbk.intan.my/</a>
                             </li>
                         </ul>
                     </div>
@@ -477,6 +534,7 @@
         </div>
     </footer>
 
+    <script src="../../assets/js/core/bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
     <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
@@ -496,6 +554,10 @@
             $("body, html").animate({
                 scrollTop: position
             } /* speed */ );
+        });
+
+        $(window).on('load', function() {
+            $('#exampleModal').modal('show');
         });
     </script>
 </body>

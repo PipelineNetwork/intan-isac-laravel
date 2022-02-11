@@ -5,38 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
+    {{-- <link rel="icon" type="image/png" href="../../img/intan.png"> --}}
     <link rel="icon" type="image/png" href="../../img/intan.png">
     <title>
         ISAC
     </title>
-    <!-- Extra details for Live View on GitHub Pages -->
-    <!-- Canonical SEO -->
-    <link rel="canonical" href="https://www.creative-tim.com/product/soft-ui-dashboard-pro" />
-    <!--  Social tags      -->
-    <meta name="keywords"
-        content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap 5 dashboard, bootstrap 5, css3 dashboard, bootstrap 5 admin, soft ui dashboard bootstrap 5 dashboard, frontend, responsive bootstrap 5 dashboard, soft design, soft dashboard bootstrap 5 dashboard">
-    <meta name="description"
-        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="product">
-    <meta name="twitter:site" content="@creativetim">
-    <meta name="twitter:title" content="Soft UI Dashboard PRO by Creative Tim">
-    <meta name="twitter:description"
-        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
-    <meta name="twitter:creator" content="@creativetim">
-    <meta name="twitter:image"
-        content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg">
-    <!-- Open Graph data -->
-    <meta property="fb:app_id" content="655968634437471">
-    <meta property="og:title" content="Soft UI Dashboard PRO by Creative Tim" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url"
-        content="https://demos.creative-tim.com/soft-ui-dashboard-pro/pages/dashboards/default.html" />
-    <meta property="og:image"
-        content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg" />
-    <meta property="og:description"
-        content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
-    <meta property="og:site_name" content="Creative Tim" />
+
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -47,53 +21,6 @@
     <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="../../assets/css/soft-ui-dashboard.min.css?v=1.0.3" rel="stylesheet" />
-    <!-- Anti-flicker snippet (recommended)  -->
-    <style>
-        .async-hide {
-            opacity: 0 !important
-        }
-
-    </style>
-    <script>
-        (function(a, s, y, n, c, h, i, d, e) {
-            s.className += ' ' + y;
-            h.start = 1 * new Date;
-            h.end = i = function() {
-                s.className = s.className.replace(RegExp(' ?' + y), '')
-            };
-            (a[n] = a[n] || []).hide = h;
-            setTimeout(function() {
-                i();
-                h.end = null
-            }, c);
-            h.timeout = c;
-        })(window, document.documentElement, 'async-hide', 'dataLayer', 4000, {
-            'GTM-K9BGS8K': true
-        });
-    </script>
-    <!-- Analytics-Optimize Snippet -->
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-46172202-22', 'auto', {
-            allowLinker: true
-        });
-        ga('set', 'anonymizeIp', true);
-        ga('require', 'GTM-K9BGS8K');
-        ga('require', 'displayfeatures');
-        ga('require', 'linker');
-        ga('linker:autoLink', ["2checkout.com", "avangate.com"]);
-    </script>
-    <!-- end Analytics-Optimize Snippet -->
     <!-- Google Tag Manager -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -106,12 +33,13 @@
     use App\Models\Jadual;
     use App\Models\LamanUtama;
     
-    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status')
+    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan')
         ->orderBy('TARIKH_SESI', 'desc')
         ->whereYear('TARIKH_SESI', '>=', 2021)
         ->get();
-
+    
     $lamanutama = LamanUtama::all();
+    $lamanutama2 = LamanUtama::all();
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -125,9 +53,9 @@
                 <nav
                     class="navbar navbar-expand-lg  blur blur-rounded top-0  z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
-                        <a class="navbar-brand font-weight-bolder ms-sm-3" href="/ " rel="tooltip"
-                            title="Designed and Coded by Creative Tim" data-placement="bottom">
-                            INTAN ISAC
+                        <a class="navbar-brand font-weight-bolder ms-sm-3" href="/">
+                            {{-- INTAN ISAC --}}
+                            <img src="../../img/logo-isac.png" style="width: 60px; heigth: auto">
                         </a>
                         <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
@@ -140,127 +68,6 @@
                         </button>
                         <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
                             <ul class="navbar-nav navbar-nav-hover mx-auto">
-                                {{-- <li class="nav-item dropdown dropdown-hover mx-2">
-                                    <a role="button"
-                                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                                        id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Hubungi kami
-                                        <img src="../assets/img/down-arrow-dark.svg" alt="down-arrow"
-                                            class="arrow ms-1">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3"
-                                        aria-labelledby="dropdownMenuBlocks">
-                                        <div class="d-none d-lg-block">
-                                            <ul class="list-group">
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                    <a class="dropdown-item py-2 ps-3 border-radius-md">
-                                                        <div class="d-flex">
-                                                            <div class="icon h-10 me-3 d-flex mt-1">
-                                                                <i
-                                                                    class="ni ni-single-copy-04 text-gradient text-primary"></i>
-                                                            </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
-                                                                <div>
-                                                                    <h6
-                                                                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
-                                                                        En. Mohd Yuzwan bin Yunan
-                                                                    </h6>
-                                                                    <span class="text-sm">Penolong Pegawai
-                                                                        Teknologi
-                                                                        Maklumat Gred FA29</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                    <a class="dropdown-item py-2 ps-3 border-radius-md">
-                                                        <div class="d-flex">
-                                                            <div class="icon h-10 me-3 d-flex mt-1">
-                                                            </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
-                                                                <div>
-                                                                    <span class="text-sm">03-20847798</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-
-                                                </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                    <a class="dropdown-item py-2 ps-3 border-radius-md">
-                                                        <div class="d-flex">
-                                                            <div class="icon h-10 me-3 d-flex mt-1">
-                                                                <i class="ni ni-badge text-gradient text-primary"></i>
-                                                            </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
-                                                                <div>
-                                                                    <h6
-                                                                        class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
-                                                                        En. Mohd Faisal Bin Mustafah</h6>
-                                                                    <span class="text-sm">Penolong Pegawai
-                                                                        Teknologi
-                                                                        Maklumat Gred FA29</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                    <a class="dropdown-item py-2 ps-3 border-radius-md">
-                                                        <div class="d-flex">
-                                                            <div class="icon h-10 me-3 d-flex mt-1">
-                                                            </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
-                                                                <div>
-                                                                    <span class="text-sm">03-20847703</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li
-                                                    class="nav-item dropdown dropdown-hover dropdown-subitem list-group-item border-0 p-0">
-                                                    <a class="dropdown-item py-2 ps-3 border-radius-md">
-                                                        <div class="d-flex">
-                                                            <div class="icon h-10 me-3 d-flex mt-1">
-                                                            </div>
-                                                            <div
-                                                                class="w-100 d-flex align-items-center justify-content-between">
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="row d-lg-none">
-                                            <div class="col-md-12">
-                                                <div class="d-flex mb-2">
-                                                    <div>
-                                                        <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
-                                                    </div>
-                                                    <div
-                                                        class="w-100 d-flex align-items-center justify-content-between">
-                                                        <div>
-                                                            <h6
-                                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
-                                                                Page Sections</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li> --}}
-
                                 <li class="nav-item mx-2">
                                     <a role="button" href="#infoisac"
                                         class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
@@ -285,7 +92,8 @@
                             </ul>
                             <ul class="navbar-nav d-lg-block d-none">
                                 <li class="nav-item">
-                                    <a href="/authenticate-ic" class="btn btn-sm  bg-gradient-warning  btn-round mb-0 me-1"
+                                    <a href="/authenticate-ic"
+                                        class="btn btn-sm  bg-gradient-warning  btn-round mb-0 me-1"
                                         onclick="smoothToPricing('pricing-soft-ui')">DAFTAR SEKARANG</a>
                                 </li>
                             </ul>
@@ -298,7 +106,7 @@
     </div>
     <!-- -------- START HEADER 1 w/ text and image on right ------- -->
     <header>
-        <div class="page-header min-vh-75">
+        <div class="page-header">
             <div class="oblique position-absolute top-0 h-100 d-md-block d-none">
                 <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
                     style="background-image:url('img/JPA4.jpeg')">
@@ -311,8 +119,8 @@
                         class="col-lg-6 col-md-7 d-flex justify-content-center text-md-start text-center flex-column mt-7">
                         <h1 class="text-gradient text-warning">ICT SKILLS ASSESSMENT</h1>
                         <h1 class="mb-4">& CERTIFICATION (ISAC)</h1>
-                        <p class="lead pe-md-5 me-md-5">Sistem bagi penilaian ICT dan penjanaan sijil kemahiran bagi
-                            penjawat awam.</p>
+                        <p class="lead pe-md-5 me-md-5">Sistem Penilaian Kemahiran ICT dan Pensijilan
+                            bagi Penjawat Awam.</p>
                         <div class="mt-3">
                             <div class="card-body">
                                 <form method="POST" action="/login">
@@ -352,59 +160,10 @@
     <!-- -------- START Features w/ 4 cols w/ colored icon & title & text -------- -->
 
     <section class="py-md-7 bg-gradient-warning" id="infoisac">
-
-
         <div class="container">
-            <div class="row justify-content-start">
-                <div class="col-md-6">
-                    <div class="primary text-start border-radius-lg">
-                        <div class="icon">
-                            <svg class="text-primary " width="25px" height="25px" viewBox="0 0 43 36" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>credit-card</title>
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
-                                        fill-rule="nonzero">
-                                        <g transform="translate(1716.000000, 291.000000)">
-                                            <g id="credit-card" transform="translate(453.000000, 454.000000)">
-                                                <path class="color-background"
-                                                    d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"
-                                                    opacity="0.593633743"></path>
-                                                <path class="color-foreground"
-                                                    d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
-                                                </path>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <h5 class="mt-3">KURIKULUM</h5>
-                        <p class="text-dark">Bahagian 1 - Penilaian pengetahuan yang merangkumi : <br>
-                        <ul class="text-dark">
-                            <li>Software </li>
-                            <li>ICT Security </li>
-                            <li>Inisiatif ICT Sektor Awam</li>
-                            <li>Rangkaian dan Wifi </li>
-                            <li>Government Mobility</li>
-                            <li>Media Sosial</li>
-
-                        </ul>
-                        </p>
-                        <br>
-                        <p class="text-dark"> Bahagian 2 - Menilai kemahiran dalam : <br>
-                        <ul class="text-dark">
-                            <li>Mencari dan memperolehi maklumat menggunakan internet.</li>
-                            <li>Menyediakan dokumen pemprosesan atau dokumen persembahan berkaitan dengan pengendalian
-                                tugas-tugas asas.</li>
-                            <li>Berkomunikasi secara elektronik melalui emel.</li>
-                        </ul>
-
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="primary text-start border-radius-lg">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="primary text-start border-radius-lg p-3">
                         <div class="icon">
                             <svg class="text-primary" width="25px" height="25px" viewBox="0 0 40 40" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -429,14 +188,18 @@
                                 </g>
                             </svg>
                         </div>
-                        <h5 class="mt-3 text-dark">PAKAIAN :</h5>
-
-                        <p class="text-dark">Pastikan pakaian semasa menghadiri Penilaian ISAC adalah pakaian
-                            pejabat.
-
-                        </p>
+                        @foreach ($lamanutama as $lamanutama)
+                            @if ($lamanutama->STATUS == '02')
+                                @if ($lamanutama->TAJUK == 'Objektif')
+                                    <h5 class="mt-3" style="color: black">{{ $lamanutama->TAJUK }}</h5>
+                                    <p>
+                                        {!! $lamanutama->KETERANGAN !!}
+                                    </p>
+                                @endif
+                            @endif
+                        @endforeach
                     </div>
-                    <div class="primary text-start border-radius-lg mt-6">
+                    <div class="primary text-start border-radius-lg mt-4 p-3">
                         <div class="icon">
                             <svg class="text-primary" width="25px" height="25px" viewBox="0 0 42 44" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -461,9 +224,9 @@
                                 </g>
                             </svg>
                         </div>
-                        <h5 class="mt-3 ">FORMAT PENILAIAN</h5>
+                        <h5 class="mt-3" style="color: black">FORMAT PENILAIAN</h5>
                         <p>
-                        <ul class="text-dark">
+                        <ul style="color: black">
                             <li>Bahagian 1 - Ujian pengetahuan yang mengandungi 40 soalan objektif yang perlu dijawab
                                 dalam masa 20 minit</li>
                             <li>Bahagian 2 - Ujian kemahiran yang mengandungi 3 soalan dan calon-calon dikehendaki
@@ -471,45 +234,53 @@
                         </ul>
                         </p>
                     </div>
-                    {{-- <div class="primary text-start border-radius-lg mt-6">
+
+                </div>
+                <div class="col-md-6">
+                    <div class="primary text-start border-radius-lg p-3">
                         <div class="icon">
-                            <svg class="text-primary" width="25px" height="25px" viewBox="0 0 52 35" version="1.1"
+                            <svg class="text-primary " width="25px" height="25px" viewBox="0 0 43 36" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>sound-wave</title>
+                                <title>credit-card</title>
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-2015.000000, -596.000000)" fill="#FFFFFF"
+                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
                                         fill-rule="nonzero">
                                         <g transform="translate(1716.000000, 291.000000)">
-                                            <g id="sound-wave" transform="translate(299.000000, 305.000000)">
-                                                <path class="color-foreground"
-                                                    d="M15.2941176,30.5882353 C14.6024837,30.5882353 13.9754248,30.1667974 13.7154248,29.5210458 L8.11777778,15.5269281 L6.51189542,17.9366013 C6.19581699,18.4090196 5.66562092,18.6928105 5.09803922,18.6928105 L0,18.6928105 L0,15.2941176 L4.18888889,15.2941176 L7.08287582,10.9522876 C7.43294118,10.4288889 8.03281046,10.1467974 8.67346405,10.2045752 C9.30052288,10.2708497 9.84261438,10.6769935 10.0754248,11.263268 L15.0969935,23.8214379 L22.1696732,1.19294118 C22.3905882,0.482614379 23.0465359,0 23.7908497,0 C23.792549,0 23.792549,0 23.7942484,0 C24.5385621,0.00169934641 25.1962092,0.487712418 25.4154248,1.19973856 L31.2305882,20.1015686 L34.3267974,15.9738562 C34.6462745,15.5456209 35.1509804,15.2941176 35.6862745,15.2941176 L40.7843137,15.2941176 L40.7843137,18.6928105 L36.5359477,18.6928105 L31.9477124,24.8104575 C31.5653595,25.3202614 30.9298039,25.5717647 30.2959477,25.4647059 C29.6671895,25.3542484 29.1522876,24.9005229 28.9636601,24.2904575 L23.7772549,7.43803922 L16.9152941,29.3952941 C16.7011765,30.0818301 16.0792157,30.5593464 15.3603922,30.5865359 C15.3366013,30.5882353 15.3162092,30.5882353 15.2941176,30.5882353 Z">
-                                                </path>
+                                            <g id="credit-card" transform="translate(453.000000, 454.000000)">
                                                 <path class="color-background"
-                                                    d="M26.5098039,34.6666667 C25.8181699,34.6666667 25.1911111,34.2452288 24.9311111,33.5994771 L19.3334641,19.6053595 L17.7275817,22.0150327 C17.4115033,22.487451 16.8813072,22.7712418 16.3137255,22.7712418 L11.2156863,22.7712418 L11.2156863,19.372549 L15.4045752,19.372549 L18.2985621,15.030719 C18.6486275,14.5073203 19.2484967,14.2252288 19.8891503,14.2830065 C20.5162092,14.349281 21.0583007,14.7554248 21.2911111,15.3416993 L26.3126797,27.8998693 L33.3853595,5.27137255 C33.6062745,4.56104575 34.2622222,4.07843137 35.0065359,4.07843137 C35.0082353,4.07843137 35.0082353,4.07843137 35.0099346,4.07843137 C35.7542484,4.08013072 36.4118954,4.56614379 36.6311111,5.27816993 L42.4462745,24.18 L45.5424837,20.0522876 C45.8619608,19.6240523 46.3666667,19.372549 46.9019608,19.372549 L52,19.372549 L52,22.7712418 L47.751634,22.7712418 L43.1633987,28.8888889 C42.7810458,29.3986928 42.1454902,29.6501961 41.511634,29.5431373 C40.8828758,29.4326797 40.3679739,28.9789542 40.1793464,28.3688889 L34.9929412,11.5164706 L28.1309804,33.4737255 C27.9168627,34.1602614 27.294902,34.6377778 26.5760784,34.6649673 C26.5522876,34.6666667 26.5318954,34.6666667 26.5098039,34.6666667 Z"
-                                                    id="Path-Copy" opacity="0.604957217"></path>
+                                                    d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"
+                                                    opacity="0.593633743"></path>
+                                                <path class="color-foreground"
+                                                    d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
+                                                </path>
                                             </g>
                                         </g>
                                     </g>
                                 </g>
                             </svg>
                         </div>
-                        <h5 class="mt-3">PUSAT PENILAIAN ISAC</h5>
+                        <h5 class="mt-3" style="color: black">KURIKULUM</h5>
+                        <p style="color: black">Bahagian 1 - Penilaian pengetahuan yang merangkumi : <br>
+                        <ul style="color: black">
+                            <li>Software </li>
+                            <li>ICT Security </li>
+                            <li>Inisiatif ICT Sektor Awam</li>
+                            <li>Rangkaian dan Wifi </li>
+                            <li>Government Mobility</li>
+                            <li>Media Sosial</li>
 
-                        <p class="text-dark">Penilaian ISAC boleh dijalankan di pusat-pusat ISAC seperti berikut :
-                        </p>
-
-                        <ul class="text-dark">
-                            <li>INTAN Kampus Utama (INTAN Bukit Kiara) </li>
-                            <li>INTAN Kampus Wilayah Utara (INTURA)</li>
-                            <li>INTAN Kampus Wilayah Selatan (IKWAS)</li>
-                            <li>INTAN Kampus Wilayah Timur (INTIM) </li>
-                            <li>INTAN Sabah</li>
-                            <li>INTAN Sarawak</li>
-                            <li>Agensi kerajaan dilantik</li>
-                            <li>Jabatan Perkhidmatan Awam (JPA)</li>
                         </ul>
-
-                    </div> --}}
+                        </p>
+                        <br>
+                        <p style="color: black"> Bahagian 2 - Menilai kemahiran dalam : <br>
+                        <ul style="color: black">
+                            <li>Mencari dan memperolehi maklumat menggunakan internet.</li>
+                            <li>Menyediakan dokumen pemprosesan atau dokumen persembahan berkaitan dengan pengendalian
+                                tugas-tugas asas.</li>
+                            <li>Berkomunikasi secara elektronik melalui emel.</li>
+                        </ul>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -530,11 +301,10 @@
                         perisian-perisian ICT yang sering di guna pakai (commonly used).
 
                     </p>
-
-                    <a href="https://www.intanbk.intan.my/iportal/en/about-intan"
+                    {{-- <a href="https://www.intanbk.intan.my/iportal/en/about-intan"
                         class="text-warning icon-move-right">Mengenai Intan
                         <i class="fas fa-arrow-right text-sm ms-1"></i>
-                    </a>
+                    </a> --}}
                 </div>
                 <div class="col-lg-6 ">
                     <div class="p-3 info-horizontal">
@@ -556,25 +326,27 @@
                                 Melalui Pembelajaran Berkualiti</p>
                         </div>
                     </div>
-                    <div class="p-3 info-horizontal">
+                    {{-- <div class="p-3 info-horizontal">
                         <img src="https://www.intanbk.intan.my/iportal/images/adminsep.jpg" width="620" height="300">
                         <b style="text-align:center;">&emsp;&emsp;The National Institute of Public Administration
                             (INTAN) Port Dickson</b>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
-            @foreach ($lamanutama as $lamanutama)
-            <div class="card m-5">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <h5>{{$lamanutama->TAJUK}}</h5>
-                            {!!$lamanutama->KETERANGAN!!}
+
+            @foreach ($lamanutama2 as $lamanutama2)
+                @if ($lamanutama2->STATUS == '02')
+                    @if ($lamanutama2->TAJUK != 'Objektif')
+                        <div class="row mt-4">
+                            <div class="col">
+                                <h3 class="text-gradient text-warning mb-0 mt-2">{{ $lamanutama2->TAJUK }}</h3>
+                                <h3></h3>
+                                <p>{!! $lamanutama2->KETERANGAN !!}</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    @endif
+                @endif
             @endforeach
 
             <div class="row pt-5" id="jadual">
@@ -588,10 +360,13 @@
 
                                 <thead>
                                     <tr>
-                                        <th class="text-center">No.</th>
-                                        <th class="text-center">Tarikh Penilaian</th>
-                                        <th class="text-center">Saluran Penilaian</th>
-                                        <th class="text-center">Status Permohonan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh
+                                            Penilaian</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Saluran
+                                            Penilaian</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Status
+                                            Jadual</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -602,12 +377,27 @@
                                             <td class="text-center">
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
                                             </td> --}}
-                                            <td class="text-center">{{ $loop->index + 1 }}</td>
-                                            <td class="text-center">
+                                            <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
                                             </td>
-                                            <td class="text-center">{{ $jadual['platform'] }}</td>
-                                            <td class="text-center">{{ $jadual['status'] }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $jadual['platform'] }}</td>
+                                            @if ($jadual['status'] == null)
+                                                @if ($jadual['KEKOSONGAN'] == '0')
+                                                    <td class="text-sm text-center font-weight-normal"><span
+                                                            class="badge badge-lg badge-danger">Penuh</span></td>
+                                                @else
+                                                    <td class="text-sm text-center font-weight-normal"><span
+                                                            class="badge badge-lg badge-success">Dibuka</span></td>
+                                                @endif
+
+                                            @else
+                                                <td class="text-sm text-center font-weight-normal"><span
+                                                        class="badge badge-lg badge-info">{{ $jadual['status'] }} -
+                                                        {{ $jadual['keterangan'] }}</span></td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -618,137 +408,118 @@
             </div>
         </div>
     </section>
-    <!-- -------- END Features w/ icons and text on left & gradient title and text on right -------- -->
-    <section class="features-3 mt-n10 py-7">
-        <div class="container">
-            <div class="row text-center justify-content-center pt-10">
-                <div class="col-lg-6">
-                    <h2>Institut Tadbiran Awam Negara (INTAN) </h2>
-                    <p>
-                        NATIONAL INSTITUTE OF PUBLIC ADMINISTRATION
-                    </p>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">MAKLUMAN TERKINI</h5>
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col-lg-4 mb-lg-0 mb-4">
-                    <!-- Start Card Blog Fullbackground - text centered -->
-                    <a href="/jaduals">
-                        <div class="card card-background move-on-hover mb-4">
-                            <div class="full-background"
-                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/glass-wall.jpg')">
-                            </div>
-                            <div class="card-body pt-12">
-                                <h4 class="text-white">Jadual Penilaian</h4>
-                                <p>Dapatkan tarikh jadual mengikut slot yang ditetapkan.</p>
-                            </div>
-                        </div>
-                    </a>
+                <div class="modal-body">
+                    <p>Sistem Penilaian ISAC telah dinaiktaraf kepada platform sistem secara dalam talian sepenuhnya
+                        bermula pada tahun 2022.</p>
+
+                    <p>Sistem ISAC baharu mengetengahkan konsep End-To-End di mana calon akan membuat pendaftaran,
+                        pemilihan jadual dan menduduki penilaian secara dalam talian sepenuhnya tanpa perlu hadir secara
+                        fizikal di INTAN, JPA atau mana-mana kampus INTAN.</p>
+
+                    <p>Sebagai tambahan, calon hanya perlu menjawab peperiksaan dari lokasi mereka iaitu sama ada di
+                        rumah
+                        atau di pejabat.</p>
+                    <br>
+
+                    <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
+                        dapat
+                        dijalankan dengan sempurna:</p>
+
+                    <ol>
+                        <li>Capaian internet yang baik</li>
+                        <li>Kemudahan peralatan ICT iaitu ;
+                            <ul>
+                                <li>Komputer beserta kamera (webcam) atau</li>
+                                <li>Komputer riba berserta kamera (build in camera)</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <p>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan kelak. Sila rujuk portal ini
+                        untuk
+                        info terkini.</p>
+
+
+
+                    <p>Sekian Terima Kasih</p>
+
+                    <p>-URUSETIA ISAC-</p>
                 </div>
-                <div class="col-lg-4 mb-lg-0 mb-4">
-                    <!-- Start Card Blog Fullbackground - text centered -->
-                    <a href="/tambahrayuans">
-                        <div class="card card-background move-on-hover mb-4">
-                            <div class="full-background"
-                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/books.jpg')">
-                            </div>
-                            <div class="card-body pt-12">
-                                <h4 class="text-white">Rayuan</h4>
-                                <p>Rayuan bagi pemohon yang telah gagal membuat permohonan untuk penilaian.</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4">
-                    <a href="/tambahaduans">
-                        <div class="card card-background move-on-hover">
-                            <div class="full-background" style="background-image: url('assets/img/test.jpg');">
-                            </div>
-                            <div class="card-body pt-12">
-                                <h4 class="text-white">Aduan</h4>
-                                <p>Aduan bagi sebarang masalah atau pertanyaan mengenai penilaian. </p>
-                            </div>
-                        </div>
-                    </a>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
     <footer class="footer pt-4 mt-3" id="contact">
         <hr class="horizontal dark mb-5">
         <div class="container">
             <div class=" row">
-                <div class="col-md-3 mb-4 ms-auto">
-                    <div class="d-flex justify-content-center flex-wrap">
-                        <h6 class="text-gradient text-warning font-weight-bolder">Institut Tadbiran Awam Negara</h6>
-                        &nbsp;&nbsp;&nbsp;
-                        <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg" width="150"
-                            height="150">
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-6 mb-4">
-                    <div>
+                <div class="col-md-4 mb-4">
+                    <div style="padding-left: 5rem">
                         <h6 class="text-gradient text-warning text-sm">
                             Alamat Surat Menyurat :</h6>
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
                                 <a class="nav-link">
-                                    Pengarah
-                                    Institut Tadbiran Awam Negara (INTAN),
-                                    Kluster Inovasi Teknologi Pengurusan (i-IMATEC),
-                                    Seksyen Aplikasi
-                                    Jalan Bukit Kiara,
-                                    50480 Kuala Lumpur
-                                    (u.p. :Puan Nor Hasimah binti Che Mat)
+                                    Unit Aplikasi Penilaian dan Portal <br>
+                                    Sub-Kluster Aplikasi, Portal dan Multimedia <br>
+                                    Kluster Inovasi Teknologi Pengurusan (i-MATEC) <br>
+                                    Institut Tadbiran Awam Negara (INTAN) Bukit Kiara <br>
+                                    Jalan Bukit Kiara <br>
+                                    50480 Kuala Lumpur, Malaysia <br>
+                                    Tel: 2084 7713/7726/7703/7798 <br>
+                                    E-mel: dlisachelp@intanbk.intan.my <br>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-6 mb-4">
-                    <div>
-                        <h6 class="text-gradient text-warning text-sm">En. Mohd Yuzwan bin Yunan</h6>
+                <div class="col-md-4 mb-4">
+                    <div style="padding-left: 5rem">
+                        <h6 class="text-gradient text-warning text-sm">
+                            Pautan :</h6>
                         <ul class="flex-column ms-n3 nav">
                             <li class="nav-item">
-                                <a class="nav-link">
-                                    Penolong Pegawai Teknologi Maklumat,
+                                <a class="nav-link">Jabatan Perkhidmatan Awam</a>
+                                <a class="nav-link" href="https://www.jpa.gov.my/"
+                                    target="_blank">https://www.jpa.gov.my/<br>
                                 </a>
+                                <br>
+                                <a class="nav-link">INTAN Bukit Kiara</a>
+                                <a class="nav-link" href="https://www.intanbk.intan.my/"
+                                    target="_blank">https://www.intanbk.intan.my/</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    Gred FA29,
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    03-20847798.
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="d-flex justify-content-center flex-wrap">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h6 class="text-gradient text-warning font-weight-bolder">Institut Tadbiran Awam Negara
+                                </h6>
+                            </div>
+                            <div class="col-12 text-center">
+                                <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/EN/INTAN.jpg"
+                                    width="150" height="150">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-6 mb-4">
-                    <div>
-                        <h6 class="text-gradient text-warning text-sm">En. Mohd Faisal Bin Mustafah</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    Penolong Pegawai Teknologi Maklumat,
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    Gred FA29,
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    03-20847703.
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="col-12">
                     <div class="text-center">
                         <!-- <p class="my-4 text-sm">
@@ -762,33 +533,11 @@
             </div>
         </div>
     </footer>
-    <!--   Core JS Files   -->
-    {{-- <script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script> --}}
-    <!--  Plugin for TypedJS, full documentation here: https://github.com/mattboldt/typed.js/ -->
-    {{-- <script src="/assets/js/plugins/typedjs.js"></script> --}}
-    <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
-    {{-- <script src="/assets/js/plugins/parallax.min.js"></script> --}}
-    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    {{-- <script src="/assets/js/plugins/nouislider.min.js" type="text/javascript"></script> --}}
-    <!--  Plugin for the GlideJS Carousel, full documentation here: http://kenwheeler.github.io/slick/ -->
-    {{-- <script src="/assets/js/plugins/glidejs.min.js" type="text/javascript"></script> --}}
-    <!--  Plugin for the blob animation -->
-    {{-- <script src="/assets/js/plugins/anime.min.js" type="text/javascript"></script> --}}
-    <!-- Chart JS -->
-    {{-- <script src="/assets/js/plugins/chartjs.min.js"></script> --}}
-    <!-- Control Center for Soft UI Kit: parallax effects, scripts for the example pages etc -->
-    <!--  Google Maps Plugin    -->
-    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script> --}}
-    <!-- Place this tag in your head or just before your close body tag. -->
-    {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
-    {{-- <script src="/assets/js/soft-design-system-pro.min.js?v=1.0.8" type="text/javascript"></script> --}}
 
+    <script src="../../assets/js/core/bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
-    <script src="../../assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
+    <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
         const dataTableBasicPenjadualan = new simpleDatatables.DataTable("#datatable-penjadualan", {
             searchable: false,
@@ -805,6 +554,10 @@
             $("body, html").animate({
                 scrollTop: position
             } /* speed */ );
+        });
+
+        $(window).on('load', function() {
+            $('#exampleModal').modal('show');
         });
     </script>
 </body>
