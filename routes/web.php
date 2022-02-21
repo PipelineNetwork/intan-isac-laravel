@@ -232,3 +232,7 @@ Route::get('/laporan/statistik-isac-mengikut-kategori-calon', [LaporanController
 Route::get('/laporan/keseluruhan-penilaian-isac-mengikut-iac', [LaporanController::class, 'keseluruhan_penilaian_isac_iac']);
 Route::get('/laporan/aduan', [LaporanController::class, 'laporan_aduan']);
 Route::get('/laporan/rayuan', [LaporanController::class, 'laporan_rayuan']);
+
+// Route::get('/test_webcam', function () {
+//     return view('test_webcam');
+// });

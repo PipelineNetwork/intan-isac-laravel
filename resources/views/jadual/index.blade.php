@@ -93,9 +93,9 @@
                                             <td class="text-sm text-center font-weight-normal">
                                                 @if ($jadual['KOD_SESI_PENILAIAN'] == '01')
                                                     Sesi 01
-                                                @elseif($jadual['KOD_SESI_PENILAIAN'] == "02")
+                                                @elseif($jadual['KOD_SESI_PENILAIAN'] == '02')
                                                     Sesi 02
-                                                @elseif($jadual['KOD_SESI_PENILAIAN'] == "03")
+                                                @elseif($jadual['KOD_SESI_PENILAIAN'] == '03')
                                                     Sesi 03
                                                 @endif
                                                 {{-- {{ $jadual['KOD_SESI_PENILAIAN'] }} --}}
@@ -162,7 +162,7 @@
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                                 <div class="dropdown">
-                                                    <button class="btn btn-info dropdown-toggle mt-2" type="button"
+                                                    <button class="btn btn-info dropdown-toggle" type="button"
                                                         id="dropdownMenuButton" data-bs-toggle="dropdown"
                                                         aria-expanded="false"><i class="fas fa-edit"></i>
                                                     </button>
@@ -287,7 +287,7 @@
     <script type="text/javascript">
         const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
             searchable: true,
-            fixedHeight: true,
+            fixedHeight: false,
             sortable: false
         });
     </script>
