@@ -35,7 +35,7 @@
             left: 0;
         }
 
-        #videoElement {
+        #my_camera {
             width: 100px;
             height: 70px;
             background-color: #666;
@@ -49,6 +49,11 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    {{-- <script type="text/javascript">
+        function disableBack() { window.history.forward(); }
+        setTimeout("disableBack()", 0);
+        window.onunload = function () { null };
+    </script> --}}
     {{-- ck editor --}}
     {{-- <script src="/ckeditor/skins/office2013"></script> --}}
     {{-- <script src="/ckeditor/ckeditor.js"></script> --}}
@@ -91,7 +96,7 @@
     $tamat_keseluruhan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
     $peringatan_tamat = $tamat_keseluruhan - $peringatan_tamat_n;
     $peringatan_tamat = $peringatan_tamat * 60 * 1000;
-
+    
     $ic = Auth::user()->nric;
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
@@ -176,10 +181,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="/welcome"></a>
                                 <div id="container">
-                                    <video autoplay="true" id="videoElement">
-
-                                    </video>
+                                    <div id="my_camera"></div>
+                                    {{-- after snapshot --}}
+                                    <div id="results"></div>
                                 </div>
+                                <input class="btn btn-success" id="button_click" type="hidden" value="Snapshot" onclick="take_snapshot()">
                             </li>
                         </ul>
                     @endauth
@@ -235,6 +241,32 @@
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
 
+    <script>
+        setInterval(function() {
+            $("#button_click").click();
+        }, 10000);
+    </script>
+
+    <script type="text/javascript" src="/assets/js/webcamjs/webcam.min.js"></script>
+
+    <script language="JavaScript">
+        Webcam.set({
+            width: 100,
+            height: 70,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+        });
+        Webcam.attach('#my_camera');
+
+        function take_snapshot() {
+            Webcam.snap(function(data_uri) {
+                // display results in page
+                document.getElementById('results').innerHTML =
+                    '<img src="' + data_uri + '"/>';
+            });
+        }
+    </script>
+
     <script type="text/javascript">
         // properties
         var count = 0;
@@ -278,7 +310,7 @@
                 $("#penilaian input[name=timer]").val(countDownTime);
                 document.forms["penilaian"].submit();
 
-                window.location.replace("/penilaian_tamat/"+ic+"/"+id_penilaian);
+                window.location.replace("/penilaian_tamat/" + ic + "/" + id_penilaian);
                 // window.sessionStorage.getItem(COUNTER_KEY) || 3600
             });
 
@@ -295,7 +327,7 @@
                 alert("Masa untuk menjawab hanya tinggal " + peringatan_tamat_n + " minit sahaja lagi.");
             }, peringatan_tamat);
 
-            noBackPlease();
+            // noBackPlease();
 
             // disables backspace on page except on input fields and textarea..
             document.body.onkeydown = function(e) {
@@ -335,23 +367,6 @@
 
         })(window);
     </script>
-
-    <script>
-        var video = document.querySelector("#videoElement");
-
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({
-                    video: true
-                })
-                .then(function(stream) {
-                    video.srcObject = stream;
-                })
-                .catch(function(err0r) {
-                    console.log("Something went wrong!");
-                });
-        }
-    </script>
-
 </body>
 
 </html>
