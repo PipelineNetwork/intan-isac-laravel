@@ -2,12 +2,10 @@
 @section('content')
 
     <style>
-        #videoElement {
+        #my_camera {
             width: 100px;
             height: 70px;
-            background-color: #666;
-            display: block;
-            position: relative;
+            border: 1px solid black;
         }
 
     </style>
@@ -41,9 +39,7 @@
             </ol>
             <h5 class="font-weight-bolder">Penilaian ISAC</h5>
             <div id="container">
-                <video autoplay="true" id="videoElement">
-
-                </video>
+                <div id="my_camera"></div>
             </div>
         </nav>
 
@@ -87,19 +83,16 @@
     <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
-    <script>
-        var video = document.querySelector("#videoElement");
+    <script type="text/javascript" src="/assets/js/webcamjs/webcam.min.js"></script>
 
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({
-                    video: true
-                })
-                .then(function(stream) {
-                    video.srcObject = stream;
-                })
-                .catch(function(err0r) {
-                    console.log("Something went wrong!");
-                });
-        }
+    <!-- Configure a few settings and attach camera -->
+    <script language="JavaScript">
+        Webcam.set({
+            width: 100,
+            height: 70,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+        });
+        Webcam.attach('#my_camera');
     </script>
 @stop

@@ -35,12 +35,10 @@
             left: 0;
         }
 
-        #videoElement {
+        #my_camera {
             width: 100px;
             height: 70px;
-            background-color: #666;
-            display: block;
-            position: relative;
+            border: 1px solid black;
         }
 
     </style>
@@ -160,9 +158,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="/welcome"></a>
                                 <div id="container">
-                                    <video autoplay="true" id="videoElement">
-
-                                    </video>
+                                    <div id="my_camera"></div>
                                 </div>
                             </li>
                             <li class="nav-item">
@@ -170,7 +166,7 @@
                                     @csrf
                                     <a class="dropdown-item border-radius-md" href="#"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            this.closest('form').submit();">
                                         <div class="d-flex py-1">
 
                                             {{ __('Log Keluar') }}
@@ -233,22 +229,18 @@
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
 
-    <script>
-        var video = document.querySelector("#videoElement");
+    <script type="text/javascript" src="/assets/js/webcamjs/webcam.min.js"></script>
 
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({
-                    video: true
-                })
-                .then(function(stream) {
-                    video.srcObject = stream;
-                })
-                .catch(function(err0r) {
-                    console.log("Something went wrong!");
-                });
-        }
+    <!-- Configure a few settings and attach camera -->
+    <script language="JavaScript">
+        Webcam.set({
+            width: 100,
+            height: 70,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+        });
+        Webcam.attach('#my_camera');
     </script>
-
 </body>
 
 </html>
