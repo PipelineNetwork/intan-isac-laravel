@@ -6,7 +6,9 @@ use App\Models\Bankjawapancalon;
 use App\Models\Bankjawapanpengetahuan;
 use App\Models\Jadual;
 use App\Models\MohonPenilaian;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PemantauanpenilaianController extends Controller
 {
@@ -173,5 +175,49 @@ class PemantauanpenilaianController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function hantar_data(Request $request)
+    {
+        //clear data dalam storage
+        Storage::disk('public')->put('pemantauan.txt', json_encode([]));
+        //get data dari text file
+        $data_sedia_ada = Storage::disk('public')->get('pemantauan.txt');
+        $data_sedia_ada = json_decode($data_sedia_ada);
+
+        //data baru
+        $data_nama = [$_POST['image'], $_POST['name']];
+
+        //tambah data baru dgn data yg dah exist dlm txt file
+        //buat checking by calon's nric
+        $data_sedia_ada[$_POST['nric']] = $data_nama;
+
+        //masukkan balik data baru and lama dlm txt file
+        Storage::disk('public')->put('pemantauan.txt', json_encode($data_sedia_ada));
+
+        // dd(Storage::disk('public')->get('pemantauan.txt'));
+    }
+
+    public function terima_data(Request $request)
+    {
+        // $value = session('senarai_nama');
+        $data_sedia_ada = Storage::disk('public')->get('pemantauan.txt');        
+        $data_sedia_ada = json_decode($data_sedia_ada);
+        // dd($data_sedia_ada);
+        return view(
+            'pemantauan_penilaian.index',
+            compact('data_sedia_ada')
+        );
+        // return view(
+        //     'pemantauan_penilaian.webcam_calon',
+        //     compact('value')
+        // );
+    }
+
+    public function set_semula() {
+        //clear data dalam storage
+        Storage::disk('public')->put('pemantauan.txt', json_encode([]));
+
+        return redirect('/pemantauan-penilaian')->with('success','Telah disetkan semula!');
     }
 }

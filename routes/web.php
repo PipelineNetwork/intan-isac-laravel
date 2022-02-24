@@ -220,7 +220,9 @@ Route::get('/semak_jawapan/{ic}/{id}', [BankjawapanpengetahuanController::class,
 Route::get('/senarai_sijil', [KeputusanPenilaianController::class, 'senarai_sijil']);
 Route::get('/semakan_keputusan_calon', [KeputusanPenilaianController::class, 'senarai_penilaian_calon']);
 
-Route::resource('/pemantauan-penilaian', PemantauanpenilaianController::class);
+// Route::resource('/pemantauan-penilaian', PemantauanpenilaianController::class);
+Route::get('/pemantauan-penilaian', [PemantauanpenilaianController::class, 'terima_data']);
+Route::post('/set_semula_senarai', [PemantauanpenilaianController::class, 'set_semula']);
 
 //laporan
 Route::get('/laporan/penilaian-isac-mengikut-kementerian', [LaporanController::class, 'laporan_penilaian_isac_mengikut_kementerian']);
@@ -233,6 +235,8 @@ Route::get('/laporan/keseluruhan-penilaian-isac-mengikut-iac', [LaporanControlle
 Route::get('/laporan/aduan', [LaporanController::class, 'laporan_aduan']);
 Route::get('/laporan/rayuan', [LaporanController::class, 'laporan_rayuan']);
 
-// Route::get('/test_webcam', function () {
-//     return view('test_webcam');
-// });
+Route::get('/test_webcam', function () {
+    return view('test_webcam');
+});
+
+// Route::redirect('/','login');
