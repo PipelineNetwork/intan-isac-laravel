@@ -38,9 +38,7 @@
         #my_camera {
             width: 100px;
             height: 70px;
-            background-color: #666;
-            display: block;
-            position: relative;
+            border: 1px solid black;
         }
 
     </style>
