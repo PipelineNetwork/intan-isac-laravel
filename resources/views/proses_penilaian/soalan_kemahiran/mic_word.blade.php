@@ -199,7 +199,8 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn bg-gradient-secondary"
                                             data-bs-dismiss="modal">Batal</button>
-                                        <a href="/soalan-kemahiran-email/{{ $id_penilaian }}" class="btn btn-success">Ok</a>
+                                        <a href="/soalan-kemahiran-email/{{ $id_penilaian }}"
+                                            class="btn btn-success">Ok</a>
                                     </div>
                                 </div>
                             </div>
@@ -210,8 +211,8 @@
         </div>
     </div>
 
-    <script src="../../assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
+    <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
         const dataTableSoalanKemahiranWord = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_word", {
             searchable: true,

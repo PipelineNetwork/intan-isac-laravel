@@ -49,6 +49,7 @@
                             style="float: right;">Tambah Rayuan</a>
                     </div>
                 </div>
+                <script src="https://isacsupport.intan.my/chat_widget.js"></script>
             @endrole
         </div>
 

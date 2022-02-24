@@ -52,50 +52,50 @@
                                     <div class="col-xl-12">
                                         <input type="hidden" name="id_soalankemahiranword"
                                             value="{{ $soalankemahiranwords->id }}">
-                                            <input type="hidden" name="timer" value="" id="timer">
+                                        <input type="hidden" name="timer" value="" id="timer">
                                         <div class="form-group">
                                             <label class="form-control-label text-white" for="editor">Jawapan</label>
                                             <textarea id="editor" class="form-control" name="jawapan_word">
-                                                    <p>
-                                                        Overview of Microsoft Office Word 2021
-                                                    </p>
-                                                    <p>
-                                                        Welcome to Microsoft® Office Word 2021, included in the 2021 release of the Microsoft Office system. Word 2021 is a powerful authoring program that gives you the ability to create and share professional-looking documents by combining a comprehensive set of writing tools with an easy to-use interface.
-                                                    </p>
-                                                    <p>
-                                                        Office Word 2021 helps information workers create professional-looking content more quickly than ever before. With a host of new tools, you can quickly construct documents from predefined parts and styles, as well as as compose and publish blogs directly from within Word. Advanced integration with Microsoft Office SharePoint® Server 2021 and a new XML-based file format make Office Word 2021 the ideal choice for building integrated document management solutions.
-                                                    </p>
-                                                    <p>
-                                                        This document provides an overview of Office Word 2021, with an emphasis on new and improved features. It also covers Office Word 2021 in action to demonstrate its exciting new capabilities.
-                                                    </p>
-                                                    <p>
-                                                        Create Professional-Looking Content
-                                                    </p>
-                                                    <p>
-                                                        Together with the Microsoft Office Fluent interface, Office Word 2021 gives you the tools you need to create professional-looking content.
-                                                    </p>
-                                                    <p>
-                                                        &nbsp; A &nbsp;&nbsp;&nbsp;&nbsp; The Office Fluent user interface presents the right tools to you when you need them.
-                                                    </p>
-                                                    <p>
-                                                        &nbsp; B &nbsp;&nbsp;&nbsp;&nbsp; Add Building Blocks of predefined content and reduce the errors associated with copying and pasting.
-                                                        {{-- frequently used content. --}}
-                                                    </p>
-                                                    <p>
-                                                        &nbsp; C &nbsp;&nbsp;&nbsp;&nbsp; Quick Styles save you time by quickly formatting text and tables throughout your document.
-                                                    </p>
-                                                    <p>
-                                                        &nbsp; D &nbsp;&nbsp;&nbsp;&nbsp; Document Themes apply the same tubers, fonts, and effects to your documents for a consistent look.
-                                                    </p>
-                                                    <p>
-                                                        &nbsp; E &nbsp;&nbsp;&nbsp;&nbsp; SmartArt™ diagrams and a new charting engine help you add a professional look to documents. 
-                                                        {{-- Shared diagramming and charting with Microsoft Office Excel® 2021 spreadsheet software and the Microsoft Office PowerPoint® 2021 presentation graphics program help ensure a consistent look across your documents, spreadsheets, and presentations. --}}
-                                                    </p>
-                                                    <p>
-                                                        &nbsp; F &nbsp;&nbsp;&nbsp;&nbsp; The Equation Builder helps you construct editable, in-line mathematical equations using real mathematical symbols.
-                                                        {{-- , prebuilt equations, and automatic formatting --}}
-                                                    </p>
-                                                </textarea>
+                                                <p>
+                                                    Overview of Microsoft Office Word 2021
+                                                </p>
+                                                <p>
+                                                    Welcome to Microsoft® Office Word 2021, included in the 2021 release of the Microsoft Office system. Word 2021 is a powerful authoring program that gives you the ability to create and share professional-looking documents by combining a comprehensive set of writing tools with an easy to-use interface.
+                                                </p>
+                                                <p>
+                                                    Office Word 2021 helps information workers create professional-looking content more quickly than ever before. With a host of new tools, you can quickly construct documents from predefined parts and styles, as well as as compose and publish blogs directly from within Word. Advanced integration with Microsoft Office SharePoint® Server 2021 and a new XML-based file format make Office Word 2021 the ideal choice for building integrated document management solutions.
+                                                </p>
+                                                <p>
+                                                    This document provides an overview of Office Word 2021, with an emphasis on new and improved features. It also covers Office Word 2021 in action to demonstrate its exciting new capabilities.
+                                                </p>
+                                                <p>
+                                                    Create Professional-Looking Content
+                                                </p>
+                                                <p>
+                                                    Together with the Microsoft Office Fluent interface, Office Word 2021 gives you the tools you need to create professional-looking content.
+                                                </p>
+                                                <p>
+                                                    &nbsp; A &nbsp;&nbsp;&nbsp;&nbsp; The Office Fluent user interface presents the right tools to you when you need them.
+                                                </p>
+                                                <p>
+                                                    &nbsp; B &nbsp;&nbsp;&nbsp;&nbsp; Add Building Blocks of predefined content and reduce the errors associated with copying and pasting.
+                                                    {{-- frequently used content. --}}
+                                                </p>
+                                                <p>
+                                                    &nbsp; C &nbsp;&nbsp;&nbsp;&nbsp; Quick Styles save you time by quickly formatting text and tables throughout your document.
+                                                </p>
+                                                <p>
+                                                    &nbsp; D &nbsp;&nbsp;&nbsp;&nbsp; Document Themes apply the same tubers, fonts, and effects to your documents for a consistent look.
+                                                </p>
+                                                <p>
+                                                    &nbsp; E &nbsp;&nbsp;&nbsp;&nbsp; SmartArt™ diagrams and a new charting engine help you add a professional look to documents. 
+                                                    {{-- Shared diagramming and charting with Microsoft Office Excel® 2021 spreadsheet software and the Microsoft Office PowerPoint® 2021 presentation graphics program help ensure a consistent look across your documents, spreadsheets, and presentations. --}}
+                                                </p>
+                                                <p>
+                                                    &nbsp; F &nbsp;&nbsp;&nbsp;&nbsp; The Equation Builder helps you construct editable, in-line mathematical equations using real mathematical symbols.
+                                                    {{-- , prebuilt equations, and automatic formatting --}}
+                                                </p>
+                                            </textarea>
                                         </div>
                                     </div>
                                     {{-- <div class="col-12" style="text-align: end;">
@@ -110,6 +110,7 @@
         </div>
     </div>
 
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 

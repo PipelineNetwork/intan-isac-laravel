@@ -300,6 +300,7 @@
         </div>
     </div>
 
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     <script type="text/javascript">
         // on load
         // simpan soalan dalam array

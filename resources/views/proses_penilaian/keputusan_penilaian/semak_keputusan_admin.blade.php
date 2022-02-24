@@ -80,8 +80,6 @@
         </div>
     </div>
 
-
-
     <script src="../../assets/js/plugins/datatables.js"></script>
     <script type="text/javascript">
         const dataTableBasickategori = new simpleDatatables.DataTable("#datatable-peserta", {

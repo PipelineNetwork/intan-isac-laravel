@@ -46,8 +46,8 @@
         </div>
     </div>
 
-    <script src="../../assets/js/plugins/datatables.js"
-        type="text/javascript"></script>
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
+    <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
         const dataTableSoalanKemahiranEmail = new simpleDatatables.DataTable("#datatable_soalan_kemahiran_email", {
             searchable: true,

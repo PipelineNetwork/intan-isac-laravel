@@ -478,5 +478,5 @@
             </div>
         </div>
     </div>
-
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
 @stop
