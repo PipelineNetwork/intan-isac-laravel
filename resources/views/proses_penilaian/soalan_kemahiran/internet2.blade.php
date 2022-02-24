@@ -178,8 +178,7 @@
                                 <input type="hidden" name="jawapansebenar_carianteks"
                                     value="{{ $jawapansebenar_carianteks }}">
                                 <input type="hidden" name="user_id" value="{{ $user_id }}">
-                                <input type="hidden" name="url_wikipedia"
-                                    value="{{ $url_wikipedia }}">
+                                <input type="hidden" name="url_wikipedia" value="{{ $url_wikipedia }}">
                                 {{-- <input type="hidden" name="id_soalankemahiraninternet" value="{{ $id_soalankemahiraninternet }}">
                                 <input type="hidden" name="ic_calon" value="{{ $ic_calon }}"> --}}
                                 <div class="search__buttons">
@@ -194,6 +193,7 @@
         </div>
     </div>
 
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 @stop

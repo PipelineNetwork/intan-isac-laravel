@@ -1,8 +1,8 @@
 @extends('base')
 @section('content')
-@php
+    @php
     use App\Models\Jadual;
-@endphp
+    @endphp
 
     <div class="container-fluid py-4">
         <div class="row">
@@ -121,12 +121,14 @@
                                                     data-bs-target="#deleteslip-{{ $keputusan->id }}">
                                                     <i class="far fa-trash-alt"></i>
                                                 </a>
-                                                <div class="modal fade" id="deleteslip-{{ $keputusan->id }}" tabindex="-1"
-                                                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="deleteslip-{{ $keputusan->id }}"
+                                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-body text-center">
-                                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                                <i class="far fa-times-circle fa-7x"
+                                                                    style="color: #ea0606"></i>
                                                                 <br>
                                                                 Anda pasti untuk menghapus slip?
                                                             </div>
@@ -137,7 +139,8 @@
                                                                     action="/keputusan_penilaian/{{ $keputusan->id }}">
                                                                     @method('DELETE')
                                                                     @csrf
-                                                                    <button class="btn btn-danger" type="submit">Hapus</button>
+                                                                    <button class="btn btn-danger"
+                                                                        type="submit">Hapus</button>
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -153,9 +156,9 @@
                 </div>
             </div>
         </div>
-
     </div>
 
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     <script src="../../assets/js/plugins/datatables.js"></script>
     <script type="text/javascript">
         const dataTableBasickategori = new simpleDatatables.DataTable("#datatable-peserta", {

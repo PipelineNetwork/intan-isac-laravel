@@ -44,7 +44,7 @@
                     {{-- <a class="btn btn-info" href="/semakan_keputusan_calon">Semak Keputusan</a> --}}
                     {{-- <a class="btn btn-info" href="/semakan_keputusan_calon">Semakan Keputusan</a> --}}
                     <form action="/masa_tamat/{{ $ic }}/{{ $id_penilaian }}" method="POST">
-                        @csrf 
+                        @csrf
                         <input type="hidden" value="{{ $ic }}">
                         <input type="hidden" value="{{ $id_penilaian }}">
                         <button class="btn btn-info" type="submit">Semakan Keputusan</button>
@@ -54,6 +54,7 @@
         </div>
     </div>
 
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 @stop

@@ -69,7 +69,7 @@
                             <input type="hidden" name="markah_carianteks" value="{{ $markah_carianteks }}">
                             <input type="hidden" name="user_id" value="{{ $user_id }}">
                             <input type="hidden" name="timer" value="" id="timer">
-                            
+
                             <button class="btn btn-danger" type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 title="Close"><i class="fas fa-times"></i></button>
                         </h4>
@@ -174,6 +174,7 @@
         </div>
     </div>
 
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 @stop

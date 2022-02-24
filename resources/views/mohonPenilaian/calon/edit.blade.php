@@ -180,6 +180,7 @@
             </div>
         </div>
 
+        <script src="https://isacsupport.intan.my/chat_widget.js"></script>
         <script src="../../assets/js/plugins/datatables.js"></script>
         <script type="text/javascript">
             const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {

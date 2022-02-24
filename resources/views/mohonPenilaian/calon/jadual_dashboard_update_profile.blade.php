@@ -497,6 +497,7 @@
 
     </div>
 
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     <script>
         $(document).on('submit', 'form', function() {
             setTimeout(function() {

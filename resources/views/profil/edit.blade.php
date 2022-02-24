@@ -483,8 +483,9 @@
                     </form>
                 </div>
             </div>
-
         </div>
+
+        <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     @else
         <div class="container-fluid py-4">
             <div class="row ">

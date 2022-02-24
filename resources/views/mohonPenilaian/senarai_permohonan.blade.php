@@ -217,6 +217,7 @@ use App\Models\Jadual;
         </div>
     </div>
 
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     <script src="../../assets/js/plugins/datatables.js"></script>
     <script type="text/javascript">
         const dataTableBasickategori = new simpleDatatables.DataTable("#datatable-peserta", {

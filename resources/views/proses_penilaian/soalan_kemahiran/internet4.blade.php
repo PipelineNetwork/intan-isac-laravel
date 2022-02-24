@@ -80,8 +80,7 @@
                         </div>
                         <div class="col-12 vh-100">
                             {{-- <img src="/assets/img/wikipedia.png" style="max-width: 100%" alt=""> --}}
-                            <iframe src="{{ $url_wikipedia }}" width="100%" height="100%"
-                                frameborder="0"></iframe>
+                            <iframe src="{{ $url_wikipedia }}" width="100%" height="100%" frameborder="0"></iframe>
                         </div>
                     </div>
                 </div>
@@ -89,6 +88,7 @@
         </div>
     </div>
 
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 @stop

@@ -61,10 +61,6 @@ Route::get('/proftem', function () {
 
 Route::get('/profil', [ProfilController::class, 'kemaskini']);
 
-Route::get('/dashboard2', function () {
-    return view('dashboard2');
-});
-
 Route::get('/kemasukan-id', function () {
     return view('kemasukan_id.index');
 });

@@ -48,6 +48,7 @@
                             style="float: right;">Tambah Aduan</a>
                     </div>
                 </div>
+                <script src="https://isacsupport.intan.my/chat_widget.js"></script>
             @endrole
         </div>
 

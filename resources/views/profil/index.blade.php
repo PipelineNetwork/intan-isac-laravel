@@ -142,8 +142,8 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="NO_KAD_PENGENALAN"
-                                                type="text" value="{{ $user_profils->NO_KAD_PENGENALAN }}" readonly
-                                                required maxlength="12" size="12">
+                                                type="text" value="{{ $user_profils->NO_KAD_PENGENALAN }}" readonly required
+                                                maxlength="12" size="12">
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -463,13 +463,13 @@
                                             @if ($user_profils->KOD_JANTINA == '01')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_JANTINA" type="text"
                                                     value="Lelaki" readonly required>
-                                            @elseif($user_profils->KOD_JANTINA == "02")
+                                            @elseif($user_profils->KOD_JANTINA == '02')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_JANTINA" type="text"
                                                     value="Perempuan" readonly required>
-                                            @elseif($user_profils->KOD_JANTINA == "Lelaki")
+                                            @elseif($user_profils->KOD_JANTINA == 'Lelaki')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_JANTINA" type="text"
                                                     value="Lelaki" readonly required>
-                                            @elseif($user_profils->KOD_JANTINA == "Perempuan")
+                                            @elseif($user_profils->KOD_JANTINA == 'Perempuan')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_JANTINA" type="text"
                                                     value="Perempuan" readonly required>
                                             @else
@@ -510,8 +510,7 @@
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3"
                                                 name="KOD_KLASIFIKASI_PERKHIDMATAN" type="text"
-                                                value="{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}" readonly
-                                                required>
+                                                value="{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -522,8 +521,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="KOD_GRED_JAWATAN"
-                                                type="text" value="{{ $user_profils->KOD_GRED_JAWATAN }}" readonly
-                                                required>
+                                                type="text" value="{{ $user_profils->KOD_GRED_JAWATAN }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -582,8 +580,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="NO_TELEFON_BIMBIT"
-                                                type="text" value="{{ $user_profils->NO_TELEFON_BIMBIT }}" readonly
-                                                required>
+                                                type="text" value="{{ $user_profils->NO_TELEFON_BIMBIT }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -785,6 +782,8 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     @else
         <div class="container-fluid py-4">
             <div class="row">
@@ -873,8 +872,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" type="text"
-                                                value="{{ $user_profils->nric }}" readonly required maxlength="12"
-                                                size="12">
+                                                value="{{ $user_profils->nric }}" readonly required maxlength="12" size="12">
                                         </div>
                                     </div>
                                     <div class="row mb-2 divSektor">
