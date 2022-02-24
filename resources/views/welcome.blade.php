@@ -413,11 +413,8 @@
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">MAKLUMAN TERKINI</h5>
-                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="modal-header" style="background-color:#FFA500;">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">MAKLUMAN TERKINI</h5>
                 </div>
                 <div class="modal-body">
                     <p>Sistem Penilaian ISAC telah dinaiktaraf kepada platform sistem secara dalam talian sepenuhnya

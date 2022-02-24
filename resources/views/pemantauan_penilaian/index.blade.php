@@ -41,19 +41,29 @@
             <div class="col-lg-6">
                 <h5 class="font-weight-bolder">Pemantauan Penilaian</h5>
             </div>
+            <div class="col-6 text-end">
+                <button class="btn bg-gradient-primary" onClick="window.location.reload();">Refresh</button>
+            </div>
         </div>
 
         <div class="card card-frame mt-3">
             <div class="card-header position-relative z-index-1" style="background-color:#FFA500;">
                 <div class="row align-items-center">
                     <div class="col-8">
-                        <b class="text-white mb-0">Senarai Penilaian</b>
+                        {{-- <b class="text-white mb-0">Senarai Penilaian</b> --}}
+                        <b class="text-white mb-0">Senarai Calon</b>
+                    </div>
+                    <div class="col-4 text-end">
+                        <form action="/set_semula_senarai" method="POST">
+                            @csrf
+                            <button class="btn bg-gradient-danger mb-0" type="submit">Set Semula</button>
+                        </form>
                     </div>
                 </div>
             </div>
 
             <div class="card-body">
-                <div class="table-responsive">
+                {{-- <div class="table-responsive">
                     <table class="table table-flush" id="datatable_pemantauan_penilaian">
                         <thead class="thead-light">
                             <tr>
@@ -63,8 +73,6 @@
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Sesi</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa Mula</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa Tamat</th>
-                                {{-- <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Disediakan</th> --}}
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
                             </tr>
                         </thead>
@@ -87,17 +95,6 @@
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ $penilaian_list->KOD_MASA_TAMAT }}
                                     </td>
-                                    {{-- <td class="text-sm text-center font-weight-normal">
-                                        Internet</td>
-                                    <td class="text-sm text-center font-weight-normal">
-                                        @if ($penilaian_list->status_soalan == 1)
-                                            Aktif
-                                        @else
-                                            Tidak Aktif
-                                        @endif
-                                    </td> --}}
-                                    {{-- <td class="text-sm text-center font-weight-normal">
-                                        {{ date('d/m/Y', strtotime($penilaian_list->created_at)) }}</td> --}}
                                     <td class="text-sm text-center font-weight-normal"><a data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Lihat Status Calon" data-container="body"
                                             data-animation="true"
@@ -109,21 +106,29 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div> --}}
+                <div class="row">
+                    @if ($data_sedia_ada != null)
+                        @foreach ($data_sedia_ada as $value2)
+                            <div class="col-3 text-center">
+                                <img src="{{ $value2[0] }}" />
+                                <p class="mt-2">{{ $value2[1] }}</p>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
 
     </div>
-    <script src="/assets/js/plugins/datatables.js" type="text/javascript"></script>
+    {{-- <script src="/assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
         const dataTablePemantauanPenilaian = new simpleDatatables.DataTable("#datatable_pemantauan_penilaian", {
             searchable: true,
             fixedHeight: true,
             sortable: false,
-            // paging: false,
-            // searchable: false,
         });
-    </script>
+    </script> --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
 @stop

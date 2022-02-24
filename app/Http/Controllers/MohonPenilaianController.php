@@ -294,8 +294,8 @@ class MohonPenilaianController extends Controller
             $pengetahuan->delete();
         }
 
-        $kemahiran = Bankjawapancalon::where('ic_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get();
-        if (count($kemahiran) != 0) {
+        $kemahiran = Bankjawapancalon::where('ic_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get()->first();
+        if ($kemahiran != null) {
             $kemahiran->delete();
         }
 

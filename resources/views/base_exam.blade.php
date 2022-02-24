@@ -98,6 +98,7 @@
     $peringatan_tamat = $peringatan_tamat * 60 * 1000;
     
     $ic = Auth::user()->nric;
+    $user = Auth::user()->name;
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -183,9 +184,11 @@
                                 <div id="container">
                                     <div id="my_camera"></div>
                                     {{-- after snapshot --}}
-                                    <div id="results"></div>
+                                    <div id="results" style="display: none"></div>
+                                    <div id="name" style="display: none"></div>
                                 </div>
-                                <input class="btn btn-success" id="button_click" type="hidden" value="Snapshot" onclick="take_snapshot()">
+                                <input class="btn btn-success" id="button_click" type="hidden" value="Snapshot"
+                                    onclick="take_snapshot()">
                             </li>
                         </ul>
                     @endauth
@@ -249,7 +252,7 @@
 
     <script type="text/javascript" src="/assets/js/webcamjs/webcam.min.js"></script>
 
-    <script language="JavaScript">
+    <script type="text/javascript">
         Webcam.set({
             width: 100,
             height: 70,
@@ -259,15 +262,36 @@
         Webcam.attach('#my_camera');
 
         function take_snapshot() {
+            var user = <?php echo json_encode($user); ?>;
+            var ic = <?php echo $ic; ?>;
+            var image2 = "";
             Webcam.snap(function(data_uri) {
                 // display results in page
                 document.getElementById('results').innerHTML =
                     '<img src="' + data_uri + '"/>';
+
+                document.getElementById('name').innerHTML = '<p>' + user + '</p>';
+                image2 = data_uri;
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/api/test_post",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    name: user,
+                    image: image2,
+                    nric: ic,
+                    _method: "POST"
+                },
+                // data: name,
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                }
             });
         }
-    </script>
 
-    <script type="text/javascript">
         // properties
         var count = 0;
         var counter = null;
