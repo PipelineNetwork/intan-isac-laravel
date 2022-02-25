@@ -220,6 +220,8 @@ Route::get('/semakan_keputusan_calon', [KeputusanPenilaianController::class, 'se
 
 Route::resource('/pemantauan-penilaian', PemantauanpenilaianController::class);
 
+Route::post('/notifikasi_email/penyelia', [NotifikasiEmailController::class, 'penyelia']);
+
 //laporan
 Route::get('/laporan/penilaian-isac-mengikut-kementerian', [LaporanController::class, 'laporan_penilaian_isac_mengikut_kementerian']);
 Route::get('/laporan/senarai-keputusan-penilaian', [LaporanController::class, 'senarai_keputusan_penilaian']);
