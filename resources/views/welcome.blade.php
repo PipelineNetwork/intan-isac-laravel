@@ -449,7 +449,7 @@
 
                     <p><strong>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</strong></p>
 
-                    <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC.pdf" download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran ISAC</a></p>
+                    <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf" download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran ISAC</a></p>
 
                     <p>Sekian Terima Kasih</p>
 

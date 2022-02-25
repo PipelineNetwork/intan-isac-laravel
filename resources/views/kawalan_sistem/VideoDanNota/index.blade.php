@@ -80,12 +80,12 @@
                                         </td>
                                         <td class="text-sm text-center font-weight-normal" class="text-center">
                                             <div class="row">
-                                                <div class="col-auto p-0 m-1">
+                                                <div class="col-auto mr-2">
                                                     {{-- update --}}
                                                     <a href="/videodannota/{{ $videodannota['id'] }}/edit"
                                                         class="btn btn-info mb-0 px-3"><i class="fas fa-edit"></i></a>
                                                 </div>
-                                                <div class="col-auto p-0 m-1">
+                                                <div class="col-auto">
                                                     {{-- delete --}}
                                                     <form method="POST" action="videodannota/{{ $videodannota->id }}">
                                                         @method('DELETE')
