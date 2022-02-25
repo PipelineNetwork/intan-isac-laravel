@@ -163,7 +163,7 @@ class KeputusanPenilaianController extends Controller
     public function senarai_sijil()
     {
 
-        $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->get();
+        $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->orderBy('updated_at', 'desc')->get();
         return view('proses_penilaian.senarai_sijil', [
             'keputusans' => $keputusans
         ]);
