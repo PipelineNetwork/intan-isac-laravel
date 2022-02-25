@@ -179,13 +179,14 @@ class PemantauanpenilaianController extends Controller
 
     public function hantar_data(Request $request)
     {
-        //clear data dalam storage
-        Storage::disk('public')->put('pemantauan.txt', json_encode([]));
         //get data dari text file
         $data_sedia_ada = Storage::disk('public')->get('pemantauan.txt');
         $data_sedia_ada = json_decode($data_sedia_ada);
 
-        //data baru
+        //clear data dalam storage
+        Storage::disk('public')->put('pemantauan.txt', json_encode([]));
+
+        //data baru ////
         $data_nama = [$_POST['image'], $_POST['name']];
 
         //tambah data baru dgn data yg dah exist dlm txt file
