@@ -181,7 +181,7 @@ class PemantauanpenilaianController extends Controller
     {
         //get data dari text file
         $data_sedia_ada = Storage::disk('public')->get('pemantauan.txt');
-        $data_sedia_ada = json_decode($data_sedia_ada);
+        $data_sedia_ada = json_decode($data_sedia_ada,true);
 
         //clear data dalam storage
         Storage::disk('public')->put('pemantauan.txt', json_encode([]));
@@ -203,7 +203,7 @@ class PemantauanpenilaianController extends Controller
     {
         // $value = session('senarai_nama');
         $data_sedia_ada = Storage::disk('public')->get('pemantauan.txt');        
-        $data_sedia_ada = json_decode($data_sedia_ada);
+        $data_sedia_ada = json_decode($data_sedia_ada,true);
         // dd($data_sedia_ada);
         return view(
             'pemantauan_penilaian.index',

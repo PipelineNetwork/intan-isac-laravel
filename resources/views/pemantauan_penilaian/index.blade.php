@@ -109,10 +109,10 @@
                 </div> --}}
                 <div class="row">
                     @if ($data_sedia_ada != null)
-                        @foreach ($data_sedia_ada as $value2)
+                        @foreach ($data_sedia_ada as $key=>$val)
                             <div class="col-3 text-center">
-                                <img src="{{ $value2[0] }}" />
-                                <p class="mt-2">{{ $value2[1] }}</p>
+                                <img src="{{ $val[0] }}" />
+                                <p class="mt-2">{{ $val[1] }}</p>
                             </div>
                         @endforeach
                     @endif
