@@ -81,6 +81,7 @@
                                         </th> --}}
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Soalan
                                         </th>
+                                        <th>Jawapan Sebenar</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Status Soalan
                                         </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Perincian</th>
@@ -157,6 +158,9 @@
                                             </td> --}}
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ $banksoalanpengetahuan->soalan }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $banksoalanpengetahuan->jawapan }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{-- {{ $banksoalanpengetahuan->id_status_soalan }} --}}
