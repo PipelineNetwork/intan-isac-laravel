@@ -122,7 +122,11 @@ class BankjawapanpengetahuanController extends Controller
             $jawapan_betul = $jawapan_betul->jawapan;
             $simpan_jawapan->jawapan = $jawapan_betul;
             if ($simpan_jawapan->pilihan_jawapan == $jawapan_betul) {
-                $simpan_jawapan->markah = 1;
+                if ($jawapan_betul == null) {
+                    $simpan_jawapan->markah = 0;
+                } else {
+                    $simpan_jawapan->markah = 1;
+                }
             } else {
                 $simpan_jawapan->markah = 0;
             }
