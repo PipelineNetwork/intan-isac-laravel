@@ -332,7 +332,7 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
 
         $keputusan->markah_internet = $markah_internet;
         // if ($keputusan->markah_internet == 2) {
-        if ($keputusan->markah_internet >= 1) {
+        if ($keputusan->markah_internet >= 2) {
             $keputusan->keputusan_internet = "Melepasi";
         } else {
             $keputusan->keputusan_internet = "Tidak Melepasi";
@@ -340,7 +340,7 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
 
         $keputusan->markah_word = $markah_word;
         // if ($keputusan->markah_word == 9) {
-        if ($keputusan->markah_word >= 1) {
+        if ($keputusan->markah_word >= 9) {
             $keputusan->keputusan_word = "Melepasi";
         } else {
             $keputusan->keputusan_word = "Tidak Melepasi";
@@ -348,7 +348,7 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
 
         $keputusan->markah_email = $markah_email;
         // if ($keputusan->markah_email >= 4) {
-        if ($keputusan->markah_email >= 1) {
+        if ($keputusan->markah_email >= 4) {
             $keputusan->keputusan_email = "Melepasi";
         } else {
             $keputusan->keputusan_email = "Tidak Melepasi";
