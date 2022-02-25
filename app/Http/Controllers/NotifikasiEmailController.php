@@ -11,7 +11,7 @@ class NotifikasiEmailController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -21,8 +21,8 @@ class NotifikasiEmailController extends Controller
     {
         $noti = NotifikasiEmail::first();
         // dd($noti);
-        return view('kawalan_sistem.notifikasi_email.index',[
-            'noti'=>$noti
+        return view('kawalan_sistem.notifikasi_email.index', [
+            'noti' => $noti
         ]);
     }
 
@@ -74,8 +74,8 @@ class NotifikasiEmailController extends Controller
      */
     public function edit(NotifikasiEmail $notifikasiEmail)
     {
-        return view('kawalan_sistem.notifikasi_email.edit',[
-            'noti'=>$notifikasiEmail
+        return view('kawalan_sistem.notifikasi_email.edit', [
+            'noti' => $notifikasiEmail
         ]);
     }
 
@@ -109,5 +109,31 @@ class NotifikasiEmailController extends Controller
     public function destroy(NotifikasiEmail $notifikasiEmail)
     {
         //
+    }
+
+    public function penyelia(Request $request)
+    {
+        $penyelia = NotifikasiEmail::where('id', '1')->first();
+        if ($request->penyelia_terima_surat_tawaran == 1) {
+            $penyelia->penyelia_terima_surat_tawaran = 1;
+        } else {
+            $penyelia->penyelia_terima_surat_tawaran = 0;
+        }
+
+        if ($request->penyelia_terima_sijil_kelulusan == 1) {
+            $penyelia->penyelia_terima_sijil_kelulusan = 1;
+        } else {
+            $penyelia->penyelia_terima_sijil_kelulusan = 0;
+        }
+
+        if ($request->penyelia_terima_slip_keputusan == 1) {
+            $penyelia->penyelia_terima_slip_keputusan = 1;
+        } else {
+            $penyelia->penyelia_terima_slip_keputusan = 0;
+        }
+        
+        $penyelia->save();
+        alert()->success('Maklumat yang diterima oleh Penyelia disimpan.','Berjaya');
+        return back();
     }
 }

@@ -1,6 +1,8 @@
 @extends('base')
 @section('content')
-
+    @php
+    use App\Models\NotifikasiEmail;
+    @endphp
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col">
@@ -120,13 +122,96 @@
                             <div class="col-8">
                                 <strong>
                                     @if ($noti->peringatan_tukar_katalaluan != null)
-                                    {{ $noti->peringatan_tukar_katalaluan}}
+                                        {{ $noti->peringatan_tukar_katalaluan }}
                                     @else
                                         0
                                     @endif
                                 </strong>&emsp;bulan selepas tarikh pendaftaran akaun
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card mt-3">
+                    <div class="card-header" style="background-color:#FFA500;">
+                        <b class="text-white">Maklumat yang diterima oleh Penyelia</b>
+                    </div>
+                    <div class="card-body">
+                        <form action="/notifikasi_email/penyelia" method="post">
+                            @csrf
+                            <div class="row mb-2">
+                                <div class="col-lg-2">
+                                    <label class="form-control-label mr-4">
+                                        Surat Tawaran
+                                    </label><label class="float-right">:</label>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-check form-switch">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" value="1"
+                                                name="penyelia_terima_surat_tawaran" 
+                                                @php
+                                                    $try = NotifikasiEmail::where('id', '1')->first();
+                                                    echo $try->penyelia_terima_surat_tawaran == true ? ' checked' : '';
+                                                @endphp>
+                                            <label class="form-check-label">Dibenarkan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-lg-2">
+                                    <label class="form-control-label mr-4">
+                                        Sijil Kelulusan
+                                    </label><label class="float-right">:</label>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-check form-switch">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" value="1"
+                                                name="penyelia_terima_sijil_kelulusan"
+                                                @php
+                                                    $try = NotifikasiEmail::where('id', '1')->first();
+                                                    echo $try->penyelia_terima_sijil_kelulusan == true ? ' checked' : '';
+                                                @endphp
+                                                >
+                                            <label class="form-check-label">Dibenarkan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-lg-2">
+                                    <label class="form-control-label mr-4">
+                                        Slip Keputusan
+                                    </label><label class="float-right">:</label>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-check form-switch">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" value="1"
+                                                name="penyelia_terima_slip_keputusan"
+                                                @php
+                                                    $try = NotifikasiEmail::where('id', '1')->first();
+                                                    echo $try->penyelia_terima_slip_keputusan == true ? ' checked' : '';
+                                                @endphp
+                                                >
+                                            <label class="form-check-label">Dibenarkan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col text-end">
+                                    <button type="submit" class="btn btn-success">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -141,5 +226,6 @@
             fixedHeight: true
         });
     </script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @include('sweet::alert')
 @stop
