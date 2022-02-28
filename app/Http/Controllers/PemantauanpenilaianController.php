@@ -206,7 +206,7 @@ class PemantauanpenilaianController extends Controller
         $data_sedia_ada = json_decode($data_sedia_ada,true);
         // dd($data_sedia_ada);
         return view(
-            'pemantauan_penilaian.index',
+            'pemantauan_penilaian.webcam_calon',
             compact('data_sedia_ada')
         );
         // return view(

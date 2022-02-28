@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
         $checkemail = User::where('email', $request->email)->first();
         if ($checkemail != null) {
             alert()->error('Maaf, email yang dimasukkan telah digunakan. Sila masukkan nombor kad pengenalan semula', 'Pendaftaran Gagal');
-            return redirect('/authenticate-ic');
+            return back();
         }
 
         $request->validate([
@@ -125,9 +125,23 @@ class RegisteredUserController extends Controller
         return redirect('/');
     }
 
-    public function view_check_ic()
+    public function view_check_ic(Request $request)
     {
+        // $request->validate([
+        //     'nric' => 'required|string|max:255|unique:users',
+        // ]);
+
+        // $checkic = User::where('nric', $request->nric)->first();
+
+        // if ($checkic != null) {
+        //     alert()->error('Maaf, No. Kad Pengenalan yang dimasukkan telah digunakan. Sila masukkan nombor kad pengenalan semula', 'Pendaftaran Gagal');
+        //     return redirect('/authenticate-ic')->with('error', 'Maaf, No. Kad Pengenalan yang dimasukkan telah digunakan. Sila masukkan nombor kad pengenalan semula.');
+        // } else {
+        //     return redirect('/submit-ic');
+        // }
+
         return view('auth.semak_kad_pengenalan');
+        
     }
 
     public function check_ic(Request $request)
