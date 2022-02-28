@@ -22,6 +22,7 @@ use App\Models\Perkhidmatan;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use App\Models\Bankjawapanpengetahuan;
+use App\Models\KeputusanPenilaian;
 
 class MohonPenilaianController extends Controller
 {
@@ -297,6 +298,11 @@ class MohonPenilaianController extends Controller
         $kemahiran = Bankjawapancalon::where('ic_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get()->first();
         if ($kemahiran != null) {
             $kemahiran->delete();
+        }
+
+        $keputusan = KeputusanPenilaian::where('ic_peserta', $ic_calon)->where('id_penilaian', $id_penilaian)->get()->first();
+        if ($keputusan != null) {
+            $keputusan->delete();
         }
 
         $kekosongan->save();

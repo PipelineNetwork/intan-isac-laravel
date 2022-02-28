@@ -35,7 +35,8 @@ class AuthenticatedSessionController extends Controller
         // $request->authenticate();
 
         if ($user == null) {
-            return back()->with('errors', 'Akaun anda tiada dalam rekod kami.');
+            alert()->success('Akaun anda tiada dalam rekod kami.');
+            return back();
         }
         $this->validate($request, [
             'password' => 'required',
@@ -45,9 +46,11 @@ class AuthenticatedSessionController extends Controller
             $request->authenticate();
             $request->session()->regenerate();
 
-            return redirect()->intended(RouteServiceProvider::HOME)->with('success', 'Log masuk berjaya');
+            alert()->success('Log masuk berjaya');
+            return redirect()->intended(RouteServiceProvider::HOME);
         } else {
-            return back()->with('errors', 'Sila masukkan kata laluan yang betul.');
+            alert()->error('Sila masukkan kata laluan yang betul.');
+            return back();
         }
     }
 

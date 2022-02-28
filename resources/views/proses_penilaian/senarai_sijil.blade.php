@@ -60,7 +60,7 @@
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama Calon</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No. Kad
                                             Pengenalan</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Penilaian</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Sijil Penilaian
                                         </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
@@ -74,7 +74,7 @@
                                                 {{ strtoupper($keputusan->nama_peserta) }}</td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ $keputusan->ic_peserta }}</td>
-                                            <td class="text-sm text-center font-weight-normal">{{ $keputusan->keputusan }}
+                                            <td class="text-sm text-center font-weight-normal">{{ date('d-m-Y', strtotime($keputusan->tarikh_penilaian)) }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 <a

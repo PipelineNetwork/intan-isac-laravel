@@ -105,7 +105,7 @@ class Kernel extends ConsoleKernel
             $calon = MohonPenilaian::get();
 
             foreach ($calon as $c) {
-                if ($c->status_penilaian != 'Selesai') {
+                if ($c->status_penilaian == 'Baru') {
                     $tarikh_sesi = date('d-m-Y', strtotime($c->tarikh_sesi));
                     $noti_reminder = date('d-m-Y', strtotime('+' . $hari . ' day', strtotime($tarikh_sesi)));
                     if ($noti_reminder == $harini) {
