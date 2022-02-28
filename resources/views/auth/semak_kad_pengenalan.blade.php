@@ -79,7 +79,7 @@
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navbar -->
-    
+
     <section>
         <div class="page-header">
             <div class="container">
@@ -87,7 +87,8 @@
                     <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto mt-8">
                         <div class="card card-plain">
                             <div class="card-header pb-0 text-left">
-                                <h3 class="font-weight-bolder text-gradient bg-gradient-warning">Semakan No. Kad Pengenalan</h3>
+                                <h3 class="font-weight-bolder text-gradient bg-gradient-warning">Semakan No. Kad
+                                    Pengenalan</h3>
                                 <p class="mb-0">Sila isi maklumat di bawah</p>
                             </div>
                             <div class="card-body pb-3">
@@ -95,9 +96,9 @@
                                     @csrf
                                     <label>No. Kad Pengenalan</label>
                                     <div class="mb-3">
-                                        <input id="nric" class="form-control" type="text" name="nric" required autofocus
-                                            maxlength="12" size="12" autocomplete="off"
-                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
+                                        <input id="nric" class="form-control" type="text" name="nric" required
+                                            autofocus maxlength="12" size="12" autocomplete="off"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                     </div>
 
                                     <div class="text-center">

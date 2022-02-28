@@ -106,8 +106,8 @@ class KeputusanPenilaianController extends Controller
         }
 
         $keputusan->markah_word = $markah_word;
-        if ($keputusan->markah_word >= 9) {
-        // if ($keputusan->markah_word >= 1) {
+        // if ($keputusan->markah_word >= 9) {
+        if ($keputusan->markah_word >= 5) {
             $keputusan->keputusan_word = "Melepasi";
         } else {
             $keputusan->keputusan_word = "Tidak Melepasi";
