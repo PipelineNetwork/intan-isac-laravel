@@ -43,8 +43,8 @@ class RegisteredUserController extends Controller
     {
         // check email
         $checkemail = User::where('email', $request->email)->first();
-        if($checkemail != null){
-            alert()->error('Maaf, email yang dimasukkan telah digunakan. Sila masukkan nombor kad pengenalan semula','Pendaftaran Gagal');
+        if ($checkemail != null) {
+            alert()->error('Maaf, email yang dimasukkan telah digunakan. Sila masukkan nombor kad pengenalan semula', 'Pendaftaran Gagal');
             return redirect('/authenticate-ic');
         }
 
@@ -132,10 +132,16 @@ class RegisteredUserController extends Controller
 
     public function check_ic(Request $request)
     {
-
+        // dd($request);
         $request->validate([
             'nric' => 'required|string|max:255|unique:users',
         ]);
+
+        // $checkic = User::where('nric', $request->nric)->first();
+        // if ($checkic != null) {
+        //     alert()->error('Maaf, No. Kad Pengenalan yang dimasukkan telah digunakan. Sila masukkan nombor kad pengenalan semula', 'Pendaftaran Gagal');
+        //     return redirect('/authenticate-ic');
+        // }
 
         $GetDataXMLbyIC = new GetDataXMLbyIC();
         $hrmisData = $GetDataXMLbyIC->getDataHrmis($request->nric);

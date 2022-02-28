@@ -575,7 +575,8 @@ var Webcam = {
 			}
 
 			// default error handler if no custom one specified
-			alert("Webcam.js Error: " + message);
+			// alert("Webcam.js Error: " + message);
+			alert("Sila pastikan kamera web anda berfungsi!");
 		}
 		
 		return false; // no hook defined
