@@ -219,6 +219,7 @@ class PemantauanpenilaianController extends Controller
         //clear data dalam storage
         Storage::disk('public')->put('pemantauan.txt', json_encode([]));
 
-        return redirect('/pemantauan-penilaian')->with('success','Telah disetkan semula!');
+        alert()->success('Telah disetkan semula!');
+        return redirect('/pemantauan-kamera');
     }
 }

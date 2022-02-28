@@ -286,21 +286,6 @@
                                             rows="3">{{ $banksoalanpengetahuan->jawapan4 }}</textarea>
                                     </div>
                                 </div>
-
-                                {{-- <div class="col-xl-12">
-                                    <div class="form-group">
-                                        <label class="form-control-label">Jawapan</label>
-                                        <div class="container1">
-                                            <textarea id="editor-jawapan" class="form-control mb-2" name="jawapan"
-                                                rows="3"></textarea>
-                                            <div style="text-align: center">
-                                                <button class="btn bg-gradient-info add_form_field">Tambah Baru&nbsp;
-                                                    <span style="font-size:16px; font-weight:bold;">+ </span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
                             </div>
 
                             <div style="text-align: right">
@@ -313,36 +298,6 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var max_fields = 4;
-            var wrapper = $(".container1");
-            var add_button = $(".add_form_field");
-
-            var x = 0;
-            $(add_button).click(function(e) {
-                e.preventDefault();
-                if (x < max_fields) {
-                    x++;
-                    $(wrapper).append(
-                        '<div><textarea class="form-control mb-2" name="jawapan' + x +
-                        '" rows="3"></textarea><a href="#" class="delete btn bg-gradient-danger">Hapus</a></div>'
-                    ); //add input box
-                } else {
-                    alert('Anda telah mencapai tahap yang telah ditetapkan')
-                }
-            });
-
-            $(wrapper).on("click", ".delete", function(e) {
-                e.preventDefault();
-                $(this).parent('div').remove();
-                x--;
-            })
-        });
-    </script> --}}
     <script src="/assets/ckeditor5/build/ckeditor.js"></script>
     <script>
         ClassicEditor

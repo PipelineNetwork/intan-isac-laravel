@@ -166,8 +166,8 @@ class ProfilController extends Controller
             $user_profils->telephone_number = $request->telephone_number;
             $user_profils->save();
         }
-        // dd($user_profils);
-        return redirect('/profil')->with('success', 'Berjaya disimpan');
+        alert()->success('Berjaya disimpan');
+        return redirect('/profil');
     }
 
     public function edit($profil)

@@ -55,6 +55,4 @@
     </div>
 
     <script src="https://isacsupport.intan.my/chat_widget.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
 @stop

@@ -28,9 +28,9 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    {{-- ck editor --}}
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-    <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -44,6 +44,8 @@
     
     $user_profils = Auth::user();
     ?>
+
+    {{-- @include('sweet::alert') --}}
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
@@ -587,7 +589,7 @@
                                     @csrf
 
                                     <button class="btn mb-0 bg-gradient-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                this.closest('form').submit();">
+                                                                            this.closest('form').submit();">
                                         {{ __('Log Keluar') }}
                                     </button>
                                 </form>

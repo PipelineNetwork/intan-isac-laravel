@@ -332,8 +332,6 @@
                                         {{-- @endif --}}
                                     </tbody>
                                 </table>
-                                {{-- <button class="btn btn-success mt-2" type="button" id="addRow">Tambah Baru</button> --}}
-                                {{-- <button class="btn btn-info" id="deleteRow">delete row</button> --}}
                             </div>
                         </div>
                     </div>
@@ -345,8 +343,6 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
     <script src="/assets/ckeditor5/build/ckeditor.js"></script>
     <script>
         ClassicEditor
@@ -354,17 +350,6 @@
             .catch(error => {
                 console.error(error);
             });
-
-        // ClassicEditor
-        //     .create(document.querySelector('#editor-soalan-try'), {
-        //         maxHeigth: '150px'
-        //     })
-        //     .then(editor => {
-        //         // window.editor = editor;
-        //     })
-        //     .catch(error => {
-        //         console.error(error);
-        //     });
 
         ClassicEditor
             .create(document.querySelector('#editor-soalan-1'), {

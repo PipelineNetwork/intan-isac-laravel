@@ -298,22 +298,6 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="col-xl-12">
-                                <div class="form-group">
-                                    <label class="form-control-label">Pilihan Jawapan</label>
-                                    <div class="container1">
-                                        <textarea id="editor-jawapan" class="form-control mb-2" name="pilihan_jawapan"
-                                            rows="3"></textarea>
-                                        <span><small><i>Contoh: A. Tumis bawang sehingga naik bau</i></small></span>
-                                        <div style="text-align: center">
-                                            <button class="btn bg-gradient-info add_form_field">Tambah Baru&nbsp;
-                                                <span style="font-size:16px; font-weight:bold;">+ </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-
                             <div style="text-align: right">
                                 <button class="btn bg-gradient-success" type="submit">Simpan</button>
                             </div>
@@ -323,9 +307,6 @@
             </div>
         </div>
     </div>
-
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
 
     <script src="/assets/ckeditor5/build/ckeditor.js"></script>
     <script>

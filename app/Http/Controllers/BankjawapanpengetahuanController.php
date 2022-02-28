@@ -155,7 +155,8 @@ class BankjawapanpengetahuanController extends Controller
         $jawapan_kemahiran->save();
 
         if ($request->timer == null) {
-            return redirect('/soalan-kemahiran-internet/' . $id_penilaian)->with('success', 'Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
+            alert()->success('Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
+            return redirect('/soalan-kemahiran-internet/' . $id_penilaian);
         } else {
             $ic = Auth::user()->nric;
             $peserta = MohonPenilaian::where('no_ic', $ic)->first();

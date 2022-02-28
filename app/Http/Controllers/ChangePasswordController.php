@@ -46,6 +46,7 @@ class ChangePasswordController extends Controller
    
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
    
-        return redirect('/profil')->with('success', 'Kata laluan berjaya ditukar.');
+        alert()->success('Kata laluan berjaya ditukar.');
+        return redirect('/profil');
     }
 }

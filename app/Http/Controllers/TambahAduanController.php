@@ -49,8 +49,8 @@ class TambahAduanController extends Controller
                 'tambahaduans' => $tambahaduans
             ]);
         } else {
-
-            return redirect('/')->with('warning', 'Sila log masuk untuk lihat Aduan!');
+            alert()->warning('Sila log masuk untuk lihat Aduan!');
+            return redirect('/');
         }
     }
 
@@ -165,7 +165,7 @@ class TambahAduanController extends Controller
             ->orderBy('pro_peserta.created_at', 'desc')
             ->get()->first();
 
-            // dd($user);
+        // dd($user);
         Mail::to($user->EMEL_PESERTA)->send(new AduanDibalas($tambahaduan));
 
         return redirect('/tambahaduans');

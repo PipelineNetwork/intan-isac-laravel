@@ -348,37 +348,6 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var max_fields = 4;
-            var wrapper = $(".container1");
-            var add_button = $(".add_form_field");
-
-            var x = 0;
-            $(add_button).click(function(e) {
-                e.preventDefault();
-                if (x < max_fields) {
-                    x++;
-                    $(wrapper).append(
-                        '<div class="form-check mb-3"><input class="form-check-input" type="checkbox" name="jawapan' +
-                        x + '"><input class="form-control d-flex" type="text" name="pilihan_jawapan' +
-                        x + '"><a href="#" class="delete btn bg-gradient-danger mt-2">Hapus</a></div>'
-                    ); //add input box
-                } else {
-                    alert('Anda telah mencapai tahap yang telah ditetapkan')
-                }
-            });
-
-            $(wrapper).on("click", ".delete", function(e) {
-                e.preventDefault();
-                $(this).parent('div').remove();
-                x--;
-            })
-        });
-    </script> --}}
     <script src="/assets/ckeditor5/build/ckeditor.js"></script>
     <script>
         ClassicEditor

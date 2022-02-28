@@ -834,9 +834,17 @@
         @endunlessrole
     </div>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    {{-- <script src="/assets/js/sweetalert.min.js"></script> --}}
-    @include('sweet::alert')
+    {{-- <script>
+        Swal.fire({
+            text: 'Log masuk anda berjaya!',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+        })
+    </script> --}}
+
+    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+    {{-- <script src="/assets/js/sweetalert.min.js"></script>
+    @include('sweet::alert') --}}
 
     {{-- <script src="https://isacsupport.intan.my/chat_widget.js"></script> --}}
     {{-- <footer>

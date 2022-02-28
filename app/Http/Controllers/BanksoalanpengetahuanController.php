@@ -476,7 +476,8 @@ class BanksoalanpengetahuanController extends Controller
 
         $banksoalanpengetahuan->delete();
 
-        return redirect('/bank-soalan-pengetahuan')->with('success', 'Berjaya dihapus!');
+        alert()->success('Berjaya dihapus!');
+        return redirect('/bank-soalan-pengetahuan');
     }
 
     public function fillblank(Request $request, $id)

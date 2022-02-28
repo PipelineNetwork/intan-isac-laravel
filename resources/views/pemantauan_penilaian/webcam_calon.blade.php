@@ -74,8 +74,5 @@
                 </div>
             </div>
         </div>
-
     </div>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
 @stop
