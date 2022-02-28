@@ -766,15 +766,4 @@
             sortable: false,
         });
     </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
-    {{-- <script src="/assets/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript">
-        CKEDITOR.replace('editor-jawapan-calon', {
-            language: 'en',
-            height: '500px',
-            width: 'auto',
-            extraPlugins: 'save'
-        });
-    </script> --}}
 @stop

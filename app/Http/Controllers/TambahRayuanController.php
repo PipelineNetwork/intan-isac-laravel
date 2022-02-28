@@ -49,8 +49,8 @@ class TambahRayuanController extends Controller
                 'tambahrayuans' => $tambahrayuans
             ]);
         } else {
-
-            return redirect('/')->with('warning', 'Sila log masuk untuk lihat Rayuan!');
+            alert()->warning('Sila log masuk untuk lihat Rayuan!');
+            return redirect('/');
         }
     }
 

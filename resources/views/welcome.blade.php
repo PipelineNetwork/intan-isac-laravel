@@ -26,8 +26,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="../../assets/js/core/bootstrap.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
 </head>
 
 <body class="coworking">
@@ -50,6 +53,7 @@
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navbar -->
+    
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -155,6 +159,16 @@
                             <a href="/login" class="btn text-warning shadow-none mt-4">Log Masuk</a> --}}
                             </div>
                         </div>
+                        {{-- <script>
+                            $(document).ready(function() {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Do you want to continue',
+                                    icon: 'error',
+                                    confirmButtonText: 'Cool'
+                                })
+                            })
+                        </script> --}}
                     </div>
                 </div>
             </div>
@@ -395,7 +409,6 @@
                                                     <td class="text-sm text-center font-weight-normal"><span
                                                             class="badge badge-lg badge-success">Dibuka</span></td>
                                                 @endif
-
                                             @else
                                                 <td class="text-sm text-center font-weight-normal"><span
                                                         class="badge badge-lg badge-info">{{ $jadual['status'] }} -
@@ -452,7 +465,8 @@
 
                     <p><strong>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</strong></p>
 
-                    <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf" download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran ISAC</a></p>
+                    <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf"
+                            download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran ISAC</a></p>
 
                     <p>Sekian Terima Kasih</p>
 

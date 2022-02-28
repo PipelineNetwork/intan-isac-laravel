@@ -151,8 +151,7 @@
                                         @foreach ($pilihan as $p)
                                             <tr>
                                                 <input type="text" name="field[]"
-                                                    value="{{ $p->ID_PEMILIHAN_SOALAN_KUMPULAN }}"
-                                                    style="display:none;">
+                                                    value="{{ $p->ID_PEMILIHAN_SOALAN_KUMPULAN }}" style="display:none;">
                                                 <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}
                                                 </td>
                                                 <td class="text-sm text-center font-weight-normal">
@@ -171,8 +170,7 @@
                                                 <td class="text-sm text-center font-weight-normal">
                                                     <select class="form-control" name="id_kategori_pengetahuan[]"
                                                         required>
-                                                        <option hidden value="{{ $p->KOD_KATEGORI_SOALAN }}"
-                                                            selected>
+                                                        <option hidden value="{{ $p->KOD_KATEGORI_SOALAN }}" selected>
                                                             @if ($p->KOD_KATEGORI_SOALAN == '01')
                                                                 EG
                                                             @elseif($p->KOD_KATEGORI_SOALAN == '02')
@@ -362,6 +360,4 @@
             $("#sum2").val(total);
         }
     </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
 @stop
