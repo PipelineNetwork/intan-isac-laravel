@@ -78,19 +78,19 @@
                                         </td>
                                         <td class="text-sm text-center font-weight-normal">{{ $videodannota['jenis'] }}
                                         </td>
-                                        <td class="text-sm text-center font-weight-normal" class="text-center">
+                                        <td class="text-sm text-center font-weight-normal">
                                             <div class="row">
-                                                <div class="col-auto mr-2">
+                                                <div class="col">
                                                     {{-- update --}}
                                                     <a href="/videodannota/{{ $videodannota['id'] }}/edit"
-                                                        class="btn btn-info mb-0 px-3"><i class="fas fa-edit"></i></a>
+                                                        class="btn btn-info"><i class="fas fa-edit"></i></a>
                                                 </div>
-                                                <div class="col-auto">
+                                                <div class="col">
                                                     {{-- delete --}}
                                                     <form method="POST" action="videodannota/{{ $videodannota->id }}">
                                                         @method('DELETE')
                                                         @csrf
-                                                        <button class="btn mb-0 btn-danger px-3" type="submit"><i
+                                                        <button class="btn btn-danger" type="submit"><i
                                                                 class="fas fa-trash-alt"></i></button>
                                                     </form>
                                                 </div>
