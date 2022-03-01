@@ -43,9 +43,9 @@ class VideoDanNotaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'video' => 'max:5128',
-        ]);
+        // $request->validate([
+        //     'video' => 'max:5128',
+        // ]);
 
         $muat_naik_video = $request->file('video')->store('videodannota');
 
@@ -94,7 +94,10 @@ class VideoDanNotaController extends Controller
      */
     public function update(Request $request, $videodannota)
     {
-        //
+        // $request->validate([
+        //     'video' => 'max:5128',
+        // ]);
+
         $videodannota = VideoDanNota::find($videodannota);
         $videodannota->tajuk = $request->tajuk;
         if ($request->hasFile('video')){
