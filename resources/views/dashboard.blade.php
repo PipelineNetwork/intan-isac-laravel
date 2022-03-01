@@ -11,7 +11,7 @@
     }
 
     .box1 {
-        border: 2px solid rgb(92, 88, 88);
+        border: 2px solid rgb(221, 220, 220);
         padding: 10px;
         margin: 10px;
     }
@@ -836,12 +836,12 @@
                             @foreach ($videodannotas as $videodannota)
                                 <div class="box1 mb-2">
                                     @if ($videodannota->jenis == 'Nota')
-                                        <strong class="px-3">{{ $videodannota->tajuk }}</strong>
+                                        <strong class="px-3 mt-2">{{ $videodannota->tajuk }}</strong>
                                         <p class="px-3">{{ $videodannota->nota }}</p>
                                         <p class="px-3"><a class="btn btn-success mb-1" href="/storage/{{ $videodannota->video }}"
                                                 download="{{ $videodannota->tajuk }}.pdf" target="_blank">Muat Turun</a></p>
                                     @else
-                                        <strong class="px-3">{{ $videodannota->tajuk }}</strong>
+                                        <strong class="px-3 mt-2">{{ $videodannota->tajuk }}</strong>
                                         <p class="px-3">{{ $videodannota->nota }}</p>
                                         <div class="text-center">
                                             <iframe width="800" height="500" src="/storage/{{ $videodannota->video }}"
