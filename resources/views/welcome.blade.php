@@ -39,9 +39,10 @@
     use App\Models\Jadual;
     use App\Models\LamanUtama;
     
-    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan')
+    $current_date = date('Y');
+    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan', 'KEKOSONGAN')
         ->orderBy('TARIKH_SESI', 'desc')
-        ->whereYear('TARIKH_SESI', '>=', 2021)
+        ->whereYear('TARIKH_SESI', '>=', $current_date)
         ->get();
     
     $lamanutama = LamanUtama::all();
@@ -53,7 +54,7 @@
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navbar -->
-    
+
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -400,20 +401,19 @@
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                {{ $jadual['platform'] }}</td>
-                                            @if ($jadual['status'] == null)
-                                                @if ($jadual['KEKOSONGAN'] == '0')
-                                                    <td class="text-sm text-center font-weight-normal"><span
-                                                            class="badge badge-lg badge-danger">Penuh</span></td>
+                                                {{ $jadual->platform }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                @if ($jadual->status == null)
+                                                    @if ($jadual->KEKOSONGAN == '0')
+                                                        <span class="badge badge-lg badge-danger">Penuh</span>
+                                                    @else
+                                                        <span class="badge badge-lg badge-success">Dibuka</span>
+                                                    @endif
                                                 @else
-                                                    <td class="text-sm text-center font-weight-normal"><span
-                                                            class="badge badge-lg badge-success">Dibuka</span></td>
+                                                    <span class="badge badge-lg badge-info">{{ $jadual->status }} -
+                                                        {{ $jadual->keterangan }}</span>
                                                 @endif
-                                            @else
-                                                <td class="text-sm text-center font-weight-normal"><span
-                                                        class="badge badge-lg badge-info">{{ $jadual['status'] }} -
-                                                        {{ $jadual['keterangan'] }}</span></td>
-                                            @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -459,9 +459,8 @@
                         </li>
                     </ol>
 
-                    <p>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan kelak. Sila rujuk portal ini
-                        untuk
-                        info terkini.</p>
+                    <p>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan dalam masa terdekat. Sila rujuk
+                        portal ini untuk info terkini dan buat pendaftaran terlebih dahulu.</p>
 
                     <p><strong>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</strong></p>
 
