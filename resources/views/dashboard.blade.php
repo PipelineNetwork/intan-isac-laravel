@@ -10,6 +10,12 @@
         height: 500px;
     }
 
+    .box1 {
+        border: 2px solid rgb(92, 88, 88);
+        padding: 10px;
+        margin: 10px;
+    }
+
 </style>
 
 @section('content')
@@ -817,6 +823,33 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card m-3">
+                        <div class="card-header" style="background-color:#FFA500;">
+                            <h5 class="text-white mb-0">Nota dan Video</h5>
+                        </div>
+                        <div class="card-body">
+                            @foreach ($videodannotas as $videodannota)
+                                <div class="box1 mb-2">
+                                    @if ($videodannota->jenis == 'Nota')
+                                        <strong class="px-3">{{ $videodannota->tajuk }}</strong>
+                                        <p class="px-3">{{ $videodannota->nota }}</p>
+                                        <p class="px-3"><a class="btn btn-success mb-1" href="/storage/{{ $videodannota->video }}"
+                                                download="{{ $videodannota->tajuk }}.pdf" target="_blank">Muat Turun</a></p>
+                                    @else
+                                        <strong class="px-3">{{ $videodannota->tajuk }}</strong>
+                                        <p class="px-3">{{ $videodannota->nota }}</p>
+                                        <div class="text-center">
+                                            <iframe width="800" height="500" src="/storage/{{ $videodannota->video }}"
+                                                type="sample/mp4"></iframe>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

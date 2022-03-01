@@ -39,10 +39,10 @@
     use App\Models\Jadual;
     use App\Models\LamanUtama;
     
-    $current_date = date('Y');
+    $current_date = date('Y-m-d');
     $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan', 'KEKOSONGAN')
         ->orderBy('TARIKH_SESI', 'desc')
-        ->whereYear('TARIKH_SESI', '>=', $current_date)
+        ->where('TARIKH_SESI', '>=', $current_date)
         ->get();
     
     $lamanutama = LamanUtama::all();
