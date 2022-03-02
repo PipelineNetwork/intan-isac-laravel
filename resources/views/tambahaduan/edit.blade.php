@@ -72,7 +72,7 @@
                                 @if ($tambahaduan['file_aduan_send'] != null)
                                     <div class="form-group">
                                         <label for="title">File Aduan :</label>
-                                        <a href="storage/{{ $tambahaduan['file_aduan_send'] }}"
+                                        <a href="/storage/{{ $tambahaduan['file_aduan_send'] }}"
                                             target="_blank">{{ $tambahaduan['file_aduan_send'] }}</a>
                                     </div>
                                 @else

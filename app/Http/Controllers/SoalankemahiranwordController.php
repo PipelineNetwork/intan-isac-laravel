@@ -150,7 +150,10 @@ class SoalankemahiranwordController extends Controller
 
             $jawapancalon->user_id = $current_user->id;
             $jawapancalon->id_soalankemahiranword = $request->id_soalankemahiranword;
-
+            if($jawapancalon->id_soalankemahiraninternet == null) {
+                $jawapancalon->id_soalankemahiraninternet = '0';
+            }
+            $jawapancalon->id_penilaian = $id_penilaian;
             $jawapancalon->id_penilaian = $id_penilaian;
             $jawapancalon->ic_calon = Auth::user()->nric;
 
