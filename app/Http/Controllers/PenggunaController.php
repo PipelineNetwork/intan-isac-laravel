@@ -216,13 +216,50 @@ class PenggunaController extends Controller
      */
     public function edit($user)
     {
-        $user = User::find($user);
+        $user_info = User::find($user);
+
         $role = Role::all();
-        $role_name = Role::where('id', $user->user_group_id)->first();
-        $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
+        $role_name = Role::where('id', $user_info->user_group_id)->first();
+
+        $kod_gelaran = Refgeneral::where('MASTERCODE', 10009)->orderBy('DESCRIPTION1', 'asc')
+            ->get();
+
+        $peringkat = Refgeneral::where('MASTERCODE', 10023)->orderBy('DESCRIPTION1', 'asc')->get();
+
+        $klasifikasi_perkhidmatan = Refgeneral::where('MASTERCODE', 10024)->orderBy('DESCRIPTION1', 'asc')->get();
+
+        $gred_jawatan = Refgeneral::where('MASTERCODE', 10025)->orderBy('DESCRIPTION1', 'asc')->get();
+
+        $taraf_perjawatan = Refgeneral::where('MASTERCODE', 10026)->orderBy('DESCRIPTION1', 'asc')->get();
+
+        $jenis_perkhidmatan = Refgeneral::where('MASTERCODE', 10027)->orderBy('DESCRIPTION1', 'asc')->get();
+
+        $kementerian = Refgeneral::where('MASTERCODE', 10028)->orderBy('DESCRIPTION1', 'asc')->get();
+
+        $negeri = Refgeneral::where('MASTERCODE', 10021)->orderBy('DESCRIPTION1', 'asc')->get();
+
+        $jabatan = Refgeneral::where('MASTERCODE', 10029)->orderBy('DESCRIPTION1', 'asc')->get();
+
+        if ($user_info->user_group_id == '5') {
+            $user_profil = User::where('id', $user_info->id)
+                ->join('pro_peserta', 'users.nric', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
+                ->join('pro_perkhidmatan', 'pro_tempat_tugas.ID_PESERTA', 'pro_perkhidmatan.ID_PESERTA')
+                ->get()->first();
+        } else {
+            $user_profil = User::where('id', $user_info->id)->get()->first();
+        }
         return view('pengurusanpengguna.edit', [
-            'user' => $user,
+            'user_profils' => $user_profil,
+            'kod_gelarans' => $kod_gelaran,
+            'peringkats' => $peringkat,
+            'klasifikasi_perkhidmatans' => $klasifikasi_perkhidmatan,
+            'gred_jawatans' => $gred_jawatan,
+            'taraf_perjawatans' => $taraf_perjawatan,
+            'jenis_perkhidmatans' => $jenis_perkhidmatan,
             'kementerians' => $kementerian,
+            'negeris' => $negeri,
+            'jabatans' => $jabatan,
             'role' => $role,
             'role_name' => $role_name
         ]);
@@ -241,52 +278,77 @@ class PenggunaController extends Controller
             'user_group_id' => 'required'
         ]);
 
-        $user = User::find($user);
-        $user->name = strtoupper($request->name);
-        $user->email = $request->email;
-        $user->nric = $request->nric;
-        $user->ministry_code = $request->ministry_code;
-        $user->office_number = $request->office_number;
-        // $user->fax_number = $request->fax_number;
-        // $user->telephone_number = $request->telephone_number;
+        $user_info = User::find($user);
+        if ($user_info->user_group_id == '5') {
+            $user_profils1 = User::where('id', $user_info->id)->first();
+            $user_profils1->email = $request->email;
+            $role = Role::where('id', $user_info->user_group_id)->first();
+            $user_profils1->removeRole($role->name);
+            $user_profils1->user_group_id = $request->user_group_id;
+            $role_update = Role::where('id', $request->user_group_id)->first();
+            $user_profils1->assignRole($role_update->name);
 
-        $role = Role::where('id', $user->user_group_id)->first();
-        $user->removeRole($role->name);
+            $user_profils2 = Permohanan::where('NO_KAD_PENGENALAN', $user_info->nric)->first();
+            $user_profils2->ID_PESERTA = $request->ID_PESERTA;
+            $user_profils2->NAMA_PESERTA = strtoupper($request->name);
+            $user_profils2->NO_KAD_PENGENALAN = $request->nric;
+            $user_profils2->EMEL_PESERTA = $request->email;
+            $user_profils2->NO_TELEFON_BIMBIT = $request->NO_TELEFON_BIMBIT;
+            $user_profils2->NO_TELEFON_PEJABAT = $request->NO_TELEFON_PEJABAT;
+            $user_profils2->KOD_JANTINA = $request->KOD_JANTINA;
+            $user_profils2->TARIKH_LAHIR = $request->TARIKH_LAHIR;
+            $user_profils2->ID_PESERTA = $request->ID_PESERTA;
+            $user_profils2->KOD_GELARAN = $request->KOD_GELARAN;
 
-        // if($user->user_group_id == "1"){
-        //     $user->removeRole('pentadbir sistem');
-        // }elseif($user->user_group_id == "2"){
-        //     $user->removeRole('pentadbir penilaian');
-        // }elseif($user->user_group_id == "3"){
-        //     $user->removeRole('penyelaras');
-        // }elseif($user->user_group_id == "4"){
-        //     $user->removeRole('pengawas');
-        // }elseif($user->user_group_id == "5"){
-        //     $user->removeRole('calon');
-        // }elseif($user->user_group_id == "6"){
-        //     $user->removeRole('pegawai korporat');
-        // }
+            $user_profils3 = Tugas::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();
+            $user_profils3->ALAMAT_1 = $request->ALAMAT_1;
+            $user_profils3->ALAMAT_2 = $request->ALAMAT_2;
+            $user_profils3->POSKOD = $request->POSKOD;
+            $user_profils3->KOD_NEGERI = $request->KOD_NEGERI;
+            $user_profils3->KOD_NEGARA = $request->KOD_NEGARA;
+            $user_profils3->NAMA_PENYELIA = $request->NAMA_PENYELIA;
+            $user_profils3->EMEL_PENYELIA = $request->EMEL_PENYELIA;
+            $user_profils3->NO_TELEFON_PENYELIA = $request->NO_TELEFON_PENYELIA;
+            $user_profils3->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
+            $user_profils3->KOD_JABATAN = $request->KOD_JABATAN;
+            $user_profils3->GELARAN_KETUA_JABATAN = strtoupper($request->GELARAN_KETUA_JABATAN);
+            $user_profils3->BAHAGIAN = $request->BAHAGIAN;
+            $user_profils3->BANDAR = $request->BANDAR;
 
-        $user->user_group_id = $request->user_group_id;
+            $user_profils4 = Perkhidmatan::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();
+            $user_profils4->KOD_KLASIFIKASI_PERKHIDMATAN = $request->KOD_KLASIFIKASI_PERKHIDMATAN;
+            $user_profils4->TARIKH_LANTIKAN = $request->TARIKH_LANTIKAN;
+            $user_profils4->KOD_GELARAN_JAWATAN = $request->KOD_GELARAN_JAWATAN;
+            $user_profils4->KOD_TARAF_PERJAWATAN = $request->KOD_TARAF_PERJAWATAN;
+            $user_profils4->KOD_PERINGKAT = $request->KOD_PERINGKAT;
+            $user_profils4->KOD_JENIS_PERKHIDMATAN = $request->KOD_JENIS_PERKHIDMATAN;
+            $user_profils4->KOD_GRED_JAWATAN = $request->KOD_GRED_JAWATAN;
+            // dd($user_profils1, $user_profils2, $user_profils3, $user_profils4);
 
-        $role_update = Role::where('id', $request->user_group_id)->first();
-        $user->assignRole($role_update->name);
+            $user_profils1->save();
+            $user_profils2->save();
+            $user_profils3->save();
+            $user_profils4->save();
+        } else {
+            $user_profil = User::where('id', $user_info->id)->get()->first();
 
-        // if($request->user_group_id == "1"){
-        //     $user->assignRole('pentadbir sistem');
-        // }elseif($request->user_group_id == "2"){
-        //     $user->assignRole('pentadbir penilaian');
-        // }elseif($request->user_group_id == "3"){
-        //     $user->assignRole('penyelaras');
-        // }elseif($request->user_group_id == "4"){
-        //     $user->assignRole('pengawas');
-        // }elseif($request->user_group_id == "5"){
-        //     $user->assignRole('calon');
-        // }elseif($request->user_group_id == "6"){
-        //     $user->assignRole('pegawai korporat');
-        // }
-        // $user->password = Hash::make($request->password);
-        $user->save();
+            $user_profil->name = strtoupper($request->name);
+            $user_profil->email = $request->email;
+            $user_profil->nric = $request->nric;
+            $user_profil->ministry_code = $request->ministry_code;
+            $user_profil->office_number = $request->office_number;
+
+            $role = Role::where('id', $user_profil->user_group_id)->first();
+            $user_profil->removeRole($role->name);
+
+            $user_profil->user_group_id = $request->user_group_id;
+
+            $role_update = Role::where('id', $request->user_group_id)->first();
+            $user_profil->assignRole($role_update->name);
+
+            $user_profil->save();
+        }
+
         return redirect('/pengurusanpengguna');
     }
     /**

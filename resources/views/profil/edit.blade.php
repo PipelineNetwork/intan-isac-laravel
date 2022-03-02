@@ -354,7 +354,7 @@
                                         </div>
                                         <div class="col-8">
                                             <select class="form-control form-control-sm ml-3" name="KOD_JABATAN"
-                                                id="input_kementerian" required>
+                                                id="input_agensi" required>
                                                 <option hidden selected value="{{ $user_profils->KOD_JABATAN }}">
                                                     {{ $user_profils->KOD_JABATAN }}
                                                 </option>
@@ -474,7 +474,7 @@
                                                 value="{{ $user_profils->NO_TELEFON_PENYELIA }}" maxlength="11">
                                         </div>
                                     </div>
-
+                                    <label><i><span style="color: red">*</span>Ruang wajib diisi.</i></label>
                                 </div>
 
                                 <button class="btn bg-gradient-warning" type="submit">Simpan</button>

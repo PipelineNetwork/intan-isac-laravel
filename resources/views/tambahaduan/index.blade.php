@@ -165,7 +165,7 @@
                                                                     <label for="aduan_reply">Keterangan Balas :</label>
                                                                     <textarea class="form-control"
                                                                         name="keterangan_aduan_reply" id="aduan_reply"
-                                                                        rows="3" required>{{ $tambahaduan->keterangan_aduan_reply }}</textarea>
+                                                                        rows="3" required readonly>{{ $tambahaduan->keterangan_aduan_reply }}</textarea>
                                                                 </div>
                                                                 @if ($tambahaduan['file_rayuan_reply'] != null)
                                                                     <div class="form-group">
