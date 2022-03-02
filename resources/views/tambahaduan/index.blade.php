@@ -170,7 +170,7 @@
                                                                 @if ($tambahaduan['file_rayuan_reply'] != null)
                                                                     <div class="form-group">
                                                                         <label for="file_aduan_reply">Fail Balas :</label>
-                                                                        <a href="storage/{{ $tambahaduan['file_aduan_reply'] }}"
+                                                                        <a href="/storage/{{ $tambahaduan['file_aduan_reply'] }}"
                                                                             target="_blank">{{ $tambahaduan['file_aduan_reply'] }}</a>
                                                                     </div>
                                                                 @else

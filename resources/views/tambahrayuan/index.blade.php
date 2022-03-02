@@ -153,7 +153,7 @@
                                                                     @if ($tambahrayuan['file_rayuan_send'] != null)
                                                                         <div class="form-group">
                                                                             <label for="title">Fail Rayuan</label>
-                                                                            <a href="storage/{{ $tambahrayuan['file_rayuan_send'] }}"
+                                                                            <a href="/storage/{{ $tambahrayuan['file_rayuan_send'] }}"
                                                                                 target="_blank">{{ $tambahrayuan['file_rayuan_send'] }}</a>
                                                                         </div>
                                                                     @else
