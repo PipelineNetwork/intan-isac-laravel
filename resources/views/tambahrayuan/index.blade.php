@@ -170,7 +170,7 @@
                                                                                 :</label>
                                                                             <textarea class="form-control"
                                                                                 name="keterangan_rayuan_reply"
-                                                                                id="rayuan_reply" rows="3" disabled
+                                                                                id="rayuan_reply" rows="3" readonly
                                                                                 required>{{ $tambahrayuan->keterangan_rayuan_reply }}</textarea>
                                                                         </div>
                                                                         @if ($tambahrayuan['file_rayuan_reply'] != null)
