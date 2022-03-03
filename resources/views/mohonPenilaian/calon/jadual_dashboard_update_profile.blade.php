@@ -1,4 +1,54 @@
 @extends('base')
+<style>
+    .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99999;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+        background: none repeat scroll 0 0 #0000004d;
+    }
+
+    .spinner {
+        border: 1px solid transparent;
+        border-radius: 3px;
+        position: relative;
+    }
+
+    .spinner:before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 45px;
+        height: 45px;
+        margin-top: -10px;
+        margin-left: -10px;
+        border-radius: 50%;
+        border: 7px solid orange;
+        border-top-color: #ffffff00;
+        animation: spinner 0.9s linear infinite;
+    }
+
+    @keyframes spinner {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spinner {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+</style>
 @section('content')
 
     <div class="container-fluid py-4">
@@ -485,21 +535,35 @@
                             </div>
                             <div class="row">
                                 <div class="col text-center">
-                                    <button class="btn bg-gradient-success text-center" type="submit">Hantar</button>
+                                    <button class="btn bg-gradient-success text-center" type="submit"
+                                        id="tekan">Hantar</button>
                                 </div>
                             </div>
+
+                            <section class="preloader" id="preload">
+                                <div class="spinner" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </section>
 
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-
     </div>
 
     <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     <script>
+        $(document).ready(function() {
+            $('#preload').hide();
+        });
+
         $(document).on('submit', 'form', function() {
+            $('#tekan').click(function() {
+                $(this).attr('disabled', 'disabled');
+            })
+            $('#preload').show();
             setTimeout(function() {
                 window.location = "/mohonpenilaian";
             }, 8000);
