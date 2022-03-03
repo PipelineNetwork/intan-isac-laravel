@@ -758,12 +758,14 @@
                                                     </td>
                                                     <?php
                                                     $jadual->KEKOSONGAN = $jadual->JUMLAH_KESELURUHAN - $jadual->BILANGAN_CALON;
+                                                    $bilangan = $jadual->KEKOSONGAN;
+                                                    echo $bilangan
                                                     ?>
                                                     <td class="text-sm text-center font-weight-normal">
-                                                        @if ($jadual->KEKOSONGAN == null)
+                                                        @if ($bilangan)
                                                             0
                                                         @else
-                                                            {{ $jadual->KEKOSONGAN }}
+                                                            {{ $bilangan }}
                                                         @endif
                                                     </td>
                                                     <td class="text-sm text-center font-weight-normal">
@@ -785,7 +787,7 @@
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 @if ($done_daftar == null)
-                                                                    @if ($jadual->KEKOSONGAN != 0)
+                                                                    @if ($jadual->KEKOSONGAN > 0)
                                                                         <form action="/mohonpenilaian/permohonan_penilaian"
                                                                             method="POST" class="m-0">
                                                                             @csrf
@@ -795,19 +797,8 @@
                                                                                 type="submit">Daftar</button>
                                                                         </form>
                                                                     @else
-                                                                        @if (Auth::user()->nric == '000000000006')
-                                                                            <form action="/mohonpenilaian/permohonan_penilaian"
-                                                                                method="POST" class="m-0">
-                                                                                @csrf
-                                                                                <input type="hidden" name="sesi"
-                                                                                    value="{{ $jadual->ID_PENILAIAN }}">
-                                                                                <button class="btn btn-sm bg-gradient-info m-0"
-                                                                                    type="submit">Daftar</button>
-                                                                            </form>
-                                                                        @else
-                                                                            <button class="btn btn-sm bg-gradient-danger m-0"
-                                                                                disabled>Penuh</button>
-                                                                        @endif
+                                                                        <button class="btn btn-sm bg-gradient-danger m-0"
+                                                                            disabled>Penuh</button>
                                                                     @endif
                                                                 @else
                                                                     <button class="btn btn-sm bg-gradient-success m-0"
@@ -838,7 +829,8 @@
                                     @if ($videodannota->jenis == 'Nota')
                                         <strong class="px-3 mt-2">{{ $videodannota->tajuk }}</strong>
                                         <p class="px-3">{{ $videodannota->nota }}</p>
-                                        <p class="px-3"><a class="btn btn-success mb-1" href="/storage/{{ $videodannota->video }}"
+                                        <p class="px-3"><a class="btn btn-success mb-1"
+                                                href="/storage/{{ $videodannota->video }}"
                                                 download="{{ $videodannota->tajuk }}.pdf" target="_blank">Muat Turun</a></p>
                                     @else
                                         <strong class="px-3 mt-2">{{ $videodannota->tajuk }}</strong>
