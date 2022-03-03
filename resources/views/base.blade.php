@@ -34,6 +34,62 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
+    <style>
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            background: none repeat scroll 0 0 #ffffff75;
+        }
+
+        .word {
+            position: absolute;
+            margin-top: 120px;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+        .spinner {
+            border: 1px solid transparent;
+            border-radius: 3px;
+            position: relative;
+        }
+
+        .spinner:before {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 45px;
+            height: 45px;
+            margin-top: -10px;
+            margin-left: -10px;
+            border-radius: 50%;
+            border: 5px solid orange;
+            border-top-color: #ffffff00;
+            animation: spinner 0.9s linear infinite;
+        }
+
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+    </style>
     <?php
     use Spatie\Permission\Models\Role;
     use Illuminate\Support\Facades\Auth;
@@ -589,7 +645,7 @@
                                     @csrf
 
                                     <button class="btn mb-0 bg-gradient-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                            this.closest('form').submit();">
+                                                                                    this.closest('form').submit();">
                                         {{ __('Log Keluar') }}
                                     </button>
                                 </form>
@@ -642,7 +698,24 @@
         @yield('content')
 
         </div>
+        <section class="preloader" id="preload2">
+            <div class="spinner" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="word">
+                <span>Sila Tunggu...</span>
+            </div>
+        </section>
     </main>
+
+    <script>
+        $(document).ready(function() {
+            $('#preload2').hide();
+        });
+        $(document).load(function() {
+            $('#preload2').show();
+        });
+    </script>
 
     <!--   Core JS Files   -->
     <script src="../../assets/js/core/popper.min.js"></script>
