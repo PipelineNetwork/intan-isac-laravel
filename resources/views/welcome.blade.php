@@ -25,6 +25,12 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
 </head>
 
 <body class="coworking">
@@ -33,9 +39,10 @@
     use App\Models\Jadual;
     use App\Models\LamanUtama;
     
-    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan')
+    $current_date = date('Y-m-d');
+    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan', 'KEKOSONGAN')
         ->orderBy('TARIKH_SESI', 'desc')
-        ->whereYear('TARIKH_SESI', '>=', 2021)
+        ->where('TARIKH_SESI', '>=', $current_date)
         ->get();
     
     $lamanutama = LamanUtama::all();
@@ -47,6 +54,7 @@
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navbar -->
+
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -152,6 +160,16 @@
                             <a href="/login" class="btn text-warning shadow-none mt-4">Log Masuk</a> --}}
                             </div>
                         </div>
+                        {{-- <script>
+                            $(document).ready(function() {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Do you want to continue',
+                                    icon: 'error',
+                                    confirmButtonText: 'Cool'
+                                })
+                            })
+                        </script> --}}
                     </div>
                 </div>
             </div>
@@ -383,21 +401,19 @@
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                {{ $jadual['platform'] }}</td>
-                                            @if ($jadual['status'] == null)
-                                                @if ($jadual['KEKOSONGAN'] == '0')
-                                                    <td class="text-sm text-center font-weight-normal"><span
-                                                            class="badge badge-lg badge-danger">Penuh</span></td>
+                                                {{ $jadual->platform }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                @if ($jadual->status == null)
+                                                    @if ($jadual->KEKOSONGAN == '0')
+                                                        <span class="badge badge-lg badge-danger">Penuh</span>
+                                                    @else
+                                                        <span class="badge badge-lg badge-success">Dibuka</span>
+                                                    @endif
                                                 @else
-                                                    <td class="text-sm text-center font-weight-normal"><span
-                                                            class="badge badge-lg badge-success">Dibuka</span></td>
+                                                    <span class="badge badge-lg badge-info">{{ $jadual->status }} -
+                                                        {{ $jadual->keterangan }}</span>
                                                 @endif
-
-                                            @else
-                                                <td class="text-sm text-center font-weight-normal"><span
-                                                        class="badge badge-lg badge-info">{{ $jadual['status'] }} -
-                                                        {{ $jadual['keterangan'] }}</span></td>
-                                            @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -417,21 +433,11 @@
                     <h5 class="modal-title text-white" id="exampleModalLabel">MAKLUMAN TERKINI</h5>
                 </div>
                 <div class="modal-body">
-                    <p>Sistem Penilaian ISAC telah dinaiktaraf kepada platform sistem secara dalam talian sepenuhnya
-                        bermula pada tahun 2022.</p>
-
-                    <p>Sistem ISAC baharu mengetengahkan konsep End-To-End di mana calon akan membuat pendaftaran,
-                        pemilihan jadual dan menduduki penilaian secara dalam talian sepenuhnya tanpa perlu hadir secara
-                        fizikal di INTAN, JPA atau mana-mana kampus INTAN.</p>
-
-                    <p>Sebagai tambahan, calon hanya perlu menjawab peperiksaan dari lokasi mereka iaitu sama ada di
-                        rumah
-                        atau di pejabat.</p>
-                    <br>
+                    <p><strong>Penilaian ISAC 2022 secara online telah dibuka. Sila buat pendaftaran terlebih dahulu.</strong></p>
 
                     <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
-                        dapat
-                        dijalankan dengan sempurna:</p>
+                        dapat dijalankan dengan sempurna:
+                    </p>
 
                     <ol>
                         <li>Capaian internet yang baik</li>
@@ -443,15 +449,15 @@
                         </li>
                     </ol>
 
-                    <p>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan kelak. Sila rujuk portal ini
-                        untuk
-                        info terkini.</p>
+                    <p><strong>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan dalam masa terdekat. Sila rujuk
+                        portal ini untuk info terkini dan buat pendaftaran terlebih dahulu.<strong></p>
 
-                    <p><strong>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</strong></p>
+                    <p>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</p>
 
-                    <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf" download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran ISAC</a></p>
+                    <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf"
+                            download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran ISAC</a></p>
 
-                    <p>Sekian Terima Kasih</p>
+                    <p>Sekian, terima kasih.</p>
 
                     <p>-URUSETIA ISAC-</p>
                 </div>
@@ -533,8 +539,6 @@
         </div>
     </footer>
 
-    <script src="../../assets/js/core/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @include('sweet::alert')
     <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">

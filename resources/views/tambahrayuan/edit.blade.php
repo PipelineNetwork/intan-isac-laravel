@@ -109,13 +109,7 @@
                         <button class="btn bg-gradient-warning" type="submit">Hantar</button>
                     </div>
                 </div>
+            </form>
         </div>
-        </form>
-
     </div>
-    </div>
-
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
-
 @stop

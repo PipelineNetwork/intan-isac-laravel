@@ -111,10 +111,6 @@
     </div>
 
     <script src="https://isacsupport.intan.my/chat_widget.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
-
-    {{-- <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script> --}}
     <script src="/assets/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         CKEDITOR.replace('editor', {

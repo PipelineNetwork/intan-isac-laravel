@@ -24,8 +24,8 @@ class DashboardController extends Controller
             ->where('TARIKH_SESI', '>=', $current_date)
             ->get();
         
-        $videodannotas = VideoDanNota::all();
-
+        $videodannotas = VideoDanNota::orderBy('jenis', 'asc')->get();
+        // dd($videodannotas);
         $bil_mohon_jumlah = MohonPenilaian::where('jantina', 'Lelaki')
             ->orWhere('jantina', 'Perempuan')
             ->count();

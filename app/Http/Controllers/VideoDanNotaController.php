@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\VideoDanNota;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class VideoDanNotaController extends Controller
 {
@@ -42,9 +43,15 @@ class VideoDanNotaController extends Controller
      */
     public function store(Request $request)
     {
+        // $request->validate([
+        //     'video' => 'max:5128',
+        // ]);
+
+        $muat_naik_video = $request->file('video')->store('videodannota');
+
         $videodannota = new VideoDanNota;
         $videodannota->tajuk = $request->tajuk;
-        $videodannota->video = $request->file('video')->store('videodannota');
+        $videodannota->video = $muat_naik_video;
         $videodannota->nota = $request->nota;
         $videodannota->jenis = $request->jenis;
 
@@ -87,7 +94,10 @@ class VideoDanNotaController extends Controller
      */
     public function update(Request $request, $videodannota)
     {
-        //
+        // $request->validate([
+        //     'video' => 'max:5128',
+        // ]);
+
         $videodannota = VideoDanNota::find($videodannota);
         $videodannota->tajuk = $request->tajuk;
         if ($request->hasFile('video')){

@@ -55,24 +55,24 @@ class ProfilController extends Controller
             ->where('pro_peserta.user_id', $checkid2)
             ->get()->first();
             // dd($gelaran_user);
-        $kod_gelaran = Refgeneral::where('MASTERCODE', 10009)
+        $kod_gelaran = Refgeneral::where('MASTERCODE', 10009)->orderBy('DESCRIPTION1', 'asc')
             ->get();
 
-        $peringkat = Refgeneral::where('MASTERCODE', 10023)->get();
+        $peringkat = Refgeneral::where('MASTERCODE', 10023)->orderBy('DESCRIPTION1', 'asc')->get();
 
-        $klasifikasi_perkhidmatan = Refgeneral::where('MASTERCODE', 10024)->get();
+        $klasifikasi_perkhidmatan = Refgeneral::where('MASTERCODE', 10024)->orderBy('DESCRIPTION1', 'asc')->get();
 
-        $gred_jawatan = Refgeneral::where('MASTERCODE', 10025)->get();
+        $gred_jawatan = Refgeneral::where('MASTERCODE', 10025)->orderBy('DESCRIPTION1', 'asc')->get();
 
-        $taraf_perjawatan = Refgeneral::where('MASTERCODE', 10026)->get();
+        $taraf_perjawatan = Refgeneral::where('MASTERCODE', 10026)->orderBy('DESCRIPTION1', 'asc')->get();
 
-        $jenis_perkhidmatan = Refgeneral::where('MASTERCODE', 10027)->get();
+        $jenis_perkhidmatan = Refgeneral::where('MASTERCODE', 10027)->orderBy('DESCRIPTION1', 'asc')->get();
 
-        $kementerian = Refgeneral::where('MASTERCODE', 10028)->orderBy('DESCRIPTION1')->get();
+        $kementerian = Refgeneral::where('MASTERCODE', 10028)->orderBy('DESCRIPTION1', 'asc')->get();
 
-        $negeri = Refgeneral::where('MASTERCODE', 10021)->get();
+        $negeri = Refgeneral::where('MASTERCODE', 10021)->orderBy('DESCRIPTION1', 'asc')->get();
 
-        $jabatan = Refgeneral::where('MASTERCODE', 10029)->orderBy('DESCRIPTION1')->get();
+        $jabatan = Refgeneral::where('MASTERCODE', 10029)->orderBy('DESCRIPTION1', 'asc')->get();
 
         if ($current_user->name == 'calon') {
             $user_profils = DB::table('users')
@@ -166,8 +166,8 @@ class ProfilController extends Controller
             $user_profils->telephone_number = $request->telephone_number;
             $user_profils->save();
         }
-        // dd($user_profils);
-        return redirect('/profil')->with('success', 'Berjaya disimpan');
+        alert()->success('Berjaya disimpan');
+        return redirect('/profil');
     }
 
     public function edit($profil)

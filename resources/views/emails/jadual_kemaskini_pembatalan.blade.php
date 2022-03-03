@@ -1,7 +1,7 @@
 <p>Salam sejahtera,</p>
 
 <p class="mt-4">Dukacita dimaklumkan bahawa jadual penilaian ISAC yang akan diadakan pada tarikh
-    {{ date('d-m-Y', strtotime($tarikh)) }} telah DIBATALKAN atas sebab yang berikut:</p>
+    <b>{{ date('d-m-Y', strtotime($tarikh)) }}</b> telah DIBATALKAN atas sebab yang berikut:</p>
 
 <p class="mt-4">{{ $keterangan }}</p>
 

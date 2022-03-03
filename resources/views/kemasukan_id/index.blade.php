@@ -81,8 +81,7 @@
         </div>
     </div>
     <script src="https://isacsupport.intan.my/chat_widget.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
+    
     <script type="text/javascript" src="/assets/js/webcamjs/webcam.min.js"></script>
 
     <!-- Configure a few settings and attach camera -->

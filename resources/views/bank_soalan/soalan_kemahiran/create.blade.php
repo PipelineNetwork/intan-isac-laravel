@@ -82,9 +82,6 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
-
     <script>
         function quantity(amount) {
             var select = document.getElementById('quantiti');

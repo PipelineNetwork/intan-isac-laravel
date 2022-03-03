@@ -115,11 +115,9 @@
                                     <b class="mb-0 text-white">Maklumat Permohonan</b>
                                 </div>
                                 <div class="col-md-4 text-end">
-                                    <a href="javascript:;">
-                                        <a href="/profil/{{ $user_profils->id }}"
-                                            class="fas fa-user-edit text-secondary text-sm button  text-white "
-                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini"></a>
-                                    </a>
+                                    <a href="/profil/{{ $user_profils->id }}"
+                                        class="fas fa-user-edit text-secondary text-sm button  text-white "
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini"></a>
                                 </div>
                             </div>
                         </div>
@@ -971,7 +969,4 @@
             </div>
         </div>
     @endrole
-
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
 @stop

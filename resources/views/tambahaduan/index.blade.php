@@ -165,12 +165,12 @@
                                                                     <label for="aduan_reply">Keterangan Balas :</label>
                                                                     <textarea class="form-control"
                                                                         name="keterangan_aduan_reply" id="aduan_reply"
-                                                                        rows="3" required></textarea>
+                                                                        rows="3" required readonly>{{ $tambahaduan->keterangan_aduan_reply }}</textarea>
                                                                 </div>
                                                                 @if ($tambahaduan['file_rayuan_reply'] != null)
                                                                     <div class="form-group">
                                                                         <label for="file_aduan_reply">Fail Balas :</label>
-                                                                        <a href="storage/{{ $tambahaduan['file_aduan_reply'] }}"
+                                                                        <a href="/storage/{{ $tambahaduan['file_aduan_reply'] }}"
                                                                             target="_blank">{{ $tambahaduan['file_aduan_reply'] }}</a>
                                                                     </div>
                                                                 @else
@@ -180,11 +180,11 @@
                                                                         <a>Tiada fail</a>
                                                                     </div>
                                                                 @endif
-                                                                <div class="form-group">
+                                                                {{-- <div class="form-group">
                                                                     <label for="file_aduan_reply">Fail Balas :</label>
                                                                     <a href="storage/{{ $tambahaduan['file_aduan_reply'] }}"
                                                                         target="_blank">{{ $tambahaduan['file_aduan_reply'] }}</a>
-                                                                </div>
+                                                                </div> --}}
                                                             @else
                                                                 <div class="my-3">
                                                                     <label><b>Belum dibalas</b></label>

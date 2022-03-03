@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bankjawapancalon;
 use App\Models\Bankjawapanpengetahuan;
 use App\Models\Jadual;
+use App\Models\KeputusanPenilaian;
 use App\Models\MohonPenilaian;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -56,51 +57,56 @@ class PemantauanpenilaianController extends Controller
     public function show($id_penilaian)
     {
         $senarai_calon = MohonPenilaian::where('id_sesi', $id_penilaian)->get();
-        // $ic_calon = $senarai_calon->no_ic;
         $senarai_semak_jawapan = [];
         foreach ($senarai_calon as $key => $calon) {
             $status_semak_jawapan = [];
 
-            $pengetahuan = Bankjawapanpengetahuan::where('id_penilaian', $id_penilaian)->where('id_calon',  $calon->no_ic)->first();
-            // $kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon',  $calon->no_ic)->first();
-            if ($pengetahuan != null) {
-                $kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon',  $calon->no_ic)->first();
-                if ($kemahiran != null) {
-                    if ($kemahiran->id_soalankemahiraninternet != null) {
-                        if ($kemahiran->id_soalankemahiranword != null) {
-                            if ($kemahiran->id_soalankemahiranemail != null) {
-                                $status_semak_jawapan = [
-                                    'ic' => $calon->no_ic,
-                                    'nama' => $calon->nama,
-                                    'status' => $calon->status_penilaian,
-                                    'pengetahuan' => 'Selesai',
-                                    'kemahiran_internet' => 'Selesai',
-                                    'kemahiran_word' => 'Selesai',
-                                    'kemahiran_email' => 'Selesai',
-                                ];
-                            } else {
-                                $status_semak_jawapan = [
-                                    'ic' => $calon->no_ic,
-                                    'nama' => $calon->nama,
-                                    'status' => $calon->status_penilaian,
-                                    'pengetahuan' => 'Selesai',
-                                    'kemahiran_internet' => 'Selesai',
-                                    'kemahiran_word' => 'Selesai',
-                                    'kemahiran_email' => 'Belum selesai',
-                                ];
-                            }
-                        } else {
-                            $status_semak_jawapan = [
-                                'ic' => $calon->no_ic,
-                                'nama' => $calon->nama,
-                                'status' => $calon->status_penilaian,
-                                'pengetahuan' => 'Selesai',
-                                'kemahiran_internet' => 'Selesai',
-                                'kemahiran_word' => 'Belum selesai',
-                                'kemahiran_email' => 'Belum selesai',
-                            ];
-                        }
-                    } else {
+            $keputusan = KeputusanPenilaian::where('id_penilaian', $id_penilaian)->where('ic_peserta',  $calon->no_ic)->first();
+            if ($keputusan != null) {
+                $status_semak_jawapan = [
+                    'ic' => $calon->no_ic,
+                    'nama' => $calon->nama,
+                    'status' => $calon->status_penilaian,
+                    'pengetahuan' => 'Selesai',
+                    'kemahiran_internet' => 'Selesai',
+                    'kemahiran_word' => 'Selesai',
+                    'kemahiran_email' => 'Selesai',
+                ];
+            } else {
+                $pengetahuan = Bankjawapanpengetahuan::where('id_penilaian', $id_penilaian)->where('id_calon',  $calon->no_ic)->first();
+                if ($pengetahuan != null) {
+                    $kemahiran = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon',  $calon->no_ic)->first();
+                    if (($kemahiran->status_jawab_internet == 1) && ($kemahiran->status_jawab_word == 1) && ($kemahiran->status_jawab_email == 1)) {
+                        $status_semak_jawapan = [
+                            'ic' => $calon->no_ic,
+                            'nama' => $calon->nama,
+                            'status' => $calon->status_penilaian,
+                            'pengetahuan' => 'Selesai',
+                            'kemahiran_internet' => 'Selesai',
+                            'kemahiran_word' => 'Selesai',
+                            'kemahiran_email' => 'Selesai',
+                        ];
+                    } elseif (($kemahiran->status_jawab_internet == 1) && ($kemahiran->status_jawab_word == 1) && ($kemahiran->status_jawab_email == 0)) {
+                        $status_semak_jawapan = [
+                            'ic' => $calon->no_ic,
+                            'nama' => $calon->nama,
+                            'status' => $calon->status_penilaian,
+                            'pengetahuan' => 'Selesai',
+                            'kemahiran_internet' => 'Selesai',
+                            'kemahiran_word' => 'Selesai',
+                            'kemahiran_email' => 'Belum selesai',
+                        ];
+                    } elseif (($kemahiran->status_jawab_internet == 1) && ($kemahiran->status_jawab_word == 0) && ($kemahiran->status_jawab_email == 0)) {
+                        $status_semak_jawapan = [
+                            'ic' => $calon->no_ic,
+                            'nama' => $calon->nama,
+                            'status' => $calon->status_penilaian,
+                            'pengetahuan' => 'Selesai',
+                            'kemahiran_internet' => 'Selesai',
+                            'kemahiran_word' => 'Belum selesai',
+                            'kemahiran_email' => 'Belum selesai',
+                        ];
+                    } elseif (($kemahiran->status_jawab_internet == 0) && ($kemahiran->status_jawab_word == 0) && ($kemahiran->status_jawab_email == 0)) {
                         $status_semak_jawapan = [
                             'ic' => $calon->no_ic,
                             'nama' => $calon->nama,
@@ -116,27 +122,15 @@ class PemantauanpenilaianController extends Controller
                         'ic' => $calon->no_ic,
                         'nama' => $calon->nama,
                         'status' => $calon->status_penilaian,
-                        'pengetahuan' => 'Selesai',
+                        'pengetahuan' => 'Belum selesai',
                         'kemahiran_internet' => 'Belum selesai',
                         'kemahiran_word' => 'Belum selesai',
                         'kemahiran_email' => 'Belum selesai',
                     ];
                 }
-            } else {
-                $status_semak_jawapan = [
-                    'ic' => $calon->no_ic,
-                    'nama' => $calon->nama,
-                    'status' => $calon->status_penilaian,
-                    'pengetahuan' => 'Belum selesai',
-                    'kemahiran_internet' => 'Belum selesai',
-                    'kemahiran_word' => 'Belum selesai',
-                    'kemahiran_email' => 'Belum selesai',
-                ];
             }
-
             array_push($senarai_semak_jawapan, $status_semak_jawapan);
         }
-        // dd($senarai_semak_jawapan);
 
         return view('pemantauan_penilaian.show', [
             'senarai_semak_jawapans' => $senarai_semak_jawapan
@@ -181,7 +175,7 @@ class PemantauanpenilaianController extends Controller
     {
         //get data dari text file
         $data_sedia_ada = Storage::disk('public')->get('pemantauan.txt');
-        $data_sedia_ada = json_decode($data_sedia_ada);
+        $data_sedia_ada = json_decode($data_sedia_ada, true);
 
         //clear data dalam storage
         Storage::disk('public')->put('pemantauan.txt', json_encode([]));
@@ -202,11 +196,11 @@ class PemantauanpenilaianController extends Controller
     public function terima_data(Request $request)
     {
         // $value = session('senarai_nama');
-        $data_sedia_ada = Storage::disk('public')->get('pemantauan.txt');        
-        $data_sedia_ada = json_decode($data_sedia_ada);
+        $data_sedia_ada = Storage::disk('public')->get('pemantauan.txt');
+        $data_sedia_ada = json_decode($data_sedia_ada, true);
         // dd($data_sedia_ada);
         return view(
-            'pemantauan_penilaian.index',
+            'pemantauan_penilaian.webcam_calon',
             compact('data_sedia_ada')
         );
         // return view(
@@ -215,10 +209,12 @@ class PemantauanpenilaianController extends Controller
         // );
     }
 
-    public function set_semula() {
+    public function set_semula()
+    {
         //clear data dalam storage
         Storage::disk('public')->put('pemantauan.txt', json_encode([]));
 
-        return redirect('/pemantauan-penilaian')->with('success','Telah disetkan semula!');
+        alert()->success('Telah disetkan semula!');
+        return redirect('/pemantauan-kamera');
     }
 }

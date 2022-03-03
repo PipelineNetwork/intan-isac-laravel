@@ -35,7 +35,13 @@ class AuthenticatedSessionController extends Controller
         // $request->authenticate();
 
         if ($user == null) {
-            return back()->with('errors', 'Akaun anda tiada dalam rekod kami.');
+            // alert()->error('Akaun anda tiada dalam rekod kami.');
+            // // alert('Akaun anda tiada dalam rekod kami.');
+            // return back();
+            echo '<script language="javascript">';
+            echo 'alert("Akaun anda tiada dalam rekod kami.");';
+            echo "window.location.href='/';";
+            echo '</script>';
         }
         $this->validate($request, [
             'password' => 'required',
@@ -45,9 +51,20 @@ class AuthenticatedSessionController extends Controller
             $request->authenticate();
             $request->session()->regenerate();
 
-            return redirect()->intended(RouteServiceProvider::HOME)->with('success', 'Log masuk berjaya');
+            alert()->success('Log masuk berjaya');
+            return redirect()->intended(RouteServiceProvider::HOME);
+            // echo '<script language="/javascript">';
+            // echo "alert('Swal.fire({ text: 'Log masuk anda berjaya!', icon: 'success', confirmButtonText: 'Ok', })";
+            // echo "window.location.href='/dashboard';";
+            // echo '</script>';
         } else {
-            return back()->with('errors', 'Sila masukkan kata laluan yang betul.');
+            // alert()->error('Sila masukkan kata laluan yang betul.');
+            // alert('Sila masukkan kata laluan yang betul.');
+            echo '<script language="javascript">';
+            echo 'alert("Sila masukkan kata laluan yang betul.");';
+            echo "window.location.href='/';";
+            echo '</script>';
+            // return back();
         }
     }
 

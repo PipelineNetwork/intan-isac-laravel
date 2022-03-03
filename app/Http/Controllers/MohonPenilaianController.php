@@ -22,6 +22,7 @@ use App\Models\Perkhidmatan;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use App\Models\Bankjawapanpengetahuan;
+use App\Models\KeputusanPenilaian;
 
 class MohonPenilaianController extends Controller
 {
@@ -195,9 +196,9 @@ class MohonPenilaianController extends Controller
         $masa_mula = $kekosongan->KOD_MASA_MULA;
         $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
 
-        $emel_pendaftar = Auth::user()->email;
-        $recipient = [$emel_pendaftar];
-        Mail::to($recipient)->send(new DaftarPeserta());
+        // $emel_pendaftar = Auth::user()->email;
+        // $recipient = [$emel_pendaftar];
+        // Mail::to($recipient)->send(new DaftarPeserta());
 
         // $pdf = App::make('dompdf.wrapper');
         // $pdf->loadHTML('<h1>Contoh surat</h1>');
@@ -222,13 +223,7 @@ class MohonPenilaianController extends Controller
             'masa_tamat' => $masa_tamat,
             'id_sesi' => $request->id_sesi
         ]);
-        return $pdf->download('Surat_tawaran_' . $permohonan->no_ic . '.pdf');
-
-        // if ($pdf->download('Surat_tawaran.pdf')){
-        //     return redirect('/mohonpenilaian')->with('success', 'Berjaya didaftar');
-        // }
-
-        // return redirect('/mohonpenilaian')->with('success', 'Berjaya didaftar');
+        // return $pdf->download('Surat_tawaran_' . $permohonan->no_ic . '.pdf');
     }
 
     /**
@@ -299,9 +294,15 @@ class MohonPenilaianController extends Controller
             $kemahiran->delete();
         }
 
+        $keputusan = KeputusanPenilaian::where('ic_peserta', $ic_calon)->where('id_penilaian', $id_penilaian)->get()->first();
+        if ($keputusan != null) {
+            $keputusan->delete();
+        }
+
         $kekosongan->save();
         $mohonPenilaian->delete();
-        return redirect('/mohonpenilaian')->with('success', 'Berjaya dihapus!');
+        alert()->success('Berjaya dihapus!');
+        return redirect('/mohonpenilaian');
     }
 
     public function pilih_jadual(Request $request)
@@ -442,7 +443,7 @@ class MohonPenilaianController extends Controller
             ->orderBy('TARIKH_SESI', 'desc')
             ->get();
 
-        alert('Maklumat berjaya dikemaskini.');
+        alert()->success('Maklumat berjaya dikemaskini.');
 
         return view('mohonPenilaian.calon.pilih_jadual', [
             'no_ic' => $no_ic,
@@ -462,7 +463,7 @@ class MohonPenilaianController extends Controller
             'emel_penyelia' => $emel_penyelia,
             'no_telefon_penyelia' => $no_telefon_penyelia,
             'jadual' => $jadual
-        ])->with('success', 'Maklumat berjaya dikemaskini');
+        ]);
     }
 
     public function pilih_jadual_calon(Request $request)
@@ -581,7 +582,9 @@ class MohonPenilaianController extends Controller
             $tamat = $masa_tamat . ' AM';
         }
 
-        // dd($maklumat_calon);
+        // $emel_pendaftar = Auth::user()->email;
+        // $recipient = [$emel_pendaftar];
+        // Mail::to($recipient)->send(new DaftarPeserta($permohonan));
 
         $pdf = PDF::loadView('pdf.pendaftaran_calon', [
             'jkj' => $permohonan->jawatan_ketua_jabatan,
@@ -640,7 +643,8 @@ class MohonPenilaianController extends Controller
         $jadual_semasa->save();
         $jadual_baru->save();
 
-        return redirect('/mohonpenilaian')->with('success', 'Penjadualan Semula telah berjaya');
+        alert()->success('Penjadualan Semula telah berjaya');
+        return redirect('/mohonpenilaian');
     }
 
     public function jadual_dashboard(Request $request)
@@ -790,7 +794,9 @@ class MohonPenilaianController extends Controller
         $permohonan->save();
 
         $kekosongan = Jadual::where('ID_PENILAIAN', $permohonan->id_sesi)->first();
-        $maklumat_calon = Tugas::where('ID_PESERTA', $permohonan->id_calon)->first();
+        $current_user = Auth::user()->nric;
+        $peserta = Permohanan::where('NO_KAD_PENGENALAN', $current_user)->first();
+        $maklumat_calon = Tugas::where('ID_PESERTA', $peserta->ID_PESERTA)->first();
 
         $permohonan_d = MohonPenilaian::where('id_sesi', $permohonan->id_sesi)->get();
         $bilangan_permohonan = count($permohonan_d);

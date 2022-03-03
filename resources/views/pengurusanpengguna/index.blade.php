@@ -142,8 +142,8 @@
                                         <tr>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ $loop->index + 1 }}</td>
-                                            <td class="text-sm font-weight-normal"
-                                                style="text-transform: uppercase">{{ $user['name'] }}</td>
+                                            <td class="text-sm font-weight-normal" style="text-transform: uppercase">
+                                                {{ $user['name'] }}</td>
                                             <td class="text-sm text-center font-weight-normal">{{ $user['email'] }}</td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 <?php
@@ -152,7 +152,19 @@
                                                     ->first();
                                                 ?>
                                                 @if ($role != null)
-                                                    {{ $role['name'] }}
+                                                    @if ($role['name'] == 'pentadbir sistem')
+                                                        Pentadbir sistem
+                                                    @elseif ($role['name'] == 'pentadbir penilaian')
+                                                        Pentadbir penilaian
+                                                    @elseif ($role['name'] == 'penyelaras')
+                                                        Penyelaras
+                                                    @elseif ($role['name'] == 'pengawas')
+                                                        Pengawas
+                                                    @elseif ($role['name'] == 'calon')
+                                                        Calon
+                                                    @else
+                                                        Pegawai korporat
+                                                    @endif
                                                 @else
                                                     <span class="text-warning">Sila Kemaskini</span>
                                                 @endif
@@ -221,6 +233,4 @@
             sortable: false
         });
     </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
 @stop

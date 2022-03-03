@@ -26,24 +26,36 @@ class KemasukanPenilaianController extends Controller
         $jadual = Jadual::where("ID_PENILAIAN", $id_penilaian)->first();
         if ($jadual == null) {
             // dd("tidak sah");
-            alert("Id Penilaian tidak sah");
-            return redirect('/kemasukan-id');
+            // alert("Id Penilaian tidak sah");
+            // return redirect('/kemasukan-id');
+            echo '<script language="javascript">';
+            echo 'alert("Id Penilaian tidak sah");';
+            echo "window.location.href='/kemasukan-id';";
+            echo '</script>';
         }
 
         // check calon match dgn id
         $nric = Auth::user()->nric;
         $check_id = MohonPenilaian::where('no_ic', $nric)->where('id_sesi', $id_penilaian)->first();
         if ($check_id == null) {
-            alert("Anda tiada dalam senarai calon penilaian untuk sesi ini");
-            return redirect('/kemasukan-id');
+            // alert("Anda tiada dalam senarai calon penilaian untuk sesi ini");
+            // return redirect('/kemasukan-id');
+            echo '<script language="javascript">';
+            echo 'alert("Anda tiada dalam senarai calon penilaian untuk sesi ini");';
+            echo "window.location.href='/kemasukan-id';";
+            echo '</script>';
         }
 
         // check calon dah jawab ke belum
         $id_penilaian_done = Bankjawapanpengetahuan::where('id_calon', $nric)->where('id_penilaian', $id_penilaian)->first();
         $kemahiran_done = Bankjawapancalon::where('ic_calon', $nric)->where('id_penilaian', $id_penilaian)->first();
         if (($id_penilaian_done != null) && ($kemahiran_done->status_jawab_internet == 1)  && ($kemahiran_done->status_jawab_word == 1) && ($kemahiran_done->status_jawab_email == 1)) {
-            alert("Anda telah menjawab penilaian ini.");
-            return redirect('/kemasukan-id');
+            // alert("Anda telah menjawab penilaian ini.");
+            // return redirect('/kemasukan-id');
+            echo '<script language="javascript">';
+            echo 'alert("Anda telah menjawab penilaian ini.");';
+            echo "window.location.href='/kemasukan-id';";
+            echo '</script>';
         } elseif (($id_penilaian_done != null) && ($kemahiran_done->status_jawab_internet == 0)  && ($kemahiran_done->status_jawab_word == 0) && ($kemahiran_done->status_jawab_email == 0)) {
             return redirect('/soalan-kemahiran-internet/' . $id_penilaian);
         } elseif (($id_penilaian_done != null) && ($kemahiran_done->status_jawab_internet == 1)  && ($kemahiran_done->status_jawab_word == 0) && ($kemahiran_done->status_jawab_email == 0)) {

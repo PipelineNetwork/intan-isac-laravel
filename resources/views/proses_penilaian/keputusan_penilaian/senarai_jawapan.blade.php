@@ -59,8 +59,10 @@
                         <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_pengetahuan }}</b>
                     </div>
                     <div class="card-body">
-                        <b class="text-black mt-3">Markah Penuh: {{ $markah_keseluruhan_pengetahuans->NILAI_JUMLAH_MARKAH }}</b><br>
-                        <b class="text-black">Markah Melepasi: {{ $markah_keseluruhan_pengetahuans->NILAI_MARKAH_LULUS }}</b><br>
+                        <b class="text-black mt-3">Markah Penuh:
+                            {{ $markah_keseluruhan_pengetahuans->NILAI_JUMLAH_MARKAH }}</b><br>
+                        <b class="text-black">Markah Melepasi:
+                            {{ $markah_keseluruhan_pengetahuans->NILAI_MARKAH_LULUS }}</b><br>
                         <div class="table-responsive">
                             <table class="table table-flush" id="datatable-peserta">
                                 <thead>
@@ -167,169 +169,187 @@
                                 $soalan_word = Soalankemahiranword::where('id', $jawapan_kemahiran->id_soalankemahiranword)->first();
                                 
                                 // dd($soalan_word);
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_1) && !empty($soalan_word->jawapan_1)) {
-                                    $markah_1 = $soalan_word->markah_1;
-                                    $display_betul_salah_1 = $soalan_word->jawapan_1;
-                                } elseif ($soalan_word->jawapan_1 == null) {
+                                if ($soalan_word != null) {
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_1) && !empty($soalan_word->jawapan_1)) {
+                                        $markah_1 = $soalan_word->markah_1;
+                                        $display_betul_salah_1 = $soalan_word->jawapan_1;
+                                    } elseif ($soalan_word->jawapan_1 == null) {
+                                        $markah_1 = 'Tiada';
+                                        $display_betul_salah_1 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_1 = 0;
+                                        $display_betul_salah_1 = $soalan_word->jawapan_1;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_2) && !empty($soalan_word->jawapan_2)) {
+                                        $markah_2 = $soalan_word->markah_2;
+                                        $display_betul_salah_2 = $soalan_word->jawapan_2;
+                                    } elseif ($soalan_word->jawapan_2 == null) {
+                                        $markah_2 = 'Tiada';
+                                        $display_betul_salah_2 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_2 = 0;
+                                        $display_betul_salah_2 = $soalan_word->jawapan_2;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_3) && !empty($soalan_word->jawapan_3)) {
+                                        $markah_3 = $soalan_word->markah_3;
+                                        $display_betul_salah_3 = $soalan_word->jawapan_3;
+                                    } elseif ($soalan_word->jawapan_3 == null) {
+                                        $markah_3 = 'Tiada';
+                                        $display_betul_salah_3 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_3 = 0;
+                                        $display_betul_salah_3 = $soalan_word->jawapan_3;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_4) && !empty($soalan_word->jawapan_4)) {
+                                        $markah_4 = $soalan_word->markah_4;
+                                        $display_betul_salah_4 = $soalan_word->jawapan_4;
+                                    } elseif ($soalan_word->jawapan_4 == null) {
+                                        $markah_4 = 'Tiada';
+                                        $display_betul_salah_4 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_4 = 0;
+                                        $display_betul_salah_4 = $soalan_word->jawapan_4;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_5) && !empty($soalan_word->jawapan_5)) {
+                                        $markah_5 = $soalan_word->markah_5;
+                                        $display_betul_salah_5 = $soalan_word->jawapan_5;
+                                    } elseif ($soalan_word->jawapan_5 == null) {
+                                        $markah_5 = 'Tiada';
+                                        $display_betul_salah_5 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_5 = 0;
+                                        $display_betul_salah_5 = $soalan_word->jawapan_5;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_6) && !empty($soalan_word->jawapan_6)) {
+                                        $markah_6 = $soalan_word->markah_6;
+                                        $display_betul_salah_6 = $soalan_word->jawapan_6;
+                                    } elseif ($soalan_word->jawapan_6 == null) {
+                                        $markah_6 = 'Tiada';
+                                        $display_betul_salah_6 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_6 = 0;
+                                        $display_betul_salah_6 = $soalan_word->jawapan_6;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_7) && !empty($soalan_word->jawapan_7)) {
+                                        $markah_7 = $soalan_word->markah_7;
+                                        $display_betul_salah_7 = $soalan_word->jawapan_7;
+                                    } elseif ($soalan_word->jawapan_7 == null) {
+                                        $markah_7 = 'Tiada';
+                                        $display_betul_salah_7 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_7 = 0;
+                                        $display_betul_salah_7 = $soalan_word->jawapan_7;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_8) && !empty($soalan_word->jawapan_8)) {
+                                        $markah_8 = $soalan_word->markah_8;
+                                        $display_betul_salah_8 = $soalan_word->jawapan_8;
+                                    } elseif ($soalan_word->jawapan_8 == null) {
+                                        $markah_8 = 'Tiada';
+                                        $display_betul_salah_8 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_8 = 0;
+                                        $display_betul_salah_8 = $soalan_word->jawapan_8;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_9) && !empty($soalan_word->jawapan_9)) {
+                                        $markah_9 = $soalan_word->markah_9;
+                                        $display_betul_salah_9 = $soalan_word->jawapan_9;
+                                    } elseif ($soalan_word->jawapan_9 == null) {
+                                        $markah_9 = 'Tiada';
+                                        $display_betul_salah_9 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_9 = 0;
+                                        $display_betul_salah_9 = $soalan_word->jawapan_9;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_10) && !empty($soalan_word->jawapan_10)) {
+                                        $markah_10 = $soalan_word->markah_10;
+                                        $display_betul_salah_10 = $soalan_word->jawapan_10;
+                                    } elseif ($soalan_word->jawapan_10 == null) {
+                                        $markah_10 = 'Tiada';
+                                        $display_betul_salah_10 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_10 = 0;
+                                        $display_betul_salah_10 = $soalan_word->jawapan_10;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_11) && !empty($soalan_word->jawapan_11)) {
+                                        $markah_11 = $soalan_word->markah_11;
+                                        $display_betul_salah_11 = $soalan_word->jawapan_11;
+                                    } elseif ($soalan_word->jawapan_11 == null) {
+                                        $markah_11 = 'Tiada';
+                                        $display_betul_salah_11 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_11 = 0;
+                                        $display_betul_salah_11 = $soalan_word->jawapan_11;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_12) && !empty($soalan_word->jawapan_12)) {
+                                        $markah_12 = $soalan_word->markah_12;
+                                        $display_betul_salah_12 = $soalan_word->jawapan_12;
+                                    } elseif ($soalan_word->jawapan_12 == null) {
+                                        $markah_12 = 'Tiada';
+                                        $display_betul_salah_12 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_12 = 0;
+                                        $display_betul_salah_12 = $soalan_word->jawapan_12;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_13) && !empty($soalan_word->jawapan_13)) {
+                                        $markah_13 = $soalan_word->markah_13;
+                                        $display_betul_salah_13 = $soalan_word->jawapan_13;
+                                    } elseif ($soalan_word->jawapan_13 == null) {
+                                        $markah_13 = 'Tiada';
+                                        $display_betul_salah_13 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_13 = 0;
+                                        $display_betul_salah_13 = $soalan_word->jawapan_13;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_14) && !empty($soalan_word->jawapan_14)) {
+                                        $markah_14 = $soalan_word->markah_14;
+                                        $display_betul_salah_14 = $soalan_word->jawapan_14;
+                                    } elseif ($soalan_word->jawapan_14 == null) {
+                                        $markah_14 = 'Tiada';
+                                        $display_betul_salah_14 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_14 = 0;
+                                        $display_betul_salah_14 = $soalan_word->jawapan_14;
+                                    }
+                                
+                                    if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_15) && !empty($soalan_word->jawapan_15)) {
+                                        $markah_15 = $soalan_word->markah_15;
+                                        $display_betul_salah_15 = $soalan_word->jawapan_15;
+                                    } elseif ($soalan_word->jawapan_15 == null) {
+                                        $markah_15 = 'Tiada';
+                                        $display_betul_salah_15 = 'Tiada Jawapan';
+                                    } else {
+                                        $markah_15 = 0;
+                                        $display_betul_salah_15 = $soalan_word->jawapan_15;
+                                    }
+                                } else {
                                     $markah_1 = 'Tiada';
-                                    $display_betul_salah_1 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_1 = 0;
-                                    $display_betul_salah_1 = $soalan_word->jawapan_1;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_2) && !empty($soalan_word->jawapan_2)) {
-                                    $markah_2 = $soalan_word->markah_2;
-                                    $display_betul_salah_2 = $soalan_word->jawapan_2;
-                                } elseif ($soalan_word->jawapan_2 == null) {
                                     $markah_2 = 'Tiada';
-                                    $display_betul_salah_2 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_2 = 0;
-                                    $display_betul_salah_2 = $soalan_word->jawapan_2;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_3) && !empty($soalan_word->jawapan_3)) {
-                                    $markah_3 = $soalan_word->markah_3;
-                                    $display_betul_salah_3 = $soalan_word->jawapan_3;
-                                } elseif ($soalan_word->jawapan_3 == null) {
                                     $markah_3 = 'Tiada';
-                                    $display_betul_salah_3 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_3 = 0;
-                                    $display_betul_salah_3 = $soalan_word->jawapan_3;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_4) && !empty($soalan_word->jawapan_4)) {
-                                    $markah_4 = $soalan_word->markah_4;
-                                    $display_betul_salah_4 = $soalan_word->jawapan_4;
-                                } elseif ($soalan_word->jawapan_4 == null) {
                                     $markah_4 = 'Tiada';
-                                    $display_betul_salah_4 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_4 = 0;
-                                    $display_betul_salah_4 = $soalan_word->jawapan_4;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_5) && !empty($soalan_word->jawapan_5)) {
-                                    $markah_5 = $soalan_word->markah_5;
-                                    $display_betul_salah_5 = $soalan_word->jawapan_5;
-                                } elseif ($soalan_word->jawapan_5 == null) {
                                     $markah_5 = 'Tiada';
-                                    $display_betul_salah_5 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_5 = 0;
-                                    $display_betul_salah_5 = $soalan_word->jawapan_5;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_6) && !empty($soalan_word->jawapan_6)) {
-                                    $markah_6 = $soalan_word->markah_6;
-                                    $display_betul_salah_6 = $soalan_word->jawapan_6;
-                                } elseif ($soalan_word->jawapan_6 == null) {
                                     $markah_6 = 'Tiada';
-                                    $display_betul_salah_6 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_6 = 0;
-                                    $display_betul_salah_6 = $soalan_word->jawapan_6;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_7) && !empty($soalan_word->jawapan_7)) {
-                                    $markah_7 = $soalan_word->markah_7;
-                                    $display_betul_salah_7 = $soalan_word->jawapan_7;
-                                } elseif ($soalan_word->jawapan_7 == null) {
                                     $markah_7 = 'Tiada';
-                                    $display_betul_salah_7 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_7 = 0;
-                                    $display_betul_salah_7 = $soalan_word->jawapan_7;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_8) && !empty($soalan_word->jawapan_8)) {
-                                    $markah_8 = $soalan_word->markah_8;
-                                    $display_betul_salah_8 = $soalan_word->jawapan_8;
-                                } elseif ($soalan_word->jawapan_8 == null) {
                                     $markah_8 = 'Tiada';
-                                    $display_betul_salah_8 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_8 = 0;
-                                    $display_betul_salah_8 = $soalan_word->jawapan_8;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_9) && !empty($soalan_word->jawapan_9)) {
-                                    $markah_9 = $soalan_word->markah_9;
-                                    $display_betul_salah_9 = $soalan_word->jawapan_9;
-                                } elseif ($soalan_word->jawapan_9 == null) {
                                     $markah_9 = 'Tiada';
-                                    $display_betul_salah_9 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_9 = 0;
-                                    $display_betul_salah_9 = $soalan_word->jawapan_9;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_10) && !empty($soalan_word->jawapan_10)) {
-                                    $markah_10 = $soalan_word->markah_10;
-                                    $display_betul_salah_10 = $soalan_word->jawapan_10;
-                                } elseif ($soalan_word->jawapan_10 == null) {
                                     $markah_10 = 'Tiada';
-                                    $display_betul_salah_10 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_10 = 0;
-                                    $display_betul_salah_10 = $soalan_word->jawapan_10;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_11) && !empty($soalan_word->jawapan_11)) {
-                                    $markah_11 = $soalan_word->markah_11;
-                                    $display_betul_salah_11 = $soalan_word->jawapan_11;
-                                } elseif ($soalan_word->jawapan_11 == null) {
                                     $markah_11 = 'Tiada';
-                                    $display_betul_salah_11 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_11 = 0;
-                                    $display_betul_salah_11 = $soalan_word->jawapan_11;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_12) && !empty($soalan_word->jawapan_12)) {
-                                    $markah_12 = $soalan_word->markah_12;
-                                    $display_betul_salah_12 = $soalan_word->jawapan_12;
-                                } elseif ($soalan_word->jawapan_12 == null) {
                                     $markah_12 = 'Tiada';
-                                    $display_betul_salah_12 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_12 = 0;
-                                    $display_betul_salah_12 = $soalan_word->jawapan_12;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_13) && !empty($soalan_word->jawapan_13)) {
-                                    $markah_13 = $soalan_word->markah_13;
-                                    $display_betul_salah_13 = $soalan_word->jawapan_13;
-                                } elseif ($soalan_word->jawapan_13 == null) {
                                     $markah_13 = 'Tiada';
-                                    $display_betul_salah_13 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_13 = 0;
-                                    $display_betul_salah_13 = $soalan_word->jawapan_13;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_14) && !empty($soalan_word->jawapan_14)) {
-                                    $markah_14 = $soalan_word->markah_14;
-                                    $display_betul_salah_14 = $soalan_word->jawapan_14;
-                                } elseif ($soalan_word->jawapan_14 == null) {
                                     $markah_14 = 'Tiada';
-                                    $display_betul_salah_14 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_14 = 0;
-                                    $display_betul_salah_14 = $soalan_word->jawapan_14;
-                                }
-                                
-                                if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_15) && !empty($soalan_word->jawapan_15)) {
-                                    $markah_15 = $soalan_word->markah_15;
-                                    $display_betul_salah_15 = $soalan_word->jawapan_15;
-                                } elseif ($soalan_word->jawapan_15 == null) {
                                     $markah_15 = 'Tiada';
-                                    $display_betul_salah_15 = 'Tiada Jawapan';
-                                } else {
-                                    $markah_15 = 0;
-                                    $display_betul_salah_15 = $soalan_word->jawapan_15;
                                 }
                                 
                             @endphp
@@ -746,15 +766,4 @@
             sortable: false,
         });
     </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
-    {{-- <script src="/assets/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript">
-        CKEDITOR.replace('editor-jawapan-calon', {
-            language: 'en',
-            height: '500px',
-            width: 'auto',
-            extraPlugins: 'save'
-        });
-    </script> --}}
 @stop

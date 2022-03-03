@@ -75,7 +75,7 @@
                         </thead>
                         <tbody>
                             @foreach ($senarai_semak_jawapans as $senarai_semak_jawapan)
-                                @if (($senarai_semak_jawapan['status'] != 'Gagal') && ($senarai_semak_jawapan['status'] != 'Lulus'))
+                                @if ($senarai_semak_jawapan['status'] != 'Gagal' && $senarai_semak_jawapan['status'] != 'Lulus')
                                     <tr>
                                         <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
                                         <td class="text-sm text-center font-weight-normal">
@@ -144,11 +144,4 @@
             // searchable: false,
         });
     </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
-    {{-- <script language="javascript">
-        setTimeout(function() {
-            window.location.reload(1);
-        }, 60000);
-    </script> --}}
 @stop
