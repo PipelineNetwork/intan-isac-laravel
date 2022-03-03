@@ -34,6 +34,13 @@ class KemasukanPenilaianController extends Controller
             echo '</script>';
         }
 
+        if ($jadual->status == 'Pembatalan') {
+            echo '<script language="javascript">';
+            echo 'alert("Id Penilaian sudah dibatalkan");';
+            echo "window.location.href='/kemasukan-id';";
+            echo '</script>';
+        }
+
         // check calon match dgn id
         $nric = Auth::user()->nric;
         $check_id = MohonPenilaian::where('no_ic', $nric)->where('id_sesi', $id_penilaian)->first();

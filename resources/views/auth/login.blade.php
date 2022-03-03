@@ -394,7 +394,6 @@
                                                     <td class="text-sm text-center font-weight-normal"><span
                                                             class="badge badge-lg badge-success">Dibuka</span></td>
                                                 @endif
-
                                             @else
                                                 <td class="text-sm text-center font-weight-normal"><span
                                                         class="badge badge-lg badge-info">{{ $jadual['status'] }} -
@@ -417,23 +416,14 @@
             <div class="modal-content">
                 <div class="modal-header" style="background-color:#FFA500;">
                     <h5 class="modal-title text-white" id="exampleModalLabel">MAKLUMAN TERKINI</h5>
-                </div>˝
+                </div>
                 <div class="modal-body">
-                    <p>Sistem Penilaian ISAC telah dinaiktaraf kepada platform sistem secara dalam talian sepenuhnya
-                        bermula pada tahun 2022.</p>
-
-                    <p>Sistem ISAC baharu mengetengahkan konsep End-To-End di mana calon akan membuat pendaftaran,
-                        pemilihan jadual dan menduduki penilaian secara dalam talian sepenuhnya tanpa perlu hadir secara
-                        fizikal di INTAN, JPA atau mana-mana kampus INTAN.</p>
-
-                    <p>Sebagai tambahan, calon hanya perlu menjawab peperiksaan dari lokasi mereka iaitu sama ada di
-                        rumah
-                        atau di pejabat.</p>
-                    <br>
+                    <p><strong>Penilaian ISAC 2022 secara online telah dibuka. Sila buat pendaftaran terlebih
+                            dahulu.</strong></p>
 
                     <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
-                        dapat
-                        dijalankan dengan sempurna:</p>
+                        dapat dijalankan dengan sempurna:
+                    </p>
 
                     <ol>
                         <li>Capaian internet yang baik</li>
@@ -445,13 +435,16 @@
                         </li>
                     </ol>
 
-                    <p>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan kelak. Sila rujuk portal ini
-                        untuk
-                        info terkini.</p>
+                    <p><strong>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan dalam masa terdekat. Sila
+                            rujuk
+                            portal ini untuk info terkini dan buat pendaftaran terlebih dahulu.<strong></p>
 
+                    <p>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</p>
 
+                    <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf"
+                            download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran ISAC</a></p>
 
-                    <p>Sekian Terima Kasih</p>
+                    <p>Sekian, terima kasih.</p>
 
                     <p>-URUSETIA ISAC-</p>
                 </div>

@@ -20,7 +20,7 @@ class DashboardController extends Controller
     public function index()
     {
         $current_date = date('Y-m-d');
-        $jaduals = Jadual::orderBy('TARIKH_SESI', 'desc')
+        $jaduals = Jadual::orderBy('TARIKH_SESI', 'asc')
             ->where('TARIKH_SESI', '>=', $current_date)
             ->get();
         

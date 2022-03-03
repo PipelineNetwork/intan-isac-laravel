@@ -74,9 +74,6 @@
                                     <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                         Tindakan</th>
                                 @endhasanyrole
-                                {{-- <th>Fail Aduan</th>
-                                <th>Keterangan Balas</th>
-                                <th>Fail Balas</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -98,23 +95,20 @@
                                             </span>
                                         @endif
                                     </td>
-                                    {{-- <td>{{ $tambahaduan['status'] }}</td> --}}
                                     <td class="text-sm text-center font-weight-normal">
                                         <a data-bs-toggle="modal" data-bs-target="#modal-form4-{{ $tambahaduan->id }}">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
                                     </td>
-                                    {{-- <td><a href="storage/{{ $tambahaduan['file_aduan_send'] }}"
-                                            target="_blank">{{ $tambahaduan['file_aduan_send'] }}</a>
-                                    </td>
-                                    <td>{{ $tambahaduan['keterangan_aduan_reply'] }}</td>
-                                    <td><a href="storage/{{ $tambahaduan['file_aduan_reply'] }}"
-                                            target="_blank">{{ $tambahaduan['file_aduan_reply'] }}
-                                    </td> --}}
                                     @hasanyrole('pentadbir sistem|pentadbir penilaian')
                                         <td class="text-sm text-center font-weight-normal"><a class="btn btn-info text-white"
-                                                href="/tambahaduans/{{ $tambahaduan['id'] }}/edit" style="color:black;"> Balas
-                                            </a>
+                                                href="/tambahaduans/{{ $tambahaduan->id }}/edit" style="color:black;">
+                                                Balas
+                                            </a>&emsp;
+                                            <button class="btn btn-danger" data-bs-toggle="modal" style="cursor: pointer"
+                                                data-bs-target="#modaldelete-{{ $tambahaduan->id }}">
+                                                Hapus
+                                            </button>
                                         </td>
                                     @endhasanyrole
 
@@ -165,7 +159,8 @@
                                                                     <label for="aduan_reply">Keterangan Balas :</label>
                                                                     <textarea class="form-control"
                                                                         name="keterangan_aduan_reply" id="aduan_reply"
-                                                                        rows="3" required readonly>{{ $tambahaduan->keterangan_aduan_reply }}</textarea>
+                                                                        rows="3" required
+                                                                        readonly>{{ $tambahaduan->keterangan_aduan_reply }}</textarea>
                                                                 </div>
                                                                 @if ($tambahaduan['file_rayuan_reply'] != null)
                                                                     <div class="form-group">
@@ -194,6 +189,29 @@
                                                     </div>
 
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="modaldelete-{{ $tambahaduan->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body text-center">
+                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                <br>
+                                                Anda pasti untuk menghapus aduan ini?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn bg-gradient-secondary"
+                                                    data-bs-dismiss="modal">Batal</button>
+                                                <form method="POST" action="/tambahaduans/{{ $tambahaduan->id }}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-danger" type="submit">Hapus&emsp;<i
+                                                            class="fas fa-trash-alt"></i></button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

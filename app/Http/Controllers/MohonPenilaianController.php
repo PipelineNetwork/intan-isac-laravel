@@ -183,7 +183,7 @@ class MohonPenilaianController extends Controller
         $maklumat_calon = Tugas::where('ID_PESERTA', $permohonan->id_calon)->first();
 
         $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN - 1;
-        $kekosongan->BILANGAN_CALON = $kekosongan->BILANGAN_CALON+1;
+        $kekosongan->BILANGAN_CALON = $kekosongan->BILANGAN_CALON + 1;
         $kekosongan->save();
 
         $tahap = $kekosongan->KOD_TAHAP;
@@ -719,8 +719,10 @@ class MohonPenilaianController extends Controller
 
     public function daftar_permohonan_calon(Request $request)
     {
-        // kemaskini profil
         $user_profils1 = User::find($request->user()->id);
+        $user_profils1->name = $request->NAMA_PESERTA;
+        $user_profils1->nric = $request->NP_KAD_PENGENALAN;
+        $user_profils1->email = $request->EMEL_PESERTA;
 
         $user_profils2 = Permohanan::where('user_id', $user_profils1->id)->first();
         $user_profils2->NAMA_PESERTA = $request->NAMA_PESERTA;
@@ -758,6 +760,7 @@ class MohonPenilaianController extends Controller
         $user_profils4->KOD_JENIS_PERKHIDMATAN = $request->KOD_JENIS_PERKHIDMATAN;
         $user_profils4->KOD_GRED_JAWATAN = $request->KOD_GRED_JAWATAN;
 
+        $user_profils1->save();
         $user_profils2->save();
         $user_profils3->save();
         $user_profils4->save();
@@ -878,10 +881,10 @@ class MohonPenilaianController extends Controller
                 ->attachData($pdf->output(), 'Surat_tawaran.pdf');
         });
 
-        Mail::send('emails.penyelia_pendaftaran', $data_email, function($message)use($recipient_penyelia, $pdf) {
+        Mail::send('emails.penyelia_pendaftaran', $data_email, function ($message) use ($recipient_penyelia, $pdf) {
             $message->to($recipient_penyelia)
-                    ->subject("ISAC - Permohonan Penilaian ISAC")
-                    ->attachData($pdf->output(), 'Surat_tawaran.pdf');
+                ->subject("ISAC - Permohonan Penilaian ISAC")
+                ->attachData($pdf->output(), 'Surat_tawaran.pdf');
         });
 
         return $pdf->download('Surat_tawaran_' . $permohonan->no_ic . '.pdf');

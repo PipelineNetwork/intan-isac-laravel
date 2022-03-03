@@ -177,8 +177,11 @@ class TambahAduanController extends Controller
      * @param  \App\Models\TambahAduan  $tambahAduan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TambahAduan $tambahAduan)
+    public function destroy($tambahAduan)
     {
-        //
+        $tambahaduan = TambahAduan::find($tambahAduan);
+        
+        $tambahaduan->delete();
+        return redirect('/tambahaduans');
     }
 }

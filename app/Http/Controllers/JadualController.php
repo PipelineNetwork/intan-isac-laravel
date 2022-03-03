@@ -33,7 +33,7 @@ class JadualController extends Controller
         $penyelaras = User::where('user_group_id', '3')->get();
         // dd($penyelaras);
         $jaduals = Jadual::orderBy('TARIKH_SESI', 'desc')
-            ->whereYear('TARIKH_SESI', '>=', 2021)
+            // ->whereYear('TARIKH_SESI', '>=', 2021)
             ->get();
 
         $jadual_list = Jadual::all();
@@ -361,19 +361,15 @@ class JadualController extends Controller
         $jadual->save();
 
         $idpenilaian = $jadual->ID_PENILAIAN;
-        $list_calon = MohonPenilaian::where('id_sesi', $idpenilaian)->get();
-
-        $emel_peserta = [];
+        // $list_calon = MohonPenilaian::where('id_sesi', $idpenilaian)->get();
+        $list_calon = MohonPenilaian::where('id_sesi', $idpenilaian)->join('users', 'mohon_penilaians.no_ic', 'users.nric')->get();
+        // dd($list_calon);
+        $recipient = [];
         foreach ($list_calon as $calon) {
-            $id_peserta = $calon->id_calon;
-            $peserta = Permohanan::where('ID_PESERTA', $id_peserta)->first();
-            if ($peserta != null) {
-                $email = $peserta->EMEL_PESERTA;
-                $emel_peserta = $email;
-            }
-        }
+            $id_peserta = $calon->email;
 
-        $recipient = $emel_peserta;
+            array_push($recipient, $id_peserta);
+        }
 
         if ($request->status == 'Penangguhan') {
             Mail::to($recipient)->send(new JadualKemaskiniPenangguhan($jadual));
