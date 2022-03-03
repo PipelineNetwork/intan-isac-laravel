@@ -759,7 +759,6 @@
                                                     <?php
                                                     $jadual->KEKOSONGAN = $jadual->JUMLAH_KESELURUHAN - $jadual->BILANGAN_CALON;
                                                     $bilangan = $jadual->KEKOSONGAN;
-                                                    echo $bilangan
                                                     ?>
                                                     <td class="text-sm text-center font-weight-normal">
                                                         @if ($bilangan)
