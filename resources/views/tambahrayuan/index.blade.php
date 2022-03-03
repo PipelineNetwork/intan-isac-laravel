@@ -111,10 +111,15 @@
                                             @hasanyrole('pentadbir sistem|pentadbir penilaian')
                                                 <td class="text-sm text-center font-weight-normal"><a
                                                         class="btn btn-info text-white"
-                                                        href="/tambahrayuans/{{ $tambahrayuan['id'] }}/edit"
+                                                        href="/tambahrayuans/{{ $tambahrayuan->id }}/edit"
                                                         style="color:black;">
                                                         Balas
-                                                    </a>
+                                                    </a>&emsp;
+                                                    <button class="btn btn-danger" data-bs-toggle="modal"
+                                                        style="cursor: pointer"
+                                                        data-bs-target="#modaldelete-{{ $tambahrayuan->id }}">
+                                                        Hapus
+                                                    </button>
                                                 </td>
                                             @endhasanyrole
 
@@ -196,6 +201,31 @@
                                                             </div>
 
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="modaldelete-{{ $tambahrayuan->id }}"
+                                            tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-body text-center">
+                                                        <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                        <br>
+                                                        Anda pasti untuk menghapus rayuan ini?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn bg-gradient-secondary"
+                                                            data-bs-dismiss="modal">Batal</button>
+                                                        <form method="POST"
+                                                            action="/tambahrayuans/{{ $tambahrayuan->id }}">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button class="btn btn-danger" type="submit">Hapus&emsp;<i
+                                                                    class="fas fa-trash-alt"></i></button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>

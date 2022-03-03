@@ -90,4 +90,23 @@
             </form>
         </div>
     </div>
+
+    <section class="preloader" id="preload">
+        <div class="spinner" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="word">
+            <span>Sila Tunggu...</span>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function() {
+            $('#preload').hide();
+        });
+
+        $(document).on('submit', 'form', function() {
+            $('#preload').show();
+        });
+    </script>
 @stop

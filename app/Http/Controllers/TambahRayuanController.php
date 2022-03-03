@@ -173,8 +173,11 @@ class TambahRayuanController extends Controller
      * @param  \App\Models\TambahRayuan  $tambahRayuan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TambahRayuan $tambahRayuan)
+    public function destroy($tambahRayuan)
     {
-        //
+        $tambahrayuan = TambahRayuan::find($tambahRayuan);
+        
+        $tambahrayuan->delete();
+        return redirect('/tambahrayuans');
     }
 }

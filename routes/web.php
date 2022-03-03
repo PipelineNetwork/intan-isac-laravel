@@ -75,10 +75,10 @@ Route::resource('/pengurusanpengguna', PenggunaController::class);
 
 // Route::resource('/pengawaspengguna',PengawasController::class);
 
-Route::resource('/tambahaduans', TambahAduanController::class);
-
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 require __DIR__ . '/auth.php';
+
+Route::resource('/tambahaduans', TambahAduanController::class);
 
 Route::resource('/tambahrayuans', TambahRayuanController::class);
 
