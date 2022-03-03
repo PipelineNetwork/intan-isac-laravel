@@ -79,13 +79,15 @@ use App\Models\Jadual;
                                         @endrole
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">
                                             Tarikh Penilaian</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">
+                                            Surat Tawaran</th>
                                         {{-- masa dgn lokasi --}}
                                         {{-- <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawatan</th> --}}
                                         @role('calon')
                                             <th class="text-uppercase text-center font-weight-bolder opacity-7">
                                                 Status</th>
-                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">
-                                                Surat Tawaran</th>
+                                            {{-- <th class="text-uppercase text-center font-weight-bolder opacity-7">
+                                                Surat Tawaran</th> --}}
                                             {{-- <th
                                                  class="text-uppercase text-center font-weight-bolder opacity-7">
                                                 Penjadualan</th> --}}
@@ -175,7 +177,11 @@ use App\Models\Jadual;
                                                 <td class="text-sm text-center font-weight-normal">
                                                     {{ date('d-m-Y', strtotime($peserta['tarikh_sesi'])) }}</td>
                                                 {{-- masa --}}
-                                                {{-- <td class="text-sm text-center font-weight-normal">{{ $peserta['taraf_jawatan'] }}</td> --}}
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    <a href="/cetak_surat/{{ $peserta['id'] }}"
+                                                        class="btn mb-0">Cetak&emsp;<i
+                                                            class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                                </td>
                                                 <td class="text-sm text-center font-weight-normal">
                                                     <a data-bs-toggle="modal" style="cursor: pointer"
                                                         data-bs-target="#modaldelete-{{ $peserta['id'] }}">
