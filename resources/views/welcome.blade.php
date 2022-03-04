@@ -410,8 +410,8 @@
                                                         <span class="badge badge-lg badge-success">Dibuka</span>
                                                     @endif
                                                 @else
-                                                    <span class="badge badge-lg badge-info">{{ $jadual->status }} -
-                                                        {{ $jadual->keterangan }}</span>
+                                                    <span
+                                                        class="badge badge-lg badge-info">{{ $jadual->status }}</span>
                                                 @endif
                                             </td>
                                         </tr>
@@ -433,7 +433,39 @@
                     <h5 class="modal-title text-white" id="exampleModalLabel">MAKLUMAN TERKINI</h5>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Penilaian ISAC 2022 secara online telah dibuka. Sila buat pendaftaran terlebih dahulu.</strong></p>
+                    <p><strong>PERHATIAN!</strong></p>
+
+                    <p><strong>PEMBATALAN JADUAL PENILAIAN ISAC</strong></p>
+
+                    <p>Dukacita dimaklumkan bahawa penilaian ISAC yang akan diadakan pada tarikh berikut telah
+                        <strong>DIBATALKAN</strong>
+                        kerana berlaku masalah teknikal pada sistem.
+                    </p>
+
+                    <ol>
+                        <li>
+                            <strong>7 Mac 2022</strong>
+                        </li>
+                        <li>
+                            <strong>9 Mac 2022</strong>
+                        </li>
+                        <li>
+                            <strong>14 Mac 2022</strong>
+                        </li>
+                        <li>
+                            <strong>16 Mac 2022</strong>
+                        </li>
+                    </ol>
+
+                    <p>Mohon tuan/puan untuk membuat permohonan baru. Segala kesulitan amatlah dikesali.</p>
+
+                    <p>Sebarang pertanyaan boleh menghubungi pihak urusetia melalui e-mel
+                        <u>isachelp@intanbk.intan.my</u> dan
+                        disalin (cc) <u>dlisachelp@intanbk.intan.my</u>.
+                    </p>
+                    <hr class="my-4" style="height: 3px">
+                    <p><strong>Penilaian ISAC 2022 secara online telah dibuka. Sila buat pendaftaran terlebih
+                            dahulu.</strong></p>
 
                     <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
                         dapat dijalankan dengan sempurna:
@@ -449,8 +481,9 @@
                         </li>
                     </ol>
 
-                    <p><strong>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan dalam masa terdekat. Sila rujuk
-                        portal ini untuk info terkini dan buat pendaftaran terlebih dahulu.<strong></p>
+                    <p><strong>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan dalam masa terdekat. Sila
+                            rujuk
+                            portal ini untuk info terkini dan buat pendaftaran terlebih dahulu.<strong></p>
 
                     <p>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</p>
 

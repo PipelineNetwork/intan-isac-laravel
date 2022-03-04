@@ -721,7 +721,7 @@ class MohonPenilaianController extends Controller
     {
         $user_profils1 = User::find($request->user()->id);
         $user_profils1->name = $request->NAMA_PESERTA;
-        $user_profils1->nric = $request->NP_KAD_PENGENALAN;
+        $user_profils1->nric = $request->NO_KAD_PENGENALAN;
         $user_profils1->email = $request->EMEL_PESERTA;
 
         $user_profils2 = Permohanan::where('user_id', $user_profils1->id)->first();

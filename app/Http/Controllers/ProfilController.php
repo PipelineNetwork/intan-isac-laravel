@@ -111,6 +111,7 @@ class ProfilController extends Controller
         if ($current_user->user_group_id == 5) {
             $user_profils1 = User::find($request->user()->id);
             $user_profils1->email = $request->EMEL_PESERTA;
+            $user_profils1->nric = $request->NO_KAD_PENGENALAN;
             $user_profils1->save();
             $user_profils2 = Permohanan::where('user_id', $user_profils1->id)->first();
             

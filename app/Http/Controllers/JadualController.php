@@ -358,6 +358,13 @@ class JadualController extends Controller
         // dd($jadual);
         $jadual->status = $request->status;
         $jadual->keterangan = $request->keterangan;
+
+        $tukar_status_penilaian = MohonPenilaian::where('id_sesi', $jadual->ID_PENILAIAN)->get();
+        
+        foreach ($tukar_status_penilaian as $tukar_status_penilaian_batal) {
+            $tukar_status_penilaian_batal->status_penilaian = 'Pembatalan';
+            $tukar_status_penilaian_batal->save();
+        }
         $jadual->save();
 
         $idpenilaian = $jadual->ID_PENILAIAN;
