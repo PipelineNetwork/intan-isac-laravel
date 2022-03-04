@@ -162,8 +162,9 @@ class TambahAduanController extends Controller
         $user = User::where('users.id', '=', $tambahaduan->user_id)
             ->get()->first();
 
-        // dd($user);
-        Mail::to($user->email)->send(new AduanDibalas($tambahaduan));
+        if ($user->email != null) {
+            Mail::to($user->email)->send(new AduanDibalas($tambahaduan));
+        }
 
         return redirect('/tambahaduans');
     }

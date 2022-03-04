@@ -160,7 +160,10 @@ class TambahRayuanController extends Controller
         $user = User::where('users.id', '=', $tambahrayuan->user_id)
             ->get()->first();
 
-        Mail::to($user->email)->send(new RayuanDibalas($tambahrayuan));
+        if ($user->email != null) {
+            Mail::to($user->email)->send(new RayuanDibalas($tambahrayuan));
+        }
+
         return redirect('/tambahrayuans');
     }
 
