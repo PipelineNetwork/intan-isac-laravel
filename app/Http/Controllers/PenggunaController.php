@@ -282,6 +282,7 @@ class PenggunaController extends Controller
         if ($user_info->user_group_id == '5') {
             $user_profils1 = User::where('id', $user_info->id)->first();
             $user_profils1->email = $request->email;
+            $user_profils1->nric = $request->nric;
             $role = Role::where('id', $user_info->user_group_id)->first();
             $user_profils1->removeRole($role->name);
             $user_profils1->user_group_id = $request->user_group_id;

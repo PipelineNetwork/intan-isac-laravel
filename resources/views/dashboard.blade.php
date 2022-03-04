@@ -761,11 +761,7 @@
                                                     $bilangan = $jadual->KEKOSONGAN;
                                                     ?>
                                                     <td class="text-sm text-center font-weight-normal">
-                                                        @if ($bilangan)
-                                                            0
-                                                        @else
-                                                            {{ $bilangan }}
-                                                        @endif
+                                                        {{ $bilangan }}
                                                     </td>
                                                     <td class="text-sm text-center font-weight-normal">
                                                         {{ $jadual->platform }}</td>
