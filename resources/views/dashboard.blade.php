@@ -819,7 +819,7 @@
                                                                             <button class="btn btn-sm bg-gradient-info m-0"
                                                                                 type="submit">Daftar</button>
                                                                         </form>
-                                                                    @elseif ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0)
+                                                                    @elseif (($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN <= 0))
                                                                         <button class="btn btn-sm bg-gradient-warning m-0"
                                                                             disabled>Batal</button>
                                                                     @else
