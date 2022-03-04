@@ -457,7 +457,7 @@
                         </li>
                     </ol>
 
-                    <p>Mohon tuan/puan untuk membuat permohonan baru. Segala kesulitan amatlah dikesali.</p>
+                    <p><strong>Jadual baharu akan dimuatnaik pada Isnin 7 Mac 2022.</strong> Mohon tuan/puan untuk membuat permohonan baru. Segala kesulitan amatlah dikesali.</p>
 
                     <p>Sebarang pertanyaan boleh menghubungi pihak urusetia melalui e-mel
                         <u>isachelp@intanbk.intan.my</u> dan
