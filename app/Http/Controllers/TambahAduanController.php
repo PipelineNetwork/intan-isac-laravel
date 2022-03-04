@@ -159,14 +159,11 @@ class TambahAduanController extends Controller
         $tambahaduan->user_id = $request->user_id;
         $tambahaduan->save();
 
-        $user = User::join('pro_peserta', 'users.nric', 'pro_peserta.NO_KAD_PENGENALAN')
-            ->where('users.id', '=', $tambahaduan->user_id)
-            ->select('pro_peserta.EMEL_PESERTA', 'pro_peserta.created_at')
-            ->orderBy('pro_peserta.created_at', 'desc')
+        $user = User::where('users.id', '=', $tambahaduan->user_id)
             ->get()->first();
 
         // dd($user);
-        Mail::to($user->EMEL_PESERTA)->send(new AduanDibalas($tambahaduan));
+        Mail::to($user->email)->send(new AduanDibalas($tambahaduan));
 
         return redirect('/tambahaduans');
     }
@@ -180,7 +177,7 @@ class TambahAduanController extends Controller
     public function destroy($tambahAduan)
     {
         $tambahaduan = TambahAduan::find($tambahAduan);
-        
+
         $tambahaduan->delete();
         return redirect('/tambahaduans');
     }
