@@ -481,9 +481,9 @@
                         </li>
                     </ol>
 
-                    <p><strong>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan dalam masa terdekat. Sila
+                    {{-- <p><strong>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan dalam masa terdekat. Sila
                             rujuk
-                            portal ini untuk info terkini dan buat pendaftaran terlebih dahulu.<strong></p>
+                            portal ini untuk info terkini dan buat pendaftaran terlebih dahulu.<strong></p> --}}
 
                     <p>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</p>
 
