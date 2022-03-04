@@ -31,7 +31,7 @@ class TambahRayuanController extends Controller
         $role = Role::where('id', $user_role)->first();
         $role = $role->name;
 
-        if ($role == 'calon'){
+        if ($role == 'calon') {
             $tambahrayuans = TambahRayuan::where('user_id', $current_user)
                 ->join('users', 'tambah_rayuans.user_id', 'users.id')
                 ->select('tambah_rayuans.*', 'users.name', 'users.email')
@@ -157,13 +157,10 @@ class TambahRayuanController extends Controller
         $tambahrayuan->status = "dibalas";
         $tambahrayuan->save();
 
-        $user = User::join('pro_peserta', 'users.nric', 'pro_peserta.NO_KAD_PENGENALAN')
-            ->where('users.id', '=', $tambahrayuan->user_id)
-            ->select('pro_peserta.EMEL_PESERTA', 'pro_peserta.created_at')
-            ->orderBy('pro_peserta.created_at', 'desc')
+        $user = User::where('users.id', '=', $tambahrayuan->user_id)
             ->get()->first();
 
-        Mail::to($user->EMEL_PESERTA)->send(new RayuanDibalas($tambahrayuan));
+        Mail::to($user->email)->send(new RayuanDibalas($tambahrayuan));
         return redirect('/tambahrayuans');
     }
 
@@ -176,7 +173,7 @@ class TambahRayuanController extends Controller
     public function destroy($tambahRayuan)
     {
         $tambahrayuan = TambahRayuan::find($tambahRayuan);
-        
+
         $tambahrayuan->delete();
         return redirect('/tambahrayuans');
     }
