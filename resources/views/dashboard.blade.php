@@ -704,6 +704,8 @@
                                     <thead>
                                         <tr>
                                             <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                            {{-- <th class="text-uppercase text-center font-weight-bolder opacity-7">Status
+                                                Penilaian</th> --}}
                                             <th class="text-uppercase text-center font-weight-bolder opacity-7">Sesi</th>
                                             <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa</th>
                                             <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh
@@ -727,6 +729,15 @@
                                                 <tr>
                                                     <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}.
                                                     </td>
+                                                    {{-- <td class="text-sm text-center font-weight-normal">
+                                                        @if ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0)
+                                                            <span class="badge badge-lg badge-warning">Batal</span>
+                                                        @elseif ($jadual->status == null && $jadual->KEKOSONGAN > null)
+                                                            <span class="badge badge-lg badge-success">Dibuka</span>
+                                                        @else
+                                                            <span class="badge badge-lg badge-danger">Penuh</span>
+                                                        @endif
+                                                    </td> --}}
                                                     <td class="text-sm text-center font-weight-normal">
                                                         @if ($jadual->KOD_SESI_PENILAIAN == '01')
                                                             Sesi 01
@@ -782,7 +793,7 @@
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 @if ($done_daftar == null)
-                                                                    @if ($jadual->KEKOSONGAN > 0)
+                                                                    @if ($jadual->status == null && $jadual->KEKOSONGAN > 0)
                                                                         <form action="/mohonpenilaian/permohonan_penilaian"
                                                                             method="POST" class="m-0">
                                                                             @csrf
@@ -791,14 +802,30 @@
                                                                             <button class="btn btn-sm bg-gradient-info m-0"
                                                                                 type="submit">Daftar</button>
                                                                         </form>
+                                                                    @elseif ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0)
+                                                                        <button class="btn btn-sm bg-gradient-warning m-0"
+                                                                            disabled>Batal</button>
                                                                     @else
                                                                         <button class="btn btn-sm bg-gradient-danger m-0"
                                                                             disabled>Penuh</button>
                                                                     @endif
                                                                 @else
-                                                                    <button class="btn btn-sm bg-gradient-success m-0"
-                                                                        disabled>Telah
-                                                                        daftar</button>
+                                                                    @if ($jadual->status == null && $jadual->KEKOSONGAN > 0)
+                                                                        <form action="/mohonpenilaian/permohonan_penilaian"
+                                                                            method="POST" class="m-0">
+                                                                            @csrf
+                                                                            <input type="hidden" name="sesi"
+                                                                                value="{{ $jadual->ID_PENILAIAN }}">
+                                                                            <button class="btn btn-sm bg-gradient-info m-0"
+                                                                                type="submit">Daftar</button>
+                                                                        </form>
+                                                                    @elseif ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0)
+                                                                        <button class="btn btn-sm bg-gradient-warning m-0"
+                                                                            disabled>Batal</button>
+                                                                    @else
+                                                                        <button class="btn btn-sm bg-gradient-danger m-0"
+                                                                            disabled>Penuh</button>
+                                                                    @endif
                                                                 @endif
                                                             </div>
                                                         </div>
