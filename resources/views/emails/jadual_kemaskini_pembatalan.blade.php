@@ -5,7 +5,7 @@
 
 <p class="mt-4">{{ $keterangan }}</p>
 
-<p class="mt-4">Ubtuk itu, mohon tuan/puan membuat permohonan baru. Pihak kami memohon maaf atas sebarang kesulitan. Sekiranya ada pertanyaan sila hubungi pihak
-    INTAN melalui emel <u>dlisachelp@intanbk.intan.my.</u></p>
+<p class="mt-4">Untuk itu, mohon tuan/puan membuat permohonan baru. Pihak kami memohon maaf atas sebarang kesulitan. Sekiranya ada pertanyaan sila hubungi pihak
+    INTAN melalui e-mel <u>dlisachelp@intanbk.intan.my.</u></p>
 
 <p>Sekian, terima kasih.</p>
