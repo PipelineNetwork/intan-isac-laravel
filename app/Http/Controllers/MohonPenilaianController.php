@@ -321,7 +321,7 @@ class MohonPenilaianController extends Controller
                     'tarikh' => $permohonan->tarikh_sesi,
                 ];
 
-                Mail::send('emails.daftar_peserta', $data_email, function ($message) use ($recipient, $recipient_penyelia, $pdf) {
+                Mail::send('emails.daftar_peserta_kumpulan', $data_email, function ($message) use ($recipient, $recipient_penyelia, $pdf) {
                     $message->to($recipient)
                         ->cc($recipient_penyelia)
                         ->subject("ISAC - Permohonan Berjaya")
