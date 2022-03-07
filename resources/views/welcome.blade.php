@@ -468,7 +468,7 @@
                         pejabat sementara dan masih tiada talian telefon.
                     </p>
                     <hr class="my-4" style="height: 3px"> --}}
-                    <p><strong>Penilaian ISAC 2022 secara online telah dibuka. Sila buat pendaftaran terlebih
+                    <p><strong>Jadual Penilaian ISAC bulan Mac dan April 2022 akan mula dibuka pada 11 Mac 2022. Sila buat pendaftaran terlebih
                             dahulu.</strong></p>
 
                     <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
