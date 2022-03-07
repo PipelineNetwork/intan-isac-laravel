@@ -381,6 +381,8 @@
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh
                                             Penilaian</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa
+                                            Mula</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Saluran
                                             Penilaian</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Status
@@ -399,6 +401,10 @@
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $jadual['KOD_MASA_MULA'] }}
+                                                {{-- {{ date('h-i', strtotime($jadual['TARIKH_SESI'])) }} --}}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ $jadual->platform }}</td>
@@ -468,7 +474,8 @@
                         pejabat sementara dan masih tiada talian telefon.
                     </p>
                     <hr class="my-4" style="height: 3px"> --}}
-                    <p><strong>Jadual Penilaian ISAC bulan Mac dan April 2022 akan mula dibuka pada 11 Mac 2022. Sila buat pendaftaran terlebih
+                    <p><strong>Jadual Penilaian ISAC bulan Mac dan April 2022 akan mula dibuka pada 11 Mac 2022. Sila
+                            buat pendaftaran terlebih
                             dahulu.</strong></p>
 
                     <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
@@ -485,9 +492,8 @@
                         </li>
                     </ol>
 
-                    {{-- <p><strong>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan dalam masa terdekat. Sila
-                            rujuk
-                            portal ini untuk info terkini dan buat pendaftaran terlebih dahulu.<strong></p> --}}
+                    <p><strong>Nota: Sila guna <i>desktop</i> atau komputer riba semasa melayari portal ISAC kerana sistem tidak
+                            menyokong paparan dalam telefon bimbit buat masa ini.<strong></p>
 
                     <p>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</p>
 
