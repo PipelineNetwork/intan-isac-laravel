@@ -45,14 +45,14 @@ use App\Models\Jadual;
             <div class="col-lg-6">
                 <h5 class="font-weight-bolder">Permohonan Penilaian</h5>
             </div>
-            {{-- @can('daftar permohonan')
+            @can('daftar permohonan')
                 <div class="col-lg-6">
                     <div class="column-12">
                         <a href="/mohonpenilaian/create" class="btn bg-gradient-warning" type="submit"
                             style="float: right;">PILIH JADUAL</a>
                     </div>
                 </div>
-            @endcan --}}
+            @endcan
         </div>
 
         <div class="row">
@@ -155,6 +155,55 @@ use App\Models\Jadual;
                                                                     data-bs-dismiss="modal">Batal</button>
                                                                 <form method="POST"
                                                                     action="/mohonpenilaian/{{ $calon_3->id }}">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <button class="btn btn-danger" type="submit">Hapus</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </tr>
+                                        @endforeach
+                                    @elserole ('penyelaras')
+                                        @foreach ($penyelaras as $key => $penyelaras)
+                                            <tr>
+                                                <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $penyelaras['id_sesi'] }}
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal"
+                                                    style="text-transform: uppercase;">
+                                                    {{ $penyelaras['nama'] }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ date('d-m-Y', strtotime($penyelaras['tarikh_sesi'])) }}</td>
+                                                {{-- masa --}}
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    <a href="/cetak_surat/{{ $penyelaras['id'] }}"
+                                                        class="btn mb-0">Cetak&emsp;<i
+                                                            class="far fa-file-pdf fa-lg text-danger"></i></a>
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    <a data-bs-toggle="modal" style="cursor: pointer"
+                                                        data-bs-target="#modaldelete-{{ $penyelaras['id'] }}">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </a>
+                                                </td>
+                                                <div class="modal fade" id="modaldelete-{{ $penyelaras['id'] }}"
+                                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body text-center">
+                                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                                <br>
+                                                                Anda pasti untuk menghapus permohonan?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn bg-gradient-secondary"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <form method="POST"
+                                                                    action="/mohonpenilaian/{{ $penyelaras['id'] }}">
                                                                     @method('DELETE')
                                                                     @csrf
                                                                     <button class="btn btn-danger" type="submit">Hapus</button>

@@ -164,6 +164,7 @@
                                 <div class="form-group">
                                     <select class="form-control mb-0 hide" name="KOD_KEMENTERIAN">
                                         <option hidden value=""> Sila Pilih </option>
+                                        <option hidden value="Tiada"> Tidak Berkaitan </option>
                                         @foreach ($kementerians as $kementerian)
                                             <option value="{{ $kementerian->REFERENCECODE }}">
                                                 {{ $kementerian->DESCRIPTION1 }}</option>
