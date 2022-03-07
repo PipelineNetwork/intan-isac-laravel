@@ -406,6 +406,8 @@
                                                 @if ($jadual->status == null)
                                                     @if ($jadual->KEKOSONGAN == '0')
                                                         <span class="badge badge-lg badge-danger">Penuh</span>
+                                                    @elseif ($jadual->KEKOSONGAN < '0')
+                                                        <span class="badge badge-lg badge-danger">Penuh</span>
                                                     @else
                                                         <span class="badge badge-lg badge-success">Dibuka</span>
                                                     @endif
@@ -433,7 +435,7 @@
                     <h5 class="modal-title text-white" id="exampleModalLabel">MAKLUMAN TERKINI</h5>
                 </div>
                 <div class="modal-body">
-                    <p><strong>PERHATIAN!</strong></p>
+                    {{-- <p><strong>PERHATIAN!</strong></p>
 
                     <p><strong>PEMBATALAN JADUAL PENILAIAN ISAC</strong></p>
 
@@ -457,13 +459,15 @@
                         </li>
                     </ol>
 
-                    <p><strong>Jadual baharu akan dimuatnaik pada Isnin 7 Mac 2022.</strong> Mohon tuan/puan untuk membuat permohonan baru. Segala kesulitan amatlah dikesali.</p>
+                    <p><strong>Jadual baharu akan dimuatnaik pada Isnin 7 Mac 2022.</strong> Mohon tuan/puan untuk
+                        membuat permohonan baru. Segala kesulitan amatlah dikesali.</p>
 
                     <p>Sebarang pertanyaan boleh menghubungi pihak urusetia melalui e-mel
                         <u>isachelp@intanbk.intan.my</u> dan
-                        disalin (cc) <u>dlisachelp@intanbk.intan.my</u>.
+                        disalin (cc) <u>dlisachelp@intanbk.intan.my</u> kerana urusetia ISAC telah berpindah ke lokasi
+                        pejabat sementara dan masih tiada talian telefon.
                     </p>
-                    <hr class="my-4" style="height: 3px">
+                    <hr class="my-4" style="height: 3px"> --}}
                     <p><strong>Penilaian ISAC 2022 secara online telah dibuka. Sila buat pendaftaran terlebih
                             dahulu.</strong></p>
 
@@ -489,6 +493,12 @@
 
                     <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf"
                             download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran ISAC</a></p>
+
+                    <p>Sebarang pertanyaan boleh menghubungi pihak urusetia melalui e-mel
+                        <u>isachelp@intanbk.intan.my</u> dan
+                        disalin (cc) <u>dlisachelp@intanbk.intan.my</u> kerana urusetia ISAC telah berpindah ke lokasi
+                        pejabat sementara dan masih tiada talian telefon.
+                    </p>
 
                     <p>Sekian, terima kasih.</p>
 
