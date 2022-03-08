@@ -403,9 +403,10 @@ class MohonPenilaianController extends Controller
         $id_penilaian = $mohonPenilaian->id_sesi;
         $ic_calon = $mohonPenilaian->no_ic;
         $kekosongan = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
-
-        $kekosongan->BILANGAN_CALON = $kekosongan->BILANGAN_CALON - 1;
-        $kekosongan->KEKOSONGAN = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->BILANGAN_CALON;
+        
+        $kekosongan->BILANGAN_CALON = (int)$kekosongan->BILANGAN_CALON - 1;
+        $kekosongan->KEKOSONGAN = (int)$kekosongan->KEKOSONGAN + 1;
+        $kekosongan->save();
 
         $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get();
         foreach ($pengetahuan as $pengetahuan) {

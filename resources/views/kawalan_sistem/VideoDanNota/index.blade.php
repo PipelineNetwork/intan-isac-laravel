@@ -57,7 +57,7 @@
                         <b class="text-white">Senarai Video dan Nota</b>
                     </div>
                     <div class="table-responsive">
-                        <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
+                        <table class="table align-items-center mb-0 table-flush" id="datatable-basic-videonota">
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
@@ -79,24 +79,36 @@
                                         <td class="text-sm text-center font-weight-normal">{{ $videodannota['jenis'] }}
                                         </td>
                                         <td class="text-sm text-center font-weight-normal">
-                                            <div class="row">
-                                                <div class="col">
-                                                    {{-- update --}}
-                                                    <a href="/videodannota/{{ $videodannota['id'] }}/edit"
-                                                        class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                            <a href="/videodannota/{{ $videodannota['id'] }}/edit"
+                                                class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                            <button class="btn btn-danger" data-bs-toggle="modal" style="cursor: pointer"
+                                                data-bs-target="#modaldelete-{{ $videodannota->id }}">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <div class="modal fade" id="modaldelete-{{ $videodannota->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body text-center">
+                                                    <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                    <br>
+                                                    Anda pasti untuk menghapus maklumat ini?
                                                 </div>
-                                                <div class="col">
-                                                    {{-- delete --}}
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn bg-gradient-secondary"
+                                                        data-bs-dismiss="modal">Batal</button>
                                                     <form method="POST" action="videodannota/{{ $videodannota->id }}">
                                                         @method('DELETE')
                                                         @csrf
-                                                        <button class="btn btn-danger" type="submit"><i
-                                                                class="fas fa-trash-alt"></i></button>
+                                                        <button class="btn btn-danger" type="submit">Hapus</button>
                                                     </form>
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -108,9 +120,10 @@
 
     <script src="../../assets/js/plugins/datatables.js"></script>
     <script type="text/javascript">
-        const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
+        const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic-videonota", {
             searchable: true,
-            fixedHeight: true
+            fixedHeight: true,
+            sortable: false
         });
     </script>
 

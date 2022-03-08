@@ -39,9 +39,14 @@ class PasswordResetLinkController extends Controller
             $request->only('email')
         );
 
+        echo '<script language="javascript">';
+        echo 'alert("Sistem berjaya menghantar pautan untuk menukar kata laluan ke e-mel anda. Sila semak e-mel anda untuk membuat pengemaskinian kata laluan yang baharu.");';
+        echo "window.location.href='/forgot-password';";
+        echo '</script>';
+
         return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+            ? back()->with('status', __($status))
+            : back()->withInput($request->only('email'))
+            ->withErrors(['email' => __($status)]);
     }
 }

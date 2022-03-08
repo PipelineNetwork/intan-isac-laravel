@@ -45,14 +45,22 @@ use App\Models\Jadual;
             <div class="col-lg-6">
                 <h5 class="font-weight-bolder">Permohonan Penilaian</h5>
             </div>
-            @can('daftar permohonan')
+            @role('penyelaras')
+            <div class="col-lg-6">
+                <div class="column-12">
+                    <a href="/mohonpenilaian/create" class="btn bg-gradient-warning" type="submit"
+                        style="float: right;">PILIH JADUAL</a>
+                </div>
+            </div>
+            @endrole
+            {{-- @can('daftar permohonan')
                 <div class="col-lg-6">
                     <div class="column-12">
                         <a href="/mohonpenilaian/create" class="btn bg-gradient-warning" type="submit"
                             style="float: right;">PILIH JADUAL</a>
                     </div>
                 </div>
-            @endcan
+            @endcan --}}
         </div>
 
         <div class="row">
@@ -165,7 +173,7 @@ use App\Models\Jadual;
                                                 </div>
                                             </tr>
                                         @endforeach
-                                    @elserole ('penyelaras')
+                                        @elserole ('penyelaras')
                                         @foreach ($penyelaras as $key => $penyelaras)
                                             <tr>
                                                 <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>

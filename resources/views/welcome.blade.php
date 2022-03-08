@@ -41,8 +41,9 @@
     
     $current_date = date('Y-m-d');
     $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan', 'KEKOSONGAN')
-        ->orderBy('TARIKH_SESI', 'desc')
+        ->orderBy('TARIKH_SESI', 'asc')
         ->where('TARIKH_SESI', '>=', $current_date)
+        ->where('KOD_KATEGORI_PESERTA', '01')
         ->get();
     
     $lamanutama = LamanUtama::all();
@@ -588,6 +589,7 @@
         </div>
     </footer>
 
+    <script src="https://isacsupport.intan.my/chat_widget.js"></script>
     @include('sweet::alert')
     <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
