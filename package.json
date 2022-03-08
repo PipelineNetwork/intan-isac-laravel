@@ -25,6 +25,7 @@
         "ckeditor4": "^4.16.2",
         "ckeditor5": "^30.0.0",
         "datatables.net": "^1.10.25",
-        "datatables.net-dt": "^1.1.0"
+        "datatables.net-dt": "^1.1.0",
+        "sweetalert2": "^11.4.4"
     }
 }

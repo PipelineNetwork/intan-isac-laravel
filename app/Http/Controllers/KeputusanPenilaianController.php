@@ -210,7 +210,7 @@ class KeputusanPenilaianController extends Controller
             'rekod' => $rekod_sijil,
             'tahap' => $tahap
         ]);
-        return $pdf->download('Slip_keputusan_' . $ic . '.pdf');
+        return $pdf->download('Slip_keputusan_' . $ic . '_Lulus' . '.pdf');
     }
     public function sijil_isac($ic, $id_penilaian)
     {
@@ -232,7 +232,7 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
             'qr' => $qr_encode,
             'id_penilaian' => $id_penilaian
         ]);
-        return $pdf->download('Sijil_ISAC_' . $ic . '.pdf');
+        return $pdf->download('Sijil_ISAC_' . $ic . '_Lulus' . '.pdf');
     }
 
     public function view_sijil_penilaian($id_keputusan)
@@ -311,7 +311,7 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
         $markah_kem = $markah_internet +  $markah_word + $markah_email + $markah_email;
 
         $keputusan = KeputusanPenilaian::where('id_penilaian', $id_penilaian)->where('ic_peserta',  $ic)->first();
-        
+
         if (!empty($keputusan)) {
             $keputusan->id_peserta = $peserta->id_calon;
             $keputusan->id_penilaian = $id_penilaian;
@@ -475,9 +475,8 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
                 $no_sijil = $no_sijil_latest + 00001;
                 $keputusan->no_sijil = sprintf("%'.03d", $no_sijil);
             }
-            
         }
-        
+
         $keputusan->save();
         return redirect('/tamat-penilaian');
     }

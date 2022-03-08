@@ -23,7 +23,6 @@ class DashboardController extends Controller
         $jaduals = Jadual::orderBy('TARIKH_SESI', 'asc')
             ->where('TARIKH_SESI', '>=', $current_date)
             ->get();
-        
         $videodannotas = VideoDanNota::orderBy('jenis', 'asc')->get();
         // dd($videodannotas);
         $bil_mohon_jumlah = MohonPenilaian::where('jantina', 'Lelaki')
@@ -64,6 +63,7 @@ class DashboardController extends Controller
             ->where('jantina', 'Lelaki')
             ->orWhere('jantina', 'Perempuan')
             ->groupBy('monthname')
+            ->orderBy('monthname', 'asc')
             ->get()->toArray();
 
         // dd($graf_permohonan_bulanan);
