@@ -788,46 +788,49 @@
                                                         $no_ic = Auth::user()->nric;
                                                         $done_daftar = MohonPenilaian::where('no_ic', $no_ic)
                                                             ->where('id_sesi', $jadual->ID_PENILAIAN)
+                                                            ->where('status_penilaian', '!=', 'Pembatalan')
                                                             ->first();
+                                                        // dd($done_daftar);
                                                         ?>
                                                         <div class="row align-items-center">
-                                                            <div class="col">
-                                                                @if ($done_daftar == null)
-                                                                    @if ($jadual->status == null && $jadual->KEKOSONGAN > 0)
-                                                                        <form action="/mohonpenilaian/permohonan_penilaian"
-                                                                            method="POST" class="m-0">
-                                                                            @csrf
-                                                                            <input type="hidden" name="sesi"
-                                                                                value="{{ $jadual->ID_PENILAIAN }}">
-                                                                            <button class="btn btn-sm bg-gradient-info m-0"
-                                                                                type="submit">Daftar</button>
-                                                                        </form>
-                                                                    @elseif (($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN < 0))
-                                                                        <button class="btn btn-sm bg-gradient-warning m-0"
-                                                                            disabled>Batal</button>
-                                                                    @else
-                                                                        <button class="btn btn-sm bg-gradient-danger m-0"
-                                                                            disabled>Penuh</button>
-                                                                    @endif
+                                                            @if ($done_daftar != null)
+                                                                @if ($jadual->status != 'Pembatalan' && $jadual->KEKOSONGAN > 0)
+                                                                    <button class="btn btn-sm bg-gradient-info m-0"
+                                                                        disabled>Sudah Mendaftar</button>
+                                                                @elseif (($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN < 0))
+                                                                    <button class="btn btn-sm bg-gradient-warning m-0"
+                                                                        disabled>Batal</button>
                                                                 @else
-                                                                    @if ($jadual->status == null && $jadual->KEKOSONGAN > 0)
-                                                                        <form action="/mohonpenilaian/permohonan_penilaian"
-                                                                            method="POST" class="m-0">
-                                                                            @csrf
-                                                                            <input type="hidden" name="sesi"
-                                                                                value="{{ $jadual->ID_PENILAIAN }}">
-                                                                            <button class="btn btn-sm bg-gradient-info m-0"
-                                                                                type="submit">Daftar</button>
-                                                                        </form>
+                                                                    <button class="btn btn-sm bg-gradient-danger m-0"
+                                                                        disabled>Penuh</button>
+                                                                @endif
+                                                                {{-- @if ($jadual->status == null && $jadual->KEKOSONGAN > 0)
+                                                                        <button class="btn btn-sm bg-gradient-info m-0" disabled>Sudah Mendaftar</button>
                                                                     @elseif (($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN < 0))
                                                                         <button class="btn btn-sm bg-gradient-warning m-0"
                                                                             disabled>Batal</button>
                                                                     @else
                                                                         <button class="btn btn-sm bg-gradient-danger m-0"
                                                                             disabled>Penuh</button>
-                                                                    @endif
+                                                                    @endif --}}
+                                                            @else
+                                                                @if ($jadual->status == null && $jadual->KEKOSONGAN > 0)
+                                                                    <form action="/mohonpenilaian/permohonan_penilaian"
+                                                                        method="POST" class="m-0">
+                                                                        @csrf
+                                                                        <input type="hidden" name="sesi"
+                                                                            value="{{ $jadual->ID_PENILAIAN }}">
+                                                                        <button class="btn btn-sm bg-gradient-info m-0"
+                                                                            type="submit">Daftar</button>
+                                                                    </form>
+                                                                @elseif (($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN < 0))
+                                                                    <button class="btn btn-sm bg-gradient-warning m-0"
+                                                                        disabled>Batal</button>
+                                                                @else
+                                                                    <button class="btn btn-sm bg-gradient-danger m-0"
+                                                                        disabled>Penuh</button>
                                                                 @endif
-                                                            </div>
+                                                            @endif
                                                         </div>
                                                     </td>
                                                 </tr>

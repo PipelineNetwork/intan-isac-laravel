@@ -16,6 +16,7 @@ use App\Models\MohonPenilaian;
 use App\Models\Refgeneral;
 use Spatie\Permission\Models\Role;
 use App\Models\SelenggaraKawalanSistem;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JadualController extends Controller
 {
@@ -91,6 +92,7 @@ class JadualController extends Controller
         $jadual->user_id = $request->user_id;
         $jadual->ID_PENILAIAN = random_int(100000, 999999);
         $jadual->KEKOSONGAN = $request->JUMLAH_KESELURUHAN;
+        $jadual->BILANGAN_CALON = 0;
 
         if ($jadual->KOD_KATEGORI_PESERTA == "02") {
             if ($jadual->platform == "Fizikal") {

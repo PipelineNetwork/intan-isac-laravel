@@ -55,6 +55,7 @@
             margin-left: 25px;
             font-weight: bold;
         }
+
         .spinner {
             border: 1px solid transparent;
             border-radius: 3px;
@@ -644,8 +645,8 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <button class="btn mb-0 bg-gradient-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                                    this.closest('form').submit();">
+                                    <button class="btn mb-0 bg-gradient-danger" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); this.closest('form').submit();">
                                         {{ __('Log Keluar') }}
                                     </button>
                                 </form>
@@ -696,7 +697,6 @@
         </nav>
         <!-- End Navbar -->
         @yield('content')
-
         </div>
         <section class="preloader" id="preload2">
             <div class="spinner" role="status">
