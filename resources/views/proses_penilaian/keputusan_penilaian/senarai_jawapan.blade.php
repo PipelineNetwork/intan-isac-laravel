@@ -56,98 +56,128 @@
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Jawapan Calon (Pengetahuan)</b><br>
-                        <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_pengetahuan }}</b>
+                        @if ($keputusan_calons != null)
+                            <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_pengetahuan }}</b>
+                        @else
+                            <b class="text-white">Keputusan: Belum Menduduki Penilaian</b>
+                        @endif
                     </div>
                     <div class="card-body">
-                        <b class="text-black mt-3">Markah Penuh:
-                            {{ $markah_keseluruhan_pengetahuans->NILAI_JUMLAH_MARKAH }}</b><br>
-                        <b class="text-black">Markah Melepasi:
-                            {{ $markah_keseluruhan_pengetahuans->NILAI_MARKAH_LULUS }}</b><br>
-                        <div class="table-responsive">
-                            <table class="table table-flush" id="datatable-peserta">
-                                <thead>
-                                    <tr>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Calon
-                                        </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Sebenar
-                                        </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah Diberi
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($jawapan as $key => $jawapan)
+                        @if ($keputusan_calons != null)
+                            <b class="text-black mt-3">Markah Penuh:
+                                {{ $markah_keseluruhan_pengetahuans->NILAI_JUMLAH_MARKAH }}</b><br>
+                            <b class="text-black">Markah Melepasi:
+                                {{ $markah_keseluruhan_pengetahuans->NILAI_MARKAH_LULUS }}</b><br>
+                            <div class="table-responsive">
+                                <table class="table table-flush" id="datatable-peserta">
+                                    <thead>
                                         <tr>
-                                            <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan->pilihan_jawapan }}</td>
-                                            <td class="text-sm text-center font-weight-normal">{{ $jawapan->jawapan }}
-                                            </td>
-                                            <td class="text-sm text-center font-weight-normal">{{ $jawapan->markah }}</td>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan
+                                                Calon
+                                            </th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan
+                                                Sebenar
+                                            </th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah
+                                                Diberi
+                                            </th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($jawapan as $key => $jawapan)
+                                            <tr>
+                                                <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan->pilihan_jawapan }}</td>
+                                                <td class="text-sm text-center font-weight-normal">{{ $jawapan->jawapan }}
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">{{ $jawapan->markah }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <div class="card-header" style="background-color:#FFA500;">
+                                <b class="text-white">Jawapan Calon (Pengetahuan)</b><br>
+                            </div>
+                            <div class="card-body">
+                                <b class="text-white">Belum Menduduki Penilaian</b>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
 
             <div class="col-12">
                 <div class="card mt-3">
-                    <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Jawapan Calon (Kemahiran Internet)</b><br>
-                        <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_internet }}</b>
-                    </div>
-                    <div class="card-body">
-                        <b class="text-black mt-3">Markah Penuh: 2</b><br>
-                        <b class="text-black">Markah Melepasi: 2</b><br>
-                        <div class="table-responsive">
-                            <table class="table table-flush" id="datatable-jawapan-kemahiran-internet">
-                                <thead>
-                                    <tr>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Calon
-                                        </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Sebenar
-                                        </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah Diberi
-                                        </th>
-                                    </tr>
-                                </thead>
-
-                                @if ($jawapan_kemahiran != null)
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-sm text-center font-weight-normal">1.</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->url_teks }}
-                                            </td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->jawapansebenar_urlteks }}</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->markah_urlteks }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-sm text-center font-weight-normal">2.</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->carian_teks }}
-                                            </td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->jawapansebenar_carianteks }}</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->markah_carianteks }}</td>
-                                        </tr>
-                                    </tbody>
-                                @else
-                                    <tbody>
-                                    </tbody>
-                                @endif
-
-                            </table>
+                    @if ($keputusan_calons != null)
+                        <div class="card-header" style="background-color:#FFA500;">
+                            <b class="text-white">Jawapan Calon (Kemahiran Internet)</b><br>
+                            <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_internet }}</b>
                         </div>
-                    </div>
+                        <div class="card-body">
+                            <b class="text-black mt-3">Markah Penuh: 2</b><br>
+                            <b class="text-black">Markah Melepasi: 2</b><br>
+                            <div class="table-responsive">
+                                <table class="table table-flush" id="datatable-jawapan-kemahiran-internet">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan
+                                                Calon
+                                            </th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan
+                                                Sebenar
+                                            </th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah
+                                                Diberi
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    @if ($jawapan_kemahiran != null)
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-sm text-center font-weight-normal">1.</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->url_teks }}
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->jawapansebenar_urlteks }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->markah_urlteks }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-sm text-center font-weight-normal">2.</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->carian_teks }}
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->jawapansebenar_carianteks }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->markah_carianteks }}</td>
+                                            </tr>
+                                        </tbody>
+                                    @else
+                                        <tbody>
+                                        </tbody>
+                                    @endif
+
+                                </table>
+                            </div>
+                        </div>
+                    @else
+                        <div class="card-header" style="background-color:#FFA500;">
+                            <b class="text-white">Jawapan Calon (Kemahiran Internet)</b><br>
+                        </div>
+                        <div class="card-body">
+                            <b class="text-white">Belum Menduduki Penilaian</b>
+                        </div>
+                    @endif
                 </div>
             </div>
 
@@ -155,20 +185,20 @@
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Jawapan Calon (Kemahiran Pemprosesan Perkataan)</b><br>
-                        <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_word }}</b>
+                        @if ($keputusan_calons != null)
+                            <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_word }}</b>
+                        @else
+                            <b class="text-white">Belum Menduduki Penilaian</b>
+                        @endif
                     </div>
                     <div class="card-body">
                         <b class="text-black mt-3">Markah Penuh: 9</b><br>
-                        <b class="text-black">Markah Melepasi: 9</b><br>
-                        @php
-                            use App\Models\Soalankemahiranword;
-                        @endphp
+                        <b class="text-black">Markah Melepasi: 4</b><br>
                         @if ($jawapan_kemahiran != null)
                             @php
-                                
+                                use App\Models\Soalankemahiranword;
                                 $soalan_word = Soalankemahiranword::where('id', $jawapan_kemahiran->id_soalankemahiranword)->first();
                                 
-                                // dd($soalan_word);
                                 if ($soalan_word != null) {
                                     if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_1) && !empty($soalan_word->jawapan_1)) {
                                         $markah_1 = $soalan_word->markah_1;
@@ -659,84 +689,97 @@
 
             <div class="col-12">
                 <div class="card mt-3">
-                    <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Jawapan Calon (Kemahiran E-mel)</b><br>
-                        <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_email }}</b>
-                    </div>
-                    <div class="card-body">
-                        <b class="text-black mt-3">Markah Penuh: 4</b><br>
-                        <b class="text-black">Markah Melepasi: 4</b><br>
-                        <div class="table-responsive">
-                            <table class="table table-flush" id="datatable-jawapan-kemahiran-email">
-                                <thead>
-                                    <tr>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Calon
-                                        </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan Sebenar
-                                        </th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah Diberi
-                                        </th>
-                                    </tr>
-                                </thead>
-
-                                @if ($jawapan_kemahiran != null)
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-sm text-center font-weight-normal">1.</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->input_to }}
-                                            </td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                isac@intanbk.intan.my</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->markah_inputto }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-sm text-center font-weight-normal">2.</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->input_subject }}
-                                            </td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                Penilaian ISAC</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->markah_inputsubject }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-sm text-center font-weight-normal">3.</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->input_mesej }}
-                                            </td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                Tuan,
-
-                                                Disertkan dokumen seperti diarahkan.
-
-                                                Sekian, terima kasih.
-                                            </td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->markah_inputmesej }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-sm text-center font-weight-normal">4.</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{-- <img src="/storage/{{ $jawapan_kemahiran->fail_upload }}"
-                                                style="max-width: 30px;"> --}}
-                                                {{ $jawapan_kemahiran->fail_upload }}
-                                            </td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                Tiada</td>
-                                            <td class="text-sm text-center font-weight-normal">
-                                                {{ $jawapan_kemahiran->markah_failupload }}</td>
-                                        </tr>
-                                    </tbody>
-                                @else
-                                    <tbody>
-                                    </tbody>
-                                @endif
-                            </table>
+                    @if ($keputusan_calons != null)
+                        <div class="card-header" style="background-color:#FFA500;">
+                            <b class="text-white">Jawapan Calon (Kemahiran E-mel)</b><br>
+                            <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_email }}</b>
                         </div>
-                    </div>
+                        <div class="card-body">
+                            <b class="text-black mt-3">Markah Penuh: 4</b><br>
+                            <b class="text-black">Markah Melepasi: 2</b><br>
+                            <div class="table-responsive">
+                                <table class="table table-flush" id="datatable-jawapan-kemahiran-email">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan
+                                                Calon
+                                            </th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Jawapan
+                                                Sebenar
+                                            </th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah
+                                                Diberi
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    @if ($jawapan_kemahiran != null)
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-sm text-center font-weight-normal">1.</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->input_to }}
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    isac@intanbk.intan.my</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->markah_inputto }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-sm text-center font-weight-normal">2.</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->input_subject }}
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    Penilaian ISAC</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->markah_inputsubject }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-sm text-center font-weight-normal">3.</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->input_mesej }}
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    Tuan,
+
+                                                    Disertkan dokumen seperti diarahkan.
+
+                                                    Sekian, terima kasih.
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->markah_inputmesej }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-sm text-center font-weight-normal">4.</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{-- <img src="/storage/{{ $jawapan_kemahiran->fail_upload }}"
+                                                style="max-width: 30px;"> --}}
+                                                    {{ $jawapan_kemahiran->fail_upload }}
+                                                </td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    Tiada</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $jawapan_kemahiran->markah_failupload }}</td>
+                                            </tr>
+                                        </tbody>
+                                    @else
+                                        <tbody>
+                                        </tbody>
+                                    @endif
+                                </table>
+                            </div>
+                        </div>
+                    @else
+                        <div class="card-header" style="background-color:#FFA500;">
+                            <b class="text-white">Jawapan Calon (Kemahiran E-mel)</b><br>
+                        </div>
+                        <div class="card-body">
+                            <b class="text-white">Belum Menduduki Penilaian</b>
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>
