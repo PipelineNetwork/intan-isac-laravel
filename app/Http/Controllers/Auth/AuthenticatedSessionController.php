@@ -51,7 +51,7 @@ class AuthenticatedSessionController extends Controller
             $request->authenticate();
             $request->session()->regenerate();
 
-            alert()->success('Log masuk berjaya');
+            // alert()->success('Log masuk berjaya');
             return redirect()->intended(RouteServiceProvider::HOME);
             // echo '<script language="/javascript">';
             // echo "alert('Swal.fire({ text: 'Log masuk anda berjaya!', icon: 'success', confirmButtonText: 'Ok', })";

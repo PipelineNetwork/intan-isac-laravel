@@ -41,81 +41,87 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nric' => 'required|string|max:255|unique:users',
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $check_email = User::where('email', $request->email)->first();
+        
+        if ($check_email != null) {
+            echo '<script language="javascript">';
+            echo 'alert("E-mel yang dimasukkan telah wujud.");';
+            echo "window.location.href='/authenticate-ic';";
+            echo '</script>';
+        } else {
+            $request->validate([
+                'nric' => 'required|string|max:255|unique:users',
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
 
-        $user = new User();
+            $user = new User();
 
-        $user->name = strtoupper($request->name);
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->nric = $request->nric;
-        $user->user_group_id = 5;
-        $user->assignRole('calon');
+            $user->name = strtoupper($request->name);
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->nric = $request->nric;
+            $user->user_group_id = 5;
+            $user->assignRole('calon');
 
-        $user->save();
+            $peserta = new Permohanan();
 
-        $peserta = new Permohanan();
+            $peserta->KOD_GELARAN = $request->KOD_GELARAN;
+            $peserta->NAMA_PESERTA = strtoupper($request->name);
+            $peserta->TARIKH_LAHIR = substr($request->TARIKH_LAHIR, 0, 10);
+            $peserta->KOD_JANTINA = $request->KOD_JANTINA;
+            $peserta->EMEL_PESERTA = $request->email;
+            $peserta->KOD_KATEGORI_PESERTA = '01';
+            $peserta->NO_KAD_PENGENALAN = $request->nric;
+            $peserta->NO_TELEFON_BIMBIT = $request->NO_TELEFON_BIMBIT;
+            $peserta->NO_TELEFON_PEJABAT = $request->NO_TELEFON_PEJABAT;
+            $peserta->user_id = $user->id;
 
-        $peserta->KOD_GELARAN = $request->KOD_GELARAN;
-        $peserta->NAMA_PESERTA = strtoupper($request->name);
-        $peserta->TARIKH_LAHIR = substr($request->TARIKH_LAHIR, 0, 10);
-        $peserta->KOD_JANTINA = $request->KOD_JANTINA;
-        $peserta->EMEL_PESERTA = $request->email;
-        $peserta->KOD_KATEGORI_PESERTA = '01';
-        $peserta->NO_KAD_PENGENALAN = $request->nric;
-        $peserta->NO_TELEFON_BIMBIT = $request->NO_TELEFON_BIMBIT;
-        $peserta->NO_TELEFON_PEJABAT = $request->NO_TELEFON_PEJABAT;
-        $peserta->user_id = $user->id;
+            $tempat_tugas = new Tugas();
 
-        $peserta->save();
+            $tempat_tugas->ID_PESERTA = $peserta->ID_PESERTA;
+            $tempat_tugas->GELARAN_KETUA_JABATAN = $request->GELARAN_KETUA_JABATAN;
+            $tempat_tugas->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
+            $tempat_tugas->KOD_JABATAN = $request->KOD_JABATAN;
+            $tempat_tugas->BAHAGIAN = $request->BAHAGIAN;
+            $tempat_tugas->ALAMAT_1 = $request->ALAMAT_1;
+            $tempat_tugas->ALAMAT_2 = $request->ALAMAT_2;
+            $tempat_tugas->POSKOD = $request->POSKOD;
+            $tempat_tugas->BANDAR = $request->BANDAR;
+            $tempat_tugas->KOD_NEGERI = $request->KOD_NEGERI;
+            $tempat_tugas->KOD_NEGARA = $request->KOD_NEGARA;
+            $tempat_tugas->NAMA_PENYELIA = strtoupper($request->NAMA_PENYELIA);
+            $tempat_tugas->EMEL_PENYELIA = $request->EMEL_PENYELIA;
+            $tempat_tugas->NO_TELEFON_PENYELIA = $request->NO_TELEFON_PENYELIA;
+            $tempat_tugas->NO_FAX_PENYELIA = $request->NO_FAX_PENYELIA;
 
-        $tempat_tugas = new Tugas();
+            $perkhidmatan = new Perkhidmatan();
 
-        $tempat_tugas->ID_PESERTA = $peserta->ID_PESERTA;
-        $tempat_tugas->GELARAN_KETUA_JABATAN = $request->GELARAN_KETUA_JABATAN;
-        $tempat_tugas->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
-        $tempat_tugas->KOD_JABATAN = $request->KOD_JABATAN;
-        $tempat_tugas->BAHAGIAN = $request->BAHAGIAN;
-        $tempat_tugas->ALAMAT_1 = $request->ALAMAT_1;
-        $tempat_tugas->ALAMAT_2 = $request->ALAMAT_2;
-        $tempat_tugas->POSKOD = $request->POSKOD;
-        $tempat_tugas->BANDAR = $request->BANDAR;
-        $tempat_tugas->KOD_NEGERI = $request->KOD_NEGERI;
-        $tempat_tugas->KOD_NEGARA = $request->KOD_NEGARA;
-        $tempat_tugas->NAMA_PENYELIA = strtoupper($request->NAMA_PENYELIA);
-        $tempat_tugas->EMEL_PENYELIA = $request->EMEL_PENYELIA;
-        $tempat_tugas->NO_TELEFON_PENYELIA = $request->NO_TELEFON_PENYELIA;
-        $tempat_tugas->NO_FAX_PENYELIA = $request->NO_FAX_PENYELIA;
+            $perkhidmatan->ID_PESERTA = $peserta->ID_PESERTA;
+            $perkhidmatan->KOD_GELARAN_JAWATAN = $request->KOD_GELARAN_JAWATAN;
+            $perkhidmatan->KOD_PERINGKAT = $request->KOD_PERINGKAT;
+            $perkhidmatan->KOD_KLASIFIKASI_PERKHIDMATAN = $request->KOD_KLASIFIKASI_PERKHIDMATAN;
+            $perkhidmatan->KOD_GRED_JAWATAN = $request->KOD_GRED_JAWATAN;
+            $perkhidmatan->KOD_TARAF_PERJAWATAN = $request->KOD_TARAF_PERJAWATAN;
+            $perkhidmatan->KOD_JENIS_PERKHIDMATAN = $request->KOD_JENIS_PERKHIDMATAN;
+            $perkhidmatan->TARIKH_LANTIKAN = $request->TARIKH_LANTIKAN;
 
-        $tempat_tugas->save();
+            $user->save();
+            $peserta->save();
+            $tempat_tugas->save();
+            $perkhidmatan->save();
+            Mail::to($user->email)->send(new PenggunaDidaftar($user));
+            // Mail::to('whoone3@gmail.com')->send(new PenggunaDidaftar($user));
 
-        $perkhidmatan = new Perkhidmatan();
+            event(new Registered($user));
+            // Auth::login($user);
 
-        $perkhidmatan->ID_PESERTA = $peserta->ID_PESERTA;
-        $perkhidmatan->KOD_GELARAN_JAWATAN = $request->KOD_GELARAN_JAWATAN;
-        $perkhidmatan->KOD_PERINGKAT = $request->KOD_PERINGKAT;
-        $perkhidmatan->KOD_KLASIFIKASI_PERKHIDMATAN = $request->KOD_KLASIFIKASI_PERKHIDMATAN;
-        $perkhidmatan->KOD_GRED_JAWATAN = $request->KOD_GRED_JAWATAN;
-        $perkhidmatan->KOD_TARAF_PERJAWATAN = $request->KOD_TARAF_PERJAWATAN;
-        $perkhidmatan->KOD_JENIS_PERKHIDMATAN = $request->KOD_JENIS_PERKHIDMATAN;
-        $perkhidmatan->TARIKH_LANTIKAN = $request->TARIKH_LANTIKAN;
-
-        $perkhidmatan->save();
-        Mail::to($user->email)->send(new PenggunaDidaftar($user));
-        // Mail::to('whoone3@gmail.com')->send(new PenggunaDidaftar($user));
-
-        event(new Registered($user));
-        // Auth::login($user);
-
-        // dd($user);
-        // return redirect('/profil')->with('success', 'Berjaya didaftarkan!');
-        // return redirect(RouteServiceProvider::HOME);
-        return redirect('/');
+            // dd($user);
+            // return redirect('/profil')->with('success', 'Berjaya didaftarkan!');
+            // return redirect(RouteServiceProvider::HOME);
+            return redirect('/');
+        }
     }
 
     public function view_check_ic(Request $request)

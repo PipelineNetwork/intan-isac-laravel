@@ -91,7 +91,7 @@ class SelenggaraKawalanSistemController extends Controller
 
         $kawalan->save();
 
-        alert()->success('Maklumat telah dikemaskini.');
+        // alert()->success('Maklumat telah dikemaskini.');
         return redirect('/selenggara_kawalan_sistem');
 
     }

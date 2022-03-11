@@ -72,13 +72,15 @@
                                         </label><label class="float-right">:</label>
                                     </div>
                                     <div class="col-8">
-                                        @if ($user_profils->NAMA_PESERTA == null)
+                                        <input class="form-control form-control-sm ml-3" name="NAMA_PESERTA" type="text"
+                                        value=" {{ $user_profils->name }}" readonly required>
+                                        {{-- @if ($user_profils->NAMA_PESERTA == null)
                                             <input class="form-control form-control-sm ml-3" name="NAMA_PESERTA" type="text"
                                                 value=" {{ $user_profils->name }}" readonly required>
                                         @else
                                             <input class="form-control form-control-sm ml-3" name="NAMA_PESERTA" type="text"
                                                 value=" {{ $user_profils->NAMA_PESERTA }}" readonly required>
-                                        @endif
+                                        @endif --}}
                                     </div>
                                 </div>
                                 <div class="row mb-2">

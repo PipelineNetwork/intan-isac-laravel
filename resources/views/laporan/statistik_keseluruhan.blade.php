@@ -53,6 +53,8 @@
                                         <option value="{{ $kementerian->DESCRIPTION1 }}">
                                             {{ $kementerian->DESCRIPTION1 }}</option>
                                     @endforeach
+                                    <option hidden value="Universiti Tun Hussein Onn Malaysia"> Universiti Tun Hussein
+                                        Onn Malaysia </option>
                                 </select>
                             </div>
                             <div class="col d-flex justify-content-end align-items-end mt-3">

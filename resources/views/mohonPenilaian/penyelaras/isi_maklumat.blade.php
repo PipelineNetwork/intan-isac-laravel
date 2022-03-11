@@ -357,7 +357,6 @@
         </div>
     </div>
 
-    <link rel="stylesheet" href="sweetalert2.min.css">
     <script>
         $(document).on('submit', 'form', function() {
             setTimeout(function() {

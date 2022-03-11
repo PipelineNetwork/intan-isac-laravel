@@ -76,7 +76,6 @@ Route::resource('/pengurusanpengguna', PenggunaController::class);
 // Route::resource('/pengawaspengguna',PengawasController::class);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
-require __DIR__ . '/auth.php';
 
 Route::resource('/tambahaduans', TambahAduanController::class);
 
@@ -236,5 +235,5 @@ Route::get('/laporan/rayuan', [LaporanController::class, 'laporan_rayuan']);
 Route::get('/test_webcam', function () {
     return view('test_webcam');
 });
-
+require __DIR__ . '/auth.php';
 // Route::redirect('/','login');

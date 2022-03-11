@@ -79,7 +79,6 @@
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navbar -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <section>
         <div class="page-header">
             <div class="container">

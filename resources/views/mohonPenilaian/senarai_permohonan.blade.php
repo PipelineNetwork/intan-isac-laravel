@@ -45,14 +45,15 @@ use App\Models\Jadual;
             <div class="col-lg-6">
                 <h5 class="font-weight-bolder">Permohonan Penilaian</h5>
             </div>
-            @role('penyelaras')
-            <div class="col-lg-6">
-                <div class="column-12">
-                    <a href="/mohonpenilaian/create" class="btn bg-gradient-warning" type="submit"
-                        style="float: right;">PILIH JADUAL</a>
+            @if (auth()->user()->hasrole('penyelaras') ||
+    auth()->user()->hasrole('pentadbir sistem'))
+                <div class="col-lg-6">
+                    <div class="column-12">
+                        <a href="/mohonpenilaian/create" class="btn bg-gradient-warning" type="submit"
+                            style="float: right;">PILIH JADUAL</a>
+                    </div>
                 </div>
-            </div>
-            @endrole
+            @endif
             {{-- @can('daftar permohonan')
                 <div class="col-lg-6">
                     <div class="column-12">

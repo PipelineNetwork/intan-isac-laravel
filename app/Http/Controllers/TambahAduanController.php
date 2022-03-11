@@ -49,7 +49,7 @@ class TambahAduanController extends Controller
                 'tambahaduans' => $tambahaduans
             ]);
         } else {
-            alert()->warning('Sila log masuk untuk lihat Aduan!');
+            // alert()->warning('Sila log masuk untuk lihat Aduan!');
             return redirect('/');
         }
     }
