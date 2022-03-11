@@ -47,9 +47,8 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label class="form-control-label">No. Kad Pengenalan</label>
-                                                <input class="form-control" type="text" name="nric"
-                                                    required autofocus maxlength="12" size="12"
-                                                    value="{{ $nrics }}" readonly
+                                                <input class="form-control" type="text" name="nric" required autofocus
+                                                    maxlength="12" size="12" value="{{ $nrics }}" readonly
                                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                             </div>
                                         </div>
@@ -91,9 +90,12 @@
                                         <input type="hidden" value="{{ $TARIKH_LAHIR }}" name="TARIKH_LAHIR">
                                         <input type="hidden" value="{{ $KOD_GELARAN }}" name="KOD_GELARAN">
                                         <input type="hidden" value="{{ $KOD_JANTINA }}" name="KOD_JANTINA">
-                                        <input type="hidden" value="{{ $NO_TELEFON_BIMBIT }}" name="NO_TELEFON_BIMBIT">
-                                        <input type="hidden" value="{{ $NO_TELEFON_PEJABAT }}" name="NO_TELEFON_PEJABAT">
-                                        <input type="hidden" value="{{ $GELARAN_KETUA_JABATAN }}" name="GELARAN_KETUA_JABATAN">
+                                        <input type="hidden" value="{{ $NO_TELEFON_BIMBIT }}"
+                                            name="NO_TELEFON_BIMBIT">
+                                        <input type="hidden" value="{{ $NO_TELEFON_PEJABAT }}"
+                                            name="NO_TELEFON_PEJABAT">
+                                        <input type="hidden" value="{{ $GELARAN_KETUA_JABATAN }}"
+                                            name="GELARAN_KETUA_JABATAN">
                                         <input type="hidden" value="{{ $KOD_KEMENTERIAN }}" name="KOD_KEMENTERIAN">
                                         <input type="hidden" value="{{ $KOD_JABATAN }}" name="KOD_JABATAN">
                                         <input type="hidden" value="{{ $BAHAGIAN }}" name="BAHAGIAN">
@@ -103,13 +105,18 @@
                                         <input type="hidden" value="{{ $KOD_NEGERI }}" name="KOD_NEGERI">
                                         <input type="hidden" value="{{ $NAMA_PENYELIA }}" name="NAMA_PENYELIA">
                                         <input type="hidden" value="{{ $EMEL_PENYELIA }}" name="EMEL_PENYELIA">
-                                        <input type="hidden" value="{{ $NO_TELEFON_PENYELIA }}" name="NO_TELEFON_PENYELIA">
-                                        <input type="hidden" value="{{ $KOD_GELARAN_JAWATAN }}" name="KOD_GELARAN_JAWATAN">
+                                        <input type="hidden" value="{{ $NO_TELEFON_PENYELIA }}"
+                                            name="NO_TELEFON_PENYELIA">
+                                        <input type="hidden" value="{{ $KOD_GELARAN_JAWATAN }}"
+                                            name="KOD_GELARAN_JAWATAN">
                                         <input type="hidden" value="{{ $KOD_PERINGKAT }}" name="KOD_PERINGKAT">
-                                        <input type="hidden" value="{{ $KOD_KLASIFIKASI_PERKHIDMATAN }}" name="KOD_KLASIFIKASI_PERKHIDMATAN">
+                                        <input type="hidden" value="{{ $KOD_KLASIFIKASI_PERKHIDMATAN }}"
+                                            name="KOD_KLASIFIKASI_PERKHIDMATAN">
                                         <input type="hidden" value="{{ $KOD_GRED_JAWATAN }}" name="KOD_GRED_JAWATAN">
-                                        <input type="hidden" value="{{ $KOD_TARAF_PERJAWATAN }}" name="KOD_TARAF_PERJAWATAN">
-                                        <input type="hidden" value="{{ $KOD_JENIS_PERKHIDMATAN }}" name="KOD_JENIS_PERKHIDMATAN">
+                                        <input type="hidden" value="{{ $KOD_TARAF_PERJAWATAN }}"
+                                            name="KOD_TARAF_PERJAWATAN">
+                                        <input type="hidden" value="{{ $KOD_JENIS_PERKHIDMATAN }}"
+                                            name="KOD_JENIS_PERKHIDMATAN">
                                         <input type="hidden" value="{{ $TARIKH_LANTIKAN }}" name="TARIKH_LANTIKAN">
                                     </div>
 
@@ -117,7 +124,8 @@
                                         {{-- <button class="btn bg-gradient-warning w-100 mt-4 mb-0">
                                             {{ __('Daftar') }}
                                         </button> --}}
-                                        <button class="btn bg-gradient-warning w-100 mt-4 mb-0" type="submit">Daftar</button>
+                                        <button class="btn bg-gradient-warning w-100 mt-4 mb-0"
+                                            type="submit">Daftar</button>
                                     </div>
                                 </form>
                             </div>
@@ -142,4 +150,5 @@
     </section>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
 </html>

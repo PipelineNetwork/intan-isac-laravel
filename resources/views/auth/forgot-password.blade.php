@@ -32,7 +32,5 @@
                 </x-button>
             </div>
         </form>
-
-        @include('sweet::alert')
     </x-auth-card>
 </x-guest-layout>

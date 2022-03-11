@@ -37,7 +37,7 @@ class KeputusanPenilaianController extends Controller
     {
         $keputusan = KeputusanPenilaian::find($id);
         $keputusan->delete();
-        alert()->success('Maklumat telah dihapus');
+        // alert()->success('Maklumat telah dihapus');
         return redirect('/keputusan_penilaian');
     }
 
@@ -344,7 +344,7 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
 
             $keputusan->markah_word = $markah_word;
             // if ($keputusan->markah_word == 9) {
-            if ($keputusan->markah_word >= 2) {
+            if ($keputusan->markah_word >= 4) {
                 $keputusan->keputusan_word = "Melepasi";
             } else {
                 $keputusan->keputusan_word = "Tidak Melepasi";
@@ -427,7 +427,7 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
 
             $keputusan->markah_word = $markah_word;
             // if ($keputusan->markah_word == 9) {
-            if ($keputusan->markah_word >= 9) {
+            if ($keputusan->markah_word >= 4) {
                 $keputusan->keputusan_word = "Melepasi";
             } else {
                 $keputusan->keputusan_word = "Tidak Melepasi";
@@ -435,7 +435,7 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
 
             $keputusan->markah_email = $markah_email;
             // if ($keputusan->markah_email >= 4) {
-            if ($keputusan->markah_email >= 4) {
+            if ($keputusan->markah_email >= 2) {
                 $keputusan->keputusan_email = "Melepasi";
             } else {
                 $keputusan->keputusan_email = "Tidak Melepasi";

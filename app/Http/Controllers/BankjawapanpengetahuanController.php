@@ -155,7 +155,7 @@ class BankjawapanpengetahuanController extends Controller
         $jawapan_kemahiran->save();
 
         if ($request->timer == null) {
-            alert()->success('Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
+            // alert()->success('Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
             return redirect('/soalan-kemahiran-internet/' . $id_penilaian);
         } else {
             $ic = Auth::user()->nric;
@@ -208,7 +208,7 @@ class BankjawapanpengetahuanController extends Controller
 
             $keputusan->markah_internet = $markah_internet;
             // if ($keputusan->markah_internet == 2) {
-            if ($keputusan->markah_internet >= 1) {
+            if ($keputusan->markah_internet >= 2) {
                 $keputusan->keputusan_internet = "Melepasi";
             } else {
                 $keputusan->keputusan_internet = "Tidak Melepasi";
@@ -216,14 +216,14 @@ class BankjawapanpengetahuanController extends Controller
 
             $keputusan->markah_word = $markah_word;
             // if ($keputusan->markah_word == 9) {
-            if ($keputusan->markah_word >= 1) {
+            if ($keputusan->markah_word >= 4) {
                 $keputusan->keputusan_word = "Melepasi";
             } else {
                 $keputusan->keputusan_word = "Tidak Melepasi";
             }
 
             $keputusan->markah_email = $markah_email;
-            if ($keputusan->markah_email >= 1) {
+            if ($keputusan->markah_email >= 2) {
                 $keputusan->keputusan_email = "Melepasi";
             } else {
                 $keputusan->keputusan_email = "Tidak Melepasi";

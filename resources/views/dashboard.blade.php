@@ -714,9 +714,9 @@
                                             {{-- bawah --}}
                                             <th class="text-uppercase text-center font-weight-bolder opacity-7">Bilangan Tempat
                                             </th>
-                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Bilangan Calon
+                                            {{-- <th class="text-uppercase text-center font-weight-bolder opacity-7">Bilangan Calon
                                             </th>
-                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Kekosongan</th>
+                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">Kekosongan</th> --}}
                                             <th class="text-uppercase text-center font-weight-bolder opacity-7">Platform</th>
                                             <th class="text-uppercase text-center font-weight-bolder opacity-7">Lokasi</th>
                                             <th class="text-uppercase text-center font-weight-bolder opacity-7">Pendaftaran
@@ -760,20 +760,20 @@
                                                             {{ $jadual->JUMLAH_KESELURUHAN }}
                                                         @endif
                                                     </td>
-                                                    <td class="text-sm text-center font-weight-normal">
+                                                    {{-- <td class="text-sm text-center font-weight-normal">
                                                         @if ($jadual->BILANGAN_CALON == null)
                                                             0
                                                         @else
                                                             {{ $jadual->BILANGAN_CALON }}
                                                         @endif
                                                     </td>
-                                                    <?php
-                                                    $jadual->KEKOSONGAN = $jadual->JUMLAH_KESELURUHAN - $jadual->BILANGAN_CALON;
-                                                    $bilangan = $jadual->KEKOSONGAN;
-                                                    ?>
+                                                    @php
+                                                        $jadual->KEKOSONGAN = $jadual->JUMLAH_KESELURUHAN - $jadual->BILANGAN_CALON;
+                                                        $bilangan = $jadual->KEKOSONGAN;
+                                                    @endphp
                                                     <td class="text-sm text-center font-weight-normal">
                                                         {{ $bilangan }}
-                                                    </td>
+                                                    </td> --}}
                                                     <td class="text-sm text-center font-weight-normal">
                                                         {{ $jadual->platform }}</td>
                                                     <td class="text-sm text-center font-weight-normal">
@@ -814,7 +814,7 @@
                                                                             disabled>Penuh</button>
                                                                     @endif --}}
                                                             @else
-                                                                @if ($jadual->status == null && $jadual->KEKOSONGAN > 0)
+                                                                @if (($jadual->status == null || $jadual->status == 'Penangguhan') && $jadual->KEKOSONGAN > 0)
                                                                     <form action="/mohonpenilaian/permohonan_penilaian"
                                                                         method="POST" class="m-0">
                                                                         @csrf
@@ -891,10 +891,6 @@
             confirmButtonText: 'Ok',
         })
     </script> --}}
-
-    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
-    {{-- <script src="/assets/js/sweetalert.min.js"></script>
-    @include('sweet::alert') --}}
 
     {{-- <script src="https://isacsupport.intan.my/chat_widget.js"></script> --}}
     {{-- <footer>

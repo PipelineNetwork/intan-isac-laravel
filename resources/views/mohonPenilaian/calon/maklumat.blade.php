@@ -253,8 +253,6 @@
     </div>
 
     <script src="https://isacsupport.intan.my/chat_widget.js"></script>
-    <script src="sweetalert2.all.min.js"></script>
-    <link rel="stylesheet" href="sweetalert2.min.css">
     <script>
         $(document).on('submit', 'form', function() {
             setTimeout(function() {

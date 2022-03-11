@@ -94,7 +94,7 @@ class MohonPenilaianController extends Controller
         $role = Role::where('id', $id_group_user)->first();
         $role = $role->name;
 
-        if ($role == 'penyelaras') {
+        if (($role == 'penyelaras') || ($role == 'pentadbir sistem')) {
             $id_penyelia = Auth::id();
             $jadual_penyelia = Jadual::where('user_id', $id_penyelia)->get();
 
@@ -128,6 +128,8 @@ class MohonPenilaianController extends Controller
 
             $negeri = Refgeneral::where('MASTERCODE', 10021)->get();
 
+            $jabatan = Refgeneral::where('MASTERCODE', 10029)->orderBy('DESCRIPTION1', 'asc')->get();
+
             $user_profils = User::where('id', $checkid2)
                 ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
                 ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
@@ -147,6 +149,7 @@ class MohonPenilaianController extends Controller
                 'jenis_perkhidmatans' => $jenis_perkhidmatan,
                 'kementerians' => $kementerian,
                 'negeris' => $negeri,
+                'jabatans' => $jabatan,
             ]);
         }
     }
@@ -403,7 +406,7 @@ class MohonPenilaianController extends Controller
         $id_penilaian = $mohonPenilaian->id_sesi;
         $ic_calon = $mohonPenilaian->no_ic;
         $kekosongan = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
-        
+
         $kekosongan->BILANGAN_CALON = (int)$kekosongan->BILANGAN_CALON - 1;
         $kekosongan->KEKOSONGAN = (int)$kekosongan->KEKOSONGAN + 1;
         $kekosongan->save();
@@ -425,7 +428,7 @@ class MohonPenilaianController extends Controller
 
         $kekosongan->save();
         $mohonPenilaian->delete();
-        alert()->success('Berjaya dihapus!');
+        // alert()->success('Berjaya dihapus!');
         return redirect('/mohonpenilaian');
     }
 
@@ -614,7 +617,7 @@ class MohonPenilaianController extends Controller
             ->orderBy('TARIKH_SESI', 'desc')
             ->get();
 
-        alert()->success('Maklumat berjaya dikemaskini.');
+        // alert()->success('Maklumat berjaya dikemaskini.');
 
         return view('mohonPenilaian.calon.pilih_jadual', [
             'no_ic' => $no_ic,
@@ -814,7 +817,7 @@ class MohonPenilaianController extends Controller
         $jadual_semasa->save();
         $jadual_baru->save();
 
-        alert()->success('Penjadualan Semula telah berjaya');
+        // alert()->success('Penjadualan Semula telah berjaya');
         return redirect('/mohonpenilaian');
     }
 

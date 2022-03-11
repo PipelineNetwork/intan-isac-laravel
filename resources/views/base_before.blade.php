@@ -90,8 +90,6 @@
     {{-- <script src="/ckeditor/skins/office2013"></script> --}}
     {{-- <script src="/ckeditor/ckeditor.js"></script> --}}
     <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script>
-    
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100" oncopy="return false" oncut="return false" onpaste="return false"
@@ -101,7 +99,6 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
 
-    @include('sweet::alert')
     <!-- Navbar -->
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <nav class="navbar navbar-main navbar-expand-lg mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky"

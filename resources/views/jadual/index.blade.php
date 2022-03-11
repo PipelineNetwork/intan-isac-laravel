@@ -66,6 +66,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">ID Penilaian</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Sesi</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa Mula</th>
@@ -90,6 +91,8 @@
                                     @foreach ($jaduals as $key => $jadual)
                                         <tr>
                                             <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}.</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $jadual['ID_PENILAIAN'] }}</td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 @if ($jadual['KOD_SESI_PENILAIAN'] == '01')
                                                     Sesi 01

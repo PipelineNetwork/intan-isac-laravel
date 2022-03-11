@@ -25,11 +25,6 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js">
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
-
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/assets/js/core/bootstrap.min.js"></script>
 </head>
 
@@ -590,7 +585,6 @@
     </footer>
 
     <script src="https://isacsupport.intan.my/chat_widget.js"></script>
-    @include('sweet::alert')
     <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
         const dataTableBasicPenjadualan = new simpleDatatables.DataTable("#datatable-penjadualan", {

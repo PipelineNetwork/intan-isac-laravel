@@ -408,7 +408,7 @@ class PenggunaController extends Controller
         }
 
         $user->delete();
-        alert()->success('Berjaya dihapus!');
+        // alert()->success('Berjaya dihapus!');
         return redirect('/pengurusanpengguna');
     }
 }

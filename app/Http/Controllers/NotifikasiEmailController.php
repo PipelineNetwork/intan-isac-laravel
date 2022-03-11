@@ -133,7 +133,7 @@ class NotifikasiEmailController extends Controller
         }
         
         $penyelia->save();
-        alert()->success('Maklumat yang diterima oleh Penyelia disimpan.','Berjaya');
+        // alert()->success('Maklumat yang diterima oleh Penyelia disimpan.','Berjaya');
         return back();
     }
 }

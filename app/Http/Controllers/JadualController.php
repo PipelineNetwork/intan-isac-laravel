@@ -16,7 +16,6 @@ use App\Models\MohonPenilaian;
 use App\Models\Refgeneral;
 use Spatie\Permission\Models\Role;
 use App\Models\SelenggaraKawalanSistem;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class JadualController extends Controller
 {

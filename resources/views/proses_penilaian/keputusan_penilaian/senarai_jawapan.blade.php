@@ -1,6 +1,8 @@
 @extends('base')
 @section('content')
-
+    @php
+    use App\Models\Soalankemahiranword;
+    @endphp
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col">
@@ -58,8 +60,6 @@
                         <b class="text-white">Jawapan Calon (Pengetahuan)</b><br>
                         @if ($keputusan_calons != null)
                             <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_pengetahuan }}</b>
-                        @else
-                            <b class="text-white">Keputusan: Belum Menduduki Penilaian</b>
                         @endif
                     </div>
                     <div class="card-body">
@@ -100,12 +100,7 @@
                                 </table>
                             </div>
                         @else
-                            <div class="card-header" style="background-color:#FFA500;">
-                                <b class="text-white">Jawapan Calon (Pengetahuan)</b><br>
-                            </div>
-                            <div class="card-body">
-                                <b class="text-white">Belum Menduduki Penilaian</b>
-                            </div>
+                            <b>Belum Menduduki Penilaian</b>
                         @endif
 
                     </div>
@@ -175,7 +170,7 @@
                             <b class="text-white">Jawapan Calon (Kemahiran Internet)</b><br>
                         </div>
                         <div class="card-body">
-                            <b class="text-white">Belum Menduduki Penilaian</b>
+                            <b>Belum Menduduki Penilaian</b>
                         </div>
                     @endif
                 </div>
@@ -187,16 +182,13 @@
                         <b class="text-white">Jawapan Calon (Kemahiran Pemprosesan Perkataan)</b><br>
                         @if ($keputusan_calons != null)
                             <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_word }}</b>
-                        @else
-                            <b class="text-white">Belum Menduduki Penilaian</b>
                         @endif
                     </div>
                     <div class="card-body">
-                        <b class="text-black mt-3">Markah Penuh: 9</b><br>
-                        <b class="text-black">Markah Melepasi: 4</b><br>
                         @if ($jawapan_kemahiran != null)
+                            <b class="text-black mt-3">Markah Penuh: 9</b><br>
+                            <b class="text-black">Markah Melepasi: 4</b><br>
                             @php
-                                use App\Models\Soalankemahiranword;
                                 $soalan_word = Soalankemahiranword::where('id', $jawapan_kemahiran->id_soalankemahiranword)->first();
                                 
                                 if ($soalan_word != null) {
@@ -679,9 +671,7 @@
                                 </div>
                             @endif
                         @else
-                            <p class="mt-3">
-                                Tiada Maklumat dijumpai.
-                            </p>
+                            <b>Belum Menduduki Penilaian</b>
                         @endif
                     </div>
                 </div>
@@ -776,7 +766,7 @@
                             <b class="text-white">Jawapan Calon (Kemahiran E-mel)</b><br>
                         </div>
                         <div class="card-body">
-                            <b class="text-white">Belum Menduduki Penilaian</b>
+                            <b>Belum Menduduki Penilaian</b>
                         </div>
                     @endif
 
