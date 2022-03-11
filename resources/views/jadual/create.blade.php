@@ -169,7 +169,7 @@
                                             <option value="{{ $kementerian->REFERENCECODE }}">
                                                 {{ $kementerian->DESCRIPTION1 }}</option>
                                         @endforeach
-                                        <option hidden value="Universiti Tun Hussein Onn Malaysia"> Universiti Tun Hussein
+                                        <option value="Universiti Tun Hussein Onn Malaysia"> Universiti Tun Hussein
                                             Onn Malaysia </option>
                                     </select>
                                     @error('KOD_KEMENTERIAN')

@@ -375,7 +375,7 @@
                                         <option value="{{ $jabatan->DESCRIPTION1 }}">
                                             {{ $jabatan->DESCRIPTION1 }}</option>
                                     @endforeach
-                                    <option hidden value="Universiti Tun Hussein Onn Malaysia"> Universiti Tun Hussein
+                                    <option value="Universiti Tun Hussein Onn Malaysia"> Universiti Tun Hussein
                                         Onn Malaysia </option>
                                 </select>
                             </div>
