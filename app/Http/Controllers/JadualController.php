@@ -55,15 +55,19 @@ class JadualController extends Controller
     public function create()
     {
         $kementerians = Refgeneral::where('MASTERCODE', '10028')->get();
-        $role = Role::where('name', 'penyelaras')->first();
-        $role_id = $role->id;
-        $penyelaras = User::where('user_group_id', $role_id)->get();
-
+        $role_penyelaras = Role::where('name', 'penyelaras')->first();
+        $role_id_penyelaras = $role_penyelaras->id;
+        $role_pentadbir_sistem = Role::where('name', 'pentadbir sistem')->first();
+        $role_id_pentadbir_sistem = $role_pentadbir_sistem->id;
+        $penyelaras = User::where('user_group_id', $role_id_penyelaras)->get();
+        $pentadbir_sistem = User::where('user_group_id', $role_id_pentadbir_sistem)->get();
+        
         $masa_penilaian = SelenggaraKawalanSistem::where('ID_KAWALAN_SISTEM', '1')->first();
         $masa_pengetahuan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
         return view('jadual.create', [
             'kementerians' => $kementerians,
             'penyelaras' => $penyelaras,
+            'pentadbir_sistem' => $pentadbir_sistem,
             'masa_pengetahuan' => $masa_pengetahuan
         ]);
     }
@@ -361,7 +365,7 @@ class JadualController extends Controller
         $jadual->keterangan = $request->keterangan;
 
         $tukar_status_penilaian = MohonPenilaian::where('id_sesi', $jadual->ID_PENILAIAN)->get();
-        
+
         foreach ($tukar_status_penilaian as $tukar_status_penilaian_batal) {
             $tukar_status_penilaian_batal->status_penilaian = 'Pembatalan';
             $tukar_status_penilaian_batal->save();

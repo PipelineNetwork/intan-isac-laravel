@@ -64,6 +64,7 @@ class RegisteredUserController extends Controller
         $user->nric = $request->nric;
         $user->user_group_id = 5;
         $user->assignRole('calon');
+        $user->save();
 
         $peserta = new Permohanan();
 
@@ -77,6 +78,7 @@ class RegisteredUserController extends Controller
         $peserta->NO_TELEFON_BIMBIT = $request->NO_TELEFON_BIMBIT;
         $peserta->NO_TELEFON_PEJABAT = $request->NO_TELEFON_PEJABAT;
         $peserta->user_id = $user->id;
+        $peserta->save();
 
         $tempat_tugas = new Tugas();
 
@@ -95,6 +97,7 @@ class RegisteredUserController extends Controller
         $tempat_tugas->EMEL_PENYELIA = $request->EMEL_PENYELIA;
         $tempat_tugas->NO_TELEFON_PENYELIA = $request->NO_TELEFON_PENYELIA;
         $tempat_tugas->NO_FAX_PENYELIA = $request->NO_FAX_PENYELIA;
+        $tempat_tugas->save();
 
         $perkhidmatan = new Perkhidmatan();
 
@@ -106,11 +109,8 @@ class RegisteredUserController extends Controller
         $perkhidmatan->KOD_TARAF_PERJAWATAN = $request->KOD_TARAF_PERJAWATAN;
         $perkhidmatan->KOD_JENIS_PERKHIDMATAN = $request->KOD_JENIS_PERKHIDMATAN;
         $perkhidmatan->TARIKH_LANTIKAN = $request->TARIKH_LANTIKAN;
-
-        $user->save();
-        $peserta->save();
-        $tempat_tugas->save();
         $perkhidmatan->save();
+
         Mail::to($user->email)->send(new PenggunaDidaftar($user));
         // Mail::to('whoone3@gmail.com')->send(new PenggunaDidaftar($user));
 

@@ -180,9 +180,17 @@
                                 <div class="form-group">
                                     <select class="form-control mb-0 hide" name="user_id">
                                         <option hidden value=""> Sila Pilih </option>
-                                        @foreach ($penyelaras as $penyelaras)
-                                            <option value="{{ $penyelaras->id }}">{{ $penyelaras->name }}</option>
-                                        @endforeach
+                                        <optgroup label="Pentadbir Sistem">
+                                            @foreach ($pentadbir_sistem as $pentadbir_sistem)
+                                                <option value="{{ $pentadbir_sistem->id }}">
+                                                    {{ $pentadbir_sistem->name }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                        <optgroup label="Penyelaras">
+                                            @foreach ($penyelaras as $penyelaras)
+                                                <option value="{{ $penyelaras->id }}">{{ $penyelaras->name }}</option>
+                                            @endforeach
+                                        </optgroup>
                                     </select>
                                     @error('user_id')
                                         <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>
