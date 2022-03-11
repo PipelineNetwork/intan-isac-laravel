@@ -36,7 +36,7 @@
     
     $current_date = date('Y-m-d');
     $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan', 'KEKOSONGAN')
-        ->orderBy('TARIKH_SESI', 'asc')
+        ->orderBy('updated_at', 'desc')
         ->where('TARIKH_SESI', '>=', $current_date)
         ->where('KOD_KATEGORI_PESERTA', '01')
         ->get();
