@@ -896,7 +896,7 @@ class MohonPenilaianController extends Controller
         $check_jadual = Jadual::where('ID_PENILAIAN', $request->id_sesi)->first();
         $check_bilangan_daftar = MohonPenilaian::where('id_sesi', $request->id_sesi)->count();
         // dd($check_bilangan_daftar);
-        if (($check_jadual->KEKOSONGAN != 0) && ($check_bilangan_daftar <= $check_jadual->JUMLAH_KESELURUHAN)) {
+        if (($check_jadual->KEKOSONGAN != 0) && ($check_bilangan_daftar < $check_jadual->JUMLAH_KESELURUHAN)) {
             $check_calon = MohonPenilaian::where('id_sesi', $request->id_sesi)->where('no_ic', $request->NO_KAD_PENGENALAN)->first();
 
             if ($check_calon == null) {
