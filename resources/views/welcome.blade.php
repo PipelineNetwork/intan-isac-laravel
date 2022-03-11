@@ -470,9 +470,7 @@
                         pejabat sementara dan masih tiada talian telefon.
                     </p>
                     <hr class="my-4" style="height: 3px"> --}}
-                    <p><strong>Jadual Penilaian ISAC bulan Mac dan April 2022 akan mula dibuka pada 11 Mac 2022. Sila
-                            buat pendaftaran terlebih
-                            dahulu.</strong></p>
+                    <p><strong>Jadual Penilaian ISAC telah dibuka. Sila buat pendaftaran terlebih dahulu.</strong></p>
 
                     <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
                         dapat dijalankan dengan sempurna:
@@ -488,7 +486,8 @@
                         </li>
                     </ol>
 
-                    <p><strong>Nota: Sila guna <i>desktop</i> atau komputer riba semasa melayari portal ISAC kerana sistem tidak
+                    <p><strong>Nota: Sila guna <i>desktop</i> atau komputer riba semasa melayari portal ISAC kerana
+                            sistem tidak
                             menyokong paparan dalam telefon bimbit buat masa ini.<strong></p>
 
                     <p>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</p>
