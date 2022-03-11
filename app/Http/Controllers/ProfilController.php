@@ -29,7 +29,7 @@ class ProfilController extends Controller
         if ($role == 'calon') {
             $user_profils = DB::table('users')
                 ->where('id', '=', $checkid2)
-                ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+                ->join('pro_peserta', 'users.nric', '=', 'pro_peserta.NO_KAD_PENGENALAN')
                 ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
                 ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
                 ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
