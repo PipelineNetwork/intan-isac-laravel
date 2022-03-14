@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="col-8">
                                         <input class="form-control form-control-sm ml-3" name="NAMA_PESERTA" type="text"
-                                        value="{{ $user_profils['name'] }}" readonly required>
+                                        value="{{ $user_profils['NAMA_PESERTA'] }}" readonly required>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -96,7 +96,7 @@
                                     </div>
                                     <div class="col-8">
                                         <input class="form-control form-control-sm ml-3" name="EMEL_PESERTA" type="email"
-                                            value="{{ $user_profils['EMEL_PESERTA']}}" readonly required>
+                                            value="{{ $user_profils['EMEL_PESERTA'] }}" readonly required>
                                     </div>
                                 </div>
                             </div>
@@ -596,7 +596,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN" type="text"
-                                                value="{{ $user_profil['KOD_KEMENTERIAN'] }}" readonly required>
+                                                value="{{ $user_profils['KOD_KEMENTERIAN'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
