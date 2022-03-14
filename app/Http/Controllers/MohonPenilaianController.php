@@ -839,8 +839,7 @@ class MohonPenilaianController extends Controller
         }
 
         $current_user = Auth::user()->user_group_id;
-        $checkid = Auth::id();
-        $checkid2 = Auth::user()->id;
+        $checkid2 = Auth::user()->nric;
         $gelaran_user = Refgeneral::where('MASTERCODE', 10009)
             ->join('pro_peserta', 'refgeneral.REFERENCECODE', 'pro_peserta.KOD_GELARAN')
             ->select('refgeneral.MASTERCODE', 'refgeneral.REFERENCECODE', 'refgeneral.DESCRIPTION1', 'pro_peserta.KOD_GELARAN')
@@ -866,8 +865,8 @@ class MohonPenilaianController extends Controller
 
         $jabatan = Refgeneral::where('MASTERCODE', 10029)->orderBy('DESCRIPTION1')->get();
 
-        $user_profils = User::where('id', $checkid2)
-            ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+        $user_profils = User::where('nric', '=', $checkid2)
+            ->join('pro_peserta', 'users.nric', '=', 'pro_peserta.NO_KAD_PENGENALAN')
             ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
             ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
             ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
@@ -904,6 +903,7 @@ class MohonPenilaianController extends Controller
                 $user_profils1->name = $request->NAMA_PESERTA;
                 $user_profils1->nric = $request->NO_KAD_PENGENALAN;
                 $user_profils1->email = $request->EMEL_PESERTA;
+                $user_profils1->save();
 
                 $user_profils2 = Permohanan::where('user_id', $user_profils1->id)->first();
                 $user_profils2->NAMA_PESERTA = $request->NAMA_PESERTA;
@@ -915,6 +915,7 @@ class MohonPenilaianController extends Controller
                 $user_profils2->TARIKH_LAHIR = $request->TARIKH_LAHIR;
                 $user_profils2->ID_PESERTA = $request->ID_PESERTA;
                 $user_profils2->KOD_GELARAN = $request->KOD_GELARAN;
+                $user_profils2->save();
 
                 $user_profils3 = Tugas::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();
                 $user_profils3->ALAMAT_1 = $request->ALAMAT_1;
@@ -930,9 +931,9 @@ class MohonPenilaianController extends Controller
                 $user_profils3->GELARAN_KETUA_JABATAN = strtoupper($request->GELARAN_KETUA_JABATAN);
                 $user_profils3->BAHAGIAN = $request->BAHAGIAN;
                 $user_profils3->BANDAR = $request->BANDAR;
+                $user_profils3->save();
 
                 $user_profils4 = Perkhidmatan::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();
-                // dd($user_profils4);
                 $user_profils4->KOD_KLASIFIKASI_PERKHIDMATAN = $request->KOD_KLASIFIKASI_PERKHIDMATAN;
                 $user_profils4->TARIKH_LANTIKAN = $request->TARIKH_LANTIKAN;
                 $user_profils4->KOD_GELARAN_JAWATAN = $request->KOD_GELARAN_JAWATAN;
@@ -940,10 +941,6 @@ class MohonPenilaianController extends Controller
                 $user_profils4->KOD_PERINGKAT = $request->KOD_PERINGKAT;
                 $user_profils4->KOD_JENIS_PERKHIDMATAN = $request->KOD_JENIS_PERKHIDMATAN;
                 $user_profils4->KOD_GRED_JAWATAN = $request->KOD_GRED_JAWATAN;
-
-                $user_profils1->save();
-                $user_profils2->save();
-                $user_profils3->save();
                 $user_profils4->save();
 
                 // daftar permohonan

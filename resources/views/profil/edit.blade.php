@@ -108,7 +108,7 @@
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3"
                                                 id="{{ $user_profils->NAMA_PESERTA }}" type="text" name="NAMA_PESERTA"
-                                                value=" {{ $user_profils->NAMA_PESERTA }}" style="text-transform:uppercase"
+                                                value="{{ $user_profils->NAMA_PESERTA }}" style="text-transform:uppercase"
                                                 required>
                                         </div>
                                     </div>
