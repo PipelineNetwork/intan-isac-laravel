@@ -470,7 +470,7 @@
                         pejabat sementara dan masih tiada talian telefon.
                     </p>
                     <hr class="my-4" style="height: 3px"> --}}
-                    <p><strong>Jadual Penilaian ISAC telah dibuka. Sila buat pendaftaran terlebih dahulu.</strong></p>
+                    {{-- <p><strong>Jadual Penilaian ISAC telah dibuka. Sila buat pendaftaran terlebih dahulu.</strong></p> --}}
 
                     <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
                         dapat dijalankan dengan sempurna:
