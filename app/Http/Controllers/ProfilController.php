@@ -36,6 +36,7 @@ class ProfilController extends Controller
         } else {
             $user_profils = Auth::user();
         }
+        // dd(($user_profils));
         return view('profil.index', [
             'current_user' => $current_user,
             'user_profils' => $user_profils,
