@@ -43,7 +43,9 @@
                         sebarang
                         pertukaran dalam profil anda, Sila kemaskini di form yang dibawah. Jika
                         ada sebarang
-                        pertanyaan sila hubungi Penolong Pegawai Teknologi maklumat. Sekian Terima
+                        pertanyaan sila hubungi pihak urusetia melalui e-mel
+                        <u>isachelp@intanbk.intan.my</u> dan
+                        disalin (cc) <u>dlisachelp@intanbk.intan.my</u>. Sekian Terima
                         Kasih.
                     </p>
                     <div class="pl-lg-4 pb-lg-4">
@@ -439,8 +441,8 @@
                             </div>
                             <div class="col-8">
                                 <input class="form-control form-control-sm ml-3" name="BANDAR"
-                                    id="{{ $user_profils['BANDAR'] }}" type="text" value="{{ $user_profils['BANDAR'] }}"
-                                    required>
+                                    id="{{ $user_profils['BANDAR'] }}" type="text"
+                                    value="{{ $user_profils['BANDAR'] }}" required>
                             </div>
                         </div>
                         <div class="row mb-2">

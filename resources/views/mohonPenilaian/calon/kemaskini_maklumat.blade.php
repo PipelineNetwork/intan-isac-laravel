@@ -17,7 +17,9 @@
                                 sebarang
                                 pertukaran dalam profil anda, Sila kemaskini di form yang dibawah. Jika
                                 ada sebarang
-                                pertanyaan sila hubungi Penolong Pegawai Teknologi maklumat. Sekian Terima
+                                pertanyaan sila hubungi pihak urusetia melalui e-mel
+                                <u>isachelp@intanbk.intan.my</u> dan
+                                disalin (cc) <u>dlisachelp@intanbk.intan.my</u>. Sekian Terima
                                 Kasih.
                             </p>
                             <div class="pl-lg-4 pb-lg-4">
