@@ -96,7 +96,7 @@
                                     </div>
                                     <div class="col-8">
                                         <input class="form-control form-control-sm ml-3" name="EMEL_PESERTA" type="email"
-                                            value="{{ $user_profils->EMEL_PESERTA }}" readonly required>
+                                            value="{{ $user_profils['EMEL_PESERTA']}}" readonly required>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                     <b class="mb-0 text-white">Maklumat Permohonan</b>
                                 </div>
                                 <div class="col-md-4 text-end">
-                                    <a href="/profil/{{ $user_profils->id }}"
+                                    <a href="/profil/{{ $user_profils['id'] }}"
                                         class="fas fa-user-edit text-secondary text-sm button  text-white "
                                         data-bs-toggle="tooltip" data-bs-placement="top" title="Kemaskini"></a>
                                 </div>
@@ -135,7 +135,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="NO_KAD_PENGENALAN"
-                                                type="text" value="{{ $user_profils->NO_KAD_PENGENALAN }}" readonly required
+                                                type="text" value="{{ $user_profils['NO_KAD_PENGENALAN'] }}" readonly required
                                                 maxlength="12" size="12">
                                         </div>
                                     </div>
@@ -147,7 +147,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="EMEL_PESERTA" type="email"
-                                                value="{{ $user_profils->EMEL_PESERTA }}" readonly required>
+                                                value="{{ $user_profils['EMEL_PESERTA'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -157,270 +157,270 @@
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            @if ($user_profils->KOD_GELARAN == '01')
+                                            @if ($user_profils['KOD_GELARAN'] == '01')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Brigidier Jeneral Dato" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '02')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '02')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Cik" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '03')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '03')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '04')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '04')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin Amar" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '05')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '05')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '06')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '06')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin Paduka" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '07')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '07')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin Patinggi" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '08')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '08')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin Professor Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '09')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '09')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin Seri" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '10')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '10')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin Seri Utama" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '11')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '11')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin Sri" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '12')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '12')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin Sri Cempaka" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '13')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '13')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin Sri Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '14')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '14')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datin Wira" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '15')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '15')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '16')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '16')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Ir." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '17')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '17')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Ir Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '18')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '18')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Paduka" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '19')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '19')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato  Paduka Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '20')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '20')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Pahlawan" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '21')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '21')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Professor Madya Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '22')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '22')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Senara Muda" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '23')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '23')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Seri" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '24')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '24')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Seri Panglima" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '25')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '25')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Seri Utama" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '26')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '26')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Sri" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '27')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '27')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dato Wira" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '28')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '28')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datu" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '29')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '29')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '30')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '30')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Amar" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '31')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '31')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Bentara Luar" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '32')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '32')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Bentara Raja" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '33')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '33')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '34')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '34')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Kol." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '35')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '35')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Patinggi" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '36')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '36')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Professor" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '37')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '37')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Professor Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '38')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '38')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Seri" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '39')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '39')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Seri Panglima" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '40')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '40')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Seri Utama" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '41')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '41')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Setia" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '42')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '42')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Setia Wangsa" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '43')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '43')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Sri" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '44')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '44')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Sri Amar Diraja" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '45')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '45')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Sri Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '46')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '46')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Wira" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '47')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '47')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Datuk Wira Jaya" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '48')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '48')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Doktor" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '49')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '49')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '50')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '50')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Encik" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '51')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '51')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Hajjah" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '52')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '52')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Haji" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '53')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '53')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Ir" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '54')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '54')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Ir. Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '55')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '55')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Jeneral" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '56')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '56')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Kapten" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '57')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '57')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Kolonel" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '58')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '58')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Major" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '59')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '59')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Pehin Sri" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '60')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '60')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Professor" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '61')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '61')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Professor Diraja" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '62')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '62')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Professor Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '63')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '63')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Professor Madya" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '64')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '64')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Professor Madya Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '65')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '65')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Puan" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '66')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '66')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Puan Sri" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '67')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '67')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Puan Sri Datin" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '68')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '68')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Puan Sri Datin Professor" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '69')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '69')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Puan Sri Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '70')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '70')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Puan Sri Utama" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '71')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '71')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tan Sri" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '72')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '72')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tan Sri Dato Seri" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '73')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '73')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tan Sri Dato" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '74')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '74')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tan Sri Datuk" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '75')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '75')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tan Sri Datuk Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '76')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '76')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tan Sri Datuk Professor" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '77')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '77')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tan Sri Datuk Professor Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '78')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '78')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tan Sri Dr." readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '79')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '79')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tan Sri Jeneral" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '80')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '80')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tan Sri Professor" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '81')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '81')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="To Puan" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '82')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '82')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Toh Puan Seri Utama" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '83')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '83')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tuan" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '84')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '84')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tuan Haji" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '85')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '85')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Tun" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == '86')
+                                            @elseif ($user_profils['KOD_GELARAN'] == '86')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="Yang Mulia" readonly required>
-                                            @elseif ($user_profils->KOD_GELARAN == null)
+                                            @elseif ($user_profils['KOD_GELARAN'] == null)
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
                                                     value="" readonly required>
                                             @else
                                                 <input class="form-control form-control-sm ml-3" name="KOD_GELARAN" type="text"
-                                                    value="{{ $user_profils->KOD_GELARAN }}" readonly required>
+                                                    value="{{ $user_profils['KOD_GELARAN'] }}" readonly required>
                                             @endif
                                         </div>
                                     </div>
@@ -432,7 +432,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="NAMA_PESERTA" type="text"
-                                                value="{{ $user_profils->NAMA_PESERTA }}" readonly required>
+                                                value="{{ $user_profils['NAMA_PESERTA'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -443,7 +443,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="TARIKH_LAHIR" type="date"
-                                                value="{{ $user_profils->TARIKH_LAHIR }}" readonly required>
+                                                value="{{ $user_profils['TARIKH_LAHIR'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -453,16 +453,16 @@
                                             </label><label class="float-right">:</label>
                                         </div>
                                         <div class="col-8">
-                                            @if ($user_profils->KOD_JANTINA == '01')
+                                            @if ($user_profils['KOD_JANTINA'] == '01')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_JANTINA" type="text"
                                                     value="Lelaki" readonly required>
-                                            @elseif($user_profils->KOD_JANTINA == '02')
+                                            @elseif($user_profils['KOD_JANTINA'] == '02')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_JANTINA" type="text"
                                                     value="Perempuan" readonly required>
-                                            @elseif($user_profils->KOD_JANTINA == 'Lelaki')
+                                            @elseif($user_profils['KOD_JANTINA'] == 'Lelaki')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_JANTINA" type="text"
                                                     value="Lelaki" readonly required>
-                                            @elseif($user_profils->KOD_JANTINA == 'Perempuan')
+                                            @elseif($user_profils['KOD_JANTINA'] == 'Perempuan')
                                                 <input class="form-control form-control-sm ml-3" name="KOD_JANTINA" type="text"
                                                     value="Perempuan" readonly required>
                                             @else
@@ -479,7 +479,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="KOD_GELARAN_JAWATAN"
-                                                type="text" value="{{ $user_profils->KOD_GELARAN_JAWATAN }}" readonly
+                                                type="text" value="{{ $user_profils['KOD_GELARAN_JAWATAN'] }}" readonly
                                                 required>
                                         </div>
                                     </div>
@@ -491,7 +491,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="KOD_PERINGKAT" type="text"
-                                                value="{{ $user_profils->KOD_PERINGKAT }}" readonly required>
+                                                value="{{ $user_profils['KOD_PERINGKAT'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -503,7 +503,7 @@
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3"
                                                 name="KOD_KLASIFIKASI_PERKHIDMATAN" type="text"
-                                                value="{{ $user_profils->KOD_KLASIFIKASI_PERKHIDMATAN }}" readonly required>
+                                                value="{{ $user_profils['KOD_KLASIFIKASI_PERKHIDMATAN'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -514,7 +514,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="KOD_GRED_JAWATAN"
-                                                type="text" value="{{ $user_profils->KOD_GRED_JAWATAN }}" readonly required>
+                                                type="text" value="{{ $user_profils['KOD_GRED_JAWATAN'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -525,7 +525,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="KOD_TARAF_PERJAWATAN"
-                                                type="text" value="{{ $user_profils->KOD_TARAF_PERJAWATAN }}" readonly
+                                                type="text" value="{{ $user_profils['KOD_TARAF_PERJAWATAN'] }}" readonly
                                                 required>
                                         </div>
                                     </div>
@@ -537,7 +537,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="KOD_JENIS_PERKHIDMATAN"
-                                                type="text" value="{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}" readonly
+                                                type="text" value="{{ $user_profils['KOD_JENIS_PERKHIDMATAN'] }}" readonly
                                                 required>
                                         </div>
                                     </div>
@@ -549,7 +549,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="TARIKH_LANTIKAN" type="text"
-                                                value="{{ date('d/m/Y', strtotime($user_profils->TARIKH_LANTIKAN)) }}"
+                                                value="{{ date('d/m/Y', strtotime($user_profils['TARIKH_LANTIKAN'])) }}"
                                                 readonly required>
                                         </div>
                                     </div>
@@ -561,7 +561,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="NO_TELEFON_PEJABAT"
-                                                type="text" value="{{ $user_profils->NO_TELEFON_PEJABAT }}" readonly
+                                                type="text" value="{{ $user_profils['NO_TELEFON_PEJABAT'] }}" readonly
                                                 required>
                                         </div>
                                     </div>
@@ -573,7 +573,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="NO_TELEFON_BIMBIT"
-                                                type="text" value="{{ $user_profils->NO_TELEFON_BIMBIT }}" readonly required>
+                                                type="text" value="{{ $user_profils['NO_TELEFON_BIMBIT'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -584,7 +584,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="GELARAN_KETUA_JABATAN"
-                                                type="text" value="{{ $user_profils->GELARAN_KETUA_JABATAN }}" readonly
+                                                type="text" value="{{ $user_profils['GELARAN_KETUA_JABATAN'] }}" readonly
                                                 required>
                                         </div>
                                     </div>
@@ -596,7 +596,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="KOD_KEMENTERIAN" type="text"
-                                                value="{{ $user_profils->KOD_KEMENTERIAN }}" readonly required>
+                                                value="{{ $user_profil['KOD_KEMENTERIAN'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -607,7 +607,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="KOD_JABATAN" type="text"
-                                                value="{{ $user_profils->KOD_JABATAN }}" readonly required>
+                                                value="{{ $user_profils['KOD_JABATAN'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -618,7 +618,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="BAHAGIAN" type="text"
-                                                value="{{ $user_profils->BAHAGIAN }}" readonly required>
+                                                value="{{ $user_profils['BAHAGIAN'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -629,7 +629,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="ALAMAT_1" type="text"
-                                                value="{{ $user_profils->ALAMAT_1 }}" readonly required>
+                                                value="{{ $user_profils['ALAMAT_1'] }}" readonly required>
                                         </div>
                                     </div>
                                     {{-- <div class="row mb-2">
@@ -652,7 +652,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="POSKOD" type="text"
-                                                value="{{ $user_profils->POSKOD }}" readonly required>
+                                                value="{{ $user_profils['POSKOD'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -663,7 +663,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" type="text" name="BANDAR"
-                                                value="{{ $user_profils->BANDAR }}" readonly required>
+                                                value="{{ $user_profils['BANDAR'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -674,7 +674,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="KOD_NEGERI" type="text"
-                                                value="{{ $user_profils->KOD_NEGERI }}" readonly required>
+                                                value="{{ $user_profils['KOD_NEGERI'] }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -685,7 +685,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="NAMA_PENYELIA" type="text"
-                                                value="{{ $user_profils->NAMA_PENYELIA }}" readonly>
+                                                value="{{ $user_profils['NAMA_PENYELIA'] }}" readonly>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -696,7 +696,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="EMEL_PENYELIA" type="email"
-                                                value="{{ $user_profils->EMEL_PENYELIA }}" readonly>
+                                                value="{{ $user_profils['EMEL_PENYELIA'] }}" readonly>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -707,7 +707,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="NO_TELEFON_PENYELIA"
-                                                type="text" value="{{ $user_profils->NO_TELEFON_PENYELIA }}" readonly
+                                                type="text" value="{{ $user_profils['NO_TELEFON_PENYELIA'] }}" readonly
                                                 maxlength="11">
                                         </div>
                                     </div>
