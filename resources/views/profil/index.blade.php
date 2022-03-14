@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="col-8">
                                         <input class="form-control form-control-sm ml-3" name="NAMA_PESERTA" type="text"
-                                        value=" {{ $user_profils->name }}" readonly required>
+                                        value="{{ $user_profils->name }}" readonly required>
                                         {{-- @if ($user_profils->NAMA_PESERTA == null)
                                             <input class="form-control form-control-sm ml-3" name="NAMA_PESERTA" type="text"
                                                 value=" {{ $user_profils->name }}" readonly required>
@@ -439,7 +439,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="NAMA_PESERTA" type="text"
-                                                value=" {{ $user_profils->NAMA_PESERTA }}" readonly required>
+                                                value="{{ $user_profils->NAMA_PESERTA }}" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">

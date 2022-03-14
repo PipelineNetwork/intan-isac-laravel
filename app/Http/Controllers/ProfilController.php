@@ -21,14 +21,13 @@ class ProfilController extends Controller
 
     public function kemaskini(Request $request)
     {
-        $checkid2 = Auth::id();
+        $checkid2 = Auth::user()->nric;
         $current_user = Auth::user()->user_group_id;
         $check = Role::where('id', $current_user)->first();
         $role = $check->name;
 
         if ($role == 'calon') {
-            $user_profils = DB::table('users')
-                ->where('id', '=', $checkid2)
+            $user_profils = User::where('nric', '=', $checkid2)
                 ->join('pro_peserta', 'users.nric', '=', 'pro_peserta.NO_KAD_PENGENALAN')
                 ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
                 ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
@@ -48,7 +47,7 @@ class ProfilController extends Controller
         $current_user = Auth::user()->user_group_id;
         $current_user = Role::where('id', $current_user)->first();
         $checkid = Auth::id();
-        $checkid2 = Auth::user()->id;
+        $checkid2 = Auth::user()->nric;
         $gelaran_user = Refgeneral::where('MASTERCODE', 10009)
             ->join('pro_peserta', 'refgeneral.REFERENCECODE', 'pro_peserta.KOD_GELARAN')
             ->select('refgeneral.MASTERCODE', 'refgeneral.REFERENCECODE', 'refgeneral.DESCRIPTION1', 'pro_peserta.KOD_GELARAN')
@@ -75,13 +74,12 @@ class ProfilController extends Controller
         $jabatan = Refgeneral::where('MASTERCODE', 10029)->orderBy('DESCRIPTION1', 'asc')->get();
 
         if ($current_user->name == 'calon') {
-            $user_profils = DB::table('users')
-                ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
-                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
-                ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
-                ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
-                ->where('id', $checkid2)
-                ->get()->first();
+            $user_profils = User::where('nric', '=', $checkid2)
+            ->join('pro_peserta', 'users.nric', '=', 'pro_peserta.NO_KAD_PENGENALAN')
+            ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+            ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+            ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
+            ->get()->first();
         } else {
             $user_profils = $request->user();
         }
@@ -104,19 +102,19 @@ class ProfilController extends Controller
         ]);
     }
 
-    public function kemaskiniprofil(Request $request)
+    public function kemaskiniprofil(Request $request, $id)
     {
         $current_user = Auth::user();
 
-        $check_ic = User::where('nric', $request->NO_KAD_PENGENALAN)->first();
-        if ($check_ic != null) {
-            echo '<script language="javascript">';
-            echo 'alert("No Kad Pengenalan yang dimasukkan telah wujud.");';
-            echo "window.location.href='/profil';";
-            echo '</script>';
-        } else {
+        // $check_ic = User::where('nric', $request->NO_KAD_PENGENALAN)->first();
+        // if ($check_ic != null) {
+        //     echo '<script language="javascript">';
+        //     echo 'alert("No Kad Pengenalan yang dimasukkan telah wujud.");';
+        //     echo "window.location.href='/profil';";
+        //     echo '</script>';
+        // } else {
             if ($current_user->user_group_id == 5) {
-                $user_profils1 = User::find($request->user()->id);
+                $user_profils1 = User::where('id',$id)->first();
                 $user_profils1->email = $request->EMEL_PESERTA;
                 $user_profils1->nric = $request->NO_KAD_PENGENALAN;
                 $user_profils1->save();
@@ -176,7 +174,7 @@ class ProfilController extends Controller
             }
             // alert()->success('Berjaya disimpan');
             return redirect('/profil');
-        }
+        // }
     }
 
     public function edit($profil)
