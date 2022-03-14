@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="col-8">
                                         <input class="form-control form-control-sm ml-3" name="NAMA_PESERTA" type="text"
-                                        value="{{ $user_profils['NAMA_PESERTA'] }}" readonly required>
+                                            value="{{ $user_profils['NAMA_PESERTA'] }}" readonly required>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -503,7 +503,8 @@
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3"
                                                 name="KOD_KLASIFIKASI_PERKHIDMATAN" type="text"
-                                                value="{{ $user_profils['KOD_KLASIFIKASI_PERKHIDMATAN'] }}" readonly required>
+                                                value="{{ $user_profils['KOD_KLASIFIKASI_PERKHIDMATAN'] }}" readonly
+                                                required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -514,7 +515,8 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="KOD_GRED_JAWATAN"
-                                                type="text" value="{{ $user_profils['KOD_GRED_JAWATAN'] }}" readonly required>
+                                                type="text" value="{{ $user_profils['KOD_GRED_JAWATAN'] }}" readonly
+                                                required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -573,7 +575,8 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="NO_TELEFON_BIMBIT"
-                                                type="text" value="{{ $user_profils['NO_TELEFON_BIMBIT'] }}" readonly required>
+                                                type="text" value="{{ $user_profils['NO_TELEFON_BIMBIT'] }}" readonly
+                                                required>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -840,10 +843,14 @@
                         <div class="card-body p-3">
                             <div class="card-body">
                                 <p class="text-sm">
-                                    Sila pastikan semua informasi berikut adalah benar dan tepat. Sekiranya ada sebarang
-                                    pertukaran dalam profil anda, Sila kemaskini di platfom yang disediakan. Jika ada
+                                    Sila pastikan semua informasi berikut adalah benar dan tepat. Sekiranya ada
                                     sebarang
-                                    pertanyaan sila hubungi Penolong Pegawai Teknologi maklumat. Sekian Terima Kasih.
+                                    pertukaran dalam profil anda, Sila kemaskini di form yang dibawah. Jika
+                                    ada sebarang
+                                    pertanyaan sila hubungi pihak urusetia melalui e-mel
+                                    <u>isachelp@intanbk.intan.my</u> dan
+                                    disalin (cc) <u>dlisachelp@intanbk.intan.my</u>. Sekian Terima
+                                    Kasih.
                                 </p>
                                 <div class="pl-lg-4 pb-lg-4">
                                     <div class="row mb-2">
