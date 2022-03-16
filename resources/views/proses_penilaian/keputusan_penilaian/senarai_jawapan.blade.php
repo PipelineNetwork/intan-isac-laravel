@@ -195,16 +195,16 @@
                                 // dd($soalan_word);
                                 if ($soalan_word != null) {
                                     if ($jawapan_kemahiran->id_soalankemahiranword != null) {
-                                        if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_1) && !empty($soalan_word->jawapan_1)) {
-                                            $markah_1 = $soalan_word->markah_1;
-                                            $display_betul_salah_1 = $soalan_word->jawapan_1;
-                                        } elseif ($soalan_word->jawapan_1 == null) {
-                                            $markah_1 = 'Tiada';
-                                            $display_betul_salah_1 = 'Tiada Jawapan';
-                                        } else {
-                                            $markah_1 = 0;
-                                            $display_betul_salah_1 = $soalan_word->jawapan_1;
-                                        }
+                                        // if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_1) && !empty($soalan_word->jawapan_1)) {
+                                        //     $markah_1 = $soalan_word->markah_1;
+                                        //     $display_betul_salah_1 = $soalan_word->jawapan_1;
+                                        // } elseif ($soalan_word->jawapan_1 == null) {
+                                        //     $markah_1 = 'Tiada';
+                                        //     $display_betul_salah_1 = 'Tiada Jawapan';
+                                        // } else {
+                                        //     $markah_1 = 0;
+                                        //     $display_betul_salah_1 = $soalan_word->jawapan_1;
+                                        // }
                                 
                                         if (str_contains($jawapan_kemahiran->jawapan_word, $soalan_word->jawapan_2) && !empty($soalan_word->jawapan_2)) {
                                             $markah_2 = $soalan_word->markah_2;
@@ -360,7 +360,7 @@
                                             $display_betul_salah_15 = $soalan_word->jawapan_15;
                                         }
                                     } else {
-                                        $display_betul_salah_1 = 'Tidak menjawab/Tidak simpan jawapan.';
+                                        // $display_betul_salah_1 = 'Tidak menjawab/Tidak simpan jawapan.';
                                         $display_betul_salah_2 = 'Tidak menjawab/Tidak simpan jawapan.';
                                         $display_betul_salah_3 = 'Tidak menjawab/Tidak simpan jawapan.';
                                         $display_betul_salah_4 = 'Tidak menjawab/Tidak simpan jawapan.';
@@ -377,7 +377,7 @@
                                         $display_betul_salah_15 = 'Tidak menjawab/Tidak simpan jawapan.';
                                     }
                                 } else {
-                                    $markah_1 = 'Tiada';
+                                    // $markah_1 = 'Tiada';
                                     $markah_2 = 'Tiada';
                                     $markah_3 = 'Tiada';
                                     $markah_4 = 'Tiada';
@@ -415,7 +415,7 @@
                             @endif
 
                             {{-- check jawapan 1 --}}
-                            @if ($markah_1 == 1)
+                            {{-- @if ($markah_1 == 1)
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_1 }}</label>
@@ -423,7 +423,14 @@
                                             disabled="">{{ $display_betul_salah_1 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_1 == 0)
+                            @elseif ($markah_1 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_1 }}</label>
@@ -431,7 +438,7 @@
                                             disabled="">{{ $display_betul_salah_1 }}</textarea>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
 
                             {{-- check jawapan 2 --}}
                             @if ($markah_2 == 1)
@@ -442,7 +449,14 @@
                                             disabled="">{{ $display_betul_salah_2 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_2 == 0)
+                            @elseif ($markah_2 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_2 }}</label>
@@ -461,7 +475,14 @@
                                             disabled="">{{ $display_betul_salah_3 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_3 == 0)
+                            @elseif ($markah_3 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_3 }}</label>
@@ -480,7 +501,14 @@
                                             disabled="">{{ $display_betul_salah_4 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_4 == 0)
+                            @elseif ($markah_4 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_4 }}</label>
@@ -501,7 +529,14 @@
                                             disabled="">{{ $display_betul_salah_5 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_5 == 0)
+                            @elseif ($markah_5 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_5 }}</label>
@@ -520,7 +555,14 @@
                                             disabled="">{{ $display_betul_salah_6 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_6 == 0)
+                            @elseif ($markah_6 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_6 }}</label>
@@ -539,7 +581,14 @@
                                             disabled="">{{ $display_betul_salah_7 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_7 == 0)
+                            @elseif ($markah_7 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_7 }}</label>
@@ -558,7 +607,14 @@
                                             disabled="">{{ $display_betul_salah_8 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_8 == 0)
+                            @elseif ($markah_8 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_8 }}</label>
@@ -577,7 +633,14 @@
                                             disabled="">{{ $display_betul_salah_9 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_9 == 0)
+                            @elseif ($markah_9 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_9 }}</label>
@@ -596,7 +659,14 @@
                                             disabled="">{{ $display_betul_salah_10 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_10 == 0)
+                            @elseif ($markah_10 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_10 }}</label>
@@ -615,7 +685,14 @@
                                             disabled="">{{ $display_betul_salah_11 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_11 == 0)
+                            @elseif ($markah_11 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_11 }}</label>
@@ -634,7 +711,14 @@
                                             disabled="">{{ $display_betul_salah_12 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_12 == 0)
+                            @elseif ($markah_12 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_12 }}</label>
@@ -653,7 +737,14 @@
                                             disabled="">{{ $display_betul_salah_13 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_13 == 0)
+                            @elseif ($markah_13 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_13 }}</label>
@@ -672,7 +763,14 @@
                                             disabled="">{{ $display_betul_salah_14 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_14 == 0)
+                            @elseif ($markah_14 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_14 }}</label>
@@ -691,7 +789,14 @@
                                             disabled="">{{ $display_betul_salah_15 }}</textarea>
                                     </div>
                                 </div>
-                            @elseif ($markah_15 == 0)
+                            @elseif ($markah_15 == 'Tiada')
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Markah: -</label>
+                                        <textarea class="form-control" rows="5" disabled="">Tiada Jawapan</textarea>
+                                    </div>
+                                </div>
+                            @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_15 }}</label>
