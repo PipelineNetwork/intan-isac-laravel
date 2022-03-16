@@ -408,7 +408,7 @@ class MohonPenilaianController extends Controller
         $kekosongan = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
 
         $kekosongan->BILANGAN_CALON = (int)$kekosongan->BILANGAN_CALON - 1;
-        $kekosongan->KEKOSONGAN = (int)$kekosongan->KEKOSONGAN + 1;
+        $kekosongan->KEKOSONGAN = $kekosongan->KEKOSONGAN + 1;
         $kekosongan->save();
 
         $pengetahuan = Bankjawapanpengetahuan::where('id_calon', $ic_calon)->where('id_penilaian', $id_penilaian)->get();
@@ -900,13 +900,13 @@ class MohonPenilaianController extends Controller
 
             if ($check_calon == null) {
                 $user_profils1 = User::find($request->user()->id);
-                $user_profils1->name = $request->NAMA_PESERTA;
+                $user_profils1->name = strtoupper($request->NAMA_PESERTA);
                 $user_profils1->nric = $request->NO_KAD_PENGENALAN;
                 $user_profils1->email = $request->EMEL_PESERTA;
                 $user_profils1->save();
 
                 $user_profils2 = Permohanan::where('user_id', $user_profils1->id)->first();
-                $user_profils2->NAMA_PESERTA = $request->NAMA_PESERTA;
+                $user_profils2->NAMA_PESERTA = strtoupper($request->NAMA_PESERTA);
                 $user_profils2->NO_KAD_PENGENALAN = $request->NO_KAD_PENGENALAN;
                 $user_profils2->EMEL_PESERTA = $request->EMEL_PESERTA;
                 $user_profils2->NO_TELEFON_BIMBIT = $request->NO_TELEFON_BIMBIT;
@@ -952,7 +952,7 @@ class MohonPenilaianController extends Controller
                 $permohonan->id_calon = $request->id_peserta;
                 $permohonan->tarikh_sesi = $sesi_id->TARIKH_SESI;
                 $permohonan->no_ic = $request->NO_KAD_PENGENALAN;
-                $permohonan->nama = $request->NAMA_PESERTA;
+                $permohonan->nama = strtoupper($request->NAMA_PESERTA);
                 $permohonan->tarikh_lahir = $request->TARIKH_LAHIR;
                 if ($request->KOD_JANTINA == '01') {
                     $jantina = 'Lelaki';

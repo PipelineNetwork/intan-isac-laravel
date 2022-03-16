@@ -35,6 +35,7 @@
             <div class="row">
                 <div class="col-12 mb-3">
                     <form method="POST" action="/profil/{{ $user_profils['id'] }}/edit">
+                        @method('POST')
                         @csrf
                         <div class="card mt-4" id="basic-info">
                             <div class="card-header" style="background-color:#FFA500;">
