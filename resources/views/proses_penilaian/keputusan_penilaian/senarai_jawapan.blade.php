@@ -516,8 +516,6 @@
                                             disabled="">{{ $display_betul_salah_4 }}</textarea>
                                     </div>
                                 </div>
-                            @else
-                                {{-- <label class="form-control-label">Tiada Jawapan 4</label> --}}
                             @endif
 
                             {{-- check jawapan 5 --}}

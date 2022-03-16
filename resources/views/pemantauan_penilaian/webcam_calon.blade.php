@@ -75,4 +75,10 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        window.setTimeout(function() {
+            window.location.reload();
+        }, 30000);
+    </script>
 @stop
