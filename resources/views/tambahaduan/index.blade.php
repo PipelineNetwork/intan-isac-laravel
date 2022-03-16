@@ -65,6 +65,8 @@
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Nama</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
+                                    No Kad Pengenalan</th>
+                                <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Tarikh</th>
                                 <th class="text-uppercase text-center text-secondary text-xs font-weight-bolder opacity-7">
                                     Status</th>
@@ -82,6 +84,8 @@
                                 <tr>
                                     <td class="text-sm text-center font-weight-normal" style="text-transform: uppercase">
                                         {{ $tambahaduan->name }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        {{ $tambahaduan->nric }}</td>
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ date('d/m/Y', strtotime($tambahaduan->created_at)) }}</td>
                                     <td class="text-sm text-center font-weight-normal">
@@ -229,7 +233,8 @@
     <script type="text/javascript">
         const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
             searchable: true,
-            fixedHeight: true
+            fixedHeight: true,
+            sortable: false
         });
     </script>
 

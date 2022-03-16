@@ -34,12 +34,12 @@ class TambahAduanController extends Controller
         if ($role == 'calon') {
             $tambahaduans = TambahAduan::where('user_id', $current_user)
                 ->join('users', 'tambah_aduans.user_id', 'users.id')
-                ->select('tambah_aduans.*', 'users.name', 'users.email')
+                ->select('tambah_aduans.*', 'users.name', 'users.nric', 'users.email')
                 ->orderBy('created_at', 'desc')
                 ->get();
         } else {
             $tambahaduans = TambahAduan::join('users', 'tambah_aduans.user_id', 'users.id')
-                ->select('tambah_aduans.*', 'users.name', 'users.email')
+                ->select('tambah_aduans.*', 'users.name', 'users.nric', 'users.email')
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
