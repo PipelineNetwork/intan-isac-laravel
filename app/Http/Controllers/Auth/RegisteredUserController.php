@@ -41,14 +41,6 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $check_email = User::where('email', $request->email)->first();
-
-        // if ($check_email != null) {
-        //     echo '<script language="javascript">';
-        //     echo 'alert("E-mel yang dimasukkan telah wujud.");';
-        //     echo "window.location.href='/authenticate-ic';";
-        //     echo '</script>';
-        // } else {
         $request->validate([
             'nric' => 'required|string|max:255|unique:users',
             'name' => 'required|string|max:255',
