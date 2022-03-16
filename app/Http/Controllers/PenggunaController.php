@@ -290,7 +290,7 @@ class PenggunaController extends Controller
             $user_profils1->assignRole($role_update->name);
 
             $user_profils2 = Permohanan::where('NO_KAD_PENGENALAN', $user_info->nric)->first();
-            $user_profils2->ID_PESERTA = $request->ID_PESERTA;
+            // $user_profils2->ID_PESERTA = $request->ID_PESERTA;
             $user_profils2->NAMA_PESERTA = strtoupper($request->name);
             $user_profils2->NO_KAD_PENGENALAN = $request->nric;
             $user_profils2->EMEL_PESERTA = $request->email;
@@ -298,7 +298,7 @@ class PenggunaController extends Controller
             $user_profils2->NO_TELEFON_PEJABAT = $request->NO_TELEFON_PEJABAT;
             $user_profils2->KOD_JANTINA = $request->KOD_JANTINA;
             $user_profils2->TARIKH_LAHIR = $request->TARIKH_LAHIR;
-            $user_profils2->ID_PESERTA = $request->ID_PESERTA;
+            // $user_profils2->ID_PESERTA = $request->ID_PESERTA;
             $user_profils2->KOD_GELARAN = $request->KOD_GELARAN;
 
             $user_profils3 = Tugas::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();

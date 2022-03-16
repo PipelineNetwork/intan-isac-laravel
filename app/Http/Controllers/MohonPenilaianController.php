@@ -182,7 +182,7 @@ class MohonPenilaianController extends Controller
                 $user_profils2->NO_TELEFON_PEJABAT = $request->NO_TELEFON_PEJABAT;
                 $user_profils2->KOD_JANTINA = $request->KOD_JANTINA;
                 $user_profils2->TARIKH_LAHIR = $request->TARIKH_LAHIR;
-                $user_profils2->ID_PESERTA = $request->ID_PESERTA;
+                // $user_profils2->ID_PESERTA = $request->ID_PESERTA;
                 $user_profils2->KOD_GELARAN = $request->KOD_GELARAN;
 
                 $user_profils3 = Tugas::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();
@@ -563,7 +563,7 @@ class MohonPenilaianController extends Controller
         $user_profils2->NO_TELEFON_PEJABAT = $request->NO_TELEFON_PEJABAT;
         $user_profils2->KOD_JANTINA = $request->KOD_JANTINA;
         $user_profils2->TARIKH_LAHIR = $request->TARIKH_LAHIR;
-        $user_profils2->ID_PESERTA = $request->ID_PESERTA;
+        // $user_profils2->ID_PESERTA = $request->ID_PESERTA;
         $user_profils2->KOD_GELARAN = $request->KOD_GELARAN;
 
         $user_profils3 = Tugas::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();
@@ -913,7 +913,7 @@ class MohonPenilaianController extends Controller
                 $user_profils2->NO_TELEFON_PEJABAT = $request->NO_TELEFON_PEJABAT;
                 $user_profils2->KOD_JANTINA = $request->KOD_JANTINA;
                 $user_profils2->TARIKH_LAHIR = $request->TARIKH_LAHIR;
-                $user_profils2->ID_PESERTA = $request->ID_PESERTA;
+                // $user_profils2->ID_PESERTA = $request->ID_PESERTA;
                 $user_profils2->KOD_GELARAN = $request->KOD_GELARAN;
                 $user_profils2->save();
 
