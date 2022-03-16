@@ -814,7 +814,7 @@
                                                                             disabled>Penuh</button>
                                                                     @endif --}}
                                                             @else
-                                                                @if (($jadual->status == null || $jadual->status == 'Penangguhan') && $jadual->KEKOSONGAN > 0)
+                                                                @if ($jadual->status != 'Pembatalan' && $jadual->KEKOSONGAN > 0)
                                                                     <form action="/mohonpenilaian/permohonan_penilaian"
                                                                         method="POST" class="m-0">
                                                                         @csrf

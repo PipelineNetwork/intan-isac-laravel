@@ -265,35 +265,35 @@ class SoalankemahiraninternetController extends Controller
     {
         $jawapancalon = Bankjawapancalon::where('id_penilaian', $id_penilaian)->where('ic_calon', Auth::user()->nric)->first();
 
-        if ($jawapancalon == null) {
-            $jawapancalon = new Bankjawapancalon();
+        // if ($jawapancalon == null) {
+        //     $jawapancalon = new Bankjawapancalon();
 
-            $jawapancalon->url_teks = $request->url_teks;
-            $jawapancalon->jawapansebenar_urlteks = $request->jawapansebenar_urlteks;
-            $jawapancalon->markah_urlteks = $request->markah_urlteks;
-            $jawapancalon->carian_teks = $request->carian_teks;
-            $jawapancalon->jawapansebenar_carianteks = $request->jawapansebenar_carianteks;
-            $jawapancalon->markah_carianteks = $request->markah_carianteks;
-            $jawapancalon->jumlah_markah_internet = (int)$jawapancalon->markah_urlteks + (int)$jawapancalon->markah_carianteks;
-            $jawapancalon->user_id = $request->user_id;
-            $jawapancalon->id_soalankemahiraninternet = $id_internet;
-            $jawapancalon->id_penilaian = $id_penilaian;
-            $jawapancalon->ic_calon = Auth::user()->nric;
-            $jawapancalon->status_jawab_internet = '1';
-        } else {
-            $jawapancalon->url_teks = $request->url_teks;
-            $jawapancalon->jawapansebenar_urlteks = $request->jawapansebenar_urlteks;
-            $jawapancalon->markah_urlteks = $request->markah_urlteks;
-            $jawapancalon->carian_teks = $request->carian_teks;
-            $jawapancalon->jawapansebenar_carianteks = $request->jawapansebenar_carianteks;
-            $jawapancalon->markah_carianteks = $request->markah_carianteks;
-            $jawapancalon->jumlah_markah_internet = (int)$jawapancalon->markah_urlteks + (int)$jawapancalon->markah_carianteks;
-            $jawapancalon->user_id = $request->user_id;
-            $jawapancalon->id_soalankemahiraninternet = $id_internet;
-            $jawapancalon->id_penilaian = $id_penilaian;
-            $jawapancalon->ic_calon = Auth::user()->nric;
-            $jawapancalon->status_jawab_internet = '1';
-        }
+        //     $jawapancalon->url_teks = $request->url_teks;
+        //     $jawapancalon->jawapansebenar_urlteks = $request->jawapansebenar_urlteks;
+        //     $jawapancalon->markah_urlteks = $request->markah_urlteks;
+        //     $jawapancalon->carian_teks = $request->carian_teks;
+        //     $jawapancalon->jawapansebenar_carianteks = $request->jawapansebenar_carianteks;
+        //     $jawapancalon->markah_carianteks = $request->markah_carianteks;
+        //     $jawapancalon->jumlah_markah_internet = (int)$jawapancalon->markah_urlteks + (int)$jawapancalon->markah_carianteks;
+        //     $jawapancalon->user_id = $request->user_id;
+        //     $jawapancalon->id_soalankemahiraninternet = $id_internet;
+        //     $jawapancalon->id_penilaian = $id_penilaian;
+        //     $jawapancalon->ic_calon = Auth::user()->nric;
+        //     $jawapancalon->status_jawab_internet = '1';
+        // } else {
+        $jawapancalon->url_teks = $request->url_teks;
+        $jawapancalon->jawapansebenar_urlteks = $request->jawapansebenar_urlteks;
+        $jawapancalon->markah_urlteks = $request->markah_urlteks;
+        $jawapancalon->carian_teks = $request->carian_teks;
+        $jawapancalon->jawapansebenar_carianteks = $request->jawapansebenar_carianteks;
+        $jawapancalon->markah_carianteks = $request->markah_carianteks;
+        $jawapancalon->jumlah_markah_internet = (int)$jawapancalon->markah_urlteks + (int)$jawapancalon->markah_carianteks;
+        $jawapancalon->user_id = $request->user_id;
+        $jawapancalon->id_soalankemahiraninternet = $id_internet;
+        $jawapancalon->id_penilaian = $id_penilaian;
+        $jawapancalon->ic_calon = Auth::user()->nric;
+        $jawapancalon->status_jawab_internet = '1';
+        // }
 
         // dd($url_teks, $jawapansebenar_urlteks, $markah_urlteks, $carian_teks, $jawapansebenar_carianteks, $markah_carianteks, $user_id, $id_internet, $ic_calon, $id_penilaian);
         $jawapancalon->save();
