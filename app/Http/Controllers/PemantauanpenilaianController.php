@@ -131,7 +131,7 @@ class PemantauanpenilaianController extends Controller
             }
             array_push($senarai_semak_jawapan, $status_semak_jawapan);
         }
-        dd($senarai_semak_jawapan);
+        
         return view('pemantauan_penilaian.show', [
             'senarai_semak_jawapans' => $senarai_semak_jawapan
         ]);
