@@ -115,7 +115,9 @@ class ProfilController extends Controller
         //     echo '</script>';
         // } else {
             if ($current_user->user_group_id == 5) {
-                $user_profils1 = User::where('id',$id)->first();
+                // $user_profils1 = User::where('id',$id)->first();
+                $user_profils1 = User::find($id);
+                $user_profils1->name = strtoupper($request->NAMA_PESERTA);
                 $user_profils1->email = $request->EMEL_PESERTA;
                 $user_profils1->nric = $request->NO_KAD_PENGENALAN;
                 $user_profils1->save();

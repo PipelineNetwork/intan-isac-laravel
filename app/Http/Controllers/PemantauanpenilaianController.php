@@ -20,7 +20,7 @@ class PemantauanpenilaianController extends Controller
      */
     public function index()
     {
-        $penilaian_list = Jadual::orderBy('updated_at', 'desc')->get();
+        $penilaian_list = Jadual::orderBy('TARIKH_SESI', 'desc')->get();
 
         return view('pemantauan_penilaian.index', [
             'penilaian_lists' => $penilaian_list,
