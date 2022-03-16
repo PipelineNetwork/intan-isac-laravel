@@ -296,7 +296,7 @@ class BankjawapanpengetahuanController extends Controller
         // $markah_keseluruhan_pengetahuan = PemilihanSoalanKumpulan::sum('NILAI_JUMLAH_SOALAN');
 
         $markah_keseluruhan_pengetahuan = PemilihanSoalan::get()->first();
-        // dd($markah_keseluruhan_pengetahuan);
+        // dd($jawapan_kemahiran);
         $ic = $ic;
         return view('proses_penilaian.keputusan_penilaian.senarai_jawapan', [
             'jawapan' => $jawapan,
