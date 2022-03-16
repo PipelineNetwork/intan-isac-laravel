@@ -74,7 +74,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($senarai_semak_jawapans as $senarai_semak_jawapan)
+                            @foreach ($senarai_semak_jawapans as $key => $senarai_semak_jawapan)
                                 @if ($senarai_semak_jawapan['status'] != 'Gagal' && $senarai_semak_jawapan['status'] != 'Lulus')
                                     <tr>
                                         <td class="text-sm text-center font-weight-normal">{{ $loop->index + 1 }}</td>
