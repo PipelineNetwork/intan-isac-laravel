@@ -59,10 +59,14 @@
                         </div>
                         <div class="card-body">
                             <p class="text-sm">
-                                Sila pastikan semua informasi berikut adalah benar dan tepat. Sekiranya ada sebarang
-                                pertukaran dalam profil anda, Sila kemaskini di platfom yang disediakan. Jika ada
+                                Sila pastikan semua informasi berikut adalah benar dan tepat. Sekiranya ada
                                 sebarang
-                                pertanyaan sila hubungi Penolong Pegawai Teknologi maklumat. Sekian Terima Kasih.
+                                pertukaran dalam profil anda, Sila kemaskini di form yang dibawah. Jika
+                                ada sebarang
+                                pertanyaan sila hubungi pihak urusetia melalui e-mel
+                                <u>isachelp@intanbk.intan.my</u> dan
+                                disalin (cc) <u>dlisachelp@intanbk.intan.my</u>. Sekian Terima
+                                Kasih.
                             </p>
                             <div class="pl-lg-4 pb-lg-4">
                                 <div class="row mb-2">
@@ -121,9 +125,11 @@
                                 <p class="text-sm">
                                     Sila pastikan semua informasi berikut adalah benar dan tepat. Sekiranya ada
                                     sebarang
-                                    pertukaran dalam profil anda, Sila kemaskini di platfom yang disediakan. Jika
+                                    pertukaran dalam profil anda, Sila kemaskini di form yang dibawah. Jika
                                     ada sebarang
-                                    pertanyaan sila hubungi Penolong Pegawai Teknologi maklumat. Sekian Terima
+                                    pertanyaan sila hubungi pihak urusetia melalui e-mel
+                                    <u>isachelp@intanbk.intan.my</u> dan
+                                    disalin (cc) <u>dlisachelp@intanbk.intan.my</u>. Sekian Terima
                                     Kasih.
                                 </p>
                                 <div class="pl-lg-4 pb-lg-4">
