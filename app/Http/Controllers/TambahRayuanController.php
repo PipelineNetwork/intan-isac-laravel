@@ -92,8 +92,7 @@ class TambahRayuanController extends Controller
         $tambahrayuan->save();
 
         $tambahrayuan = TambahRayuan::join('users', 'tambah_rayuans.user_id', 'users.id')
-            ->join('pro_peserta', 'users.nric', 'pro_peserta.NO_KAD_PENGENALAN')
-            ->select('tambah_rayuans.*', 'users.id', 'users.nric', 'pro_peserta.NAMA_PESERTA', 'pro_peserta.NO_KAD_PENGENALAN')
+            ->select('tambah_rayuans.*', 'users.id', 'users.nric', 'users.name')
             ->where('users.id', $current_user->id)
             ->get()->first();
 

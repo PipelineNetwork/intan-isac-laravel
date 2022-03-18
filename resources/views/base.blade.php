@@ -240,7 +240,7 @@
 
                                 @can('senarai rayuan blacklist')
                                     <li class="nav-item ">
-                                        <a class="nav-link " href="rayuan_calon_blacklist">
+                                        <a class="nav-link " href="/rayuan_calon_blacklist">
                                             <span class="sidenav-normal"> Senarai Rayuan Calon <br> Blacklist </span>
                                         </a>
                                     </li>

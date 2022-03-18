@@ -83,12 +83,20 @@ class MohonPenilaianController extends Controller
 
         // dd($status_pen);
         if ($status_lulus != null) {
-            alert('Anda telah lulus penilaian ID ' . $status_lulus->id_sesi . '. Anda tidak dibenarkan untuk daftar penilaian lain.');
-            return redirect('/mohonpenilaian');
+            // alert('Anda telah lulus penilaian ID ' . $status_lulus->id_sesi . '. Anda tidak dibenarkan untuk daftar penilaian lain.');
+            // return redirect('/dashboard');
+            echo '<script language="javascript">';
+            echo 'alert("Calon ini telah lulus penilaian. Calon ini tidak dibenarkan untuk daftar penilaian lain.");';
+            echo "window.location.href='/dashboard';";
+            echo '</script>';
         }
         if ($status_baru != null) {
-            alert('Anda telah mendaftar untuk penilaian ID ' . $status_baru->id_sesi);
-            return redirect('/mohonpenilaian');
+            // alert('Anda telah mendaftar untuk penilaian ID ' . $status_baru->id_sesi);
+            // return redirect('/dashboard');
+            echo '<script language="javascript">';
+            echo 'alert("Calon ini telah mendaftar penilaian. Calon ini tidak dibenarkan untuk daftar penilaian lain.");';
+            echo "window.location.href='/dashboard';";
+            echo '</script>';
         }
         $id_group_user = Auth::user()->user_group_id;
         $role = Role::where('id', $id_group_user)->first();
@@ -830,12 +838,20 @@ class MohonPenilaianController extends Controller
 
         // dd($status_pen);
         if ($status_lulus != null) {
-            alert('Anda telah lulus penilaian ID ' . $status_lulus->id_sesi . '. Anda tidak dibenarkan untuk daftar penilaian lain.');
-            return redirect('/dashboard');
+            // alert('Anda telah lulus penilaian ID ' . $status_lulus->id_sesi . '. Anda tidak dibenarkan untuk daftar penilaian lain.');
+            // return redirect('/dashboard');
+            echo '<script language="javascript">';
+            echo 'alert("Anda telah lulus penilaian. Anda tidak dibenarkan untuk daftar penilaian lain.");';
+            echo "window.location.href='/dashboard';";
+            echo '</script>';
         }
         if ($status_baru != null) {
-            alert('Anda telah mendaftar untuk penilaian ID ' . $status_baru->id_sesi);
-            return redirect('/dashboard');
+            // alert('Anda telah mendaftar untuk penilaian ID ' . $status_baru->id_sesi);
+            // return redirect('/dashboard');
+            echo '<script language="javascript">';
+            echo 'alert("Anda telah mendaftar penilaian. Anda tidak dibenarkan untuk daftar penilaian lain.");';
+            echo "window.location.href='/dashboard';";
+            echo '</script>';
         }
 
         $current_user = Auth::user()->user_group_id;
@@ -866,7 +882,7 @@ class MohonPenilaianController extends Controller
         $jabatan = Refgeneral::where('MASTERCODE', 10029)->orderBy('DESCRIPTION1')->get();
 
         $user_profils = User::where('nric', '=', $checkid2)
-            ->join('pro_peserta', 'users.nric', '=', 'pro_peserta.NO_KAD_PENGENALAN')
+            ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
             ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
             ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
             ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')

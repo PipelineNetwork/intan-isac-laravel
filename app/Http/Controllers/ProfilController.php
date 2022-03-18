@@ -48,8 +48,7 @@ class ProfilController extends Controller
     {
         $current_user = Auth::user()->user_group_id;
         $current_user = Role::where('id', $current_user)->first();
-        $checkid = Auth::id();
-        $checkid2 = Auth::user()->nric;
+        $checkid2 = Auth::user()->id;
         $gelaran_user = Refgeneral::where('MASTERCODE', 10009)
             ->join('pro_peserta', 'refgeneral.REFERENCECODE', 'pro_peserta.KOD_GELARAN')
             ->select('refgeneral.MASTERCODE', 'refgeneral.REFERENCECODE', 'refgeneral.DESCRIPTION1', 'pro_peserta.KOD_GELARAN')
@@ -77,7 +76,7 @@ class ProfilController extends Controller
 
         if ($current_user->name == 'calon') {
             $user_profils = User::where('nric', '=', $checkid2)
-                ->join('pro_peserta', 'users.nric', '=', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
                 ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
                 ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
                 ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')

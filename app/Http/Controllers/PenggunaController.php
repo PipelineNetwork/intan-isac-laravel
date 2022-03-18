@@ -242,7 +242,7 @@ class PenggunaController extends Controller
 
         if ($user_info->user_group_id == '5') {
             $user_profil = User::where('id', $user_info->id)
-                ->join('pro_peserta', 'users.nric', 'pro_peserta.NO_KAD_PENGENALAN')
+                ->join('pro_peserta', 'users.id', 'pro_peserta.user_id')
                 ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
                 ->join('pro_perkhidmatan', 'pro_tempat_tugas.ID_PESERTA', 'pro_perkhidmatan.ID_PESERTA')
                 ->get()->first();

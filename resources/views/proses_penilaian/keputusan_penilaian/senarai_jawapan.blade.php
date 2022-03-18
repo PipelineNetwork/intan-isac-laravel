@@ -57,9 +57,22 @@
             <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Jawapan Calon (Pengetahuan)</b><br>
                         @if ($keputusan_calons != null)
-                            <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_pengetahuan }}</b>
+                            <div class="row">
+                                <div class="col-6 align-items-center">
+                                    <b class="text-white">Jawapan Calon (Pengetahuan)</b><br>
+                                    @if ($keputusan_calons != null)
+                                        <b class="text-white">Keputusan:
+                                            {{ $keputusan_calons->keputusan_pengetahuan }}</b>
+                                    @endif
+                                </div>
+                                <div class="col-6 text-end">
+                                    <a href="/{{ $ic }}/{{ $id }}/edit"
+                                        class="btn btn-danger">Kemaskini</a>
+                                </div>
+                            </div>
+                        @else
+                            <b class="text-white">Jawapan Calon (Pengetahuan)</b><br>
                         @endif
                     </div>
                     <div class="card-body">
@@ -111,8 +124,16 @@
                 <div class="card mt-3">
                     @if ($keputusan_calons != null)
                         <div class="card-header" style="background-color:#FFA500;">
-                            <b class="text-white">Jawapan Calon (Kemahiran Internet)</b><br>
-                            <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_internet }}</b>
+                            <div class="row">
+                                <div class="col-6 align-items-center">
+                                    <b class="text-white">Jawapan Calon (Kemahiran Internet)</b><br>
+                                    <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_internet }}</b>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <a href="/{{ $ic }}/{{ $id }}/edit"
+                                        class="btn btn-danger">Kemaskini</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <b class="text-black mt-3">Markah Penuh: 2</b><br>
@@ -180,8 +201,16 @@
                 <div class="card mt-3">
                     @if ($keputusan_calons != null)
                         <div class="card-header" style="background-color:#FFA500;">
-                            <b class="text-white">Jawapan Calon (Kemahiran Pemprosesan Perkataan)</b><br>
-                            <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_word }}</b>
+                            <div class="row">
+                                <div class="col-6 align-items-center">
+                                    <b class="text-white">Jawapan Calon (Kemahiran Pemprosesan Perkataan)</b><br>
+                                    <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_word }}</b>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <a href="/{{ $ic }}/{{ $id }}/edit"
+                                        class="btn btn-danger">Kemaskini</a>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="card-body">
@@ -400,16 +429,14 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Jawapan Calon</label>
-                                        <textarea class="form-control" rows="33"
-                                            disabled="">{{ $jawapan_kemahiran->jawapan_word }}</textarea>
+                                        <textarea class="form-control" rows="33" disabled="">{{ $jawapan_kemahiran->jawapan_word }}</textarea>
                                     </div>
                                 </div>
                             @else
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Jawapan Calon</label>
-                                        <textarea class="form-control" rows="10"
-                                            disabled="">Tidak menjawab/Tidak simpan jawapan.</textarea>
+                                        <textarea class="form-control" rows="10" disabled="">Tidak menjawab/Tidak simpan jawapan.</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -445,8 +472,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_2 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_2 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_2 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_2 == 'Tiada')
@@ -460,8 +486,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_2 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_2 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_2 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -471,8 +496,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_3 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_3 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_3 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_3 == 'Tiada')
@@ -486,8 +510,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_3 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_3 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_3 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -497,8 +520,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_4 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_4 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_4 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_4 == 'Tiada')
@@ -512,8 +534,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_4 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_4 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_4 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -523,8 +544,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_5 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_5 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_5 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_5 == 'Tiada')
@@ -538,8 +558,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_5 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_5 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_5 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -549,8 +568,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_6 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_6 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_6 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_6 == 'Tiada')
@@ -564,8 +582,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_6 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_6 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_6 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -575,8 +592,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_7 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_7 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_7 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_7 == 'Tiada')
@@ -590,8 +606,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_7 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_7 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_7 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -601,8 +616,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_8 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_8 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_8 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_8 == 'Tiada')
@@ -616,8 +630,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_8 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_8 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_8 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -627,8 +640,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_9 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_9 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_9 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_9 == 'Tiada')
@@ -642,8 +654,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_9 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_9 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_9 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -653,8 +664,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_10 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_10 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_10 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_10 == 'Tiada')
@@ -668,8 +678,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_10 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_10 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_10 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -679,8 +688,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_11 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_11 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_11 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_11 == 'Tiada')
@@ -694,8 +702,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_11 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_11 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_11 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -705,8 +712,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_12 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_12 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_12 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_12 == 'Tiada')
@@ -720,8 +726,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_12 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_12 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_12 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -731,8 +736,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_13 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_13 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_13 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_13 == 'Tiada')
@@ -746,8 +750,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_13 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_13 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_13 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -757,8 +760,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_14 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_14 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_14 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_14 == 'Tiada')
@@ -772,8 +774,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_14 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_14 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_14 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -783,8 +784,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_15 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_15 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_15 }}</textarea>
                                     </div>
                                 </div>
                             @elseif ($markah_15 == 'Tiada')
@@ -798,8 +798,7 @@
                                 <div class="col-12 mt-3">
                                     <div class="form-group">
                                         <label class="form-control-label">Markah: {{ $markah_15 }}</label>
-                                        <textarea class="form-control" rows="5"
-                                            disabled="">{{ $display_betul_salah_15 }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled="">{{ $display_betul_salah_15 }}</textarea>
                                     </div>
                                 </div>
                             @endif
@@ -819,8 +818,16 @@
                 <div class="card mt-3">
                     @if ($keputusan_calons != null)
                         <div class="card-header" style="background-color:#FFA500;">
-                            <b class="text-white">Jawapan Calon (Kemahiran E-mel)</b><br>
-                            <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_email }}</b>
+                            <div class="row">
+                                <div class="col-6 align-items-center">
+                                    <b class="text-white">Jawapan Calon (Kemahiran E-mel)</b><br>
+                                    <b class="text-white">Keputusan: {{ $keputusan_calons->keputusan_email }}</b>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <a href="/{{ $ic }}/{{ $id }}/edit"
+                                        class="btn btn-danger">Kemaskini</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <b class="text-black mt-3">Markah Penuh: 4</b><br>
