@@ -74,7 +74,7 @@
                                         <b>{{ $penilaian_list->ID_PENILAIAN }}</b>
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
-                                        {{ $penilaian_list->TARIKH_SESI }}
+                                        {{ date('d-m-Y', strtotime($penilaian_list->TARIKH_SESI)) }}</td>
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ $penilaian_list->KOD_SESI_PENILAIAN }}
