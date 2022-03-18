@@ -557,7 +557,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input class="form-control form-control-sm ml-3" name="TARIKH_LANTIKAN" type="text"
-                                                value="{{ date('d/m/Y', strtotime($user_profils['TARIKH_LANTIKAN'])) }}"
+                                                value="{{ date('d-m-Y', strtotime($user_profils['TARIKH_LANTIKAN'])) }}"
                                                 readonly required>
                                         </div>
                                     </div>

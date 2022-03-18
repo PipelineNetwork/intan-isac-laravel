@@ -31,7 +31,8 @@
                         </li>
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Bank Soalan</a>
                         </li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="/bank-soalan-kemahiran">Soalan
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
+                                href="/bank-soalan-kemahiran">Soalan
                                 Kemahiran</a></li>
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Senarai
                                 Soalan Kemahiran</a></li>
@@ -73,7 +74,8 @@
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Bentuk Soalan</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Disediakan</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemaskini</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Hapus</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,14 +101,17 @@
                                         @endif
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
-                                        {{ date('d/m/Y', strtotime($soalankemahiraninternet->created_at)) }}</td>
-                                    <td class="text-sm text-center font-weight-normal"><a
+                                        {{ date('d-m-Y', strtotime($soalankemahiraninternet->created_at)) }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        <a
                                             href="/{{ $soalankemahiraninternet->id_soalankemahiran }}/internet/{{ $soalankemahiraninternet->id }}">
-                                            <i class="fas fa-pencil-alt"></i>
+                                            <i class="fas fa-pencil-alt"></i>&nbsp;Kemaskini
                                         </a>
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal" style="cursor: pointer">
                                         <a data-bs-toggle="modal"
                                             data-bs-target="#modaldeleteSoalanKemahiraninternet-{{ $soalankemahiraninternet->id }}">
-                                            <i class="far fa-trash-alt" style="cursor: pointer"></i>
+                                            <i class="far fa-trash-alt" style="cursor: pointer"></i>&nbsp;Hapus
                                         </a>
                                     </td>
                                 </tr>
@@ -168,7 +173,8 @@
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Bentuk Soalan</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Disediakan</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemaskini</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Hapus</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -194,14 +200,17 @@
                                         @endif
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
-                                        {{ date('d/m/Y', strtotime($soalankemahiranword->created_at)) }}</td>
-                                    <td class="text-sm text-center font-weight-normal"><a
+                                        {{ date('d-m-Y', strtotime($soalankemahiranword->created_at)) }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        <a
                                             href="/{{ $soalankemahiranword->id_soalankemahiran }}/pemprosesan-perkataan/{{ $soalankemahiranword->id }}">
-                                            <i class="fas fa-pencil-alt"></i>
+                                            <i class="fas fa-pencil-alt"></i>&nbsp;Kemaskini
                                         </a>
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal" style="cursor: pointer">
                                         <a data-bs-toggle="modal"
                                             data-bs-target="#modaldeleteSoalanKemahiranword-{{ $soalankemahiranword->id }}">
-                                            <i class="far fa-trash-alt" style="cursor: pointer"></i>
+                                            <i class="far fa-trash-alt" style="cursor: pointer"></i>&nbsp;Hapus
                                         </a>
                                     </td>
                                 </tr>
@@ -263,7 +272,8 @@
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Bentuk Soalan</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Disediakan</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemaskini</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Hapus</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -289,14 +299,17 @@
                                         @endif
                                     </td>
                                     <td class="text-sm text-center font-weight-normal">
-                                        {{ date('d/m/Y', strtotime($soalankemahiranemail->created_at)) }}</td>
-                                    <td class="text-sm text-center font-weight-normal"><a
+                                        {{ date('d-m-Y', strtotime($soalankemahiranemail->created_at)) }}</td>
+                                    <td class="text-sm text-center font-weight-normal">
+                                        <a
                                             href="/{{ $soalankemahiranemail->id_soalankemahiran }}/emel/{{ $soalankemahiranemail->id }}">
-                                            <i class="fas fa-pencil-alt"></i>
+                                            <i class="fas fa-pencil-alt"></i>&nbsp;Kemaskini
                                         </a>
+                                    </td>
+                                    <td class="text-sm text-center font-weight-normal" style="cursor: pointer">
                                         <a data-bs-toggle="modal"
                                             data-bs-target="#modaldeleteSoalanKemahiranemail-{{ $soalankemahiranemail->id }}">
-                                            <i class="far fa-trash-alt" style="cursor: pointer"></i>
+                                            <i class="far fa-trash-alt" style="cursor: pointer"></i>&nbsp;Hapus
                                         </a>
                                     </td>
                                 </tr>

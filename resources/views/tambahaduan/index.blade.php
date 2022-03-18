@@ -87,7 +87,7 @@
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ $tambahaduan->nric }}</td>
                                     <td class="text-sm text-center font-weight-normal">
-                                        {{ date('d/m/Y', strtotime($tambahaduan->created_at)) }}</td>
+                                        {{ date('d-m-Y', strtotime($tambahaduan->created_at)) }}</td>
                                     <td class="text-sm text-center font-weight-normal">
                                         @if ($tambahaduan->status === 'baru')
                                             <span class="text-secondary text-sm font-weight-bold">
