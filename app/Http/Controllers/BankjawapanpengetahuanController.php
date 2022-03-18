@@ -133,26 +133,50 @@ class BankjawapanpengetahuanController extends Controller
             $simpan_jawapan->save();
         }
 
-        $jawapan_kemahiran = new Bankjawapancalon();
+        $ic = Auth::user()->nric;
+        $jawapan_kemahiran = Bankjawapancalon::where('ic_calon', $ic)->where('id_penilaian', $id_penilaian)->first();
 
-        $jawapan_kemahiran->markah_urlteks = '0';
-        $jawapan_kemahiran->markah_carianteks = '0';
-        $jawapan_kemahiran->markah_inputto = '0';
-        $jawapan_kemahiran->markah_inputsubject = '0';
-        $jawapan_kemahiran->markah_inputmesej = '0';
-        $jawapan_kemahiran->markah_failupload = '0';
-        $jawapan_kemahiran->jumlah_markah_word = '0';
-        $jawapan_kemahiran->jumlah_markah_internet = '0';
-        $jawapan_kemahiran->jumlah_markah_email = '0';
-        $jawapan_kemahiran->status_jawab_internet = '0';
+        if ($jawapan_kemahiran == null) {
+            $jawapan_kemahiran = new Bankjawapancalon();
 
-        $jawapan_kemahiran->status_jawab_internet = '0';
-        $jawapan_kemahiran->status_jawab_word = '0';
-        $jawapan_kemahiran->status_jawab_email = '0';
-        $jawapan_kemahiran->id_penilaian = $request->id_penilaian;
-        $jawapan_kemahiran->ic_calon = Auth::user()->nric;
+            $jawapan_kemahiran->markah_urlteks = '0';
+            $jawapan_kemahiran->markah_carianteks = '0';
+            $jawapan_kemahiran->markah_inputto = '0';
+            $jawapan_kemahiran->markah_inputsubject = '0';
+            $jawapan_kemahiran->markah_inputmesej = '0';
+            $jawapan_kemahiran->markah_failupload = '0';
+            $jawapan_kemahiran->jumlah_markah_word = '0';
+            $jawapan_kemahiran->jumlah_markah_internet = '0';
+            $jawapan_kemahiran->jumlah_markah_email = '0';
+            $jawapan_kemahiran->status_jawab_internet = '0';
 
-        $jawapan_kemahiran->save();
+            $jawapan_kemahiran->status_jawab_internet = '0';
+            $jawapan_kemahiran->status_jawab_word = '0';
+            $jawapan_kemahiran->status_jawab_email = '0';
+            $jawapan_kemahiran->id_penilaian = $request->id_penilaian;
+            $jawapan_kemahiran->ic_calon = $ic;
+
+            $jawapan_kemahiran->save();
+        } else {
+            $jawapan_kemahiran->markah_urlteks = '0';
+            $jawapan_kemahiran->markah_carianteks = '0';
+            $jawapan_kemahiran->markah_inputto = '0';
+            $jawapan_kemahiran->markah_inputsubject = '0';
+            $jawapan_kemahiran->markah_inputmesej = '0';
+            $jawapan_kemahiran->markah_failupload = '0';
+            $jawapan_kemahiran->jumlah_markah_word = '0';
+            $jawapan_kemahiran->jumlah_markah_internet = '0';
+            $jawapan_kemahiran->jumlah_markah_email = '0';
+            $jawapan_kemahiran->status_jawab_internet = '0';
+
+            $jawapan_kemahiran->status_jawab_internet = '0';
+            $jawapan_kemahiran->status_jawab_word = '0';
+            $jawapan_kemahiran->status_jawab_email = '0';
+            $jawapan_kemahiran->id_penilaian = $request->id_penilaian;
+            $jawapan_kemahiran->ic_calon = $ic;
+
+            $jawapan_kemahiran->save();
+        }
 
         if ($request->timer == null) {
             // alert()->success('Tahniah, anda selesai menjawab soalan pengetahuan. Sila jawab soalan kemahiran.');
@@ -301,9 +325,46 @@ class BankjawapanpengetahuanController extends Controller
         return view('proses_penilaian.keputusan_penilaian.senarai_jawapan', [
             'jawapan' => $jawapan,
             'ic' => $ic,
+            'id' => $id,
             'jawapan_kemahiran' => $jawapan_kemahiran,
             'keputusan_calons' => $keputusan_calon,
             'markah_keseluruhan_pengetahuans' => $markah_keseluruhan_pengetahuan
         ]);
+    }
+
+    public function kemaskini_keputusan_kemahiran($ic, $id)
+    {
+        $keputusan = KeputusanPenilaian::where('ic_peserta', $ic)->where('id_penilaian', $id)->first();
+        // dd($keputusan);
+        return view('proses_penilaian.keputusan_penilaian.kemaskini_keputusan', [
+            'ic' => $ic,
+            'id' => $id,
+            'keputusan' => $keputusan,
+        ]);
+    }
+
+    public function simpan_keputusan_kemahiran(Request $request, $ic, $id)
+    {
+        $keputusan = KeputusanPenilaian::where('ic_peserta', $ic)->where('id_penilaian', $id)->first();
+
+        $keputusan->markah_pengetahuan = $request->markah_pengetahuan;
+        $keputusan->markah_internet = $request->markah_internet;
+        $keputusan->markah_word = $request->markah_word;
+        $keputusan->markah_email = $request->markah_email;
+        $keputusan->keputusan_pengetahuan = $request->keputusan_pengetahuan;
+        $keputusan->keputusan_internet = $request->keputusan_internet;
+        $keputusan->keputusan_word = $request->keputusan_word;
+        $keputusan->keputusan_email = $request->keputusan_email;
+        $keputusan->markah_kemahiran = (int)$request->markah_internet + (int)$request->markah_word + (int)$request->markah_email;
+        $keputusan->markah_keseluruhan = $keputusan->markah_pengetahuan + $keputusan->markah_kemahiran;
+        if (($keputusan->keputusan_pengetahuan == 'Melepasi') && ($keputusan->keputusan_internet == 'Melepasi') && ($keputusan->keputusan_word == 'Melepasi') && ($keputusan->keputusan_email == 'Melepasi')) {
+            $keputusan->keputusan = "Lulus";
+        } else {
+            $keputusan->keputusan = "Gagal";
+        }
+
+        $keputusan->save();
+
+        return redirect('/semak_jawapan/' . $ic . '/' . $id);
     }
 }

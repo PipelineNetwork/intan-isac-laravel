@@ -211,6 +211,8 @@ Route::get('/sijil_penilaian/{ic}/{id_penilaian}', [KeputusanPenilaianController
 Route::get('/semak_keputusan/{ic}/{id_penilaian}', [KeputusanPenilaianController::class, 'semak_keputusan']);
 Route::get('/senarai_penilaian/{ic}', [BankjawapanpengetahuanController::class, 'senarai_penilaian']);
 Route::get('/semak_jawapan/{ic}/{id}', [BankjawapanpengetahuanController::class, 'check_jawapan']);
+Route::get('/{ic}/{id}/edit', [BankjawapanpengetahuanController::class, 'kemaskini_keputusan_kemahiran']);
+Route::post('/{ic}/{id}/save', [BankjawapanpengetahuanController::class, 'simpan_keputusan_kemahiran']);
 
 Route::get('/senarai_sijil', [KeputusanPenilaianController::class, 'senarai_sijil']);
 Route::get('/semakan_keputusan_calon', [KeputusanPenilaianController::class, 'senarai_penilaian_calon']);
