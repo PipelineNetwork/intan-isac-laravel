@@ -146,7 +146,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">Tarikh Lahir<span style="color: red">*</span> :</label>
+                                    <label class="form-control-label">Tarikh Lahir<span style="color: red">*</span>
+                                        :</label>
                                     <input class="form-control mb-3" type="date" name="TARIKH_LAHIR"
                                         value="{{ $user_profils->TARIKH_LAHIR }}" required>
                                 </div>
@@ -210,7 +211,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">Gred Jawatan<span style="color: red">*</span> :</label>
+                                    <label class="form-control-label">Gred Jawatan<span style="color: red">*</span>
+                                        :</label>
                                     <select class="form-control mb-3" name="KOD_GRED_JAWATAN" required>
                                         <option hidden selected value="{{ $user_profils->KOD_GRED_JAWATAN }}">
                                             {{ $user_profils->KOD_GRED_JAWATAN }}</option>
@@ -223,8 +225,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">Taraf Perjawatan<span
-                                            style="color: red">*</span> :</label>
+                                    <label class="form-control-label">Taraf Perjawatan<span style="color: red">*</span>
+                                        :</label>
                                     <select class="form-control mb-3" name="KOD_TARAF_PERJAWATAN" required>
                                         <option hidden selected value="{{ $user_profils->KOD_TARAF_PERJAWATAN }}">
                                             {{ $user_profils->KOD_TARAF_PERJAWATAN }}
@@ -238,8 +240,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">Jenis Perkhidmatan<span
-                                            style="color: red">*</span> :</label>
+                                    <label class="form-control-label">Jenis Perkhidmatan<span style="color: red">*</span>
+                                        :</label>
                                     <select class="form-control mb-3" name="KOD_JENIS_PERKHIDMATAN" required>
                                         <option hidden selected value="{{ $user_profils->KOD_JENIS_PERKHIDMATAN }}">
                                             {{ $user_profils->KOD_JENIS_PERKHIDMATAN }}
@@ -253,16 +255,16 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">Tarikh Lantikan<span
-                                            style="color: red">*</span> :</label>
+                                    <label class="form-control-label">Tarikh Lantikan<span style="color: red">*</span>
+                                        :</label>
                                     <input class="form-control mb-3" name="TARIKH_LANTIKAN" type="date"
                                         value="{{ $user_profils->TARIKH_LANTIKAN }}" required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">No Telefon Pejabat<span
-                                            style="color: red">*</span> :</label>
+                                    <label class="form-control-label">No Telefon Pejabat<span style="color: red">*</span>
+                                        :</label>
                                     <input class="form-control mb-3" name="NO_TELEFON_PEJABAT" type="text" maxlength="10"
                                         value="{{ $user_profils->NO_TELEFON_PEJABAT }}"
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
@@ -279,8 +281,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">Jawatan Ketua Jabatan<span
-                                            style="color: red">*</span> :</label>
+                                    <label class="form-control-label">Jawatan Ketua Jabatan<span style="color: red">*</span>
+                                        :</label>
                                     <input class="form-control mb-3" name="GELARAN_KETUA_JABATAN" type="text"
                                         value="{{ $user_profils->GELARAN_KETUA_JABATAN }}"
                                         style="text-transform:uppercase" required>
@@ -314,6 +316,10 @@
                                         @endforeach
                                         <option value="Universiti Tun Hussein Onn Malaysia"> Universiti Tun Hussein
                                             Onn Malaysia </option>
+                                        <option value="Majlis Perbandaran Muar"> Majlis Perbandaran Muar
+                                        </option>
+                                        <option value="Majlis Bandaraya Alor Setar"> Majlis Bandaraya Alor Setar
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -328,8 +334,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">Alamat Pejabat <span
-                                            style="color: red">*</span> :</label>
+                                    <label class="form-control-label">Alamat Pejabat <span style="color: red">*</span>
+                                        :</label>
                                     <input class="form-control mb-3" name="ALAMAT_1" type="text"
                                         value="{{ $user_profils->ALAMAT_1 }}" style="text-transform:uppercase" required>
                                 </div>
@@ -372,8 +378,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">E-mel Penyelia<span
-                                            style="color: red">*</span> :</label>
+                                    <label class="form-control-label">E-mel Penyelia<span style="color: red">*</span>
+                                        :</label>
                                     <input class="form-control mb-3" name="EMEL_PENYELIA" type="email"
                                         value="{{ $user_profils->EMEL_PENYELIA }}" required>
                                 </div>

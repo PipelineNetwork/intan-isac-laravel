@@ -347,6 +347,10 @@
                                             @endforeach
                                             <option value="Universiti Tun Hussein Onn Malaysia"> Universiti Tun Hussein
                                                 Onn Malaysia </option>
+                                            <option value="Majlis Perbandaran Muar"> Majlis Perbandaran Muar
+                                            </option>
+                                            <option value="Majlis Bandaraya Alor Setar"> Majlis Bandaraya Alor Setar
+                                            </option>
                                         </select>
                                     </div>
                                 </div>

@@ -171,6 +171,10 @@
                                         @endforeach
                                         <option value="Universiti Tun Hussein Onn Malaysia"> Universiti Tun Hussein
                                             Onn Malaysia </option>
+                                        <option value="Majlis Perbandaran Muar"> Majlis Perbandaran Muar
+                                        </option>
+                                        <option value="Majlis Bandaraya Alor Setar"> Majlis Bandaraya Alor Setar
+                                        </option>
                                     </select>
                                     @error('KOD_KEMENTERIAN')
                                         <label class="text-danger mb-0 mt-0 p-0 ml-3"><em>{{ $message }}</em></label>

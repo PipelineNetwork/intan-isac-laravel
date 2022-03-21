@@ -48,7 +48,7 @@ class ProfilController extends Controller
     {
         $current_user = Auth::user()->user_group_id;
         $current_user = Role::where('id', $current_user)->first();
-        $checkid2 = Auth::user()->id;
+        $checkid2 = Auth::user()->nric;
         $gelaran_user = Refgeneral::where('MASTERCODE', 10009)
             ->join('pro_peserta', 'refgeneral.REFERENCECODE', 'pro_peserta.KOD_GELARAN')
             ->select('refgeneral.MASTERCODE', 'refgeneral.REFERENCECODE', 'refgeneral.DESCRIPTION1', 'pro_peserta.KOD_GELARAN')

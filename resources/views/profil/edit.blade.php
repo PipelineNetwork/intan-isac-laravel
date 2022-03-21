@@ -102,7 +102,8 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4" for="{{ $user_profils['NAMA_PESERTA'] }}}">
+                                            <label class="form-control-label mr-4"
+                                                for="{{ $user_profils['NAMA_PESERTA'] }}}">
                                                 Nama Penuh<span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
@@ -262,7 +263,8 @@
                                         <div class="col-8">
                                             <select class="form-control form-control-sm ml-3" name="KOD_JENIS_PERKHIDMATAN"
                                                 id="input_jenis_perkhidmatan" required>
-                                                <option hidden selected value="{{ $user_profils['KOD_JENIS_PERKHIDMATAN'] }}">
+                                                <option hidden selected
+                                                    value="{{ $user_profils['KOD_JENIS_PERKHIDMATAN'] }}">
                                                     {{ $user_profils['KOD_JENIS_PERKHIDMATAN'] }}
                                                 </option>
                                                 @foreach ($jenis_perkhidmatans as $jenis_perkhidmatan)
@@ -366,6 +368,10 @@
                                                 @endforeach
                                                 <option value="Universiti Tun Hussein Onn Malaysia"> Universiti Tun Hussein
                                                     Onn Malaysia </option>
+                                                <option value="Universiti Tun Hussein Onn Malaysia"> Majlis Perbandaran Muar
+                                                </option>
+                                                <option value="Majlis Bandaraya Alor Setar"> Majlis Bandaraya Alor Setar
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -453,7 +459,8 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-3">
-                                            <label class="form-control-label mr-4" for="{{ $user_profils['EMEL_PENYELIA'] }}">
+                                            <label class="form-control-label mr-4"
+                                                for="{{ $user_profils['EMEL_PENYELIA'] }}">
                                                 E-mel Penyelia<span style="color: red">*</span>
                                             </label><label class="float-right">:</label>
                                         </div>
@@ -535,6 +542,10 @@
                                             @endforeach
                                             <option value="Universiti Tun Hussein Onn Malaysia"> Universiti Tun Hussein
                                                 Onn Malaysia </option>
+                                            <option value="Majlis Perbandaran Muar"> Majlis Perbandaran Muar
+                                            </option>
+                                            <option value="Majlis Bandaraya Alor Setar"> Majlis Bandaraya Alor Setar
+                                            </option>
                                         </select>
                                     </div>
                                     {{-- <div class="row mb-2">
