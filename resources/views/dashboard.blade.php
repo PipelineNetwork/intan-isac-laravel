@@ -489,14 +489,6 @@
                     var data = {!! json_encode($graf_lulus_gagals) !!};
                     chart.data = data;
 
-                    // chart.data = [{
-                    //     "country": "Lithuania",
-                    //     "litres": 501.9
-                    // }, {
-                    //     "country": "Germany",
-                    //     "litres": 165.8
-                    // },];
-
                 }); // end am4core.ready()
 
                 am4core.ready(function() {
@@ -507,62 +499,40 @@
 
                     // Create chart instance
                     var chart = am4core.create("chart1", am4charts.XYChart);
-                    chart.scrollbarX = new am4core.Scrollbar();
 
+                    // Add data
                     var data = {!! json_encode($graf_permohonan_bulanans) !!};
                     chart.data = data;
 
-                    // Add data
-                    // chart.data = [{
-                    //     "country": "USA",
-                    //     "visits": 3025
-                    // }, {
-                    //     "country": "China",
-                    //     "visits": 1882
-                    // },];
-
                     // Create axes
+
                     var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
                     categoryAxis.dataFields.category = "monthname";
                     categoryAxis.renderer.grid.template.location = 0;
                     categoryAxis.renderer.minGridDistance = 30;
-                    categoryAxis.renderer.labels.template.horizontalCenter = "right";
-                    categoryAxis.renderer.labels.template.verticalCenter = "middle";
-                    categoryAxis.renderer.labels.template.rotation = 270;
-                    categoryAxis.tooltip.disabled = true;
-                    categoryAxis.renderer.minHeight = 110;
+
+                    categoryAxis.renderer.labels.template.adapter.add("dy", function(dy, target) {
+                        if (target.dataItem && target.dataItem.index & 2 == 2) {
+                            return dy + 25;
+                        }
+                        return dy;
+                    });
 
                     var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-                    valueAxis.renderer.minWidth = 50;
-                    valueAxis.min = 0;
-                    valueAxis.max = 400;
 
                     // Create series
                     var series = chart.series.push(new am4charts.ColumnSeries());
-                    series.sequencedInterpolation = true;
                     series.dataFields.valueY = "jumlah";
                     series.dataFields.categoryX = "monthname";
-                    series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
-                    series.columns.template.strokeWidth = 0;
+                    series.name = "Jumlah";
+                    series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+                    series.columns.template.fillOpacity = .8;
 
-                    series.tooltip.pointerOrientation = "vertical";
-
-                    series.columns.template.column.cornerRadiusTopLeft = 10;
-                    series.columns.template.column.cornerRadiusTopRight = 10;
-                    series.columns.template.column.fillOpacity = 0.8;
-
-                    // on hover, make corner radiuses bigger
-                    var hoverState = series.columns.template.column.states.create("hover");
-                    hoverState.properties.cornerRadiusTopLeft = 0;
-                    hoverState.properties.cornerRadiusTopRight = 0;
-                    hoverState.properties.fillOpacity = 1;
-
-                    series.columns.template.adapter.add("fill", function(fill, target) {
-                        return chart.colors.getIndex(target.dataItem.index);
-                    });
-
-                    // Cursor
-                    chart.cursor = new am4charts.XYCursor();
+                    var columnTemplate = series.columns.template;
+                    columnTemplate.strokeWidth = 2;
+                    columnTemplate.strokeOpacity = 1;
+                    columnTemplate.stroke = am4core.color("#8B4513"); // brown outline
+                    columnTemplate.fill = am4core.color("#FFFDD0"); // cream fill
 
                 }); // end am4core.ready()
 
