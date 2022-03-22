@@ -13,7 +13,7 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         <img src="https://docs.jpa.gov.my/cdn/images/ePerkhidmatan/BLUE/BM/INTAN.jpg">
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('Masukan e-mel yang berdaftar dibawah. Kemudian sila klik butang "E-MEL RESET KATA LALUAN" untuk set semula kata laluan anda. Seterusnya, sila semak di e-mel anda.') }}
+            {{ __('Masukan e-mel yang berdaftar dibawah. Kemudian sila klik butang "E-MEL RESET KATA LALUAN" untuk set semula kata laluan anda. Seterusnya, sila semak e-mel anda.') }}
         </div>
         <form method="POST" action="/forgot-password">
             @csrf
