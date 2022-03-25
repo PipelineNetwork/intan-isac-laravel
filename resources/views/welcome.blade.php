@@ -36,7 +36,7 @@
     
     $current_date = date('Y-m-d');
     $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan', 'KEKOSONGAN')
-        ->orderBy('updated_at', 'desc')
+        ->orderBy('TARIKH_SESI', 'asc')
         ->where('TARIKH_SESI', '>=', $current_date)
         ->where('KOD_KATEGORI_PESERTA', '01')
         ->get();
@@ -303,6 +303,17 @@
     <section class="py-sm-7 py-4">
         <div class="container">
             <div class="row">
+                <div class="col-lg-8 text-center" style="margin: auto;">
+                    <h3 class="text-gradient text-warning mb-0 mt-2">Taklimat Penilaian ISAC</h3>
+                    <br>
+                    <iframe
+                        src="/assets/video/Manual_Pendaftaran_Calon_ICT_Skills_Assessment_and_Certification_(ISAC).mp4"
+                        frameborder="0" style="height: 500px; width:800px; border-radius: 10px"></iframe>
+                    {{-- <p>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</p> --}}
+
+                    <p><a href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf"
+                            download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Sila klik <span style="color: red">disini</span> untuk muat turun Manual Pendaftaran ISAC</a></p>
+                </div>
                 <div class="col-lg-6">
                     <br>
                     <br>
@@ -470,7 +481,7 @@
                         pejabat sementara dan masih tiada talian telefon.
                     </p>
                     <hr class="my-4" style="height: 3px"> --}}
-                    {{-- <p><strong>Jadual Penilaian ISAC telah dibuka. Sila buat pendaftaran terlebih dahulu.</strong></p> --}}
+                    <p><strong>Jadual penilaian bagi bulan Jun dan seterusnya akan dibuka pada bulan Mei.</strong></p>
 
                     <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
                         dapat dijalankan dengan sempurna:

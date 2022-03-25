@@ -172,7 +172,6 @@ class KemasukanPenilaianController extends Controller
             array_push($set, $soalan);
         }
         $soalan_penilaian = collect($set);
-
         date_default_timezone_set("Asia/Kuala_Lumpur");
         $jam_mula = date('H');
         $jam_mula = $jam_mula * 60 * 60;

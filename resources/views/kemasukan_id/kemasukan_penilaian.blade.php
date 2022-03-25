@@ -78,7 +78,6 @@
 
                                         {{-- single choice --}}
                                         @if ($soalan->jenis_soalan == 'single_choice')
-
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <input type="hidden" id="checktextarea">
@@ -186,7 +185,6 @@
 
                                             {{-- ranking --}}
                                         @elseif($soalan->jenis_soalan == 'ranking')
-
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -197,7 +195,6 @@
 
                                             {{-- subjective --}}
                                         @elseif($soalan->jenis_soalan == 'subjective')
-
                                             <input type="hidden" value="{{ $soalan->id }}"
                                                 name="soalan_{{ $index }}[]">
                                             <div class="form-group">
@@ -210,39 +207,34 @@
 
                                     </div>
                                 </div>
-
                             @endforeach
                             <div class="row">
                                 <div class="col">
                                     <div class="row mt-5 mb-2">
-                                        <div class="col-lg-2 text-center">
+                                        {{-- <div class="col-lg-2 text-center">
                                             <a class="btn btn-sm btn-outline-secondary" style="display: none;" id="kembali"
                                                 onclick="kembali()" di>sebelum</a>
-                                        </div>
-                                        <div class="col-lg-8 text-center">
+                                        </div> --}}
+                                        <div class="col-lg-12 text-center">
                                             @foreach ($soalan_penilaian as $index => $soalan)
                                                 <a class="btn btn-sm px-3 btn-danger" id="buttontest{{ $index }}"
                                                     onclick="goToSoalanModal({{ $index }})">{{ $index + 1 }}</a>
                                             @endforeach
                                         </div>
-                                        <div class="col-lg-2 text-center">
+                                        {{-- <div class="col-lg-2 text-center">
                                             <a class="btn btn-sm btn-outline-secondary" id="seterusnya"
                                                 onclick="seterusnya()">selepas</a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <input type="hidden" name="id_sesi" value="{{ $id_penilaian }}">
                                     <input type="hidden" name="masa_mula" value="{{ $masa_mula }}">
                                     <input type="hidden" name="timer" value="" id="timer">
-
-                                    <div class="row justify-content-center px-4">
-                                        {{-- <div class="col-lg-auto">
-                                            <a class="btn bg-gradient-info" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">Semak status soalan</a>
-                                        </div> --}}
+                                    <br>
+                                    <div class="row justify-content-end px-4">
                                         <div class="col-lg-auto">
                                             <button type="button" class="btn bg-gradient-info" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">
-                                                Seterusnya
+                                                Hantar
                                             </button>
                                         </div>
                                     </div>

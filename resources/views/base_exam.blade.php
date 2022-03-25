@@ -247,13 +247,13 @@
             $("#button_click").click();
         }, 10000);
 
-        function preventBack() {
-            window.history.forward();
-        }
-        setTimeout("preventBack()", 0);
-        window.onunload = function() {
-            null
-        };
+        // function preventBack() {
+        //     window.history.forward();
+        // }
+        // setTimeout("preventBack()", 0);
+        // window.onunload = function() {
+        //     null
+        // };
     </script>
 
     <script type="text/javascript" src="/assets/js/webcamjs/webcam.min.js"></script>

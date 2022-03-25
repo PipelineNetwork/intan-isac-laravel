@@ -70,6 +70,7 @@ Route::get('/profil/{id}', [ProfilController::class, 'kemaskiniform']);
 Route::post('/profil/{id}/edit', [ProfilController::class, 'kemaskiniprofil']);
 
 Route::resource('/pengurusanpengguna', PenggunaController::class);
+Route::post('/set-semula-kata-laluan/{id}', [PenggunaController::class, 'set_semula_kata_laluan']);
 
 // Route::resource('/penyelaraspengguna',PenyelarasController::class);
 
