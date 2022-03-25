@@ -411,4 +411,18 @@ class PenggunaController extends Controller
         // alert()->success('Berjaya dihapus!');
         return redirect('/pengurusanpengguna');
     }
+
+    public function set_semula_kata_laluan(Request $request, $user)
+    {
+        $reset_pass = User::find($user);
+
+        $reset_pass->password = Hash::make($request->password);
+        $reset_pass->save();
+
+        echo '<script language="javascript">';
+        echo 'alert("Kata laluan berjaya disetkan semula.");';
+        echo "window.location.href='/pengurusanpengguna';";
+        echo '</script>';
+        // return redirect('/pengurusanpengguna');
+    }
 }

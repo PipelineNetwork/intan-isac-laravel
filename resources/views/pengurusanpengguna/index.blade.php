@@ -47,7 +47,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="column-12">
-                    <a href="/pengurusanpengguna/create" class="btn bg-gradient-warning" type="submit"
+                    <a href="/pengurusanpengguna/create" class="btn btn-outline-primary" type="submit"
                         style="float: right;">Daftar Pengguna</a>
                 </div>
             </div>
@@ -69,6 +69,10 @@
                                     <th class="text-uppercase text-center font-weight-bolder opacity-7">E-mel</th>
                                     <th class="text-uppercase text-center font-weight-bolder opacity-7">Peranan</th>
                                     <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemaskini</th>
+                                    @if ($current_user != 3)
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Set Semula Kata
+                                            Laluan</th>
+                                    @endif
                                     <th class="text-uppercase text-center font-weight-bolder opacity-7">Hapus</th>
                                 </tr>
                             </thead>
@@ -169,15 +173,23 @@
                                                     <span class="text-warning">Sila Kemaskini</span>
                                                 @endif
                                             </td>
-                                            <td class="text-sm text-center font-weight-normal"><a
-                                                    class="btn btn-info text-white"
+                                            <td class="text-sm text-center font-weight-normal">
+                                                <a class="btn btn-info text-white"
                                                     href="/pengurusanpengguna/{{ $user->id }}/edit"
                                                     style="color:black;">
                                                     Kemaskini
                                                 </a>
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                <a data-bs-toggle="modal" style="cursor: pointer"
+                                                <a data-bs-toggle="modal" class="btn bg-gradient-warning"
+                                                    style="cursor: pointer"
+                                                    data-bs-target="#modalsetkatalauan-{{ $user->id }}">
+                                                    Set Semula
+                                                </a>
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                <a data-bs-toggle="modal" class="btn btn-outline-danger"
+                                                    style="cursor: pointer"
                                                     data-bs-target="#modaldelete-{{ $user->id }}">
                                                     <i class="far fa-trash-alt"></i>
                                                 </a>
@@ -209,6 +221,39 @@
                                                                 <button class="btn bg-gradient-danger"
                                                                     style="cursor: pointer" type="submit"> Hapus</button>
                                                             </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal fade" id="modalsetkatalauan-{{ $user->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body text-center">
+                                                            <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
+                                                            <br>
+                                                            Anda pasti untuk set semula kata laluan pengguna menggunakan No.
+                                                            Kad Pengenalan Pengguna?
+                                                            <br>
+                                                            <span>{{ $user->name }}</span>
+                                                            <br>
+                                                            <span>{{ $user->nric }}</span>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form method="POST"
+                                                                action="/set-semula-kata-laluan/{{ $user->id }}">
+                                                                @method('POST')
+                                                                @csrf
+                                                                <input type="hidden" value="{{ $user->nric }}"
+                                                                    name="password">
+                                                                <button class="btn bg-gradient-danger"
+                                                                    style="cursor: pointer" type="submit">
+                                                                    Setuju</button>
+                                                            </form>
+                                                            <button type="button" class="btn bg-gradient-secondary"
+                                                                data-bs-dismiss="modal">Batal</button>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -39,6 +39,9 @@
                     <h4>Sila jawab semua soalan</h4>
                 </div>
                 <div class="card-body">
+                    <span>Sekiranya calon belum selesai menjawab bahagian sebelumnya, sila tekan butang <i
+                            class="fa-solid fa-arrow-left"></i>&nbsp; 'BACK' untuk kembali menjawab bahagian
+                        tersebut.</span>
                     <form action="/soalan-kemahiran-internet-page6/{{ $id_penilaian }}/1" method="POST" id="penilaian">
                         @csrf
                         <input type="hidden" name="timer" value="" id="timer">
@@ -171,8 +174,9 @@
                                     <div class="modal-body text-center">
                                         <i class="fas fa-exclamation-circle fa-7x" style="color: #d4872f"></i>
                                         <br>
-                                        Adakah anda pasti untuk ke soalan seterusnya? Anda tidak boleh kembali
-                                        menjawab bahagian ini jika anda teruskan.
+                                        {{-- Adakah anda pasti untuk ke soalan seterusnya? Anda tidak boleh kembali
+                                        menjawab bahagian ini jika anda teruskan. --}}
+                                        Adakah anda pasti untuk tamatkan bahagian ini?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn bg-gradient-secondary"
