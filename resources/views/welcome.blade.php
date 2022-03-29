@@ -145,27 +145,14 @@
 
                                     <a href="/forgot-password" target="_blank" style="color: red">Lupa Kata Laluan?</a>
 
-                                    {{-- <a  href="{{ route('login') }}" class="text-warning text-gradient font-weight-bold">Log Masuk</a> --}}
                                     <div>
                                         <x-button class="btn bg-gradient-warning w-75 mt-3">
                                             {{ __('Log Masuk') }}
                                         </x-button>
                                     </div>
                                 </form>
-                                {{-- <a href="/register" class="btn bg-gradient-warning mt-4" target="_self">Daftar</a>
-                            <a href="/login" class="btn text-warning shadow-none mt-4">Log Masuk</a> --}}
                             </div>
                         </div>
-                        {{-- <script>
-                            $(document).ready(function() {
-                                Swal.fire({
-                                    title: 'Error!',
-                                    text: 'Do you want to continue',
-                                    icon: 'error',
-                                    confirmButtonText: 'Cool'
-                                })
-                            })
-                        </script> --}}
                     </div>
                 </div>
             </div>
@@ -308,8 +295,7 @@
                     <br>
                     <iframe
                         src="/assets/video/Manual_Pendaftaran_Calon_ICT_Skills_Assessment_and_Certification_(ISAC).mp4"
-                        frameborder="0" style="height: 500px; width:800px; border-radius: 10px"></iframe>
-                    {{-- <p>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</p> --}}
+                        frameborder="0" style="height: 500px; width:800px; border-radius: 10px" autoplay="false"></iframe>
 
                     <p><a href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf"
                             download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Sila klik <span style="color: red">disini</span> untuk muat turun Manual Pendaftaran ISAC</a></p>
@@ -324,12 +310,7 @@
                         sektor awam. Ia merupakan satu alat bagi mengukur kesediaan personel sektor awam untuk bekerja
                         dalam persekitaran Kerajaan Elektronik dari segi pengetahuan dan kemahiran dalam penggunaan asas
                         perisian-perisian ICT yang sering di guna pakai (commonly used).
-
                     </p>
-                    {{-- <a href="https://www.intanbk.intan.my/iportal/en/about-intan"
-                        class="text-warning icon-move-right">Mengenai Intan
-                        <i class="fas fa-arrow-right text-sm ms-1"></i>
-                    </a> --}}
                 </div>
                 <div class="col-lg-6 ">
                     <div class="p-3 info-horizontal">

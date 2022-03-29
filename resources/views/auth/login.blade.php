@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
 </head>
 
 <body class="coworking">
@@ -33,9 +34,11 @@
     use App\Models\Jadual;
     use App\Models\LamanUtama;
     
-    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan')
-        ->orderBy('TARIKH_SESI', 'desc')
-        ->whereYear('TARIKH_SESI', '>=', 2021)
+    $current_date = date('Y-m-d');
+    $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan', 'KEKOSONGAN')
+        ->orderBy('TARIKH_SESI', 'asc')
+        ->where('TARIKH_SESI', '>=', $current_date)
+        ->where('KOD_KATEGORI_PESERTA', '01')
         ->get();
     
     $lamanutama = LamanUtama::all();
@@ -47,6 +50,7 @@
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <!-- Navbar -->
+
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -141,15 +145,12 @@
 
                                     <a href="/forgot-password" target="_blank" style="color: red">Lupa Kata Laluan?</a>
 
-                                    {{-- <a  href="{{ route('login') }}" class="text-warning text-gradient font-weight-bold">Log Masuk</a> --}}
                                     <div>
                                         <x-button class="btn bg-gradient-warning w-75 mt-3">
                                             {{ __('Log Masuk') }}
                                         </x-button>
                                     </div>
                                 </form>
-                                {{-- <a href="/register" class="btn bg-gradient-warning mt-4" target="_self">Daftar</a>
-                            <a href="/login" class="btn text-warning shadow-none mt-4">Log Masuk</a> --}}
                             </div>
                         </div>
                     </div>
@@ -289,6 +290,17 @@
     <section class="py-sm-7 py-4">
         <div class="container">
             <div class="row">
+                <div class="col-lg-8 text-center" style="margin: auto;">
+                    <h3 class="text-gradient text-warning mb-0 mt-2">Taklimat Penilaian ISAC</h3>
+                    <br>
+                    <iframe
+                        src="/assets/video/Manual_Pendaftaran_Calon_ICT_Skills_Assessment_and_Certification_(ISAC).mp4"
+                        frameborder="0" style="height: 500px; width:800px; border-radius: 10px" autoplay="false"></iframe>
+
+                    <p><a href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf" download="MANUAL PENDAFTARAN ISAC.pdf"
+                            target="_blank">Sila klik <span style="color: red">disini</span> untuk muat turun Manual
+                            Pendaftaran ISAC</a></p>
+                </div>
                 <div class="col-lg-6">
                     <br>
                     <br>
@@ -301,10 +313,6 @@
                         perisian-perisian ICT yang sering di guna pakai (commonly used).
 
                     </p>
-                    {{-- <a href="https://www.intanbk.intan.my/iportal/en/about-intan"
-                        class="text-warning icon-move-right">Mengenai Intan
-                        <i class="fas fa-arrow-right text-sm ms-1"></i>
-                    </a> --}}
                 </div>
                 <div class="col-lg-6 ">
                     <div class="p-3 info-horizontal">
@@ -326,11 +334,6 @@
                                 Melalui Pembelajaran Berkualiti</p>
                         </div>
                     </div>
-                    {{-- <div class="p-3 info-horizontal">
-                        <img src="https://www.intanbk.intan.my/iportal/images/adminsep.jpg" width="620" height="300">
-                        <b style="text-align:center;">&emsp;&emsp;The National Institute of Public Administration
-                            (INTAN) Port Dickson</b>
-                    </div> --}}
                 </div>
             </div>
 
@@ -363,6 +366,8 @@
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh
                                             Penilaian</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa
+                                            Mula</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Saluran
                                             Penilaian</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Status
@@ -383,20 +388,25 @@
                                                 {{ date('d-m-Y', strtotime($jadual['TARIKH_SESI'])) }}
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                {{ $jadual['platform'] }}</td>
-                                            @if ($jadual['status'] == null)
-                                                @if ($jadual['KEKOSONGAN'] == '0')
-                                                    <td class="text-sm text-center font-weight-normal"><span
-                                                            class="badge badge-lg badge-danger">Penuh</span></td>
+                                                {{ $jadual['KOD_MASA_MULA'] }}
+                                                {{-- {{ date('h-i', strtotime($jadual['TARIKH_SESI'])) }} --}}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $jadual->platform }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                @if ($jadual->status == null)
+                                                    @if ($jadual->KEKOSONGAN == '0')
+                                                        <span class="badge badge-lg badge-danger">Penuh</span>
+                                                    @elseif ($jadual->KEKOSONGAN < '0')
+                                                        <span class="badge badge-lg badge-danger">Penuh</span>
+                                                    @else
+                                                        <span class="badge badge-lg badge-success">Dibuka</span>
+                                                    @endif
                                                 @else
-                                                    <td class="text-sm text-center font-weight-normal"><span
-                                                            class="badge badge-lg badge-success">Dibuka</span></td>
+                                                    <span
+                                                        class="badge badge-lg badge-info">{{ $jadual->status }}</span>
                                                 @endif
-                                            @else
-                                                <td class="text-sm text-center font-weight-normal"><span
-                                                        class="badge badge-lg badge-info">{{ $jadual['status'] }} -
-                                                        {{ $jadual['keterangan'] }}</span></td>
-                                            @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -416,8 +426,40 @@
                     <h5 class="modal-title text-white" id="exampleModalLabel">MAKLUMAN TERKINI</h5>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Penilaian ISAC 2022 secara online telah dibuka. Sila buat pendaftaran terlebih
-                            dahulu.</strong></p>
+                    {{-- <p><strong>PERHATIAN!</strong></p>
+
+                    <p><strong>PEMBATALAN JADUAL PENILAIAN ISAC</strong></p>
+
+                    <p>Dukacita dimaklumkan bahawa penilaian ISAC yang akan diadakan pada tarikh berikut telah
+                        <strong>DIBATALKAN</strong>
+                        kerana berlaku masalah teknikal pada sistem.
+                    </p>
+
+                    <ol>
+                        <li>
+                            <strong>7 Mac 2022</strong>
+                        </li>
+                        <li>
+                            <strong>9 Mac 2022</strong>
+                        </li>
+                        <li>
+                            <strong>14 Mac 2022</strong>
+                        </li>
+                        <li>
+                            <strong>16 Mac 2022</strong>
+                        </li>
+                    </ol>
+
+                    <p><strong>Jadual baharu akan dimuatnaik pada Isnin 7 Mac 2022.</strong> Mohon tuan/puan untuk
+                        membuat permohonan baru. Segala kesulitan amatlah dikesali.</p>
+
+                    <p>Sebarang pertanyaan boleh menghubungi pihak urusetia melalui e-mel
+                        <u>isachelp@intanbk.intan.my</u> dan
+                        disalin (cc) <u>dlisachelp@intanbk.intan.my</u> kerana urusetia ISAC telah berpindah ke lokasi
+                        pejabat sementara dan masih tiada talian telefon.
+                    </p>
+                    <hr class="my-4" style="height: 3px"> --}}
+                    <p><strong>Jadual penilaian bagi bulan Jun dan seterusnya akan dibuka pada bulan Mei.</strong></p>
 
                     <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
                         dapat dijalankan dengan sempurna:
@@ -433,14 +475,20 @@
                         </li>
                     </ol>
 
-                    <p><strong>NOTA : Tarikh Jadual Penilaian bagi Tahun 2022 akan dimaklumkan dalam masa terdekat. Sila
-                            rujuk
-                            portal ini untuk info terkini dan buat pendaftaran terlebih dahulu.<strong></p>
+                    <p><strong>Nota: Sila guna <i>desktop</i> atau komputer riba semasa melayari portal ISAC kerana
+                            sistem tidak
+                            menyokong paparan dalam telefon bimbit buat masa ini.<strong></p>
 
                     <p>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</p>
 
                     <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf"
                             download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran ISAC</a></p>
+
+                    <p>Sebarang pertanyaan boleh menghubungi pihak urusetia melalui e-mel
+                        <u>isachelp@intanbk.intan.my</u> dan
+                        disalin (cc) <u>dlisachelp@intanbk.intan.my</u> kerana urusetia ISAC telah berpindah ke lokasi
+                        pejabat sementara dan masih tiada talian telefon.
+                    </p>
 
                     <p>Sekian, terima kasih.</p>
 
@@ -525,7 +573,6 @@
     </footer>
 
     <script src="https://isacsupport.intan.my/chat_widget.js"></script>
-    <script src="../../assets/js/core/bootstrap.min.js"></script>
     <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
         const dataTableBasicPenjadualan = new simpleDatatables.DataTable("#datatable-penjadualan", {
