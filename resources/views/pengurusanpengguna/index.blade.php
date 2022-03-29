@@ -142,10 +142,10 @@
                             @else
                                 <tbody>
 
-                                    @foreach ($users as $user)
+                                    @foreach ($users as $index => $user)
                                         <tr>
                                             <td class="text-sm text-center font-weight-normal">
-                                                {{ $loop->index + 1 }}</td>
+                                                {{ $index + $users->firstItem() }}</td>
                                             <td class="text-sm font-weight-normal" style="text-transform: uppercase">
                                                 {{ $user['name'] }}</td>
                                             <td class="text-sm text-center font-weight-normal">{{ $user['email'] }}</td>
@@ -263,6 +263,9 @@
                                 </tbody>
                             @endif
                         </table>
+                        <div class="justify-content-end d-flex">
+                            {{ $users->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -273,9 +276,14 @@
     <script src="../../assets/js/plugins/datatables.js" type="text/javascript"></script>
     <script type="text/javascript">
         const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
-            searchable: true,
+            searchable: false,
             fixedHeight: true,
-            sortable: false
+            sortable: false,
+            perPageSelect: false,
+            perPage: 20,
+            labels: {
+                info: false
+            }
         });
     </script>
 @stop

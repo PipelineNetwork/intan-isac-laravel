@@ -33,12 +33,12 @@ class PenggunaController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('updated_at', 'desc')->get();
+        $users = User::orderBy('name', 'asc')->paginate(20);
 
         $user_pengawas = User::where('user_group_id', '=', '4')->orderBy('updated_at', 'desc')->get();
 
         $current_user = Auth::user()->user_group_id;
-        // dd($current_user);
+        // dd($users);
         return view('pengurusanpengguna.index', [
             'users' => $users,
             'user_pengawas' => $user_pengawas,
