@@ -754,20 +754,11 @@
                                                                         disabled>Batal</button>
                                                                 @elseif (($jadual->status == 'Penangguhan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Penangguhan' && $jadual->KEKOSONGAN < 0))
                                                                     <button class="btn btn-sm bg-gradient-warning m-0"
-                                                                        disabled>Ditangguhkan</button>
+                                                                        disabled>Penangguhan</button>
                                                                 @else
                                                                     <button class="btn btn-sm bg-gradient-danger m-0"
                                                                         disabled>Penuh</button>
                                                                 @endif
-                                                                {{-- @if ($jadual->status == null && $jadual->KEKOSONGAN > 0)
-                                                                        <button class="btn btn-sm bg-gradient-info m-0" disabled>Sudah Mendaftar</button>
-                                                                    @elseif (($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN < 0))
-                                                                        <button class="btn btn-sm bg-gradient-warning m-0"
-                                                                            disabled>Batal</button>
-                                                                    @else
-                                                                        <button class="btn btn-sm bg-gradient-danger m-0"
-                                                                            disabled>Penuh</button>
-                                                                    @endif --}}
                                                             @else
                                                                 @if ($jadual->status != 'Pembatalan' && $jadual->KEKOSONGAN > 0)
                                                                     <form action="/mohonpenilaian/permohonan_penilaian"
@@ -781,6 +772,9 @@
                                                                 @elseif (($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN < 0))
                                                                     <button class="btn btn-sm bg-gradient-warning m-0"
                                                                         disabled>Batal</button>
+                                                                @elseif (($jadual->status == 'Penangguhan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Penangguhan' && $jadual->KEKOSONGAN < 0))
+                                                                    <button class="btn btn-sm bg-gradient-warning m-0"
+                                                                        disabled>Penangguhan</button>
                                                                 @else
                                                                     <button class="btn btn-sm bg-gradient-danger m-0"
                                                                         disabled>Penuh</button>
