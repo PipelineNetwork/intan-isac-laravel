@@ -729,7 +729,7 @@
                                                     <td class="text-sm text-center font-weight-normal">
                                                         {{ $jadual->platform }}</td>
                                                     <td class="text-sm text-center font-weight-normal">
-                                                        @if ($jadual['KOD_KEMENTERIAN'] == null)
+                                                        @if ($jadual['LOKASI'] == null))
                                                             -
                                                         @else
                                                             {{ $jadual['LOKASI'] }}
