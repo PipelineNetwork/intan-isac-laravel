@@ -33,6 +33,7 @@
     
     use App\Models\Jadual;
     use App\Models\LamanUtama;
+    use App\Models\PengumumanLamanUtama;
     
     $current_date = date('Y-m-d');
     $jaduals = Jadual::select('TARIKH_SESI', 'KOD_MASA_MULA', 'KOD_MASA_TAMAT', 'platform', 'status', 'keterangan', 'KEKOSONGAN')
@@ -43,6 +44,7 @@
     
     $lamanutama = LamanUtama::all();
     $lamanutama2 = LamanUtama::all();
+    $pengumuman_laman_utama = PengumumanLamanUtama::first();
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -295,7 +297,8 @@
                     <br>
                     <iframe
                         src="/assets/video/Manual_Pendaftaran_Calon_ICT_Skills_Assessment_and_Certification_(ISAC).mp4"
-                        frameborder="0" style="height: 500px; width:800px; border-radius: 10px" autoplay="false"></iframe>
+                        frameborder="0" style="height: 500px; width:800px; border-radius: 10px"
+                        autoplay="false"></iframe>
 
                     <p><a href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf" download="MANUAL PENDAFTARAN ISAC.pdf"
                             target="_blank">Sila klik <span style="color: red">disini</span> untuk muat turun Manual
@@ -311,7 +314,6 @@
                         sektor awam. Ia merupakan satu alat bagi mengukur kesediaan personel sektor awam untuk bekerja
                         dalam persekitaran Kerajaan Elektronik dari segi pengetahuan dan kemahiran dalam penggunaan asas
                         perisian-perisian ICT yang sering di guna pakai (commonly used).
-
                     </p>
                 </div>
                 <div class="col-lg-6 ">
@@ -334,6 +336,11 @@
                                 Melalui Pembelajaran Berkualiti</p>
                         </div>
                     </div>
+                    {{-- <div class="p-3 info-horizontal">
+                        <img src="https://www.intanbk.intan.my/iportal/images/adminsep.jpg" width="620" height="300">
+                        <b style="text-align:center;">&emsp;&emsp;The National Institute of Public Administration
+                            (INTAN) Port Dickson</b>
+                    </div> --}}
                 </div>
             </div>
 
@@ -402,6 +409,14 @@
                                                     @else
                                                         <span class="badge badge-lg badge-success">Dibuka</span>
                                                     @endif
+                                                @elseif ($jadual->status == 'Perubahan')
+                                                    @if ($jadual->KEKOSONGAN == '0')
+                                                        <span class="badge badge-lg badge-danger">Penuh</span>
+                                                    @elseif ($jadual->KEKOSONGAN < '0')
+                                                        <span class="badge badge-lg badge-danger">Penuh</span>
+                                                    @else
+                                                        <span class="badge badge-lg badge-success">Dibuka</span>
+                                                    @endif
                                                 @else
                                                     <span
                                                         class="badge badge-lg badge-info">{{ $jadual->status }}</span>
@@ -418,88 +433,89 @@
         </div>
     </section>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color:#FFA500;">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">MAKLUMAN TERKINI</h5>
-                </div>
-                <div class="modal-body">
-                    {{-- <p><strong>PERHATIAN!</strong></p>
+    @if ($pengumuman_laman_utama->status_pengumuman == 'Aktif')
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#FFA500;">
+                        <h3 class="modal-title text-white">
+                            {!! $pengumuman_laman_utama->tajuk_header !!}</h3>
+                    </div>
+                    <div class="modal-body">
+                        @if ($pengumuman_laman_utama->tajuk_pengumuman != null)
+                            <p>{!! $pengumuman_laman_utama->tajuk_pengumuman !!}</p>
+                            @if ($pengumuman_laman_utama->subtajuk_pengumuman != null)
+                                <p>{!! $pengumuman_laman_utama->subtajuk_pengumuman !!}</p>
+                            @endif
+                        @endif
 
-                    <p><strong>PEMBATALAN JADUAL PENILAIAN ISAC</strong></p>
+                        @if ($pengumuman_laman_utama->pengumuman_1 != null)
+                            <p>{!! $pengumuman_laman_utama->pengumuman_1 !!}</p>
+                            @if ($pengumuman_laman_utama->subpengumuman_1 != null)
+                                <p>{!! $pengumuman_laman_utama->subpengumuman_1 !!}</p>
+                            @endif
+                        @endif
 
-                    <p>Dukacita dimaklumkan bahawa penilaian ISAC yang akan diadakan pada tarikh berikut telah
-                        <strong>DIBATALKAN</strong>
-                        kerana berlaku masalah teknikal pada sistem.
-                    </p>
+                        @if ($pengumuman_laman_utama->pengumuman_2 != null)
+                            <p>{!! $pengumuman_laman_utama->pengumuman_2 !!}</p>
+                            @if ($pengumuman_laman_utama->subpengumuman_2 != null)
+                                <p>{!! $pengumuman_laman_utama->subpengumuman_2 !!}</p>
+                            @endif
+                        @endif
 
-                    <ol>
-                        <li>
-                            <strong>7 Mac 2022</strong>
-                        </li>
-                        <li>
-                            <strong>9 Mac 2022</strong>
-                        </li>
-                        <li>
-                            <strong>14 Mac 2022</strong>
-                        </li>
-                        <li>
-                            <strong>16 Mac 2022</strong>
-                        </li>
-                    </ol>
+                        @if ($pengumuman_laman_utama->pengumuman_3 != null)
+                            <p>{!! $pengumuman_laman_utama->pengumuman_3 !!}</p>
+                            @if ($pengumuman_laman_utama->subpengumuman_3 != null)
+                                <p>{!! $pengumuman_laman_utama->subpengumuman_3 !!}</p>
+                            @endif
+                        @endif
 
-                    <p><strong>Jadual baharu akan dimuatnaik pada Isnin 7 Mac 2022.</strong> Mohon tuan/puan untuk
-                        membuat permohonan baru. Segala kesulitan amatlah dikesali.</p>
+                        @if ($pengumuman_laman_utama->pengumuman_4 != null)
+                            <p>{!! $pengumuman_laman_utama->pengumuman_4 !!}</p>
+                            @if ($pengumuman_laman_utama->subpengumuman_4 != null)
+                                <p>{!! $pengumuman_laman_utama->subpengumuman_4 !!}</p>
+                            @endif
+                        @endif
 
-                    <p>Sebarang pertanyaan boleh menghubungi pihak urusetia melalui e-mel
-                        <u>isachelp@intanbk.intan.my</u> dan
-                        disalin (cc) <u>dlisachelp@intanbk.intan.my</u> kerana urusetia ISAC telah berpindah ke lokasi
-                        pejabat sementara dan masih tiada talian telefon.
-                    </p>
-                    <hr class="my-4" style="height: 3px"> --}}
-                    <p><strong>Jadual penilaian bagi bulan Jun dan seterusnya akan dibuka pada bulan Mei.</strong></p>
+                        @if ($pengumuman_laman_utama->status_button_manual == 'Aktif')
+                            @if ($pengumuman_laman_utama->pengumuman_button_manual != null)
+                                <p>{!! $pengumuman_laman_utama->pengumuman_button_manual !!}</p>
+                                <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf"
+                                        download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran
+                                        ISAC</a>
+                                </p>
+                            @endif
+                        @endif
 
-                    <p>PERINGATAN: Calon perlu memastikan kemudahan-kemudahan berikut bagi memastikan penilaian ISAC
-                        dapat dijalankan dengan sempurna:
-                    </p>
+                        @if ($pengumuman_laman_utama->pengumuman_5 != null)
+                            <p>{!! $pengumuman_laman_utama->pengumuman_5 !!}</p>
+                            @if ($pengumuman_laman_utama->subpengumuman_5 != null)
+                                <p>{!! $pengumuman_laman_utama->subpengumuman_5 !!}</p>
+                            @endif
+                        @endif
 
-                    <ol>
-                        <li>Capaian internet yang baik</li>
-                        <li>Kemudahan peralatan ICT iaitu ;
-                            <ul>
-                                <li>Komputer beserta kamera (webcam) atau</li>
-                                <li>Komputer riba berserta kamera (build in camera)</li>
-                            </ul>
-                        </li>
-                    </ol>
+                        @if ($pengumuman_laman_utama->pengumuman_6 != null)
+                            <p>{!! $pengumuman_laman_utama->pengumuman_6 !!}</p>
+                            @if ($pengumuman_laman_utama->subpengumuman_6 != null)
+                                <p>{!! $pengumuman_laman_utama->subpengumuman_6 !!}</p>
+                            @endif
+                        @endif
 
-                    <p><strong>Nota: Sila guna <i>desktop</i> atau komputer riba semasa melayari portal ISAC kerana
-                            sistem tidak
-                            menyokong paparan dalam telefon bimbit buat masa ini.<strong></p>
-
-                    <p>Sila klik butang Manual Pendaftaran ISAC untuk tatacara pendaftaran.</p>
-
-                    <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf"
-                            download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran ISAC</a></p>
-
-                    <p>Sebarang pertanyaan boleh menghubungi pihak urusetia melalui e-mel
-                        <u>isachelp@intanbk.intan.my</u> dan
-                        disalin (cc) <u>dlisachelp@intanbk.intan.my</u> kerana urusetia ISAC telah berpindah ke lokasi
-                        pejabat sementara dan masih tiada talian telefon.
-                    </p>
-
-                    <p>Sekian, terima kasih.</p>
-
-                    <p>-URUSETIA ISAC-</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <script>
+            $(window).on('load', function() {
+                $('#exampleModal').modal('show');
+            });
+        </script>
+    @endif
 
     <footer class="footer pt-4 mt-3" id="contact">
         <hr class="horizontal dark mb-5">
@@ -590,10 +606,6 @@
             $("body, html").animate({
                 scrollTop: position
             } /* speed */ );
-        });
-
-        $(window).on('load', function() {
-            $('#exampleModal').modal('show');
         });
     </script>
 </body>

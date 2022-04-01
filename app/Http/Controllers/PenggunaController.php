@@ -33,7 +33,41 @@ class PenggunaController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('name', 'asc')->paginate(20);
+        $role = Role::all();
+        return view('pengurusanpengguna.carian_pengguna', [
+            'role' => $role
+        ]);
+    }
+
+    public function result_search(Request $request)
+    {
+        $current_user = Auth::user()->user_group_id;
+        if ($current_user == 3) {
+            if (!empty($request->nama)) {
+                $users = User::where('user_group_id', '=', '4')->where('name', 'like', '%' . $request->nama . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
+            } elseif (!empty($request->ic)) {
+                $users = User::where('user_group_id', '=', '4')->where('nric', 'like', '%' . $request->ic . '%')->orderBy('nric', 'asc')->paginate(20)->appends(request()->query());
+            } else {
+                $users = User::where('user_group_id', '=', '4')->where('name', 'like', '%' . $request->nama . '%')->where('nric', 'like', '%' . $request->ic . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
+            }
+        } else {
+            if (!empty($request->nama)) {
+                $users = User::where('name', 'like', '%' . $request->nama . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
+            } elseif (!empty($request->ic)) {
+                $users = User::where('nric', 'like', '%' . $request->ic . '%')->orderBy('nric', 'asc')->paginate(20)->appends(request()->query());
+            } elseif (!empty($request->user_group_id)) {
+                $users = User::where('user_group_id', 'like', '%' . $request->user_group_id . '%')->orderBy('nric', 'asc')->paginate(20)->appends(request()->query());
+            } elseif (!empty($request->nama) && !empty($request->ic)) {
+                $users = User::where('name', 'like', '%' . $request->nama . '%')->where('nric', 'like', '%' . $request->ic . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
+            } elseif (!empty($request->nama) && !empty($request->user_group_id)) {
+                $users = User::where('name', 'like', '%' . $request->nama . '%')->where('user_group_id', 'like', '%' . $request->user_group_id . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
+            }  elseif (!empty($request->ic) && !empty($request->user_group_id)) {
+                $users = User::where('nric', 'like', '%' . $request->ic . '%')->where('user_group_id', 'like', '%' . $request->user_group_id . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
+            } else {
+                $users = User::where('name', 'like', '%' . $request->nama . '%')->where('nric', 'like', '%' . $request->ic . '%')->orderBy('name', 'asc')->where('user_group_id', 'like', '%' . $request->user_group_id . '%')->paginate(20)->appends(request()->query());
+            }
+        }
+        // $users = User::orderBy('name', 'asc')->paginate(20);
 
         $user_pengawas = User::where('user_group_id', '=', '4')->orderBy('updated_at', 'desc')->get();
 
@@ -350,7 +384,7 @@ class PenggunaController extends Controller
             $user_profil->save();
         }
 
-        return redirect('/pengurusanpengguna');
+        return redirect('/carian-pengguna');
     }
     /**
      * Remove the specified resource from storage.
@@ -409,7 +443,7 @@ class PenggunaController extends Controller
 
         $user->delete();
         // alert()->success('Berjaya dihapus!');
-        return redirect('/pengurusanpengguna');
+        return redirect('/carian-pengguna');
     }
 
     public function set_semula_kata_laluan(Request $request, $user)
@@ -421,7 +455,7 @@ class PenggunaController extends Controller
 
         echo '<script language="javascript">';
         echo 'alert("Kata laluan berjaya disetkan semula.");';
-        echo "window.location.href='/pengurusanpengguna';";
+        echo "window.location.href='/carian-pengguna';";
         echo '</script>';
         // return redirect('/pengurusanpengguna');
     }

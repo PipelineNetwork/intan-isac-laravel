@@ -40,7 +40,7 @@ class MohonPenilaianController extends Controller
     {
         $ic = Auth::user()->nric;
         $id = Auth::user()->id;
-        $calon_3 = MohonPenilaian::where('no_ic', $ic)->where('status_penilaian', 'Baru')->orderBy('created_at', 'desc')->get();
+        $calon_3 = MohonPenilaian::where('no_ic', $ic)->where('status_penilaian', 'Baru')->orderBy('created_at', 'desc')->paginate(15);
 
         $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)->orderBy('mohon_penilaians.created_at', 'desc')->get();
         $peserta = MohonPenilaian::orderBy('created_at', 'desc')->get();
@@ -49,25 +49,6 @@ class MohonPenilaianController extends Controller
             'calon_3' => $calon_3,
             'penyelaras' => $penyelaras
         ]);
-
-        // $id_group_user = Auth::user()->user_group_id;
-        // if ($id_group_user == "3") {
-        //     // dd("Penyelaras");
-        //     // JADUAL_PENYELIA
-        //     $id_penyelia = Auth::id();
-        //     $jadual_penyelia = Jadual::where('user_id', $id_penyelia)->get();
-
-        //     return view('mohonPenilaian.penyelaras.pilih_jadual', [
-        //         'jadual_penyelia' => $jadual_penyelia
-        //     ]);
-        // } elseif ($id_group_user == "5") {
-        //     return view('mohonPenilaian.calon.kemaskini_maklumat');
-        // } else {
-        //     // dd("lain2");
-
-        // }
-
-
     }
 
     /**
@@ -75,13 +56,12 @@ class MohonPenilaianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         $status_ic = Auth::user()->nric;
         $status_lulus = MohonPenilaian::where('no_ic', $status_ic)->where('status_penilaian', 'Lulus')->first();
         $status_baru = MohonPenilaian::where('no_ic', $status_ic)->where('status_penilaian', 'Baru')->first();
 
-        // dd($status_pen);
         if ($status_lulus != null) {
             // alert('Anda telah lulus penilaian ID ' . $status_lulus->id_sesi . '. Anda tidak dibenarkan untuk daftar penilaian lain.');
             // return redirect('/dashboard');

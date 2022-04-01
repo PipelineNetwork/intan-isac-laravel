@@ -26,7 +26,63 @@
 </head>
 
 <body class="sign-up-cover">
+    <style>
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            background: none repeat scroll 0 0 #ffffff75;
+        }
 
+        .word {
+            position: absolute;
+            margin-top: 120px;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+
+        .spinner {
+            border: 1px solid transparent;
+            border-radius: 3px;
+            position: relative;
+        }
+
+        .spinner:before {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 45px;
+            height: 45px;
+            margin-top: -10px;
+            margin-left: -10px;
+            border-radius: 50%;
+            border: 5px solid orange;
+            border-top-color: #ffffff00;
+            animation: spinner 0.9s linear infinite;
+        }
+
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+    </style>
     <section>
         <div class="page-header">
             <div class="container">
@@ -124,8 +180,8 @@
                                         {{-- <button class="btn bg-gradient-warning w-100 mt-4 mb-0">
                                             {{ __('Daftar') }}
                                         </button> --}}
-                                        <button class="btn bg-gradient-warning w-100 mt-4 mb-0"
-                                            type="submit">Daftar</button>
+                                        <button class="btn bg-gradient-warning w-100 mt-4 mb-0" type="submit"
+                                            id="tekan">Daftar</button>
                                     </div>
                                 </form>
                             </div>
@@ -147,8 +203,34 @@
                 </div>
             </div>
         </div>
+
+        <section class="preloader" id="preload">
+            <div class="spinner" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="word">
+                <span>Sila Tunggu...</span>
+            </div>
+        </section>
     </section>
+
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#preload').hide();
+        });
+
+        $(document).on('submit', 'form', function() {
+            $('#tekan').click(function() {
+                $(this).attr('disabled', 'disabled');
+            })
+            $('#preload').show();
+            setTimeout(function() {
+                window.location = "/mohonpenilaian";
+            }, 9000);
+        });
+    </script>
 
 </html>

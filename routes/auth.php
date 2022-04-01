@@ -14,7 +14,7 @@ Route::get('/authenticate-ic', [RegisteredUserController::class, 'view_check_ic'
     ->middleware('guest')
     ->name('viewtosubmitic');
 
-Route::post('/submit-ic', [RegisteredUserController::class, 'check_ic'])
+Route::get('/submit-ic', [RegisteredUserController::class, 'check_ic'])
     ->middleware('guest');
 
 // Route::get('/register-user', [RegisteredUserController::class, 'create'])
