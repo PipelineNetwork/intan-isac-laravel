@@ -44,7 +44,8 @@
     
     $lamanutama = LamanUtama::all();
     $lamanutama2 = LamanUtama::all();
-    $pengumuman_laman_utama = PengumumanLamanUtama::first();
+    $pengumuman_laman_utama = PengumumanLamanUtama::get();
+    // dd($pengumuman_laman_utama);
     ?>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Google Tag Manager (noscript) -->
@@ -433,89 +434,92 @@
         </div>
     </section>
 
-    @if ($pengumuman_laman_utama->status_pengumuman == 'Aktif')
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color:#FFA500;">
-                        <h3 class="modal-title text-white">
-                            {!! $pengumuman_laman_utama->tajuk_header !!}</h3>
-                    </div>
-                    <div class="modal-body">
-                        @if ($pengumuman_laman_utama->tajuk_pengumuman != null)
-                            <p>{!! $pengumuman_laman_utama->tajuk_pengumuman !!}</p>
-                            @if ($pengumuman_laman_utama->subtajuk_pengumuman != null)
-                                <p>{!! $pengumuman_laman_utama->subtajuk_pengumuman !!}</p>
+    @foreach ($pengumuman_laman_utama as $pengumuman_laman_utama)
+        @if ($pengumuman_laman_utama->status_pengumuman == 'Aktif')
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#FFA500;">
+                            <h3 class="modal-title text-white">
+                                {!! $pengumuman_laman_utama->tajuk_header !!}</h3>
+                        </div>
+                        <div class="modal-body">
+                            @if ($pengumuman_laman_utama->tajuk_pengumuman != null)
+                                <p>{!! $pengumuman_laman_utama->tajuk_pengumuman !!}</p>
+                                @if ($pengumuman_laman_utama->subtajuk_pengumuman != null)
+                                    <p>{!! $pengumuman_laman_utama->subtajuk_pengumuman !!}</p>
+                                @endif
                             @endif
-                        @endif
 
-                        @if ($pengumuman_laman_utama->pengumuman_1 != null)
-                            <p>{!! $pengumuman_laman_utama->pengumuman_1 !!}</p>
-                            @if ($pengumuman_laman_utama->subpengumuman_1 != null)
-                                <p>{!! $pengumuman_laman_utama->subpengumuman_1 !!}</p>
+                            @if ($pengumuman_laman_utama->pengumuman_1 != null)
+                                <p>{!! $pengumuman_laman_utama->pengumuman_1 !!}</p>
+                                @if ($pengumuman_laman_utama->subpengumuman_1 != null)
+                                    <p>{!! $pengumuman_laman_utama->subpengumuman_1 !!}</p>
+                                @endif
                             @endif
-                        @endif
 
-                        @if ($pengumuman_laman_utama->pengumuman_2 != null)
-                            <p>{!! $pengumuman_laman_utama->pengumuman_2 !!}</p>
-                            @if ($pengumuman_laman_utama->subpengumuman_2 != null)
-                                <p>{!! $pengumuman_laman_utama->subpengumuman_2 !!}</p>
+                            @if ($pengumuman_laman_utama->pengumuman_2 != null)
+                                <p>{!! $pengumuman_laman_utama->pengumuman_2 !!}</p>
+                                @if ($pengumuman_laman_utama->subpengumuman_2 != null)
+                                    <p>{!! $pengumuman_laman_utama->subpengumuman_2 !!}</p>
+                                @endif
                             @endif
-                        @endif
 
-                        @if ($pengumuman_laman_utama->pengumuman_3 != null)
-                            <p>{!! $pengumuman_laman_utama->pengumuman_3 !!}</p>
-                            @if ($pengumuman_laman_utama->subpengumuman_3 != null)
-                                <p>{!! $pengumuman_laman_utama->subpengumuman_3 !!}</p>
+                            @if ($pengumuman_laman_utama->pengumuman_3 != null)
+                                <p>{!! $pengumuman_laman_utama->pengumuman_3 !!}</p>
+                                @if ($pengumuman_laman_utama->subpengumuman_3 != null)
+                                    <p>{!! $pengumuman_laman_utama->subpengumuman_3 !!}</p>
+                                @endif
                             @endif
-                        @endif
 
-                        @if ($pengumuman_laman_utama->pengumuman_4 != null)
-                            <p>{!! $pengumuman_laman_utama->pengumuman_4 !!}</p>
-                            @if ($pengumuman_laman_utama->subpengumuman_4 != null)
-                                <p>{!! $pengumuman_laman_utama->subpengumuman_4 !!}</p>
+                            @if ($pengumuman_laman_utama->pengumuman_4 != null)
+                                <p>{!! $pengumuman_laman_utama->pengumuman_4 !!}</p>
+                                @if ($pengumuman_laman_utama->subpengumuman_4 != null)
+                                    <p>{!! $pengumuman_laman_utama->subpengumuman_4 !!}</p>
+                                @endif
                             @endif
-                        @endif
 
-                        @if ($pengumuman_laman_utama->status_button_manual == 'Aktif')
-                            @if ($pengumuman_laman_utama->pengumuman_button_manual != null)
-                                <p>{!! $pengumuman_laman_utama->pengumuman_button_manual !!}</p>
-                                <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf"
-                                        download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran
-                                        ISAC</a>
-                                </p>
+                            @if ($pengumuman_laman_utama->status_button_manual == 'Aktif')
+                                @if ($pengumuman_laman_utama->pengumuman_button_manual != null)
+                                    <p>{!! $pengumuman_laman_utama->pengumuman_button_manual !!}</p>
+                                    <p><a class="btn btn-success" href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf"
+                                            download="MANUAL PENDAFTARAN ISAC.pdf" target="_blank">Manual Pendaftaran
+                                            ISAC</a>
+                                    </p>
+                                @endif
                             @endif
-                        @endif
 
-                        @if ($pengumuman_laman_utama->pengumuman_5 != null)
-                            <p>{!! $pengumuman_laman_utama->pengumuman_5 !!}</p>
-                            @if ($pengumuman_laman_utama->subpengumuman_5 != null)
-                                <p>{!! $pengumuman_laman_utama->subpengumuman_5 !!}</p>
+                            @if ($pengumuman_laman_utama->pengumuman_5 != null)
+                                <p>{!! $pengumuman_laman_utama->pengumuman_5 !!}</p>
+                                @if ($pengumuman_laman_utama->subpengumuman_5 != null)
+                                    <p>{!! $pengumuman_laman_utama->subpengumuman_5 !!}</p>
+                                @endif
                             @endif
-                        @endif
 
-                        @if ($pengumuman_laman_utama->pengumuman_6 != null)
-                            <p>{!! $pengumuman_laman_utama->pengumuman_6 !!}</p>
-                            @if ($pengumuman_laman_utama->subpengumuman_6 != null)
-                                <p>{!! $pengumuman_laman_utama->subpengumuman_6 !!}</p>
+                            @if ($pengumuman_laman_utama->pengumuman_6 != null)
+                                <p>{!! $pengumuman_laman_utama->pengumuman_6 !!}</p>
+                                @if ($pengumuman_laman_utama->subpengumuman_6 != null)
+                                    <p>{!! $pengumuman_laman_utama->subpengumuman_6 !!}</p>
+                                @endif
                             @endif
-                        @endif
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Tutup</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <script>
-            $(window).on('load', function() {
-                $('#exampleModal').modal('show');
-            });
-        </script>
-    @endif
+            <script>
+                $(window).on('load', function() {
+                    $('#exampleModal').modal('show');
+                });
+            </script>
+        @endif
+    @endforeach
 
     <footer class="footer pt-4 mt-3" id="contact">
         <hr class="horizontal dark mb-5">
