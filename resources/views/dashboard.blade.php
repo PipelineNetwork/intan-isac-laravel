@@ -752,6 +752,9 @@
                                                                 @elseif (($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN < 0))
                                                                     <button class="btn btn-sm bg-gradient-warning m-0"
                                                                         disabled>Batal</button>
+                                                                @elseif (($jadual->status == 'Penangguhan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Penangguhan' && $jadual->KEKOSONGAN < 0))
+                                                                    <button class="btn btn-sm bg-gradient-warning m-0"
+                                                                        disabled>Ditangguhkan</button>
                                                                 @else
                                                                     <button class="btn btn-sm bg-gradient-danger m-0"
                                                                         disabled>Penuh</button>
