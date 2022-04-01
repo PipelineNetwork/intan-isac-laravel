@@ -35,6 +35,7 @@ use App\Http\Controllers\KumpulanPenggunaController;
 use App\Http\Controllers\MasatamatController;
 use App\Http\Controllers\RayuanCalonBlacklistController;
 use App\Http\Controllers\PemantauanpenilaianController;
+use App\Http\Controllers\PengumumanLamanUtamaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,6 +71,7 @@ Route::get('/profil/{id}', [ProfilController::class, 'kemaskiniform']);
 Route::post('/profil/{id}/edit', [ProfilController::class, 'kemaskiniprofil']);
 
 Route::resource('/pengurusanpengguna', PenggunaController::class);
+Route::get('/carian-pengguna', [PenggunaController::class, 'result_search']);
 Route::post('/set-semula-kata-laluan/{id}', [PenggunaController::class, 'set_semula_kata_laluan']);
 
 // Route::resource('/penyelaraspengguna',PenyelarasController::class);
@@ -156,6 +158,7 @@ Route::resource('/videodannota', VideoDanNotaController::class);
 Route::resource('/selenggara_kawalan_sistem', SelenggaraKawalanSistemController::class);
 Route::resource('/notifikasi_email', NotifikasiEmailController::class);
 Route::resource('/laman_utama', LamanUtamaController::class);
+Route::resource('/pengumuman_laman_utama', PengumumanLamanUtamaController::class);
 Route::resource('/kebenaran_pengguna', KumpulanPenggunaController::class);
 Route::get('/kebenaran_pengguna/{id_kumpulan}/{menu_id}', [KumpulanPenggunaController::class, 'edit_menu']);
 Route::post('/kebenaran_pengguna/kemaskini/{id_kumpulan}/{menu_id}', [KumpulanPenggunaController::class, 'update_kebenaran']);

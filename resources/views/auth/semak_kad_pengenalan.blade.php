@@ -91,7 +91,7 @@
                                 <p class="mb-0">Sila isi maklumat di bawah</p>
                             </div>
                             <div class="card-body pb-3">
-                                <form method="POST" action="/submit-ic">
+                                <form method="GET" action="/submit-ic">
                                     @csrf
                                     <label>No. Kad Pengenalan</label>
                                     <div class="mb-3">

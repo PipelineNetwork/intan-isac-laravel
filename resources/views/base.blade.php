@@ -587,6 +587,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item ">
+                                    <a class="nav-link " href="/pengumuman_laman_utama">
+                                        <span class="sidenav-normal"> Pengumuman Laman <br> Utama </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
                                     <a class="nav-link " href="/videodannota">
                                         <span class="sidenav-normal"> Maklumat Video dan <br> Nota </span>
                                     </a>
