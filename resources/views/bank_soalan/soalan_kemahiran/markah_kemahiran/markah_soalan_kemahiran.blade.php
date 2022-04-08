@@ -48,9 +48,9 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Soalan Kemahiran Internet</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Soalan Kemahiran Pemprosesan Perkataan</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Soalan Kemahiran E-mel</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah Lulus Kemahiran Internet</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah Lulus Kemahiran Pemprosesan Perkataan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Markah Lulus Kemahiran E-mel</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Kemaskini</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Hapus</th>
                                     </tr>
