@@ -6,7 +6,7 @@ use App\Models\Jadual;
 @section('content')
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm">
@@ -39,7 +39,7 @@ use App\Models\Jadual;
         </div>
 
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Senarai Permohonan</b>
@@ -76,9 +76,10 @@ use App\Models\Jadual;
 
                                 <tbody>
                                     @role('calon')
-                                        @foreach ($calon_3 as $key => $calon_3)
+                                        @foreach ($calon_3s as $index => $calon_3)
                                             <tr>
-                                                <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $index + $calon_3s->firstItem() }}</td>
                                                 <td class="text-sm text-center font-weight-normal">{{ $calon_3['id_sesi'] }}
                                                 </td>
                                                 <td class="text-sm text-center font-weight-normal"
@@ -131,9 +132,10 @@ use App\Models\Jadual;
                                             </tr>
                                         @endforeach
                                         @elserole ('penyelaras')
-                                        @foreach ($penyelaras as $key => $penyelaras)
+                                        @foreach ($penyelarass as $index => $penyelaras)
                                             <tr>
-                                                <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $index + $penyelarass->firstItem() }}</td>
                                                 <td class="text-sm text-center font-weight-normal">
                                                     {{ $penyelaras['id_sesi'] }}
                                                 </td>
@@ -179,9 +181,10 @@ use App\Models\Jadual;
                                             </tr>
                                         @endforeach
                                     @else
-                                        @foreach ($peserta as $key => $peserta)
+                                        @foreach ($pesertas as $index => $peserta)
                                             <tr>
-                                                <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    {{ $index + $pesertas->firstItem() }}</td>
                                                 <td class="text-sm text-center font-weight-normal">{{ $peserta['id_sesi'] }}
                                                 </td>
                                                 <td class="text-sm text-center font-weight-normal"
@@ -228,6 +231,15 @@ use App\Models\Jadual;
                                     @endrole
                                 </tbody>
                             </table>
+                            <div class="justify-content-end d-flex">
+                                @role('calon')
+                                    {{ $calon_3s->links() }}
+                                    @elserole ('penyelaras')
+                                    {{ $penyelarass->links() }}
+                                @else
+                                    {{ $pesertas->links() }}
+                                @endrole
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -241,7 +253,9 @@ use App\Models\Jadual;
         const dataTableBasickategori = new simpleDatatables.DataTable("#datatable-peserta", {
             searchable: true,
             fixedHeight: true,
-            sortable: false
+            sortable: false,
+            perPage: 15,
+            perPageSelect: false,
         });
     </script>
 @stop

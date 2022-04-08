@@ -110,6 +110,7 @@ class ProfilController extends Controller
         if ($current_user->user_group_id == 5) {
             // $user_profils1 = User::where('id',$id)->first();
             $user_profils1 = User::find($id);
+            $permohonan = MohonPenilaian::where('no_ic', $user_profils1->nric)->latest()->first();
             $user_profils1->name = strtoupper($request->NAMA_PESERTA);
             $user_profils1->email = $request->EMEL_PESERTA;
             $user_profils1->nric = $request->NO_KAD_PENGENALAN;
@@ -152,12 +153,8 @@ class ProfilController extends Controller
             $user_profils4->KOD_GRED_JAWATAN = $request->KOD_GRED_JAWATAN;
             $user_profils4->ID_PESERTA = $user_profils2->ID_PESERTA;
 
-            $permohonan = MohonPenilaian::where('no_ic', $request->NO_KAD_PENGENALAN)->orderBy('tarikh_sesi', 'desc')->first();
-
-            if (isset($permohonan)) {
-                // $permohonan->id_sesi = $request->id_sesi;
+            if (!empty($permohonan)) {
                 $permohonan->id_calon = $user_profils2->ID_PESERTA;
-                // $permohonan->tarikh_sesi = $sesi_id->TARIKH_SESI;
                 $permohonan->no_ic = $request->NO_KAD_PENGENALAN;
                 $permohonan->nama = strtoupper($request->NAMA_PESERTA);
                 $permohonan->tarikh_lahir = $request->TARIKH_LAHIR;
@@ -178,7 +175,7 @@ class ProfilController extends Controller
                 $permohonan->nama_penyelia = $request->NAMA_PENYELIA;
                 $permohonan->emel_penyelia = $request->EMEL_PENYELIA;
                 $permohonan->no_telefon_penyelia = $request->NO_TELEFON_PENYELIA;
-
+                // dd($permohonan);
                 $permohonan->save();
             }
             // dd($user_profils1, $user_profils2, $user_profils3, $user_profils4);
@@ -186,7 +183,6 @@ class ProfilController extends Controller
             $user_profils2->save();
             $user_profils3->save();
             $user_profils4->save();
-
         } else {
             $user_profils = User::find($request->user()->id);
             $user_profils->name = strtoupper($request->name);

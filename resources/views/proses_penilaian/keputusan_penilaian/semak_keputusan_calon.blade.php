@@ -34,7 +34,7 @@
         </nav>
 
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header pb-3" style="background-color:#FFA500;">
                         <h5 class="text-white">Semakan Keputusan Penilaian</h5>
@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="table-responsive">
                                     <table class="table table-flush" id="datatable-peserta">
                                         <thead>

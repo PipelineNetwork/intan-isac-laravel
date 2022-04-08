@@ -70,6 +70,7 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
 </head>
 
 <body class="sign-up-cover">
@@ -95,8 +96,8 @@
                                     @csrf
                                     <label>No. Kad Pengenalan</label>
                                     <div class="mb-3">
-                                        <input id="nric" class="form-control" type="text" name="nric" required
-                                            autofocus maxlength="12" size="12" autocomplete="off"
+                                        <input class="form-control" type="text" name="nric" required
+                                            autofocus maxlength="12" minlength="12" size="12" autocomplete="off"
                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                     </div>
 

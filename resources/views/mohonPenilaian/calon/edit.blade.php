@@ -21,7 +21,7 @@
         </nav>
 
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="card m-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <h6 class="text-white mb-0">Butiran Penjadualan Semula</h6>

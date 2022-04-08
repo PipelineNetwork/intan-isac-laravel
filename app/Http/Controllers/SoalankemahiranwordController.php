@@ -12,6 +12,7 @@ use App\Models\KeputusanPenilaian;
 use App\Models\MohonPenilaian;
 use App\Models\PemilihanSoalan;
 use App\Models\Jadual;
+use App\Models\MarkahSoalanKemahiran;
 
 class SoalankemahiranwordController extends Controller
 {
@@ -150,7 +151,7 @@ class SoalankemahiranwordController extends Controller
 
             $jawapancalon->user_id = $current_user->id;
             $jawapancalon->id_soalankemahiranword = $request->id_soalankemahiranword;
-            if($jawapancalon->id_soalankemahiraninternet == null) {
+            if ($jawapancalon->id_soalankemahiraninternet == null) {
                 $jawapancalon->id_soalankemahiraninternet = '0';
             }
             $jawapancalon->id_penilaian = $id_penilaian;
@@ -306,9 +307,11 @@ class SoalankemahiranwordController extends Controller
                 $keputusan->keputusan_pengetahuan = "Tidak Melepasi";
             }
 
+            $markah_kemahiran = MarkahSoalanKemahiran::first();
+
             $keputusan->markah_internet = $markah_internet;
             // if ($keputusan->markah_internet == 2) {
-            if ($keputusan->markah_internet >= 2) {
+            if ($keputusan->markah_internet >= $markah_kemahiran->markah_internet) {
                 $keputusan->keputusan_internet = "Melepasi";
             } else {
                 $keputusan->keputusan_internet = "Tidak Melepasi";
@@ -316,14 +319,14 @@ class SoalankemahiranwordController extends Controller
 
             $keputusan->markah_word = $markah_word;
             // if ($keputusan->markah_word == 9) {
-            if ($keputusan->markah_word >= 4) {
+            if ($keputusan->markah_word >= $markah_kemahiran->markah_word) {
                 $keputusan->keputusan_word = "Melepasi";
             } else {
                 $keputusan->keputusan_word = "Tidak Melepasi";
             }
 
             $keputusan->markah_email = $markah_email;
-            if ($keputusan->markah_email >= 2) {
+            if ($keputusan->markah_email >= $markah_kemahiran->markah_email) {
                 $keputusan->keputusan_email = "Melepasi";
             } else {
                 $keputusan->keputusan_email = "Tidak Melepasi";

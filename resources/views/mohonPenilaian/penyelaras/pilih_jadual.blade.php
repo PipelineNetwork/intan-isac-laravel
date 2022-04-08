@@ -13,7 +13,7 @@
             <h5 class="font-weight-bolder">Pengurusan Penilaian</h5>
         </nav>
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="card m-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <h5 class="text-white mb-0">Pilih jadual</h5>

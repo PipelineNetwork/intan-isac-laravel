@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Bankjawapancalon;
 use PDF;
 use App\Models\Bankjawapanpengetahuan;
+use App\Models\MarkahSoalanKemahiran;
 
 class KeputusanPenilaianController extends Controller
 {
@@ -21,7 +22,6 @@ class KeputusanPenilaianController extends Controller
 
     public function index()
     {
-
         $keputusans = KeputusanPenilaian::orderBy('created_at', 'desc')->get();
         return view('proses_penilaian.senarai_slip', [
             'keputusans' => $keputusans
@@ -98,24 +98,26 @@ class KeputusanPenilaianController extends Controller
             $keputusan->keputusan_pengetahuan = "Tidak Melepasi";
         }
 
+        $markah_kemahiran = MarkahSoalanKemahiran::first();
+
         $keputusan->markah_internet = $markah_internet;
-        if ($keputusan->markah_internet >= 2) {
-            // if ($keputusan->markah_internet >= 1) {
+        // if ($keputusan->markah_internet == 2) {
+        if ($keputusan->markah_internet >= $markah_kemahiran->markah_internet) {
             $keputusan->keputusan_internet = "Melepasi";
         } else {
             $keputusan->keputusan_internet = "Tidak Melepasi";
         }
 
         $keputusan->markah_word = $markah_word;
-        // if ($keputusan->markah_word >= 9) {
-        if ($keputusan->markah_word >= 4) {
+        // if ($keputusan->markah_word == 9) {
+        if ($keputusan->markah_word >= $markah_kemahiran->markah_word) {
             $keputusan->keputusan_word = "Melepasi";
         } else {
             $keputusan->keputusan_word = "Tidak Melepasi";
         }
 
         $keputusan->markah_email = $markah_email;
-        if ($keputusan->markah_email >= 2) {
+        if ($keputusan->markah_email >= $markah_kemahiran->markah_email) {
             $keputusan->keputusan_email = "Melepasi";
         } else {
             $keputusan->keputusan_email = "Tidak Melepasi";
@@ -334,9 +336,11 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
                 $keputusan->keputusan_pengetahuan = "Tidak Melepasi";
             }
 
+            $markah_kemahiran = MarkahSoalanKemahiran::first();
+
             $keputusan->markah_internet = $markah_internet;
             // if ($keputusan->markah_internet == 2) {
-            if ($keputusan->markah_internet >= 2) {
+            if ($keputusan->markah_internet >= $markah_kemahiran->markah_internet) {
                 $keputusan->keputusan_internet = "Melepasi";
             } else {
                 $keputusan->keputusan_internet = "Tidak Melepasi";
@@ -344,15 +348,14 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
 
             $keputusan->markah_word = $markah_word;
             // if ($keputusan->markah_word == 9) {
-            if ($keputusan->markah_word >= 4) {
+            if ($keputusan->markah_word >= $markah_kemahiran->markah_word) {
                 $keputusan->keputusan_word = "Melepasi";
             } else {
                 $keputusan->keputusan_word = "Tidak Melepasi";
             }
 
             $keputusan->markah_email = $markah_email;
-            // if ($keputusan->markah_email >= 4) {
-            if ($keputusan->markah_email >= 2) {
+            if ($keputusan->markah_email >= $markah_kemahiran->markah_email) {
                 $keputusan->keputusan_email = "Melepasi";
             } else {
                 $keputusan->keputusan_email = "Tidak Melepasi";
@@ -417,9 +420,11 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
                 $keputusan->keputusan_pengetahuan = "Tidak Melepasi";
             }
 
+            $markah_kemahiran = MarkahSoalanKemahiran::first();
+
             $keputusan->markah_internet = $markah_internet;
             // if ($keputusan->markah_internet == 2) {
-            if ($keputusan->markah_internet >= 2) {
+            if ($keputusan->markah_internet >= $markah_kemahiran->markah_internet) {
                 $keputusan->keputusan_internet = "Melepasi";
             } else {
                 $keputusan->keputusan_internet = "Tidak Melepasi";
@@ -427,15 +432,14 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
 
             $keputusan->markah_word = $markah_word;
             // if ($keputusan->markah_word == 9) {
-            if ($keputusan->markah_word >= 4) {
+            if ($keputusan->markah_word >= $markah_kemahiran->markah_word) {
                 $keputusan->keputusan_word = "Melepasi";
             } else {
                 $keputusan->keputusan_word = "Tidak Melepasi";
             }
 
             $keputusan->markah_email = $markah_email;
-            // if ($keputusan->markah_email >= 4) {
-            if ($keputusan->markah_email >= 2) {
+            if ($keputusan->markah_email >= $markah_kemahiran->markah_email) {
                 $keputusan->keputusan_email = "Melepasi";
             } else {
                 $keputusan->keputusan_email = "Tidak Melepasi";

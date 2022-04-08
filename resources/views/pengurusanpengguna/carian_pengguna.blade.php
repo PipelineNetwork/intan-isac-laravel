@@ -6,7 +6,7 @@
 
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm">
@@ -36,7 +36,7 @@
         </div>
 
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Carian Pengguna</b>
@@ -47,15 +47,17 @@
                             @csrf
                             <div class="row">
                                 <div class="col-12">
-                                    <label for="startdate">Nama Pengguna</label>
+                                    <label>Nama Pengguna</label>
                                     <input class="form-control" type="text" name="nama" autocomplete="off" />
                                 </div>
                                 <div class="col-12 mt-4">
-                                    <label for="startdate">No Kad Pengenalan Pengguna</label>
-                                    <input class="form-control" type="text" name="ic" autocomplete="off" />
+                                    <label>No Kad Pengenalan Pengguna</label>
+                                    <input class="form-control" type="text" name="ic" autocomplete="off" maxlength="12"
+                                        size="12"
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                 </div>
                                 <div class="col-12 mt-4">
-                                    <label for="startdate">Peranan Pengguna</label>
+                                    <label>Peranan Pengguna</label>
                                     <select class="form-control mb-3" name="user_group_id">
                                         <option value="" selected hidden>Sila Pilih</option>
                                         @foreach ($role as $role)

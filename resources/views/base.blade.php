@@ -287,6 +287,11 @@
                                             <span class="sidenav-normal"> Pemilihan Soalan <br> Pengetahuan </span>
                                         </a>
                                     </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/markah_soalan_kemahiran">
+                                            <span class="sidenav-normal"> Pemarkahan Soalan <br> Kemahiran </span>
+                                        </a>
+                                    </li>
                                 @endcan
 
                                 @can('slip')

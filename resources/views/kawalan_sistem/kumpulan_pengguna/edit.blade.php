@@ -6,7 +6,7 @@
 
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm">
@@ -36,14 +36,14 @@
         </div>
 
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Kebenaran</b>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-12">
                                 <h5>{{ ucfirst(trans($peranan->name)) }}</h5>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                             @method('PUT')
                             @csrf
                             <div class="row">
-                                <div class="col">
+                                <div class="col-12">
                                     <div class="table-responsive">
                                         <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
                                             <thead>

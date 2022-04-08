@@ -12,6 +12,13 @@
         <div class="content">
             <div class=" container-fluid">
                 <div class="row">
+                    <div class="col" style="text-align: center">
+                        <img src="{{ public_path('img/jatanegara.png') }}" alt="PGN" height="80"
+                            style="margin-bottom:0px;">
+                        <p style="text-transform:uppercase"><b>Institut Tadbiran Awam Negara (INTAN)</b></p>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col">
                         <h1 style="text-align: center">Slip Keputusan Penilaian ISAC</h1>
                     </div>
@@ -79,12 +86,21 @@
                                             KESELURUHAN</td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center; border: 1px solid black;">{{ $rekod->keputusan }}</td>
+                                        <td style="text-align: center; border: 1px solid black;">
+                                            {{ $rekod->keputusan }}</td>
                                     </tr>
                                 </table>
                                 </p>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-6" style="text-align: right">
+                        <img src="{{ public_path('img/cop_intan.png') }}" alt="cop" height="130" style="border-radius: 50px">
                     </div>
                 </div>
             </div>
