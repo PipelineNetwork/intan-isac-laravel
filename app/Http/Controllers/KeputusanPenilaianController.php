@@ -223,7 +223,8 @@ class KeputusanPenilaianController extends Controller
         $no_sijil = $rekod_sijil->no_sijil;
 
         $text_qr = "No. Kad Pengenalan: " . $ic . "
-No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" . sprintf("%'.03d\n", $no_sijil);
+No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" . sprintf("%'.03d\n", $no_sijil) .
+            "Keputusan: LULUS";
         $qr_encode = urlencode($text_qr);
 
         $pdf = PDF::loadView('pdf.sijil_isac', [

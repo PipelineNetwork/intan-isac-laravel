@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label class="form-control-label">Markah Soalan Kemahiran Internet</label>
+                                        <label class="form-control-label">Markah Lulus Kemahiran Internet</label>
                                         <input class="form-control" type="text" name="markah_internet" value="{{ $markah_soalan_kemahirans->markah_internet }}"
                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                             required autocomplete="off">
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label class="form-control-label">Markah Soalan Kemahiran Pemprosesan
+                                        <label class="form-control-label">Markah Lulus Kemahiran Pemprosesan
                                             Perkataan</label>
                                         <input class="form-control" type="text" name="markah_word" value="{{ $markah_soalan_kemahirans->markah_word }}"
                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label class="form-control-label">Markah Soalan Kemahiran E-mel</label>
+                                        <label class="form-control-label">Markah Lulus Kemahiran E-mel</label>
                                         <input class="form-control" type="text" name="markah_email" value="{{ $markah_soalan_kemahirans->markah_email }}"
                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                             required autocomplete="off">
