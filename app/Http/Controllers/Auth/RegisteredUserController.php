@@ -125,8 +125,14 @@ class RegisteredUserController extends Controller
     {
         // dd($request);
         // $request->validate([
-        //     'nric' => 'required|string|max:255|unique:users',
+        //     'nric' => 'required|string|max:255|unique:users|s',
         // ]);
+        if (strlen($request->nric) < 12) {
+            echo '<script language="javascript">';
+            echo 'alert("No. Kad Pengenalan yang dimasukkan tidak mencukupi.");';
+            echo "window.location.href='/authenticate-ic';";
+            echo '</script>';
+        }
 
         $checkic = User::where('nric', $request->nric)->first();
         if ($checkic != null) {

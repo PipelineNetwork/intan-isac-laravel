@@ -13,9 +13,12 @@ use App\Models\KeputusanPenilaian;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Permohanan;
 use App\Models\MohonPenilaian;
+use App\Models\Perkhidmatan;
 use App\Models\Refgeneral;
 use Spatie\Permission\Models\Role;
 use App\Models\SelenggaraKawalanSistem;
+use App\Models\Tugas;
+use PDF;
 
 class JadualController extends Controller
 {
@@ -34,7 +37,7 @@ class JadualController extends Controller
         // dd($penyelaras);
         $jaduals = Jadual::orderBy('TARIKH_SESI', 'desc')
             // ->whereYear('TARIKH_SESI', '>=', 2021)
-            ->get();
+            ->paginate(15);
 
         $jadual_list = Jadual::all();
         foreach ($jadual_list as $key => $jadual_upd) {
@@ -61,7 +64,7 @@ class JadualController extends Controller
         $role_id_pentadbir_sistem = $role_pentadbir_sistem->id;
         $penyelaras = User::where('user_group_id', $role_id_penyelaras)->get();
         $pentadbir_sistem = User::where('user_group_id', $role_id_pentadbir_sistem)->get();
-        
+
         $masa_penilaian = SelenggaraKawalanSistem::where('ID_KAWALAN_SISTEM', '1')->first();
         $masa_pengetahuan = $masa_penilaian->TEMPOH_MASA_KESELURUHAN_PENILAIAN;
         return view('jadual.create', [
@@ -181,8 +184,10 @@ class JadualController extends Controller
      */
     public function show(Jadual $jadual)
     {
+        $permohonan = MohonPenilaian::where('id_sesi', $jadual->ID_PENILAIAN)->paginate(15);
         return view('jadual.show', [
-            'jadual' => $jadual
+            'jadual' => $jadual,
+            'permohonans' => $permohonan
         ]);
     }
 
@@ -239,16 +244,23 @@ class JadualController extends Controller
         $jadual->status = $request->status;
         $jadual->keterangan = $request->keterangan;
 
+        $permohonan = MohonPenilaian::where('id_sesi', $jadual->ID_PENILAIAN)->get();
+        if ($permohonan != null) {
+            foreach ($permohonan as $key => $mohon) {
+                $mohon->tarikh_sesi = $request->TARIKH_SESI;
+                $mohon->save();
+            }
+        }
         $idpenilaian = $jadual->ID_PENILAIAN;
         $list_calon = MohonPenilaian::where('id_sesi', $idpenilaian)->get();
 
         $emel_peserta = [];
-        foreach ($list_calon as $calon) {
-            $id_peserta = $calon->id_calon;
-            $peserta = Permohanan::where('ID_PESERTA', $id_peserta)->first();
+        foreach ($list_calon as $key => $calon) {
+            $peserta = User::where('nric', $calon->no_ic)->first();
             if ($peserta != null) {
-                $email = $peserta->EMEL_PESERTA;
-                $emel_peserta = $email;
+                $email = $peserta->email;
+
+                array_push($emel_peserta, $email);
             }
         }
 
@@ -390,5 +402,261 @@ class JadualController extends Controller
         }
 
         return redirect('/jaduals');
+    }
+
+    public function tambah_calon($id_sesi)
+    {
+        return view('jadual.cari_user', [
+            'id_sesis' => $id_sesi
+        ]);
+    }
+
+    public function profil_calon(Request $request, $id_sesi)
+    {
+        $ic = $request->ic;
+        $user_ic = User::where('nric', $ic)->first();
+        $id_penilaian = Jadual::find($id_sesi);
+
+        if ($user_ic == null) {
+            echo '<script language="javascript">';
+            echo 'alert("No. Kad Pengenalan yang dimasukkan tidak wujud.");';
+            echo "window.location.href='/jaduals';";
+            echo '</script>';
+        } else {
+            $kod_gelaran = Refgeneral::where('MASTERCODE', 10009)
+                ->get();
+
+            $peringkat = Refgeneral::where('MASTERCODE', 10023)->get();
+
+            $klasifikasi_perkhidmatan = Refgeneral::where('MASTERCODE', 10024)->get();
+
+            $gred_jawatan = Refgeneral::where('MASTERCODE', 10025)->get();
+
+            $taraf_perjawatan = Refgeneral::where('MASTERCODE', 10026)->get();
+
+            $jenis_perkhidmatan = Refgeneral::where('MASTERCODE', 10027)->get();
+
+            $kementerian = Refgeneral::where('MASTERCODE', 10028)->get();
+
+            $negeri = Refgeneral::where('MASTERCODE', 10021)->get();
+
+            $jabatan = Refgeneral::where('MASTERCODE', 10029)->orderBy('DESCRIPTION1')->get();
+
+            $gelaran_user = Refgeneral::where('MASTERCODE', 10009)
+                ->join('pro_peserta', 'refgeneral.REFERENCECODE', 'pro_peserta.KOD_GELARAN')
+                ->select('refgeneral.MASTERCODE', 'refgeneral.REFERENCECODE', 'refgeneral.DESCRIPTION1', 'pro_peserta.KOD_GELARAN')
+                ->where('pro_peserta.NO_KAD_PENGENALAN', $ic)
+                ->get()->first();
+
+            $user = User::where('nric', '=', $ic)
+                ->join('pro_peserta', 'users.id', '=', 'pro_peserta.user_id')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+                ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+                ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
+                ->get()->first();
+            return view('jadual.papar_user', [
+                'users' => $user,
+                'id_sesis' => $id_sesi,
+                'kod_gelarans' => $kod_gelaran,
+                'gelaran_user' => $gelaran_user,
+                'peringkats' => $peringkat,
+                'klasifikasi_perkhidmatans' => $klasifikasi_perkhidmatan,
+                'gred_jawatans' => $gred_jawatan,
+                'taraf_perjawatans' => $taraf_perjawatan,
+                'jenis_perkhidmatans' => $jenis_perkhidmatan,
+                'kementerians' => $kementerian,
+                'negeris' => $negeri,
+                'id_penilaian' => $id_penilaian->ID_PENILAIAN,
+                'jabatans' => $jabatan
+            ]);
+        }
+    }
+
+    public function daftar_calon_baru(Request $request)
+    {
+        $check_jadual = Jadual::where('ID_PENILAIAN', $request->id_sesi)->first();
+        $check_bilangan_daftar = MohonPenilaian::where('id_sesi', $request->id_sesi)->count();
+        // dd($check_bilangan_daftar);
+        if (($check_jadual->KEKOSONGAN != 0) && ($check_bilangan_daftar < $check_jadual->JUMLAH_KESELURUHAN)) {
+            $check_calon = MohonPenilaian::where('id_sesi', $request->id_sesi)->where('no_ic', $request->NO_KAD_PENGENALAN)->first();
+
+            if ($check_calon == null) {
+                $user_profils1 = User::where('nric', $request->NO_KAD_PENGENALAN)->first();
+                $user_profils1->name = strtoupper($request->NAMA_PESERTA);
+                $user_profils1->nric = $request->NO_KAD_PENGENALAN;
+                $user_profils1->email = $request->EMEL_PESERTA;
+                $user_profils1->save();
+
+                $user_profils2 = Permohanan::where('NO_KAD_PENGENALAN', $request->NO_KAD_PENGENALAN)->first();
+                $user_profils2->NAMA_PESERTA = strtoupper($request->NAMA_PESERTA);
+                $user_profils2->NO_KAD_PENGENALAN = $request->NO_KAD_PENGENALAN;
+                $user_profils2->EMEL_PESERTA = $request->EMEL_PESERTA;
+                $user_profils2->NO_TELEFON_BIMBIT = $request->NO_TELEFON_BIMBIT;
+                $user_profils2->NO_TELEFON_PEJABAT = $request->NO_TELEFON_PEJABAT;
+                $user_profils2->KOD_JANTINA = $request->KOD_JANTINA;
+                $user_profils2->TARIKH_LAHIR = $request->TARIKH_LAHIR;
+                $user_profils2->KOD_GELARAN = $request->KOD_GELARAN;
+                $user_profils2->save();
+
+                $user_profils3 = Tugas::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();
+                $user_profils3->ALAMAT_1 = $request->ALAMAT_1;
+                $user_profils3->ALAMAT_2 = $request->ALAMAT_2;
+                $user_profils3->POSKOD = $request->POSKOD;
+                $user_profils3->KOD_NEGERI = $request->KOD_NEGERI;
+                $user_profils3->KOD_NEGARA = $request->KOD_NEGARA;
+                $user_profils3->NAMA_PENYELIA = $request->NAMA_PENYELIA;
+                $user_profils3->EMEL_PENYELIA = $request->EMEL_PENYELIA;
+                $user_profils3->NO_TELEFON_PENYELIA = $request->NO_TELEFON_PENYELIA;
+                $user_profils3->KOD_KEMENTERIAN = $request->KOD_KEMENTERIAN;
+                $user_profils3->KOD_JABATAN = $request->KOD_JABATAN;
+                $user_profils3->GELARAN_KETUA_JABATAN = strtoupper($request->GELARAN_KETUA_JABATAN);
+                $user_profils3->BAHAGIAN = $request->BAHAGIAN;
+                $user_profils3->BANDAR = $request->BANDAR;
+                $user_profils3->save();
+
+                $user_profils4 = Perkhidmatan::where('ID_PESERTA', $user_profils2->ID_PESERTA)->first();
+                $user_profils4->KOD_KLASIFIKASI_PERKHIDMATAN = $request->KOD_KLASIFIKASI_PERKHIDMATAN;
+                $user_profils4->TARIKH_LANTIKAN = $request->TARIKH_LANTIKAN;
+                $user_profils4->KOD_GELARAN_JAWATAN = $request->KOD_GELARAN_JAWATAN;
+                $user_profils4->KOD_TARAF_PERJAWATAN = $request->KOD_TARAF_PERJAWATAN;
+                $user_profils4->KOD_PERINGKAT = $request->KOD_PERINGKAT;
+                $user_profils4->KOD_JENIS_PERKHIDMATAN = $request->KOD_JENIS_PERKHIDMATAN;
+                $user_profils4->KOD_GRED_JAWATAN = $request->KOD_GRED_JAWATAN;
+                $user_profils4->save();
+
+                // daftar permohonan
+                $sesi_id = Jadual::where('ID_PENILAIAN', $request->id_sesi)->first();
+
+                $permohonan = new MohonPenilaian;
+
+                $permohonan->id_sesi = $request->id_sesi;
+                $permohonan->id_calon = $request->id_peserta;
+                $permohonan->tarikh_sesi = $sesi_id->TARIKH_SESI;
+                $permohonan->no_ic = $request->NO_KAD_PENGENALAN;
+                $permohonan->nama = strtoupper($request->NAMA_PESERTA);
+                $permohonan->tarikh_lahir = $request->TARIKH_LAHIR;
+                if ($request->KOD_JANTINA == '01') {
+                    $jantina = 'Lelaki';
+                } else {
+                    $jantina = 'Perempuan';
+                }
+                $permohonan->jantina = $jantina;
+                $permohonan->jawatan_ketua_jabatan = $request->GELARAN_KETUA_JABATAN;
+                $permohonan->taraf_jawatan = $request->KOD_TARAF_PERJAWATAN;
+                $permohonan->tarikh_lantikan = $request->TARIKH_LANTIKAN;
+                $permohonan->klasifikasi_perkhidmatan = $request->KOD_KLASIFIKASI_PERKHIDMATAN;
+                $permohonan->no_telefon_pejabat = $request->NO_TELEFON_PEJABAT;
+                $permohonan->alamat1_pejabat = $request->ALAMAT_1;
+                $permohonan->alamat2_pejabat = $request->ALAMAT_2;
+                $permohonan->poskod_pejabat = $request->POSKOD;
+                $permohonan->nama_penyelia = $request->NAMA_PENYELIA;
+                $permohonan->emel_penyelia = $request->EMEL_PENYELIA;
+                $permohonan->no_telefon_penyelia = $request->NO_TELEFON_PENYELIA;
+                $permohonan->status_penilaian = 'Baru';
+                $permohonan->save();
+
+                $kekosongan = Jadual::where('ID_PENILAIAN', $permohonan->id_sesi)->first();
+                $peserta = Permohanan::where('NO_KAD_PENGENALAN', $request->NO_KAD_PENGENALAN)->first();
+                $maklumat_calon = Tugas::where('ID_PESERTA', $peserta->ID_PESERTA)->first();
+
+                $permohonan_d = MohonPenilaian::where('id_sesi', $permohonan->id_sesi)->get();
+                $bilangan_permohonan = count($permohonan_d);
+
+                $kekosongan->BILANGAN_CALON = $bilangan_permohonan;
+                $kekosongan->KEKOSONGAN = $kekosongan->JUMLAH_KESELURUHAN - $kekosongan->BILANGAN_CALON;
+                $kekosongan->save();
+
+                $tahap = $kekosongan->KOD_TAHAP;
+                if ($tahap == "01") {
+                    $tahap = "Asas";
+                } else {
+                    $tahap = "Lanjutan";
+                }
+
+                $masa_mula = $kekosongan->KOD_MASA_MULA;
+                $masa_tamat = $kekosongan->KOD_MASA_TAMAT;
+
+                $emel_pendaftar = $request->EMEL_PESERTA;
+                $recipient = [$emel_pendaftar];
+                $recipient_penyelia = [$request->EMEL_PENYELIA];
+
+                if ($masa_mula >= "12:00") {
+                    list($jam_m, $min_m) = explode(":", $masa_mula);
+                    $jam_m = (int)$jam_m;
+                    if ($jam_m > 12) {
+                        $jam_m = $jam_m - 12;
+                        $mula = $jam_m . ':' . $min_m . ' PM';
+                    }
+                    $mula = $masa_mula . ' PM';
+                } else {
+                    $mula = $masa_mula . ' AM';
+                }
+
+                if ($masa_tamat >= "12:00") {
+                    list($jam, $min) = explode(":", $masa_tamat);
+                    $jam = (int)$jam;
+                    if ($jam > 12) {
+                        $jam = $jam - 12;
+                        $tamat = $jam . ':' . $min . ' PM';
+                    }
+                    $tamat = $masa_tamat . ' PM';
+                } else {
+                    $tamat = $masa_tamat . ' AM';
+                }
+
+                // dd($mula, $tamat);
+
+                $pdf = PDF::loadView('pdf.pendaftaran_calon', [
+                    'jkj' => $permohonan->jawatan_ketua_jabatan,
+                    'kementerian' => $maklumat_calon->KOD_KEMENTERIAN,
+                    'jabatan' => $maklumat_calon->KOD_JABATAN,
+                    'bahagian' => $maklumat_calon->BAHAGIAN,
+                    'al1' => $permohonan->alamat1_pejabat,
+                    'poskod' => $permohonan->poskod_pejabat,
+                    'bandar' => $maklumat_calon->BANDAR,
+                    'negeri' => $maklumat_calon->KOD_NEGERI,
+                    'nama_penyelaras' => $permohonan->nama_penyelia,
+                    'hari' => date('d - m - Y'),
+                    'nama' => $permohonan->nama,
+                    'ic' => $permohonan->no_ic,
+                    'tarikh' => $permohonan->tarikh_sesi,
+                    'tahap' => $tahap,
+                    'masa_mula' => $mula,
+                    'masa_tamat' => $tamat,
+                    'id_sesi' => $request->id_sesi
+                ]);
+
+                $data_email = [
+                    'ic_calon' => $permohonan->no_ic,
+                    'nama_calon' => $request->NAMA_PESERTA,
+                    'tarikh' => $permohonan->tarikh_sesi,
+                ];
+
+                Mail::send('emails.daftar_peserta', $data_email, function ($message) use ($recipient, $recipient_penyelia, $pdf) {
+                    $message->to($recipient)
+                        ->cc($recipient_penyelia)
+                        ->subject("ISAC - Permohonan Berjaya")
+                        ->attachData($pdf->output(), 'Surat_tawaran.pdf');
+                });
+
+                Mail::send('emails.penyelia_pendaftaran', $data_email, function ($message) use ($recipient_penyelia, $pdf) {
+                    $message->to($recipient_penyelia)
+                        ->subject("ISAC - Permohonan Penilaian ISAC")
+                        ->attachData($pdf->output(), 'Surat_tawaran.pdf');
+                });
+
+                return $pdf->download('Surat_tawaran_' . $permohonan->no_ic . '.pdf');
+            } else {
+                echo '<script language="javascript">';
+                echo 'alert("Calon ini telah mendaftar penilaian ini.");';
+                echo "window.location.href='/dashboard';";
+                echo '</script>';
+            }
+        } else {
+            echo '<script language="javascript">';
+            echo 'alert("Jadual telah penuh.");';
+            echo "window.location.href='/dashboard';";
+            echo '</script>';
+        }
     }
 }

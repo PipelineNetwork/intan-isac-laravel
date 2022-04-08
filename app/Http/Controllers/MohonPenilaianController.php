@@ -36,18 +36,18 @@ class MohonPenilaianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $ic = Auth::user()->nric;
         $id = Auth::user()->id;
         $calon_3 = MohonPenilaian::where('no_ic', $ic)->where('status_penilaian', 'Baru')->orderBy('created_at', 'desc')->paginate(15);
 
-        $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)->orderBy('mohon_penilaians.created_at', 'desc')->get();
-        $peserta = MohonPenilaian::orderBy('created_at', 'desc')->get();
+        $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)->orderBy('mohon_penilaians.created_at', 'desc')->paginate(15);
+        $peserta = MohonPenilaian::orderBy('created_at', 'desc')->paginate(15);
         return view('mohonPenilaian.senarai_permohonan', [
-            'peserta' => $peserta,
-            'calon_3' => $calon_3,
-            'penyelaras' => $penyelaras
+            'pesertas' => $peserta,
+            'calon_3s' => $calon_3,
+            'penyelarass' => $penyelaras
         ]);
     }
 

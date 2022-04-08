@@ -251,7 +251,7 @@ class PenggunaController extends Controller
     public function edit($user)
     {
         $user_info = User::find($user);
-
+// dd($user_info);
         $role = Role::all();
         $role_name = Role::where('id', $user_info->user_group_id)->first();
 
@@ -277,8 +277,9 @@ class PenggunaController extends Controller
         if ($user_info->user_group_id == '5') {
             $user_profil = User::where('id', $user_info->id)
                 ->join('pro_peserta', 'users.id', 'pro_peserta.user_id')
-                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', 'pro_tempat_tugas.ID_PESERTA')
-                ->join('pro_perkhidmatan', 'pro_tempat_tugas.ID_PESERTA', 'pro_perkhidmatan.ID_PESERTA')
+                ->join('pro_tempat_tugas', 'pro_peserta.ID_PESERTA', '=', 'pro_tempat_tugas.ID_PESERTA')
+                ->join('pro_perkhidmatan', 'pro_peserta.ID_PESERTA', '=', 'pro_perkhidmatan.ID_PESERTA')
+                ->select('users.*', 'pro_tempat_tugas.*', 'pro_peserta.*', 'pro_perkhidmatan.*')
                 ->get()->first();
         } else {
             $user_profil = User::where('id', $user_info->id)->get()->first();

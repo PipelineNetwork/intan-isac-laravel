@@ -15,12 +15,12 @@
             </ol>
         </nav>
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <h5 class="font-weight-bolder">Kemaskini Video dan Nota</h5>
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>

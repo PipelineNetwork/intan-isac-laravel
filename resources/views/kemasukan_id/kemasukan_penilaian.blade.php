@@ -15,7 +15,7 @@
         </nav>
 
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="card m-3">
                     <div class="card-header" style="background-color:#FFA500;">
                         <h5 class="text-white mb-0">Sesi Penilaian</h5>
@@ -48,7 +48,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    <div class="col">
+                                    <div class="col-12">
 
                                         <div class="row">
                                             <div class="col-auto">
@@ -192,7 +192,7 @@
                                 </div>
                             @endforeach
                             <div class="row">
-                                <div class="col">
+                                <div class="col-12">
                                     <div class="row mt-5 mb-2">
                                         {{-- <div class="col-lg-2 text-center">
                                             <a class="btn btn-sm btn-outline-secondary" style="display: none;" id="kembali"

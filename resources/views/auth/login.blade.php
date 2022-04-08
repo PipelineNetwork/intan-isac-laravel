@@ -350,7 +350,7 @@
                 @if ($lamanutama2->STATUS == '02')
                     @if ($lamanutama2->TAJUK != 'Objektif')
                         <div class="row mt-4">
-                            <div class="col">
+                            <div class="col-12">
                                 <h3 class="text-gradient text-warning mb-0 mt-2">{{ $lamanutama2->TAJUK }}</h3>
                                 <h3></h3>
                                 <p>{!! $lamanutama2->KETERANGAN !!}</p>
@@ -361,7 +361,7 @@
             @endforeach
 
             <div class="row pt-5" id="jadual">
-                <div class="col">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-header" style="background-color:#FFA500;">
                             <b class="text-white">Senarai Jadual Penilaian</b>

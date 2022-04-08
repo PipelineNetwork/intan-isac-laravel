@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="row mt-4">
-                    <div class="col">
+                    <div class="col-12">
                         <table class="w-100 text-center">
                             <tr>
                                 <td class="text-danger" style="border: 1px solid black;">PENGETAHUAN</td>

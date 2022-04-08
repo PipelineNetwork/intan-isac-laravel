@@ -6,7 +6,7 @@
 
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm">
@@ -35,7 +35,7 @@
         </div>
 
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Senarai Jadual</b>
@@ -48,7 +48,8 @@
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">ID Penilaian</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">ID Penilaian
+                                        </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Sesi</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Masa Mula</th>
@@ -65,14 +66,17 @@
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Lokasi</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Keterangan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tambah Calon
+                                        </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($jaduals as $key => $jadual)
+                                    @foreach ($jaduals as $index => $jadual)
                                         <tr>
-                                            <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}.</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $index + $jaduals->firstItem() }}</td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ $jadual['ID_PENILAIAN'] }}</td>
                                             <td class="text-sm text-center font-weight-normal">
@@ -138,7 +142,19 @@
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">{{ $jadual['status'] }}
                                             </td>
-                                            <td class="text-sm text-center font-weight-normal">{{ $jadual['keterangan'] }}
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $jadual['keterangan'] }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                @if ($jadual['KEKOSONGAN'] > 0)
+                                                    <a class="btn btn-outline-info" href="/jaduals/{{ $jadual['ID_SESI'] }}">
+                                                        <i class="fas fa-user-plus"></i>
+                                                    </a>
+                                                @else
+                                                    <button class="btn btn-outline-secondary" disabled>
+                                                        <i class="fas fa-user-plus"></i>
+                                                    </button>
+                                                @endif
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 <button class="btn btn-danger" data-bs-toggle="modal"
@@ -244,7 +260,8 @@
                                                             <div class="form-group">
                                                                 <label for="keterangan"
                                                                     class="form-control-label">Keterangan</label>
-                                                                <input class="form-control" type="text" name="keterangan">
+                                                                <input class="form-control" type="text"
+                                                                    name="keterangan">
                                                                 <input type="hidden" name="status" value="Pembatalan">
                                                             </div>
                                                         </div>
@@ -261,6 +278,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="justify-content-end d-flex">
+                                {{ $jaduals->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -273,8 +293,9 @@
         const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
             searchable: true,
             fixedHeight: false,
-            sortable: false
+            sortable: false,
+            perPage: 15,
+            perPageSelect: false,
         });
     </script>
-
 @stop

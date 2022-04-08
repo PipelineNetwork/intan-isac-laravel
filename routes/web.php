@@ -32,6 +32,7 @@ use App\Http\Controllers\BanksoalankemahiraninternetController;
 use App\Http\Controllers\BanksoalankemahiranwordController;
 use App\Http\Controllers\BanksoalankemahiranemailController;
 use App\Http\Controllers\KumpulanPenggunaController;
+use App\Http\Controllers\MarkahSoalanKemahiranController;
 use App\Http\Controllers\MasatamatController;
 use App\Http\Controllers\RayuanCalonBlacklistController;
 use App\Http\Controllers\PemantauanpenilaianController;
@@ -91,6 +92,9 @@ Route::resource('/balasrayuans', TambahRayuanController::class);
 Route::resource('/permohanans', PermohananController::class);
 
 Route::resource('/jaduals', JadualController::class);
+Route::get('/jaduals/{id_sesi}/tambah_calon', [JadualController::class, 'tambah_calon']);
+Route::post('/jaduals/{id_sesi}/calon', [JadualController::class, 'profil_calon']);
+Route::post('/jaduals/{id_sesi}/daftar_calon', [JadualController::class, 'daftar_calon_baru']);
 
 Route::resource('/mohonpenilaian', MohonPenilaianController::class);
 
@@ -174,13 +178,6 @@ Route::get('/papar-keputusan', function () {
 });
 Route::get('/penilaian_tamat/{ic}/{id_penilaian}', [MasatamatController::class, 'display_tamat_penilaian']);
 Route::post('/masa_tamat/{ic}/{id_penilaian}', [MasatamatController::class, 'kira_markah']);
-// Route::get('/masa_tamat', function () {
-//     return view('kemasukan_id.masa_tamat');
-// });
-
-// Route::get('change-password', 'ChangePasswordController@index');
-
-// Route::post('change-password', 'ChangePasswordController@store')->name('change.password');
 
 Route::resource('/change-password', ChangePasswordController::class);
 
@@ -208,6 +205,8 @@ Route::get('/pengurusan_penilaian/pemilihan_soalan_pengetahuan', [Banksoalanpeng
 Route::get('/pengurusan_penilaian/pemilihan_soalan_pengetahuan/{id}', [BanksoalanpengetahuanController::class, 'kemaskini']);
 Route::post('/kemaskini_pemilihan_soalan/{id}', [BanksoalanpengetahuanController::class, 'simpan']);
 Route::post('/pengurusan_penilaian/pemilihan_soalan_pengetahuan/tambah_kategori_pemilihan', [BanksoalanpengetahuanController::class, 'tambah_kategori_pemilihan']);
+
+Route::resource('/markah_soalan_kemahiran', MarkahSoalanKemahiranController::class);
 
 Route::get('/cetak_surat/{id}', [MohonPenilaianController::class, 'cetak_surat']);
 Route::get('/slip_keputusan/{ic}/{id_penilaian}', [KeputusanPenilaianController::class, 'slip_keputusan']);

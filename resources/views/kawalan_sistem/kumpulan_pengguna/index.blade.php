@@ -3,7 +3,7 @@
 
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm">
@@ -35,7 +35,7 @@
         </div>
 
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header" style="background-color:#FFA500;">
                         <b class="text-white">Pengguna</b>
