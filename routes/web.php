@@ -95,9 +95,10 @@ Route::resource('/jaduals', JadualController::class);
 Route::get('/jaduals/{id_sesi}/tambah_calon', [JadualController::class, 'tambah_calon']);
 Route::post('/jaduals/{id_sesi}/calon', [JadualController::class, 'profil_calon']);
 Route::post('/jaduals/{id_sesi}/daftar_calon', [JadualController::class, 'daftar_calon_baru']);
+Route::get('/carian-jadual', [JadualController::class, 'result_search']);
 
 Route::resource('/mohonpenilaian', MohonPenilaianController::class);
-
+Route::get('/carian-penilaian', [MohonPenilaianController::class, 'result_search']);
 Route::resource('/rayuan_calon_blacklist', RayuanCalonBlacklistController::class);
 
 Route::resource('/bank-soalan-pengetahuan', BanksoalanpengetahuanController::class);

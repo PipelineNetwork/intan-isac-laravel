@@ -39,16 +39,104 @@ class MohonPenilaianController extends Controller
     public function index()
     {
         $ic = Auth::user()->nric;
-        $id = Auth::user()->id;
-        $calon_3 = MohonPenilaian::where('no_ic', $ic)->where('status_penilaian', 'Baru')->orderBy('created_at', 'desc')->paginate(15);
 
-        $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)->orderBy('mohon_penilaians.created_at', 'desc')->paginate(15);
-        $peserta = MohonPenilaian::orderBy('created_at', 'desc')->paginate(15);
-        return view('mohonPenilaian.senarai_permohonan', [
-            'pesertas' => $peserta,
-            'calon_3s' => $calon_3,
-            'penyelarass' => $penyelaras
-        ]);
+        if (Auth::user()->user_group_id == '5') {
+            $calon_3 = MohonPenilaian::where('no_ic', $ic)->where('status_penilaian', 'Baru')->orderBy('created_at', 'desc')->paginate(20);
+
+            return view('mohonPenilaian.carian_permohonan', [
+                'calon_3s' => $calon_3,
+            ]);
+        } else {
+            return view('mohonPenilaian.carian_permohonan');
+        }
+    }
+
+    public function result_search(Request $request)
+    {
+        $id = Auth::user()->id;
+
+        if (Auth::user()->user_group_id == '3') {
+            if (!empty($request->nama)) {
+                $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')
+                    ->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)
+                    ->orderBy('mohon_penilaians.created_at', 'desc')
+                    ->where('nama', 'like', '%' . $request->nama . '%')
+                    ->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->ic)) {
+                $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')
+                    ->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)
+                    ->orderBy('mohon_penilaians.created_at', 'desc')
+                    ->where('no_ic', 'like', '%' . $request->ic . '%')
+                    ->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->id_penilaian)) {
+                $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')
+                    ->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)
+                    ->orderBy('mohon_penilaians.created_at', 'desc')
+                    ->where('id_sesi', 'like', '%' . $request->id_penilaian . '%')
+                    ->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->nama) && !empty($request->ic)) {
+                $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')
+                    ->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)
+                    ->orderBy('mohon_penilaians.created_at', 'desc')
+                    ->where('nama', 'like', '%' . $request->nama . '%')
+                    ->where('no_ic', 'like', '%' . $request->ic . '%')
+                    ->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->nama) && !empty($request->id_penilaian)) {
+                $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')
+                    ->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)
+                    ->orderBy('mohon_penilaians.created_at', 'desc')
+                    ->where('nama', 'like', '%' . $request->nama . '%')
+                    ->where('id_sesi', 'like', '%' . $request->id_penilaian . '%')
+                    ->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->ic) && !empty($request->id_penilaian)) {
+                $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')
+                    ->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)
+                    ->orderBy('mohon_penilaians.created_at', 'desc')
+                    ->where('no_ic', 'like', '%' . $request->ic . '%')
+                    ->where('id_sesi', 'like', '%' . $request->id_penilaian . '%')
+                    ->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->nama) && !empty($request->ic) && !empty($request->id_penilaian)) {
+                $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')
+                    ->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)
+                    ->orderBy('mohon_penilaians.created_at', 'desc')
+                    ->where('nama', 'like', '%' . $request->nama . '%')
+                    ->where('no_ic', 'like', '%' . $request->ic . '%')
+                    ->where('id_sesi', 'like', '%' . $request->id_penilaian . '%')
+                    ->paginate(15)->appends(request()->query());
+            } else {
+                $penyelaras = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')
+                    ->where('KOD_KATEGORI_PESERTA', '02')->where('user_id', $id)
+                    ->orderBy('mohon_penilaians.created_at', 'desc')
+                    ->paginate(15)->appends(request()->query());
+            }
+
+            return view('mohonPenilaian.senarai_permohonan', [
+                'penyelarass' => $penyelaras,
+            ]);
+        } else {
+
+            if (!empty($request->nama)) {
+                $peserta = MohonPenilaian::where('nama', 'like', '%' . $request->nama . '%')->orderBy('nama', 'desc')->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->ic)) {
+                $peserta = MohonPenilaian::where('no_ic', 'like', '%' . $request->ic . '%')->orderBy('nama', 'desc')->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->id_penilaian)) {
+                $peserta = MohonPenilaian::where('id_sesi', 'like', '%' . $request->id_penilaian . '%')->orderBy('nama', 'desc')->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->nama) && !empty($request->ic)) {
+                $peserta = MohonPenilaian::where('nama', 'like', '%' . $request->nama . '%')->where('no_ic', 'like', '%' . $request->ic . '%')->orderBy('nama', 'desc')->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->nama) && !empty($request->id_penilaian)) {
+                $peserta = MohonPenilaian::where('nama', 'like', '%' . $request->nama . '%')->where('id_sesi', 'like', '%' . $request->id_penilaian . '%')->orderBy('nama', 'desc')->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->ic) && !empty($request->id_penilaian)) {
+                $peserta = MohonPenilaian::where('no_ic', 'like', '%' . $request->ic . '%')->where('id_sesi', 'like', '%' . $request->id_penilaian . '%')->orderBy('nama', 'desc')->paginate(15)->appends(request()->query());
+            } elseif (!empty($request->nama) && !empty($request->ic) && !empty($request->id_penilaian)) {
+                $peserta = MohonPenilaian::where('nama', 'like', '%' . $request->nama . '%')->where('no_ic', 'like', '%' . $request->ic . '%')->where('id_sesi', 'like', '%' . $request->id_penilaian . '%')->orderBy('nama', 'desc')->paginate(15)->appends(request()->query());
+            } else {
+                $peserta = MohonPenilaian::orderBy('created_at', 'desc')->paginate(15)->appends(request()->query());
+            }
+
+            return view('mohonPenilaian.senarai_permohonan', [
+                'pesertas' => $peserta,
+            ]);
+        }
     }
 
     /**

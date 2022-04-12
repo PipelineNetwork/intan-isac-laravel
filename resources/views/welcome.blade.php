@@ -299,7 +299,7 @@
                     <iframe
                         src="/assets/video/Manual_Pendaftaran_Calon_ICT_Skills_Assessment_and_Certification_(ISAC).mp4"
                         frameborder="0" style="height: 500px; width:800px; border-radius: 10px"
-                        autoplay="false"></iframe>
+                        sandbox></iframe>
 
                     <p><a href="documents/MANUAL_PENDAFTARAN_ISAC_1.pdf" download="MANUAL PENDAFTARAN ISAC.pdf"
                             target="_blank">Sila klik <span style="color: red">disini</span> untuk muat turun Manual
