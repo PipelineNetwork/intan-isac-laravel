@@ -47,8 +47,10 @@ class PenggunaController extends Controller
                 $users = User::where('user_group_id', '=', '4')->where('name', 'like', '%' . $request->nama . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
             } elseif (!empty($request->ic)) {
                 $users = User::where('user_group_id', '=', '4')->where('nric', 'like', '%' . $request->ic . '%')->orderBy('nric', 'asc')->paginate(20)->appends(request()->query());
-            } else {
+            } elseif (!empty($request->nama) && !empty($request->ic)) {
                 $users = User::where('user_group_id', '=', '4')->where('name', 'like', '%' . $request->nama . '%')->where('nric', 'like', '%' . $request->ic . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
+            } else {
+                $users = User::where('user_group_id', '=', '4')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
             }
         } else {
             if (!empty($request->nama)) {
@@ -61,10 +63,12 @@ class PenggunaController extends Controller
                 $users = User::where('name', 'like', '%' . $request->nama . '%')->where('nric', 'like', '%' . $request->ic . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
             } elseif (!empty($request->nama) && !empty($request->user_group_id)) {
                 $users = User::where('name', 'like', '%' . $request->nama . '%')->where('user_group_id', 'like', '%' . $request->user_group_id . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
-            }  elseif (!empty($request->ic) && !empty($request->user_group_id)) {
+            } elseif (!empty($request->ic) && !empty($request->user_group_id)) {
                 $users = User::where('nric', 'like', '%' . $request->ic . '%')->where('user_group_id', 'like', '%' . $request->user_group_id . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
+            } elseif (!empty($request->nama) && !empty($request->ic) && !empty($request->user_group_id)) {
+                $users = User::where('name', 'like', '%' . $request->nama . '%')->where('nric', 'like', '%' . $request->ic . '%')->where('user_group_id', 'like', '%' . $request->user_group_id . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
             } else {
-                $users = User::where('name', 'like', '%' . $request->nama . '%')->where('nric', 'like', '%' . $request->ic . '%')->orderBy('name', 'asc')->where('user_group_id', 'like', '%' . $request->user_group_id . '%')->paginate(20)->appends(request()->query());
+                $users = User::orderBy('name', 'asc')->paginate(20)->appends(request()->query());
             }
         }
         // $users = User::orderBy('name', 'asc')->paginate(20);
@@ -251,7 +255,7 @@ class PenggunaController extends Controller
     public function edit($user)
     {
         $user_info = User::find($user);
-// dd($user_info);
+        // dd($user_info);
         $role = Role::all();
         $role_name = Role::where('id', $user_info->user_group_id)->first();
 

@@ -24,25 +24,23 @@ use App\Models\Jadual;
         </div>
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-12">
                 <h5 class="font-weight-bolder">Permohonan Penilaian</h5>
             </div>
-            @if (auth()->user()->hasrole('penyelaras') ||
-    auth()->user()->hasrole('pentadbir sistem'))
-                <div class="col-lg-6">
-                    <div class="column-12">
-                        <a href="/mohonpenilaian/create" class="btn bg-gradient-warning" type="submit"
-                            style="float: right;">PILIH JADUAL</a>
-                    </div>
-                </div>
-            @endif
         </div>
 
         <div class="row">
             <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
-                        <b class="text-white">Senarai Permohonan</b>
+                        <div class="row align-item-center">
+                            <div class="col-6">
+                                <b class="text-white">Senarai Permohonan</b>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a class="btn bg-gradient-primary" href="/mohonpenilaian">Kembali</a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-body pt-0">
@@ -56,18 +54,10 @@ use App\Models\Jadual;
                                             Penilaian</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama
                                         </th>
-                                        @role('calon')
-                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">
-                                                Sesi Penilaian</th>
-                                        @endrole
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">
                                             Tarikh Penilaian</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">
                                             Surat Tawaran</th>
-                                        @role('calon')
-                                            <th class="text-uppercase text-center font-weight-bolder opacity-7">
-                                                Status</th>
-                                        @endrole
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">
                                             Tindakan</th>
 
@@ -75,63 +65,7 @@ use App\Models\Jadual;
                                 </thead>
 
                                 <tbody>
-                                    @role('calon')
-                                        @foreach ($calon_3s as $index => $calon_3)
-                                            <tr>
-                                                <td class="text-sm text-center font-weight-normal">
-                                                    {{ $index + $calon_3s->firstItem() }}</td>
-                                                <td class="text-sm text-center font-weight-normal">{{ $calon_3['id_sesi'] }}
-                                                </td>
-                                                <td class="text-sm text-center font-weight-normal"
-                                                    style="text-transform: uppercase;">
-                                                    {{ $calon_3['nama'] }}</td>
-                                                <td class="text-sm text-center font-weight-normal">
-                                                    <?php
-                                                    $sesi = Jadual::where('ID_PENILAIAN', $calon_3['id_sesi'])->first();
-                                                    $sesi = $sesi->KOD_SESI_PENILAIAN;
-                                                    ?>
-                                                    Sesi {{ $sesi }}
-                                                </td>
-                                                <td class="text-sm text-center font-weight-normal">
-                                                    {{ date('d-m-Y', strtotime($calon_3['tarikh_sesi'])) }}</td>
-                                                <td class="text-sm text-center font-weight-normal">
-                                                    {{ $calon_3['status_penilaian'] }}</td>
-                                                <td class="text-sm text-center font-weight-normal">
-                                                    <a href="/cetak_surat/{{ $calon_3['id'] }}"
-                                                        class="btn mb-0">Cetak&emsp;<i
-                                                            class="far fa-file-pdf fa-lg text-danger"></i></a>
-                                                </td>
-                                                <td class="text-sm text-center font-weight-normal">
-                                                    <a data-bs-toggle="modal" style="cursor: pointer"
-                                                        data-bs-target="#modaldelete-{{ $calon_3->id }}">
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                                <div class="modal fade" id="modaldelete-{{ $calon_3->id }}" tabindex="-1"
-                                                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-body text-center">
-                                                                <i class="far fa-times-circle fa-7x" style="color: #ea0606"></i>
-                                                                <br>
-                                                                Anda pasti untuk menghapus permohonan?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn bg-gradient-secondary"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <form method="POST"
-                                                                    action="/mohonpenilaian/{{ $calon_3->id }}">
-                                                                    @method('DELETE')
-                                                                    @csrf
-                                                                    <button class="btn btn-danger" type="submit">Hapus</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </tr>
-                                        @endforeach
-                                        @elserole ('penyelaras')
+                                    @role('penyelaras')
                                         @foreach ($penyelarass as $index => $penyelaras)
                                             <tr>
                                                 <td class="text-sm text-center font-weight-normal">
@@ -232,9 +166,7 @@ use App\Models\Jadual;
                                 </tbody>
                             </table>
                             <div class="justify-content-end d-flex">
-                                @role('calon')
-                                    {{ $calon_3s->links() }}
-                                    @elserole ('penyelaras')
+                                @role('penyelaras')
                                     {{ $penyelarass->links() }}
                                 @else
                                     {{ $pesertas->links() }}

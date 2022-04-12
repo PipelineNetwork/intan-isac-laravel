@@ -45,7 +45,7 @@
                         <thead class="thead-light">
                             <tr>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">No</th>
-                                <th class="text-uppercase text-center font-weight-bolder opacity-7">Id Penilaian</th>
+                                <th class="text-uppercase text-center font-weight-bolder opacity-7">No Kad Pengenalan</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama Calon</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Mula</th>
                                 <th class="text-uppercase text-center font-weight-bolder opacity-7">Pengetahuan</th>

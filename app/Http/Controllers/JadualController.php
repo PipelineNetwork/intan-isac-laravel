@@ -33,20 +33,55 @@ class JadualController extends Controller
      */
     public function index()
     {
-        $penyelaras = User::where('user_group_id', '3')->get();
-        // dd($penyelaras);
-        $jaduals = Jadual::orderBy('TARIKH_SESI', 'desc')
-            // ->whereYear('TARIKH_SESI', '>=', 2021)
-            ->paginate(15);
+        return view('jadual.carian_jadual');
+    }
 
-        $jadual_list = Jadual::all();
-        foreach ($jadual_list as $key => $jadual_upd) {
-            $jadual_upd->KEKOSONGAN = $jadual_upd->JUMLAH_KESELURUHAN - $jadual_upd->BILANGAN_CALON;
-            $jadual_upd->save();
+    public function result_search(Request $request)
+    {
+        if (!empty($request->id_penilaian)) {
+            $jaduals = Jadual::where('ID_PENILAIAN', 'like', '%' . $request->id_penilaian . '%')
+                ->orderBy('TARIKH_SESI', 'desc')
+                ->paginate(15)->appends(request()->query());
+
+            $jadual_list = Jadual::all();
+            foreach ($jadual_list as $key => $jadual_upd) {
+                $jadual_upd->KEKOSONGAN = $jadual_upd->JUMLAH_KESELURUHAN - $jadual_upd->BILANGAN_CALON;
+                $jadual_upd->save();
+            }
+        } elseif (!empty($request->tarikh_penilaian)) {
+            $jaduals = Jadual::where('TARIKH_SESI', 'like', '%' . $request->tarikh_penilaian . '%')
+                ->orderBy('TARIKH_SESI', 'desc')
+                ->paginate(15)->appends(request()->query());
+
+            $jadual_list = Jadual::all();
+            foreach ($jadual_list as $key => $jadual_upd) {
+                $jadual_upd->KEKOSONGAN = $jadual_upd->JUMLAH_KESELURUHAN - $jadual_upd->BILANGAN_CALON;
+                $jadual_upd->save();
+            }
+        } elseif (!empty($request->id_penilaian) && !empty($request->tarikh_penilaian)) {
+            $jaduals = Jadual::where('ID_PENILAIAN', 'like', '%' . $request->id_penilaian . '%')
+                ->where('TARIKH_SESI', 'like', '%' . $request->tarikh_penilaian . '%')
+                ->orderBy('TARIKH_SESI', 'desc')
+                ->paginate(15)->appends(request()->query());
+
+            $jadual_list = Jadual::all();
+            foreach ($jadual_list as $key => $jadual_upd) {
+                $jadual_upd->KEKOSONGAN = $jadual_upd->JUMLAH_KESELURUHAN - $jadual_upd->BILANGAN_CALON;
+                $jadual_upd->save();
+            }
+        } else {
+            $jaduals = Jadual::orderBy('TARIKH_SESI', 'desc')
+                ->paginate(15)->appends(request()->query());
+
+            $jadual_list = Jadual::all();
+            foreach ($jadual_list as $key => $jadual_upd) {
+                $jadual_upd->KEKOSONGAN = $jadual_upd->JUMLAH_KESELURUHAN - $jadual_upd->BILANGAN_CALON;
+                $jadual_upd->save();
+            }
         }
+
         return view('jadual.index', [
             'jaduals' => $jaduals,
-            'penyelaras' => $penyelaras
         ]);
     }
 

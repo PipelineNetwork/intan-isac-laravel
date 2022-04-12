@@ -801,18 +801,18 @@
                             <div class="box1 mb-2">
                                 <div class="text-center">
                                     <strong class="mb-3">Taklimat Manual Permohonan Jadual</strong>
-                                    <iframe width="800" height="500"
+                                    <iframe width="800" height="500" sandbox
                                         src="/assets/video/Manual_Permohonan_Jadual_Calon_ICT_Skills_Assessment_and_Certification_(ISAC).mp4"
-                                        type="sample/mp4"
+                                        type="video/mp4"
                                         style="height: 500px; width:800px; border-radius: 10px; margin-top:8px"></iframe>
                                 </div>
                             </div>
                             <div class="box1 mb-2">
                                 <div class="text-center">
                                     <strong class="mb-3">Taklimat Manual Penilaian ISAC</strong>
-                                    <iframe width="800" height="500"
+                                    <iframe width="800" height="500" sandbox
                                         src="/assets/video/Manual_Penilaian_Calon_ICT_Skills_Assessment_and_Certification_(ISAC).mp4"
-                                        type="sample/mp4"
+                                        type="video/mp4"
                                         style="height: 500px; width:800px; border-radius: 10px;margin-top:8px"></iframe>
                                 </div>
                             </div>
@@ -829,7 +829,7 @@
                                         <p class="px-3">{{ $videodannota->nota }}</p>
                                         <div class="text-center">
                                             <iframe width="800" height="500" src="/storage/{{ $videodannota->video }}"
-                                                type="sample/mp4"></iframe>
+                                                type="video/mp4"></iframe>
                                         </div>
                                     @endif
                                 </div>
