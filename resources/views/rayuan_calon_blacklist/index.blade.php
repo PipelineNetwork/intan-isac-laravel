@@ -16,7 +16,7 @@
                         </li>
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Permohonan
                                 Penilaian</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Rayuan Calon
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Calon
                                 Blacklist</a></li>
                     </ol>
                 </nav>
@@ -25,7 +25,7 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <h5 class="font-weight-bolder">Rayuan Calon Blacklist</h5>
+                <h5 class="font-weight-bolder">Senarai Calon Blacklist</h5>
             </div>
             @role('calon')
                 <div class="col-lg-6">
@@ -53,11 +53,10 @@
                                     <tr>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No.My
-                                            Kad/Polis/Tentera/Pasport</th>
-                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tahap</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">No. Kad
+                                            Pengenalan</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh
-                                            Permohonan</th>
+                                            Status Blacklist</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Status</th>
                                         @hasanyrole('pentadbir sistem|pentadbir penilaian')
                                             <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
@@ -66,7 +65,7 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($rayuan as $key => $rayuan)
+                                    {{-- @foreach ($rayuan as $key => $rayuan)
                                         <tr>
                                             <td class="text-sm text-center font-weight-normal" class="text-center">
                                                 {{ $key + 1 }}.</td>
@@ -115,6 +114,84 @@
                                                                         <option value="" hidden>Sila Pilih</option>
                                                                         <option value="Diterima">Diterima</option>
                                                                         <option value="Ditolak">Ditolak</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn bg-gradient-secondary"
+                                                                    data-bs-dismiss="modal">Tutup</button>
+                                                                <button type="submit"
+                                                                    class="btn bg-gradient-primary">Kemaskini</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </tr>
+                                    @endforeach --}}
+
+                                    @foreach ($calon_blacklists as $key => $calon_blacklists)
+                                        <tr>
+                                            <td class="text-sm text-center font-weight-normal" class="text-center">
+                                                {{ $key + 1 }}.</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $calon_blacklists->name }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ $calon_blacklists->nric }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ date('d-m-Y', strtotime($calon_blacklists->tarikh_penilaian)) }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                @if ($calon_blacklists->status_blacklist == 'Gagal')
+                                                    <span class="badge badge-danger">Gagal Penilaian</span>
+                                                @elseif($calon_blacklists->status_blacklist == 'Tidak Hadir')
+                                                    <span class="badge badge-warning">Tidak Hadir Penilaian</span>
+                                                @endif
+                                            </td>
+                                            @hasanyrole('pentadbir sistem|pentadbir penilaian')
+                                                <td class="text-sm text-center font-weight-normal">
+                                                    <a class="btn bg-gradient-info" data-bs-toggle="modal"
+                                                        data-bs-target="#status{{ $calon_blacklists->id }}">Kemaskini</a>
+                                                </td>
+                                            @endhasanyrole
+                                            <div class="modal fade" id="status{{ $calon_blacklists->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Kemaskini
+                                                                Status
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="/rayuan_calon_blacklist/{{ $calon_blacklists->id }}"
+                                                            method="POST">
+                                                            @method('PUT')
+                                                            <div class="modal-body">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label class="form-control-label">Status
+                                                                        Blacklist</label>
+                                                                    <select class="form-control" name="status_blacklist">
+                                                                        @if ($calon_blacklists->status_blacklist == 'Gagal')
+                                                                            <option value="Gagal" hidden selected>Gagal
+                                                                                Penilaian</option>
+                                                                        @elseif ($calon_blacklists->status_blacklist == 'Tidak Hadir')
+                                                                            <option value="Tidak Hadir" hidden selected>
+                                                                                Tidak Hadir Penilaian
+                                                                            </option>
+                                                                        @else
+                                                                            <option value="Tidak" hidden selected>Tidak
+                                                                                Blacklist</option>
+                                                                        @endif
+                                                                        <option value="Gagal">Gagal Penilaian</option>
+                                                                        <option value="Tidak Hadir">Tidak Hadir Penilaian
+                                                                        </option>
+                                                                        <option value="Tidak">Tidak Blacklist</option>
                                                                     </select>
                                                                 </div>
                                                             </div>

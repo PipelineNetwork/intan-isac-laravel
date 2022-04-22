@@ -901,10 +901,16 @@ class MohonPenilaianController extends Controller
     {
         $id_penilaian = $request->sesi;
         $status_ic = Auth::user()->nric;
+        $calon_blacklist = User::where('nric', $status_ic)->first();
         $status_lulus = MohonPenilaian::where('no_ic', $status_ic)->where('status_penilaian', 'Lulus')->first();
         $status_baru = MohonPenilaian::where('no_ic', $status_ic)->where('status_penilaian', 'Baru')->first();
-
-        // dd($status_pen);
+        // dd($calon_blacklist);
+        if (($calon_blacklist->status_blacklist == 'Gagal') || ($calon_blacklist->status_blacklist == 'Tidak Hadir')) {
+            echo '<script language="javascript">';
+            echo 'alert("Anda adalah calon senarai hitam. Anda tidak dibenarkan untuk daftar penilaian.");';
+            echo "window.location.href='/dashboard';";
+            echo '</script>';
+        }
         if ($status_lulus != null) {
             // alert('Anda telah lulus penilaian ID ' . $status_lulus->id_sesi . '. Anda tidak dibenarkan untuk daftar penilaian lain.');
             // return redirect('/dashboard');

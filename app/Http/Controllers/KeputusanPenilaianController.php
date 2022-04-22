@@ -12,6 +12,7 @@ use App\Models\Bankjawapancalon;
 use PDF;
 use App\Models\Bankjawapanpengetahuan;
 use App\Models\MarkahSoalanKemahiran;
+use App\Models\User;
 
 class KeputusanPenilaianController extends Controller
 {
@@ -138,6 +139,16 @@ class KeputusanPenilaianController extends Controller
         $m_penilaian->save();
         $keputusan->save();
 
+        $calon_blacklist = User::where('nric', $ic)->first();
+        if ($keputusan->keputusan = "Gagal") {
+            $calon_blacklist->status_blacklist = "Gagal";
+            $calon_blacklist->tarikh_penilaian = $jadual->TARIKH_SESI;
+        } else {
+            $calon_blacklist->status_blacklist = "Tidak";
+            $calon_blacklist->tarikh_penilaian = null;
+        }
+        $calon_blacklist->save();
+
         $rekodtarikh = KeputusanPenilaian::where('id_penilaian', $id_penilaian)
             ->get();
         $bilangan_rekod = count($rekodtarikh);
@@ -180,15 +191,19 @@ class KeputusanPenilaianController extends Controller
 
         $tahap = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
         if ($tahap == null) {
-            alert('Jadual telah dihapuskan. Sila hubungi pihak yang bertugas');
-            return back();
+            echo '<script language="javascript">';
+            echo 'alert("Jadual telah dihapuskan. Sila hubungi pihak yang bertugas.");';
+            echo "window.location.href='/semakan_keputusan_calon';";
+            echo '</script>';
         } else {
             $tahap->KOD_TAHAP;
         }
 
         if ($keputusans == null) {
-            alert('Tiada dalam rekod penilaian');
-            return redirect('/semakan_keputusan_calon');
+            echo '<script language="javascript">';
+            echo 'alert("Tiada dalam rekod penilaian.");';
+            echo "window.location.href='/semakan_keputusan_calon';";
+            echo '</script>';
         }
         return view('proses_penilaian.keputusan_penilaian.keputusan_calon', [
             'keputusan' => $keputusans,
@@ -455,6 +470,16 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
             } else {
                 $keputusan->keputusan = "Gagal";
             }
+
+            $calon_blacklist = User::where('nric', $ic)->first();
+            if ($keputusan->keputusan = "Gagal") {
+                $calon_blacklist->status_blacklist = "Gagal";
+                $calon_blacklist->tarikh_penilaian = $jadual->TARIKH_SESI;
+            } else {
+                $calon_blacklist->status_blacklist = "Tidak";
+                $calon_blacklist->tarikh_penilaian = null;
+            }
+            $calon_blacklist->save();
 
             $m_penilaian = MohonPenilaian::where('no_ic', $ic)->where('id_sesi', $id_penilaian)->first();
             $m_penilaian->status_penilaian = $keputusan->keputusan;

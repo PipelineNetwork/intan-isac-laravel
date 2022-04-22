@@ -12,6 +12,7 @@ use App\Mail\PeringatanTukarKatalaluan;
 use App\Models\Jadual;
 use App\Models\NotifikasiEmail;
 use App\Models\MohonPenilaian;
+use App\Models\SelenggaraKawalanSistem;
 use App\Models\User;
 
 class Kernel extends ConsoleKernel
@@ -37,6 +38,9 @@ class Kernel extends ConsoleKernel
             //call schedl1
             $this->peringatan_penilaian();
             $this->peringatan_tidak_hadir();
+            // $this->peringatan_tukar_katalaluan();
+            $this->tukar_status_calon_blacklist_gagal();
+            $this->tukar_status_calon_blacklist_tidak_hadir();
         })->dailyAt('8:00');
 
         // $schedule->call(function () {
@@ -111,6 +115,9 @@ class Kernel extends ConsoleKernel
                     if ($noti_reminder == $harini) {
                         $ic_calon = $c->no_ic;
                         $data_calon = User::where('nric', $ic_calon)->first();
+                        $data_calon->status_blacklist = 'Tidak Hadir';
+                        $data_calon->tarikh_penilaian = $tarikh_sesi;
+                        $data_calon->save();
                         $emel_calon = $data_calon->email;
                         $jadual = Jadual::where('ID_PENILAIAN', $c->id_sesi)->first();
                         if ($jadual->user_id != null) {
@@ -146,6 +153,56 @@ class Kernel extends ConsoleKernel
                 if ($noti_reminder == $harini) {
                     $recipient = $c->email;
                     Mail::to($recipient)->send(new PeringatanTukarKatalaluan($c->id));
+                }
+            }
+        }
+    }
+
+    public function tukar_status_calon_blacklist_gagal()
+    {
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $harini = date('d-m-Y');
+
+        $tukar_status = SelenggaraKawalanSistem::first();
+        $hari_gagal = $tukar_status->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_GAGAL;
+
+        if ($hari_gagal != 0) {
+            $calon = User::get();
+
+            foreach ($calon as $c) {
+                if ($c->status_blacklist == 'Gagal') {
+                    $tarikh_penilaian = date('d-m-Y', strtotime($c->tarikh_penilaian));
+                    $noti_reminder = date('d-m-Y', strtotime('+' . $hari_gagal . ' days', strtotime($tarikh_penilaian)));
+                    if ($noti_reminder == $harini) {
+                        $c->status_blacklist = 'Tidak';
+                        $c->tarikh_penilaian = null;
+                        $c->save();
+                    }
+                }
+            }
+        }
+    }
+
+    public function tukar_status_calon_blacklist_tidak_hadir()
+    {
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $harini = date('d-m-Y');
+
+        $tukar_status = SelenggaraKawalanSistem::first();
+        $hari_blacklist = $tukar_status->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_BLACKLIST;
+
+        if ($hari_blacklist != 0) {
+            $calon = User::get();
+
+            foreach ($calon as $c) {
+                if ($c->status_blacklist == 'Tidak Hadir') {
+                    $tarikh_penilaian = date('d-m-Y', strtotime($c->tarikh_penilaian));
+                    $noti_reminder = date('d-m-Y', strtotime('+' . $hari_blacklist . ' days', strtotime($tarikh_penilaian)));
+                    if ($noti_reminder == $harini) {
+                        $c->status_blacklist = 'Tidak';
+                        $c->tarikh_penilaian = null;
+                        $c->save();
+                    }
                 }
             }
         }

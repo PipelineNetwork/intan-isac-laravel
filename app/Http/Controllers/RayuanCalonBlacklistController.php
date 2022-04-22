@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RayuanCalonBlacklist;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
@@ -17,23 +18,29 @@ class RayuanCalonBlacklistController extends Controller
      */
     public function index()
     {
-        $nric = Auth::user()->nric;
-        $group = Auth::user()->user_group_id;
-        $role = Role::where('id', $group)->first();
-        $role = $role->name;
+        // $nric = Auth::user()->nric;
+        // $group = Auth::user()->user_group_id;
+        // $role = Role::where('id', $group)->first();
+        // $role = $role->name;
 
-        if($role == 'calon'){
-            $rayuan = RayuanCalonBlacklist::where('ic_calon',$nric)->get();
-            return view('rayuan_calon_blacklist.index',[
-                'rayuan'=>$rayuan
-            ]);
-        }
-        else{
-            $rayuan = RayuanCalonBlacklist::all();
-            return view('rayuan_calon_blacklist.index',[
-                'rayuan'=>$rayuan
-            ]);
-        }
+        // if($role == 'calon'){
+        //     $rayuan = RayuanCalonBlacklist::where('ic_calon',$nric)->get();
+        //     return view('rayuan_calon_blacklist.index',[
+        //         'rayuan'=>$rayuan
+        //     ]);
+        // }
+        // else{
+        //     $rayuan = RayuanCalonBlacklist::all();
+        //     return view('rayuan_calon_blacklist.index',[
+        //         'rayuan'=>$rayuan
+        //     ]);
+        // }
+
+        $calon_blacklist = User::where('status_blacklist', 'Gagal')->orWhere('status_blacklist', 'Tidak Hadir')->orderBy('tarikh_penilaian', 'asc')->get();
+        // dd($calon_blacklist);
+        return view('rayuan_calon_blacklist.index', [
+            'calon_blacklists' => $calon_blacklist
+        ]);
     }
 
     /**
@@ -44,8 +51,8 @@ class RayuanCalonBlacklistController extends Controller
     public function create()
     {
         $calon = Auth::user();
-        return view('rayuan_calon_blacklist.create',[
-            'calon'=>$calon
+        return view('rayuan_calon_blacklist.create', [
+            'calon' => $calon
         ]);
     }
 
@@ -60,15 +67,15 @@ class RayuanCalonBlacklistController extends Controller
         $rayuan = new RayuanCalonBlacklist;
 
         $rules = [
-            'nama'=>'required',
-            'ic_calon'=>'required',
-            'tahap'=>'required',
+            'nama' => 'required',
+            'ic_calon' => 'required',
+            'tahap' => 'required',
         ];
 
         $messages = [
-            'nama.required'=>'Sila isi nama penuh anda',
-            'ic_calon.required'=>'Sila isi No.My Kad/Polis/Tentera/Pasport anda',
-            'tahap.required'=>'Sila pilih tahap penilaian',
+            'nama.required' => 'Sila isi nama penuh anda',
+            'ic_calon.required' => 'Sila isi No.My Kad/Polis/Tentera/Pasport anda',
+            'tahap.required' => 'Sila pilih tahap penilaian',
         ];
 
         $rayuan->nama = $request->nama;
@@ -101,7 +108,7 @@ class RayuanCalonBlacklistController extends Controller
     public function edit(RayuanCalonBlacklist $rayuan)
     {
         return view('rayuan_calon_blacklist.edit', [
-            'rayuan'=>$rayuan
+            'rayuan' => $rayuan
         ]);
     }
 
@@ -114,8 +121,11 @@ class RayuanCalonBlacklistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rayuan = RayuanCalonBlacklist::find($id);
-        $rayuan->status = $request->status;
+        $rayuan = User::find($id);
+        $rayuan->status_blacklist = $request->status_blacklist;
+        if ($request->status_blacklist == 'Tidak') {
+            $rayuan->tarikh_penilaian = null;
+        }
         $rayuan->save();
         return redirect('/rayuan_calon_blacklist');
     }
