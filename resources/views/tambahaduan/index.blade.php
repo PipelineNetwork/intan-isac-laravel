@@ -148,7 +148,7 @@
                                                                         rows="3" required
                                                                         readonly>{{ $tambahaduan->keterangan_aduan_reply }}</textarea>
                                                                 </div>
-                                                                @if ($tambahaduan['file_rayuan_reply'] != null)
+                                                                @if ($tambahaduan['file_aduan_reply'] != null)
                                                                     <div class="form-group">
                                                                         <label for="file_aduan_reply">Fail Balas :</label>
                                                                         <a href="/storage/{{ $tambahaduan['file_aduan_reply'] }}"
