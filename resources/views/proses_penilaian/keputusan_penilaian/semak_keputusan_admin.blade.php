@@ -41,6 +41,7 @@
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No. Kad
                                             Pengenalan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Keputusan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,6 +52,15 @@
                                             <td class="text-sm text-center font-weight-normal"><a
                                                     href="/senarai_penilaian/{{ $calon->no_ic }}"
                                                     class="text-info">{{ $calon->no_ic }}</a></td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                @if ($calon->status_penilaian == 'Baru')
+                                                    <span class="badge badge-warning">Belum Menduduki</span>
+                                                @elseif ($calon->status_penilaian == 'Gagal')
+                                                    <span class="badge badge-danger">Gagal</span>
+                                                @elseif ($calon->status_penilaian == 'Lulus')
+                                                    <span class="badge badge-success">Lulus</span>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

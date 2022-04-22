@@ -121,7 +121,7 @@
                         <div class="row mb-2">
                             <div class="col-4">
                                 <label class="form-control-label mr-4">
-                                    Peserta Blacklist
+                                    Peserta Tidak Hadir
                                 </label><label class="float-right">:</label>
                             </div>
                             <div class="col-8">

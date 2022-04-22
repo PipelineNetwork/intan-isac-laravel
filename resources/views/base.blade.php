@@ -92,11 +92,9 @@
     use Spatie\Permission\Models\Role;
     use Illuminate\Support\Facades\Auth;
     $checkid2 = Auth::id();
-    $current_user = Auth::user()->user_group_id;
-    $check = Role::where('id', $current_user)->first();
-    $role = $check->name;
-    
     $user_profils = Auth::user();
+    $check = Role::where('id', $user_profils->user_group_id)->first();
+    $role = $check->name;
     ?>
 
     {{-- @include('sweet::alert') --}}
@@ -241,7 +239,7 @@
                                 @can('senarai rayuan blacklist')
                                     <li class="nav-item ">
                                         <a class="nav-link " href="/rayuan_calon_blacklist">
-                                            <span class="sidenav-normal"> Senarai Rayuan Calon <br> Blacklist </span>
+                                            <span class="sidenav-normal"> Senarai Calon <br> Blacklist </span>
                                         </a>
                                     </li>
                                 @endcan
