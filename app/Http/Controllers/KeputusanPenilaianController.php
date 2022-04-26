@@ -12,6 +12,7 @@ use App\Models\Bankjawapancalon;
 use PDF;
 use App\Models\Bankjawapanpengetahuan;
 use App\Models\MarkahSoalanKemahiran;
+use App\Models\SelenggaraKawalanSistem;
 use App\Models\User;
 
 class KeputusanPenilaianController extends Controller
@@ -139,16 +140,6 @@ class KeputusanPenilaianController extends Controller
         $m_penilaian->save();
         $keputusan->save();
 
-        $calon_blacklist = User::where('nric', $ic)->first();
-        if ($keputusan->keputusan = "Gagal") {
-            $calon_blacklist->status_blacklist = "Gagal";
-            $calon_blacklist->tarikh_penilaian = $jadual->TARIKH_SESI;
-        } else {
-            $calon_blacklist->status_blacklist = "Tidak";
-            $calon_blacklist->tarikh_penilaian = null;
-        }
-        $calon_blacklist->save();
-
         $rekodtarikh = KeputusanPenilaian::where('id_penilaian', $id_penilaian)
             ->get();
         $bilangan_rekod = count($rekodtarikh);
@@ -170,6 +161,16 @@ class KeputusanPenilaianController extends Controller
         }
 
         $keputusan->save();
+
+        $calon_blacklist = User::where('nric', $ic)->first();
+        if ($keputusan->keputusan = "Gagal") {
+            $calon_blacklist->status_blacklist = "Gagal";
+            $calon_blacklist->tarikh_penilaian = $jadual->TARIKH_SESI;
+        } else {
+            $calon_blacklist->status_blacklist = "Tidak";
+            $calon_blacklist->tarikh_penilaian = null;
+        }
+        $calon_blacklist->save();
 
         return redirect('/tamat-penilaian');
     }
@@ -471,16 +472,6 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
                 $keputusan->keputusan = "Gagal";
             }
 
-            $calon_blacklist = User::where('nric', $ic)->first();
-            if ($keputusan->keputusan = "Gagal") {
-                $calon_blacklist->status_blacklist = "Gagal";
-                $calon_blacklist->tarikh_penilaian = $jadual->TARIKH_SESI;
-            } else {
-                $calon_blacklist->status_blacklist = "Tidak";
-                $calon_blacklist->tarikh_penilaian = null;
-            }
-            $calon_blacklist->save();
-
             $m_penilaian = MohonPenilaian::where('no_ic', $ic)->where('id_sesi', $id_penilaian)->first();
             $m_penilaian->status_penilaian = $keputusan->keputusan;
             $m_penilaian->save();
@@ -508,6 +499,20 @@ No. Sijil: ISAC/" . date('m/Y', strtotime($tarikh)) . "/" . $id_penilaian . "/" 
         }
 
         $keputusan->save();
+
+        $tempoh_blacklist = SelenggaraKawalanSistem::first();
+        if ((int)$tempoh_blacklist->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_GAGAL > 0) {
+            $calon_blacklist = User::where('nric', $ic)->first();
+            if ($keputusan->keputusan == "Gagal") {
+                $calon_blacklist->status_blacklist = "Gagal";
+                $calon_blacklist->tarikh_penilaian = $jadual->TARIKH_SESI;
+            } else {
+                $calon_blacklist->status_blacklist = "Tidak";
+                $calon_blacklist->tarikh_penilaian = null;
+            }
+            $calon_blacklist->save();
+        }
+
         return redirect('/tamat-penilaian');
     }
 }

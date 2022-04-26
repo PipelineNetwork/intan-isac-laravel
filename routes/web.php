@@ -189,6 +189,7 @@ Route::resource('/change-password', ChangePasswordController::class);
 
 // custom action najhan
 Route::post('/jadual/kemaskini_status/{id}', [JadualController::class, 'kemaskini_status']);
+Route::post('/jadual/kemaskini_jumlah_calon/{id}', [JadualController::class, 'ubah_bilangan_tempat']);
 Route::post('/mohonpenilaian/penyelaras/pilih_jadual', [MohonPenilaianController::class, 'pilih_jadual']);
 Route::post('/mohonpenilaian/penyelaras/pilih_calon', [MohonPenilaianController::class, 'pilih_calon']);
 Route::post('/mohonpenilaian/calon/kemaskini_maklumat_calon', [MohonPenilaianController::class, 'kemaskini_maklumat_calon']);

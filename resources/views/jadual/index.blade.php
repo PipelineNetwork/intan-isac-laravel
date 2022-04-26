@@ -68,7 +68,10 @@
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Keterangan</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tambah Calon
                                         </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Perubahan
+                                            Jumlah Peserta</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Hapus</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -147,7 +150,8 @@
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 @if ($jadual['KEKOSONGAN'] > 0)
-                                                    <a class="btn btn-outline-info" href="/jaduals/{{ $jadual['ID_SESI'] }}">
+                                                    <a class="btn btn-outline-info"
+                                                        href="/jaduals/{{ $jadual['ID_SESI'] }}">
                                                         <i class="fas fa-user-plus"></i>
                                                     </a>
                                                 @else
@@ -157,11 +161,13 @@
                                                 @endif
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                <button class="btn btn-danger" data-bs-toggle="modal"
+                                                <button class="btn bg-gradient-warning" data-bs-toggle="modal"
                                                     style="cursor: pointer"
-                                                    data-bs-target="#modaldelete-{{ $jadual['ID_SESI'] }}">
-                                                    <i class="far fa-trash-alt"></i>
+                                                    data-bs-target="#modalubahbilangan-{{ $jadual['ID_SESI'] }}">
+                                                    <i class="far fa-address-book"></i>
                                                 </button>
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
                                                 <div class="dropdown">
                                                     <button class="btn btn-info dropdown-toggle" type="button"
                                                         id="dropdownMenuButton" data-bs-toggle="dropdown"
@@ -180,6 +186,13 @@
                                                         </li>
                                                     </ul>
                                                 </div>
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                <button class="btn btn-danger" data-bs-toggle="modal"
+                                                    style="cursor: pointer"
+                                                    data-bs-target="#modaldelete-{{ $jadual['ID_SESI'] }}">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
                                             </td>
                                         </tr>
 
@@ -248,8 +261,8 @@
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Pembatalan
                                                         </h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close">
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -263,6 +276,41 @@
                                                                 <input class="form-control" type="text"
                                                                     name="keterangan">
                                                                 <input type="hidden" name="status" value="Pembatalan">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn bg-gradient-secondary"
+                                                                data-bs-dismiss="modal">Tutup</button>
+                                                            <button type="submit"
+                                                                class="btn bg-gradient-primary">Kemaskini</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="modalubahbilangan-{{ $jadual['ID_SESI'] }}"
+                                            tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Perubahan Jumlah Calon
+                                                        </h5>
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="/jadual/kemaskini_jumlah_calon/{{ $jadual['ID_SESI'] }}"
+                                                        method="POST">
+                                                        <div class="modal-body">
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label for="keterangan"
+                                                                    class="form-control-label">Jumlah Calon</label>
+                                                                <input class="form-control" type="number"
+                                                                    name="jumlah_calon" value="{{ $jadual['JUMLAH_KESELURUHAN'] }}">
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
