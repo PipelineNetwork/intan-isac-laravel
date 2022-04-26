@@ -162,15 +162,18 @@ class KeputusanPenilaianController extends Controller
 
         $keputusan->save();
 
-        $calon_blacklist = User::where('nric', $ic)->first();
-        if ($keputusan->keputusan = "Gagal") {
-            $calon_blacklist->status_blacklist = "Gagal";
-            $calon_blacklist->tarikh_penilaian = $jadual->TARIKH_SESI;
-        } else {
-            $calon_blacklist->status_blacklist = "Tidak";
-            $calon_blacklist->tarikh_penilaian = null;
+        $tempoh_blacklist = SelenggaraKawalanSistem::first();
+        if ((int)$tempoh_blacklist->TEMPOH_KEBENARAN_PERMOHONAN_PESERTA_GAGAL > 0) {
+            $calon_blacklist = User::where('nric', $ic)->first();
+            if ($keputusan->keputusan == "Gagal") {
+                $calon_blacklist->status_blacklist = "Gagal";
+                $calon_blacklist->tarikh_penilaian = $jadual->TARIKH_SESI;
+            } else {
+                $calon_blacklist->status_blacklist = "Tidak";
+                $calon_blacklist->tarikh_penilaian = null;
+            }
+            $calon_blacklist->save();
         }
-        $calon_blacklist->save();
 
         return redirect('/tamat-penilaian');
     }
