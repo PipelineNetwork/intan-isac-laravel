@@ -19,6 +19,7 @@ use Spatie\Permission\Models\Role;
 use App\Models\SelenggaraKawalanSistem;
 use App\Models\Tugas;
 use PDF;
+use PhpParser\Node\Expr\FuncCall;
 
 class JadualController extends Controller
 {
@@ -693,5 +694,14 @@ class JadualController extends Controller
             echo "window.location.href='/dashboard';";
             echo '</script>';
         }
+    }
+
+    public function ubah_bilangan_tempat(Request $request, $jadual) {
+        $jadual = Jadual::where("ID_SESI", $jadual)->first();
+
+        $jadual->JUMLAH_KESELURUHAN = $request->jumlah_calon;
+        $jadual->save();
+
+        return back();
     }
 }
