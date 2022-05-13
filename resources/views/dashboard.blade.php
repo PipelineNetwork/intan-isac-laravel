@@ -748,7 +748,7 @@
                                                             @if ($done_daftar != null)
                                                                 @if ($jadual->status != 'Pembatalan' && $jadual->KEKOSONGAN > 0)
                                                                     <button class="btn btn-sm bg-gradient-info m-0"
-                                                                        disabled>Sudah Mendaftar</button>
+                                                                        disabled>Telah Mendaftar</button>
                                                                 @elseif (($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN >= 0) || ($jadual->status == 'Pembatalan' && $jadual->KEKOSONGAN < 0))
                                                                     <button class="btn btn-sm bg-gradient-warning m-0"
                                                                         disabled>Batal</button>
@@ -850,14 +850,6 @@
             </script>
         @endunlessrole
     </div>
-
-    {{-- <script>
-        Swal.fire({
-            text: 'Log masuk anda berjaya!',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-        })
-    </script> --}}
 
     {{-- <script src="https://isacsupport.intan.my/chat_widget.js"></script> --}}
     {{-- <footer>

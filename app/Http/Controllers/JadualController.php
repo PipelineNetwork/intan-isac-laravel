@@ -452,11 +452,20 @@ class JadualController extends Controller
         $ic = $request->ic;
         $user_ic = User::where('nric', $ic)->first();
         $id_penilaian = Jadual::find($id_sesi);
+        $check_calon = MohonPenilaian::where('no_ic', $ic)->where('status_penilaian', 'Baru')->first();
+
+        if($check_calon != null){
+            echo '<script language="javascript">';
+            echo 'alert("No. Kad Pengenalan yang dimasukkan sudah mendaftar penilaian.");';
+            echo "history.back();";
+            echo '</script>';
+        }
 
         if ($user_ic == null) {
             echo '<script language="javascript">';
             echo 'alert("No. Kad Pengenalan yang dimasukkan tidak wujud.");';
-            echo "window.location.href='/jaduals';";
+            // echo "window.location.href='/jaduals';";
+            echo "history.back();";
             echo '</script>';
         } else {
             $kod_gelaran = Refgeneral::where('MASTERCODE', 10009)
@@ -696,10 +705,15 @@ class JadualController extends Controller
         }
     }
 
-    public function ubah_bilangan_tempat(Request $request, $jadual) {
+    public function ubah_bilangan_tempat(Request $request, $jadual)
+    {
         $jadual = Jadual::where("ID_SESI", $jadual)->first();
 
         $jadual->JUMLAH_KESELURUHAN = $request->jumlah_calon;
+        $permohonan_d = MohonPenilaian::where('id_sesi', $jadual->id_sesi)->count();
+
+        $jadual->BILANGAN_CALON = $permohonan_d;
+        $jadual->KEKOSONGAN = (int)$jadual->JUMLAH_KESELURUHAN - (int)$jadual->BILANGAN_CALON;
         $jadual->save();
 
         return back();
