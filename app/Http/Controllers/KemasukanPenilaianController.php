@@ -180,6 +180,28 @@ class KemasukanPenilaianController extends Controller
         $saat_mula = date('s');
         $masa_mula = $jam_mula + $minit_mula + $saat_mula;
 
+        //initialiaze markah kemahiran
+        $jawapan_kemahiran = new Bankjawapancalon();
+
+        $jawapan_kemahiran->markah_urlteks = '0';
+        $jawapan_kemahiran->markah_carianteks = '0';
+        $jawapan_kemahiran->markah_inputto = '0';
+        $jawapan_kemahiran->markah_inputsubject = '0';
+        $jawapan_kemahiran->markah_inputmesej = '0';
+        $jawapan_kemahiran->markah_failupload = '0';
+        $jawapan_kemahiran->jumlah_markah_word = '0';
+        $jawapan_kemahiran->jumlah_markah_internet = '0';
+        $jawapan_kemahiran->jumlah_markah_email = '0';
+        $jawapan_kemahiran->status_jawab_internet = '0';
+
+        $jawapan_kemahiran->status_jawab_internet = '0';
+        $jawapan_kemahiran->status_jawab_word = '0';
+        $jawapan_kemahiran->status_jawab_email = '0';
+        $jawapan_kemahiran->id_penilaian = $request->id_penilaian;
+        $jawapan_kemahiran->ic_calon = $request->ic;
+
+        $jawapan_kemahiran->save();
+
         $jadual = Jadual::where('ID_PENILAIAN', $id_penilaian)->first();
         $masa_end = $jadual->KOD_MASA_TAMAT;
         $jam_end = date('H', strtotime($masa_end));

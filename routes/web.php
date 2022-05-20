@@ -157,6 +157,7 @@ Route::get('/soalan-kemahiran-email-page2/{id_penilaian}', [Soalankemahiranemail
 // });
 
 Route::resource('/keputusan_penilaian', KeputusanPenilaianController::class);
+Route::get('/carian-slip-keputusan', [KeputusanPenilaianController::class, 'result_search']);
 Route::resource('/semak_jawapan', BankjawapanpengetahuanController::class);
 
 Route::resource('/videodannota', VideoDanNotaController::class);
@@ -219,7 +220,8 @@ Route::get('/semak_jawapan/{ic}/{id}', [BankjawapanpengetahuanController::class,
 Route::get('/{ic}/{id}/edit', [BankjawapanpengetahuanController::class, 'kemaskini_keputusan_kemahiran']);
 Route::post('/{ic}/{id}/save', [BankjawapanpengetahuanController::class, 'simpan_keputusan_kemahiran']);
 
-Route::get('/senarai_sijil', [KeputusanPenilaianController::class, 'senarai_sijil']);
+Route::get('/senarai_sijil', [KeputusanPenilaianController::class, 'carian_sijil']);
+Route::get('/carian-sijil-keputusan', [KeputusanPenilaianController::class, 'senarai_sijil']);
 Route::get('/semakan_keputusan_calon', [KeputusanPenilaianController::class, 'senarai_penilaian_calon']);
 
 Route::resource('/pemantauan-penilaian', PemantauanpenilaianController::class);

@@ -27,6 +27,12 @@
             <div class="col-lg-6">
                 <h5 class="font-weight-bolder">Keputusan Penilaian</h5>
             </div>
+            <div class="col-lg-6">
+                <div class="column-12">
+                    <a href="/keputusan_penilaian" class="btn bg-gradient-warning" style="float: right;">Kembali
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="row">

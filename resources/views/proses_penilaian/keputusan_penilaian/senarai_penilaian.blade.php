@@ -47,6 +47,7 @@
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">ID Penilaian
                                         </th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Keputusan</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Penilaian
                                         </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Tindakan</th>
@@ -57,6 +58,17 @@
                                         <tr>
                                             <td class="text-sm text-center font-weight-normal">{{ $key + 1 }}</td>
                                             <td class="text-sm text-center font-weight-normal">{{ $penilaian->id_sesi }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                @if ($penilaian->status_penilaian == 'Baru')
+                                                    <span class="badge badge-warning">Belum Menduduki</span>
+                                                @elseif ($penilaian->status_penilaian == 'Gagal')
+                                                    <span class="badge badge-danger">Gagal</span>
+                                                @elseif ($penilaian->status_penilaian == 'Lulus')
+                                                    <span class="badge badge-success">Lulus</span>
+                                                @else
+                                                    <span class="badge badge-info">{{ $penilaian->status_penilaian }}</span>
+                                                @endif
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 {{ date('d-m-Y', strtotime($penilaian->tarikh_sesi)) }}</td>

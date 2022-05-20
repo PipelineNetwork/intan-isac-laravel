@@ -41,6 +41,9 @@
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Nama</th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No. Kad
                                             Pengenalan</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Sesi</th>
+                                        <th class="text-uppercase text-center font-weight-bolder opacity-7">Tarikh Penilaian
+                                        </th>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">Keputusan</th>
                                     </tr>
                                 </thead>
@@ -53,12 +56,19 @@
                                                     href="/senarai_penilaian/{{ $calon->no_ic }}"
                                                     class="text-info">{{ $calon->no_ic }}</a></td>
                                             <td class="text-sm text-center font-weight-normal">
+                                                {{ $calon->KOD_SESI_PENILAIAN }}</td>
+                                            <td class="text-sm text-center font-weight-normal">
+                                                {{ date('d-m-Y', strtotime($calon['TARIKH_SESI'])) }}
+                                            </td>
+                                            <td class="text-sm text-center font-weight-normal">
                                                 @if ($calon->status_penilaian == 'Baru')
                                                     <span class="badge badge-warning">Belum Menduduki</span>
                                                 @elseif ($calon->status_penilaian == 'Gagal')
                                                     <span class="badge badge-danger">Gagal</span>
                                                 @elseif ($calon->status_penilaian == 'Lulus')
                                                     <span class="badge badge-success">Lulus</span>
+                                                @else
+                                                    <span class="badge badge-info">{{ $calon->status_penilaian }}</span>
                                                 @endif
                                             </td>
                                         </tr>

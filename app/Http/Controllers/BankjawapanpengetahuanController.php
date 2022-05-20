@@ -23,7 +23,7 @@ class BankjawapanpengetahuanController extends Controller
      */
     public function index()
     {
-        $jawapan_calon = MohonPenilaian::distinct()->orderBy('updated_at', 'desc')->get(['no_ic', 'nama', 'updated_at', 'status_penilaian']);
+        $jawapan_calon = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')->distinct()->orderBy('mohon_penilaians.updated_at', 'desc')->get(['no_ic', 'nama', 'mohon_penilaians.updated_at', 'status_penilaian', 'pro_sesi.KOD_SESI_PENILAIAN', 'pro_sesi.TARIKH_SESI']);
 
         // dd($jawapan_calon);
         return view('proses_penilaian.keputusan_penilaian.semak_keputusan_admin', [
