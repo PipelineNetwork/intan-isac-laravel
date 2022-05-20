@@ -651,6 +651,7 @@
                             <h5 class="text-white mb-0">Pilih Jadual</h5>
                         </div>
                         <div class="card-body">
+                            <p><i>Sila semak setiap halaman jadual untuk melihat jadual yang masih dibuka.</i></p>
                             <div class="table-responsive">
                                 <table class="table align-items-center mb-0 table-flush" id="datatable-basic">
                                     <thead>
