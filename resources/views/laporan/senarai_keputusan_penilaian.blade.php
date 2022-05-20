@@ -162,7 +162,12 @@
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ $senarai_keputusan->keputusan }}</td>
                                     <td class="text-sm text-center font-weight-normal">
-                                        {{ $senarai_keputusan->no_sijil }}</td>
+                                        @if ($senarai_keputusan->keputusan == 'Lulus')
+                                            <?php echo sprintf($senarai_keputusan->id_penilaian . '/' . "%'.03d\n", $senarai_keputusan->no_sijil); ?>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

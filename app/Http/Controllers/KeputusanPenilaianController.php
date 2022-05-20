@@ -24,15 +24,39 @@ class KeputusanPenilaianController extends Controller
 
     public function index()
     {
-        $keputusans = KeputusanPenilaian::orderBy('created_at', 'desc')->get();
+        return view('proses_penilaian.carian_slip');
+    }
+
+    public function result_search(Request $request)
+    {
+        if (!empty($request->nama)) {
+            $keputusans = KeputusanPenilaian::where('nama_peserta', 'like', '%' . $request->nama . '%')->orderBy('created_at', 'desc')->get();
+        } elseif (!empty($request->no_ic)) {
+            $keputusans = KeputusanPenilaian::where('ic_peserta', 'like', '%' . $request->no_ic . '%')->orderBy('created_at', 'desc')->get();
+        } elseif (!empty($request->id_penilaian)) {
+            $keputusans = KeputusanPenilaian::where('id_penilaian', 'like', '%' . $request->id_penilaian . '%')->orderBy('created_at', 'desc')->get();
+        } elseif (!empty($request->nama) && !empty($request->no_ic)) {
+            $keputusans = KeputusanPenilaian::where('nama_peserta', 'like', '%' . $request->nama . '%')
+                ->where('ic_peserta', 'like', '%' . $request->no_ic . '%')
+                ->orderBy('created_at', 'desc')->get();
+        } elseif (!empty($request->nama) && !empty($request->id_penilaian)) {
+            $keputusans = KeputusanPenilaian::where('nama_peserta', 'like', '%' . $request->nama . '%')
+                ->where('id_penilaian', 'like', '%' . $request->id_penilaian . '%')
+                ->orderBy('created_at', 'desc')->get();
+        } elseif (!empty($request->no_ic) && !empty($request->id_penilaian)) {
+            $keputusans = KeputusanPenilaian::where('ic_peserta', 'like', '%' . $request->no_ic . '%')
+                ->where('id_penilaian', 'like', '%' . $request->id_penilaian . '%')
+                ->orderBy('created_at', 'desc')->get();
+        } else {
+            $keputusans = KeputusanPenilaian::where('nama_peserta', 'like', '%' . $request->nama . '%')
+                ->where('ic_peserta', 'like', '%' . $request->no_ic . '%')
+                ->where('id_penilaian', 'like', '%' . $request->id_penilaian . '%')
+                ->orderBy('created_at', 'desc')->get();
+        }
+
         return view('proses_penilaian.senarai_slip', [
             'keputusans' => $keputusans
         ]);
-    }
-
-    public function create()
-    {
-        return view('testing');
     }
 
     public function destroy($id)
@@ -178,10 +202,37 @@ class KeputusanPenilaianController extends Controller
         return redirect('/tamat-penilaian');
     }
 
-    public function senarai_sijil()
+    public function carian_sijil()
     {
+        return view('proses_penilaian.carian_sijil');
+    }
 
-        $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->orderBy('updated_at', 'desc')->get();
+    public function senarai_sijil(Request $request)
+    {
+        if (!empty($request->nama)) {
+            $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->where('nama_peserta', 'like', '%' . $request->nama . '%')->orderBy('updated_at', 'desc')->get();
+        } elseif (!empty($request->no_ic)) {
+            $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->where('ic_peserta', 'like', '%' . $request->no_ic . '%')->orderBy('updated_at', 'desc')->get();
+        } elseif (!empty($request->tarikh_penilaian)) {
+            $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->where('tarikh_penilaian', 'like', '%' . $request->tarikh_penilaian . '%')->orderBy('updated_at', 'desc')->get();
+        } elseif (!empty($request->nama) && !empty($request->no_ic)) {
+            $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->where('nama_peserta', 'like', '%' . $request->nama . '%')
+                ->where('ic_peserta', 'like', '%' . $request->no_ic . '%')
+                ->orderBy('updated_at', 'desc')->get();
+        } elseif (!empty($request->nama) && !empty($request->tarikh_penilaian)) {
+            $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->where('nama_peserta', 'like', '%' . $request->nama . '%')
+                ->where('tarikh_penilaian', 'like', '%' . $request->tarikh_penilaian . '%')
+                ->orderBy('updated_at', 'desc')->get();
+        } elseif (!empty($request->no_ic) && !empty($request->tarikh_penilaian)) {
+            $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->where('ic_peserta', 'like', '%' . $request->no_ic . '%')
+                ->where('tarikh_penilaian', 'like', '%' . $request->tarikh_penilaian . '%')
+                ->orderBy('updated_at', 'desc')->get();
+        } else {
+            $keputusans = KeputusanPenilaian::where('keputusan', 'Lulus')->where('nama_peserta', 'like', '%' . $request->nama . '%')
+                ->where('ic_peserta', 'like', '%' . $request->no_ic . '%')
+                ->where('tarikh_penilaian', 'like', '%' . $request->tarikh_penilaian . '%')
+                ->orderBy('updated_at', 'desc')->get();
+        }
         return view('proses_penilaian.senarai_sijil', [
             'keputusans' => $keputusans
         ]);
