@@ -21,7 +21,11 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <h5 class="font-weight-bolder">Pemantauan Penilaian</h5>
+                <h5 class="font-weight-bolder">Carian Pemantauan Penilaian</h5>
+            </div>
+            <div class="col-lg-6">
+                <a href="/pemantauan-penilaian" class="btn bg-gradient-warning" style="float: right;">Kembali
+                </a>
             </div>
         </div>
 

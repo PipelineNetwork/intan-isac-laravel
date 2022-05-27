@@ -20,7 +20,22 @@ class PemantauanpenilaianController extends Controller
      */
     public function index()
     {
-        $penilaian_list = Jadual::orderBy('TARIKH_SESI', 'desc')->get();
+        return view('pemantauan_penilaian.carian_pemantaun');
+    }
+
+    public function result_search(Request $request)
+    {
+        if (!empty($request->id_penilaian)) {
+            $penilaian_list = Jadual::where('ID_PENILAIAN', 'like', '%' . $request->id_penilaian . '%')->get();
+        } elseif (!empty($request->tarikh_penilaian)) {
+            $penilaian_list = Jadual::where('TARIKH_SESI', 'like', '%' . $request->tarikh_penilaian . '%')->get();
+        } elseif (!empty($request->id_penilaian) && !empty($request->tarikh_penilaian)) {
+            $penilaian_list = Jadual::where('ID_PENILAIAN', 'like', '%' . $request->id_penilaian . '%')
+                ->where('TARIKH_SESI', 'like', '%' . $request->tarikh_penilaian . '%')
+                ->get();
+        } else {
+            $penilaian_list = Jadual::where('ID_PENILAIAN', 'like', '%' . $request->id_penilaian . '%')->get();
+        }
 
         return view('pemantauan_penilaian.index', [
             'penilaian_lists' => $penilaian_list,
@@ -131,7 +146,7 @@ class PemantauanpenilaianController extends Controller
             }
             array_push($senarai_semak_jawapan, $status_semak_jawapan);
         }
-        
+
         return view('pemantauan_penilaian.show', [
             'senarai_semak_jawapans' => $senarai_semak_jawapan
         ]);
