@@ -282,7 +282,7 @@ class KeputusanPenilaianController extends Controller
             'rekod' => $rekod_sijil,
             'tahap' => $tahap
         ]);
-        return $pdf->download('Slip_keputusan_' . $ic . '_Lulus' . '.pdf');
+        return $pdf->download('Slip_keputusan_' . $ic . '.pdf');
     }
     public function sijil_isac($ic, $id_penilaian)
     {

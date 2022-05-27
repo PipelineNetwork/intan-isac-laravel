@@ -158,7 +158,7 @@
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ $senarai_keputusan->KOD_JABATAN }}</td>
                                     <td class="text-sm text-center font-weight-normal">
-                                        {{ $senarai_keputusan->tarikh_penilaian }}</td>
+                                        {{ date('d-m-Y', strtotime($senarai_keputusan->tarikh_penilaian)) }}</td>
                                     <td class="text-sm text-center font-weight-normal">
                                         {{ $senarai_keputusan->keputusan }}</td>
                                     <td class="text-sm text-center font-weight-normal">

@@ -366,9 +366,11 @@
                         <div class="card-header" style="background-color:#FFA500;">
                             <b class="text-white">Senarai Jadual Penilaian</b>
                         </div>
+                        <div style="background-color:  #FAFAD2">
+                            <p class="mt-2" style="margin-left: 20px"><i>Sila semak setiap halaman jadual untuk melihat jadual yang masih dibuka.</i></p>
+                        </div>
                         <div class="table-responsive" style="background-color:  #FAFAD2; border-radius: 10px">
                             <table class="table align-items-center mb-0 table-flush" id="datatable-penjadualan">
-
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-center font-weight-bolder opacity-7">No.</th>

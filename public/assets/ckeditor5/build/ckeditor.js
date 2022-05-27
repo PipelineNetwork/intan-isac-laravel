@@ -35832,7 +35832,7 @@
                         model: "big",
                         view: {
                             name: "span",
-                            classes: "text-big",
+                            classes: "h3",
                             priority: 7,
                         },
                     };
@@ -35843,7 +35843,7 @@
                         model: "huge",
                         view: {
                             name: "span",
-                            classes: "text-huge",
+                            classes: "h1",
                             priority: 7,
                         },
                     };

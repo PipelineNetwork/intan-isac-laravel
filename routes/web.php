@@ -225,6 +225,7 @@ Route::get('/carian-sijil-keputusan', [KeputusanPenilaianController::class, 'sen
 Route::get('/semakan_keputusan_calon', [KeputusanPenilaianController::class, 'senarai_penilaian_calon']);
 
 Route::resource('/pemantauan-penilaian', PemantauanpenilaianController::class);
+Route::get('/carian-pemantaun-penilaian', [PemantauanpenilaianController::class, 'result_search']);
 Route::get('/pemantauan-kamera', [PemantauanpenilaianController::class, 'terima_data']);
 Route::post('/set_semula_senarai', [PemantauanpenilaianController::class, 'set_semula']);
 
