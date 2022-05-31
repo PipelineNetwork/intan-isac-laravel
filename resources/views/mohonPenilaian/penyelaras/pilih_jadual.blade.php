@@ -28,7 +28,7 @@
                                             No.</th>
                                         <th
                                             class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Tahap</th>
+                                            Sesi</th>
                                         <th
                                             class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
                                             Masa</th>
@@ -53,7 +53,15 @@
                                     @foreach ($jadual_penyelia as $key => $jadual)
                                         <tr>
                                             <td class="text-center">{{ $key + 1 }}.</td>
-                                            <td class="text-center">{{ $jadual->KOD_TAHAP }}</td>
+                                            <td class="text-center">
+                                                @if ($jadual->KOD_SESI_PENILAIAN == '01')
+                                                    Sesi 01
+                                                @elseif($jadual->KOD_SESI_PENILAIAN == '02')
+                                                    Sesi 02
+                                                @elseif($jadual->KOD_SESI_PENILAIAN == '03')
+                                                    Sesi 03
+                                                @endif
+                                            </td>
                                             <td class="text-center">{{ $jadual->KOD_MASA_MULA }} -
                                                 {{ $jadual->KOD_MASA_TAMAT }}</td>
                                             <td class="text-center">

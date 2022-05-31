@@ -137,7 +137,7 @@
             </div>
         </div>
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-12">
                 <div class="card mt-3">
                     <div class="card-header" style="background-color:#FFA500;">
@@ -168,7 +168,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 

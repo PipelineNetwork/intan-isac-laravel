@@ -8,6 +8,10 @@ use App\Models\Soalankemahiraninternet;
 
 class BanksoalankemahiraninternetController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function createsoalankemahiraninternet($id_)
     {
         $banksoalankemahiran = Banksoalankemahiran::find($id_);

@@ -710,9 +710,6 @@ class JadualController extends Controller
         $jadual = Jadual::where("ID_SESI", $jadual)->first();
 
         $jadual->JUMLAH_KESELURUHAN = $request->jumlah_calon;
-        $permohonan_d = MohonPenilaian::where('id_sesi', $jadual->id_sesi)->count();
-
-        $jadual->BILANGAN_CALON = $permohonan_d;
         $jadual->KEKOSONGAN = (int)$jadual->JUMLAH_KESELURUHAN - (int)$jadual->BILANGAN_CALON;
         $jadual->save();
 

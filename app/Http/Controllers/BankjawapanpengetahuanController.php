@@ -16,6 +16,10 @@ use Illuminate\Http\Request;
 
 class BankjawapanpengetahuanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +27,21 @@ class BankjawapanpengetahuanController extends Controller
      */
     public function index()
     {
-        $jawapan_calon = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')->distinct()->orderBy('mohon_penilaians.updated_at', 'desc')->get(['no_ic', 'nama', 'mohon_penilaians.updated_at', 'status_penilaian', 'pro_sesi.KOD_SESI_PENILAIAN', 'pro_sesi.TARIKH_SESI']);
+        return view('proses_penilaian.keputusan_penilaian.carian_jawapan');
+    }
 
-        // dd($jawapan_calon);
+    public function result_search(Request $request)
+    {
+        if (!empty($request->nama)) {
+            $jawapan_calon = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')->where('mohon_penilaians.nama', 'like', '%' . $request->nama . '%')->distinct()->orderBy('mohon_penilaians.updated_at', 'desc')->get(['no_ic', 'nama', 'mohon_penilaians.updated_at', 'status_penilaian', 'pro_sesi.KOD_SESI_PENILAIAN', 'pro_sesi.TARIKH_SESI']);
+        } elseif (!empty($request->no_ic)) {
+            $jawapan_calon = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')->where('mohon_penilaians.no_ic', 'like', '%' . $request->no_ic . '%')->distinct()->orderBy('mohon_penilaians.updated_at', 'desc')->get(['no_ic', 'nama', 'mohon_penilaians.updated_at', 'status_penilaian', 'pro_sesi.KOD_SESI_PENILAIAN', 'pro_sesi.TARIKH_SESI']);
+        } elseif (!empty($request->nama) && !empty($request->no_ic)) {
+            $jawapan_calon = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')->where('mohon_penilaians.nama', 'like', '%' . $request->nama . '%')->where('mohon_penilaians.no_ic', 'like', '%' . $request->no_ic . '%')->distinct()->orderBy('mohon_penilaians.updated_at', 'desc')->get(['no_ic', 'nama', 'mohon_penilaians.updated_at', 'status_penilaian', 'pro_sesi.KOD_SESI_PENILAIAN', 'pro_sesi.TARIKH_SESI']);
+        } else {
+            $jawapan_calon = MohonPenilaian::join('pro_sesi', 'mohon_penilaians.id_sesi', 'pro_sesi.ID_PENILAIAN')->distinct()->orderBy('mohon_penilaians.updated_at', 'desc')->get(['no_ic', 'nama', 'mohon_penilaians.updated_at', 'status_penilaian', 'pro_sesi.KOD_SESI_PENILAIAN', 'pro_sesi.TARIKH_SESI']);
+        }
+
         return view('proses_penilaian.keputusan_penilaian.semak_keputusan_admin', [
             'jawapan_calon' => $jawapan_calon
         ]);
@@ -232,7 +248,7 @@ class BankjawapanpengetahuanController extends Controller
             }
 
             $markah_kemahiran = MarkahSoalanKemahiran::first();
-            
+
             $keputusan->markah_internet = $markah_internet;
             // if ($keputusan->markah_internet == 2) {
             if ($keputusan->markah_internet >= $markah_kemahiran->markah_internet) {

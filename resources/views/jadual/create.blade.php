@@ -44,7 +44,7 @@
                     <div class="card-header" style="background-color:#FFA500;">
                         <h5 class="text-white">Butiran jadual:</h5>
                     </div>
-                    </br>
+                    <br>
                     <div class="card-body pt-0">
                         <div class="row">
                             <div class="col-6">

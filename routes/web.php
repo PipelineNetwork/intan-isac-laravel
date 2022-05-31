@@ -159,6 +159,7 @@ Route::get('/soalan-kemahiran-email-page2/{id_penilaian}', [Soalankemahiranemail
 Route::resource('/keputusan_penilaian', KeputusanPenilaianController::class);
 Route::get('/carian-slip-keputusan', [KeputusanPenilaianController::class, 'result_search']);
 Route::resource('/semak_jawapan', BankjawapanpengetahuanController::class);
+Route::get('/carian-jawapan-calon', [BankjawapanpengetahuanController::class, 'result_search']);
 
 Route::resource('/videodannota', VideoDanNotaController::class);
 Route::resource('/selenggara_kawalan_sistem', SelenggaraKawalanSistemController::class);

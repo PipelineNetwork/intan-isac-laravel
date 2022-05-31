@@ -773,7 +773,10 @@ class BanksoalanpengetahuanController extends Controller
 
     public function tambah_kategori_pemilihan(Request $request)
     {
-        $kategori_pemilihan = new PemilihanSoalanKumpulan($request->all());
+        $kategori_pemilihan = new PemilihanSoalanKumpulan();
+        $kategori_pemilihan->KOD_TAHAP_SOALAN = $request->KOD_TAHAP_SOALAN;
+        $kategori_pemilihan->KOD_KATEGORI_SOALAN = $request->KOD_KATEGORI_SOALAN;
+        $kategori_pemilihan->ID_PEMILIHAN_SOALAN = $request->ID_PEMILIHAN_SOALAN;
         $kategori_pemilihan->save();
 
         return redirect('/pengurusan_penilaian/pemilihan_soalan_pengetahuan/70');

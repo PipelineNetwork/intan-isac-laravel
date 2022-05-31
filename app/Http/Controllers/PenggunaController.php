@@ -44,14 +44,19 @@ class PenggunaController extends Controller
         $current_user = Auth::user()->user_group_id;
         if ($current_user == 3) {
             if (!empty($request->nama)) {
-                $users = User::where('user_group_id', '=', '4')->where('name', 'like', '%' . $request->nama . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
+                $user_pengawas = User::where('user_group_id', '=', '4')->where('ministry_code', Auth::user()->ministry_code)->where('name', 'like', '%' . $request->nama . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
             } elseif (!empty($request->ic)) {
-                $users = User::where('user_group_id', '=', '4')->where('nric', 'like', '%' . $request->ic . '%')->orderBy('nric', 'asc')->paginate(20)->appends(request()->query());
+                $user_pengawas = User::where('user_group_id', '=', '4')->where('ministry_code', Auth::user()->ministry_code)->where('nric', 'like', '%' . $request->ic . '%')->orderBy('nric', 'asc')->paginate(20)->appends(request()->query());
             } elseif (!empty($request->nama) && !empty($request->ic)) {
-                $users = User::where('user_group_id', '=', '4')->where('name', 'like', '%' . $request->nama . '%')->where('nric', 'like', '%' . $request->ic . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
+                $user_pengawas = User::where('user_group_id', '=', '4')->where('ministry_code', Auth::user()->ministry_code)->where('name', 'like', '%' . $request->nama . '%')->where('nric', 'like', '%' . $request->ic . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
             } else {
-                $users = User::where('user_group_id', '=', '4')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
+                $user_pengawas = User::where('user_group_id', '=', '4')->where('ministry_code', Auth::user()->ministry_code)->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
             }
+
+            return view('pengurusanpengguna.index', [
+                'user_pengawas' => $user_pengawas,
+                'current_user' => $current_user
+            ]);
         } else {
             if (!empty($request->nama)) {
                 $users = User::where('name', 'like', '%' . $request->nama . '%')->orderBy('name', 'asc')->paginate(20)->appends(request()->query());
@@ -70,18 +75,19 @@ class PenggunaController extends Controller
             } else {
                 $users = User::orderBy('name', 'asc')->paginate(20)->appends(request()->query());
             }
+
+            return view('pengurusanpengguna.index', [
+                'users' => $users,
+                'current_user' => $current_user
+            ]);
         }
-        // $users = User::orderBy('name', 'asc')->paginate(20);
 
-        $user_pengawas = User::where('user_group_id', '=', '4')->orderBy('updated_at', 'desc')->get();
-
-        $current_user = Auth::user()->user_group_id;
-        // dd($users);
-        return view('pengurusanpengguna.index', [
-            'users' => $users,
-            'user_pengawas' => $user_pengawas,
-            'current_user' => $current_user
-        ]);
+        // $user_pengawas = User::where([['user_group_id', '=', '4'], ['ministry_code', Auth::user()->ministry_code]])->orWhere([['user_group_id', '=', '5'], ['ministry_code', Auth::user()->ministry_code]])->orderBy('created_at', 'desc')->get();
+        // return view('pengurusanpengguna.index', [
+        //     'users' => $users,
+        //     'user_pengawas' => $user_pengawas,
+        //     'current_user' => $current_user
+        // ]);
     }
 
     /**
@@ -107,6 +113,22 @@ class PenggunaController extends Controller
      */
     public function store(Request $request)
     {
+        $checkic = User::where('nric', $request->nric)->first();
+        if ($checkic != null) {
+            echo '<script language="javascript">';
+            echo 'alert("No. Kad Pengenalan yang dimasukkan telah wujud.");';
+            echo "window.location.href='/pengurusan-pengguna/create';";
+            echo '</script>';
+        }
+
+        $checkiemail = User::where('email', $request->email)->first();
+        if ($checkiemail != null) {
+            echo '<script language="javascript">';
+            echo 'alert("E-mel yang dimasukkan telah wujud.");';
+            echo "window.location.href='/pengurusan-pengguna/create';";
+            echo '</script>';
+        }
+
         $request->validate([
             'nric' => 'required|string|max:255|unique:users',
             'name' => 'required|string|max:255',
@@ -118,15 +140,19 @@ class PenggunaController extends Controller
         $user->name = strtoupper($request->name);
         $user->email = $request->email;
         $user->nric = $request->nric;
-        if (!empty($request->ministry_code)) {
-            $user->ministry_code = $request->ministry_code;
-        }
+
         $user->office_number = $request->office_number;
         $user->fax_number = $request->fax_number;
         $user->telephone_number = $request->telephone_number;
         $user->user_group_id = $request->user_group_id;
         $roles = Role::find($request->user_group_id);
         $user->assignRole($roles->name);
+        if ($roles->name == 'penyelaras') {
+            $user->ministry_code = $request->ministry_code;
+        } elseif ($roles->name == 'pengawas') {
+            $current_user = Auth::user()->ministry_code;
+            $user->ministry_code = $current_user;
+        }
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -227,7 +253,6 @@ class PenggunaController extends Controller
 
             $user->save();
 
-            $current_user = $request->user();
             Mail::to($user->email)->send(new PenggunaDidaftar($user));
         }
         return redirect('/pengurusanpengguna');

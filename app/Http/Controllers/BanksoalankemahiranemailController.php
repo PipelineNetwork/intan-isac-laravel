@@ -8,6 +8,10 @@ use App\Models\Soalankemahiranemail;
 
 class BanksoalankemahiranemailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function soalankemahiranemailcreate($id_)
     {
         $banksoalankemahiran = Banksoalankemahiran::find($id_);

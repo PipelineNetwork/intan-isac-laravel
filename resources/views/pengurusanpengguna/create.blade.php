@@ -50,7 +50,7 @@
                                 <div class="form-group">
                                     @role('penyelaras')
                                         <select class="form-control mb-3" name="user_group_id" id="pilih1" required readonly>
-                                            <option value="pengawas" selected>Pengawas</option>
+                                            <option value="4" selected>Pengawas</option>
                                         </select>
                                     @else
                                         <select class="form-control mb-3" name="user_group_id" id="pilih1" required>
