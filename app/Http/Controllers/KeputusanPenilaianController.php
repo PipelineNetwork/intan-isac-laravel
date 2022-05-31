@@ -48,10 +48,7 @@ class KeputusanPenilaianController extends Controller
                 ->where('id_penilaian', 'like', '%' . $request->id_penilaian . '%')
                 ->orderBy('created_at', 'desc')->get();
         } else {
-            $keputusans = KeputusanPenilaian::where('nama_peserta', 'like', '%' . $request->nama . '%')
-                ->where('ic_peserta', 'like', '%' . $request->no_ic . '%')
-                ->where('id_penilaian', 'like', '%' . $request->id_penilaian . '%')
-                ->orderBy('created_at', 'desc')->get();
+            $keputusans = KeputusanPenilaian::get();
         }
 
         return view('proses_penilaian.senarai_slip', [

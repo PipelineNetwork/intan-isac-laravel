@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Auth;
 
 class MasatamatController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function display_tamat_penilaian($ic, $id_penilaian)
     {
         return view('kemasukan_id.masa_tamat', [

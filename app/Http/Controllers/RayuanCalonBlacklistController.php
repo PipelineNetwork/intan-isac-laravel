@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 
 class RayuanCalonBlacklistController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,26 +22,8 @@ class RayuanCalonBlacklistController extends Controller
      */
     public function index()
     {
-        // $nric = Auth::user()->nric;
-        // $group = Auth::user()->user_group_id;
-        // $role = Role::where('id', $group)->first();
-        // $role = $role->name;
-
-        // if($role == 'calon'){
-        //     $rayuan = RayuanCalonBlacklist::where('ic_calon',$nric)->get();
-        //     return view('rayuan_calon_blacklist.index',[
-        //         'rayuan'=>$rayuan
-        //     ]);
-        // }
-        // else{
-        //     $rayuan = RayuanCalonBlacklist::all();
-        //     return view('rayuan_calon_blacklist.index',[
-        //         'rayuan'=>$rayuan
-        //     ]);
-        // }
-
         $calon_blacklist = User::where('status_blacklist', 'Gagal')->orWhere('status_blacklist', 'Tidak Hadir')->orderBy('tarikh_penilaian', 'asc')->get();
-        // dd($calon_blacklist);
+        
         return view('rayuan_calon_blacklist.index', [
             'calon_blacklists' => $calon_blacklist
         ]);

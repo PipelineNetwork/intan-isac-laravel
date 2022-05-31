@@ -65,13 +65,13 @@
                                     <th class="text-uppercase text-center font-weight-bolder opacity-7">Hapus</th>
                                 </tr>
                             </thead>
-                            @if ($current_user == 3)
+                            @role('penyelaras')
                                 <tbody>
 
-                                    @foreach ($user_pengawas as $user_pengawas)
+                                    @foreach ($user_pengawas as $key => $user_pengawas)
                                         <tr>
                                             <td class="text-sm text-center font-weight-normal">
-                                                {{ $index + $users->firstItem() }}</td>
+                                                {{ $key + 1 }}</td>
                                             <td class="text-sm font-weight-normal" style="text-transform: uppercase">
                                                 {{ $user_pengawas['name'] }}</td>
                                             <td class="text-sm text-center font-weight-normal">
@@ -111,8 +111,8 @@
                                                                 @method('DELETE')
                                                                 @csrf
 
-                                                                <button class="btn bg-gradient-danger"
-                                                                    style="cursor: pointer" type="submit"> Hapus</button>
+                                                                <button class="btn bg-gradient-danger" style="cursor: pointer"
+                                                                    type="submit"> Hapus</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -159,8 +159,7 @@
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
                                                 <a class="btn btn-info text-white"
-                                                    href="/pengurusanpengguna/{{ $user->id }}/edit"
-                                                    style="color:black;">
+                                                    href="/pengurusanpengguna/{{ $user->id }}/edit" style="color:black;">
                                                     Kemaskini
                                                 </a>
                                             </td>
@@ -172,8 +171,7 @@
                                                 </a>
                                             </td>
                                             <td class="text-sm text-center font-weight-normal">
-                                                <a data-bs-toggle="modal" class="btn btn-outline-danger"
-                                                    style="cursor: pointer"
+                                                <a data-bs-toggle="modal" class="btn btn-outline-danger" style="cursor: pointer"
                                                     data-bs-target="#modaldelete-{{ $user->id }}">
                                                     <i class="far fa-trash-alt"></i>
                                                 </a>
@@ -196,8 +194,8 @@
                                                                 @method('DELETE')
                                                                 @csrf
 
-                                                                <button class="btn bg-gradient-danger"
-                                                                    style="cursor: pointer" type="submit"> Hapus</button>
+                                                                <button class="btn bg-gradient-danger" style="cursor: pointer"
+                                                                    type="submit"> Hapus</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -226,8 +224,8 @@
                                                                 @csrf
                                                                 <input type="hidden" value="{{ $user->nric }}"
                                                                     name="password">
-                                                                <button class="btn bg-gradient-danger"
-                                                                    style="cursor: pointer" type="submit">
+                                                                <button class="btn bg-gradient-danger" style="cursor: pointer"
+                                                                    type="submit">
                                                                     Setuju</button>
                                                             </form>
                                                             <button type="button" class="btn bg-gradient-secondary"
@@ -239,11 +237,13 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            @endif
+                            @endrole
                         </table>
-                        <div class="justify-content-end d-flex">
-                            {{ $users->links() }}
-                        </div>
+                        @unlessrole('penyelaras')
+                            <div class="justify-content-end d-flex">
+                                {{ $users->links() }}
+                            </div>
+                        @endrole
                     </div>
                 </div>
             </div>
